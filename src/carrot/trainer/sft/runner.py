@@ -12,7 +12,7 @@ def run_sft(
     *,
     resume: str | None = None,
 ) -> list[dict[str, float | int]]:
-    cpus_per_worker = max(1, config.dataset.num_workers)
+    cpus_per_worker = max(1, config.dataset.num_workers + 1)
     with Cluster() as cluster:
         cluster.reserve(
             "sft",

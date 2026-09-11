@@ -45,7 +45,7 @@ def build_smolvla(
         raise ValueError(f"expected a SmolVLA checkpoint, got policy type {policy_config.type!r}")
 
     policy = make_policy(cfg=policy_config, ds_meta=metadata)
-    delta_timestamps = resolve_delta_timestamps(policy_config, metadata, {})
+    delta_timestamps = resolve_delta_timestamps(policy_config, metadata)
     dataset_kwargs: dict[str, Any] = {
         "root": root,
         "delta_timestamps": delta_timestamps,
@@ -56,7 +56,6 @@ def build_smolvla(
     preprocessor, postprocessor = make_pre_post_processors(
         policy_cfg=policy_config,
         dataset_stats=metadata.stats,
-        dataset_meta=metadata,
     )
     return SmolVLAComponents(
         policy=policy,

@@ -21,6 +21,9 @@ class ModelParallelizer(ABC):
     def fsdp_units(self, model: nn.Module) -> Sequence[nn.Module]:
         """Return non-root modules whose forward is invoked by the model."""
 
+    def validate_config(self, config: FSDPConfig) -> None:
+        del config
+
 
 def _dtype(name: str) -> torch.dtype:
     if name == "bfloat16":
@@ -60,6 +63,7 @@ def parallelize_model(
         param_dtype=_dtype(config.param_dtype),
         reduce_dtype=_dtype(config.reduce_dtype),
     )
+    parallelizer.validate_config(config)
     units = tuple(parallelizer.fsdp_units(model))
     if not units:
         raise ValueError("FSDP2 requires at least one non-root forward unit")
@@ -67,6 +71,9 @@ def parallelize_model(
         raise ValueError("fsdp_units must not contain the root model")
     if len({id(unit) for unit in units}) != len(units):
         raise ValueError("fsdp_units must be unique")
+    descendants = {id(module) for module in model.modules() if module is not model}
+    if any(id(unit) not in descendants for unit in units):
+        raise ValueError("every FSDP unit must be a descendant of the root model")
 
     for unit in units:
         if isinstance(unit, FSDPModule):

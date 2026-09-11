@@ -59,3 +59,18 @@ if __name__ == "__main__":
 
 Ray is a required implementation dependency, but Ray actors, object references,
 queues, and scheduling types are kept behind Carrot's public API.
+
+## SmolVLA SFT
+
+Install the optional training dependencies and launch the bundled RoboTwin
+configuration:
+
+```bash
+python -m pip install -e ".[sft]"
+carrot-train-sft --config configs/smolvla_robotwin_sft.yaml
+```
+
+The SFT runner uses LeRobot's SmolVLA model, dataset, preprocessing, and
+flow-matching objective. Carrot owns the Ray worker lifecycle, PyTorch FSDP2
+wrapping, optimization loop, and distributed checkpoints. Set `--resume` to a
+`checkpoints/step-*` directory to restore model, optimizer, scheduler, and step.

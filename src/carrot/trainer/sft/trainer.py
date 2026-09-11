@@ -19,12 +19,31 @@ from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
 from carrot.trainer.sft.config import SFTConfig
 
 
-def _scheduler(optimizer: torch.optim.Optimizer, warmup_steps: int, total_steps: int):
+def _scheduler(
+    optimizer: torch.optim.Optimizer,
+    warmup_steps: int,
+    total_steps: int,
+    *,
+    decay_steps: int = 30_000,
+    decay_learning_rate: float = 2.5e-6,
+):
+    """Build the warmup/cosine schedule used by LeRobot's SmolVLA preset."""
+    if total_steps < decay_steps:
+        scale_factor = total_steps / decay_steps
+        warmup_steps = int(warmup_steps * scale_factor)
+        decay_steps = total_steps
+    peak_learning_rate = optimizer.param_groups[0]["lr"]
+
     def scale(step: int) -> float:
-        if warmup_steps and step < warmup_steps:
-            return (step + 1) / warmup_steps
-        progress = (step - warmup_steps) / max(1, total_steps - warmup_steps)
-        return 0.5 * (1.0 + math.cos(math.pi * min(1.0, progress)))
+        if step < warmup_steps:
+            if step <= 0:
+                return 1 / (warmup_steps + 1)
+            fraction = 1 - step / warmup_steps
+            return (1 / (warmup_steps + 1) - 1) * fraction + 1
+        bounded_step = min(step, decay_steps)
+        cosine_decay = 0.5 * (1 + math.cos(math.pi * bounded_step / decay_steps))
+        floor = decay_learning_rate / peak_learning_rate
+        return (1 - floor) * cosine_decay + floor
 
     return torch.optim.lr_scheduler.LambdaLR(optimizer, scale)
 
@@ -112,6 +131,14 @@ class SFTTrainer:
                     self.scheduler,
                     self.step,
                 )
+        if self.config.save_freq and self.step % self.config.save_freq != 0:
+            save_checkpoint(
+                Path(self.config.output_dir) / "checkpoints" / f"step-{self.step:08d}",
+                self.model,
+                self.optimizer,
+                self.scheduler,
+                self.step,
+            )
         return {"step": self.step, "loss": mean_loss}
 
     @staticmethod
@@ -152,11 +179,14 @@ class SFTTrainerWorker(Worker):
             lr=self.config.optimizer.learning_rate,
             weight_decay=self.config.optimizer.weight_decay,
             betas=self.config.optimizer.betas,
+            eps=self.config.optimizer.eps,
         )
         scheduler = _scheduler(
             optimizer,
             self.config.optimizer.warmup_steps,
             self.config.steps,
+            decay_steps=self.config.optimizer.decay_steps,
+            decay_learning_rate=self.config.optimizer.decay_learning_rate,
         )
         sampler = DistributedSampler(
             components.dataset,

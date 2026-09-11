@@ -16,6 +16,10 @@ class FSDPConfig:
     backward_prefetch: int = 0
 
     def __post_init__(self) -> None:
+        if self.param_dtype not in {"bfloat16", "float32"}:
+            raise ValueError(f"unsupported param_dtype {self.param_dtype!r}")
+        if self.reduce_dtype not in {"bfloat16", "float32"}:
+            raise ValueError(f"unsupported reduce_dtype {self.reduce_dtype!r}")
         if self.forward_prefetch < 0:
             raise ValueError("forward_prefetch cannot be negative")
         if self.backward_prefetch < 0:

@@ -45,20 +45,32 @@ class DatasetConfig:
 @dataclass(frozen=True)
 class OptimizerConfig:
     learning_rate: float = 1e-4
-    weight_decay: float = 1e-6
+    weight_decay: float = 1e-10
     betas: tuple[float, float] = (0.9, 0.95)
+    eps: float = 1e-8
     warmup_steps: int = 1_000
-    max_grad_norm: float = 1.0
+    decay_steps: int = 30_000
+    decay_learning_rate: float = 2.5e-6
+    max_grad_norm: float = 10.0
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "betas", tuple(self.betas))
         if self.learning_rate <= 0:
             raise ValueError("optimizer.learning_rate must be positive")
         if self.weight_decay < 0:
             raise ValueError("optimizer.weight_decay cannot be negative")
         if len(self.betas) != 2 or any(not 0 <= beta < 1 for beta in self.betas):
             raise ValueError("optimizer.betas must contain two values in [0, 1)")
+        if self.eps <= 0:
+            raise ValueError("optimizer.eps must be positive")
         if self.warmup_steps < 0:
             raise ValueError("optimizer.warmup_steps cannot be negative")
+        if self.decay_steps < 1:
+            raise ValueError("optimizer.decay_steps must be positive")
+        if not 0 < self.decay_learning_rate <= self.learning_rate:
+            raise ValueError(
+                "optimizer.decay_learning_rate must be positive and no greater than learning_rate"
+            )
         if self.max_grad_norm < 0:
             raise ValueError("optimizer.max_grad_norm cannot be negative")
 

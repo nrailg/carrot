@@ -15,7 +15,7 @@ dependencies = [
 
 [project.optional-dependencies]
 sft = [
-  "lerobot[smolvla]",
+  "lerobot[smolvla]==0.4.4",
   "pyyaml>=6",
   "torch>=2.6",
 ]

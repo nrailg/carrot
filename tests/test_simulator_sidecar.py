@@ -123,8 +123,11 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
     maniskill_venv = tmp_path / "maniskill-venv"
     libero_python = _create_venv(libero_venv)
     maniskill_python = _create_venv(maniskill_venv)
+    source_root = Path(__file__).resolve().parents[1] / "src"
 
-    with Cluster() as cluster:
+    # Ray workers do not inherit pytest's in-process ``pythonpath`` setting.
+    # Production images install Carrot; a mounted-source smoke declares it explicitly.
+    with Cluster(env_vars={"PYTHONPATH": str(source_root)}) as cluster:
         cluster.reserve("simulators", PlacementSpec(bundles_per_node=2))
         libero = cluster.launch(
             "libero",

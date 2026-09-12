@@ -1,4 +1,5 @@
 import pytest
+import torch
 from torch import nn
 
 from carrot.modeling import FSDPConfig, ModelParallelizer, parallelize_model
@@ -17,6 +18,11 @@ class FakePolicy(nn.Module):
 class EmptyParallelizer(ModelParallelizer):
     def fsdp_units(self, model: nn.Module):
         return ()
+
+
+class SingleUnitParallelizer(ModelParallelizer):
+    def fsdp_units(self, model: nn.Module):
+        return (model.model,)
 
 
 class FakeAttention(nn.Module):
@@ -98,6 +104,28 @@ def test_disabled_fsdp_preserves_model() -> None:
 def test_fsdp_requires_initialized_process_group() -> None:
     with pytest.raises(RuntimeError, match="torch.distributed"):
         parallelize_model(FakePolicy(), EmptyParallelizer(), FSDPConfig())
+
+
+def test_fsdp_uses_fp32_master_and_configured_mixed_precision(monkeypatch) -> None:
+    calls = []
+    monkeypatch.setattr("carrot.modeling.parallelizer.dist.is_initialized", lambda: True)
+    monkeypatch.setattr(
+        "carrot.modeling.parallelizer.fully_shard",
+        lambda module, **kwargs: calls.append((module, kwargs)),
+    )
+    model = FakePolicy().to(dtype=torch.bfloat16)
+
+    parallelize_model(
+        model,
+        SingleUnitParallelizer(),
+        FSDPConfig(param_dtype="bfloat16", reduce_dtype="float32"),
+    )
+
+    assert len(calls) == 2
+    assert all(parameter.dtype is torch.float32 for parameter in model.parameters())
+    for _, kwargs in calls:
+        assert kwargs["mp_policy"].param_dtype is torch.bfloat16
+        assert kwargs["mp_policy"].reduce_dtype is torch.float32
 
 
 def test_smolvla_parallelizer_requires_flow_model() -> None:

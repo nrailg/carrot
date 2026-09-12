@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 
-from carrot.trainer.sft import SFTConfig, run_sft
+from carrot.trainer.sft import SFTConfig, SFTTrainer
 
 
 def main() -> None:
@@ -12,7 +12,7 @@ def main() -> None:
     parser.add_argument("--config", required=True)
     parser.add_argument("--resume")
     args = parser.parse_args()
-    run_sft(SFTConfig.from_yaml(args.config), resume=args.resume)
+    SFTTrainer(SFTConfig.from_yaml(args.config), resume=args.resume).run()
 
 
 if __name__ == "__main__":

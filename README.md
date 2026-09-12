@@ -70,8 +70,9 @@ python -m pip install -e ".[sft]"
 carrot-train-sft --config configs/smolvla_robotwin_sft.yaml
 ```
 
-The SFT runner uses LeRobot 0.6.1's SmolVLA model, dataset, preprocessing, and
-flow-matching objective — the same version as `wepsdl/carrot:v1.0`. Carrot owns
-the Ray worker lifecycle, PyTorch FSDP2 wrapping, optimization loop, and
-distributed checkpoints. Set `--resume` to a `checkpoints/step-*` directory to
-restore model, optimizer, scheduler, and step.
+The `SFTTrainer` controller launches one `SFTTrainWorker` per GPU. Each worker uses
+LeRobot 0.6.1's SmolVLA model, dataset, preprocessing, and flow-matching
+objective — the same version as `wepsdl/carrot:v1.0` — and owns its local
+FSDP2-wrapped model, optimization loop, and distributed checkpoint participation.
+Set `--resume` to a `checkpoints/step-*` directory to restore model, optimizer,
+scheduler, and step.

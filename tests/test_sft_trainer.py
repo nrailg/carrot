@@ -4,7 +4,13 @@ from torch import nn
 from torch.utils.data import DataLoader
 
 from carrot.trainer.sft.config import SFTConfig
-from carrot.trainer.sft.trainer import SFTTrainer, _scheduler
+from carrot.trainer.sft.trainer import SFTTrainer
+from carrot.trainer.sft.worker import (
+    SFTTrainWorker,
+    SFTTrainWorkerImpl,
+    _assert_fp32_optimizer_state,
+    _scheduler,
+)
 
 
 class FakePolicy(nn.Module):
@@ -17,7 +23,39 @@ class FakePolicy(nn.Module):
         return loss, {}
 
 
-def test_sft_trainer_accumulates_gradients() -> None:
+class FakeWorkerGroup:
+    def __init__(self) -> None:
+        self.method = None
+
+    def call(self, method: str):
+        self.method = method
+        return self
+
+    def wait(self):
+        return [{"step": 1, "loss": 0.5}]
+
+
+class FakeCluster:
+    def __init__(self) -> None:
+        self.reservation = None
+        self.launch_args = None
+        self.workers = FakeWorkerGroup()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return None
+
+    def reserve(self, name, spec):
+        self.reservation = (name, spec)
+
+    def launch(self, name, worker_cls, *args, **kwargs):
+        self.launch_args = (name, worker_cls, args, kwargs)
+        return self.workers
+
+
+def test_sft_train_worker_impl_accumulates_gradients() -> None:
     model = FakePolicy()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
     config = SFTConfig.from_dict(
@@ -29,7 +67,7 @@ def test_sft_trainer_accumulates_gradients() -> None:
             "fsdp": {"enabled": False},
         }
     )
-    trainer = SFTTrainer(
+    worker_impl = SFTTrainWorkerImpl(
         model=model,
         optimizer=optimizer,
         scheduler=_scheduler(optimizer, 0, config.steps),
@@ -38,10 +76,24 @@ def test_sft_trainer_accumulates_gradients() -> None:
         config=config,
     )
 
-    metrics = trainer.train()
+    metrics = worker_impl.train()
 
     assert metrics["step"] == 2
     assert model.weight.item() < 1.0
+
+
+def test_sft_trainer_controls_gpu_workers(monkeypatch) -> None:
+    cluster = FakeCluster()
+    monkeypatch.setattr("carrot.trainer.sft.trainer.Cluster", lambda **kwargs: cluster)
+    config = SFTConfig.from_dict({"num_gpus": 2, "dataset": {"num_workers": 0}})
+
+    results = SFTTrainer(config).run()
+
+    assert results == [{"step": 1, "loss": 0.5}]
+    assert cluster.reservation[0] == "sft"
+    assert cluster.launch_args[0] == "sft-train-worker"
+    assert cluster.launch_args[1] is SFTTrainWorker
+    assert cluster.workers.method == "train"
 
 
 def test_scheduler_matches_smolvla_warmup_and_floor() -> None:
@@ -60,3 +112,42 @@ def test_scheduler_matches_smolvla_warmup_and_floor() -> None:
         optimizer.step()
         scheduler.step()
     assert optimizer.param_groups[0]["lr"] == pytest.approx(2.5e-6)
+
+
+def test_worker_teardown_does_not_wait_for_failed_peers(monkeypatch) -> None:
+    destroyed = []
+    monkeypatch.setattr("carrot.trainer.sft.worker.dist.is_initialized", lambda: True)
+    monkeypatch.setattr(
+        "carrot.trainer.sft.worker.dist.barrier",
+        lambda: pytest.fail("teardown must not run a collective"),
+    )
+    monkeypatch.setattr(
+        "carrot.trainer.sft.worker.dist.destroy_process_group",
+        lambda: destroyed.append(True),
+    )
+    worker = SFTTrainWorker(SFTConfig())
+
+    worker.teardown()
+
+    assert destroyed == [True]
+
+
+def test_optimizer_state_is_fp32_with_fp32_master() -> None:
+    model = FakePolicy().float()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
+    loss, _ = model(torch.tensor([1.0]))
+    loss.backward()
+    optimizer.step()
+
+    _assert_fp32_optimizer_state(optimizer)
+    state = optimizer.state[model.weight]
+    assert state["exp_avg"].dtype is torch.float32
+    assert state["exp_avg_sq"].dtype is torch.float32
+
+
+def test_optimizer_state_rejects_bfloat16_master() -> None:
+    model = FakePolicy().bfloat16()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
+
+    with pytest.raises(ValueError, match="master parameter"):
+        _assert_fp32_optimizer_state(optimizer)

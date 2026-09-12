@@ -3,7 +3,7 @@ from pathlib import Path
 import torch
 
 from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
-from carrot.trainer.sft.trainer import _scheduler
+from carrot.trainer.sft.worker import _scheduler
 
 
 def test_checkpoint_round_trip(tmp_path: Path) -> None:

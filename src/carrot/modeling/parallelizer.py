@@ -59,11 +59,17 @@ def parallelize_model(
     if not dist.is_initialized():
         raise RuntimeError("torch.distributed must be initialized before applying FSDP2")
 
-    param_dtype = _dtype(config.param_dtype)
-    model.to(dtype=param_dtype)
+    # FSDP mixed precision casts full parameters only for forward/backward. Keep
+    # the sharded master parameters in FP32 so AdamW moments are FP32 as well.
+    model.to(dtype=torch.float32)
+    for name, parameter in model.named_parameters():
+        if parameter.dtype.is_floating_point and parameter.dtype is not torch.float32:
+            raise ValueError(f"FSDP requires FP32 master weights, got {name}={parameter.dtype}")
+
     policy = MixedPrecisionPolicy(
-        param_dtype=param_dtype,
-        reduce_dtype=param_dtype,
+        param_dtype=_dtype(config.param_dtype),
+        reduce_dtype=_dtype(config.reduce_dtype),
+        cast_forward_inputs=False,
     )
     parallelizer.validate_config(config)
     units = tuple(parallelizer.fsdp_units(model))

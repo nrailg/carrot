@@ -107,7 +107,7 @@ class _RayActor:
             raise TypeError(f"worker attribute {method!r} is not callable")
         return target(*args, **kwargs)
 
-    def close(self) -> None:
+    def teardown(self) -> None:
         teardown = getattr(self._worker, "teardown", None)
         if teardown is not None:
             teardown()

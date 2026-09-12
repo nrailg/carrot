@@ -10,7 +10,6 @@ from typing import Any
 import torch
 import torch.distributed as dist
 from torch import nn
-from torch.distributed.fsdp import FSDPModule
 from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
@@ -118,9 +117,9 @@ class SFTTrainWorkerImpl:
         self.model.train()
         mean_loss = float("nan")
         self.optimizer.zero_grad(set_to_none=True)
-        if self._is_main() and self.config.wandb.enabled:
+        if self._is_rank_0() and self.config.wandb.enabled:
             self._wandb = _init_wandb(self.config)
-        if self._is_main():
+        if self._is_rank_0():
             world_size = dist.get_world_size() if dist.is_initialized() else 1
             print(
                 f"starting SFT loop steps={self.config.steps} "
@@ -129,13 +128,13 @@ class SFTTrainWorkerImpl:
             )
         iterator = iter(self.dataloader)
         try:
-            return self._run_loop(iterator, mean_loss)
+            return self._train_loop(iterator, mean_loss)
         finally:
             if self._wandb is not None:
                 self._wandb.finish()
                 self._wandb = None
 
-    def _run_loop(self, iterator, mean_loss: float) -> dict[str, float | int]:
+    def _train_loop(self, iterator, mean_loss: float) -> dict[str, float | int]:
         while self.step < self.config.steps:
             accumulated_loss = 0.0
             for micro_step in range(self.config.gradient_accumulation_steps):
@@ -147,10 +146,7 @@ class SFTTrainWorkerImpl:
                         self.sampler.set_epoch(self.epoch)
                     iterator = iter(self.dataloader)
                     batch = next(iterator)
-                sync = micro_step + 1 == self.config.gradient_accumulation_steps
-                if self.config.fsdp.enabled:
-                    self._fsdp_module().set_requires_gradient_sync(sync)
-                if self._is_main() and self.step == 0 and micro_step == 0:
+                if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
                 batch = self.preprocessor(batch)
                 loss, _ = self.model(batch)
@@ -159,13 +155,7 @@ class SFTTrainWorkerImpl:
                         f"non-finite loss at step {self.step}: {loss.item()}"
                     )
                 scaled = loss / self.config.gradient_accumulation_steps
-                compute_dtype = {
-                    "bfloat16": torch.bfloat16,
-                    "float32": torch.float32,
-                }[self.config.fsdp.param_dtype]
-                if scaled.dtype != compute_dtype:
-                    scaled = scaled.to(compute_dtype)
-                if self._is_main() and self.step == 0 and micro_step == 0:
+                if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print(
                         f"first forward ok loss={loss.detach().float().item():.6f} "
                         f"dtype={loss.dtype}",
@@ -176,7 +166,7 @@ class SFTTrainWorkerImpl:
 
             if self.config.optimizer.max_grad_norm:
                 if self.config.fsdp.enabled:
-                    self._fsdp_module().clip_grad_norm_(self.config.optimizer.max_grad_norm)
+                    self.model.clip_grad_norm_(self.config.optimizer.max_grad_norm)
                 else:
                     torch.nn.utils.clip_grad_norm_(
                         self.model.parameters(), self.config.optimizer.max_grad_norm
@@ -195,7 +185,7 @@ class SFTTrainWorkerImpl:
                 dist.all_reduce(value)
                 mean_loss = value.item() / dist.get_world_size()
             learning_rate = self.optimizer.param_groups[0]["lr"]
-            if self._is_main() and self.step % self.config.log_freq == 0:
+            if self._is_rank_0() and self.step % self.config.log_freq == 0:
                 print(
                     f"step={self.step} loss={mean_loss:.6f} lr={learning_rate:.3e}",
                     flush=True,
@@ -223,13 +213,8 @@ class SFTTrainWorkerImpl:
             )
         return {"step": self.step, "loss": mean_loss}
 
-    def _fsdp_module(self) -> FSDPModule:
-        if not isinstance(self.model, FSDPModule):
-            raise TypeError("FSDP training requires a parallelized FSDPModule")
-        return self.model
-
     @staticmethod
-    def _is_main() -> bool:
+    def _is_rank_0() -> bool:
         return not dist.is_initialized() or dist.get_rank() == 0
 
 

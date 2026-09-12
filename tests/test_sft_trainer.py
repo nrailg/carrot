@@ -82,13 +82,25 @@ def test_sft_train_worker_impl_accumulates_gradients() -> None:
     assert model.weight.item() < 1.0
 
 
-def test_sft_train_worker_impl_requires_fsdp_module_when_enabled() -> None:
-    model = FakePolicy()
+def test_fsdp_does_not_disable_gradient_sync_during_accumulation() -> None:
+    # 关掉 sync 会让 unsharded grad 驻留，OOM
+    sync_calls: list[bool] = []
+
+    class TrackingPolicy(FakePolicy):
+        def set_requires_gradient_sync(self, sync: bool) -> None:
+            sync_calls.append(sync)
+
+        def clip_grad_norm_(self, max_norm: float):
+            return torch.nn.utils.clip_grad_norm_(self.parameters(), max_norm)
+
+    model = TrackingPolicy()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
     config = SFTConfig.from_dict(
         {
             "steps": 1,
+            "gradient_accumulation_steps": 2,
             "save_freq": 0,
+            "log_freq": 10,
             "fsdp": {"enabled": True},
         }
     )
@@ -97,12 +109,14 @@ def test_sft_train_worker_impl_requires_fsdp_module_when_enabled() -> None:
         optimizer=optimizer,
         scheduler=_scheduler(optimizer, 0, config.steps),
         preprocessor=lambda batch: batch,
-        dataloader=DataLoader([torch.tensor([1.0])], batch_size=1),
+        dataloader=DataLoader([torch.tensor([1.0])] * 2, batch_size=1),
         config=config,
     )
 
-    with pytest.raises(TypeError, match="FSDPModule"):
-        worker_impl.train()
+    metrics = worker_impl.train()
+
+    assert metrics["step"] == 1
+    assert sync_calls == []
 
 
 def test_sft_trainer_controls_gpu_workers(monkeypatch) -> None:

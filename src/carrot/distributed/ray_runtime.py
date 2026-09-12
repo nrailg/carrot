@@ -135,25 +135,13 @@ class RayActorHandle(ActorHandle):
     def __init__(self, rank: int, actor: Any) -> None:
         self._rank = rank
         self._actor = actor
-        self._closed = False
 
     @property
     def rank(self) -> int:
         return self._rank
 
     def call(self, method: str, *args: Any, **kwargs: Any) -> RayFuture:
-        if self._closed:
-            raise RuntimeError("worker is closed")
         return RayFuture(self._actor.call.remote(method, args, kwargs))
-
-    def close(self) -> None:
-        if self._closed:
-            return
-        self._closed = True
-        try:
-            ray.get(self._actor.close.remote())
-        finally:
-            ray.kill(self._actor, no_restart=True)
 
 
 class RayRuntime:
@@ -180,10 +168,7 @@ class RayRuntime:
                 runtime_env={"env_vars": self._runtime_env_vars},
             )
         self._pools: dict[str, _ReservedPool] = {}
-        self._groups: dict[
-            str,
-            tuple[list[RayActorHandle], RolePlacement, tuple[int, ...]],
-        ] = {}
+        self._groups: dict[str, list[RayActorHandle]] = {}
         self._channels: dict[str, Channel[Any]] = {}
         self._closed = False
 
@@ -277,34 +262,8 @@ class RayRuntime:
         for bundle_rank in bundle_ranks:
             pool.used_cpus[bundle_rank] += placement.cpus_per_actor
             pool.used_gpus[bundle_rank] += placement.gpus_per_actor
-        self._groups[group_name] = (handles, placement, bundle_ranks)
+        self._groups[group_name] = handles
         return handles
-
-    def release_group(self, group_name: str) -> None:
-        group = self._groups.pop(group_name, None)
-        if group is None:
-            return
-        handles, placement, bundle_ranks = group
-        errors = []
-        close_refs = []
-        for handle in handles:
-            if handle._closed:
-                continue
-            handle._closed = True
-            close_refs.append(handle._actor.close.remote())
-        if close_refs:
-            try:
-                ray.get(close_refs)
-            except Exception as error:
-                errors.append(error)
-        for handle in handles:
-            ray.kill(handle._actor, no_restart=True)
-        pool = self._pools[placement.pool]
-        for bundle_rank in bundle_ranks:
-            pool.used_cpus[bundle_rank] -= placement.cpus_per_actor
-            pool.used_gpus[bundle_rank] -= placement.gpus_per_actor
-        if errors:
-            raise RuntimeError(f"{len(errors)} worker(s) failed during shutdown") from errors[0]
 
     @staticmethod
     def _validate_role_resources(
@@ -340,11 +299,16 @@ class RayRuntime:
             return
         self._closed = True
         errors = []
-        for group_name in reversed(tuple(self._groups)):
+        handles = [handle for group in self._groups.values() for handle in group]
+        close_refs = [handle._actor.close.remote() for handle in handles]
+        if close_refs:
             try:
-                self.release_group(group_name)
+                ray.get(close_refs)
             except Exception as error:
                 errors.append(error)
+        for handle in handles:
+            ray.kill(handle._actor, no_restart=True)
+        self._groups.clear()
         for channel in self._channels.values():
             channel._queue.shutdown(force=True)
         self._channels.clear()

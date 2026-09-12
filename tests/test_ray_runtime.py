@@ -40,18 +40,6 @@ class CounterWorker(Worker):
         raise ValueError("worker failure")
 
 
-class LifecycleWorker(Worker):
-    def __init__(self, events) -> None:
-        super().__init__()
-        self.events = events
-
-    def setup(self) -> None:
-        self.events.put("setup")
-
-    def teardown(self) -> None:
-        self.events.put("teardown")
-
-
 @pytest.fixture(scope="module")
 def cluster():
     with Cluster() as running_cluster:
@@ -64,7 +52,7 @@ def test_worker_group_is_stateful_and_supports_dispatch(cluster) -> None:
         "counter",
         CounterWorker,
         10,
-        placement=RolePlacement(pool="cpu"),
+        placement=RolePlacement(pool="cpu", cpus_per_actor=0.1),
         env_vars={"RANK": "99", "NCCL_DEBUG": "INFO"},
     )
 
@@ -76,33 +64,30 @@ def test_worker_group_is_stateful_and_supports_dispatch(cluster) -> None:
     assert group.map("add", [RankCall((2,)), RankCall((3,))]).wait() == [13, 14]
     assert group.select(1).call("add", 5).wait() == [19]
     assert group.call("environment", "NCCL_DEBUG").wait() == ["INFO", "INFO"]
-    group.close()
 
 
 def test_group_result_preserves_rank_and_remote_cause(cluster) -> None:
     group = cluster.launch(
         "failing-counter",
         CounterWorker,
-        placement=RolePlacement(pool="cpu", bundle_ranks=(0,)),
+        placement=RolePlacement(pool="cpu", bundle_ranks=(0,), cpus_per_actor=0.1),
     )
 
     with pytest.raises(WorkerExecutionError, match="worker rank 0") as error:
         group.call("fail").wait()
 
     assert isinstance(error.value.__cause__, ValueError)
-    group.close()
 
 
 def test_runtime_does_not_rewrite_visible_devices(cluster) -> None:
     group = cluster.launch(
         "visible-env",
         CounterWorker,
-        placement=RolePlacement(pool="cpu"),
+        placement=RolePlacement(pool="cpu", cpus_per_actor=0.1),
         env_vars={"CUDA_VISIBLE_DEVICES": "7,9"},
     )
 
     assert group.call("environment", "CUDA_VISIBLE_DEVICES").wait() == ["7,9", "7,9"]
-    group.close()
 
 
 def test_channel_can_flow_through_workers(cluster) -> None:
@@ -110,7 +95,7 @@ def test_channel_can_flow_through_workers(cluster) -> None:
     group = cluster.launch(
         "producer",
         CounterWorker,
-        placement=RolePlacement(pool="cpu"),
+        placement=RolePlacement(pool="cpu", cpus_per_actor=0.1),
     )
 
     assert group.call("publish", channel, "trajectory").wait() == [0, 1]
@@ -118,21 +103,6 @@ def test_channel_can_flow_through_workers(cluster) -> None:
         (0, "trajectory"),
         (1, "trajectory"),
     ]
-    group.close()
-
-
-def test_worker_lifecycle_hooks_run_once(cluster) -> None:
-    events = cluster.channel("events")
-    group = cluster.launch(
-        "lifecycle",
-        LifecycleWorker,
-        events,
-        placement=RolePlacement(pool="cpu", bundle_ranks=(0,)),
-    )
-
-    assert events.get(timeout=1) == "setup"
-    group.close()
-    assert events.get(timeout=1) == "teardown"
 
 
 def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
@@ -142,7 +112,7 @@ def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
         placement=RolePlacement(
             pool="cpu",
             bundle_ranks=(0,),
-            cpus_per_actor=0.5,
+            cpus_per_actor=0.3,
         ),
     )
     generate = cluster.launch(
@@ -151,7 +121,7 @@ def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
         placement=RolePlacement(
             pool="cpu",
             bundle_ranks=(0,),
-            cpus_per_actor=0.5,
+            cpus_per_actor=0.3,
         ),
     )
     with pytest.raises(ValueError, match="CPU capacity exceeded"):
@@ -170,14 +140,10 @@ def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
         placement=RolePlacement(
             pool="cpu",
             bundle_ranks=(1,),
-            cpus_per_actor=1,
+            cpus_per_actor=0.5,
         ),
     )
 
     assert train.call("identity").wait() == [(0, 0, 1, "train")]
     assert generate.call("identity").wait() == [(0, 0, 1, "generate")]
     assert sim.call("identity").wait() == [(0, 0, 1, "sim")]
-
-    train.close()
-    generate.close()
-    sim.close()

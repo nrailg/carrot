@@ -61,11 +61,7 @@ class Cluster:
             name,
             env_vars or {},
         )
-        group = WorkerGroup(
-            name,
-            workers,
-            close=lambda: self._runtime.release_group(name),
-        )
+        group = WorkerGroup(name, workers)
         self._groups[name] = group
         return group
 

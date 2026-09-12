@@ -26,7 +26,7 @@ dev = [
 ]
 
 [project.scripts]
-carrot-train-sft = "carrot.cli.train_sft:main"
+carrot-train-sft = "carrot.entrypoints.train_sft:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/carrot"]

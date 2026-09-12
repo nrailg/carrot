@@ -25,8 +25,6 @@ class ActorHandle(Protocol):
 
     def call(self, method: str, *args: Any, **kwargs: Any) -> Future[Any]: ...
 
-    def close(self) -> None: ...
-
 
 @dataclass(frozen=True)
 class WorkerSpec:

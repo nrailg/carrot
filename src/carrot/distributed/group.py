@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import time
-from collections.abc import Callable, Iterable, Iterator, Sequence
+from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass
 from typing import Any, Generic, TypeVar
 
@@ -81,12 +81,9 @@ class WorkerGroup:
         self,
         name: str,
         workers: Iterable[ActorHandle],
-        close: Callable[[], None] | None = None,
     ) -> None:
         self.name = name
         self._workers = tuple(sorted(workers, key=lambda worker: worker.rank))
-        self._close = close
-        self._closed = False
         expected = tuple(range(len(self._workers)))
         actual = tuple(worker.rank for worker in self._workers)
         if actual != expected:
@@ -135,22 +132,6 @@ class WorkerGroup:
                 )
             )
         return GroupResult(method, pending)
-
-    def close(self) -> None:
-        if self._closed:
-            return
-        self._closed = True
-        if self._close is not None:
-            self._close()
-            return
-        errors: list[BaseException] = []
-        for worker in reversed(self._workers):
-            try:
-                worker.close()
-            except BaseException as error:
-                errors.append(error)
-        if errors:
-            raise RuntimeError(f"{len(errors)} worker(s) failed during shutdown") from errors[0]
 
     def __iter__(self) -> Iterator[ActorHandle]:
         return iter(self._workers)

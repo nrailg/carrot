@@ -297,7 +297,7 @@ class RayRuntime:
         self._closed = True
         errors = []
         handles = [handle for group in self._groups.values() for handle in group]
-        close_refs = [handle._actor.close.remote() for handle in handles]
+        close_refs = [handle._actor.teardown.remote() for handle in handles]
         if close_refs:
             try:
                 ray.get(close_refs)

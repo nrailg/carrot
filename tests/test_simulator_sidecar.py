@@ -195,8 +195,13 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
         libero_health = libero.call("health").wait()[0]
         maniskill_health = maniskill.call("health").wait()[0]
 
-        assert libero.call("supervisor_executable").wait() == [sys.executable]
-        assert maniskill.call("supervisor_executable").wait() == [sys.executable]
+        libero_supervisor = Path(libero.call("supervisor_executable").wait()[0]).resolve()
+        maniskill_supervisor = Path(maniskill.call("supervisor_executable").wait()[0]).resolve()
+        # Ray working_dir 会改写 driver venv 路径，只断言 supervisor 不在 sidecar venv 里。
+        assert libero_supervisor.name.startswith("python")
+        assert maniskill_supervisor.name.startswith("python")
+        assert libero_venv.resolve() not in libero_supervisor.parents
+        assert maniskill_venv.resolve() not in maniskill_supervisor.parents
         assert libero_health["backend"] == "libero"
         assert maniskill_health["backend"] == "maniskill"
         assert libero_health["plugin_version"] == "1.0.0"

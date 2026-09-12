@@ -7,7 +7,7 @@ name = "carrot-rl"
 version = "0.1.0"
 description = "A lightweight, backend-neutral runtime for distributed robot learning."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = { file = "LICENSE" }
 dependencies = [
   "ray>=2.47",
@@ -38,7 +38,7 @@ testpaths = ["tests"]
 
 [tool.ruff]
 line-length = 100
-target-version = "py310"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B", "SIM"]

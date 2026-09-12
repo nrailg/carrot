@@ -11,6 +11,7 @@ import torch
 import torch.distributed as dist
 import wandb
 from torch import nn
+from torch.distributed.tensor import DTensor
 from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
@@ -162,13 +163,12 @@ class SFTTrainWorkerImpl:
                 scaled.backward()
                 accumulated_loss += loss.detach().float().item()
 
-            if self.config.optimizer.max_grad_norm:
-                if self.config.fsdp.enabled:
-                    self.model.clip_grad_norm_(self.config.optimizer.max_grad_norm)
-                else:
-                    torch.nn.utils.clip_grad_norm_(
-                        self.model.parameters(), self.config.optimizer.max_grad_norm
-                    )
+            grad_norm = torch.nn.utils.clip_grad_norm_(
+                self.model.parameters(),
+                max_norm=self.config.optimizer.max_grad_norm,
+            )
+            if isinstance(grad_norm, DTensor):
+                grad_norm = grad_norm.full_tensor()
             self.optimizer.step()
             if not self._optimizer_state_checked:
                 _assert_fp32_optimizer_state(self.optimizer)
@@ -185,12 +185,17 @@ class SFTTrainWorkerImpl:
             learning_rate = self.optimizer.param_groups[0]["lr"]
             if self._is_rank_0() and self.step % self.config.log_freq == 0:
                 print(
-                    f"step={self.step} loss={mean_loss:.6f} lr={learning_rate:.3e}",
+                    f"step={self.step} loss={mean_loss:.6f} lr={learning_rate:.3e} "
+                    f"grad_norm={grad_norm.item():.6f}",
                     flush=True,
                 )
                 if self._wandb is not None:
                     self._wandb.log(
-                        {"train/loss": mean_loss, "train/lr": learning_rate},
+                        {
+                            "train/loss": mean_loss,
+                            "train/lr": learning_rate,
+                            "train/grad_norm": grad_norm.item(),
+                        },
                         step=self.step,
                     )
             if self.config.save_freq and self.step % self.config.save_freq == 0:

@@ -36,7 +36,7 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
     assert config.dataset.rename_map == {}
     assert config.optimizer.betas == (0.8, 0.9)
     assert config.optimizer.weight_decay == 1e-10
-    assert config.optimizer.max_grad_norm == 10.0
+    assert config.optimizer.max_grad_norm == 1.0
     assert config.fsdp.param_dtype == "float32"
     assert config.num_nodes == 1
     assert config.wandb.enabled is False

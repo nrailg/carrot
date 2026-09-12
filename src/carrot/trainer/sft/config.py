@@ -62,7 +62,7 @@ class OptimizerConfig:
     warmup_steps: int = 1_000
     decay_steps: int = 30_000
     decay_learning_rate: float = 2.5e-6
-    max_grad_norm: float = 10.0
+    max_grad_norm: float = 1.0
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "betas", tuple(self.betas))
@@ -82,8 +82,8 @@ class OptimizerConfig:
             raise ValueError(
                 "optimizer.decay_learning_rate must be positive and no greater than learning_rate"
             )
-        if self.max_grad_norm < 0:
-            raise ValueError("optimizer.max_grad_norm cannot be negative")
+        if self.max_grad_norm <= 0:
+            raise ValueError("optimizer.max_grad_norm must be positive")
 
 
 @dataclass(frozen=True)

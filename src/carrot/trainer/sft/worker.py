@@ -16,7 +16,8 @@ from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
 from carrot.modeling import parallelize_model
-from carrot.models.smolvla import SmolVLAParallelizer, build_smolvla
+from carrot.models.pi05 import PI0Policy
+from carrot.models.pi05.parallelize import Pi05Parallelizer
 from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
 from carrot.trainer.sft.config import SFTConfig
 
@@ -29,7 +30,7 @@ def _scheduler(
     decay_steps: int = 30_000,
     decay_learning_rate: float = 2.5e-6,
 ):
-    """Build the warmup/cosine schedule used by LeRobot's SmolVLA preset."""
+    """Build the warmup/cosine schedule used by the PI0.5 recipe."""
     if total_steps < decay_steps:
         scale_factor = total_steps / decay_steps
         warmup_steps = int(warmup_steps * scale_factor)
@@ -231,29 +232,15 @@ class SFTTrainWorker(Worker):
         self.impl: SFTTrainWorkerImpl | None = None
 
     def setup(self) -> None:
-        if not torch.cuda.is_available():
-            raise RuntimeError("SmolVLA FSDP training requires CUDA")
         torch.cuda.set_device(self.local_rank)
         dist.init_process_group(backend="nccl", rank=self.rank, world_size=self.world_size)
         random.seed(self.config.seed + self.rank)
         torch.manual_seed(self.config.seed + self.rank)
         torch.cuda.manual_seed_all(self.config.seed + self.rank)
 
-        # TODO: avoid hardcoded model
-        components = build_smolvla(
-            model_path=self.config.model.path,
-            dataset_repo_id=self.config.dataset.repo_id,
-            dataset_root=self.config.dataset.root,
-            device=f"cuda:{self.local_rank}",
-            video_backend=self.config.dataset.video_backend,
-            rename_map=self.config.dataset.rename_map or None,
-            vlm_path=self.config.model.vlm_path,
-        )
-        model = components.policy
-        parallelize_model(model, SmolVLAParallelizer(), self.config.fsdp)
+        model = PI0Policy.from_pretrained(self.config.model.path)
+        parallelize_model(model, Pi05Parallelizer(), self.config.fsdp)
         parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
-        if not parameters:
-            raise ValueError("SmolVLA policy has no trainable parameters")
         optimizer = torch.optim.AdamW(
             parameters,
             lr=self.config.optimizer.learning_rate,
@@ -269,33 +256,9 @@ class SFTTrainWorker(Worker):
             decay_steps=self.config.optimizer.decay_steps,
             decay_learning_rate=self.config.optimizer.decay_learning_rate,
         )
-        # TODO: avoid hardcoded dataset
-        sampler = DistributedSampler(
-            components.dataset,
-            num_replicas=self.world_size,
-            rank=self.rank,
-            shuffle=True,
-            seed=self.config.seed,
-            drop_last=True,
-        )
-        dataloader = DataLoader(
-            components.dataset,
-            batch_size=self.config.batch_size,
-            sampler=sampler,
-            num_workers=self.config.dataset.num_workers,
-            pin_memory=True,
-            drop_last=True,
-            collate_fn=components.collate_fn,
-            persistent_workers=self.config.dataset.num_workers > 0,
-        )
-        self.impl = SFTTrainWorkerImpl(
-            model=model,
-            optimizer=optimizer,
-            scheduler=scheduler,
-            preprocessor=components.preprocessor,
-            dataloader=dataloader,
-            config=self.config,
-            sampler=sampler,
+        raise NotImplementedError(
+            "PI0.5 policy loading and FSDP wrapping are installed; the RobotWin "
+            "data adapter is the next required component before launching SFT."
         )
         if self.resume is not None:
             self.impl.step = load_checkpoint(Path(self.resume), model, optimizer, scheduler)

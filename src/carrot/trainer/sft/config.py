@@ -23,16 +23,14 @@ def _from_dict(cls: type[T], values: dict[str, Any]) -> T:
 
 @dataclass(frozen=True)
 class ModelConfig:
-    path: str = "lerobot/smolvla_base"
-    vlm_path: str = ""
+    path: str = "Miical/pi05-base"
+    tokenizer_path: str = "Miical/pi05-base"
 
     def __post_init__(self) -> None:
         if not self.path:
             raise ValueError("model.path cannot be empty")
-        if not self.vlm_path:
-            raise ValueError("model.vlm_path cannot be empty")
-        if not Path(self.vlm_path).is_dir():
-            raise FileNotFoundError(f"model.vlm_path does not exist: {self.vlm_path}")
+        if not self.tokenizer_path:
+            raise ValueError("model.tokenizer_path cannot be empty")
 
 
 @dataclass(frozen=True)
@@ -108,7 +106,7 @@ class SFTConfig:
     optimizer: OptimizerConfig = field(default_factory=OptimizerConfig)
     fsdp: FSDPConfig = field(default_factory=FSDPConfig)
     wandb: WandBConfig = field(default_factory=WandBConfig)
-    output_dir: str = "outputs/smolvla_robotwin_sft"
+    output_dir: str = "outputs/pi05_robotwin_sft"
     steps: int = 20_000
     batch_size: int = 4
     gradient_accumulation_steps: int = 1

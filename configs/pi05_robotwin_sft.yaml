@@ -1,0 +1,26 @@
+model:
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base
+  tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base
+dataset:
+  repo_id: lerobot/robotwin_unified
+  num_workers: 4
+optimizer:
+  learning_rate: 2.5e-5
+  weight_decay: 1.0e-10
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  warmup_steps: 1000
+  decay_steps: 30000
+  decay_learning_rate: 2.5e-6
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+steps: 30000
+batch_size: 4
+gradient_accumulation_steps: 1
+output_dir: outputs/pi05_robotwin_sft
+num_gpus: 1
+num_nodes: 1

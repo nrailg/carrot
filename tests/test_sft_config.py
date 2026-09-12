@@ -7,18 +7,15 @@ from carrot.trainer.sft.config import SFTConfig
 
 
 def _config(tmp_path: Path, values: dict[str, Any] | None = None) -> SFTConfig:
-    vlm = tmp_path / "vlm"
-    vlm.mkdir(exist_ok=True)
+    del tmp_path
     values = dict(values or {})
     model = dict(values.get("model") or {})
-    model.setdefault("vlm_path", str(vlm))
+    model.setdefault("tokenizer_path", "tokenizer")
     values["model"] = model
     return SFTConfig.from_dict(values)
 
 
 def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
-    vlm = tmp_path / "vlm"
-    vlm.mkdir()
     config = _config(
         tmp_path,
         {
@@ -31,7 +28,7 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
     )
 
     assert config.model.path == "model"
-    assert config.model.vlm_path == str(vlm)
+    assert config.model.tokenizer_path == "tokenizer"
     assert config.dataset.num_workers == 0
     assert config.dataset.rename_map == {}
     assert config.optimizer.betas == (0.8, 0.9)
@@ -67,19 +64,13 @@ def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
         _config(tmp_path, {"fsdp": {"param_dtype": "float16"}})
 
 
-def test_sft_config_requires_vlm_path() -> None:
-    with pytest.raises(ValueError, match="vlm_path"):
-        SFTConfig.from_dict({})
+def test_sft_config_uses_pi05_defaults() -> None:
+    assert SFTConfig.from_dict({}).model.path == "Miical/pi05-base"
 
 
-def test_sft_config_rejects_empty_vlm_path() -> None:
-    with pytest.raises(ValueError, match="vlm_path"):
-        SFTConfig.from_dict({"model": {"vlm_path": ""}})
-
-
-def test_sft_config_rejects_missing_vlm_path() -> None:
-    with pytest.raises(FileNotFoundError, match="vlm_path"):
-        SFTConfig.from_dict({"model": {"vlm_path": "/no/such/vlm"}})
+def test_sft_config_rejects_empty_tokenizer_path() -> None:
+    with pytest.raises(ValueError, match="tokenizer_path"):
+        SFTConfig.from_dict({"model": {"tokenizer_path": ""}})
 
 
 def test_sft_config_rejects_decay_lr_above_peak(tmp_path: Path) -> None:

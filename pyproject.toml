@@ -15,9 +15,11 @@ dependencies = [
 
 [project.optional-dependencies]
 sft = [
-  "lerobot[dataset,smolvla]==0.6.1",
+  "lerobot[dataset]>=0.6.1",
+  "diffusers>=0.32",
   "pyyaml>=6",
   "torch>=2.6",
+  "transformers>=4.48",
   "wandb>=0.16",
 ]
 dev = [

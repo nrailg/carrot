@@ -10,6 +10,7 @@ from typing import Any
 import torch
 import torch.distributed as dist
 from torch import nn
+from torch.distributed.fsdp import FSDPModule
 from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
@@ -147,9 +148,8 @@ class SFTTrainWorkerImpl:
                     iterator = iter(self.dataloader)
                     batch = next(iterator)
                 sync = micro_step + 1 == self.config.gradient_accumulation_steps
-                set_sync = getattr(self.model, "set_requires_gradient_sync", None)
-                if callable(set_sync):
-                    set_sync(sync)
+                if self.config.fsdp.enabled:
+                    self._fsdp_module().set_requires_gradient_sync(sync)
                 if self._is_main() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
                 batch = self.preprocessor(batch)
@@ -175,9 +175,8 @@ class SFTTrainWorkerImpl:
                 accumulated_loss += loss.detach().float().item()
 
             if self.config.optimizer.max_grad_norm:
-                clip = getattr(self.model, "clip_grad_norm_", None)
-                if callable(clip):
-                    clip(self.config.optimizer.max_grad_norm)
+                if self.config.fsdp.enabled:
+                    self._fsdp_module().clip_grad_norm_(self.config.optimizer.max_grad_norm)
                 else:
                     torch.nn.utils.clip_grad_norm_(
                         self.model.parameters(), self.config.optimizer.max_grad_norm
@@ -223,6 +222,11 @@ class SFTTrainWorkerImpl:
                 self.step,
             )
         return {"step": self.step, "loss": mean_loss}
+
+    def _fsdp_module(self) -> FSDPModule:
+        if not isinstance(self.model, FSDPModule):
+            raise TypeError("FSDP training requires a parallelized FSDPModule")
+        return self.model
 
     @staticmethod
     def _is_main() -> bool:

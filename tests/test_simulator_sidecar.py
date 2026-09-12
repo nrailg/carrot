@@ -50,6 +50,9 @@ class PluginEnv:
             "truncated": False,
         }}
 
+    def close(self) -> None:
+        return None
+
 
 serve(PluginEnv())
 """
@@ -83,6 +86,9 @@ class MujocoEnv:
     def step(self, action: int) -> dict:
         mujoco.mj_step(self.model, self.data)
         return {{"time": self.data.time, "nq": self.model.nq}}
+
+    def close(self) -> None:
+        return None
 
 
 serve(MujocoEnv())

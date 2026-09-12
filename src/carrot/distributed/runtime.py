@@ -8,6 +8,8 @@ from dataclasses import dataclass, field
 from queue import Empty
 from typing import Any, Generic, Protocol, TypeVar
 
+from carrot.distributed.worker import Worker
+
 T = TypeVar("T")
 
 
@@ -30,12 +32,15 @@ class ActorHandle(Protocol):
 class WorkerSpec:
     """Serializable recipe for constructing a worker in its target process."""
 
-    cls: type
+    cls: type[Worker]
     args: tuple[Any, ...] = ()
     kwargs: Mapping[str, Any] = field(default_factory=dict)
 
-    def build(self) -> Any:
-        return self.cls(*self.args, **dict(self.kwargs))
+    def build(self) -> Worker:
+        worker = self.cls(*self.args, **dict(self.kwargs))
+        if not isinstance(worker, Worker):
+            raise TypeError(f"{self.cls.__name__} must be a Worker")
+        return worker
 
 
 @dataclass(frozen=True)

@@ -28,9 +28,7 @@ def serve(env):
         elif operation == "step":
             response = env.step(request["action"])
         elif operation == "close":
-            close = getattr(env, "close", None)
-            if close is not None:
-                close()
+            env.close()
             print(json.dumps({"closed": True}), flush=True)
             break
         else:

@@ -82,6 +82,29 @@ def test_sft_train_worker_impl_accumulates_gradients() -> None:
     assert model.weight.item() < 1.0
 
 
+def test_sft_train_worker_impl_requires_fsdp_module_when_enabled() -> None:
+    model = FakePolicy()
+    optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+    config = SFTConfig.from_dict(
+        {
+            "steps": 1,
+            "save_freq": 0,
+            "fsdp": {"enabled": True},
+        }
+    )
+    worker_impl = SFTTrainWorkerImpl(
+        model=model,
+        optimizer=optimizer,
+        scheduler=_scheduler(optimizer, 0, config.steps),
+        preprocessor=lambda batch: batch,
+        dataloader=DataLoader([torch.tensor([1.0])], batch_size=1),
+        config=config,
+    )
+
+    with pytest.raises(TypeError, match="FSDPModule"):
+        worker_impl.train()
+
+
 def test_sft_trainer_controls_gpu_workers(monkeypatch) -> None:
     cluster = FakeCluster()
     monkeypatch.setattr("carrot.trainer.sft.trainer.Cluster", lambda **kwargs: cluster)

@@ -10,11 +10,13 @@ from carrot.modeling.config import FSDPConfig
 from carrot.modeling.parallelizer import ModelParallelizer
 
 
-def _module(parent: object, name: str) -> nn.Module:
-    value = getattr(parent, name, None)
-    if not isinstance(value, nn.Module):
-        raise TypeError(f"SmolVLA structure requires module {name!r} on {type(parent).__name__}")
-    return value
+def _module(parent: nn.Module, name: str) -> nn.Module:
+    try:
+        return parent.get_submodule(name)
+    except AttributeError as error:
+        raise TypeError(
+            f"SmolVLA structure requires module {name!r} on {type(parent).__name__}"
+        ) from error
 
 
 class SmolVLAParallelizer(ModelParallelizer):
@@ -25,14 +27,14 @@ class SmolVLAParallelizer(ModelParallelizer):
             raise ValueError("SmolVLA does not support linear FSDP prefetch ordering")
 
     def fsdp_units(self, model: nn.Module) -> Sequence[nn.Module]:
-        flow_model = getattr(model, "model", None)
-        if not isinstance(flow_model, nn.Module):
-            raise TypeError("SmolVLA policy must expose its flow-matching module as 'model'")
+        try:
+            flow_model = model.get_submodule("model")
+        except AttributeError as error:
+            raise TypeError(
+                "SmolVLA policy must expose its flow-matching module as 'model'"
+            ) from error
         vlm_with_expert = _module(flow_model, "vlm_with_expert")
-        get_vlm_model = getattr(vlm_with_expert, "get_vlm_model", None)
-        if not callable(get_vlm_model):
-            raise TypeError("SmolVLA VLM/expert module must expose get_vlm_model()")
-        vlm_model = get_vlm_model()
+        vlm_model = vlm_with_expert.get_vlm_model()
         text_model = _module(vlm_model, "text_model")
         expert_model = _module(vlm_with_expert, "lm_expert")
 
@@ -41,10 +43,7 @@ class SmolVLAParallelizer(ModelParallelizer):
             _module(vlm_model, "connector"),
             _module(text_model, "embed_tokens"),
         ]
-        get_model_layers = getattr(vlm_with_expert, "get_model_layers", None)
-        if not callable(get_model_layers):
-            raise TypeError("SmolVLA VLM/expert module must expose get_model_layers()")
-        layer_groups = get_model_layers([text_model, expert_model])
+        layer_groups = vlm_with_expert.get_model_layers([text_model, expert_model])
         for layers in layer_groups:
             for layer in layers:
                 if layer is None:

@@ -171,7 +171,7 @@ def build_smolvla(
         def preprocessor(batch: Any, _inner=inner, _rename_map=rename_map) -> Any:
             renamed = {_rename_map.get(key, key): value for key, value in batch.items()}
             return _inner(renamed)
-    collate_fn = lerobot_collate_fn if getattr(metadata, "has_language_columns", False) else None
+    collate_fn = lerobot_collate_fn if metadata.has_language_columns else None
     return SmolVLAComponents(
         policy=policy,
         dataset=dataset,

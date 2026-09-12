@@ -112,17 +112,18 @@ class SFTConfig:
     num_nodes: int = 1
 
     def __post_init__(self) -> None:
-        positive = (
-            "steps",
-            "batch_size",
-            "gradient_accumulation_steps",
-            "log_freq",
-            "num_gpus",
-            "num_nodes",
-        )
-        for name in positive:
-            if getattr(self, name) < 1:
-                raise ValueError(f"{name} must be positive")
+        if self.steps < 1:
+            raise ValueError("steps must be positive")
+        if self.batch_size < 1:
+            raise ValueError("batch_size must be positive")
+        if self.gradient_accumulation_steps < 1:
+            raise ValueError("gradient_accumulation_steps must be positive")
+        if self.log_freq < 1:
+            raise ValueError("log_freq must be positive")
+        if self.num_gpus < 1:
+            raise ValueError("num_gpus must be positive")
+        if self.num_nodes < 1:
+            raise ValueError("num_nodes must be positive")
         if self.num_gpus % self.num_nodes != 0:
             raise ValueError("num_gpus must be divisible by num_nodes")
         if self.save_freq < 0:

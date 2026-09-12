@@ -97,20 +97,17 @@ class _RayActor:
         return self._master_addr, self._master_port
 
     def setup(self) -> None:
-        setup = getattr(self._worker, "setup", None)
-        if setup is not None:
-            setup()
+        self._worker.setup()
 
     def call(self, method: str, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:
+        # WorkerGroup dispatches methods by name.
         target = getattr(self._worker, method)
         if not callable(target):
             raise TypeError(f"worker attribute {method!r} is not callable")
         return target(*args, **kwargs)
 
     def teardown(self) -> None:
-        teardown = getattr(self._worker, "teardown", None)
-        if teardown is not None:
-            teardown()
+        self._worker.teardown()
 
 
 class RayFuture:

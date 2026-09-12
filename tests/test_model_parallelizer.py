@@ -126,6 +126,7 @@ def test_fsdp_uses_fp32_master_and_configured_mixed_precision(monkeypatch) -> No
     for _, kwargs in calls:
         assert kwargs["mp_policy"].param_dtype is torch.bfloat16
         assert kwargs["mp_policy"].reduce_dtype is torch.float32
+        assert kwargs["mp_policy"].cast_forward_inputs is True
 
 
 def test_smolvla_parallelizer_requires_flow_model() -> None:

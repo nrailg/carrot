@@ -69,7 +69,7 @@ def parallelize_model(
     policy = MixedPrecisionPolicy(
         param_dtype=_dtype(config.param_dtype),
         reduce_dtype=_dtype(config.reduce_dtype),
-        cast_forward_inputs=False,
+        cast_forward_inputs=True,
     )
     parallelizer.validate_config(config)
     units = tuple(parallelizer.fsdp_units(model))

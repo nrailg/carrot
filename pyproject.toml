@@ -14,10 +14,19 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+sft = [
+  "lerobot[dataset,smolvla]==0.6.1",
+  "pyyaml>=6",
+  "torch>=2.6",
+  "wandb>=0.16",
+]
 dev = [
   "pytest>=8",
   "ruff>=0.9",
 ]
+
+[project.scripts]
+carrot-train-sft = "carrot.entrypoints.train_sft:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/carrot"]

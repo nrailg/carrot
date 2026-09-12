@@ -1,0 +1,34 @@
+model:
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/smolvla_base
+dataset:
+  repo_id: lerobot/robotwin_unified
+  root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified
+  num_workers: 8
+  rename_map:
+    observation.images.cam_high: observation.images.camera1
+    observation.images.cam_left_wrist: observation.images.camera2
+    observation.images.cam_right_wrist: observation.images.camera3
+optimizer:
+  learning_rate: 0.0001
+  weight_decay: 0.0000000001
+  betas: [0.9, 0.95]
+  eps: 0.00000001
+  warmup_steps: 1000
+  decay_steps: 30000
+  decay_learning_rate: 0.0000025
+  max_grad_norm: 10.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+  forward_prefetch: 0
+  backward_prefetch: 0
+output_dir: outputs/smolvla_robotwin_sft
+steps: 20000
+batch_size: 4
+gradient_accumulation_steps: 1
+log_freq: 10
+save_freq: 1000
+seed: 1000
+num_gpus: 8

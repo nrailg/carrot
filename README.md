@@ -59,3 +59,20 @@ if __name__ == "__main__":
 
 Ray is a required implementation dependency, but Ray actors, object references,
 queues, and scheduling types are kept behind Carrot's public API.
+
+## SmolVLA SFT
+
+Install the optional training dependencies and launch the bundled RoboTwin
+configuration:
+
+```bash
+python -m pip install -e ".[sft]"
+carrot-train-sft --config configs/smolvla_robotwin_sft.yaml
+```
+
+The `SFTTrainer` controller launches one `SFTTrainWorker` per GPU. Each worker uses
+LeRobot 0.6.1's SmolVLA model, dataset, preprocessing, and flow-matching
+objective — the same version as `wepsdl/carrot:v1.0` — and owns its local
+FSDP2-wrapped model, optimization loop, and distributed checkpoint participation.
+Set `--resume` to a `checkpoints/step-*` directory to restore model, optimizer,
+scheduler, and step.

@@ -9,6 +9,7 @@ from typing import Any
 
 import torch
 import torch.distributed as dist
+import wandb
 from torch import nn
 from torch.utils.data import DataLoader, DistributedSampler
 
@@ -49,10 +50,6 @@ def _scheduler(
 
 
 def _init_wandb(config: SFTConfig) -> Any:
-    try:
-        import wandb
-    except ImportError as error:
-        raise ImportError("wandb logging requires the wandb package") from error
     return wandb.init(
         project=config.wandb.project,
         entity=config.wandb.entity,
@@ -89,6 +86,7 @@ def _assert_fp32_optimizer_state(optimizer: torch.optim.Optimizer) -> None:
 
 class SFTTrainWorkerImpl:
     """Implementation detail that keeps the worker training loop maintainable."""
+    # TODO 有点多余，应该合并到 SFTTrainWorker 中
 
     def __init__(
         self,
@@ -236,6 +234,7 @@ class SFTTrainWorker(Worker):
         torch.manual_seed(self.config.seed + self.rank)
         torch.cuda.manual_seed_all(self.config.seed + self.rank)
 
+        # TODO: avoid hardcoded model
         components = build_smolvla(
             model_path=self.config.model.path,
             dataset_repo_id=self.config.dataset.repo_id,
@@ -243,6 +242,7 @@ class SFTTrainWorker(Worker):
             device=f"cuda:{self.local_rank}",
             video_backend=self.config.dataset.video_backend,
             rename_map=self.config.dataset.rename_map or None,
+            vlm_path=self.config.model.vlm_path,
         )
         model = components.policy
         parallelize_model(model, SmolVLAParallelizer(), self.config.fsdp)
@@ -264,6 +264,7 @@ class SFTTrainWorker(Worker):
             decay_steps=self.config.optimizer.decay_steps,
             decay_learning_rate=self.config.optimizer.decay_learning_rate,
         )
+        # TODO: avoid hardcoded dataset
         sampler = DistributedSampler(
             components.dataset,
             num_replicas=self.world_size,

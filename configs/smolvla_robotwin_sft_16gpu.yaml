@@ -1,5 +1,6 @@
 model:
   path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/smolvla_base
+  vlm_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/HuggingFaceTB/SmolVLM2-500M-Video-Instruct
 dataset:
   repo_id: lerobot/robotwin_unified
   root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified

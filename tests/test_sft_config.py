@@ -1,20 +1,37 @@
+from pathlib import Path
+from typing import Any
+
 import pytest
 
 from carrot.trainer.sft.config import SFTConfig
 
 
-def test_sft_config_builds_nested_configs() -> None:
-    config = SFTConfig.from_dict(
+def _config(tmp_path: Path, values: dict[str, Any] | None = None) -> SFTConfig:
+    vlm = tmp_path / "vlm"
+    vlm.mkdir(exist_ok=True)
+    values = dict(values or {})
+    model = dict(values.get("model") or {})
+    model.setdefault("vlm_path", str(vlm))
+    values["model"] = model
+    return SFTConfig.from_dict(values)
+
+
+def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
+    vlm = tmp_path / "vlm"
+    vlm.mkdir()
+    config = _config(
+        tmp_path,
         {
             "model": {"path": "model"},
             "dataset": {"repo_id": "dataset", "num_workers": 0},
             "optimizer": {"learning_rate": 2e-4, "betas": [0.8, 0.9]},
             "fsdp": {"param_dtype": "float32"},
             "steps": 2,
-        }
+        },
     )
 
     assert config.model.path == "model"
+    assert config.model.vlm_path == str(vlm)
     assert config.dataset.num_workers == 0
     assert config.dataset.rename_map == {}
     assert config.optimizer.betas == (0.8, 0.9)
@@ -25,32 +42,49 @@ def test_sft_config_builds_nested_configs() -> None:
     assert config.wandb.enabled is False
 
 
-def test_sft_config_keeps_wandb_entity_as_string() -> None:
-    config = SFTConfig.from_dict(
-        {"wandb": {"enabled": True, "entity": 1001}, "num_gpus": 16, "num_nodes": 2}
+def test_sft_config_keeps_wandb_entity_as_string(tmp_path: Path) -> None:
+    config = _config(
+        tmp_path,
+        {"wandb": {"enabled": True, "entity": 1001}, "num_gpus": 16, "num_nodes": 2},
     )
 
     assert config.wandb.entity == "1001"
     assert config.gpus_per_node == 8
 
 
-def test_sft_config_rejects_uneven_gpu_split() -> None:
+def test_sft_config_rejects_uneven_gpu_split(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="divisible"):
-        SFTConfig.from_dict({"num_gpus": 16, "num_nodes": 3})
+        _config(tmp_path, {"num_gpus": 16, "num_nodes": 3})
 
 
-def test_sft_config_rejects_unknown_fields() -> None:
+def test_sft_config_rejects_unknown_fields(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="unknown DatasetConfig fields"):
-        SFTConfig.from_dict({"dataset": {"silent_typo": True}})
+        _config(tmp_path, {"dataset": {"silent_typo": True}})
 
 
-def test_sft_config_rejects_unsupported_dtype() -> None:
+def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="unsupported param_dtype"):
-        SFTConfig.from_dict({"fsdp": {"param_dtype": "float16"}})
+        _config(tmp_path, {"fsdp": {"param_dtype": "float16"}})
 
 
-def test_sft_config_rejects_decay_lr_above_peak() -> None:
+def test_sft_config_requires_vlm_path() -> None:
+    with pytest.raises(ValueError, match="vlm_path"):
+        SFTConfig.from_dict({})
+
+
+def test_sft_config_rejects_empty_vlm_path() -> None:
+    with pytest.raises(ValueError, match="vlm_path"):
+        SFTConfig.from_dict({"model": {"vlm_path": ""}})
+
+
+def test_sft_config_rejects_missing_vlm_path() -> None:
+    with pytest.raises(FileNotFoundError, match="vlm_path"):
+        SFTConfig.from_dict({"model": {"vlm_path": "/no/such/vlm"}})
+
+
+def test_sft_config_rejects_decay_lr_above_peak(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="decay_learning_rate"):
-        SFTConfig.from_dict(
-            {"optimizer": {"learning_rate": 1e-4, "decay_learning_rate": 2e-4}}
+        _config(
+            tmp_path,
+            {"optimizer": {"learning_rate": 1e-4, "decay_learning_rate": 2e-4}},
         )

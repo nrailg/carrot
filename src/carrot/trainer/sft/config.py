@@ -6,6 +6,8 @@ from dataclasses import dataclass, field, fields
 from pathlib import Path
 from typing import Any, TypeVar
 
+import yaml
+
 from carrot.modeling.config import FSDPConfig
 
 T = TypeVar("T")
@@ -22,10 +24,15 @@ def _from_dict(cls: type[T], values: dict[str, Any]) -> T:
 @dataclass(frozen=True)
 class ModelConfig:
     path: str = "lerobot/smolvla_base"
+    vlm_path: str = ""
 
     def __post_init__(self) -> None:
         if not self.path:
             raise ValueError("model.path cannot be empty")
+        if not self.vlm_path:
+            raise ValueError("model.vlm_path cannot be empty")
+        if not Path(self.vlm_path).is_dir():
+            raise FileNotFoundError(f"model.vlm_path does not exist: {self.vlm_path}")
 
 
 @dataclass(frozen=True)
@@ -147,10 +154,6 @@ class SFTConfig:
 
     @classmethod
     def from_yaml(cls, path: str | Path) -> SFTConfig:
-        try:
-            import yaml
-        except ImportError as error:
-            raise ImportError("YAML configs require PyYAML") from error
         with Path(path).open() as stream:
             values = yaml.safe_load(stream)
         if not isinstance(values, dict):

@@ -17,7 +17,6 @@ def _worker_env() -> dict[str, str]:
         "HF_HUB_CACHE",
         "HF_HUB_OFFLINE",
         "TRANSFORMERS_OFFLINE",
-        "SMOLVLM_PATH",
         "WANDB_BASE_URL",
         "WANDB_API_KEY",
         "WANDB_ENTITY",

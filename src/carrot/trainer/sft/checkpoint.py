@@ -9,7 +9,12 @@ from typing import Any
 import torch.distributed as dist
 import torch.distributed.checkpoint as dcp
 from torch import nn
-from torch.distributed.checkpoint.state_dict import get_state_dict, set_state_dict
+from torch.distributed.checkpoint.state_dict import (
+    StateDictOptions,
+    get_model_state_dict,
+    get_state_dict,
+    set_state_dict,
+)
 
 
 class _TrainState:
@@ -37,12 +42,35 @@ def save_checkpoint(
     scheduler: Any,
     step: int,
 ) -> None:
+    """Write a DCP resume bundle and a HuggingFace ``pretrained_model/`` export.
+
+    ``dcp.save`` and the full-state gather are collective; every rank must enter.
+    Rank 0 writes ``pretrained_model/`` and ``trainer_state.json``.
+
+    Parameters
+    ----------
+    path : Path
+        Checkpoint directory. ``--resume`` loads ``dcp/`` and
+        ``trainer_state.json`` from here; ``from_pretrained`` uses
+        ``path / "pretrained_model"``.
+    model : nn.Module
+        Must implement ``save_pretrained(save_directory, *, state_dict=...)``.
+    optimizer : Any
+    scheduler : Any
+    step : int
+    """
     if not dist.is_initialized() or dist.get_rank() == 0:
         path.mkdir(parents=True, exist_ok=True)
     if dist.is_initialized():
         dist.barrier()
     dcp.save({"train": _TrainState(model, optimizer)}, checkpoint_id=str(path / "dcp"))
+    # full_state_dict gather is collective; only rank 0 writes HF files.
+    state_dict = get_model_state_dict(
+        model,
+        options=StateDictOptions(full_state_dict=True, cpu_offload=True),
+    )
     if not dist.is_initialized() or dist.get_rank() == 0:
+        model.save_pretrained(path / "pretrained_model", state_dict=state_dict)
         with (path / "trainer_state.json").open("w") as stream:
             json.dump({"step": step, "scheduler": scheduler.state_dict()}, stream)
     if dist.is_initialized():

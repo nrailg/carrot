@@ -1,3 +1,6 @@
+from pathlib import Path
+from typing import Any
+
 import pytest
 import torch
 from torch import nn
@@ -11,6 +14,16 @@ from carrot.trainer.sft.worker import (
     _assert_fp32_optimizer_state,
     _scheduler,
 )
+
+
+def _config(tmp_path: Path, values: dict[str, Any] | None = None) -> SFTConfig:
+    vlm = tmp_path / "vlm"
+    vlm.mkdir(exist_ok=True)
+    values = dict(values or {})
+    model = dict(values.get("model") or {})
+    model.setdefault("vlm_path", str(vlm))
+    values["model"] = model
+    return SFTConfig.from_dict(values)
 
 
 class FakePolicy(nn.Module):
@@ -55,17 +68,18 @@ class FakeCluster:
         return self.workers
 
 
-def test_sft_train_worker_impl_accumulates_gradients() -> None:
+def test_sft_train_worker_impl_accumulates_gradients(tmp_path: Path) -> None:
     model = FakePolicy()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-    config = SFTConfig.from_dict(
+    config = _config(
+        tmp_path,
         {
             "steps": 2,
             "gradient_accumulation_steps": 2,
             "save_freq": 0,
             "log_freq": 10,
             "fsdp": {"enabled": False},
-        }
+        },
     )
     worker_impl = SFTTrainWorkerImpl(
         model=model,
@@ -82,7 +96,7 @@ def test_sft_train_worker_impl_accumulates_gradients() -> None:
     assert model.weight.item() < 1.0
 
 
-def test_fsdp_does_not_disable_gradient_sync_during_accumulation() -> None:
+def test_fsdp_does_not_disable_gradient_sync_during_accumulation(tmp_path: Path) -> None:
     # 关掉 sync 会让 unsharded grad 驻留，OOM
     sync_calls: list[bool] = []
 
@@ -95,14 +109,15 @@ def test_fsdp_does_not_disable_gradient_sync_during_accumulation() -> None:
 
     model = TrackingPolicy()
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
-    config = SFTConfig.from_dict(
+    config = _config(
+        tmp_path,
         {
             "steps": 1,
             "gradient_accumulation_steps": 2,
             "save_freq": 0,
             "log_freq": 10,
             "fsdp": {"enabled": True},
-        }
+        },
     )
     worker_impl = SFTTrainWorkerImpl(
         model=model,
@@ -119,10 +134,10 @@ def test_fsdp_does_not_disable_gradient_sync_during_accumulation() -> None:
     assert sync_calls == []
 
 
-def test_sft_trainer_controls_gpu_workers(monkeypatch) -> None:
+def test_sft_trainer_controls_gpu_workers(tmp_path: Path, monkeypatch) -> None:
     cluster = FakeCluster()
     monkeypatch.setattr("carrot.trainer.sft.trainer.Cluster", lambda **kwargs: cluster)
-    config = SFTConfig.from_dict({"num_gpus": 2, "dataset": {"num_workers": 0}})
+    config = _config(tmp_path, {"num_gpus": 2, "dataset": {"num_workers": 0}})
 
     results = SFTTrainer(config).run()
 
@@ -151,7 +166,7 @@ def test_scheduler_matches_smolvla_warmup_and_floor() -> None:
     assert optimizer.param_groups[0]["lr"] == pytest.approx(2.5e-6)
 
 
-def test_worker_teardown_does_not_wait_for_failed_peers(monkeypatch) -> None:
+def test_worker_teardown_does_not_wait_for_failed_peers(tmp_path: Path, monkeypatch) -> None:
     destroyed = []
     monkeypatch.setattr("carrot.trainer.sft.worker.dist.is_initialized", lambda: True)
     monkeypatch.setattr(
@@ -162,7 +177,7 @@ def test_worker_teardown_does_not_wait_for_failed_peers(monkeypatch) -> None:
         "carrot.trainer.sft.worker.dist.destroy_process_group",
         lambda: destroyed.append(True),
     )
-    worker = SFTTrainWorker(SFTConfig())
+    worker = SFTTrainWorker(_config(tmp_path))
 
     worker.teardown()
 

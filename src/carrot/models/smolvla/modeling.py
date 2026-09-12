@@ -2,12 +2,20 @@
 
 from __future__ import annotations
 
-import os
 from dataclasses import dataclass
-from importlib.metadata import PackageNotFoundError, version
+from importlib.metadata import version
 from pathlib import Path
 from typing import Any
 
+from lerobot.configs import PreTrainedConfig
+from lerobot.datasets import (
+    LeRobotDataset,
+    LeRobotDatasetMetadata,
+    resolve_delta_timestamps,
+)
+from lerobot.policies import make_policy, make_pre_post_processors
+from lerobot.processor.rename_processor import rename_stats
+from lerobot.utils.collate import lerobot_collate_fn
 from torch import nn
 
 MIN_LEROBOT_VERSION = (0, 6, 1)
@@ -105,26 +113,10 @@ def build_smolvla(
     device: str,
     video_backend: str | None = None,
     rename_map: dict[str, str] | None = None,
+    vlm_path: str,
 ) -> SmolVLAComponents:
     """Build a fine-tuning policy and data pipeline with LeRobot 0.6.1 factories."""
-    try:
-        installed = version("lerobot")
-    except PackageNotFoundError as error:
-        raise ImportError('SmolVLA training requires pip install -e ".[sft]"') from error
-    require_lerobot_version(installed)
-
-    try:
-        from lerobot.configs import PreTrainedConfig
-        from lerobot.datasets import (
-            LeRobotDataset,
-            LeRobotDatasetMetadata,
-            resolve_delta_timestamps,
-        )
-        from lerobot.policies import make_policy, make_pre_post_processors
-        from lerobot.processor.rename_processor import rename_stats
-        from lerobot.utils.collate import lerobot_collate_fn
-    except ImportError as error:
-        raise ImportError('SmolVLA training requires pip install -e ".[sft]"') from error
+    require_lerobot_version(version("lerobot"))
 
     root = Path(dataset_root) if dataset_root is not None else None
     metadata = LeRobotDatasetMetadata(dataset_repo_id, root=root)
@@ -133,15 +125,9 @@ def build_smolvla(
     policy_config.device = device
     if policy_config.type != "smolvla":
         raise ValueError(f"expected a SmolVLA checkpoint, got policy type {policy_config.type!r}")
-    local_vlm = os.environ.get("SMOLVLM_PATH")
-    tokenizer_name = None
-    if local_vlm:
-        vlm_path = Path(local_vlm)
-        if not vlm_path.is_dir():
-            raise FileNotFoundError(f"SMOLVLM_PATH does not exist: {vlm_path}")
-        policy_config.vlm_model_name = str(vlm_path)
-        tokenizer_name = str(vlm_path)
 
+    # Two from_pretrained loads: policy safetensors from model_path, VLM from vlm_path.
+    policy_config.vlm_model_name = vlm_path
     policy = make_policy(cfg=policy_config, ds_meta=metadata, rename_map=rename_map)
     delta_timestamps = resolve_delta_timestamps(policy_config, metadata)
     dataset_kwargs: dict[str, Any] = {
@@ -162,7 +148,7 @@ def build_smolvla(
             output_features=policy.config.output_features or {},
             normalization_mapping=policy.config.normalization_mapping,
             rename_map=rename_map,
-            tokenizer_name=tokenizer_name,
+            tokenizer_name=vlm_path,
         ),
     )
     if rename_map:

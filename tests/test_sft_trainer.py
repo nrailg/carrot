@@ -6,6 +6,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 
+from carrot.distributed import Worker
 from carrot.trainer.sft.config import SFTConfig
 from carrot.trainer.sft.trainer import SFTTrainer
 from carrot.trainer.sft.worker import (
@@ -36,36 +37,36 @@ class FakePolicy(nn.Module):
         return loss, {}
 
 
-class FakeWorkerGroup:
-    def __init__(self) -> None:
-        self.method = None
-
-    def call(self, method: str):
-        self.method = method
-        return self
-
-    def wait(self):
-        return [{"step": 1, "loss": 0.5}]
+def _batch_to_cuda(batch: torch.Tensor) -> torch.Tensor:
+    return batch.to(device=torch.cuda.current_device())
 
 
-class FakeCluster:
-    def __init__(self) -> None:
-        self.reservation = None
-        self.launch_args = None
-        self.workers = FakeWorkerGroup()
+class RaySFTWorker(Worker):
+    def __init__(self, config: SFTConfig, resume: str | None = None) -> None:
+        super().__init__()
+        self.config = config
+        self.impl: SFTTrainWorkerImpl | None = None
 
-    def __enter__(self):
-        return self
+    def setup(self) -> None:
+        torch.cuda.set_device(self.local_rank)
+        model = FakePolicy().to(device=f"cuda:{self.local_rank}")
+        optimizer = torch.optim.SGD(model.parameters(), lr=0.1)
+        self.impl = SFTTrainWorkerImpl(
+            model=model,
+            optimizer=optimizer,
+            scheduler=_scheduler(optimizer, 0, self.config.steps),
+            preprocessor=_batch_to_cuda,
+            dataloader=DataLoader([torch.tensor([1.0])] * 4, batch_size=1),
+            config=self.config,
+        )
 
-    def __exit__(self, *args):
-        return None
-
-    def reserve(self, name, spec):
-        self.reservation = (name, spec)
-
-    def launch(self, name, worker_cls, *args, **kwargs):
-        self.launch_args = (name, worker_cls, args, kwargs)
-        return self.workers
+    def train(self) -> dict[str, float | int]:
+        if self.impl is None:
+            raise RuntimeError("SFT train worker is not set up")
+        metrics = self.impl.train()
+        metrics["rank"] = self.rank
+        metrics["world_size"] = self.world_size
+        return metrics
 
 
 def test_sft_train_worker_impl_accumulates_gradients(tmp_path: Path) -> None:
@@ -134,18 +135,29 @@ def test_fsdp_does_not_disable_gradient_sync_during_accumulation(tmp_path: Path)
     assert sync_calls == []
 
 
-def test_sft_trainer_controls_gpu_workers(tmp_path: Path, monkeypatch) -> None:
-    cluster = FakeCluster()
-    monkeypatch.setattr("carrot.trainer.sft.trainer.Cluster", lambda **kwargs: cluster)
-    config = _config(tmp_path, {"num_gpus": 2, "dataset": {"num_workers": 0}})
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="requires CUDA")
+def test_sft_trainer_runs_on_ray(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr("carrot.trainer.sft.trainer.SFTTrainWorker", RaySFTWorker)
+    config = _config(
+        tmp_path,
+        {
+            "steps": 2,
+            "gradient_accumulation_steps": 2,
+            "save_freq": 0,
+            "log_freq": 10,
+            "num_gpus": 1,
+            "dataset": {"num_workers": 0},
+            "fsdp": {"enabled": False},
+        },
+    )
 
     results = SFTTrainer(config).run()
 
-    assert results == [{"step": 1, "loss": 0.5}]
-    assert cluster.reservation[0] == "sft"
-    assert cluster.launch_args[0] == "sft-train-worker"
-    assert cluster.launch_args[1] is SFTTrainWorker
-    assert cluster.workers.method == "train"
+    assert len(results) == 1
+    assert results[0]["step"] == 2
+    assert results[0]["rank"] == 0
+    assert results[0]["world_size"] == 1
+    assert results[0]["loss"] < 1.0
 
 
 def test_scheduler_matches_smolvla_warmup_and_floor() -> None:

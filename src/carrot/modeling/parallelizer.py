@@ -59,9 +59,11 @@ def parallelize_model(
     if not dist.is_initialized():
         raise RuntimeError("torch.distributed must be initialized before applying FSDP2")
 
+    param_dtype = _dtype(config.param_dtype)
+    model.to(dtype=param_dtype)
     policy = MixedPrecisionPolicy(
-        param_dtype=_dtype(config.param_dtype),
-        reduce_dtype=_dtype(config.reduce_dtype),
+        param_dtype=param_dtype,
+        reduce_dtype=param_dtype,
     )
     parallelizer.validate_config(config)
     units = tuple(parallelizer.fsdp_units(model))
@@ -85,6 +87,11 @@ def parallelize_model(
             reshard_after_forward=config.reshard_after_forward,
         )
 
-    fully_shard(model, mesh=mesh, mp_policy=policy)
+    fully_shard(
+        model,
+        mesh=mesh,
+        mp_policy=policy,
+        reshard_after_forward=config.reshard_after_forward,
+    )
     _set_prefetch(units, config.forward_prefetch, config.backward_prefetch)
     return model

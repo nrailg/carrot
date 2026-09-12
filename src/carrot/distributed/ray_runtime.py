@@ -286,11 +286,19 @@ class RayRuntime:
             return
         handles, placement, bundle_ranks = group
         errors = []
-        for handle in reversed(handles):
+        close_refs = []
+        for handle in handles:
+            if handle._closed:
+                continue
+            handle._closed = True
+            close_refs.append(handle._actor.close.remote())
+        if close_refs:
             try:
-                handle.close()
+                ray.get(close_refs)
             except Exception as error:
                 errors.append(error)
+        for handle in handles:
+            ray.kill(handle._actor, no_restart=True)
         pool = self._pools[placement.pool]
         for bundle_rank in bundle_ranks:
             pool.used_cpus[bundle_rank] -= placement.cpus_per_actor

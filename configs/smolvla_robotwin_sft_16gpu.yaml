@@ -3,7 +3,7 @@ model:
 dataset:
   repo_id: lerobot/robotwin_unified
   root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified
-  num_workers: 8
+  num_workers: 4
   rename_map:
     observation.images.cam_high: observation.images.camera1
     observation.images.cam_left_wrist: observation.images.camera2
@@ -13,22 +13,28 @@ optimizer:
   weight_decay: 0.0000000001
   betas: [0.9, 0.95]
   eps: 0.00000001
-  warmup_steps: 1000
-  decay_steps: 30000
+  warmup_steps: 20
+  decay_steps: 150
   decay_learning_rate: 0.0000025
   max_grad_norm: 10.0
 fsdp:
   enabled: true
-  param_dtype: bfloat16
+  param_dtype: float32
   reduce_dtype: float32
   reshard_after_forward: true
   forward_prefetch: 0
   backward_prefetch: 0
-output_dir: outputs/smolvla_robotwin_sft
-steps: 20000
+wandb:
+  enabled: true
+  project: carrot-sft
+  entity: "1001"
+  name: smolvla-robotwin-16gpu
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/carrot/outputs/smolvla_robotwin_sft_16gpu
+steps: 150
 batch_size: 4
 gradient_accumulation_steps: 1
-log_freq: 10
-save_freq: 1000
+log_freq: 1
+save_freq: 0
 seed: 1000
-num_gpus: 8
+num_gpus: 16
+num_nodes: 2

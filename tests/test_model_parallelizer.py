@@ -114,6 +114,10 @@ def test_smolvla_parallelizer_selects_hook_safe_leaf_modules() -> None:
     assert policy.model.vlm_with_expert.vlm.vision_model in units
     assert policy.model.vlm_with_expert.vlm.text_model.layers[0].self_attn.q_proj in units
     assert policy.model.action_out_proj in units
+    layer = policy.model.vlm_with_expert.vlm.text_model.layers[0]
+    assert layer.input_layernorm not in units
+    assert layer.post_attention_layernorm not in units
+    assert policy.model.vlm_with_expert.vlm.text_model.norm not in units
     assert len({id(unit) for unit in units}) == len(units)
 
 

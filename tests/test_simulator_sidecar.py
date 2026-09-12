@@ -2,127 +2,167 @@
 
 from __future__ import annotations
 
-import json
 import os
 import subprocess
 import sys
 import venv
+import zipfile
 from pathlib import Path
-from typing import Any
 
-from carrot.distributed import Cluster, PlacementSpec, RolePlacement, Worker
+import pytest
 
-_SIDECAR_PROGRAM = r"""
-import json
+from carrot.distributed import Cluster, PlacementSpec, RolePlacement
+from carrot.sim import PROTOCOL_VERSION, SIDECAR_SERVE_SOURCE, SimulatorSupervisor
+
+_SIDECAR_PROGRAM = SIDECAR_SERVE_SOURCE + f"""
 import os
 import sys
 
-backend = os.environ["CARROT_SIM_BACKEND"]
-state = 0
+import carrot_sim_plugin
 
-for line in sys.stdin:
-    request = json.loads(line)
-    operation = request["op"]
-    if operation == "health":
-        response = {
-            "backend": backend,
+
+class PluginEnv:
+    def __init__(self) -> None:
+        self.backend = carrot_sim_plugin.BACKEND
+        if self.backend != os.environ["CARROT_SIM_BACKEND"]:
+            raise RuntimeError(f"loaded the wrong simulator plugin: {{self.backend}}")
+        self.state = 0
+
+    def health(self) -> dict:
+        return {{
+            "backend": self.backend,
             "executable": sys.executable,
             "prefix": sys.prefix,
-            "protocol_version": 1,
-        }
-    elif operation == "reset":
-        state = request["seed"]
-        response = {"observation": {"state": state}}
-    elif operation == "step":
-        state += request["action"]
-        response = {
-            "observation": {"state": state},
-            "reward": float(state),
+            "plugin_version": carrot_sim_plugin.PLUGIN_VERSION,
+            "protocol_version": {PROTOCOL_VERSION},
+        }}
+
+    def reset(self, seed: int) -> dict:
+        self.state = seed
+        return {{"observation": {{"state": self.state}}}}
+
+    def step(self, action: int) -> dict:
+        self.state += carrot_sim_plugin.transform_action(action)
+        return {{
+            "observation": {{"state": self.state}},
+            "reward": float(self.state),
             "terminated": False,
             "truncated": False,
-        }
-    elif operation == "close":
-        print(json.dumps({"closed": True}), flush=True)
-        break
-    else:
-        response = {"error": f"unknown operation: {operation}"}
-    print(json.dumps(response), flush=True)
+        }}
+
+
+serve(PluginEnv())
+"""
+
+_MUJOCO_SIDECAR_PROGRAM = SIDECAR_SERVE_SOURCE + f"""
+import sys
+
+import mujoco
+
+
+class MujocoEnv:
+    def __init__(self) -> None:
+        self.model = mujoco.MjModel.from_xml_string(
+            "<mujoco><worldbody><body><joint/><geom size='0.1'/></body></worldbody></mujoco>"
+        )
+        self.data = mujoco.MjData(self.model)
+
+    def health(self) -> dict:
+        return {{
+            "backend": "mujoco",
+            "executable": sys.executable,
+            "prefix": sys.prefix,
+            "mujoco_version": mujoco.__version__,
+            "protocol_version": {PROTOCOL_VERSION},
+        }}
+
+    def reset(self, seed: int) -> dict:
+        mujoco.mj_resetData(self.model, self.data)
+        return {{"time": self.data.time, "nq": self.model.nq}}
+
+    def step(self, action: int) -> dict:
+        mujoco.mj_step(self.model, self.data)
+        return {{"time": self.data.time, "nq": self.model.nq}}
+
+
+serve(MujocoEnv())
 """
 
 
-class SimulatorSupervisor(Worker):
-    """Ray worker in the core venv supervising one simulator sidecar."""
-
-    def __init__(self, python_executable: str, backend: str) -> None:
-        self.python_executable = python_executable
-        self.backend = backend
-        self.process: subprocess.Popen[str] | None = None
-
-    def setup(self) -> None:
-        environment = os.environ.copy()
-        environment["CARROT_SIM_BACKEND"] = self.backend
-        self.process = subprocess.Popen(
-            [self.python_executable, "-u", "-c", _SIDECAR_PROGRAM],
-            stdin=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-            bufsize=1,
-            env=environment,
-        )
-        self.request({"op": "health"})
-
-    def request(self, payload: dict[str, Any]) -> dict[str, Any]:
-        if self.process is None or self.process.stdin is None or self.process.stdout is None:
-            raise RuntimeError("simulator sidecar is not running")
-        self.process.stdin.write(json.dumps(payload) + "\n")
-        self.process.stdin.flush()
-        response = self.process.stdout.readline()
-        if not response:
-            stderr = ""
-            if self.process.stderr is not None:
-                stderr = self.process.stderr.read()
-            raise RuntimeError(f"simulator sidecar exited unexpectedly: {stderr}")
-        result = json.loads(response)
-        if "error" in result:
-            raise RuntimeError(result["error"])
-        return result
-
-    def health(self) -> dict[str, Any]:
-        return self.request({"op": "health"})
-
-    def reset(self, seed: int) -> dict[str, Any]:
-        return self.request({"op": "reset", "seed": seed})
-
-    def step(self, action: int) -> dict[str, Any]:
-        return self.request({"op": "step", "action": action})
-
+class SupervisedSimulator(SimulatorSupervisor):
     def supervisor_executable(self) -> str:
         return sys.executable
 
-    def teardown(self) -> None:
-        if self.process is None:
-            return
-        if self.process.poll() is None:
-            self.request({"op": "close"})
-        try:
-            self.process.wait(timeout=5)
-        except subprocess.TimeoutExpired:
-            self.process.kill()
-            self.process.wait(timeout=5)
-        self.process = None
+
+def _build_plugin_wheel(
+    directory: Path,
+    *,
+    version: str,
+    backend: str,
+    action_scale: int,
+) -> Path:
+    """Build a tiny wheel offline so each venv installs a conflicting package version."""
+    distribution = "carrot_sim_plugin"
+    wheel = directory / f"{distribution}-{version}-py3-none-any.whl"
+    package_path = f"{distribution}/__init__.py"
+    dist_info = f"{distribution}-{version}.dist-info"
+    metadata_path = f"{dist_info}/METADATA"
+    wheel_path = f"{dist_info}/WHEEL"
+    record_path = f"{dist_info}/RECORD"
+    package = (
+        f'BACKEND = "{backend}"\n'
+        f'PLUGIN_VERSION = "{version}"\n'
+        f"ACTION_SCALE = {action_scale}\n\n"
+        "def transform_action(action):\n"
+        "    return action * ACTION_SCALE\n"
+    )
+    metadata = f"Metadata-Version: 2.1\nName: carrot-sim-plugin\nVersion: {version}\n"
+    wheel_metadata = (
+        "Wheel-Version: 1.0\n"
+        "Generator: carrot-sidecar-test\n"
+        "Root-Is-Purelib: true\n"
+        "Tag: py3-none-any\n"
+    )
+    record = "".join(
+        f"{path},,\n" for path in (package_path, metadata_path, wheel_path, record_path)
+    )
+    with zipfile.ZipFile(wheel, "w") as archive:
+        archive.writestr(package_path, package)
+        archive.writestr(metadata_path, metadata)
+        archive.writestr(wheel_path, wheel_metadata)
+        archive.writestr(record_path, record)
+    return wheel
 
 
-def _create_venv(path: Path) -> str:
-    venv.EnvBuilder(with_pip=False).create(path)
-    return str(path / "bin" / "python")
+def _create_venv(path: Path, wheel: Path) -> str:
+    venv.EnvBuilder(with_pip=True).create(path)
+    python = str(path / "bin" / "python")
+    subprocess.run(
+        [python, "-m", "pip", "install", "--no-index", str(wheel)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return python
 
 
 def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None:
     libero_venv = tmp_path / "libero-venv"
     maniskill_venv = tmp_path / "maniskill-venv"
-    libero_python = _create_venv(libero_venv)
-    maniskill_python = _create_venv(maniskill_venv)
+    libero_wheel = _build_plugin_wheel(
+        tmp_path,
+        version="1.0.0",
+        backend="libero",
+        action_scale=1,
+    )
+    maniskill_wheel = _build_plugin_wheel(
+        tmp_path,
+        version="2.0.0",
+        backend="maniskill",
+        action_scale=2,
+    )
+    libero_python = _create_venv(libero_venv, libero_wheel)
+    maniskill_python = _create_venv(maniskill_venv, maniskill_wheel)
     source_root = Path(__file__).resolve().parents[1] / "src"
 
     # Ray workers do not inherit pytest's in-process ``pythonpath`` setting.
@@ -131,16 +171,18 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
         cluster.reserve("simulators", PlacementSpec(bundles_per_node=2))
         libero = cluster.launch(
             "libero",
-            SimulatorSupervisor,
+            SupervisedSimulator,
             libero_python,
-            "libero",
+            _SIDECAR_PROGRAM,
+            {"CARROT_SIM_BACKEND": "libero"},
             placement=RolePlacement(pool="simulators", bundle_ranks=(0,)),
         )
         maniskill = cluster.launch(
             "maniskill",
-            SimulatorSupervisor,
+            SupervisedSimulator,
             maniskill_python,
-            "maniskill",
+            _SIDECAR_PROGRAM,
+            {"CARROT_SIM_BACKEND": "maniskill"},
             placement=RolePlacement(pool="simulators", bundle_ranks=(1,)),
         )
 
@@ -151,8 +193,10 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
         assert maniskill.call("supervisor_executable").wait() == [sys.executable]
         assert libero_health["backend"] == "libero"
         assert maniskill_health["backend"] == "maniskill"
-        assert libero_health["protocol_version"] == 1
-        assert maniskill_health["protocol_version"] == 1
+        assert libero_health["plugin_version"] == "1.0.0"
+        assert maniskill_health["plugin_version"] == "2.0.0"
+        assert libero_health["protocol_version"] == PROTOCOL_VERSION
+        assert maniskill_health["protocol_version"] == PROTOCOL_VERSION
         assert Path(libero_health["prefix"]).resolve() == libero_venv.resolve()
         assert Path(maniskill_health["prefix"]).resolve() == maniskill_venv.resolve()
         assert libero_health["prefix"] != maniskill_health["prefix"]
@@ -169,9 +213,47 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
         ]
         assert maniskill.call("step", -2).wait() == [
             {
-                "observation": {"state": 18},
-                "reward": 18.0,
+                "observation": {"state": 16},
+                "reward": 16.0,
                 "terminated": False,
                 "truncated": False,
             }
         ]
+
+
+@pytest.mark.skipif(
+    not os.environ.get("CARROT_TEST_MUJOCO_331_PYTHON")
+    or not os.environ.get("CARROT_TEST_MUJOCO_312_PYTHON"),
+    reason="set paths to prebuilt MuJoCo 3.3.1 and 3.12.0 venv interpreters",
+)
+def test_ray_supervises_two_real_mujoco_versions() -> None:
+    mujoco_331_python = os.environ["CARROT_TEST_MUJOCO_331_PYTHON"]
+    mujoco_312_python = os.environ["CARROT_TEST_MUJOCO_312_PYTHON"]
+    source_root = Path(__file__).resolve().parents[1] / "src"
+
+    with Cluster(env_vars={"PYTHONPATH": str(source_root)}) as cluster:
+        cluster.reserve("mujoco-versions", PlacementSpec(bundles_per_node=2))
+        old = cluster.launch(
+            "mujoco-331",
+            SimulatorSupervisor,
+            mujoco_331_python,
+            _MUJOCO_SIDECAR_PROGRAM,
+            placement=RolePlacement(pool="mujoco-versions", bundle_ranks=(0,)),
+        )
+        new = cluster.launch(
+            "mujoco-312",
+            SimulatorSupervisor,
+            mujoco_312_python,
+            _MUJOCO_SIDECAR_PROGRAM,
+            placement=RolePlacement(pool="mujoco-versions", bundle_ranks=(1,)),
+        )
+
+        old_health = old.call("health").wait()[0]
+        new_health = new.call("health").wait()[0]
+        assert old_health["mujoco_version"] == "3.3.1"
+        assert new_health["mujoco_version"] == "3.12.0"
+        assert old_health["prefix"] != new_health["prefix"]
+        assert old.call("reset", 0).wait() == [{"time": 0.0, "nq": 1}]
+        assert new.call("reset", 0).wait() == [{"time": 0.0, "nq": 1}]
+        assert old.call("step", 0).wait()[0]["time"] > 0
+        assert new.call("step", 0).wait()[0]["time"] > 0

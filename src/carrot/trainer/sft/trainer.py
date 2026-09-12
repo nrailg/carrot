@@ -48,6 +48,28 @@ def _scheduler(
     return torch.optim.lr_scheduler.LambdaLR(optimizer, scale)
 
 
+def _init_wandb(config: SFTConfig) -> Any:
+    try:
+        import wandb
+    except ImportError as error:
+        raise ImportError("wandb logging requires the wandb package") from error
+    return wandb.init(
+        project=config.wandb.project,
+        entity=config.wandb.entity,
+        name=config.wandb.name,
+        settings=wandb.Settings(console="off"),
+        config={
+            "model": config.model.path,
+            "dataset": config.dataset.repo_id,
+            "steps": config.steps,
+            "batch_size": config.batch_size,
+            "num_gpus": config.num_gpus,
+            "num_nodes": config.num_nodes,
+            "learning_rate": config.optimizer.learning_rate,
+        },
+    )
+
+
 class SFTTrainer:
     def __init__(
         self,
@@ -69,12 +91,29 @@ class SFTTrainer:
         self.sampler = sampler
         self.step = 0
         self.epoch = 0
+        self._wandb = None
 
     def train(self) -> dict[str, float | int]:
         self.model.train()
-        iterator = iter(self.dataloader)
         mean_loss = float("nan")
         self.optimizer.zero_grad(set_to_none=True)
+        if self._is_main() and self.config.wandb.enabled:
+            self._wandb = _init_wandb(self.config)
+        if self._is_main():
+            print(
+                f"starting SFT loop steps={self.config.steps} "
+                f"batch_size={self.config.batch_size} world={dist.get_world_size() if dist.is_initialized() else 1}",
+                flush=True,
+            )
+        iterator = iter(self.dataloader)
+        try:
+            return self._run_loop(iterator, mean_loss)
+        finally:
+            if self._wandb is not None:
+                self._wandb.finish()
+                self._wandb = None
+
+    def _run_loop(self, iterator, mean_loss: float) -> dict[str, float | int]:
         while self.step < self.config.steps:
             accumulated_loss = 0.0
             for micro_step in range(self.config.gradient_accumulation_steps):
@@ -90,13 +129,28 @@ class SFTTrainer:
                 set_sync = getattr(self.model, "set_requires_gradient_sync", None)
                 if callable(set_sync):
                     set_sync(sync)
+                if self._is_main() and self.step == 0 and micro_step == 0:
+                    print("first batch fetched, running forward", flush=True)
                 batch = self.preprocessor(batch)
                 loss, _ = self.model(batch)
                 if not torch.isfinite(loss):
                     raise FloatingPointError(
                         f"non-finite loss at step {self.step}: {loss.item()}"
                     )
-                (loss / self.config.gradient_accumulation_steps).backward()
+                scaled = loss / self.config.gradient_accumulation_steps
+                compute_dtype = {
+                    "bfloat16": torch.bfloat16,
+                    "float32": torch.float32,
+                }[self.config.fsdp.param_dtype]
+                if scaled.dtype != compute_dtype:
+                    scaled = scaled.to(compute_dtype)
+                if self._is_main() and self.step == 0 and micro_step == 0:
+                    print(
+                        f"first forward ok loss={loss.detach().float().item():.6f} "
+                        f"dtype={loss.dtype}",
+                        flush=True,
+                    )
+                scaled.backward()
                 accumulated_loss += loss.detach().float().item()
 
             if self.config.optimizer.max_grad_norm:
@@ -117,12 +171,17 @@ class SFTTrainer:
                 value = torch.tensor(mean_loss, device=torch.cuda.current_device())
                 dist.all_reduce(value)
                 mean_loss = value.item() / dist.get_world_size()
+            learning_rate = self.optimizer.param_groups[0]["lr"]
             if self._is_main() and self.step % self.config.log_freq == 0:
                 print(
-                    f"step={self.step} loss={mean_loss:.6f} "
-                    f"lr={self.optimizer.param_groups[0]['lr']:.3e}",
+                    f"step={self.step} loss={mean_loss:.6f} lr={learning_rate:.3e}",
                     flush=True,
                 )
+                if self._wandb is not None:
+                    self._wandb.log(
+                        {"train/loss": mean_loss, "train/lr": learning_rate},
+                        step=self.step,
+                    )
             if self.config.save_freq and self.step % self.config.save_freq == 0:
                 save_checkpoint(
                     Path(self.config.output_dir) / "checkpoints" / f"step-{self.step:08d}",
@@ -168,6 +227,7 @@ class SFTTrainerWorker(Worker):
             dataset_root=self.config.dataset.root,
             device=f"cuda:{self.local_rank}",
             video_backend=self.config.dataset.video_backend,
+            rename_map=self.config.dataset.rename_map or None,
         )
         model = components.policy
         parallelize_model(model, SmolVLAParallelizer(), self.config.fsdp)
@@ -224,5 +284,7 @@ class SFTTrainerWorker(Worker):
         return self.trainer.train()
 
     def teardown(self) -> None:
+        self.trainer = None
         if dist.is_initialized():
+            dist.barrier()
             dist.destroy_process_group()

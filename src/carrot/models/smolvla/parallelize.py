@@ -52,19 +52,15 @@ class SmolVLAParallelizer(ModelParallelizer):
                 attention = _module(layer, "self_attn")
                 units.extend(
                     [
-                        _module(layer, "input_layernorm"),
                         _module(attention, "q_proj"),
                         _module(attention, "k_proj"),
                         _module(attention, "v_proj"),
                         _module(attention, "o_proj"),
-                        _module(layer, "post_attention_layernorm"),
                         _module(layer, "mlp"),
                     ]
                 )
         units.extend(
             [
-                _module(text_model, "norm"),
-                _module(expert_model, "norm"),
                 _module(flow_model, "state_proj"),
                 _module(flow_model, "action_in_proj"),
                 _module(flow_model, "action_out_proj"),

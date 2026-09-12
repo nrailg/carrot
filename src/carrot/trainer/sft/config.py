@@ -34,12 +34,16 @@ class DatasetConfig:
     root: str | None = None
     video_backend: str | None = None
     num_workers: int = 4
+    rename_map: dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "rename_map", dict(self.rename_map))
         if not self.repo_id:
             raise ValueError("dataset.repo_id cannot be empty")
         if self.num_workers < 0:
             raise ValueError("dataset.num_workers cannot be negative")
+        if any(not key or not value for key, value in self.rename_map.items()):
+            raise ValueError("dataset.rename_map keys and values cannot be empty")
 
 
 @dataclass(frozen=True)
@@ -76,11 +80,27 @@ class OptimizerConfig:
 
 
 @dataclass(frozen=True)
+class WandBConfig:
+    enabled: bool = False
+    project: str = "carrot-sft"
+    entity: str = "1001"
+    name: str | None = None
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "entity", str(self.entity))
+        if self.enabled and not self.project:
+            raise ValueError("wandb.project cannot be empty when wandb is enabled")
+        if self.enabled and not self.entity:
+            raise ValueError("wandb.entity cannot be empty when wandb is enabled")
+
+
+@dataclass(frozen=True)
 class SFTConfig:
     model: ModelConfig = field(default_factory=ModelConfig)
     dataset: DatasetConfig = field(default_factory=DatasetConfig)
     optimizer: OptimizerConfig = field(default_factory=OptimizerConfig)
     fsdp: FSDPConfig = field(default_factory=FSDPConfig)
+    wandb: WandBConfig = field(default_factory=WandBConfig)
     output_dir: str = "outputs/smolvla_robotwin_sft"
     steps: int = 20_000
     batch_size: int = 4
@@ -89,16 +109,30 @@ class SFTConfig:
     save_freq: int = 1_000
     seed: int = 1_000
     num_gpus: int = 1
+    num_nodes: int = 1
 
     def __post_init__(self) -> None:
-        positive = ("steps", "batch_size", "gradient_accumulation_steps", "log_freq", "num_gpus")
+        positive = (
+            "steps",
+            "batch_size",
+            "gradient_accumulation_steps",
+            "log_freq",
+            "num_gpus",
+            "num_nodes",
+        )
         for name in positive:
             if getattr(self, name) < 1:
                 raise ValueError(f"{name} must be positive")
+        if self.num_gpus % self.num_nodes != 0:
+            raise ValueError("num_gpus must be divisible by num_nodes")
         if self.save_freq < 0:
             raise ValueError("save_freq cannot be negative")
         if not self.output_dir:
             raise ValueError("output_dir cannot be empty")
+
+    @property
+    def gpus_per_node(self) -> int:
+        return self.num_gpus // self.num_nodes
 
     @classmethod
     def from_dict(cls, values: dict[str, Any]) -> SFTConfig:
@@ -107,6 +141,7 @@ class SFTConfig:
         values["dataset"] = _from_dict(DatasetConfig, values.get("dataset", {}))
         values["optimizer"] = _from_dict(OptimizerConfig, values.get("optimizer", {}))
         values["fsdp"] = _from_dict(FSDPConfig, values.get("fsdp", {}))
+        values["wandb"] = _from_dict(WandBConfig, values.get("wandb", {}))
         return _from_dict(cls, values)
 
     @classmethod

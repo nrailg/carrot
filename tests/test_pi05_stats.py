@@ -1,8 +1,8 @@
 import numpy as np
 import pytest
 
-from carrot.data.lerobot import robotwin_preprocess
 from carrot.cli.compute_pi05_stats import Statistics, _update_episode
+from carrot.data.lerobot import robotwin_preprocess
 
 
 def test_stats_use_future_action_windows_relative_to_current_state() -> None:

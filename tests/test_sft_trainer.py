@@ -55,7 +55,6 @@ def test_worker_teardown_does_not_wait_for_failed_peers(
 
 
 def test_pi05_sft_runs_two_steps_on_ray_gpu(tmp_path: Path) -> None:
-    """Run two real PI0.5 SFT steps through a Ray GPU worker."""
     model_path = os.environ.get(
         "CARROT_PI05_MODEL_PATH",
         "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base",

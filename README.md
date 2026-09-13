@@ -100,7 +100,7 @@ The LeRobot dataset must provide these fields per frame:
 - `task`: the language instruction. LeRobot also supplies `action_is_pad` for
   future steps beyond the end of an episode.
 
-`dataset.factory` is an import path returning `carrot.data.Pi05SFTDatasetSpec`; its
+`dataset.factory` is an import path returning `carrot.data.SFTDatasetSpec`; its
 `factory_kwargs` are passed through unchanged. `dataset.preprocess` is an
 optional import path for a function taking `(state, actions)` and returning the
 transformed pair. The RobotWin defaults are

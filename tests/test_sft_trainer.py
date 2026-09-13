@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 import pytest
@@ -5,6 +6,7 @@ import torch
 from torch import nn
 
 from carrot.trainer.sft.config import SFTConfig
+from carrot.trainer.sft.trainer import SFTTrainer
 from carrot.trainer.sft.worker import SFTTrainWorker, _scheduler
 
 
@@ -50,3 +52,62 @@ def test_worker_teardown_does_not_wait_for_failed_peers(
     worker.teardown()
 
     assert destroyed == [True]
+
+
+@pytest.mark.skipif(
+    not os.environ.get("CARROT_RUN_PI05_GPU_SFT"),
+    reason="set CARROT_RUN_PI05_GPU_SFT=1 to run the real PI0.5 GPU smoke",
+)
+def test_pi05_sft_runs_two_steps_on_ray_gpu(tmp_path: Path) -> None:
+    """Run two real PI0.5 SFT steps through a Ray GPU worker."""
+    if not torch.cuda.is_available():
+        pytest.skip("a CUDA device is required")
+
+    model_path = os.environ.get(
+        "CARROT_PI05_MODEL_PATH",
+        "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base",
+    )
+    dataset_root = os.environ.get(
+        "CARROT_ROBOTWIN_ROOT",
+        "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified",
+    )
+    if not Path(model_path).is_dir() or not Path(dataset_root).is_dir():
+        pytest.skip("PI0.5 model and RoboTwin dataset paths are not available")
+
+    config = SFTConfig.from_dict(
+        {
+            "model": {"path": model_path, "tokenizer_path": model_path},
+            "dataset": {
+                "repo_id": "lerobot/robotwin_unified",
+                "root": dataset_root,
+                "num_workers": 0,
+                "adapt_aloha": True,
+                "delta_actions": True,
+            },
+            "optimizer": {
+                "learning_rate": 2.5e-5,
+                "warmup_steps": 0,
+                "decay_steps": 2,
+                "decay_learning_rate": 2.5e-6,
+            },
+            "fsdp": {
+                "enabled": True,
+                "param_dtype": "bfloat16",
+                "reduce_dtype": "float32",
+            },
+            "output_dir": str(tmp_path / "pi05-sft"),
+            "steps": 2,
+            "micro_batch_size": 1,
+            "global_batch_size": 1,
+            "log_freq": 1,
+            "save_freq": 0,
+            "dp_size": 1,
+            "num_nodes": 1,
+        }
+    )
+
+    results = SFTTrainer(config).run()
+
+    assert len(results) == 1
+    assert results[0]["step"] == 2
+    assert torch.isfinite(torch.tensor(results[0]["loss"]))

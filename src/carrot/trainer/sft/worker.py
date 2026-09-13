@@ -61,7 +61,9 @@ def _init_wandb(config: SFTConfig) -> Any:
             "model": config.model.path,
             "dataset": config.dataset.repo_id,
             "steps": config.steps,
-            "batch_size": config.batch_size,
+            "micro_batch_size": config.micro_batch_size,
+            "global_batch_size": config.global_batch_size,
+            "gas": config.gas,
             "num_gpus": config.num_gpus,
             "num_nodes": config.num_nodes,
             "learning_rate": config.optimizer.learning_rate,
@@ -104,10 +106,12 @@ class SFTTrainWorkerImpl:
             world_size = dist.get_world_size() if dist.is_initialized() else 1
             print(
                 f"starting SFT loop steps={self.config.steps} "
-                f"batch_size={self.config.batch_size} world={world_size}",
+                f"micro_batch_size={self.config.micro_batch_size} "
+                f"global_batch_size={self.config.global_batch_size} "
+                f"gas={self.config.gas} world={world_size}",
                 flush=True,
             )
-        consumed_batches = self.step * self.config.gradient_accumulation_steps
+        consumed_batches = self.step * self.config.gas
         self.epoch, batch_offset = divmod(consumed_batches, len(self.dataloader))
         if self.sampler is not None:
             self.sampler.set_epoch(self.epoch)
@@ -124,7 +128,7 @@ class SFTTrainWorkerImpl:
     def _train_loop(self, iterator, mean_loss: float) -> dict[str, float | int]:
         while self.step < self.config.steps:
             accumulated_loss = 0.0
-            for micro_step in range(self.config.gradient_accumulation_steps):
+            for micro_step in range(self.config.gas):
                 try:
                     batch = next(iterator)
                 except StopIteration:
@@ -141,7 +145,7 @@ class SFTTrainWorkerImpl:
                     raise FloatingPointError(
                         f"non-finite loss at step {self.step}: {loss.item()}"
                     )
-                scaled = loss / self.config.gradient_accumulation_steps
+                scaled = loss / self.config.gas
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print(
                         f"first forward ok loss={loss.detach().float().item():.6f} "
@@ -162,7 +166,7 @@ class SFTTrainWorkerImpl:
             self.optimizer.zero_grad(set_to_none=True)
             self.step += 1
 
-            mean_loss = accumulated_loss / self.config.gradient_accumulation_steps
+            mean_loss = accumulated_loss / self.config.gas
             if dist.is_initialized():
                 value = torch.tensor(mean_loss, device=torch.cuda.current_device())
                 dist.all_reduce(value)
@@ -261,7 +265,7 @@ class SFTTrainWorker(Worker):
         )
         dataloader = DataLoader(
             components.dataset,
-            batch_size=self.config.batch_size,
+            batch_size=self.config.micro_batch_size,
             sampler=sampler,
             num_workers=self.config.dataset.num_workers,
             pin_memory=True,

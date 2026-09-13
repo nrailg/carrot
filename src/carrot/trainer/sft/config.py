@@ -113,8 +113,8 @@ class SFTConfig:
     wandb: WandBConfig = field(default_factory=WandBConfig)
     output_dir: str = "outputs/pi05_robotwin_sft"
     steps: int = 20_000
-    batch_size: int = 4
-    gradient_accumulation_steps: int = 1
+    micro_batch_size: int = 1
+    global_batch_size: int = 1
     log_freq: int = 10
     save_freq: int = 1_000
     seed: int = 1_000
@@ -124,10 +124,10 @@ class SFTConfig:
     def __post_init__(self) -> None:
         if self.steps < 1:
             raise ValueError("steps must be positive")
-        if self.batch_size < 1:
-            raise ValueError("batch_size must be positive")
-        if self.gradient_accumulation_steps < 1:
-            raise ValueError("gradient_accumulation_steps must be positive")
+        if self.micro_batch_size < 1:
+            raise ValueError("micro_batch_size must be positive")
+        if self.global_batch_size < 1:
+            raise ValueError("global_batch_size must be positive")
         if self.log_freq < 1:
             raise ValueError("log_freq must be positive")
         if self.num_gpus < 1:
@@ -136,6 +136,10 @@ class SFTConfig:
             raise ValueError("num_nodes must be positive")
         if self.num_gpus % self.num_nodes != 0:
             raise ValueError("num_gpus must be divisible by num_nodes")
+        if self.global_batch_size % (self.micro_batch_size * self.num_gpus) != 0:
+            raise ValueError(
+                "global_batch_size must be divisible by micro_batch_size * num_gpus"
+            )
         if self.save_freq < 0:
             raise ValueError("save_freq cannot be negative")
         if not self.output_dir:
@@ -145,9 +149,19 @@ class SFTConfig:
     def gpus_per_node(self) -> int:
         return self.num_gpus // self.num_nodes
 
+    @property
+    def gas(self) -> int:
+        """``global_batch_size / (micro_batch_size * num_gpus)``."""
+        return self.global_batch_size // (self.micro_batch_size * self.num_gpus)
+
     @classmethod
     def from_dict(cls, values: dict[str, Any]) -> SFTConfig:
         values = dict(values)
+        if "batch_size" in values or "gradient_accumulation_steps" in values:
+            raise ValueError(
+                "SFTConfig no longer accepts batch_size or gradient_accumulation_steps; "
+                "set micro_batch_size and global_batch_size"
+            )
         values["model"] = _from_dict(ModelConfig, values.get("model", {}))
         values["dataset"] = _from_dict(DatasetConfig, values.get("dataset", {}))
         values["optimizer"] = _from_dict(OptimizerConfig, values.get("optimizer", {}))

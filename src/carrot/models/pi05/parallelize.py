@@ -13,8 +13,7 @@ class Pi05Parallelizer(ModelParallelizer):
     """Wrap only modules reached through PI0.5's layer ``__call__`` path."""
 
     def fsdp_units(self, model: nn.Module) -> Sequence[nn.Module]:
-        policy = model.policy
-        backbone = policy.paligemma_with_expert
+        backbone = model.paligemma_with_expert
         vision_layers = backbone.vision_tower.encoder.layers
         decoder_layers = backbone.layers
         return tuple([*vision_layers, *decoder_layers])

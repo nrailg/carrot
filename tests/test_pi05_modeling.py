@@ -5,7 +5,7 @@ from typing import Any
 import torch
 from torch import nn
 
-from carrot.models.pi05.modeling import Pi05SFTPolicy
+from carrot.models.pi05.modeling import Pi05SFTLossFn
 
 
 class _Tokenizer:
@@ -37,14 +37,14 @@ def _stats() -> dict[str, list[float]]:
 
 def test_pi05_batch_contract_and_padding_mask() -> None:
     native = _Policy()
-    policy = Pi05SFTPolicy(
-        native,
+    loss_fn = Pi05SFTLossFn(
         _Tokenizer(),
         state_stats=_stats(),
         action_stats=_stats(),
         image_keys=("high", "left", "right"),
         preprocess=None,
     )
+    assert not isinstance(loss_fn, nn.Module)
     batch = {
         "high": torch.ones(2, 3, 480, 640),
         "left": torch.rand(2, 3, 16, 16),
@@ -55,7 +55,7 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
         "task": ["pick bottle", "place cup"],
     }
 
-    loss, metrics = policy(batch)
+    loss, metrics = loss_fn(native, batch)
     images, masks, tokens, token_masks, state, noisy_actions, time = native.seen
 
     assert loss.ndim == 0

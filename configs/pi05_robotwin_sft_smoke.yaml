@@ -32,5 +32,5 @@ global_batch_size: 1
 log_freq: 1
 save_freq: 1
 output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/carrot/outputs/pi05_robotwin_smoke
-num_gpus: 1
+dp_size: 1
 num_nodes: 1

@@ -30,5 +30,5 @@ steps: 30000
 micro_batch_size: 4
 global_batch_size: 32
 output_dir: outputs/pi05_robotwin_sft
-num_gpus: 8
+dp_size: 8
 num_nodes: 1

@@ -118,7 +118,7 @@ class SFTConfig:
     log_freq: int = 10
     save_freq: int = 1_000
     seed: int = 1_000
-    num_gpus: int = 1
+    dp_size: int = 1
     num_nodes: int = 1
 
     def __post_init__(self) -> None:
@@ -130,15 +130,15 @@ class SFTConfig:
             raise ValueError("global_batch_size must be positive")
         if self.log_freq < 1:
             raise ValueError("log_freq must be positive")
-        if self.num_gpus < 1:
-            raise ValueError("num_gpus must be positive")
+        if self.dp_size < 1:
+            raise ValueError("dp_size must be positive")
         if self.num_nodes < 1:
             raise ValueError("num_nodes must be positive")
-        if self.num_gpus % self.num_nodes != 0:
-            raise ValueError("num_gpus must be divisible by num_nodes")
-        if self.global_batch_size % (self.micro_batch_size * self.num_gpus) != 0:
+        if self.dp_size % self.num_nodes != 0:
+            raise ValueError("dp_size must be divisible by num_nodes")
+        if self.global_batch_size % (self.micro_batch_size * self.dp_size) != 0:
             raise ValueError(
-                "global_batch_size must be divisible by micro_batch_size * num_gpus"
+                "global_batch_size must be divisible by micro_batch_size * dp_size"
             )
         if self.save_freq < 0:
             raise ValueError("save_freq cannot be negative")
@@ -147,21 +147,16 @@ class SFTConfig:
 
     @property
     def gpus_per_node(self) -> int:
-        return self.num_gpus // self.num_nodes
+        return self.dp_size // self.num_nodes
 
     @property
     def gas(self) -> int:
-        """``global_batch_size / (micro_batch_size * num_gpus)``."""
-        return self.global_batch_size // (self.micro_batch_size * self.num_gpus)
+        """``global_batch_size / (micro_batch_size * dp_size)``."""
+        return self.global_batch_size // (self.micro_batch_size * self.dp_size)
 
     @classmethod
     def from_dict(cls, values: dict[str, Any]) -> SFTConfig:
         values = dict(values)
-        if "batch_size" in values or "gradient_accumulation_steps" in values:
-            raise ValueError(
-                "SFTConfig no longer accepts batch_size or gradient_accumulation_steps; "
-                "set micro_batch_size and global_batch_size"
-            )
         values["model"] = _from_dict(ModelConfig, values.get("model", {}))
         values["dataset"] = _from_dict(DatasetConfig, values.get("dataset", {}))
         values["optimizer"] = _from_dict(OptimizerConfig, values.get("optimizer", {}))

@@ -11,7 +11,7 @@ from torch import nn
 from torch.distributed.device_mesh import DeviceMesh
 from torch.distributed.fsdp import FSDPModule, MixedPrecisionPolicy, fully_shard
 
-from carrot.modeling.config import FSDPConfig
+from carrot.parallel.config import FSDPConfig
 
 
 class ModelParallelizer(ABC):

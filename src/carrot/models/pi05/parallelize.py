@@ -6,7 +6,7 @@ from collections.abc import Sequence
 
 from torch import nn
 
-from carrot.modeling.parallelizer import ModelParallelizer
+from carrot.parallel.parallelizer import ModelParallelizer
 
 
 class Pi05Parallelizer(ModelParallelizer):

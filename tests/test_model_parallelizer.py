@@ -2,7 +2,7 @@ import pytest
 import torch
 from torch import nn
 
-from carrot.modeling import FSDPConfig, ModelParallelizer, parallelize_model
+from carrot.parallel import FSDPConfig, ModelParallelizer, parallelize_model
 from carrot.models.pi05.parallelize import Pi05Parallelizer
 
 
@@ -40,9 +40,9 @@ def test_fsdp_requires_initialized_process_group() -> None:
 
 def test_fsdp_uses_fp32_master_and_configured_mixed_precision(monkeypatch) -> None:
     calls = []
-    monkeypatch.setattr("carrot.modeling.parallelizer.dist.is_initialized", lambda: True)
+    monkeypatch.setattr("carrot.parallel.parallelizer.dist.is_initialized", lambda: True)
     monkeypatch.setattr(
-        "carrot.modeling.parallelizer.fully_shard",
+        "carrot.parallel.parallelizer.fully_shard",
         lambda module, **kwargs: calls.append((module, kwargs)),
     )
     model = FakePolicy().to(dtype=torch.bfloat16)

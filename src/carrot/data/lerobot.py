@@ -43,7 +43,7 @@ def build_dataset(
 
     Returns
     -------
-    Pi05SFTDatasetSpec
+    SFTDatasetSpec
     """
     dataset_root = Path(root) if root else None
     metadata = LeRobotDatasetMetadata(repo_id, root=dataset_root)

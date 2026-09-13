@@ -194,7 +194,7 @@ def build_pi05(
     """Load PI0.5 and bind a configured SFT dataset integration."""
     dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)
     if not isinstance(dataset, SFTDatasetSpec):
-        raise TypeError(f"dataset factory {dataset_factory!r} must return Pi05SFTDatasetSpec")
+        raise TypeError(f"dataset factory {dataset_factory!r} must return SFTDatasetSpec")
     checkpoint_stats = Path(model_path) / "norm_stats.json"
     if norm_stats_path is not None:
         with Path(norm_stats_path).open() as stream:

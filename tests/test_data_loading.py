@@ -2,8 +2,8 @@ from __future__ import annotations
 
 import pytest
 
-from carrot.data.loading import load_callable
 from carrot.data.lerobot import robotwin_preprocess
+from carrot.data.loading import load_callable
 
 
 def test_load_callable_resolves_default_robotwin_preprocess() -> None:

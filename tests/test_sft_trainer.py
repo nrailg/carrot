@@ -68,11 +68,11 @@ def test_pi05_sft_runs_two_steps_on_ray_gpu(tmp_path: Path) -> None:
         {
             "model": {"path": model_path, "tokenizer_path": model_path},
             "dataset": {
-                "repo_id": "lerobot/robotwin_unified",
-                "root": dataset_root,
+                "factory_kwargs": {
+                    "repo_id": "lerobot/robotwin_unified",
+                    "root": dataset_root,
+                },
                 "num_workers": 0,
-                "adapt_aloha": True,
-                "delta_actions": True,
             },
             "optimizer": {
                 "learning_rate": 2.5e-5,

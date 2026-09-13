@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from collections.abc import Callable
 import json
 import math
 from pathlib import Path
@@ -10,18 +11,9 @@ from pathlib import Path
 import numpy as np
 from datasets import load_dataset
 
+from carrot.data.loading import load_callable
 
-def _adapt_aloha(state: np.ndarray, action: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    flip = np.asarray([1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1], dtype=np.float32)
-    state = state.copy()
-    action = action.copy()
-    state[..., :14] *= flip
-    action[..., :14] *= flip
-    linear = 0.01844 + state[..., [6, 13]] * (0.05800 - 0.01844)
-    radians = np.arcsin(np.clip((0.022**2 + linear**2 - 0.036**2) / (2 * 0.022 * linear), -1, 1))
-    state[..., [6, 13]] = (radians - 0.5476) / (1.6296 - 0.5476)
-    action[..., [6, 13]] = (-0.6213 + action[..., [6, 13]] * (1.4910 + 0.6213)) - 0.5476
-    return state, action
+Preprocess = Callable[[np.ndarray, np.ndarray], tuple[np.ndarray, np.ndarray]]
 
 
 def _update_episode(
@@ -29,13 +21,19 @@ def _update_episode(
     action: np.ndarray,
     *,
     action_horizon: int,
-    state_stats: Statistics,
-    action_stats: Statistics,
-) -> None:
-    """Apply the same Aloha + future-action transforms as the training dataset."""
-    state, action = _adapt_aloha(state, action)
-    state_stats.update(state)
-    delta_mask = np.asarray([True] * 6 + [False] + [True] * 6 + [False])
+    state_stats: Statistics | None,
+    action_stats: Statistics | None,
+    preprocess: Preprocess | None,
+    state_sample_stride: int = 1,
+    action_sample_stride: int = 1,
+) -> tuple[Statistics, Statistics]:
+    """Apply the configured preprocessing to episode-bounded action windows."""
+    state_for_stats = state
+    if preprocess is not None:
+        state_for_stats, _ = preprocess(state, action[:, None])
+    if state_stats is None:
+        state_stats = Statistics(state_for_stats.shape[-1], sample_stride=state_sample_stride)
+    state_stats.update(state_for_stats)
     offsets = np.arange(action_horizon)
     for start in range(0, len(state), 4096):
         stop = min(start + 4096, len(state))
@@ -44,8 +42,14 @@ def _update_episode(
             len(action) - 1,
         )
         action_windows = action[indices].copy()
-        action_windows[..., delta_mask] -= state[start:stop, None, delta_mask]
+        if preprocess is not None:
+            _, action_windows = preprocess(state[start:stop], action_windows)
+        if action_stats is None:
+            action_stats = Statistics(action_windows.shape[-1], sample_stride=action_sample_stride)
         action_stats.update(action_windows)
+    if action_stats is None:
+        raise ValueError("episode does not contain actions")
+    return state_stats, action_stats
 
 
 class Statistics:
@@ -91,6 +95,7 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=8192)
     parser.add_argument("--action-horizon", type=int, default=50)
     parser.add_argument("--quantile-samples", type=int, default=1_000_000)
+    parser.add_argument("--preprocess", default="carrot.data.lerobot.robotwin_preprocess")
     args = parser.parse_args()
 
     root = Path(args.root)
@@ -103,21 +108,26 @@ def main() -> None:
     )
     files = [str(path) for path in sorted((root / "data").rglob("*.parquet"))]
     rows = load_dataset("parquet", data_files=files, split="train", streaming=True)
-    state_stats = Statistics(14, sample_stride=state_stride)
-    action_stats = Statistics(14, sample_stride=action_stride)
+    state_stats: Statistics | None = None
+    action_stats: Statistics | None = None
+    preprocess = load_callable(args.preprocess) if args.preprocess else None
     current_episode = None
     state_chunks: list[np.ndarray] = []
     action_chunks: list[np.ndarray] = []
 
     def finish_episode() -> None:
+        nonlocal state_stats, action_stats
         if not state_chunks:
             return
-        _update_episode(
+        state_stats, action_stats = _update_episode(
             np.concatenate(state_chunks),
             np.concatenate(action_chunks),
             action_horizon=args.action_horizon,
             state_stats=state_stats,
             action_stats=action_stats,
+            preprocess=preprocess,
+            state_sample_stride=state_stride,
+            action_sample_stride=action_stride,
         )
         state_chunks.clear()
         action_chunks.clear()
@@ -136,6 +146,8 @@ def main() -> None:
             action_chunks.append(action[start:stop])
 
     finish_episode()
+    if state_stats is None or action_stats is None:
+        raise ValueError("dataset does not contain any episodes")
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

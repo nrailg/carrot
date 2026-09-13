@@ -59,7 +59,8 @@ def _init_wandb(config: SFTConfig) -> Any:
         settings=wandb.Settings(console="off"),
         config={
             "model": config.model.path,
-            "dataset": config.dataset.repo_id,
+            "dataset_factory": config.dataset.factory,
+            "dataset_factory_kwargs": config.dataset.factory_kwargs,
             "steps": config.steps,
             "micro_batch_size": config.micro_batch_size,
             "global_batch_size": config.global_batch_size,
@@ -229,14 +230,11 @@ class SFTTrainWorker(Worker):
         components = build_pi05(
             model_path=self.config.model.path,
             tokenizer_path=self.config.model.tokenizer_path,
-            dataset_repo_id=self.config.dataset.repo_id,
-            dataset_root=self.config.dataset.root,
-            image_keys=self.config.dataset.image_keys,
+            dataset_factory=self.config.dataset.factory,
+            dataset_factory_kwargs=self.config.dataset.factory_kwargs,
             device=f"cuda:{self.local_rank}",
-            video_backend=self.config.dataset.video_backend,
             norm_stats_path=self.config.dataset.norm_stats_path,
-            adapt_aloha=self.config.dataset.adapt_aloha,
-            delta_actions=self.config.dataset.delta_actions,
+            preprocess=self.config.dataset.preprocess,
         )
         model = components.policy
         parallelize_model(model, Pi05Parallelizer(), self.config.fsdp)

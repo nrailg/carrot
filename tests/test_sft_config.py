@@ -20,7 +20,7 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
         tmp_path,
         {
             "model": {"path": "model"},
-            "dataset": {"repo_id": "dataset", "num_workers": 0},
+            "dataset": {"factory_kwargs": {"repo_id": "dataset"}, "num_workers": 0},
             "optimizer": {"learning_rate": 2e-4, "betas": [0.8, 0.9]},
             "fsdp": {"param_dtype": "float32"},
             "steps": 2,
@@ -30,7 +30,8 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
     assert config.model.path == "model"
     assert config.model.tokenizer_path == "tokenizer"
     assert config.dataset.num_workers == 0
-    assert len(config.dataset.image_keys) == 3
+    assert config.dataset.factory == "carrot.data.lerobot.build_dataset"
+    assert config.dataset.factory_kwargs["repo_id"] == "dataset"
     assert config.optimizer.betas == (0.8, 0.9)
     assert config.optimizer.weight_decay == 1e-10
     assert config.optimizer.max_grad_norm == 1.0
@@ -79,21 +80,23 @@ def test_sft_config_rejects_unknown_fields(tmp_path: Path) -> None:
         _config(tmp_path, {"dataset": {"silent_typo": True}})
 
 
-def test_sft_config_accepts_pi05_data_options(tmp_path: Path) -> None:
+def test_sft_config_accepts_custom_dataset_integrations(tmp_path: Path) -> None:
     config = _config(
         tmp_path,
         {
             "dataset": {
                 "norm_stats_path": "/stats.json",
-                "adapt_aloha": False,
-                "delta_actions": False,
+                "factory": "example.datasets.build",
+                "factory_kwargs": {"split": "train"},
+                "preprocess": "example.transforms.preprocess",
             }
         },
     )
 
     assert config.dataset.norm_stats_path == "/stats.json"
-    assert config.dataset.adapt_aloha is False
-    assert config.dataset.delta_actions is False
+    assert config.dataset.factory == "example.datasets.build"
+    assert config.dataset.factory_kwargs == {"split": "train"}
+    assert config.dataset.preprocess == "example.transforms.preprocess"
 
 
 def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
@@ -102,7 +105,11 @@ def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
 
 
 def test_sft_config_uses_pi05_defaults() -> None:
-    assert SFTConfig.from_dict({}).model.path == "Miical/pi05-base"
+    config = SFTConfig.from_dict({})
+
+    assert config.model.path == "Miical/pi05-base"
+    assert config.dataset.factory == "carrot.data.lerobot.build_dataset"
+    assert config.dataset.preprocess == "carrot.data.lerobot.robotwin_preprocess"
 
 
 def test_sft_config_rejects_empty_tokenizer_path() -> None:

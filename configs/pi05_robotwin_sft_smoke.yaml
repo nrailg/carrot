@@ -2,16 +2,18 @@ model:
   path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base
   tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base
 dataset:
-  repo_id: lerobot/robotwin_unified
-  root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified
+  factory: carrot.data.lerobot.build_dataset
+  factory_kwargs:
+    repo_id: lerobot/robotwin_unified
+    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified
+    action_horizon: 50
+    image_keys:
+      - observation.images.cam_high
+      - observation.images.cam_left_wrist
+      - observation.images.cam_right_wrist
   num_workers: 0
   norm_stats_path: null
-  adapt_aloha: true
-  delta_actions: true
-  image_keys:
-    - observation.images.cam_high
-    - observation.images.cam_left_wrist
-    - observation.images.cam_right_wrist
+  preprocess: carrot.data.lerobot.robotwin_preprocess
 optimizer:
   learning_rate: 2.5e-5
   weight_decay: 1.0e-10

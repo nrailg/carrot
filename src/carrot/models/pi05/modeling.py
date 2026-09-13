@@ -9,10 +9,11 @@ from typing import Any
 
 import torch
 import torch.nn.functional as F
-from lerobot.datasets import LeRobotDataset, LeRobotDatasetMetadata
-from lerobot.utils.collate import lerobot_collate_fn
 from torch import nn
 from transformers import AutoTokenizer
+
+from carrot.data import SFTDatasetSpec
+from carrot.data.loading import load_callable
 
 from .model import PI0Policy
 
@@ -45,8 +46,7 @@ class Pi05SFTPolicy(nn.Module):
         state_key: str = "observation.state",
         action_key: str = "action",
         task_key: str = "task",
-        adapt_aloha: bool = True,
-        delta_actions: bool = True,
+        preprocess: Any | None = None,
     ) -> None:
         super().__init__()
         self.policy = policy
@@ -57,8 +57,7 @@ class Pi05SFTPolicy(nn.Module):
         self.state_key = state_key
         self.action_key = action_key
         self.task_key = task_key
-        self.adapt_aloha = adapt_aloha
-        self.delta_actions = delta_actions
+        self.preprocess = preprocess
 
     @staticmethod
     def _normalize(x: torch.Tensor, stats: dict[str, Any]) -> torch.Tensor:
@@ -103,24 +102,6 @@ class Pi05SFTPolicy(nn.Module):
             )
         return (2 * image - 1).to(dtype)
 
-    @staticmethod
-    def _adapt_aloha(
-        state: torch.Tensor, actions: torch.Tensor
-    ) -> tuple[torch.Tensor, torch.Tensor]:
-        flip = state.new_tensor([1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1])
-        state = state.clone()
-        actions = actions.clone()
-        state[..., :14] *= flip
-        actions[..., :14] *= flip
-        linear = 0.01844 + state[..., [6, 13]] * (0.05800 - 0.01844)
-        ratio = (0.022**2 + linear**2 - 0.036**2) / (2 * 0.022 * linear)
-        radians = torch.asin(torch.clamp(ratio, -1, 1))
-        state[..., [6, 13]] = (radians - 0.5476) / (1.6296 - 0.5476)
-        actions[..., [6, 13]] = (
-            -0.6213 + actions[..., [6, 13]] * (1.4910 + 0.6213)
-        ) - 0.5476
-        return state, actions
-
     def _tokenize(self, tasks: Any, state: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         if isinstance(tasks, str):
             tasks = [tasks]
@@ -150,12 +131,8 @@ class Pi05SFTPolicy(nn.Module):
         device = next(self.policy.parameters()).device
         state = batch[self.state_key].to(device, non_blocking=True)
         actions = batch[self.action_key].to(device, non_blocking=True)
-        if self.adapt_aloha:
-            state, actions = self._adapt_aloha(state, actions)
-        if self.delta_actions:
-            mask = state.new_tensor([True] * 6 + [False] + [True] * 6 + [False], dtype=torch.bool)
-            actions = actions.clone()
-            actions[..., mask] -= state[..., mask].unsqueeze(-2)
+        if self.preprocess is not None:
+            state, actions = self.preprocess(state, actions)
         state = self._pad_last(self._normalize(state, self.state_stats), self.policy.max_state_dim)
         actions = self._pad_last(
             self._normalize(actions, self.action_stats), self.policy.max_action_dim
@@ -209,23 +186,16 @@ def build_pi05(
     *,
     model_path: str,
     tokenizer_path: str,
-    dataset_repo_id: str,
-    dataset_root: str | None,
-    image_keys: tuple[str, str, str],
+    dataset_factory: str,
+    dataset_factory_kwargs: dict[str, Any],
     device: str,
-    video_backend: str | None = None,
     norm_stats_path: str | None = None,
-    adapt_aloha: bool = True,
-    delta_actions: bool = True,
+    preprocess: str | None = "carrot.data.lerobot.robotwin_preprocess",
 ) -> Pi05Components:
-    """Load PI0.5, construct 50-step RobotWin samples, and bind the SFT objective."""
-    root = Path(dataset_root) if dataset_root else None
-    metadata = LeRobotDatasetMetadata(dataset_repo_id, root=root)
-    delta_timestamps = {"action": [index / metadata.fps for index in range(50)]}
-    dataset_kwargs: dict[str, Any] = {"root": root, "delta_timestamps": delta_timestamps}
-    if video_backend is not None:
-        dataset_kwargs["video_backend"] = video_backend
-    dataset = LeRobotDataset(dataset_repo_id, **dataset_kwargs)
+    """Load PI0.5 and bind a configured SFT dataset integration."""
+    dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)
+    if not isinstance(dataset, SFTDatasetSpec):
+        raise TypeError(f"dataset factory {dataset_factory!r} must return Pi05SFTDatasetSpec")
     checkpoint_stats = Path(model_path) / "norm_stats.json"
     if norm_stats_path is not None:
         with Path(norm_stats_path).open() as stream:
@@ -238,8 +208,8 @@ def build_pi05(
         state_stats = normalization["state"]
         action_stats = normalization["action"]
     else:
-        state_stats = metadata.stats["observation.state"]
-        action_stats = metadata.stats["action"]
+        state_stats = dataset.state_stats
+        action_stats = dataset.action_stats
     policy = PI0Policy.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, fix_mistral_regex=True)
     wrapped = Pi05SFTPolicy(
@@ -247,12 +217,14 @@ def build_pi05(
         tokenizer,
         state_stats=state_stats,
         action_stats=action_stats,
-        image_keys=image_keys,
-        adapt_aloha=adapt_aloha,
-        delta_actions=delta_actions,
+        image_keys=dataset.image_keys,
+        state_key=dataset.state_key,
+        action_key=dataset.action_key,
+        task_key=dataset.task_key,
+        preprocess=load_callable(preprocess) if preprocess is not None else None,
     ).to(device)
     return Pi05Components(
         policy=wrapped,
-        dataset=dataset,
-        collate_fn=lerobot_collate_fn if metadata.has_language_columns else None,
+        dataset=dataset.dataset,
+        collate_fn=dataset.collate_fn,
     )

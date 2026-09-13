@@ -43,8 +43,7 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
         state_stats=_stats(),
         action_stats=_stats(),
         image_keys=("high", "left", "right"),
-        adapt_aloha=False,
-        delta_actions=False,
+        preprocess=None,
     )
     batch = {
         "high": torch.ones(2, 3, 480, 640),

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 import json
 from pathlib import Path
 from typing import Any
@@ -41,6 +42,7 @@ def save_checkpoint(
     optimizer: Any,
     scheduler: Any,
     step: int,
+    artifact_writer: Callable[[Path], None] | None = None,
 ) -> None:
     """Write a DCP resume bundle and a HuggingFace ``pretrained_model/`` export.
 
@@ -58,6 +60,8 @@ def save_checkpoint(
     optimizer : Any
     scheduler : Any
     step : int
+    artifact_writer : collections.abc.Callable[[Path], None] | None
+        Invoked on rank 0 after the HuggingFace model export.
     """
     if not dist.is_initialized() or dist.get_rank() == 0:
         path.mkdir(parents=True, exist_ok=True)
@@ -71,6 +75,8 @@ def save_checkpoint(
     )
     if not dist.is_initialized() or dist.get_rank() == 0:
         model.save_pretrained(path / "pretrained_model", state_dict=state_dict)
+        if artifact_writer is not None:
+            artifact_writer(path / "pretrained_model")
         with (path / "trainer_state.json").open("w") as stream:
             json.dump({"step": step, "scheduler": scheduler.state_dict()}, stream)
     if dist.is_initialized():

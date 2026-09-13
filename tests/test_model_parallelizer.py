@@ -76,20 +76,14 @@ class _NativePolicy(nn.Module):
         self.paligemma_with_expert = _Backbone()
 
 
-class _SFTPolicy(nn.Module):
-    def __init__(self) -> None:
-        super().__init__()
-        self.policy = _NativePolicy()
-
-
 def test_pi05_parallelizer_wraps_transformer_layers() -> None:
-    model = _SFTPolicy()
+    model = _NativePolicy()
 
     units = Pi05Parallelizer().fsdp_units(model)
 
     assert units == tuple(
         [
-            *model.policy.paligemma_with_expert.vision_tower.encoder.layers,
-            *model.policy.paligemma_with_expert.layers,
+            *model.paligemma_with_expert.vision_tower.encoder.layers,
+            *model.paligemma_with_expert.layers,
         ]
     )

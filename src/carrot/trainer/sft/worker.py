@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import math
 import random
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any
 
@@ -81,6 +82,8 @@ class SFTTrainWorkerImpl:
         model: nn.Module,
         optimizer: torch.optim.Optimizer,
         scheduler: Any,
+        loss_fn: Any,
+        checkpoint_artifact_writer: Callable[[Path], None] | None,
         preprocessor: Any,
         dataloader: DataLoader,
         config: SFTConfig,
@@ -89,6 +92,8 @@ class SFTTrainWorkerImpl:
         self.model = model
         self.optimizer = optimizer
         self.scheduler = scheduler
+        self.loss_fn = loss_fn
+        self.checkpoint_artifact_writer = checkpoint_artifact_writer
         self.preprocessor = preprocessor
         self.dataloader = dataloader
         self.config = config
@@ -141,7 +146,7 @@ class SFTTrainWorkerImpl:
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
                 batch = self.preprocessor(batch)
-                loss, _ = self.model(batch)
+                loss, _ = self.loss_fn(self.model, batch)
                 if not torch.isfinite(loss):
                     raise FloatingPointError(
                         f"non-finite loss at step {self.step}: {loss.item()}"
@@ -195,6 +200,7 @@ class SFTTrainWorkerImpl:
                     self.optimizer,
                     self.scheduler,
                     self.step,
+                    self.checkpoint_artifact_writer,
                 )
         if self.config.save_freq and self.step % self.config.save_freq != 0:
             save_checkpoint(
@@ -203,6 +209,7 @@ class SFTTrainWorkerImpl:
                 self.optimizer,
                 self.scheduler,
                 self.step,
+                self.checkpoint_artifact_writer,
             )
         return {"step": self.step, "loss": mean_loss}
 
@@ -278,6 +285,8 @@ class SFTTrainWorker(Worker):
             model=model,
             optimizer=optimizer,
             scheduler=scheduler,
+            loss_fn=components.loss_fn,
+            checkpoint_artifact_writer=components.loss_fn.save_artifacts,
             preprocessor=lambda batch: batch,
             dataloader=dataloader,
             config=self.config,

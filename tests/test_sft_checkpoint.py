@@ -43,3 +43,16 @@ def test_checkpoint_round_trip(tmp_path: Path) -> None:
     assert step == 1
     for name, value in model.state_dict().items():
         torch.testing.assert_close(value, expected[name])
+
+
+def test_checkpoint_writes_model_artifacts(tmp_path: Path) -> None:
+    model = _ExportableLinear(2, 1)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
+    scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda _: 1.0)
+
+    def write_artifact(path: Path) -> None:
+        (path / "norm_stats.json").write_text("{}")
+
+    save_checkpoint(tmp_path, model, optimizer, scheduler, step=1, artifact_writer=write_artifact)
+
+    assert (tmp_path / "pretrained_model" / "norm_stats.json").read_text() == "{}"

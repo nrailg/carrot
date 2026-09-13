@@ -9,7 +9,6 @@ from typing import Any
 
 import torch
 import torch.nn.functional as F
-from torch import nn
 from transformers import AutoTokenizer
 
 from carrot.data import SFTDatasetSpec
@@ -20,7 +19,8 @@ from .model import PI0Policy
 
 @dataclass(frozen=True)
 class Pi05Components:
-    policy: nn.Module
+    policy: PI0Policy
+    loss_fn: Pi05SFTLossFn
     dataset: Any
     collate_fn: Any
 
@@ -32,12 +32,11 @@ def _stats_tensor(stats: dict[str, Any], name: str, device: torch.device) -> tor
     return torch.as_tensor(value, device=device, dtype=torch.float32)
 
 
-class Pi05SFTPolicy(nn.Module):
-    """Own the complete batch-to-loss contract around the native PI0.5 model."""
+class Pi05SFTLossFn:
+    """Compute PI0.5 SFT loss from a batch and native policy."""
 
     def __init__(
         self,
-        policy: PI0Policy,
         tokenizer: Any,
         *,
         state_stats: dict[str, Any],
@@ -48,8 +47,6 @@ class Pi05SFTPolicy(nn.Module):
         task_key: str = "task",
         preprocess: Any | None = None,
     ) -> None:
-        super().__init__()
-        self.policy = policy
         self.tokenizer = tokenizer
         self.state_stats = state_stats
         self.action_stats = action_stats
@@ -127,17 +124,19 @@ class Pi05SFTPolicy(nn.Module):
             tokens["attention_mask"].to(device=state.device, dtype=torch.bool),
         )
 
-    def forward(self, batch: dict[str, Any]) -> tuple[torch.Tensor, dict[str, Any]]:
-        device = next(self.policy.parameters()).device
+    def __call__(
+        self, policy: PI0Policy, batch: dict[str, Any]
+    ) -> tuple[torch.Tensor, dict[str, Any]]:
+        device = next(policy.parameters()).device
         state = batch[self.state_key].to(device, non_blocking=True)
         actions = batch[self.action_key].to(device, non_blocking=True)
         if self.preprocess is not None:
             state, actions = self.preprocess(state, actions)
-        state = self._pad_last(self._normalize(state, self.state_stats), self.policy.max_state_dim)
+        state = self._pad_last(self._normalize(state, self.state_stats), policy.max_state_dim)
         actions = self._pad_last(
-            self._normalize(actions, self.action_stats), self.policy.max_action_dim
+            self._normalize(actions, self.action_stats), policy.max_action_dim
         )
-        dtype = self.policy.action_in_proj.weight.dtype
+        dtype = policy.action_in_proj.weight.dtype
         images = [
             self._prepare_image(batch[key].to(device, non_blocking=True), dtype)
             for key in self.image_keys
@@ -153,20 +152,20 @@ class Pi05SFTPolicy(nn.Module):
         time_expanded = time[:, None, None]
         x_t = time_expanded * noise + (1 - time_expanded) * actions
         target = noise - actions
-        prediction = self.policy(images, masks, lang_tokens, lang_masks, state.to(dtype), x_t, time)
+        prediction = policy(images, masks, lang_tokens, lang_masks, state.to(dtype), x_t, time)
         per_step = torch.square(prediction - target).mean(dim=-1)
         valid = ~batch.get("action_is_pad", torch.zeros_like(per_step, dtype=torch.bool)).to(device)
         loss = (per_step * valid).sum() / valid.sum()
         return loss, {"loss": loss.detach(), "per_step_loss": per_step.detach()}
 
-    def save_pretrained(
-        self, path: str | Path, *, state_dict: dict[str, Any] | None = None
-    ) -> None:
-        if state_dict is not None:
-            state_dict = {
-                key.removeprefix("policy."): value for key, value in state_dict.items()
-            }
-        self.policy.save_pretrained(path, state_dict=state_dict, safe_serialization=True)
+    def save_artifacts(self, path: Path) -> None:
+        """Write non-model files needed by a PI0.5 export.
+
+        Parameters
+        ----------
+        path : pathlib.Path
+            Existing HuggingFace export directory.
+        """
         self.tokenizer.save_pretrained(path)
         serializable_stats = {
             "state": {
@@ -212,8 +211,7 @@ def build_pi05(
         action_stats = dataset.action_stats
     policy = PI0Policy.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, fix_mistral_regex=True)
-    wrapped = Pi05SFTPolicy(
-        policy,
+    loss_fn = Pi05SFTLossFn(
         tokenizer,
         state_stats=state_stats,
         action_stats=action_stats,
@@ -222,9 +220,10 @@ def build_pi05(
         action_key=dataset.action_key,
         task_key=dataset.task_key,
         preprocess=load_callable(preprocess) if preprocess is not None else None,
-    ).to(device)
+    )
     return Pi05Components(
-        policy=wrapped,
+        policy=policy.to(device),
+        loss_fn=loss_fn,
         dataset=dataset.dataset,
         collate_fn=dataset.collate_fn,
     )

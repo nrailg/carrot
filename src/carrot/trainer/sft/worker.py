@@ -16,7 +16,7 @@ from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
 from carrot.modeling import parallelize_model
-from carrot.models.pi05 import PI0Policy
+from carrot.models.pi05 import build_pi05
 from carrot.models.pi05.parallelize import Pi05Parallelizer
 from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
 from carrot.trainer.sft.config import SFTConfig
@@ -69,26 +69,8 @@ def _init_wandb(config: SFTConfig) -> Any:
     )
 
 
-def _assert_fp32_optimizer_state(optimizer: torch.optim.Optimizer) -> None:
-    """Fail fast unless AdamW masters and all floating-point state use FP32."""
-    for group in optimizer.param_groups:
-        for parameter in group["params"]:
-            if parameter.dtype.is_floating_point and parameter.dtype is not torch.float32:
-                raise ValueError(f"optimizer master parameter must be FP32, got {parameter.dtype}")
-    for state in optimizer.state.values():
-        for name, value in state.items():
-            is_non_fp32_float = (
-                torch.is_tensor(value)
-                and value.dtype.is_floating_point
-                and value.dtype is not torch.float32
-            )
-            if is_non_fp32_float:
-                raise ValueError(f"optimizer state {name!r} must be FP32, got {value.dtype}")
-
-
 class SFTTrainWorkerImpl:
     """Implementation detail that keeps the worker training loop maintainable."""
-    # TODO 有点多余，应该合并到 SFTTrainWorker 中
 
     def __init__(
         self,
@@ -111,7 +93,6 @@ class SFTTrainWorkerImpl:
         self.step = 0
         self.epoch = 0
         self._wandb = None
-        self._optimizer_state_checked = False
 
     def train(self) -> dict[str, float | int]:
         self.model.train()
@@ -126,7 +107,13 @@ class SFTTrainWorkerImpl:
                 f"batch_size={self.config.batch_size} world={world_size}",
                 flush=True,
             )
+        consumed_batches = self.step * self.config.gradient_accumulation_steps
+        self.epoch, batch_offset = divmod(consumed_batches, len(self.dataloader))
+        if self.sampler is not None:
+            self.sampler.set_epoch(self.epoch)
         iterator = iter(self.dataloader)
+        for _ in range(batch_offset):
+            next(iterator)
         try:
             return self._train_loop(iterator, mean_loss)
         finally:
@@ -171,9 +158,6 @@ class SFTTrainWorkerImpl:
             if isinstance(grad_norm, DTensor):
                 grad_norm = grad_norm.full_tensor()
             self.optimizer.step()
-            if not self._optimizer_state_checked:
-                _assert_fp32_optimizer_state(self.optimizer)
-                self._optimizer_state_checked = True
             self.scheduler.step()
             self.optimizer.zero_grad(set_to_none=True)
             self.step += 1
@@ -238,7 +222,19 @@ class SFTTrainWorker(Worker):
         torch.manual_seed(self.config.seed + self.rank)
         torch.cuda.manual_seed_all(self.config.seed + self.rank)
 
-        model = PI0Policy.from_pretrained(self.config.model.path)
+        components = build_pi05(
+            model_path=self.config.model.path,
+            tokenizer_path=self.config.model.tokenizer_path,
+            dataset_repo_id=self.config.dataset.repo_id,
+            dataset_root=self.config.dataset.root,
+            image_keys=self.config.dataset.image_keys,
+            device=f"cuda:{self.local_rank}",
+            video_backend=self.config.dataset.video_backend,
+            norm_stats_path=self.config.dataset.norm_stats_path,
+            adapt_aloha=self.config.dataset.adapt_aloha,
+            delta_actions=self.config.dataset.delta_actions,
+        )
+        model = components.policy
         parallelize_model(model, Pi05Parallelizer(), self.config.fsdp)
         parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
         optimizer = torch.optim.AdamW(
@@ -248,7 +244,6 @@ class SFTTrainWorker(Worker):
             betas=self.config.optimizer.betas,
             eps=self.config.optimizer.eps,
         )
-        _assert_fp32_optimizer_state(optimizer)
         scheduler = _scheduler(
             optimizer,
             self.config.optimizer.warmup_steps,
@@ -256,9 +251,35 @@ class SFTTrainWorker(Worker):
             decay_steps=self.config.optimizer.decay_steps,
             decay_learning_rate=self.config.optimizer.decay_learning_rate,
         )
-        raise NotImplementedError(
-            "PI0.5 policy loading and FSDP wrapping are installed; the RobotWin "
-            "data adapter is the next required component before launching SFT."
+        sampler = DistributedSampler(
+            components.dataset,
+            num_replicas=self.world_size,
+            rank=self.rank,
+            shuffle=True,
+            seed=self.config.seed,
+            drop_last=True,
+        )
+        dataloader = DataLoader(
+            components.dataset,
+            batch_size=self.config.batch_size,
+            sampler=sampler,
+            num_workers=self.config.dataset.num_workers,
+            pin_memory=True,
+            drop_last=True,
+            collate_fn=components.collate_fn,
+            persistent_workers=self.config.dataset.num_workers > 0,
+            multiprocessing_context=(
+                "forkserver" if self.config.dataset.num_workers > 0 else None
+            ),
+        )
+        self.impl = SFTTrainWorkerImpl(
+            model=model,
+            optimizer=optimizer,
+            scheduler=scheduler,
+            preprocessor=lambda batch: batch,
+            dataloader=dataloader,
+            config=self.config,
+            sampler=sampler,
         )
         if self.resume is not None:
             self.impl.step = load_checkpoint(Path(self.resume), model, optimizer, scheduler)

@@ -15,11 +15,11 @@ dependencies = [
 
 [project.optional-dependencies]
 sft = [
-  "lerobot[dataset]>=0.6.1",
-  "diffusers>=0.32",
+  "lerobot[dataset]==0.6.1",
+  "diffusers==0.35.1",
   "pyyaml>=6",
   "torch>=2.6",
-  "transformers>=4.48",
+  "transformers==4.51.3",
   "wandb>=0.16",
 ]
 dev = [
@@ -30,6 +30,7 @@ dev = [
 
 [project.scripts]
 carrot-train-sft = "carrot.entrypoints.train_sft:main"
+carrot-compute-pi05-stats = "carrot.entrypoints.compute_pi05_stats:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/carrot"]

@@ -8,7 +8,7 @@ from typing import Any
 
 import yaml
 
-from carrot.modeling.config import FSDPConfig
+from carrot.parallel.config import FSDPConfig
 
 
 def _from_dict[T](cls: type[T], values: dict[str, Any]) -> T:

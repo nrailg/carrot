@@ -29,8 +29,8 @@ dev = [
 ]
 
 [project.scripts]
-carrot-train-sft = "carrot.entrypoints.train_sft:main"
-carrot-compute-pi05-stats = "carrot.entrypoints.compute_pi05_stats:main"
+carrot-train-sft = "carrot.cli.train_sft:main"
+carrot-compute-pi05-stats = "carrot.cli.compute_pi05_stats:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/carrot"]

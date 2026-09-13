@@ -64,7 +64,7 @@ def _init_wandb(config: SFTConfig) -> Any:
             "micro_batch_size": config.micro_batch_size,
             "global_batch_size": config.global_batch_size,
             "gas": config.gas,
-            "num_gpus": config.num_gpus,
+            "dp_size": config.dp_size,
             "num_nodes": config.num_nodes,
             "learning_rate": config.optimizer.learning_rate,
         },

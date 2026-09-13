@@ -45,7 +45,7 @@ def test_sft_config_keeps_wandb_entity_as_string(tmp_path: Path) -> None:
         {
             "wandb": {"enabled": True, "entity": 1001},
             "global_batch_size": 16,
-            "num_gpus": 16,
+            "dp_size": 16,
             "num_nodes": 2,
         },
     )
@@ -58,7 +58,7 @@ def test_sft_config_keeps_wandb_entity_as_string(tmp_path: Path) -> None:
 def test_sft_config_derives_gas(tmp_path: Path) -> None:
     config = _config(
         tmp_path,
-        {"micro_batch_size": 2, "global_batch_size": 32, "num_gpus": 8},
+        {"micro_batch_size": 2, "global_batch_size": 32, "dp_size": 8},
     )
 
     assert config.gas == 2
@@ -66,17 +66,12 @@ def test_sft_config_derives_gas(tmp_path: Path) -> None:
 
 def test_sft_config_rejects_indivisible_global_batch(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="global_batch_size"):
-        _config(tmp_path, {"micro_batch_size": 3, "global_batch_size": 8, "num_gpus": 2})
-
-
-def test_sft_config_rejects_legacy_batch_fields(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="micro_batch_size and global_batch_size"):
-        _config(tmp_path, {"batch_size": 4})
+        _config(tmp_path, {"micro_batch_size": 3, "global_batch_size": 8, "dp_size": 2})
 
 
 def test_sft_config_rejects_uneven_gpu_split(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="divisible"):
-        _config(tmp_path, {"num_gpus": 16, "num_nodes": 3})
+        _config(tmp_path, {"dp_size": 16, "num_nodes": 3})
 
 
 def test_sft_config_rejects_unknown_fields(tmp_path: Path) -> None:

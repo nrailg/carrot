@@ -6,14 +6,12 @@ import time
 from collections.abc import Mapping
 from dataclasses import dataclass, field
 from queue import Empty
-from typing import Any, Generic, Protocol, TypeVar
+from typing import Any, Protocol
 
 from carrot.distributed.worker import Worker
 
-T = TypeVar("T")
 
-
-class Future(Protocol, Generic[T]):
+class Future[T](Protocol):
     def result(self, timeout: float | None = None) -> T: ...
 
     def done(self) -> bool: ...
@@ -44,7 +42,7 @@ class WorkerSpec:
 
 
 @dataclass(frozen=True)
-class Channel(Generic[T]):
+class Channel[T]:
     """Serializable bounded FIFO used between workers."""
 
     name: str

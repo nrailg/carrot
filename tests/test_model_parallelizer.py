@@ -2,8 +2,8 @@ import pytest
 import torch
 from torch import nn
 
-from carrot.parallel import FSDPConfig, ModelParallelizer, parallelize_model
 from carrot.models.pi05.parallelize import Pi05Parallelizer
+from carrot.parallel import FSDPConfig, ModelParallelizer, parallelize_model
 
 
 class FakePolicy(nn.Module):

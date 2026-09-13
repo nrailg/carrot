@@ -95,10 +95,18 @@ The LeRobot dataset must provide these fields per frame:
 - `observation.state`: 14 Aloha state values;
 - `action`: 14 absolute Aloha action values (the dataset adapter builds the
   `[50, 14]` future window);
-- the three image keys listed in `dataset.image_keys`, as CHW tensors in
+- the three image keys returned by `dataset.factory`, as CHW tensors in
   `[0, 1]` or `[0, 255]`;
 - `task`: the language instruction. LeRobot also supplies `action_is_pad` for
   future steps beyond the end of an episode.
+
+`dataset.factory` is an import path returning `carrot.data.Pi05SFTDatasetSpec`; its
+`factory_kwargs` are passed through unchanged. `dataset.preprocess` is an
+optional import path for a function taking `(state, actions)` and returning the
+transformed pair. The RobotWin defaults are
+`carrot.data.lerobot.build_dataset` and
+`carrot.data.lerobot.robotwin_preprocess`; set `preprocess: null` when no
+dataset-specific state/action conversion is required.
 
 Each `checkpoints/step-*` directory contains two representations:
 

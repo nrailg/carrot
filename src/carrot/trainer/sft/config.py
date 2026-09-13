@@ -33,27 +33,30 @@ class ModelConfig:
 
 @dataclass(frozen=True)
 class DatasetConfig:
-    repo_id: str = "lerobot/robotwin_unified"
-    root: str | None = None
-    video_backend: str | None = None
-    num_workers: int = 4
-    norm_stats_path: str | None = None
-    adapt_aloha: bool = True
-    delta_actions: bool = True
-    image_keys: tuple[str, str, str] = (
-        "observation.images.cam_high",
-        "observation.images.cam_left_wrist",
-        "observation.images.cam_right_wrist",
+    factory: str = "carrot.data.lerobot.build_dataset"
+    factory_kwargs: dict[str, Any] = field(
+        default_factory=lambda: {
+            "repo_id": "lerobot/robotwin_unified",
+            "root": None,
+            "video_backend": None,
+            "action_horizon": 50,
+            "image_keys": (
+                "observation.images.cam_high",
+                "observation.images.cam_left_wrist",
+                "observation.images.cam_right_wrist",
+            ),
+        }
     )
+    norm_stats_path: str | None = None
+    preprocess: str | None = "carrot.data.lerobot.robotwin_preprocess"
+    num_workers: int = 4
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "image_keys", tuple(self.image_keys))
-        if not self.repo_id:
-            raise ValueError("dataset.repo_id cannot be empty")
+        object.__setattr__(self, "factory_kwargs", dict(self.factory_kwargs))
+        if not self.factory:
+            raise ValueError("dataset.factory cannot be empty")
         if self.num_workers < 0:
             raise ValueError("dataset.num_workers cannot be negative")
-        if len(self.image_keys) != 3:
-            raise ValueError("dataset.image_keys must contain exactly three cameras")
 
 
 @dataclass(frozen=True)

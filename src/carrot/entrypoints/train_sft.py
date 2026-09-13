@@ -8,7 +8,7 @@ from carrot.trainer.sft import SFTConfig, SFTTrainer
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Fine-tune a LeRobot policy with Carrot FSDP2")
+    parser = argparse.ArgumentParser(description="Fine-tune PI0.5 with Carrot FSDP2")
     parser.add_argument("--config", required=True)
     parser.add_argument("--resume")
     args = parser.parse_args()

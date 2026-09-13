@@ -15,6 +15,8 @@
 #
 # from https://github.com/open-gigaai/giga-models
 
+# ruff: noqa: E501
+
 
 import math
 

@@ -30,7 +30,7 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
     assert config.model.path == "model"
     assert config.model.tokenizer_path == "tokenizer"
     assert config.dataset.num_workers == 0
-    assert config.dataset.rename_map == {}
+    assert len(config.dataset.image_keys) == 3
     assert config.optimizer.betas == (0.8, 0.9)
     assert config.optimizer.weight_decay == 1e-10
     assert config.optimizer.max_grad_norm == 1.0
@@ -57,6 +57,23 @@ def test_sft_config_rejects_uneven_gpu_split(tmp_path: Path) -> None:
 def test_sft_config_rejects_unknown_fields(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="unknown DatasetConfig fields"):
         _config(tmp_path, {"dataset": {"silent_typo": True}})
+
+
+def test_sft_config_accepts_pi05_data_options(tmp_path: Path) -> None:
+    config = _config(
+        tmp_path,
+        {
+            "dataset": {
+                "norm_stats_path": "/stats.json",
+                "adapt_aloha": False,
+                "delta_actions": False,
+            }
+        },
+    )
+
+    assert config.dataset.norm_stats_path == "/stats.json"
+    assert config.dataset.adapt_aloha is False
+    assert config.dataset.delta_actions is False
 
 
 def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:

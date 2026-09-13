@@ -15,6 +15,8 @@
 #
 # from https://github.com/open-gigaai/giga-models
 
+# ruff: noqa: B007, E501, I001, UP045
+
 
 from typing import Optional
 
@@ -153,7 +155,8 @@ class PaliGemmaMultiModalProjector(nn.Module):
 
     def forward(self, image_features: torch.Tensor) -> torch.Tensor:
         """Project vision features to the transformer hidden size."""
-        hidden_states = self.linear(image_features)
+        # TODO: check if this dtype cast vs verl-vla is still needed.
+        hidden_states = self.linear(image_features.to(self.linear.weight.dtype))
         return hidden_states
 
 

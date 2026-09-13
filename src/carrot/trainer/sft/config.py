@@ -4,16 +4,14 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Any, TypeVar
+from typing import Any
 
 import yaml
 
 from carrot.modeling.config import FSDPConfig
 
-T = TypeVar("T")
 
-
-def _from_dict(cls: type[T], values: dict[str, Any]) -> T:
+def _from_dict[T](cls: type[T], values: dict[str, Any]) -> T:
     valid = {item.name for item in fields(cls)}
     unknown = set(values) - valid
     if unknown:
@@ -39,16 +37,23 @@ class DatasetConfig:
     root: str | None = None
     video_backend: str | None = None
     num_workers: int = 4
-    rename_map: dict[str, str] = field(default_factory=dict)
+    norm_stats_path: str | None = None
+    adapt_aloha: bool = True
+    delta_actions: bool = True
+    image_keys: tuple[str, str, str] = (
+        "observation.images.cam_high",
+        "observation.images.cam_left_wrist",
+        "observation.images.cam_right_wrist",
+    )
 
     def __post_init__(self) -> None:
-        object.__setattr__(self, "rename_map", dict(self.rename_map))
+        object.__setattr__(self, "image_keys", tuple(self.image_keys))
         if not self.repo_id:
             raise ValueError("dataset.repo_id cannot be empty")
         if self.num_workers < 0:
             raise ValueError("dataset.num_workers cannot be negative")
-        if any(not key or not value for key, value in self.rename_map.items()):
-            raise ValueError("dataset.rename_map keys and values cannot be empty")
+        if len(self.image_keys) != 3:
+            raise ValueError("dataset.image_keys must contain exactly three cameras")
 
 
 @dataclass(frozen=True)

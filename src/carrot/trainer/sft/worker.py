@@ -15,9 +15,9 @@ from torch.distributed.tensor import DTensor
 from torch.utils.data import DataLoader, DistributedSampler
 
 from carrot.distributed import Worker
-from carrot.parallel import parallelize_model
 from carrot.models.pi05 import build_pi05
 from carrot.models.pi05.parallelize import Pi05Parallelizer
+from carrot.parallel import parallelize_model
 from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
 from carrot.trainer.sft.config import SFTConfig
 

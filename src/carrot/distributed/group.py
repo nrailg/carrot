@@ -5,11 +5,9 @@ from __future__ import annotations
 import time
 from collections.abc import Iterable, Iterator, Sequence
 from dataclasses import dataclass
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 from carrot.distributed.runtime import ActorHandle, Future
-
-T = TypeVar("T")
 
 
 class WorkerExecutionError(RuntimeError):
@@ -24,7 +22,7 @@ class RankCall:
     kwargs: dict[str, Any] | None = None
 
 
-class GroupResult(Generic[T]):
+class GroupResult[T]:
     """A non-blocking collection of results ordered by global rank."""
 
     def __init__(

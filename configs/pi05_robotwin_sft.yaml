@@ -27,8 +27,8 @@ fsdp:
   reduce_dtype: float32
   reshard_after_forward: true
 steps: 30000
-batch_size: 4
-gradient_accumulation_steps: 1
+micro_batch_size: 4
+global_batch_size: 32
 output_dir: outputs/pi05_robotwin_sft
 num_gpus: 8
 num_nodes: 1

@@ -27,8 +27,8 @@ fsdp:
   reduce_dtype: float32
   reshard_after_forward: true
 steps: 1
-batch_size: 1
-gradient_accumulation_steps: 1
+micro_batch_size: 1
+global_batch_size: 1
 log_freq: 1
 save_freq: 1
 output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/carrot/outputs/pi05_robotwin_smoke

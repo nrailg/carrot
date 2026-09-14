@@ -19,8 +19,7 @@ parser.add_argument("--num_envs", type=int, default=32, help="同一进程里的
 parser.add_argument("--num_steps", type=int, default=300, help="运行多少个控制步")
 add_launcher_args(parser)
 
-# 不传 --headless 时默认打开 Isaac Sim 窗口，便于观察复制出来的环境。
-parser.set_defaults(visualizer=["kit"])
+# Isaac Lab 3.0 默认无窗口运行；需要观察画面时在命令行传入 --viz kit。
 args_cli, hydra_args = setup_preset_cli(parser)
 sys.argv = [sys.argv[0], *hydra_args]
 

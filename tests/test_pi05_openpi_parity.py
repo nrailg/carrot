@@ -12,11 +12,12 @@ from carrot.models.pi05.model import PI0Policy
 
 OPENPI_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_GOLDEN")
 OPEN_GIGA_CHECKPOINT = os.environ.get("CARROT_PI05_OPEN_GIGA_CHECKPOINT")
+type ErrorSummary = tuple[float, float, float, float]
+type DifferenceRow = tuple[str, ErrorSummary, ErrorSummary, float]
 pytestmark = pytest.mark.skipif(
     OPENPI_GOLDEN is None or OPEN_GIGA_CHECKPOINT is None or not torch.cuda.is_available(),
     reason=(
-        "set CARROT_PI05_OPENPI_GOLDEN and CARROT_PI05_OPEN_GIGA_CHECKPOINT "
-        "and run on a CUDA host"
+        "set CARROT_PI05_OPENPI_GOLDEN and CARROT_PI05_OPEN_GIGA_CHECKPOINT and run on a CUDA host"
     ),
 )
 
@@ -43,12 +44,43 @@ def _load_inputs(
     return images, image_masks, tokens, token_masks, state, noise
 
 
-def _report_difference(name: str, actual: torch.Tensor, expected: torch.Tensor) -> None:
-    difference = (actual.float() - expected.float()).abs()
-    print(
-        f"{name}: max_abs={difference.max().item():.9g}, "
-        f"mean_abs={difference.mean().item():.9g}"
+def calc_diff(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
+    x, y = x.double(), y.double()
+    denominator = (x * x + y * y).sum()
+    sim = 2 * (x * y).sum() / denominator
+    return 1 - sim
+
+
+def _summarize_error(error: torch.Tensor) -> ErrorSummary:
+    if not torch.any(error):
+        return 0.0, 0.0, 0.0, 0.0
+    quantiles = torch.tensor((0.5, 0.9, 0.99), dtype=torch.float64, device=error.device)
+    p50, p90, p99 = torch.quantile(error.flatten(), quantiles).tolist()
+    return p50, p90, p99, error.max().item()
+
+
+def _difference_row(name: str, actual: torch.Tensor, expected: torch.Tensor) -> DifferenceRow:
+    actual_double = actual.double()
+    expected_double = expected.double()
+    absolute_error = (actual_double - expected_double).abs()
+    relative_error = absolute_error / expected_double.abs().clamp_min(1e-12)
+    return (
+        name,
+        _summarize_error(absolute_error),
+        _summarize_error(relative_error),
+        calc_diff(actual_double, expected_double).item(),
     )
+
+
+def _print_difference_table(rows: list[DifferenceRow]) -> None:
+    print(
+        "| tensor | abs P50 | abs P90 | abs P99 | abs Max | "
+        "rel P50 | rel P90 | rel P99 | rel Max | Dice distance |"
+    )
+    print("|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|")
+    for name, absolute, relative, dice_distance in rows:
+        values = (*absolute, *relative, dice_distance)
+        print(f"| {name} | " + " | ".join(f"{value:.9g}" for value in values) + " |")
 
 
 @torch.no_grad()
@@ -56,36 +88,133 @@ def test_carrot_pi05_matches_openpi_jax_sampling() -> None:
     device = torch.device("cuda")
     with np.load(Path(OPENPI_GOLDEN), allow_pickle=False) as archive:
         metadata = json.loads(archive["metadata_json"].item())
-        assert metadata["schema_version"] == 1
+        assert metadata["schema_version"] == 3
         assert metadata["config"] == "Pi0Config(pi05=True)"
         assert metadata["parameter_dtype"] == "bfloat16"
         assert metadata["image_layout"] == "NIHWC"
-        assert metadata["steps"] == [1, 10]
+        assert metadata["steps"] == [1]
 
-        images, image_masks, tokens, token_masks, state, noise = _load_inputs(
-            archive, device
+        images, image_masks, tokens, token_masks, state, noise = _load_inputs(archive, device)
+        expected_prefix_embeddings = torch.from_numpy(archive["openpi_prefix_embeddings"]).to(
+            device
         )
+        expected_suffix_embeddings = torch.from_numpy(archive["openpi_suffix_embeddings"]).to(
+            device
+        )
+        expected_adarms_cond = torch.from_numpy(archive["openpi_adarms_cond"]).to(device)
+        expected_first_v_t = torch.from_numpy(archive["openpi_first_v_t"]).to(device)
         expected_one_step = torch.from_numpy(archive["openpi_one_step"]).to(device)
-        expected_ten_steps = torch.from_numpy(archive["openpi_ten_steps"]).to(device)
+        expected_weights = {
+            name: torch.from_numpy(archive[f"openpi_{name}"]).to(
+                device=device, dtype=torch.bfloat16
+            )
+            for name in (
+                "language_embedding_rows",
+                "action_in_kernel",
+                "action_in_bias",
+                "image_patch_kernel",
+                "image_patch_bias",
+                "image_position_embedding",
+                "image_head_kernel",
+                "image_head_bias",
+            )
+        }
 
     model = PI0Policy.from_pretrained(Path(OPEN_GIGA_CHECKPOINT)).to(device).eval()
     assert model.pi05_enabled
     assert (model.n_action_steps, model.max_action_dim) == (50, 32)
+    pi05 = model.paligemma_with_expert
+    actual_weights = {
+        "language_embedding_rows": pi05.embed_tokens.weight[1:65],
+        "action_in_kernel": model.action_in_proj.weight.T,
+        "action_in_bias": model.action_in_proj.bias,
+        "image_patch_kernel": pi05.vision_tower.embeddings.patch_embedding.weight.permute(
+            2, 3, 1, 0
+        ),
+        "image_patch_bias": pi05.vision_tower.embeddings.patch_embedding.bias,
+        "image_position_embedding": pi05.vision_tower.embeddings.position_embedding.weight[None],
+        "image_head_kernel": pi05.multi_modal_projector.linear.weight.T,
+        "image_head_bias": pi05.multi_modal_projector.linear.bias,
+    }
+    difference_rows = [
+        _difference_row(f"weight_{name}", actual_weight.to(torch.bfloat16), expected_weights[name])
+        for name, actual_weight in actual_weights.items()
+    ]
 
+    actual_prefix_embeddings, _, _ = model.embed_prefix(images, image_masks, tokens, token_masks)
+    actual_suffix_embeddings, _, _, actual_adarms_cond = model.embed_suffix(
+        state, noise, torch.ones((noise.shape[0],), device=device)
+    )
+    actual_prefix_embeddings = actual_prefix_embeddings.to(torch.bfloat16)
+    expected_prefix_embeddings = expected_prefix_embeddings.to(torch.bfloat16)
+    actual_suffix_embeddings = actual_suffix_embeddings.to(torch.bfloat16)
+    expected_suffix_embeddings = expected_suffix_embeddings.to(torch.bfloat16)
     model.num_steps = 1
     actual_one_step = model.sample_actions(
         images, image_masks, tokens, token_masks, state, noise=noise.clone()
     )
-    model.num_steps = 10
-    actual_ten_steps = model.sample_actions(
-        images, image_masks, tokens, token_masks, state, noise=noise.clone()
-    )
+    actual_first_v_t = noise - actual_one_step
 
     assert actual_one_step.shape == expected_one_step.shape == (1, 50, 32)
-    assert actual_ten_steps.shape == expected_ten_steps.shape == (1, 50, 32)
     assert torch.isfinite(actual_one_step).all()
-    assert torch.isfinite(actual_ten_steps).all()
-    _report_difference("one_step", actual_one_step, expected_one_step)
-    _report_difference("ten_steps", actual_ten_steps, expected_ten_steps)
+    language_length = tokens.shape[1]
+    image_prefix_end = expected_prefix_embeddings.shape[1] - language_length
+    actual_image_embeddings = actual_prefix_embeddings[:, :image_prefix_end]
+    expected_image_embeddings = expected_prefix_embeddings[:, :image_prefix_end]
+    actual_language_embeddings = actual_prefix_embeddings[:, image_prefix_end:]
+    expected_language_embeddings = expected_prefix_embeddings[:, image_prefix_end:]
+    difference_rows.append(
+        _difference_row("image_embeddings", actual_image_embeddings, expected_image_embeddings)
+    )
+    image_tokens_per_camera = image_prefix_end // len(images)
+    for camera_index in range(len(images)):
+        start = camera_index * image_tokens_per_camera
+        end = start + image_tokens_per_camera
+        difference_rows.append(
+            _difference_row(
+                f"image_embeddings_camera_{camera_index}",
+                actual_image_embeddings[:, start:end],
+                expected_image_embeddings[:, start:end],
+            )
+        )
+    difference_rows.append(
+        _difference_row(
+            "language_embeddings", actual_language_embeddings, expected_language_embeddings
+        )
+    )
+    difference_rows.extend(
+        [
+            _difference_row(
+                "suffix_embeddings", actual_suffix_embeddings, expected_suffix_embeddings
+            ),
+            _difference_row("adarms_cond", actual_adarms_cond, expected_adarms_cond),
+            _difference_row("first_v_t", actual_first_v_t, expected_first_v_t),
+            _difference_row("one_step", actual_one_step, expected_one_step),
+        ]
+    )
+    _print_difference_table(difference_rows)
+    for name, actual_weight in actual_weights.items():
+        torch.testing.assert_close(
+            actual_weight.to(torch.bfloat16), expected_weights[name], rtol=0, atol=0
+        )
+    torch.testing.assert_close(
+        actual_image_embeddings,
+        expected_image_embeddings,
+        rtol=1e-3,
+        atol=1e-3,
+    )
+    torch.testing.assert_close(
+        actual_language_embeddings,
+        expected_language_embeddings,
+        rtol=1e-3,
+        atol=1e-3,
+    )
+    torch.testing.assert_close(
+        actual_suffix_embeddings,
+        expected_suffix_embeddings,
+        rtol=1e-3,
+        atol=1e-3,
+    )
+    torch.testing.assert_close(actual_adarms_cond, expected_adarms_cond, rtol=1e-3, atol=1e-3)
+    torch.testing.assert_close(actual_first_v_t, expected_first_v_t, rtol=1e-3, atol=1e-3)
     torch.testing.assert_close(actual_one_step, expected_one_step, rtol=1e-3, atol=1e-3)
-    torch.testing.assert_close(actual_ten_steps, expected_ten_steps, rtol=1e-2, atol=5e-3)

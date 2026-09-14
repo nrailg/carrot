@@ -24,6 +24,8 @@ cd ~/work/isaac-sim/IsaacSim
 ./python.sh ~/work/carrot/examples/isaac/01_isaac_sim_falling_cube.py
 ```
 
+远程服务器没有桌面窗口时，追加 `--headless`。
+
 观察重点：
 
 - `SimulationApp` 启动 Isaac Sim 应用。
@@ -52,8 +54,8 @@ cd ~/work/isaac-sim/IsaacLab
 - `actions` 的第 0 维对应环境编号，所以一次 `env.step(actions)` 推进全部环境。
 - Isaac Lab 负责 observation、action、reset、termination 等机器人学习接口。
 
-无窗口运行时可追加 `--headless`。环境数量可以逐渐改为 128、1024，观察 GPU 显存和
-仿真吞吐的变化。
+Isaac Lab 3.0 默认无窗口运行；想在桌面观察时追加 `--viz kit`。环境数量可以逐渐改为
+128、1024，观察 GPU 显存和仿真吞吐的变化。
 
 ## 03：Isaac Lab-Arena 组合场景和机器人
 
@@ -67,6 +69,9 @@ cd ~/work/isaac-sim/IsaacLab
 ```bash
 python ~/work/carrot/examples/isaac/03_isaac_lab_arena_composition.py
 ```
+
+Isaac Lab-Arena 3.0 默认无窗口运行；想观察画面时追加 `--viz kit`。可以用
+`--num_envs 4` 创建四份并行场景。
 
 观察重点：
 

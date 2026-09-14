@@ -2,11 +2,17 @@
 
 # ruff: noqa: E402, I001
 
+import argparse
+
 from isaacsim import SimulationApp
 
 
+parser = argparse.ArgumentParser(description="让一个 Isaac Sim 刚体方块自由落体")
+parser.add_argument("--headless", action="store_true", help="不打开图形窗口，适合远程服务器")
+args, _ = parser.parse_known_args()
+
 # Isaac Sim 的其他模块由插件系统提供，必须先启动应用才能导入。
-simulation_app = SimulationApp({"headless": False})
+simulation_app = SimulationApp({"headless": args.headless})
 
 import isaacsim.core.experimental.utils.app as app_utils
 import isaacsim.core.experimental.utils.stage as stage_utils

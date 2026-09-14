@@ -25,3 +25,22 @@ CUDA_VISIBLE_DEVICES=0 pytest -v -s --timeout=1800 tests/test_pi05_inference_par
 `test_pi05_checkpoint_parity.py` maps every parameter consumed by the OpenGiga architecture and requires bitwise equality. The only expected unused LeRobot parameter is the expert language-model head, which OpenGiga does not instantiate and PI0.5 action inference does not consume.
 
 `test_pi05_inference_parity.py` loads the LeRobot checkpoint into both implementations, uses fixed preprocessed images, tokens, masks, state, and Gaussian noise, then compares one denoising step and the complete ten-step Euler sample. It does not test tokenization, normalization, or action unnormalization.
+
+## OpenPI JAX oracle
+
+Generate deterministic reference outputs with the official OpenPI JAX model, then compare the converted checkpoint loaded by Carrot without involving LeRobot:
+
+```bash
+cd /path/to/openpi
+uv run python /path/to/carrot/tests/pi05_parity/generate_openpi_jax_golden.py \
+  --checkpoint /path/to/official/pi05_base \
+  --openpi-commit "$(git rev-parse HEAD)" \
+  --output /path/to/openpi-jax-golden.npz
+
+cd /path/to/carrot
+export CARROT_PI05_OPENPI_GOLDEN=/path/to/openpi-jax-golden.npz
+export CARROT_PI05_OPEN_GIGA_CHECKPOINT=/path/to/converted/pi05_base
+CUDA_VISIBLE_DEVICES=0 pytest -v -s --timeout=1800 tests/test_pi05_openpi_parity.py
+```
+
+The golden contains the exact preprocessed inputs and Gaussian noise consumed by both models, plus the OpenPI commit and checkpoint metadata. This test covers model sampling only; it intentionally excludes policy transforms and normalization.

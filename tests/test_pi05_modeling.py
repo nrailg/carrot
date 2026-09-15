@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
@@ -7,7 +9,7 @@ import torch
 from torch import nn
 
 from carrot.models.pi05.loss_fn import Pi05SFTLossFn
-from carrot.models.pi05.model import PI0Observation
+from carrot.models.pi05.model import PI0Observation, PI0Policy
 
 
 class _Tokenizer:
@@ -93,3 +95,48 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
     assert state.shape == (2, 32)
     assert noisy_actions.shape == (2, 50, 32)
     assert time.shape == (2,)
+
+
+def test_pi05_openpi_checkpoint_round_trip(tmp_path: Path) -> None:
+    # 验证 PI0Policy 导出官方 OpenPI PyTorch 文件名与配置 schema，并能严格回读权重。
+    # Arrange：dummy Gemma 保留完整模块和 tied-weight 关系，同时限制测试资源消耗。
+    policy = PI0Policy(
+        dtype="float32",
+        paligemma_variant="dummy",
+        action_expert_variant="dummy",
+        action_dim=4,
+        action_horizon=2,
+        pi05=True,
+        pytorch_compile_mode=None,
+    )
+    expected_action_in = policy.action_in_proj.weight.detach().clone()
+    expected_language = (
+        policy.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4]
+        .detach()
+        .clone()
+    )
+
+    # Act：直接导出到 checkpoint 根目录，再走 model.safetensors 专用加载分支回读。
+    policy.save_pretrained(tmp_path)
+    restored = PI0Policy.from_pretrained(tmp_path)
+
+    # Assert：文件布局和五个配置字段必须与 OpenPI 转换脚本的输出契约一致。
+    assert (tmp_path / "model.safetensors").is_file()
+    with (tmp_path / "config.json").open() as stream:
+        config = json.load(stream)
+    assert config == {
+        "action_dim": 4,
+        "action_horizon": 2,
+        "paligemma_variant": "dummy",
+        "action_expert_variant": "dummy",
+        "precision": "float32",
+    }
+
+    # Assert：动作投影与 tied language embedding 均严格一致，避免导出时错误去重权重。
+    torch.testing.assert_close(restored.action_in_proj.weight, expected_action_in, rtol=0, atol=0)
+    torch.testing.assert_close(
+        restored.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4],
+        expected_language,
+        rtol=0,
+        atol=0,
+    )

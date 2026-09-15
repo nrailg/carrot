@@ -3,13 +3,14 @@ import logging
 import math
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, override
 
 import safetensors.torch
 import torch
 import torch.nn.functional as F  # noqa: N812
 from diffusers.configuration_utils import ConfigMixin, register_to_config
 from diffusers.models.modeling_utils import ModelMixin
+from huggingface_hub import save_torch_state_dict
 from torch import Tensor, nn
 
 from . import preprocessing_pytorch as _preprocessing
@@ -186,6 +187,59 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         )
         safetensors.torch.load_model(model, weight_path, strict=True)
         return model
+
+    @override
+    def save_pretrained(
+        self,
+        save_directory: str | Path,
+        *,
+        state_dict: dict[str, Tensor] | None = None,
+    ) -> None:
+        """Save weights and architecture metadata in OpenPI PyTorch format.
+
+        Parameters
+        ----------
+        save_directory : str | pathlib.Path
+        state_dict : dict[str, torch.Tensor] | None
+            Full CPU state dict gathered from FSDP2, or the local model state dict.
+        """
+        directory = Path(save_directory)
+        directory.mkdir(parents=True, exist_ok=True)
+        tensors = dict(self.state_dict() if state_dict is None else state_dict)
+        # FSDP materialization breaks the storage alias between PaliGemma's input
+        # embedding and lm_head. OpenPI keeps lm_head and relies on the model's tied
+        # parameter when loading, so remove the now-independent duplicate explicitly.
+        tied_embedding = (
+            "paligemma_with_expert.paligemma.model.language_model.embed_tokens.weight"
+        )
+        tied_lm_head = "paligemma_with_expert.paligemma.lm_head.weight"
+        if tied_embedding in tensors and tied_lm_head in tensors:
+            if tensors[tied_embedding].shape != tensors[tied_lm_head].shape:
+                raise ValueError("PaliGemma tied weights have different shapes")
+            del tensors[tied_embedding]
+        floating_dtypes = {
+            tensor.dtype for tensor in tensors.values() if tensor.dtype.is_floating_point
+        }
+        if not floating_dtypes <= {torch.bfloat16, torch.float32}:
+            raise ValueError(f"unsupported checkpoint dtypes: {sorted(map(str, floating_dtypes))}")
+        precision = "bfloat16" if torch.bfloat16 in floating_dtypes else "float32"
+        save_torch_state_dict(
+            tensors,
+            directory,
+            filename_pattern="model{suffix}.safetensors",
+            max_shard_size="100GB",
+        )
+        config = {
+            "action_dim": self.config.action_dim,
+            "action_horizon": self.config.action_horizon,
+            "paligemma_variant": self.config.paligemma_variant,
+            "action_expert_variant": self.config.action_expert_variant,
+            # FSDP2 exports FP32 master weights. Record their storage precision so
+            # resume does not silently cast them back to the source BF16 config.
+            "precision": precision,
+        }
+        with (directory / "config.json").open("w") as stream:
+            json.dump(config, stream, indent=2)
 
     def gradient_checkpointing_enable(self):
         """Enable gradient checkpointing for memory optimization."""

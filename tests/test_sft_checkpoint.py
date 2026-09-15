@@ -1,3 +1,4 @@
+import copy
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,9 @@ class _ExportableLinear(torch.nn.Linear):
 
 
 def test_checkpoint_round_trip(tmp_path: Path) -> None:
+    # 验证模型使用 OpenPI 根目录格式保存，同时 optimizer DCP、scheduler 和 step 能完整恢复。
+    # Arrange：先执行一次 AdamW 更新，确保 optimizer 已创建非空 moment 状态。
+    checkpoint = tmp_path / "checkpoint"
     model = _ExportableLinear(2, 1)
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda _: 1.0)
@@ -29,23 +33,47 @@ def test_checkpoint_round_trip(tmp_path: Path) -> None:
     optimizer.step()
     scheduler.step()
     expected = {name: value.detach().clone() for name, value in model.state_dict().items()}
+    expected_optimizer = copy.deepcopy(optimizer.state_dict())
 
-    save_checkpoint(tmp_path, model, optimizer, scheduler, step=1)
-    exported = load_file(tmp_path / "pretrained_model" / "model.safetensors")
+    # Act：保存统一目录，并检查模型不再嵌套在 pretrained_model 或模型 DCP 中。
+    save_checkpoint(checkpoint, model, optimizer, scheduler, step=1)
+    exported = load_file(checkpoint / "model.safetensors")
+    assert (checkpoint / "optimizer" / ".metadata").is_file()
+    assert not (checkpoint / "pretrained_model").exists()
+    assert not (checkpoint / "dcp").exists()
     for name, value in expected.items():
         torch.testing.assert_close(exported[name], value)
 
-    with torch.no_grad():
-        for parameter in model.parameters():
-            parameter.zero_()
-    step = load_checkpoint(tmp_path, model, optimizer, scheduler)
+    # Arrange：新建模型和空 optimizer，模拟进程重启后先读模型、再恢复训练状态。
+    resumed_model = _ExportableLinear(2, 1)
+    resumed_model.load_state_dict(exported)
+    resumed_optimizer = torch.optim.AdamW(resumed_model.parameters(), lr=1e-3)
+    resumed_scheduler = torch.optim.lr_scheduler.LambdaLR(resumed_optimizer, lambda _: 1.0)
 
+    # Act：optimizer-only DCP 应按新模型参数重新绑定状态，并恢复 scheduler 与 step。
+    step = load_checkpoint(
+        checkpoint,
+        resumed_optimizer,
+        resumed_scheduler,
+    )
+
+    # Assert：模型来自 OpenPI 文件，训练状态来自独立 DCP，二者共同构成完整 resume。
     assert step == 1
-    for name, value in model.state_dict().items():
+    assert resumed_scheduler.state_dict() == scheduler.state_dict()
+    for name, value in resumed_model.state_dict().items():
         torch.testing.assert_close(value, expected[name])
+    actual_optimizer = resumed_optimizer.state_dict()
+    assert actual_optimizer["param_groups"] == expected_optimizer["param_groups"]
+    for parameter_id, expected_state in expected_optimizer["state"].items():
+        actual_state = actual_optimizer["state"][parameter_id]
+        for name, expected_value in expected_state.items():
+            torch.testing.assert_close(actual_state[name], expected_value)
 
 
 def test_checkpoint_writes_model_artifacts(tmp_path: Path) -> None:
+    # 验证 tokenizer、归一化统计等附属文件直接写入 OpenPI checkpoint 根目录。
+    # Arrange：artifact writer 用最小 norm_stats 文件标记实际接收的导出路径。
+    checkpoint = tmp_path / "checkpoint"
     model = _ExportableLinear(2, 1)
     optimizer = torch.optim.AdamW(model.parameters(), lr=1e-3)
     scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda _: 1.0)
@@ -53,6 +81,15 @@ def test_checkpoint_writes_model_artifacts(tmp_path: Path) -> None:
     def write_artifact(path: Path) -> None:
         (path / "norm_stats.json").write_text("{}")
 
-    save_checkpoint(tmp_path, model, optimizer, scheduler, step=1, artifact_writer=write_artifact)
+    # Act：保存 checkpoint 并由 artifact writer 补齐非模型文件。
+    save_checkpoint(
+        checkpoint,
+        model,
+        optimizer,
+        scheduler,
+        step=1,
+        artifact_writer=write_artifact,
+    )
 
-    assert (tmp_path / "pretrained_model" / "norm_stats.json").read_text() == "{}"
+    # Assert：附属文件必须与 model.safetensors 同级，便于目录直接作为 model.path。
+    assert (checkpoint / "norm_stats.json").read_text() == "{}"

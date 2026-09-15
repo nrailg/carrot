@@ -1,5 +1,5 @@
 model:
-  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/pi05-parity-temp/pi05-openpi-pytorch-checkpoint
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch
   tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
 dataset:
   factory: carrot.data.lerobot.build_dataset

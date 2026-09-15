@@ -14,4 +14,5 @@ class Pi05Parallelizer(ModelParallelizer):
 
     def fsdp_units(self, model: nn.Module) -> Sequence[nn.Module]:
         backbone = model.paligemma_with_expert
+        # TODO: Expose callable paired decoder blocks so FSDP can reshard them per layer.
         return tuple(backbone.paligemma.model.vision_tower.vision_model.encoder.layers)

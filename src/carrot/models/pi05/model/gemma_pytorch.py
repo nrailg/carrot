@@ -36,6 +36,7 @@ class PaliGemmaWithExpertModel(nn.Module):
                 vocab_size=257152,
             )
         )
+        # Official PaliGemma reserves token 0 for padding; this model reads it from the root config.
         vlm_config_hf.pad_token_id = 0
         vlm_config_hf._vocab_size = 257152  # noqa: SLF001
         vlm_config_hf.image_token_index = 257152

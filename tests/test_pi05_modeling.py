@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+from types import SimpleNamespace
 from typing import Any
 
 import torch
 from torch import nn
 
+from carrot.models.pi05.loss_fn import Pi05SFTLossFn
 from carrot.models.pi05.model import PI0Observation
-from carrot.models.pi05.modeling import Pi05SFTLossFn
 
 
 class _Tokenizer:
@@ -20,11 +21,10 @@ class _Tokenizer:
 
 class _Policy(nn.Module):
     # 捕获 loss adapter 的调用参数，避免用真实大模型掩盖 batch contract 问题。
-    max_state_dim = 32
-    max_action_dim = 32
-
     def __init__(self) -> None:
         super().__init__()
+        # 模拟 Diffusers ConfigMixin 暴露的只读属性访问接口。
+        self.config = SimpleNamespace(action_dim=32)
         self.action_in_proj = nn.Linear(32, 4)
         self.seen: tuple[Any, ...] | None = None
 

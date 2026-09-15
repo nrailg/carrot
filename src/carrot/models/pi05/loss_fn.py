@@ -132,9 +132,11 @@ class Pi05SFTLossFn:
         actions = batch[self.action_key].to(device, non_blocking=True)
         if self.preprocess is not None:
             state, actions = self.preprocess(state, actions)
-        state = self._pad_last(self._normalize(state, self.state_stats), policy.max_state_dim)
+        state = self._pad_last(
+            self._normalize(state, self.state_stats), policy.config.action_dim
+        )
         actions = self._pad_last(
-            self._normalize(actions, self.action_stats), policy.max_action_dim
+            self._normalize(actions, self.action_stats), policy.config.action_dim
         )
         dtype = policy.action_in_proj.weight.dtype
         images = [

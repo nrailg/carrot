@@ -36,17 +36,6 @@ def _get_gemma_config(variant: str) -> _GemmaConfig:
     raise ValueError(f"Unknown Gemma variant: {variant}")
 
 
-@dataclass(frozen=True)
-class PI0Config:
-    dtype: str = "bfloat16"
-    paligemma_variant: str = "gemma_2b"
-    action_expert_variant: str = "gemma_300m"
-    action_dim: int = 32
-    action_horizon: int = 50
-    pi05: bool = True
-    pytorch_compile_mode: str | None = None
-
-
 def get_safe_dtype(target_dtype, device_type):
     """Get a safe dtype for the given device type."""
     if device_type == "cpu":
@@ -121,65 +110,39 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
     @register_to_config
     def __init__(
         self,
-        max_state_dim: int = 32,
-        max_action_dim: int = 32,
-        proj_width: int = 1024,
-        n_action_steps: int = 50,
-        num_steps: int = 10,
-        use_cache: bool = True,
-        pi05_enabled: bool = True,
         dtype: str = "bfloat16",
         paligemma_variant: str = "gemma_2b",
         action_expert_variant: str = "gemma_300m",
+        action_dim: int = 32,
+        action_horizon: int = 50,
+        pi05: bool = True,
         pytorch_compile_mode: str | None = None,
     ):
         super().__init__()
-        if max_state_dim != max_action_dim:
-            raise ValueError("OpenPI requires max_state_dim to equal max_action_dim")
-        if proj_width != _get_gemma_config(action_expert_variant).width:
-            raise ValueError("proj_width must match the action expert width")
-        config = PI0Config(
-            dtype=dtype,
-            paligemma_variant=paligemma_variant,
-            action_expert_variant=action_expert_variant,
-            action_dim=max_action_dim,
-            action_horizon=n_action_steps,
-            pi05=pi05_enabled,
-            pytorch_compile_mode=pytorch_compile_mode,
-        )
-        self.pi05 = config.pi05
-        self.max_state_dim = max_state_dim
-        self.max_action_dim = max_action_dim
-        self.proj_width = proj_width
-        self.n_action_steps = n_action_steps
-        self.num_steps = num_steps
-        self.use_cache = use_cache
-        self.pi05_enabled = pi05_enabled
-
-        paligemma_config = _get_gemma_config(config.paligemma_variant)
-        action_expert_config = _get_gemma_config(config.action_expert_variant)
+        paligemma_config = _get_gemma_config(self.config.paligemma_variant)
+        action_expert_config = _get_gemma_config(self.config.action_expert_variant)
 
         self.paligemma_with_expert = PaliGemmaWithExpertModel(
             paligemma_config,
             action_expert_config,
-            use_adarms=[False, True] if self.pi05 else [False, False],
-            precision=config.dtype,
+            use_adarms=[False, True] if self.config.pi05 else [False, False],
+            precision=self.config.dtype,
         )
 
-        self.action_in_proj = nn.Linear(config.action_dim, action_expert_config.width)
-        self.action_out_proj = nn.Linear(action_expert_config.width, config.action_dim)
+        self.action_in_proj = nn.Linear(self.config.action_dim, action_expert_config.width)
+        self.action_out_proj = nn.Linear(action_expert_config.width, self.config.action_dim)
 
-        if self.pi05:
+        if self.config.pi05:
             self.time_mlp_in = nn.Linear(action_expert_config.width, action_expert_config.width)
             self.time_mlp_out = nn.Linear(action_expert_config.width, action_expert_config.width)
         else:
-            self.state_proj = nn.Linear(config.action_dim, action_expert_config.width)
+            self.state_proj = nn.Linear(self.config.action_dim, action_expert_config.width)
             self.action_time_mlp_in = nn.Linear(2 * action_expert_config.width, action_expert_config.width)
             self.action_time_mlp_out = nn.Linear(action_expert_config.width, action_expert_config.width)
 
         torch.set_float32_matmul_precision("high")
-        if config.pytorch_compile_mode is not None:
-            self.sample_actions = torch.compile(self.sample_actions, mode=config.pytorch_compile_mode)
+        if self.config.pytorch_compile_mode is not None:
+            self.sample_actions = torch.compile(self.sample_actions, mode=self.config.pytorch_compile_mode)
 
         # Initialize gradient checkpointing flag
         self.gradient_checkpointing_enabled = False
@@ -197,13 +160,12 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         with (path / "config.json").open() as stream:
             config = json.load(stream)
         model = cls(
-            max_state_dim=int(config["action_dim"]),
-            max_action_dim=int(config["action_dim"]),
-            proj_width=_get_gemma_config(config["action_expert_variant"]).width,
-            n_action_steps=int(config["action_horizon"]),
             dtype=str(config["precision"]),
             paligemma_variant=str(config["paligemma_variant"]),
             action_expert_variant=str(config["action_expert_variant"]),
+            action_dim=int(config["action_dim"]),
+            action_horizon=int(config["action_horizon"]),
+            pi05=bool(config["pi05"]),
         )
         safetensors.torch.load_model(model, weight_path, strict=True)
         return model
@@ -325,7 +287,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         pad_masks = []
         att_masks = []
 
-        if not self.pi05:
+        if not self.config.pi05:
             if self.state_proj.weight.dtype == torch.float32:
                 state = state.to(torch.float32)
 
@@ -357,7 +319,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
 
         action_emb = self._apply_checkpoint(action_proj_func, noisy_actions)
 
-        if not self.pi05:
+        if not self.config.pi05:
             time_emb = time_emb[:, None, :].expand_as(action_emb)
             action_time_emb = torch.cat([action_emb, time_emb], dim=2)
 
@@ -389,7 +351,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         pad_masks.append(action_time_mask)
 
         # Set attention masks so that image, language and state inputs do not attend to action tokens
-        att_masks += [1] + ([0] * (self.n_action_steps - 1))
+        att_masks += [1] + ([0] * (self.config.action_horizon - 1))
 
         embs = torch.cat(embs, dim=1)
         pad_masks = torch.cat(pad_masks, dim=1)
@@ -446,7 +408,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
             forward_func, prefix_embs, suffix_embs, att_2d_masks_4d, position_ids, adarms_cond
         )
 
-        suffix_out = suffix_out[:, -self.n_action_steps :]
+        suffix_out = suffix_out[:, -self.config.action_horizon :]
         suffix_out = suffix_out.to(dtype=torch.float32)
 
         # Apply gradient checkpointing to final action projection if enabled
@@ -462,7 +424,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         """Do a full inference forward and compute the action (batch_size x num_steps x num_motors)"""
         bsize = observation.state.shape[0]
         if noise is None:
-            actions_shape = (bsize, self.n_action_steps, self.max_action_dim)
+            actions_shape = (bsize, self.config.action_horizon, self.config.action_dim)
             noise = self.sample_noise(actions_shape, device)
 
         images, img_masks, lang_tokens, lang_masks, state = self._preprocess_observation(observation, train=False)
@@ -541,6 +503,6 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         )
 
         suffix_out = outputs_embeds[1]
-        suffix_out = suffix_out[:, -self.n_action_steps :]
+        suffix_out = suffix_out[:, -self.config.action_horizon :]
         suffix_out = suffix_out.to(dtype=torch.float32)
         return self.action_out_proj(suffix_out.to(self.action_out_proj.weight.dtype))

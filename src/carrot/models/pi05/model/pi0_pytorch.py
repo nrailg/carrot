@@ -115,10 +115,25 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         action_expert_variant: str = "gemma_300m",
         action_dim: int = 32,
         action_horizon: int = 50,
-        pi05: bool = True,
-        pytorch_compile_mode: str | None = None,
+        max_token_len: int | None = None,
+        pi05: bool = False,
+        discrete_state_input: bool | None = None,
+        pytorch_compile_mode: str | None = "max-autotune",
     ):
         super().__init__()
+        if self.config.max_token_len is None:
+            self.register_to_config(max_token_len=200 if self.config.pi05 else 48)
+        if self.config.discrete_state_input is None:
+            self.register_to_config(discrete_state_input=self.config.pi05)
+        if self.config.pytorch_compile_mode not in (
+            None,
+            "default",
+            "reduce-overhead",
+            "max-autotune",
+            "max-autotune-no-cudagraphs",
+        ):
+            raise ValueError(f"invalid pytorch_compile_mode: {self.config.pytorch_compile_mode}")
+
         paligemma_config = _get_gemma_config(self.config.paligemma_variant)
         action_expert_config = _get_gemma_config(self.config.action_expert_variant)
 
@@ -165,7 +180,9 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
             action_expert_variant=str(config["action_expert_variant"]),
             action_dim=int(config["action_dim"]),
             action_horizon=int(config["action_horizon"]),
-            pi05=bool(config["pi05"]),
+            # OpenPI's PyTorch export only stores architecture fields; this integration loads PI0.5.
+            pi05=True,
+            pytorch_compile_mode=None,
         )
         safetensors.torch.load_model(model, weight_path, strict=True)
         return model

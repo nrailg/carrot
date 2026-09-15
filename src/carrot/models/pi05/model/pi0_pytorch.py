@@ -7,11 +7,13 @@ from typing import Any, override
 
 import safetensors.torch
 import torch
+import torch.distributed as dist
 import torch.nn.functional as F  # noqa: N812
 from diffusers.configuration_utils import ConfigMixin, register_to_config
 from diffusers.models.modeling_utils import ModelMixin
 from huggingface_hub import save_torch_state_dict
 from torch import Tensor, nn
+from torch.distributed.tensor import DTensor
 
 from . import preprocessing_pytorch as _preprocessing
 from .gemma_pytorch import PaliGemmaWithExpertModel
@@ -201,11 +203,20 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         ----------
         save_directory : str | pathlib.Path
         state_dict : dict[str, torch.Tensor] | None
-            Full CPU state dict gathered from FSDP2, or the local model state dict.
+            Local state dict. DTensor values require every rank to enter this method.
         """
         directory = Path(save_directory)
+        rank_zero = not dist.is_initialized() or dist.get_rank() == 0
+        tensors = {}
+        for name, value in (self.state_dict() if state_dict is None else state_dict).items():
+            tensor = value.full_tensor() if isinstance(value, DTensor) else value
+            if rank_zero:
+                tensors[name] = tensor.detach().cpu()
+            del tensor
+        if not rank_zero:
+            dist.barrier()
+            return
         directory.mkdir(parents=True, exist_ok=True)
-        tensors = dict(self.state_dict() if state_dict is None else state_dict)
         # FSDP materialization breaks the storage alias between PaliGemma's input
         # embedding and lm_head. OpenPI keeps lm_head and relies on the model's tied
         # parameter when loading, so remove the now-independent duplicate explicitly.
@@ -240,6 +251,8 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         }
         with (directory / "config.json").open("w") as stream:
             json.dump(config, stream, indent=2)
+        if dist.is_initialized():
+            dist.barrier()
 
     def gradient_checkpointing_enable(self):
         """Enable gradient checkpointing for memory optimization."""

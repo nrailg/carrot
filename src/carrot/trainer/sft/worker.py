@@ -235,12 +235,9 @@ class SFTTrainWorker(Worker):
         torch.cuda.manual_seed_all(self.config.seed + self.rank)
 
         model_path = self.resume if self.resume is not None else self.config.model.path
-        tokenizer_path = (
-            self.resume if self.resume is not None else self.config.model.tokenizer_path
-        )
         components = build_pi05(
             model_path=model_path,
-            tokenizer_path=tokenizer_path,
+            tokenizer_path=self.config.model.tokenizer_path,
             dataset_factory=self.config.dataset.factory,
             dataset_factory_kwargs=self.config.dataset.factory_kwargs,
             device=f"cuda:{self.local_rank}",

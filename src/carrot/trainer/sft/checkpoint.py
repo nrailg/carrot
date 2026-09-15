@@ -11,8 +11,7 @@ from typing import Any
 import torch
 import torch.distributed as dist
 import torch.distributed.checkpoint as dcp
-from torch import Tensor, nn
-from torch.distributed.tensor import DTensor
+from torch import nn
 
 
 class _OptimizerState:
@@ -50,16 +49,6 @@ def _initialize_optimizer_state(optimizer: Any) -> None:
         optimizer.zero_grad(set_to_none=True)
 
 
-def _get_full_model_state_dict(model: nn.Module) -> dict[str, Tensor]:
-    rank_zero = not dist.is_initialized() or dist.get_rank() == 0
-    full_state_dict = {}
-    for name, value in model.state_dict().items():
-        tensor = value.full_tensor() if isinstance(value, DTensor) else value
-        if rank_zero:
-            full_state_dict[name] = tensor.detach().cpu()
-    return full_state_dict
-
-
 def save_checkpoint(
     path: Path,
     model: nn.Module,
@@ -70,8 +59,8 @@ def save_checkpoint(
 ) -> None:
     """Write an OpenPI PyTorch model export and an optimizer-only DCP bundle.
 
-    DCP and the full-state gather are collective; every rank must enter. Rank 0
-    writes the model artifacts and atomically publishes the completed directory.
+    DCP and model export may be collective; every rank must enter. Rank 0 writes
+    the model artifacts and atomically publishes the completed directory.
 
     Parameters
     ----------
@@ -99,10 +88,8 @@ def save_checkpoint(
         {"optimizer": _OptimizerState(optimizer)},
         checkpoint_id=str(temporary_path / "optimizer"),
     )
-    # Direct DTensor gather keeps later optimizer-only DCP saves reusable under FSDP2.
-    state_dict = _get_full_model_state_dict(model)
+    model.save_pretrained(temporary_path, state_dict=model.state_dict())
     if not dist.is_initialized() or dist.get_rank() == 0:
-        model.save_pretrained(temporary_path, state_dict=state_dict)
         if artifact_writer is not None:
             artifact_writer(temporary_path)
         with (temporary_path / "trainer_state.json").open("w") as stream:

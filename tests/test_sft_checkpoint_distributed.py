@@ -17,13 +17,26 @@ class _ExportableLinear(torch.nn.Linear):
     def save_pretrained(
         self, save_directory: Path, *, state_dict: dict[str, Any] | None = None
     ) -> None:
+        # checkpoint 层必须把原始 DTensor 交给模型；模型负责 collective materialization。
+        assert state_dict is not None
+        assert any(isinstance(tensor, DTensor) for tensor in state_dict.values())
+        rank_zero = dist.get_rank() == 0
+        tensors = {}
+        for name, value in state_dict.items():
+            tensor = value.full_tensor() if isinstance(value, DTensor) else value
+            if rank_zero:
+                tensors[name] = tensor.detach().cpu().contiguous()
+            del tensor
+        if not rank_zero:
+            dist.barrier()
+            return
         directory = Path(save_directory)
         directory.mkdir(parents=True, exist_ok=True)
-        tensors = self.state_dict() if state_dict is None else state_dict
         save_file(
-            {name: tensor.detach().cpu().contiguous() for name, tensor in tensors.items()},
+            tensors,
             str(directory / "model.safetensors"),
         )
+        dist.barrier()
 
 
 def _local_optimizer_state(optimizer: torch.optim.Optimizer) -> dict[int, dict[str, Any]]:

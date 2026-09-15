@@ -1,9 +1,9 @@
-from collections.abc import Sequence
 import logging
+from collections.abc import Sequence
+from dataclasses import dataclass
 
 import torch
-
-from openpi.shared import image_tools
+import torch.nn.functional as F
 
 logger = logging.getLogger("openpi")
 
@@ -15,6 +15,43 @@ IMAGE_KEYS = (
 )
 
 IMAGE_RESOLUTION = (224, 224)
+
+
+@dataclass
+class PI0Observation:
+    images: dict[str, torch.Tensor]
+    image_masks: dict[str, torch.Tensor]
+    state: torch.Tensor
+    tokenized_prompt: torch.Tensor
+    tokenized_prompt_mask: torch.Tensor
+    token_ar_mask: torch.Tensor | None = None
+    token_loss_mask: torch.Tensor | None = None
+
+
+def _resize_with_pad(images: torch.Tensor, height: int, width: int) -> torch.Tensor:
+    channels_last = images.shape[-1] <= 4
+    if channels_last:
+        images = images.permute(0, 3, 1, 2)
+    current_height, current_width = images.shape[-2:]
+    ratio = max(current_width / width, current_height / height)
+    resized_height = int(current_height / ratio)
+    resized_width = int(current_width / ratio)
+    images = F.interpolate(
+        images.float(), size=(resized_height, resized_width), mode="bilinear", align_corners=False
+    )
+    pad_height = height - resized_height
+    pad_width = width - resized_width
+    images = F.pad(
+        images,
+        (
+            pad_width // 2,
+            pad_width - pad_width // 2,
+            pad_height // 2,
+            pad_height - pad_height // 2,
+        ),
+        value=-1.0,
+    )
+    return images.permute(0, 2, 3, 1) if channels_last else images
 
 
 def preprocess_observation_pytorch(
@@ -36,6 +73,7 @@ def preprocess_observation_pytorch(
     out_images = {}
     for key in image_keys:
         image = observation.images[key]
+        image_dtype = image.dtype
 
         # TODO: This is a hack to handle both [B, C, H, W] and [B, H, W, C] formats
         # Handle both [B, C, H, W] and [B, H, W, C] formats
@@ -47,11 +85,11 @@ def preprocess_observation_pytorch(
 
         if image.shape[1:3] != image_resolution:
             logger.info(f"Resizing image {key} from {image.shape[1:3]} to {image_resolution}")
-            image = image_tools.resize_with_pad_torch(image, *image_resolution)
+            image = _resize_with_pad(image, *image_resolution)
 
         if train:
             # Convert from [-1, 1] to [0, 1] for PyTorch augmentations
-            image = image / 2.0 + 0.5
+            image = image.float() / 2.0 + 0.5
 
             # Apply PyTorch-based augmentations
             if "wrist" not in key:
@@ -139,7 +177,7 @@ def preprocess_observation_pytorch(
             image = torch.clamp(image, 0, 1)
 
             # Back to [-1, 1]
-            image = image * 2.0 - 1.0
+            image = (image * 2.0 - 1.0).to(image_dtype)
 
         # Convert back to [B, C, H, W] format if it was originally channels-first
         if is_channels_first:

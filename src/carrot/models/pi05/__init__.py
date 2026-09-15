@@ -1,7 +1,7 @@
 """Native PI0.5 model integration."""
 
+from .loss_fn import Pi05Components, Pi05SFTLossFn, build_pi05
 from .model import GemmaDecoderLayerWithExpert, PI0Policy
-from .modeling import Pi05Components, Pi05SFTLossFn, build_pi05
 
 __all__ = [
     "GemmaDecoderLayerWithExpert",

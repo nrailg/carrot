@@ -64,10 +64,14 @@ def test_fsdp_uses_fp32_master_and_configured_mixed_precision(monkeypatch) -> No
 class _Backbone(nn.Module):
     def __init__(self) -> None:
         super().__init__()
-        self.vision_tower = nn.Module()
-        self.vision_tower.encoder = nn.Module()
-        self.vision_tower.encoder.layers = nn.ModuleList([nn.Linear(2, 2)])
-        self.layers = nn.ModuleList([nn.Linear(2, 2), nn.Linear(2, 2)])
+        self.paligemma = nn.Module()
+        self.paligemma.model = nn.Module()
+        self.paligemma.model.vision_tower = nn.Module()
+        self.paligemma.model.vision_tower.vision_model = nn.Module()
+        self.paligemma.model.vision_tower.vision_model.encoder = nn.Module()
+        self.paligemma.model.vision_tower.vision_model.encoder.layers = nn.ModuleList(
+            [nn.Linear(2, 2)]
+        )
 
 
 class _NativePolicy(nn.Module):
@@ -82,8 +86,5 @@ def test_pi05_parallelizer_wraps_transformer_layers() -> None:
     units = Pi05Parallelizer().fsdp_units(model)
 
     assert units == tuple(
-        [
-            *model.paligemma_with_expert.vision_tower.encoder.layers,
-            *model.paligemma_with_expert.layers,
-        ]
+        model.paligemma_with_expert.paligemma.model.vision_tower.vision_model.encoder.layers
     )

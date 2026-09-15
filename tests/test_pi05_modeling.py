@@ -5,6 +5,7 @@ from typing import Any
 import torch
 from torch import nn
 
+from carrot.models.pi05.model import PI0Observation
 from carrot.models.pi05.modeling import Pi05SFTLossFn
 
 
@@ -26,9 +27,15 @@ class _Policy(nn.Module):
         self.action_in_proj = nn.Linear(32, 4)
         self.seen: tuple[Any, ...] | None = None
 
-    def forward(self, images, masks, tokens, token_masks, state, noisy_actions, time):
-        self.seen = images, masks, tokens, token_masks, state, noisy_actions, time
-        return noisy_actions * self.action_in_proj.weight.sum() * 0
+    def forward(
+        self,
+        observation: PI0Observation,
+        actions: torch.Tensor,
+        noise: torch.Tensor,
+        time: torch.Tensor,
+    ) -> torch.Tensor:
+        self.seen = observation, actions, noise, time
+        return (actions - noise).square()
 
 
 def _stats() -> dict[str, list[float]]:
@@ -56,10 +63,15 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
     }
 
     loss, metrics = loss_fn(native, batch)
-    images, masks, tokens, token_masks, state, noisy_actions, time = native.seen
+    observation, noisy_actions, noise, time = native.seen
 
     assert loss.ndim == 0
     assert metrics["per_step_loss"].shape == (2, 50)
+    images = list(observation.images.values())
+    masks = list(observation.image_masks.values())
+    tokens = observation.tokenized_prompt
+    token_masks = observation.tokenized_prompt_mask
+    state = observation.state
     assert [tuple(image.shape) for image in images] == [(2, 3, 224, 224)] * 3
     assert torch.all(images[0][..., 0, :] == -1)
     assert torch.all(images[0][..., 112, :] == 1)

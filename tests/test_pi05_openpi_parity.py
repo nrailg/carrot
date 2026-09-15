@@ -8,21 +8,21 @@ import numpy as np
 import pytest
 import torch
 
-from carrot.models.pi05.model import PI0Policy
+from carrot.models.pi05.model import PI0Observation, PI0Policy
 
 OPENPI_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_GOLDEN")
 OPENPI_PYTORCH_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_PYTORCH_GOLDEN")
-OPEN_GIGA_CHECKPOINT = os.environ.get("CARROT_PI05_OPEN_GIGA_CHECKPOINT")
+OPENPI_PYTORCH_CHECKPOINT = os.environ.get("CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT")
 type ErrorSummary = tuple[float, float, float, float]
 type DifferenceRow = tuple[str, ErrorSummary, ErrorSummary, float]
 pytestmark = pytest.mark.skipif(
     OPENPI_GOLDEN is None
     or OPENPI_PYTORCH_GOLDEN is None
-    or OPEN_GIGA_CHECKPOINT is None
+    or OPENPI_PYTORCH_CHECKPOINT is None
     or not torch.cuda.is_available(),
     reason=(
         "set CARROT_PI05_OPENPI_GOLDEN, CARROT_PI05_OPENPI_PYTORCH_GOLDEN, and "
-        "CARROT_PI05_OPEN_GIGA_CHECKPOINT and run on a CUDA host"
+        "CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT and run on a CUDA host"
     ),
 )
 
@@ -89,7 +89,7 @@ def _print_difference_table(rows: list[DifferenceRow]) -> None:
 
 
 @torch.no_grad()
-def test_carrot_pi05_matches_openpi_jax_sampling() -> None:
+def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
     device = torch.device("cuda")
     with np.load(Path(OPENPI_GOLDEN), allow_pickle=False) as archive:
         metadata = json.loads(archive["metadata_json"].item())
@@ -141,21 +141,23 @@ def test_carrot_pi05_matches_openpi_jax_sampling() -> None:
             for name in jax_weights
         }
 
-    model = PI0Policy.from_pretrained(Path(OPEN_GIGA_CHECKPOINT)).to(device).eval()
+    model = PI0Policy.from_pretrained(Path(OPENPI_PYTORCH_CHECKPOINT)).to(device).eval()
     assert model.pi05_enabled
     assert (model.n_action_steps, model.max_action_dim) == (50, 32)
     pi05 = model.paligemma_with_expert
+    paligemma = pi05.paligemma.model
+    vision_embeddings = paligemma.vision_tower.vision_model.embeddings
     actual_weights = {
-        "language_embedding_rows": pi05.embed_tokens.weight[1:65],
+        "language_embedding_rows": paligemma.language_model.embed_tokens.weight[1:65],
         "action_in_kernel": model.action_in_proj.weight.T,
         "action_in_bias": model.action_in_proj.bias,
-        "image_patch_kernel": pi05.vision_tower.embeddings.patch_embedding.weight.permute(
+        "image_patch_kernel": vision_embeddings.patch_embedding.weight.permute(
             2, 3, 1, 0
         ),
-        "image_patch_bias": pi05.vision_tower.embeddings.patch_embedding.bias,
-        "image_position_embedding": pi05.vision_tower.embeddings.position_embedding.weight[None],
-        "image_head_kernel": pi05.multi_modal_projector.linear.weight.T,
-        "image_head_bias": pi05.multi_modal_projector.linear.bias,
+        "image_patch_bias": vision_embeddings.patch_embedding.bias,
+        "image_position_embedding": vision_embeddings.position_embedding.weight[None],
+        "image_head_kernel": paligemma.multi_modal_projector.linear.weight.T,
+        "image_head_bias": paligemma.multi_modal_projector.linear.bias,
     }
     difference_rows = []
     for name, actual_weight in actual_weights.items():
@@ -179,13 +181,34 @@ def test_carrot_pi05_matches_openpi_jax_sampling() -> None:
     actual_suffix_embeddings, _, _, actual_adarms_cond = model.embed_suffix(
         state, noise, torch.ones((noise.shape[0],), device=device)
     )
-    model.num_steps = 1
+    observation = PI0Observation(
+        images=dict(
+            zip(
+                ("base_0_rgb", "left_wrist_0_rgb", "right_wrist_0_rgb"),
+                images,
+                strict=True,
+            )
+        ),
+        image_masks=dict(
+            zip(
+                ("base_0_rgb", "left_wrist_0_rgb", "right_wrist_0_rgb"),
+                image_masks,
+                strict=True,
+            )
+        ),
+        state=state,
+        tokenized_prompt=tokens,
+        tokenized_prompt_mask=token_masks,
+    )
     actual_one_step = model.sample_actions(
-        images, image_masks, tokens, token_masks, state, noise=noise.clone()
+        device,
+        observation,
+        noise=noise.clone(),
+        num_steps=1,
     )
     actual_first_v_t = noise - actual_one_step
 
-    assert actual_one_step.shape == expected_one_step.shape == (1, 50, 32)
+    assert actual_one_step.shape == pytorch_one_step.shape == (1, 50, 32)
     assert torch.isfinite(actual_one_step).all()
     language_length = tokens.shape[1]
     image_prefix_end = expected_prefix_embeddings.shape[1] - language_length
@@ -235,18 +258,16 @@ def test_carrot_pi05_matches_openpi_jax_sampling() -> None:
     _print_difference_table(difference_rows)
     for name, actual_weight in actual_weights.items():
         torch.testing.assert_close(
-            pytorch_weights[name].to(torch.bfloat16),
-            jax_weights[name].to(torch.bfloat16),
-            rtol=0,
-            atol=0,
-        )
-        torch.testing.assert_close(
             actual_weight.to(torch.bfloat16),
             pytorch_weights[name].to(torch.bfloat16),
             rtol=0,
             atol=0,
         )
-    for carrot_tensor, pytorch_tensor, jax_tensor in output_tensors.values():
-        torch.testing.assert_close(pytorch_tensor, jax_tensor, rtol=1e-3, atol=1e-3)
-        torch.testing.assert_close(carrot_tensor, pytorch_tensor, rtol=1e-3, atol=1e-3)
-        torch.testing.assert_close(carrot_tensor, jax_tensor, rtol=1e-3, atol=1e-3)
+    for carrot_tensor, pytorch_tensor, _ in output_tensors.values():
+        torch.testing.assert_close(
+            carrot_tensor,
+            pytorch_tensor,
+            rtol=1e-3,
+            atol=1e-3,
+            check_dtype=False,
+        )

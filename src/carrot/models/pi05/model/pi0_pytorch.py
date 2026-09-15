@@ -1,14 +1,50 @@
+import json
 import logging
 import math
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
 
+import safetensors.torch
 import torch
-from torch import Tensor
-from torch import nn
 import torch.nn.functional as F  # noqa: N812
+from diffusers.configuration_utils import ConfigMixin, register_to_config
+from diffusers.models.modeling_utils import ModelMixin
+from torch import Tensor, nn
 
-import openpi.models.gemma as _gemma
-from openpi.models_pytorch.gemma_pytorch import PaliGemmaWithExpertModel
-import openpi.models_pytorch.preprocessing_pytorch as _preprocessing
+from . import preprocessing_pytorch as _preprocessing
+from .gemma_pytorch import PaliGemmaWithExpertModel
+
+
+@dataclass(frozen=True)
+class _GemmaConfig:
+    width: int
+    depth: int
+    mlp_dim: int
+    num_heads: int
+    num_kv_heads: int
+    head_dim: int
+
+
+def _get_gemma_config(variant: str) -> _GemmaConfig:
+    if variant == "gemma_2b":
+        return _GemmaConfig(2048, 18, 16_384, 8, 1, 256)
+    if variant == "gemma_300m":
+        return _GemmaConfig(1024, 18, 4096, 8, 1, 256)
+    if variant == "dummy":
+        return _GemmaConfig(64, 4, 128, 8, 1, 16)
+    raise ValueError(f"Unknown Gemma variant: {variant}")
+
+
+@dataclass(frozen=True)
+class PI0Config:
+    dtype: str = "bfloat16"
+    paligemma_variant: str = "gemma_2b"
+    action_expert_variant: str = "gemma_300m"
+    action_dim: int = 32
+    action_horizon: int = 50
+    pi05: bool = True
+    pytorch_compile_mode: str | None = None
 
 
 def get_safe_dtype(target_dtype, device_type):
@@ -81,14 +117,47 @@ def make_att_2d_masks(pad_masks, att_masks):
     return att_2d_masks & pad_2d_masks
 
 
-class PI0Pytorch(nn.Module):
-    def __init__(self, config):
+class PI0Pytorch(ModelMixin, ConfigMixin):
+    @register_to_config
+    def __init__(
+        self,
+        max_state_dim: int = 32,
+        max_action_dim: int = 32,
+        proj_width: int = 1024,
+        n_action_steps: int = 50,
+        num_steps: int = 10,
+        use_cache: bool = True,
+        pi05_enabled: bool = True,
+        dtype: str = "bfloat16",
+        paligemma_variant: str = "gemma_2b",
+        action_expert_variant: str = "gemma_300m",
+        pytorch_compile_mode: str | None = None,
+    ):
         super().__init__()
-        self.config = config
+        if max_state_dim != max_action_dim:
+            raise ValueError("OpenPI requires max_state_dim to equal max_action_dim")
+        if proj_width != _get_gemma_config(action_expert_variant).width:
+            raise ValueError("proj_width must match the action expert width")
+        config = PI0Config(
+            dtype=dtype,
+            paligemma_variant=paligemma_variant,
+            action_expert_variant=action_expert_variant,
+            action_dim=max_action_dim,
+            action_horizon=n_action_steps,
+            pi05=pi05_enabled,
+            pytorch_compile_mode=pytorch_compile_mode,
+        )
         self.pi05 = config.pi05
+        self.max_state_dim = max_state_dim
+        self.max_action_dim = max_action_dim
+        self.proj_width = proj_width
+        self.n_action_steps = n_action_steps
+        self.num_steps = num_steps
+        self.use_cache = use_cache
+        self.pi05_enabled = pi05_enabled
 
-        paligemma_config = _gemma.get_config(config.paligemma_variant)
-        action_expert_config = _gemma.get_config(config.action_expert_variant)
+        paligemma_config = _get_gemma_config(config.paligemma_variant)
+        action_expert_config = _get_gemma_config(config.action_expert_variant)
 
         self.paligemma_with_expert = PaliGemmaWithExpertModel(
             paligemma_config,
@@ -115,14 +184,29 @@ class PI0Pytorch(nn.Module):
         # Initialize gradient checkpointing flag
         self.gradient_checkpointing_enabled = False
 
-        msg = "transformers_replace is not installed correctly. Please install it with `uv pip install transformers==4.53.2` and `cp -r ./src/openpi/models_pytorch/transformers_replace/* .venv/lib/python3.11/site-packages/transformers/`."
-        try:
-            from transformers.models.siglip import check
-
-            if not check.check_whether_transformers_replace_is_installed_correctly():
-                raise ValueError(msg)
-        except ImportError:
-            raise ValueError(msg) from None
+    @classmethod
+    def from_pretrained(
+        cls, pretrained_model_name_or_path: str | Path, **kwargs: Any
+    ) -> "PI0Pytorch":
+        path = Path(pretrained_model_name_or_path)
+        weight_path = path / "model.safetensors"
+        if not weight_path.is_file():
+            return super().from_pretrained(pretrained_model_name_or_path, **kwargs)
+        if kwargs:
+            raise TypeError(f"unsupported OpenPI loading options: {sorted(kwargs)}")
+        with (path / "config.json").open() as stream:
+            config = json.load(stream)
+        model = cls(
+            max_state_dim=int(config["action_dim"]),
+            max_action_dim=int(config["action_dim"]),
+            proj_width=_get_gemma_config(config["action_expert_variant"]).width,
+            n_action_steps=int(config["action_horizon"]),
+            dtype=str(config["precision"]),
+            paligemma_variant=str(config["paligemma_variant"]),
+            action_expert_variant=str(config["action_expert_variant"]),
+        )
+        safetensors.torch.load_model(model, weight_path, strict=True)
+        return model
 
     def gradient_checkpointing_enable(self):
         """Enable gradient checkpointing for memory optimization."""
@@ -305,7 +389,7 @@ class PI0Pytorch(nn.Module):
         pad_masks.append(action_time_mask)
 
         # Set attention masks so that image, language and state inputs do not attend to action tokens
-        att_masks += [1] + ([0] * (self.config.action_horizon - 1))
+        att_masks += [1] + ([0] * (self.n_action_steps - 1))
 
         embs = torch.cat(embs, dim=1)
         pad_masks = torch.cat(pad_masks, dim=1)
@@ -362,12 +446,12 @@ class PI0Pytorch(nn.Module):
             forward_func, prefix_embs, suffix_embs, att_2d_masks_4d, position_ids, adarms_cond
         )
 
-        suffix_out = suffix_out[:, -self.config.action_horizon :]
+        suffix_out = suffix_out[:, -self.n_action_steps :]
         suffix_out = suffix_out.to(dtype=torch.float32)
 
         # Apply gradient checkpointing to final action projection if enabled
         def action_out_proj_func(suffix_out):
-            return self.action_out_proj(suffix_out)
+            return self.action_out_proj(suffix_out.to(self.action_out_proj.weight.dtype))
 
         v_t = self._apply_checkpoint(action_out_proj_func, suffix_out)
 
@@ -378,7 +462,7 @@ class PI0Pytorch(nn.Module):
         """Do a full inference forward and compute the action (batch_size x num_steps x num_motors)"""
         bsize = observation.state.shape[0]
         if noise is None:
-            actions_shape = (bsize, self.config.action_horizon, self.config.action_dim)
+            actions_shape = (bsize, self.n_action_steps, self.max_action_dim)
             noise = self.sample_noise(actions_shape, device)
 
         images, img_masks, lang_tokens, lang_masks, state = self._preprocess_observation(observation, train=False)
@@ -457,6 +541,6 @@ class PI0Pytorch(nn.Module):
         )
 
         suffix_out = outputs_embeds[1]
-        suffix_out = suffix_out[:, -self.config.action_horizon :]
+        suffix_out = suffix_out[:, -self.n_action_steps :]
         suffix_out = suffix_out.to(dtype=torch.float32)
-        return self.action_out_proj(suffix_out)
+        return self.action_out_proj(suffix_out.to(self.action_out_proj.weight.dtype))

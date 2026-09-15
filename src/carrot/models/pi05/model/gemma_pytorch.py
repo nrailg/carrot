@@ -2,10 +2,14 @@ from typing import Literal
 
 import torch
 from torch import nn
-from transformers import GemmaForCausalLM
-from transformers import PaliGemmaForConditionalGeneration
-from transformers.models.auto import CONFIG_MAPPING
-from transformers.models.gemma import modeling_gemma
+from transformers import PaliGemmaConfig
+
+from .transformers_replace.models.gemma import modeling_gemma
+from .transformers_replace.models.gemma.configuration_gemma import GemmaConfig
+from .transformers_replace.models.gemma.modeling_gemma import GemmaForCausalLM
+from .transformers_replace.models.paligemma.modeling_paligemma import (
+    PaliGemmaForConditionalGeneration,
+)
 
 
 class PaliGemmaWithExpertModel(nn.Module):
@@ -20,7 +24,19 @@ class PaliGemmaWithExpertModel(nn.Module):
             use_adarms = [False, False]
         super().__init__()
 
-        vlm_config_hf = CONFIG_MAPPING["paligemma"]()
+        vlm_config_hf = PaliGemmaConfig(
+            text_config=GemmaConfig(
+                head_dim=vlm_config.head_dim,
+                hidden_size=vlm_config.width,
+                intermediate_size=vlm_config.mlp_dim,
+                num_attention_heads=vlm_config.num_heads,
+                num_hidden_layers=vlm_config.depth,
+                num_key_value_heads=vlm_config.num_kv_heads,
+                use_bidirectional_attention=None,
+                vocab_size=257152,
+            )
+        )
+        vlm_config_hf.pad_token_id = 0
         vlm_config_hf._vocab_size = 257152  # noqa: SLF001
         vlm_config_hf.image_token_index = 257152
         vlm_config_hf.text_config.hidden_size = vlm_config.width
@@ -30,16 +46,16 @@ class PaliGemmaWithExpertModel(nn.Module):
         vlm_config_hf.text_config.num_hidden_layers = vlm_config.depth
         vlm_config_hf.text_config.num_key_value_heads = vlm_config.num_kv_heads
         vlm_config_hf.text_config.hidden_activation = "gelu_pytorch_tanh"
-        vlm_config_hf.text_config.torch_dtype = "float32"
+        vlm_config_hf.text_config.dtype = "float32"
         vlm_config_hf.text_config.vocab_size = 257152
         vlm_config_hf.text_config.use_adarms = use_adarms[0]
         vlm_config_hf.text_config.adarms_cond_dim = vlm_config.width if use_adarms[0] else None
         vlm_config_hf.vision_config.intermediate_size = 4304
         vlm_config_hf.vision_config.projection_dim = 2048
         vlm_config_hf.vision_config.projector_hidden_act = "gelu_fast"
-        vlm_config_hf.vision_config.torch_dtype = "float32"
+        vlm_config_hf.vision_config.dtype = "float32"
 
-        action_expert_config_hf = CONFIG_MAPPING["gemma"](
+        action_expert_config_hf = GemmaConfig(
             head_dim=action_expert_config.head_dim,
             hidden_size=action_expert_config.width,
             intermediate_size=action_expert_config.mlp_dim,
@@ -48,7 +64,7 @@ class PaliGemmaWithExpertModel(nn.Module):
             num_key_value_heads=action_expert_config.num_kv_heads,
             vocab_size=257152,
             hidden_activation="gelu_pytorch_tanh",
-            torch_dtype="float32",
+            dtype="float32",
             use_adarms=use_adarms[1],
             adarms_cond_dim=action_expert_config.width if use_adarms[1] else None,
         )
@@ -107,7 +123,7 @@ class PaliGemmaWithExpertModel(nn.Module):
                 use_cache=use_cache,
                 adarms_cond=adarms_cond[0] if adarms_cond is not None else None,
             )
-            prefix_past_key_values = prefix_output.past_key_values
+            prefix_past_key_values = [(layer[0], layer[1]) for layer in prefix_output.past_key_values]
             prefix_output = prefix_output.last_hidden_state
             suffix_output = None
         elif inputs_embeds[0] is None:
@@ -126,32 +142,7 @@ class PaliGemmaWithExpertModel(nn.Module):
             models = [self.paligemma.language_model, self.gemma_expert.model]
             num_layers = self.paligemma.config.text_config.num_hidden_layers
 
-            # Check if gradient checkpointing is enabled for any of the models
-            use_gradient_checkpointing = (
-                hasattr(self.gemma_expert.model, "gradient_checkpointing")
-                and self.gemma_expert.model.gradient_checkpointing
-                and self.training
-            ) or (hasattr(self, "gradient_checkpointing") and self.gradient_checkpointing and self.training)
-
-            # Force enable gradient checkpointing if we're in training mode and the model supports it
-            if self.training and hasattr(self.gemma_expert.model, "gradient_checkpointing"):
-                if not self.gemma_expert.model.gradient_checkpointing:
-                    print("Forcing gradient checkpointing to be enabled for Gemma expert model")
-                    self.gemma_expert.model.gradient_checkpointing = True
-                use_gradient_checkpointing = True
-
-            # Debug gradient checkpointing status
-            if hasattr(self, "_debug_gc_printed") and not self._debug_gc_printed:
-                print(f"Gemma expert model gradient checkpointing: {use_gradient_checkpointing}")
-                print(f"Model training mode: {self.training}")
-                print(
-                    f"Gemma expert model has gradient_checkpointing attr: {hasattr(self.gemma_expert.model, 'gradient_checkpointing')}"
-                )
-                if hasattr(self.gemma_expert.model, "gradient_checkpointing"):
-                    print(
-                        f"Gemma expert model gradient_checkpointing value: {self.gemma_expert.model.gradient_checkpointing}"
-                    )
-                self._debug_gc_printed = True
+            use_gradient_checkpointing = self.gemma_expert.model.gradient_checkpointing and self.training
 
             # Define the complete layer computation function for gradient checkpointing
             def compute_layer_complete(layer_idx, inputs_embeds, attention_mask, position_ids, adarms_cond):

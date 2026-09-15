@@ -14,7 +14,7 @@ from transformers import AutoTokenizer
 from carrot.data import SFTDatasetSpec
 from carrot.data.loading import load_callable
 
-from .model import PI0Policy
+from .model import PI0Observation, PI0Policy
 
 
 @dataclass(frozen=True)
@@ -149,11 +149,18 @@ class Pi05SFTLossFn:
         gamma1 = torch.rand(actions.shape[0], device=device).pow(1 / 1.5)
         gamma2 = torch.rand(actions.shape[0], device=device)
         time = (gamma1 / (gamma1 + gamma2) * 0.999 + 0.001).to(dtype)
-        time_expanded = time[:, None, None]
-        x_t = time_expanded * noise + (1 - time_expanded) * actions
-        target = noise - actions
-        prediction = policy(images, masks, lang_tokens, lang_masks, state.to(dtype), x_t, time)
-        per_step = torch.square(prediction - target).mean(dim=-1)
+        observation = PI0Observation(
+            images=dict(
+                zip(("base_0_rgb", "left_wrist_0_rgb", "right_wrist_0_rgb"), images, strict=True)
+            ),
+            image_masks=dict(
+                zip(("base_0_rgb", "left_wrist_0_rgb", "right_wrist_0_rgb"), masks, strict=True)
+            ),
+            state=state.to(dtype),
+            tokenized_prompt=lang_tokens,
+            tokenized_prompt_mask=lang_masks,
+        )
+        per_step = policy(observation, actions, noise=noise, time=time).mean(dim=-1)
         valid = ~batch.get("action_is_pad", torch.zeros_like(per_step, dtype=torch.bool)).to(device)
         loss = (per_step * valid).sum() / valid.sum()
         return loss, {"loss": loss.detach(), "per_step_loss": per_step.detach()}

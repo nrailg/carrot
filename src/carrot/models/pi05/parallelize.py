@@ -14,6 +14,4 @@ class Pi05Parallelizer(ModelParallelizer):
 
     def fsdp_units(self, model: nn.Module) -> Sequence[nn.Module]:
         backbone = model.paligemma_with_expert
-        vision_layers = backbone.vision_tower.encoder.layers
-        decoder_layers = backbone.layers
-        return tuple([*vision_layers, *decoder_layers])
+        return tuple(backbone.paligemma.model.vision_tower.vision_model.encoder.layers)

@@ -234,9 +234,13 @@ class SFTTrainWorker(Worker):
         torch.manual_seed(self.config.seed + self.rank)
         torch.cuda.manual_seed_all(self.config.seed + self.rank)
 
+        model_path = self.resume if self.resume is not None else self.config.model.path
+        tokenizer_path = (
+            self.resume if self.resume is not None else self.config.model.tokenizer_path
+        )
         components = build_pi05(
-            model_path=self.config.model.path,
-            tokenizer_path=self.config.model.tokenizer_path,
+            model_path=model_path,
+            tokenizer_path=tokenizer_path,
             dataset_factory=self.config.dataset.factory,
             dataset_factory_kwargs=self.config.dataset.factory_kwargs,
             device=f"cuda:{self.local_rank}",
@@ -293,7 +297,7 @@ class SFTTrainWorker(Worker):
             sampler=sampler,
         )
         if self.resume is not None:
-            self.impl.step = load_checkpoint(Path(self.resume), model, optimizer, scheduler)
+            self.impl.step = load_checkpoint(Path(self.resume), optimizer, scheduler)
 
     def train(self) -> dict[str, float | int]:
         if self.impl is None:

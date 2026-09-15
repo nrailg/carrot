@@ -21,15 +21,17 @@ import torch
 import torch.utils.checkpoint
 from torch import nn
 
-from ...cache_utils import Cache, HybridCache, StaticCache
-from ...generation import GenerationMixin
-from ...modeling_flash_attention_utils import FlashAttentionKwargs
-from ...modeling_outputs import BaseModelOutputWithPast
-from ...modeling_utils import PreTrainedModel
-from ...processing_utils import Unpack
-from ...utils import LossKwargs, ModelOutput, auto_docstring, can_return_tuple, is_torchdynamo_compiling, logging
-from ..auto import AutoModel
-from .configuration_paligemma import PaliGemmaConfig
+from transformers.cache_utils import Cache, StaticCache
+from transformers.generation import GenerationMixin
+from transformers.modeling_flash_attention_utils import FlashAttentionKwargs
+from transformers.modeling_outputs import BaseModelOutputWithPast
+from transformers.modeling_utils import PreTrainedModel
+from transformers.models.paligemma.configuration_paligemma import PaliGemmaConfig
+from transformers.processing_utils import Unpack
+from transformers.utils import ModelOutput, auto_docstring, can_return_tuple, is_torchdynamo_compiling, logging
+
+from ..gemma.modeling_gemma import GemmaModel
+from ..siglip.modeling_siglip import SiglipVisionModel
 
 
 logger = logging.get_logger(__name__)
@@ -137,11 +139,11 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
 
     def __init__(self, config: PaliGemmaConfig):
         super().__init__(config)
-        self.vision_tower = AutoModel.from_config(config=config.vision_config)
+        self.vision_tower = SiglipVisionModel(config.vision_config)
         self.multi_modal_projector = PaliGemmaMultiModalProjector(config)
         self.vocab_size = config.text_config.vocab_size
 
-        language_model = AutoModel.from_config(config=config.text_config)
+        language_model = GemmaModel(config.text_config)
         self.language_model = language_model
 
         self.pad_token_id = self.config.pad_token_id if self.config.pad_token_id is not None else -1
@@ -182,8 +184,6 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
 
         inputs_lead_dim, sequence_length = input_tensor.shape[:2]
         if using_static_cache:
-            target_length = past_key_values.get_max_cache_shape()
-        elif isinstance(past_key_values, HybridCache):
             target_length = past_key_values.get_max_cache_shape()
         else:
             target_length = (
@@ -245,7 +245,6 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
         return image_features
 
     @can_return_tuple
-    @auto_docstring
     def forward(
         self,
         input_ids: torch.LongTensor = None,
@@ -369,7 +368,7 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
         )
 
 
-class KwargsForCausalLM(FlashAttentionKwargs, LossKwargs): ...
+class KwargsForCausalLM(FlashAttentionKwargs): ...
 
 
 @auto_docstring(
@@ -384,7 +383,7 @@ class PaliGemmaForConditionalGeneration(PaliGemmaPreTrainedModel, GenerationMixi
         "^multi_modal_projector": "model.multi_modal_projector",
         "^language_model.lm_head": "lm_head",
     }
-    _tied_weights_keys = ["lm_head.weight"]
+    _tied_weights_keys = {"lm_head.weight": "model.language_model.embed_tokens.weight"}
 
     def __init__(self, config: PaliGemmaConfig):
         super().__init__(config)
@@ -427,7 +426,6 @@ class PaliGemmaForConditionalGeneration(PaliGemmaPreTrainedModel, GenerationMixi
         return self.model.multi_modal_projector
 
     @can_return_tuple
-    @auto_docstring
     def forward(
         self,
         input_ids: torch.LongTensor = None,
@@ -553,13 +551,6 @@ class PaliGemmaForConditionalGeneration(PaliGemmaPreTrainedModel, GenerationMixi
         if cache_position[0] == 0:
             model_inputs["pixel_values"] = pixel_values
         is_training = token_type_ids is not None and labels is not None
-        if cache_position[0] == 0 and isinstance(past_key_values, HybridCache):
-            input_tensor = inputs_embeds if inputs_embeds is not None else input_ids
-            causal_mask = self.model._update_causal_mask(
-                attention_mask, token_type_ids, past_key_values, cache_position, input_tensor, is_training
-            )
-            model_inputs["attention_mask"] = causal_mask
-
         return model_inputs
 
     @staticmethod

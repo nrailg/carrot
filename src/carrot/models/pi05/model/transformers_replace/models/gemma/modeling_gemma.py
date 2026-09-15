@@ -482,6 +482,8 @@ class GemmaModel(GemmaPreTrainedModel):
             past_key_values = DynamicCache()
 
         if cache_position is None:
+            # Transformers 4.53.2's DynamicCache supported legacy indexing. Our wrapper
+            # converts newer non-subscriptable caches to a list of per-layer (key, value) tensors.
             if isinstance(past_key_values, Cache):
                 past_seen_tokens = past_key_values.get_seq_length()
             elif past_key_values is not None:

@@ -90,7 +90,10 @@ def _print_difference_table(rows: list[DifferenceRow]) -> None:
 
 @torch.no_grad()
 def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
+    # 验证 Carrot 官方 PyTorch port 与官方 PyTorch golden 的权重及单步采样一致；JAX 仅作诊断参考。
     device = torch.device("cuda")
+
+    # Arrange：JAX golden 提供固定输入和历史参考值，但不决定测试成败。
     with np.load(Path(OPENPI_GOLDEN), allow_pickle=False) as archive:
         metadata = json.loads(archive["metadata_json"].item())
         assert metadata["schema_version"] == 3
@@ -123,6 +126,7 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
             )
         }
 
+    # 官方 PyTorch golden 是严格基准；commit 字段防止基准实现被悄然替换。
     with np.load(Path(OPENPI_PYTORCH_GOLDEN), allow_pickle=False) as archive:
         pytorch_metadata = json.loads(archive["metadata_json"].item())
         assert pytorch_metadata["schema_version"] == 1
@@ -141,12 +145,15 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
             for name in jax_weights
         }
 
+    # Act：按官方模型层级抽查权重、计算中间量，并用 PI0Observation 执行一步采样。
     model = PI0Policy.from_pretrained(Path(OPENPI_PYTORCH_CHECKPOINT)).to(device).eval()
     assert model.pi05_enabled
     assert (model.n_action_steps, model.max_action_dim) == (50, 32)
     pi05 = model.paligemma_with_expert
     paligemma = pi05.paligemma.model
     vision_embeddings = paligemma.vision_tower.vision_model.embeddings
+
+    # 选取语言、动作、视觉三条路径的代表性参数，覆盖 checkpoint key 映射。
     actual_weights = {
         "language_embedding_rows": paligemma.language_model.embed_tokens.weight[1:65],
         "action_in_kernel": model.action_in_proj.weight.T,
@@ -159,6 +166,8 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
         "image_head_kernel": paligemma.multi_modal_projector.linear.weight.T,
         "image_head_bias": paligemma.multi_modal_projector.linear.bias,
     }
+
+    # 同时记录 Carrot/PyTorch/JAX 三组距离，便于区分移植误差和官方实现自身误差。
     difference_rows = []
     for name, actual_weight in actual_weights.items():
         difference_rows.extend(
@@ -177,6 +186,7 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
             ]
         )
 
+    # 分别计算 prefix、suffix 和完整一步采样，以定位偏差首次出现在哪个阶段。
     actual_prefix_embeddings, _, _ = model.embed_prefix(images, image_masks, tokens, token_masks)
     actual_suffix_embeddings, _, _, actual_adarms_cond = model.embed_suffix(
         state, noise, torch.ones((noise.shape[0],), device=device)
@@ -210,6 +220,8 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
 
     assert actual_one_step.shape == pytorch_one_step.shape == (1, 50, 32)
     assert torch.isfinite(actual_one_step).all()
+
+    # prefix 按图像 token 和语言 token 拆开，避免总体误差掩盖单一模态偏差。
     language_length = tokens.shape[1]
     image_prefix_end = expected_prefix_embeddings.shape[1] - language_length
     actual_image_embeddings = actual_prefix_embeddings[:, :image_prefix_end]
@@ -238,6 +250,8 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
         "first_v_t": (actual_first_v_t, pytorch_first_v_t, expected_first_v_t),
         "one_step": (actual_one_step, pytorch_one_step, expected_one_step),
     }
+
+    # 进一步逐相机切分视觉 embedding，诊断相机顺序或单路预处理错误。
     image_tokens_per_camera = image_prefix_end // len(images)
     for camera_index in range(len(images)):
         start = camera_index * image_tokens_per_camera
@@ -255,7 +269,9 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
                 _difference_row(f"carrot_vs_openpi_pytorch/{name}", carrot_tensor, pytorch_tensor),
             ]
         )
+    # JAX 差异只输出诊断表，不作为本测试的通过条件。
     _print_difference_table(difference_rows)
+    # Assert：checkpoint 参数必须 BF16 bitwise 一致，权重映射错误不能被容差吞掉。
     for name, actual_weight in actual_weights.items():
         torch.testing.assert_close(
             actual_weight.to(torch.bfloat16),
@@ -263,6 +279,7 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
             rtol=0,
             atol=0,
         )
+    # npz 会把部分 BF16 中间量存为 FP32，因此只忽略 dtype 元数据，仍检查逐点数值。
     for carrot_tensor, pytorch_tensor, _ in output_tensors.values():
         torch.testing.assert_close(
             carrot_tensor,

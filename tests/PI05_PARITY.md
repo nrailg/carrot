@@ -1,46 +1,35 @@
-# PI0.5 checkpoint and inference parity
+# PI0.5 official OpenPI PyTorch parity
 
-These tests are opt-in because they read two 13–14 GB checkpoints and the inference test requires a GPU. The OpenGiga checkpoint must be converted locally from the official OpenPI JAX checkpoint; a third-party converted checkpoint is not a parity oracle.
+The parity test is opt-in because it loads the converted official PyTorch checkpoint and requires
+a GPU. It treats official OpenPI PyTorch as the strict gate; JAX outputs are retained only for
+diagnostics.
 
-On Gemini, download the official checkpoint first:
-
-```bash
-gsutil cp -r \
-  gs://openpi-assets/checkpoints/pi05_base \
-  /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/
-
-bash tests/pi05_parity/convert_open_giga_pi05.sh
-```
-
-The conversion script pins the expected GigaModels commit and uses the colocated Miical tokenizer only as a tokenizer artifact. It does not read Miical model weights.
-
-```bash
-export CARROT_PI05_LEROBOT_CHECKPOINT=/path/to/lerobot/pi05_base
-export CARROT_PI05_OPEN_GIGA_CHECKPOINT=/path/to/self-converted/torch_pi05_base
-
-pytest -v -s --timeout=1800 tests/test_pi05_checkpoint_parity.py
-CUDA_VISIBLE_DEVICES=0 pytest -v -s --timeout=1800 tests/test_pi05_inference_parity.py
-```
-
-`test_pi05_checkpoint_parity.py` maps every parameter consumed by the OpenGiga architecture and requires bitwise equality. The only expected unused LeRobot parameter is the expert language-model head, which OpenGiga does not instantiate and PI0.5 action inference does not consume.
-
-`test_pi05_inference_parity.py` loads the LeRobot checkpoint into both implementations, uses fixed preprocessed images, tokens, masks, state, and Gaussian noise, then compares one denoising step and the complete ten-step Euler sample. It does not test tokenization, normalization, or action unnormalization.
-
-## OpenPI JAX oracle
-
-Generate deterministic reference outputs with the official OpenPI JAX model, then compare the converted checkpoint loaded by Carrot without involving LeRobot:
+Generate deterministic JAX and PyTorch reference outputs from the same official OpenPI revision:
 
 ```bash
 cd /path/to/openpi
 uv run python /path/to/carrot/tests/pi05_parity/generate_openpi_jax_golden.py \
   --checkpoint /path/to/official/pi05_base \
   --openpi-commit "$(git rev-parse HEAD)" \
-  --output /path/to/openpi-jax-golden.npz
+  --output /path/to/pi05-openpi-jax-golden.npz
 
+uv run python /path/to/carrot/tests/pi05_parity/generate_openpi_pytorch_golden.py \
+  --checkpoint /path/to/converted/pytorch/checkpoint \
+  --jax-golden /path/to/pi05-openpi-jax-golden.npz \
+  --openpi-commit "$(git rev-parse HEAD)" \
+  --output /path/to/pi05-openpi-pytorch-golden.npz
+```
+
+Run the Carrot parity gate:
+
+```bash
 cd /path/to/carrot
-export CARROT_PI05_OPENPI_GOLDEN=/path/to/openpi-jax-golden.npz
-export CARROT_PI05_OPEN_GIGA_CHECKPOINT=/path/to/converted/pi05_base
+export CARROT_PI05_OPENPI_GOLDEN=/path/to/pi05-openpi-jax-golden.npz
+export CARROT_PI05_OPENPI_PYTORCH_GOLDEN=/path/to/pi05-openpi-pytorch-golden.npz
+export CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT=/path/to/converted/pytorch/checkpoint
 CUDA_VISIBLE_DEVICES=0 pytest -v -s --timeout=1800 tests/test_pi05_openpi_parity.py
 ```
 
-The golden contains the exact preprocessed inputs and Gaussian noise consumed by both models, plus the OpenPI commit and checkpoint metadata. This test covers model sampling only; it intentionally excludes policy transforms and normalization.
+The test checks strict checkpoint loading, representative language/action/vision weights,
+intermediate embeddings, the first denoising velocity, and one Euler sampling step. It does not
+test tokenization, normalization, action unnormalization, or simulator behavior.

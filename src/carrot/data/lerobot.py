@@ -5,12 +5,11 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
-import numpy as np
-import torch
 from lerobot.datasets import LeRobotDataset, LeRobotDatasetMetadata
 from lerobot.utils.collate import lerobot_collate_fn
 
 from .dataset_spec import SFTDatasetSpec
+from .robotwin import robotwin_preprocess as robotwin_preprocess
 
 
 def build_dataset(
@@ -62,43 +61,3 @@ def build_dataset(
         action_key=action_key,
         task_key=task_key,
     )
-
-
-def robotwin_preprocess(
-    state: torch.Tensor | np.ndarray, actions: torch.Tensor | np.ndarray
-) -> tuple[torch.Tensor | np.ndarray, torch.Tensor | np.ndarray]:
-    """Convert RobotWin Aloha labels into PI0.5 SFT targets.
-
-    Parameters
-    ----------
-    state : torch.Tensor | numpy.ndarray
-    actions : torch.Tensor | numpy.ndarray
-
-    Returns
-    -------
-    tuple[torch.Tensor | numpy.ndarray, torch.Tensor | numpy.ndarray]
-    """
-    if isinstance(state, torch.Tensor):
-        flip = state.new_tensor([1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1])
-        state = state.clone()
-        actions = actions.clone()
-        state[..., :14] *= flip
-        actions[..., :14] *= flip
-        linear = 0.01844 + state[..., [6, 13]] * (0.05800 - 0.01844)
-        ratio = (0.022**2 + linear**2 - 0.036**2) / (2 * 0.022 * linear)
-        state[..., [6, 13]] = (torch.asin(torch.clamp(ratio, -1, 1)) - 0.5476) / (
-            1.6296 - 0.5476
-        )
-    else:
-        flip = np.asarray([1, -1, -1, 1, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1], dtype=np.float32)
-        state = state.copy()
-        actions = actions.copy()
-        state[..., :14] *= flip
-        actions[..., :14] *= flip
-        linear = 0.01844 + state[..., [6, 13]] * (0.05800 - 0.01844)
-        ratio = (0.022**2 + linear**2 - 0.036**2) / (2 * 0.022 * linear)
-        state[..., [6, 13]] = (np.arcsin(np.clip(ratio, -1, 1)) - 0.5476) / (1.6296 - 0.5476)
-    actions[..., [6, 13]] = (-0.6213 + actions[..., [6, 13]] * (1.4910 + 0.6213)) - 0.5476
-    delta_mask = [True] * 6 + [False] + [True] * 6 + [False]
-    actions[..., delta_mask] -= state[..., delta_mask][..., None, :]
-    return state, actions

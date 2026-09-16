@@ -1,7 +1,13 @@
 """使用 Isaac Lab 在一个进程中并行运行多个 Cartpole 环境。"""
 
+# ruff: noqa: E402
+
 import argparse
 import sys
+
+from asset_root import configure_asset_root_from_env
+
+configure_asset_root_from_env()
 
 import gymnasium as gym
 import isaaclab_tasks  # noqa: F401

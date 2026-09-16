@@ -8,13 +8,13 @@ from pathlib import Path
 from typing import Any
 
 import torch
-import torch.nn.functional as F
 from transformers import AutoTokenizer
 
 from carrot.data import SFTDatasetSpec
 from carrot.data.loading import load_callable
 
 from .model import PI0Observation, PI0Policy
+from .preprocessing import Pi05Preprocessor
 
 
 @dataclass(frozen=True)
@@ -25,14 +25,7 @@ class Pi05Components:
     collate_fn: Any
 
 
-def _stats_tensor(stats: dict[str, Any], name: str, device: torch.device) -> torch.Tensor:
-    value = stats[name]
-    if isinstance(value, torch.Tensor):
-        return value.to(device=device, dtype=torch.float32)
-    return torch.as_tensor(value, device=device, dtype=torch.float32)
-
-
-class Pi05SFTLossFn:
+class Pi05SFTLossFn(Pi05Preprocessor):
     """Compute PI0.5 SFT loss from a batch and native policy."""
 
     def __init__(
@@ -47,7 +40,7 @@ class Pi05SFTLossFn:
         task_key: str = "task",
         preprocess: Any | None = None,
     ) -> None:
-        self.tokenizer = tokenizer
+        super().__init__(tokenizer)
         self.state_stats = state_stats
         self.action_stats = action_stats
         self.image_keys = image_keys
@@ -55,74 +48,6 @@ class Pi05SFTLossFn:
         self.action_key = action_key
         self.task_key = task_key
         self.preprocess = preprocess
-
-    @staticmethod
-    def _normalize(x: torch.Tensor, stats: dict[str, Any]) -> torch.Tensor:
-        lower = "q01" if "q01" in stats else "min"
-        upper = "q99" if "q99" in stats else "max"
-        q01 = _stats_tensor(stats, lower, x.device)
-        q99 = _stats_tensor(stats, upper, x.device)
-        width = min(x.shape[-1], q01.shape[-1])
-        head = 2 * (x[..., :width].float() - q01[:width]) / (q99[:width] - q01[:width] + 1e-6) - 1
-        return torch.cat((head, x[..., width:].float()), dim=-1)
-
-    @staticmethod
-    def _pad_last(x: torch.Tensor, width: int) -> torch.Tensor:
-        return F.pad(x, (0, width - x.shape[-1])) if x.shape[-1] < width else x[..., :width]
-
-    @staticmethod
-    def _prepare_image(image: torch.Tensor, dtype: torch.dtype) -> torch.Tensor:
-        image = image.float()
-        if image.max() > 1:
-            image = image / 255
-        if image.shape[-2:] != (224, 224):
-            height, width = image.shape[-2:]
-            ratio = max(width / 224, height / 224)
-            resized_height = int(height / ratio)
-            resized_width = int(width / ratio)
-            image = F.interpolate(
-                image,
-                size=(resized_height, resized_width),
-                mode="bilinear",
-                align_corners=False,
-            )
-            pad_height = 224 - resized_height
-            pad_width = 224 - resized_width
-            image = F.pad(
-                image,
-                (
-                    pad_width // 2,
-                    pad_width - pad_width // 2,
-                    pad_height // 2,
-                    pad_height - pad_height // 2,
-                ),
-            )
-        return (2 * image - 1).to(dtype)
-
-    def _tokenize(self, tasks: Any, state: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
-        if isinstance(tasks, str):
-            tasks = [tasks]
-        elif hasattr(tasks, "tolist"):
-            tasks = tasks.tolist()
-        bins = torch.linspace(-1, 1, 257, device=state.device)[:-1]
-        discrete = torch.bucketize(state, bins) - 1
-        prompts = []
-        for task, values in zip(tasks, discrete, strict=True):
-            state_text = " ".join(str(int(value)) for value in values)
-            clean_task = str(task).strip().replace("_", " ").replace("\n", " ")
-            prompts.append(f"Task: {clean_task}, State: {state_text};\nAction: ")
-        tokens = self.tokenizer(
-            prompts,
-            padding="max_length",
-            padding_side="right",
-            truncation=True,
-            max_length=200,
-            return_tensors="pt",
-        )
-        return (
-            tokens["input_ids"].to(device=state.device, dtype=torch.long),
-            tokens["attention_mask"].to(device=state.device, dtype=torch.bool),
-        )
 
     def __call__(
         self, policy: PI0Policy, batch: dict[str, Any]

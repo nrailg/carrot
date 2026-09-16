@@ -7,7 +7,7 @@ name = "carrot-rl"
 version = "0.1.0"
 description = "A lightweight, backend-neutral runtime for distributed robot learning."
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 license = { file = "LICENSE" }
 dependencies = [
   "ray>=2.47",
@@ -15,13 +15,26 @@ dependencies = [
 
 [project.optional-dependencies]
 sft = [
-  "lerobot[dataset]==0.6.1",
+  "datasets>=4",
   "diffusers==0.35.1",
-  "huggingface-hub>=0.34",
+  "huggingface-hub==1.31.0",
+  "lerobot[dataset]==0.6.1",
+  "numpy==2.3.1",
   "pyyaml>=6",
-  "torch>=2.6",
-  "transformers>=5.4.0",
+  "safetensors>=0.4",
+  "torch==2.11.0",
+  "torchaudio==2.11.0",
+  "torchvision==0.26.0",
+  "transformers==5.5.4",
   "wandb>=0.16",
+]
+isaac-arena = [
+  "isaaclab[isaacsim,all]==3.0.0b2.post1",
+  "isaaclab-arena @ git+https://github.com/isaac-sim/IsaacLab-Arena.git@release/0.3.0",
+  "isaacsim[all,extscache]==6.0.1.0",
+  "torch==2.11.0",
+  "torchaudio==2.11.0",
+  "torchvision==0.26.0",
 ]
 dev = [
   "pytest>=8",
@@ -50,3 +63,55 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 
 [tool.ruff.lint.per-file-ignores]
 "src/carrot/models/pi05/model/**/*.py" = ["E501", "E741", "F841", "I", "SIM", "UP"]
+
+[tool.uv]
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+index-strategy = "first-index"
+prerelease = "if-necessary"
+override-dependencies = [
+  "boto3==1.40.61",
+  "botocore==1.40.61",
+  "click==8.1.7",
+  "coverage==7.4.4",
+  "numpy==2.3.1",
+  "packaging==26.0",
+  "requests==2.32.3",
+  "s3transfer==0.14.0",
+  "transformers==5.5.4",
+  "websockets==16.1.1",
+]
+constraint-dependencies = [
+  "lightwheel-sdk==1.0.3",
+  "mujoco-usd-converter==0.2.0",
+  "numba==0.64.0",
+  "onnx==1.21.0",
+  "onnxruntime==1.30.0",
+  "openai==2.28.0",
+  "pin-pink==3.3.0",
+  "pyglet<3",
+  "rerun-sdk==0.31.4",
+  "sbi==0.27.0",
+  "tinyobjloader==2.0.0rc13",
+  "vuer==0.1.6",
+]
+
+[[tool.uv.index]]
+name = "nvidia"
+url = "https://pypi.nvidia.com"
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+isaacteleop = { index = "pypi" }
+mujoco-usd-converter = { index = "pypi" }
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }

@@ -21,6 +21,7 @@ sft = [
   "lerobot[dataset]==0.6.1",
   "numpy==2.3.1",
   "pyyaml>=6",
+  "rerun-sdk==0.31.4",
   "safetensors>=0.4",
   "torch==2.11.0",
   "torchaudio==2.11.0",
@@ -40,6 +41,18 @@ dev = [
   "pytest>=8",
   "pytest-timeout>=2.3",
   "ruff>=0.9",
+]
+
+[dependency-groups]
+openpi-libero = [
+  "imageio[ffmpeg]>=2.36.1",
+  "lerobot @ git+https://github.com/huggingface/lerobot.git@0cf864870cf29f4738d3ade893e6fd13fbd7cdb5",
+  "libero @ git+https://github.com/Lifelong-Robot-Learning/LIBERO.git@f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",
+  "matplotlib>=3.9,<4",
+  "mujoco==3.2.3",
+  "openpi @ git+https://github.com/Physical-Intelligence/openpi.git@215abfb217dbac7d5f1273282331b9b1866c0479",
+  "openpi-client @ git+https://github.com/Physical-Intelligence/openpi.git@215abfb217dbac7d5f1273282331b9b1866c0479#subdirectory=packages/openpi-client",
+  "robosuite==1.4.1",
 ]
 
 [project.scripts]
@@ -68,17 +81,31 @@ select = ["E", "F", "I", "UP", "B", "SIM"]
 environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
 index-strategy = "first-index"
 prerelease = "if-necessary"
+conflicts = [
+  [
+    { group = "openpi-libero" },
+    { extra = "sft" },
+  ],
+  [
+    { group = "openpi-libero" },
+    { extra = "isaac-arena" },
+  ],
+]
 override-dependencies = [
   "boto3==1.40.61",
   "botocore==1.40.61",
   "click==8.1.7",
   "coverage==7.4.4",
-  "numpy==2.3.1",
   "packaging==26.0",
   "requests==2.32.3",
   "s3transfer==0.14.0",
-  "transformers==5.5.4",
   "websockets==16.1.1",
+  { package = { name = "isaaclab", version = "3.0.0b2.post1" }, dependencies = [
+    "transformers==5.5.4",
+  ] },
+  { package = { name = "lerobot", version = "0.6.1" }, dependencies = [
+    "numpy==2.3.1",
+  ] },
 ]
 constraint-dependencies = [
   "lightwheel-sdk==1.0.3",
@@ -89,7 +116,6 @@ constraint-dependencies = [
   "openai==2.28.0",
   "pin-pink==3.3.0",
   "pyglet<3",
-  "rerun-sdk==0.31.4",
   "sbi==0.27.0",
   "tinyobjloader==2.0.0rc13",
   "vuer==0.1.6",

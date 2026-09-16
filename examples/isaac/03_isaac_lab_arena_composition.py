@@ -2,6 +2,10 @@
 
 # ruff: noqa: E402, I001
 
+from asset_root import configure_asset_root_from_env
+
+configure_asset_root_from_env()
+
 import torch
 
 from isaaclab.app import AppLauncher

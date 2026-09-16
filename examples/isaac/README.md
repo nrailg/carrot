@@ -10,8 +10,30 @@ Isaac Lab：把仿真包装成适合机器人学习的批量环境
 Isaac Sim：创建三维世界，运行物理、渲染和传感器
 ```
 
-这些文件是学习材料，不属于 Carrot 的运行依赖。请分别使用 Isaac Sim、Isaac Lab 或
-Isaac Lab-Arena 自己的 Python 环境运行，不能直接使用普通的 Carrot 虚拟环境。
+这些文件是学习材料，不属于 Carrot 的运行依赖。目录里的 `pyproject.toml` 提供了一套
+独立的 uv 环境，不能直接使用普通的 Carrot 虚拟环境。
+
+第一次运行时，在 Linux x86_64 机器上安装基础环境：
+
+```bash
+cd ~/work/carrot/examples/isaac
+uv sync
+```
+
+Isaac Sim 首次启动会要求接受 NVIDIA EULA：
+
+```bash
+export OMNI_KIT_ACCEPT_EULA=YES
+```
+
+示例默认接受 EULA、使用 GPU 0，并从以下本地目录读取完整资产包：
+
+```bash
+/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/isaacsim_assets/Assets/Isaac/6.0
+```
+
+代码使用环境变量作为默认值；仍可在启动前设置 `CUDA_VISIBLE_DEVICES` 或
+`ISAACSIM_ASSET_ROOT` 来选择其他 GPU 或资产目录。
 
 ## 01：Isaac Sim 让方块落下
 
@@ -20,8 +42,8 @@ Isaac Lab-Arena 自己的 Python 环境运行，不能直接使用普通的 Carr
 这个例子直接操作仿真器：创建场景、加入地面和刚体方块，然后逐帧推进仿真。
 
 ```bash
-cd ~/work/isaac-sim/IsaacSim
-./python.sh ~/work/carrot/examples/isaac/01_isaac_sim_falling_cube.py
+cd ~/work/carrot/examples/isaac
+uv run --no-group arena python 01_isaac_sim_falling_cube.py --headless
 ```
 
 远程服务器没有桌面窗口时，追加 `--headless`。
@@ -43,9 +65,8 @@ Isaac Sim 的插件在应用启动后才可用，因此必须先创建 `Simulati
 这个例子创建多个 Cartpole 环境，并一次性向所有环境发送一批随机动作。
 
 ```bash
-cd ~/work/isaac-sim/IsaacLab
-./isaaclab.sh -p ~/work/carrot/examples/isaac/02_isaac_lab_parallel_cartpole.py \
-  --num_envs 32
+cd ~/work/carrot/examples/isaac
+uv run --no-group arena python 02_isaac_lab_parallel_cartpole.py --num_envs 32 --viz none
 ```
 
 观察重点：
@@ -64,10 +85,12 @@ Isaac Lab 3.0 默认无窗口运行；想在桌面观察时追加 `--viz kit`。
 这个例子从注册表选择厨房、Franka 和两个物体，再把它们组合成一个可运行的 Isaac Lab
 环境。它特意不定义任务，方便先看清 Arena 的组合边界。
 
-在 Isaac Lab-Arena 已安装并激活的环境中运行：
+Arena 是可选依赖。第一次运行第三个例子时，额外安装并启用 `arena` 依赖组：
 
 ```bash
-python ~/work/carrot/examples/isaac/03_isaac_lab_arena_composition.py
+cd ~/work/carrot/examples/isaac
+uv sync --group arena
+uv run --group arena python 03_isaac_lab_arena_composition.py
 ```
 
 Isaac Lab-Arena 3.0 默认无窗口运行；想观察画面时追加 `--viz kit`。可以用

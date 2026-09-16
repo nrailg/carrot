@@ -1,0 +1,61 @@
+[project]
+name = "carrot-isaac-examples"
+version = "0.1.0"
+description = "Runnable environments for the Carrot Isaac examples."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "daqp==0.8.5",
+    # post1 is the Isaac Lab 3.0 beta2 patch for Isaac Sim 6.0.1.
+    "isaaclab[isaacsim,all]==3.0.0b2.post1",
+    "rsl-rl-lib==5.0.1",
+    "torch==2.11.0",
+    "torchaudio==2.11.0",
+    "torchvision==0.26.0",
+]
+
+[dependency-groups]
+arena = [
+    "isaaclab-arena @ https://github.com/isaac-sim/IsaacLab-Arena/archive/3032c7888b7b56e54d907e5c46e98c6dfdfb7dba.tar.gz",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'"]
+prerelease = "if-necessary"
+index-strategy = "first-index"
+override-dependencies = [
+    "boto3==1.40.61",
+    "botocore==1.40.61",
+    "coverage==7.4.4",
+    "numpy==2.3.1",
+    "packaging==26.0",
+    "requests==2.32.3",
+    "s3transfer==0.14.0",
+    "websockets==16.1.1",
+]
+constraint-dependencies = [
+    "mujoco-usd-converter==0.2.0",
+    "pin-pink==3.3.0",
+    "pyglet<3",
+    "tinyobjloader==2.0.0rc13",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.nvidia.com"
+explicit = false
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+default = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+mujoco-usd-converter = { index = "pypi" }
+torch = { index = "pytorch-cu128" }
+torchaudio = { index = "pytorch-cu128" }
+torchvision = { index = "pytorch-cu128" }

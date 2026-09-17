@@ -10,14 +10,29 @@ Isaac Lab：把仿真包装成适合机器人学习的批量环境
 Isaac Sim：创建三维世界，运行物理、渲染和传感器
 ```
 
-这些文件是学习材料，不属于 Carrot 的运行依赖。目录里的 `pyproject.toml` 提供了一套
-独立的 uv 环境，不能直接使用普通的 Carrot 虚拟环境。
+这些文件是学习材料，不属于 Carrot 的运行依赖。项目支持两种互斥的运行环境：
 
-第一次运行时，在 Linux x86_64 机器上安装基础环境：
+- Gemini/Carrot 容器：使用容器预装的 `/opt/venvs/carrot`，这是远程服务器上的推荐方式。
+- 独立 uv 环境：使用目录里的 `pyproject.toml` 和 `.venv`，适合本地或已准备好依赖缓存的
+  Linux x86_64 机器。
+
+不要在激活 `/opt/venvs/carrot` 后再执行 `uv run`。uv 会发现当前激活环境与项目的
+`.venv` 不同，忽略已激活的环境并切换到 `.venv`；如果 `.venv` 尚未完整安装，运行就会
+失败。两种环境请选择一种，不要混用。
+
+在 Gemini/Carrot 容器中运行：
 
 ```bash
 cd ~/work/carrot/examples/isaac
-uv sync
+source /opt/venvs/carrot/bin/activate
+test "$(command -v python)" = /opt/venvs/carrot/bin/python
+```
+
+在独立 uv 环境中运行：
+
+```bash
+cd ~/work/carrot/examples/isaac
+uv sync --frozen --no-group arena
 ```
 
 Isaac Sim 首次启动会要求接受 NVIDIA EULA：
@@ -43,7 +58,14 @@ export OMNI_KIT_ACCEPT_EULA=YES
 
 ```bash
 cd ~/work/carrot/examples/isaac
-uv run --no-group arena python 01_isaac_sim_falling_cube.py --headless
+source /opt/venvs/carrot/bin/activate
+python 01_isaac_sim_falling_cube.py --headless
+```
+
+使用独立 uv 环境时，将上面的运行命令替换为：
+
+```bash
+uv run --frozen --no-group arena python 01_isaac_sim_falling_cube.py --headless
 ```
 
 远程服务器没有桌面窗口时，追加 `--headless`。
@@ -66,7 +88,14 @@ Isaac Sim 的插件在应用启动后才可用，因此必须先创建 `Simulati
 
 ```bash
 cd ~/work/carrot/examples/isaac
-uv run --no-group arena python 02_isaac_lab_parallel_cartpole.py --num_envs 32 --viz none
+source /opt/venvs/carrot/bin/activate
+python 02_isaac_lab_parallel_cartpole.py --num_envs 32 --viz none
+```
+
+使用独立 uv 环境时，将上面的运行命令替换为：
+
+```bash
+uv run --frozen --no-group arena python 02_isaac_lab_parallel_cartpole.py --num_envs 32 --viz none
 ```
 
 观察重点：
@@ -85,12 +114,19 @@ Isaac Lab 3.0 默认无窗口运行；想在桌面观察时追加 `--viz kit`。
 这个例子从注册表选择厨房、Franka 和两个物体，再把它们组合成一个可运行的 Isaac Lab
 环境。它特意不定义任务，方便先看清 Arena 的组合边界。
 
-Arena 是可选依赖。第一次运行第三个例子时，额外安装并启用 `arena` 依赖组：
+在 Gemini/Carrot 容器中，Arena 已包含在 `/opt/venvs/carrot`。直接运行：
 
 ```bash
 cd ~/work/carrot/examples/isaac
-uv sync --group arena
-uv run --group arena python 03_isaac_lab_arena_composition.py
+source /opt/venvs/carrot/bin/activate
+python 03_isaac_lab_arena_composition.py
+```
+
+使用独立 uv 环境时，先安装并启用 `arena` 依赖组，再运行：
+
+```bash
+uv sync --frozen --group arena
+uv run --frozen --group arena python 03_isaac_lab_arena_composition.py
 ```
 
 Isaac Lab-Arena 3.0 默认无窗口运行；想观察画面时追加 `--viz kit`。可以用

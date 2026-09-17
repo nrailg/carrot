@@ -12,7 +12,10 @@ SEED=7
 REPLAN_STEPS=5
 SERVER_TIMEOUT_SECONDS=900
 DGUARD_STOP_MINUTES=120
+
 CHECKPOINT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_libero_pytorch"
+# CHECKPOINT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch_libero_eval"
+
 OPENPI_DATA_HOME="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub"
 TOKENIZER_PATH="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/big_vision/paligemma_tokenizer.model"
 DEFAULT_PROXY_URL="http://star-proxy.oa.com:3128"
@@ -157,7 +160,7 @@ VIDEO_DIR="${RUN_DIR}/videos"
 [[ -f "$EVALUATOR" ]] || die "missing LIBERO evaluator: $EVALUATOR"
 [[ -f "${OPENPI_DIR}/scripts/serve_policy.py" ]] || die "missing OpenPI policy server"
 [[ -s "${CHECKPOINT_DIR}/model.safetensors" ]] || die "missing PyTorch model weights"
-[[ "$(stat -c %s "${CHECKPOINT_DIR}/model.safetensors")" -gt 7000000000 ]] || \
+[[ "$(stat -Lc %s "${CHECKPOINT_DIR}/model.safetensors")" -gt 7000000000 ]] || \
     die "PyTorch model weights appear incomplete"
 [[ -f "${CHECKPOINT_DIR}/config.json" ]] || die "missing PyTorch model config"
 [[ -f "${CHECKPOINT_DIR}/assets/physical-intelligence/libero/norm_stats.json" ]] || \

@@ -45,6 +45,10 @@ dev = [
 
 [dependency-groups]
 openpi-libero = [
+  "bddl==1.0.1",
+  "easydict==1.9",
+  "future==0.18.2",
+  "gym==0.25.2",
   "imageio[ffmpeg]>=2.36.1",
   "lerobot @ git+https://github.com/huggingface/lerobot.git@0cf864870cf29f4738d3ade893e6fd13fbd7cdb5",
   "libero @ git+https://github.com/Lifelong-Robot-Learning/LIBERO.git@f78abd68ee283de9f9be3c8f7e2a9ad60246e95c",

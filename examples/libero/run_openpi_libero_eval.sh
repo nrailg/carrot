@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# see: docs/test-manifest/openpi-libero-official-benchmark-20260916.md
 
 set -Eeuo pipefail
 

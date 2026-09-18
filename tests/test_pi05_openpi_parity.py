@@ -8,7 +8,7 @@ import numpy as np
 import pytest
 import torch
 
-from carrot.models.pi05.model import PI0Observation, PI0Policy
+from carrot.models.pi05.model import PI0Observation, PI0Pytorch
 
 OPENPI_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_GOLDEN")
 OPENPI_PYTORCH_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_PYTORCH_GOLDEN")
@@ -146,7 +146,7 @@ def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
         }
 
     # Act：按官方模型层级抽查权重、计算中间量，并用 PI0Observation 执行一步采样。
-    model = PI0Policy.from_pretrained(Path(OPENPI_PYTORCH_CHECKPOINT)).to(device).eval()
+    model = PI0Pytorch.from_pretrained(Path(OPENPI_PYTORCH_CHECKPOINT)).to(device).eval()
     assert model.config.pi05
     assert (model.config.action_horizon, model.config.action_dim) == (50, 32)
     pi05 = model.paligemma_with_expert

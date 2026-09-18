@@ -6,7 +6,7 @@
   不再生成模型 DCP 或 `pretrained_model/`。
 - 验证 optimizer 独立保存为 DCP，并能连同 scheduler 和 step 完整恢复。
 - 验证两卡 FSDP2 下 optimizer shard 能并行保存并恢复，模型根目录导出保持完整权重。
-- 验证 PI0.5 导出的 OpenPI 配置与权重可以通过 `PI0Policy.from_pretrained` 严格回读。
+- 验证 PI0.5 导出的 OpenPI 配置与权重可以通过 `PI0Pytorch.from_pretrained` 严格回读。
 - 使用真实 `pi05_base_pytorch` 模型执行两卡 FSDP2 save、根目录 strict load、optimizer
   resume 和二次 save，覆盖实际 PI0.5 参数规模、dtype 与分片拓扑。
 - 验证通用 checkpoint 层不再 materialize DTensor；所有 rank 将原始 state dict 交给

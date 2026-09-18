@@ -269,7 +269,7 @@ def test_loader_uses_checkpoint_stats_and_local_tokenizer(
         return model
 
     monkeypatch.setattr(policy_config.AutoTokenizer, "from_pretrained", load_tokenizer)
-    monkeypatch.setattr(policy_config.PI0Policy, "from_pretrained", load_model)
+    monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", load_model)
     policy = create_trained_policy(
         checkpoint, device="cpu", tokenizer_path=fallback, default_prompt="pick cup"
     )

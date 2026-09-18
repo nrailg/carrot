@@ -2,7 +2,7 @@
 
 ## 测试思路
 
-- 以官方 OpenPI JAX PI0.5 为基准，对比 Carrot `PI0Policy` 的数值。
+- 以官方 OpenPI JAX PI0.5 为基准，对比 Carrot `PI0Pytorch` 的数值。
 - 加入 OpenPI 当前 main（`215abfb217dbac7d5f1273282331b9b1866c0479`）的官方 PyTorch
   实现，形成 JAX、官方 PyTorch、Carrot 三路对比。
 - 三个实现使用同一组固定输入和 noise，先只排查一个 diffusion step。

@@ -5,7 +5,7 @@ from pathlib import Path
 
 from transformers import AutoTokenizer
 
-from carrot.models.pi05.model import PI0Policy
+from carrot.models.pi05.model import PI0Pytorch
 
 from .policy import Pi05Policy
 
@@ -57,7 +57,7 @@ def create_trained_policy(
     tokenizer = AutoTokenizer.from_pretrained(
         tokenizer_dir, local_files_only=True, fix_mistral_regex=True
     )
-    model = PI0Policy.from_pretrained(checkpoint_dir)
+    model = PI0Pytorch.from_pretrained(checkpoint_dir)
     return Pi05Policy(
         model,
         tokenizer,

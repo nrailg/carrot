@@ -10,7 +10,7 @@ import torch.distributed as dist
 import torch.multiprocessing as mp
 from torch.distributed.tensor import DTensor
 
-from carrot.models.pi05.model import PI0Policy
+from carrot.models.pi05.model import PI0Pytorch
 from carrot.models.pi05.parallelize import Pi05Parallelizer
 from carrot.parallel import FSDPConfig, parallelize_model
 from carrot.trainer.sft.checkpoint import load_checkpoint, save_checkpoint
@@ -70,7 +70,7 @@ def _run_pi05_checkpoint_round_trip(
     checkpoint = Path(checkpoint_path)
     try:
         # 使用真实 PI0.5 参数规模和模块层级建立与 SFT worker 相同的 FSDP2 拓扑。
-        model = PI0Policy.from_pretrained(source_path).to(rank)
+        model = PI0Pytorch.from_pretrained(source_path).to(rank)
         parallelize_model(model, Pi05Parallelizer(), FSDPConfig())
         optimizer = torch.optim.AdamW(model.parameters(), lr=1e-5, weight_decay=1e-10)
         scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda _: 1.0)
@@ -97,8 +97,8 @@ def _run_pi05_checkpoint_round_trip(
         gc.collect()
         torch.cuda.empty_cache()
 
-        # checkpoint 根目录必须能被 PI0Policy 直接 strict load，再恢复 optimizer shard。
-        resumed_model = PI0Policy.from_pretrained(checkpoint).to(rank)
+        # checkpoint 根目录必须能被 PI0Pytorch 直接 strict load，再恢复 optimizer shard。
+        resumed_model = PI0Pytorch.from_pretrained(checkpoint).to(rank)
         assert all(parameter.dtype is torch.float32 for parameter in resumed_model.parameters())
         parallelize_model(resumed_model, Pi05Parallelizer(), FSDPConfig())
         resumed_optimizer = torch.optim.AdamW(

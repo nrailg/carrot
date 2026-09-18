@@ -1,4 +1,4 @@
-"""PI0.5 SFT policy and LeRobot dataset adapter."""
+"""PI0.5 SFT model and LeRobot dataset adapter."""
 
 from __future__ import annotations
 
@@ -13,20 +13,20 @@ from transformers import AutoTokenizer
 from carrot.data import SFTDatasetSpec
 from carrot.data.loading import load_callable
 
-from .model import PI0Observation, PI0Policy
+from .model import PI0Observation, PI0Pytorch
 from .preprocessing import Pi05Preprocessor
 
 
 @dataclass(frozen=True)
 class Pi05Components:
-    policy: PI0Policy
+    model: PI0Pytorch
     loss_fn: Pi05SFTLossFn
     dataset: Any
     collate_fn: Any
 
 
 class Pi05SFTLossFn(Pi05Preprocessor):
-    """Compute PI0.5 SFT loss from a batch and native policy."""
+    """Compute PI0.5 SFT loss from a batch and native model."""
 
     def __init__(
         self,
@@ -50,20 +50,20 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         self.preprocess = preprocess
 
     def __call__(
-        self, policy: PI0Policy, batch: dict[str, Any]
+        self, model: PI0Pytorch, batch: dict[str, Any]
     ) -> tuple[torch.Tensor, dict[str, Any]]:
-        device = next(policy.parameters()).device
+        device = next(model.parameters()).device
         state = batch[self.state_key].to(device, non_blocking=True)
         actions = batch[self.action_key].to(device, non_blocking=True)
         if self.preprocess is not None:
             state, actions = self.preprocess(state, actions)
         state = self._pad_last(
-            self._normalize(state, self.state_stats), policy.config.action_dim
+            self._normalize(state, self.state_stats), model.config.action_dim
         )
         actions = self._pad_last(
-            self._normalize(actions, self.action_stats), policy.config.action_dim
+            self._normalize(actions, self.action_stats), model.config.action_dim
         )
-        dtype = policy.action_in_proj.weight.dtype
+        dtype = model.action_in_proj.weight.dtype
         images = [
             self._prepare_image(batch[key].to(device, non_blocking=True), dtype)
             for key in self.image_keys
@@ -87,7 +87,7 @@ class Pi05SFTLossFn(Pi05Preprocessor):
             tokenized_prompt=lang_tokens,
             tokenized_prompt_mask=lang_masks,
         )
-        per_step = policy(observation, actions, noise=noise, time=time).mean(dim=-1)
+        per_step = model(observation, actions, noise=noise, time=time).mean(dim=-1)
         valid = ~batch.get("action_is_pad", torch.zeros_like(per_step, dtype=torch.bool)).to(device)
         loss = (per_step * valid).sum() / valid.sum()
         return loss, {"loss": loss.detach(), "per_step_loss": per_step.detach()}
@@ -143,7 +143,7 @@ def build_pi05(
     else:
         state_stats = dataset.state_stats
         action_stats = dataset.action_stats
-    policy = PI0Policy.from_pretrained(model_path)
+    model = PI0Pytorch.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path, fix_mistral_regex=True)
     loss_fn = Pi05SFTLossFn(
         tokenizer,
@@ -156,7 +156,7 @@ def build_pi05(
         preprocess=load_callable(preprocess) if preprocess is not None else None,
     )
     return Pi05Components(
-        policy=policy.to(device),
+        model=model.to(device),
         loss_fn=loss_fn,
         dataset=dataset.dataset,
         collate_fn=dataset.collate_fn,

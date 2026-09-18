@@ -6,7 +6,7 @@ from typing import Any
 import numpy as np
 import torch
 
-from carrot.models.pi05.model import PI0Observation, PI0Policy
+from carrot.models.pi05.model import PI0Observation, PI0Pytorch
 from carrot.models.pi05.preprocessing import Pi05Preprocessor
 
 from . import transforms
@@ -18,7 +18,7 @@ class Pi05Policy(Pi05Preprocessor):
 
     Parameters
     ----------
-    model : PI0Policy
+    model : PI0Pytorch
         Native model with an action dimension of at least 14.
     tokenizer : Any
         The tokenizer saved by the SFT run.
@@ -32,7 +32,7 @@ class Pi05Policy(Pi05Preprocessor):
 
     def __init__(
         self,
-        model: PI0Policy,
+        model: PI0Pytorch,
         tokenizer: Any,
         norm_stats: dict[str, dict[str, Any]],
         *,

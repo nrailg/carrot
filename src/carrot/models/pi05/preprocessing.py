@@ -1,4 +1,10 @@
-"""Deterministic PI0.5 preprocessing shared by training and inference."""
+"""Legacy PI0.5 preprocessing helpers.
+
+TODO: Migrate ``Pi05SFTLossFn`` to the shared transform pipeline, move prompt
+tokenization into an independent transform/helper, and remove
+``Pi05Preprocessor`` together with its duplicated normalization, padding, and
+image preprocessing.
+"""
 
 from typing import Any
 
@@ -61,18 +67,31 @@ class Pi05Preprocessor:
             )
         return (2 * image - 1).to(dtype)
 
-    def _tokenize(self, tasks: Any, state: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    def _tokenize(
+        self,
+        tasks: Any,
+        state: torch.Tensor,
+        *,
+        discrete_state_input: bool = True,
+    ) -> tuple[torch.Tensor, torch.Tensor]:
         if isinstance(tasks, str):
             tasks = [tasks]
         elif isinstance(tasks, (np.ndarray, torch.Tensor)):
             tasks = tasks.tolist()
-        bins = torch.linspace(-1, 1, 257, device=state.device)[:-1]
-        discrete = torch.bucketize(state, bins) - 1
         prompts = []
-        for task, values in zip(tasks, discrete, strict=True):
-            state_text = " ".join(str(int(value)) for value in values)
+        if len(tasks) != state.shape[0]:
+            raise ValueError("prompt batch size must match state batch size")
+        discrete = None
+        if discrete_state_input:
+            bins = torch.linspace(-1, 1, 257, device=state.device)[:-1]
+            discrete = torch.bucketize(state, bins) - 1
+        for index, task in enumerate(tasks):
             clean_task = str(task).strip().replace("_", " ").replace("\n", " ")
-            prompts.append(f"Task: {clean_task}, State: {state_text};\nAction: ")
+            if discrete is None:
+                prompts.append(f"{clean_task}\n")
+            else:
+                state_text = " ".join(str(int(value)) for value in discrete[index])
+                prompts.append(f"Task: {clean_task}, State: {state_text};\nAction: ")
         tokens = self.tokenizer(
             prompts,
             padding="max_length",

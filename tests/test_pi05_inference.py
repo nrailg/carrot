@@ -10,10 +10,24 @@ import torch
 from torch import nn
 
 from carrot.data.robotwin import robotwin_preprocess
-from carrot.models.pi05.inference import Pi05Policy, create_trained_policy, policy_config
-from carrot.models.pi05.inference.aloha_policy import AlohaOutputs
-from carrot.models.pi05.inference.transforms import AbsoluteActions, Unnormalize
+from carrot.models.pi05.embodiments import (
+    AlohaOutputs,
+    create_aloha_transform_spec,
+    create_libero_transform_spec,
+)
+from carrot.models.pi05.inference import (
+    Pi05Policy,
+    create_libero_policy,
+    create_robotwin_policy,
+    policy_config,
+)
 from carrot.models.pi05.loss_fn import Pi05SFTLossFn
+from carrot.models.pi05.transforms import (
+    AbsoluteActions,
+    Pi05TransformSpec,
+    Unnormalize,
+    compose,
+)
 
 
 class _Tokenizer:
@@ -29,9 +43,9 @@ class _Tokenizer:
 
 
 class _Model(nn.Module):
-    def __init__(self, actions: torch.Tensor) -> None:
+    def __init__(self, actions: torch.Tensor, *, action_horizon: int = 3) -> None:
         super().__init__()
-        self.config = SimpleNamespace(action_dim=32, action_horizon=3)
+        self.config = SimpleNamespace(action_dim=32, action_horizon=action_horizon)
         self.action_in_proj = nn.Linear(32, 1)
         self.actions = actions
         self.seen = None
@@ -58,6 +72,16 @@ class _Model(nn.Module):
         return (actions - noise).square()
 
 
+class _RecordTransform:
+    def __init__(self, events: list[str], name: str) -> None:
+        self.events = events
+        self.name = name
+
+    def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
+        self.events.append(self.name)
+        return data
+
+
 def _stats() -> dict[str, list[float]]:
     return {"q01": [-2.0] * 14, "q99": [3.0] * 14}
 
@@ -74,6 +98,22 @@ def _obs() -> dict[str, Any]:
     }
 
 
+def _robotwin_policy(
+    model: _Model,
+    tokenizer: _Tokenizer,
+    stats: dict[str, list[float]],
+    *,
+    default_prompt: str | None = None,
+) -> Pi05Policy:
+    spec = create_aloha_transform_spec(
+        tokenizer,
+        {"state": stats, "actions": stats},
+        model_action_dim=model.config.action_dim,
+        default_prompt=default_prompt,
+    )
+    return Pi05Policy(model, spec, device="cpu")
+
+
 def test_infer_matches_training_observation_and_decodes_known_action() -> None:
     # 同一观测走训练与推理必须逐元素一致；常量 oracle 检查 delta、符号和夹爪的逆变换。
     obs = _obs()
@@ -81,7 +121,7 @@ def test_infer_matches_training_observation_and_decodes_known_action() -> None:
     tokenizer = _Tokenizer()
     model = _Model(torch.zeros(1, 3, 32))
     stats = _stats()
-    policy = Pi05Policy(model, tokenizer, {"state": stats, "actions": stats}, device="cpu")
+    policy = _robotwin_policy(model, tokenizer, stats)
     noise = np.ones((3, 32), dtype=np.float32)
 
     # 归一化值零对应区间中点 0.5000005；手工计算实际执行动作，不用正向代码生成 oracle。
@@ -168,7 +208,9 @@ def test_quantile_round_trip_and_padding() -> None:
     padded = Pi05SFTLossFn._pad_last(normalized, 32)
 
     # 反归一化必须复用训练的 epsilon，保留尾部 padding。
-    restored = Unnormalize({"actions": stats})({"actions": padded})["actions"]
+    restored = Unnormalize({"actions": stats}, use_quantiles=True)({"actions": padded})[
+        "actions"
+    ]
     torch.testing.assert_close(restored[..., :14], value, rtol=0, atol=0)
     assert torch.count_nonzero(restored[..., 14:]) == 0
 
@@ -208,7 +250,7 @@ def test_loader_rejects_missing_artifact_before_model_load(tmp_path: Path, missi
 
     # 检查报错包含具体缺失文件，便于定位 checkpoint bundle 不完整。
     with pytest.raises(FileNotFoundError, match=missing):
-        create_trained_policy(tmp_path, device="cpu")
+        create_robotwin_policy(tmp_path, device="cpu")
 
 
 @pytest.mark.parametrize("field", ["state", "image", "prompt", "noise"])
@@ -225,7 +267,7 @@ def test_infer_rejects_invalid_input(field: str) -> None:
     else:
         noise = np.zeros((3, 14), dtype=np.float32)
     model = _Model(torch.zeros(1, 3, 32))
-    policy = Pi05Policy(model, _Tokenizer(), {"state": _stats(), "actions": _stats()}, device="cpu")
+    policy = _robotwin_policy(model, _Tokenizer(), _stats())
 
     # 所有错误都应在模型采样之前被发现。
     with pytest.raises(ValueError):
@@ -270,7 +312,7 @@ def test_loader_uses_checkpoint_stats_and_local_tokenizer(
 
     monkeypatch.setattr(policy_config.AutoTokenizer, "from_pretrained", load_tokenizer)
     monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", load_model)
-    policy = create_trained_policy(
+    policy = create_robotwin_policy(
         checkpoint, device="cpu", tokenizer_path=fallback, default_prompt="pick cup"
     )
     obs = _obs()
@@ -299,9 +341,145 @@ def test_invalid_stats_fail_before_model_setup(invalid: str) -> None:
 
     # constructor 在模型转移设备之前校验统计量。
     with pytest.raises(ValueError, match="quantiles"):
-        Pi05Policy(
-            _Model(torch.zeros(1, 3, 32)),
+        create_aloha_transform_spec(
             _Tokenizer(),
             {"state": stats, "actions": _stats()},
-            device="cpu",
+            model_action_dim=32,
         )
+
+
+def _libero_stats() -> dict[str, dict[str, list[float]]]:
+    return {
+        "state": {"mean": [1.0] * 8, "std": [2.0] * 8},
+        "actions": {"mean": np.arange(7, dtype=np.float32).tolist(), "std": [3.0] * 7},
+    }
+
+
+def _libero_obs(*, include_actions: bool = False) -> dict[str, Any]:
+    obs = {
+        "observation/state": np.full(8, 3.0, dtype=np.float32),
+        "observation/image": np.full((32, 48, 3), 255, dtype=np.uint8),
+        "observation/wrist_image": np.zeros((32, 48, 3), dtype=np.uint8),
+        "prompt": "pick_up\nthe cup",
+    }
+    if include_actions:
+        obs["actions"] = np.zeros((10, 7), dtype=np.float32)
+    return obs
+
+
+def test_libero_transform_spec_is_reusable_for_training_samples() -> None:
+    # 带 target actions 的样本必须通过与 inference 相同的 transform，锁定 Gate 4 复用边界。
+    tokenizer = _Tokenizer()
+    spec = create_libero_transform_spec(
+        tokenizer,
+        _libero_stats(),
+        model_action_dim=32,
+    )
+
+    # 直接执行公开 input transforms，模拟训练 dataset 在 collate 前处理单条样本。
+    transformed = compose(spec.inputs)(_libero_obs(include_actions=True))
+
+    # 两路相机补为三路，缺失腕部相机必须保持 false mask，state/action 补到模型宽度。
+    assert tuple(transformed["image"]) == (
+        "base_0_rgb",
+        "left_wrist_0_rgb",
+        "right_wrist_0_rgb",
+    )
+    assert all(tuple(image.shape) == (3, 224, 224) for image in transformed["image"].values())
+    assert transformed["image_mask"]["right_wrist_0_rgb"] is False
+    assert torch.all(transformed["image"]["right_wrist_0_rgb"] == -1)
+    assert transformed["state"].shape == (32,)
+    assert transformed["actions"].shape == (10, 32)
+    np.testing.assert_allclose(transformed["state"][:8], np.ones(8), rtol=0, atol=1e-6)
+
+    # LIBERO 的 PI0.5 prompt 不注入离散 state，避免错误复用 RoboTwin prompt contract。
+    assert tokenizer.prompts == ["pick up the cup\n"]
+    assert "State:" not in tokenizer.prompts[0]
+
+
+def test_libero_policy_preserves_mask_and_decodes_seven_actions() -> None:
+    # 通用 executor 必须消费 spec 的 mask，并将 32D 模型输出反归一化后裁成 LIBERO 7D。
+    tokenizer = _Tokenizer()
+    model = _Model(torch.zeros(1, 10, 32), action_horizon=10)
+    spec = create_libero_transform_spec(
+        tokenizer,
+        _libero_stats(),
+        model_action_dim=32,
+    )
+    policy = Pi05Policy(model, spec, device="cpu")
+
+    # 固定零输出对应 action mean，固定 noise 同时验证完整 sampling contract。
+    result = policy.infer(_libero_obs(), noise=np.zeros((10, 32), dtype=np.float32))
+
+    # 右腕图像存在但被 mask，最终动作必须 finite 且严格为 horizon=10、action_dim=7。
+    assert not model.seen.image_masks["right_wrist_0_rgb"].item()
+    assert torch.all(model.seen.images["right_wrist_0_rgb"] == -1)
+    assert model.seen.state.shape == (1, 32)
+    assert model.seen.tokenized_prompt.shape == (1, 200)
+    assert result["actions"].shape == (10, 7)
+    assert result["actions"].dtype == np.float32
+    np.testing.assert_allclose(
+        result["actions"],
+        np.broadcast_to(np.arange(7, dtype=np.float32), (10, 7)),
+        rtol=0,
+        atol=1e-6,
+    )
+
+
+def test_policy_executes_injected_transforms_in_declared_order() -> None:
+    # 通用 executor 只能顺序执行 spec，不能按 embodiment 名称插入隐式分支。
+    events = []
+    tokenizer = _Tokenizer()
+    model = _Model(torch.zeros(1, 10, 32), action_horizon=10)
+    base = create_libero_transform_spec(tokenizer, _libero_stats(), model_action_dim=32)
+    spec = Pi05TransformSpec(
+        inputs=(
+            _RecordTransform(events, "input:first"),
+            *base.inputs,
+            _RecordTransform(events, "input:last"),
+        ),
+        outputs=(
+            _RecordTransform(events, "output:first"),
+            *base.outputs,
+            _RecordTransform(events, "output:last"),
+        ),
+        action_dim=base.action_dim,
+    )
+
+    # 一次 infer 应完整穿过两条 transform 链，且每个 transform 只执行一次。
+    Pi05Policy(model, spec, device="cpu").infer(_libero_obs())
+
+    # 事件顺序直接锁定 executor contract，未来新增 embodiment 不得改变它。
+    assert events == ["input:first", "input:last", "output:first", "output:last"]
+
+
+def test_libero_loader_reads_openpi_stats_layout(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # loader 必须读取官方 assets 路径和 norm_stats wrapper，不能要求 Carrot 私有 JSON 布局。
+    checkpoint = tmp_path / "checkpoint"
+    stats_dir = checkpoint / "assets" / "physical-intelligence" / "libero"
+    stats_dir.mkdir(parents=True)
+    for name in ("model.safetensors", "config.json", "tokenizer_config.json"):
+        (checkpoint / name).touch()
+    (stats_dir / "norm_stats.json").write_text(json.dumps({"norm_stats": _libero_stats()}))
+    model = _Model(torch.zeros(1, 10, 32), action_horizon=10)
+    calls = {}
+
+    # 用轻量替身确认 loader 路径；真实 checkpoint sampling 留给独立 GPU smoke。
+    def load_tokenizer(path: Path, **kwargs: Any) -> _Tokenizer:
+        calls["tokenizer"] = path
+        assert kwargs == {"local_files_only": True, "fix_mistral_regex": True}
+        return _Tokenizer()
+
+    def load_model(path: Path) -> _Model:
+        calls["model"] = path
+        return model
+
+    monkeypatch.setattr(policy_config.AutoTokenizer, "from_pretrained", load_tokenizer)
+    monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", load_model)
+    policy = create_libero_policy(checkpoint, device="cpu")
+
+    # metadata 来自 LIBERO spec，证明 loader 没有落回 RoboTwin 14D contract。
+    assert calls == {"tokenizer": checkpoint, "model": checkpoint}
+    assert policy.metadata == {"action_horizon": 10, "action_dim": 7, "num_steps": 10}

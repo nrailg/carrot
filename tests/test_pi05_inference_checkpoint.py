@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 import torch
 
-from carrot.models.pi05.inference import create_trained_policy
+from carrot.models.pi05.inference import create_robotwin_policy
 
 
 def test_real_checkpoint_inference() -> None:
@@ -16,7 +16,7 @@ def test_real_checkpoint_inference() -> None:
         pytest.fail("checkpoint smoke requires CUDA")
 
     # checkpoint 必须携带训练时的 tokenizer 和 quantile stats；不回退到基础模型资产。
-    policy = create_trained_policy(checkpoint, device="cuda:0")
+    policy = create_robotwin_policy(checkpoint, device="cuda:0")
     rng = np.random.default_rng(7)
     obs = {
         "state": np.zeros(14, dtype=np.float32),

@@ -1,4 +1,10 @@
-"""Deterministic PI0.5 preprocessing shared by training and inference."""
+"""Legacy PI0.5 preprocessing helpers.
+
+TODO: Migrate ``Pi05SFTLossFn`` to the shared transform pipeline, move prompt
+tokenization into an independent transform/helper, and remove
+``Pi05Preprocessor`` together with its duplicated normalization, padding, and
+image preprocessing.
+"""
 
 from typing import Any
 

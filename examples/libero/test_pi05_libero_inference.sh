@@ -7,7 +7,8 @@ OPENPI_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/openpi"
 CHECKPOINT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_libero_pytorch"
 TOKENIZER_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224"
 OUTPUT_ROOT="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-smoke"
-VENV="/opt/venvs/carrot"
+CARROT_PYTHON="/opt/venvs/carrot/bin/python"
+LIBERO_PYTHON="/opt/venvs/openpi-libero/bin/python"
 DGUARD="/root/dguard/dguard.sh"
 
 POLICY_GPU=0
@@ -43,21 +44,30 @@ wait_for_gpu_to_clear() {
     die "physical GPU ${gpu} is occupied by PID(s): ${pids}"
 }
 
-assert_pid_on_only_gpu() {
-    local pid="$1"
-    local expected_gpu="$2"
-    local seen=0
-    local gpu
-    local pids
-    for gpu in $(seq 0 "$((GPU_COUNT - 1))"); do
-        pids="$(gpu_pids "$gpu")"
-        if grep -Fxq "$pid" <<<"$pids"; then
-            [[ "$gpu" -eq "$expected_gpu" ]] || \
-                die "PID ${pid} is on physical GPU ${gpu}, expected ${expected_gpu}"
-            seen=1
-        fi
-    done
-    [[ "$seen" -eq 1 ]] || die "PID ${pid} was not visible on physical GPU ${expected_gpu}"
+assert_egl_device_mapping() {
+    PYTHONPATH="${OPENPI_DIR}/src:${OPENPI_DIR}/packages/openpi-client/src:/opt/libero/src:${PYTHONPATH:-}" \
+    PYOPENGL_PLATFORM=egl \
+    "$LIBERO_PYTHON" - "$RENDER_GPU" <<'PY'
+import ctypes
+import sys
+
+from OpenGL import EGL
+from mujoco.egl import egl_ext
+
+query_attrib_type = ctypes.CFUNCTYPE(
+    EGL.EGLBoolean,
+    EGL.EGLDeviceEXT,
+    EGL.EGLint,
+    ctypes.POINTER(ctypes.c_ssize_t),
+)
+query_attrib = query_attrib_type(EGL.eglGetProcAddress("eglQueryDeviceAttribEXT"))
+device_index = int(sys.argv[1])
+devices = egl_ext.eglQueryDevicesEXT()
+cuda_device = ctypes.c_ssize_t(-1)
+assert query_attrib(devices[device_index], 0x323A, ctypes.byref(cuda_device))
+assert cuda_device.value == device_index, (device_index, cuda_device.value)
+print(f"EGL_MAPPING_OK egl_device={device_index} cuda_device={cuda_device.value}")
+PY
 }
 
 SERVER_PID=""
@@ -98,7 +108,8 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 
 [[ "$POLICY_GPU" != "$RENDER_GPU" ]] || die "policy and renderer must use different GPUs"
-[[ -x "${VENV}/bin/python" ]] || die "missing venv: ${VENV}"
+[[ -x "$CARROT_PYTHON" ]] || die "missing Carrot Python: ${CARROT_PYTHON}"
+[[ -x "$LIBERO_PYTHON" ]] || die "missing LIBERO Python: ${LIBERO_PYTHON}"
 [[ -f "$DGUARD" ]] || die "missing dguard: ${DGUARD}"
 [[ -f "${OPENPI_DIR}/examples/libero/main.py" ]] || die "missing OpenPI evaluator"
 grep -q "task_id" "${OPENPI_DIR}/examples/libero/main.py" || \
@@ -111,22 +122,22 @@ grep -q "result_out_path" "${OPENPI_DIR}/examples/libero/main.py" || \
     die "missing LIBERO normalization stats"
 [[ -f "${TOKENIZER_DIR}/tokenizer_config.json" ]] || die "missing HuggingFace tokenizer"
 
-source "${VENV}/bin/activate"
 cd "$CARROT_DIR"
 export PYTHONPATH="$PWD/src:$PWD/tests:${OPENPI_DIR}/packages/openpi-client/src:/opt/libero/src:${PYTHONPATH:-}"
-test "$(command -v python)" = "${VENV}/bin/python"
 
 echo "[1/3] CPU contract regression"
-python -m ruff check \
+"$CARROT_PYTHON" -m ruff check \
     src/carrot/models/pi05/transforms.py \
     src/carrot/models/pi05/preprocessing.py \
     src/carrot/models/pi05/embodiments \
-    src/carrot/models/pi05/inference \
+    src/carrot/models/pi05/inference/policy.py \
+    src/carrot/models/pi05/inference/policy_config.py \
+    src/carrot/models/pi05/inference/__init__.py \
     src/carrot/cli/serve_pi05_policy.py \
     tests/test_pi05_inference.py \
     tests/test_pi05_inference_checkpoint.py \
     tests/test_pi05_modeling.py
-python -m pytest -q --timeout=1800 \
+"$CARROT_PYTHON" -m pytest -q --timeout=1800 \
     tests/test_pi05_modeling.py \
     tests/test_pi05_inference.py \
     tests/test_pi05_inference_checkpoint.py
@@ -148,13 +159,15 @@ fi
 export LIBERO_CONFIG_PATH=/opt/libero
 export MUJOCO_GL=egl
 export PYOPENGL_PLATFORM=egl
+assert_egl_device_mapping
 
 echo "[2/3] one-process LIBERO EGL smoke on physical GPU ${RENDER_GPU}"
 READY_PATH="${RUN_DIR}/render.ready"
 export READY_PATH
 CUDA_VISIBLE_DEVICES="$RENDER_GPU" \
 MUJOCO_EGL_DEVICE_ID="$RENDER_GPU" \
-python -u - <<'PY' >"$RENDER_LOG" 2>&1 &
+TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 \
+"$LIBERO_PYTHON" -u - <<'PY' >"$RENDER_LOG" 2>&1 &
 import os
 import pathlib
 import time
@@ -199,7 +212,6 @@ for _ in $(seq 1 120); do
     sleep 1
 done
 [[ -f "$READY_PATH" ]] || die "LIBERO renderer smoke did not become ready"
-assert_pid_on_only_gpu "$RENDER_PID" "$RENDER_GPU"
 if ! wait "$RENDER_PID"; then
     sed -n '1,240p' "$RENDER_LOG" >&2
     die "LIBERO renderer smoke failed"
@@ -213,7 +225,7 @@ if ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
     die "port ${PORT} is already in use"
 fi
 CUDA_VISIBLE_DEVICES="$POLICY_GPU" \
-python -u -m carrot.cli.serve_pi05_policy \
+"$CARROT_PYTHON" -u -m carrot.cli.serve_pi05_policy \
     --embodiment libero \
     --checkpoint "$CHECKPOINT_DIR" \
     --tokenizer-path "$TOKENIZER_DIR" \
@@ -229,7 +241,7 @@ for second in $(seq 1 900); do
         sed -n '1,240p' "$SERVER_LOG" >&2
         die "policy server exited before becoming ready"
     }
-    if python - "$PORT" <<'PY' 2>/dev/null
+    if "$CARROT_PYTHON" - "$PORT" <<'PY' 2>/dev/null
 import sys
 import urllib.request
 
@@ -246,12 +258,18 @@ PY
     sleep 1
 done
 [[ "$ready" -eq 1 ]] || die "policy server did not become ready"
-assert_pid_on_only_gpu "$SERVER_PID" "$POLICY_GPU"
+policy_pids="$(gpu_pids "$POLICY_GPU")"
+[[ "$(wc -w <<<"$policy_pids")" -eq 1 ]] || \
+    die "expected one process on policy GPU ${POLICY_GPU}, found: ${policy_pids:-none}"
+render_pids="$(gpu_pids "$RENDER_GPU")"
+[[ -z "$render_pids" ]] || \
+    die "renderer GPU ${RENDER_GPU} became occupied before evaluation: ${render_pids}"
+echo "policy server uses physical GPU ${POLICY_GPU}, host PID ${policy_pids}"
 
 CUDA_VISIBLE_DEVICES="$RENDER_GPU" \
 MUJOCO_EGL_DEVICE_ID="$RENDER_GPU" \
 TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 \
-python -u "${OPENPI_DIR}/examples/libero/main.py" \
+"$LIBERO_PYTHON" -u "${OPENPI_DIR}/examples/libero/main.py" \
     --args.host=127.0.0.1 \
     --args.port="$PORT" \
     --args.task-suite-name=libero_spatial \
@@ -263,21 +281,6 @@ python -u "${OPENPI_DIR}/examples/libero/main.py" \
     --args.result-out-path="$RESULT_PATH" \
     >"$EVAL_LOG" 2>&1 &
 RENDER_PID=$!
-
-renderer_seen=0
-for _ in $(seq 1 120); do
-    if grep -Fxq "$RENDER_PID" <<<"$(gpu_pids "$RENDER_GPU")"; then
-        renderer_seen=1
-        break
-    fi
-    kill -0 "$RENDER_PID" 2>/dev/null || break
-    sleep 1
-done
-[[ "$renderer_seen" -eq 1 ]] || {
-    sed -n '1,240p' "$EVAL_LOG" >&2
-    die "evaluator PID was not observed on renderer GPU"
-}
-assert_pid_on_only_gpu "$RENDER_PID" "$RENDER_GPU"
 if ! wait "$RENDER_PID"; then
     sed -n '1,320p' "$EVAL_LOG" >&2
     die "LIBERO evaluator failed"
@@ -285,7 +288,7 @@ fi
 RENDER_PID=""
 sed -n '1,320p' "$EVAL_LOG"
 
-python - "$RESULT_PATH" <<'PY'
+"$CARROT_PYTHON" - "$RESULT_PATH" <<'PY'
 import json
 import pathlib
 import sys

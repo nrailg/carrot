@@ -9,7 +9,7 @@ import torch
 from torch import nn
 
 from carrot.models.pi05.loss_fn import Pi05SFTLossFn
-from carrot.models.pi05.model import PI0Observation, PI0Policy
+from carrot.models.pi05.model import PI0Observation, PI0Pytorch
 
 
 class _Tokenizer:
@@ -21,7 +21,7 @@ class _Tokenizer:
         }
 
 
-class _Policy(nn.Module):
+class _Model(nn.Module):
     # 捕获 loss adapter 的调用参数，避免用真实大模型掩盖 batch contract 问题。
     def __init__(self) -> None:
         super().__init__()
@@ -47,8 +47,8 @@ def _stats() -> dict[str, list[float]]:
 
 def test_pi05_batch_contract_and_padding_mask() -> None:
     # 验证 SFT loss 能把原始 batch 整理成官方 PI0Observation，并接受动作 padding mask。
-    # Arrange：fake policy 只记录官方调用契约，loss adapter 使用 14 维归一化统计。
-    native = _Policy()
+    # Arrange：fake model 只记录官方调用契约，loss adapter 使用 14 维归一化统计。
+    native = _Model()
     loss_fn = Pi05SFTLossFn(
         _Tokenizer(),
         state_stats=_stats(),
@@ -71,7 +71,7 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
         "task": ["pick bottle", "place cup"],
     }
 
-    # Act：执行 loss，fake policy 记录传入的官方四参数调用契约。
+    # Act：执行 loss，fake model 记录传入的官方四参数调用契约。
     loss, metrics = loss_fn(native, batch)
     observation, noisy_actions, noise, time = native.seen
 
@@ -98,9 +98,9 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
 
 
 def test_pi05_openpi_checkpoint_round_trip(tmp_path: Path) -> None:
-    # 验证 PI0Policy 导出官方 OpenPI PyTorch 文件名与配置 schema，并能严格回读权重。
+    # 验证 PI0Pytorch 导出官方 OpenPI PyTorch 文件名与配置 schema，并能严格回读权重。
     # Arrange：dummy Gemma 保留完整模块和 tied-weight 关系，同时限制测试资源消耗。
-    policy = PI0Policy(
+    model = PI0Pytorch(
         dtype="float32",
         paligemma_variant="dummy",
         action_expert_variant="dummy",
@@ -109,16 +109,16 @@ def test_pi05_openpi_checkpoint_round_trip(tmp_path: Path) -> None:
         pi05=True,
         pytorch_compile_mode=None,
     )
-    expected_action_in = policy.action_in_proj.weight.detach().clone()
+    expected_action_in = model.action_in_proj.weight.detach().clone()
     expected_language = (
-        policy.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4]
+        model.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4]
         .detach()
         .clone()
     )
 
     # Act：直接导出到 checkpoint 根目录，再走 model.safetensors 专用加载分支回读。
-    policy.save_pretrained(tmp_path)
-    restored = PI0Policy.from_pretrained(tmp_path)
+    model.save_pretrained(tmp_path)
+    restored = PI0Pytorch.from_pretrained(tmp_path)
 
     # Assert：文件布局和五个配置字段必须与 OpenPI 转换脚本的输出契约一致。
     assert (tmp_path / "model.safetensors").is_file()

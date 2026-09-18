@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu ./examples/libero/run_openpi_libero_eval.sh   --server-gpu 0   --render-gpu 1   --task-suite libero_spatial   --task-id 0   --episodes 10
 # see: docs/test-manifest/openpi-libero-official-benchmark-20260916.md
 
 set -Eeuo pipefail

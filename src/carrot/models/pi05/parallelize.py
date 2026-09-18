@@ -1,4 +1,4 @@
-"""FSDP2 wrapping plan for the native PI0.5 policy."""
+"""FSDP2 wrapping plan for the native PI0.5 model."""
 
 from __future__ import annotations
 

@@ -244,7 +244,7 @@ class SFTTrainWorker(Worker):
             norm_stats_path=self.config.dataset.norm_stats_path,
             preprocess=self.config.dataset.preprocess,
         )
-        model = components.policy
+        model = components.model
         parallelize_model(model, Pi05Parallelizer(), self.config.fsdp)
         parameters = [parameter for parameter in model.parameters() if parameter.requires_grad]
         optimizer = torch.optim.AdamW(

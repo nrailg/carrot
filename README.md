@@ -112,7 +112,7 @@ Each `checkpoints/step-*` directory contains two representations:
 
 - `dcp/` is the sharded model and AdamW state used by `--resume`;
 - `pretrained_model/` is a consolidated Diffusers checkpoint, tokenizer, and
-  `norm_stats.json` loadable with `PI0Policy.from_pretrained`.
+  `norm_stats.json` loadable with `PI0Pytorch.from_pretrained`.
 
 RoboTwin's LeRobot metadata does not contain PI0.5 quantiles. Set
 `dataset.norm_stats_path` to an OpenPI-style JSON containing `state.q01/q99`

@@ -7,6 +7,7 @@ from typing import Any
 import numpy as np
 import pytest
 import torch
+from PIL import Image
 from torch import nn
 
 from carrot.data.robotwin import robotwin_preprocess
@@ -25,6 +26,7 @@ from carrot.models.pi05.loss_fn import Pi05SFTLossFn
 from carrot.models.pi05.transforms import (
     AbsoluteActions,
     Pi05TransformSpec,
+    ResizeImagesPIL,
     Unnormalize,
     compose,
 )
@@ -368,6 +370,23 @@ def _libero_obs(*, include_actions: bool = False) -> dict[str, Any]:
     if include_actions:
         obs["actions"] = np.zeros((10, 7), dtype=np.float32)
     return obs
+
+
+def test_libero_resize_matches_openpi_uint8_pil_contract() -> None:
+    # 非均匀矩形图像锁定 OpenPI 的先 uint8 PIL 缩放、再归一化；浮点插值不能替代。
+    rows, columns = np.indices((256, 192))
+    image = np.stack((rows % 256, columns % 256, (rows + columns) % 256)).astype(np.uint8)
+
+    # 以独立的 PIL resize/pad 构造预期，检查像素量化和黑边均与官方路径一致。
+    resized = Image.fromarray(np.transpose(image, (1, 2, 0))).resize(
+        (168, 224), Image.Resampling.BILINEAR
+    )
+    expected = Image.new("RGB", (224, 224), 0)
+    expected.paste(resized, (28, 0))
+    expected_array = np.transpose(np.asarray(expected), (2, 0, 1)).astype(np.float32)
+    actual = ResizeImagesPIL()({"image": {"base_0_rgb": image}})["image"]["base_0_rgb"]
+    np.testing.assert_array_equal(actual.numpy(), expected_array / 255 * 2 - 1)
+    assert torch.all(actual[:, :, :28] == -1)
 
 
 def test_libero_transform_spec_is_reusable_for_training_samples() -> None:

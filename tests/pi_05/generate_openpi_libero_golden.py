@@ -5,13 +5,15 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from dataclasses import replace
 from pathlib import Path
+from unittest import mock
 
 import jax
 import numpy as np
 import torch
-from lerobot.common.datasets.lerobot_dataset import LeRobotDataset, LeRobotDatasetMetadata
 from openpi.models import model as openpi_model
+from openpi.models import tokenizer as openpi_tokenizer
 from openpi.policies.policy_config import create_trained_policy
 from openpi.shared import normalize
 from openpi.training.config import get_config
@@ -19,6 +21,7 @@ from openpi.training.config import get_config
 IMAGE_KEYS = ("base_0_rgb", "left_wrist_0_rgb", "right_wrist_0_rgb")
 OPENPI_COMMIT = "89d9220c68defd85b85f17acf130e965e58b8369"
 OPENPI_SOURCE_SHA256 = "3b5e87f546e2e8effe3dac5b54c42f103bac7dc159c30047f4745ddaf5e5264d"
+TOKENIZER_SHA256 = "8986bb4f423f07f8c7f70d0dbe3526fb2316056c17bae71b1ea975e77a168fc6"
 
 
 def _sha256(path: Path) -> str:
@@ -53,10 +56,10 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--openpi-dir", type=Path, required=True)
     parser.add_argument("--checkpoint", type=Path, required=True)
-    parser.add_argument("--dataset-root", type=Path, required=True)
-    parser.add_argument("--repo-id", default="lerobot/libero")
-    parser.add_argument("--sample-index", type=int, default=0)
+    parser.add_argument("--tokenizer-model", type=Path, required=True)
+    parser.add_argument("--observation", type=Path, required=True)
     parser.add_argument("--num-steps", type=int, default=10)
+    parser.add_argument("--disable-compile", action="store_true")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -70,32 +73,40 @@ def main() -> None:
     for path in (stats_path, weight_path, args.checkpoint / "config.json"):
         if not path.is_file():
             raise FileNotFoundError(path)
+    if _sha256(args.tokenizer_model) != TOKENIZER_SHA256:
+        raise ValueError("local PaliGemma tokenizer.model differs from the official model")
 
-    dataset_meta = LeRobotDatasetMetadata(args.repo_id, root=args.dataset_root)
-    dataset = LeRobotDataset(args.repo_id, root=args.dataset_root)
-    if not 0 <= args.sample_index < len(dataset):
-        raise IndexError(args.sample_index)
-    sample = dataset[args.sample_index]
-    prompt = dataset_meta.tasks[int(sample["task_index"])]
-    raw = {
-        "observation/state": _numpy(sample["observation/state"]).astype(np.float32),
-        "observation/image": _numpy(sample["observation/image"]),
-        "observation/wrist_image": _numpy(sample["observation/wrist_image"]),
-        "prompt": prompt,
-    }
+    with np.load(args.observation, allow_pickle=False) as source:
+        source_metadata = json.loads(source["metadata_json"].item())
+        raw = {
+            "observation/state": source["raw_state"].copy(),
+            "observation/image": source["raw_base_image"].copy(),
+            "observation/wrist_image": source["raw_wrist_image"].copy(),
+            "prompt": source["raw_prompt"].item(),
+        }
     if raw["observation/state"].shape != (8,):
         raise ValueError("LIBERO state must have shape (8,)")
 
     stats = normalize.load(stats_path.parent)
     config = get_config("pi05_libero")
+    if args.disable_compile:
+        config = replace(config, model=replace(config.model, pytorch_compile_mode=None))
     assert config.model.action_horizon == 10 and config.model.action_dim == 32
-    policy = create_trained_policy(
-        config,
-        args.checkpoint,
-        norm_stats=stats,
-        sample_kwargs={"num_steps": args.num_steps},
-        pytorch_device="cuda",
-    )
+    original_download = openpi_tokenizer.download.maybe_download
+
+    def use_local_tokenizer(path: object, *download_args: object, **kwargs: object) -> object:
+        if str(path) == "gs://big_vision/paligemma_tokenizer.model":
+            return args.tokenizer_model
+        return original_download(path, *download_args, **kwargs)
+
+    with mock.patch.object(openpi_tokenizer.download, "maybe_download", use_local_tokenizer):
+        policy = create_trained_policy(
+            config,
+            args.checkpoint,
+            norm_stats=stats,
+            sample_kwargs={"num_steps": args.num_steps},
+            pytorch_device="cuda",
+        )
     transformed = policy._input_transform(dict(raw))
     inputs = jax.tree.map(
         lambda value: torch.from_numpy(np.asarray(value).copy()).to("cuda")[None, ...],
@@ -128,18 +139,21 @@ def main() -> None:
         "checkpoint_size": weight_path.stat().st_size,
         "checkpoint_config_sha256": _sha256(args.checkpoint / "config.json"),
         "norm_stats_sha256": _sha256(stats_path),
-        "dataset_root": str(args.dataset_root.resolve()),
-        "repo_id": args.repo_id,
-        "sample_index": args.sample_index,
+        "tokenizer_sha256": TOKENIZER_SHA256,
+        "dataset_root": source_metadata["dataset_root"],
+        "repo_id": source_metadata["repo_id"],
+        "sample_index": source_metadata["sample_index"],
+        "task_index": source_metadata["task_index"],
         "num_steps": args.num_steps,
         "noise_seed": 7,
+        "pytorch_compile_mode": config.model.pytorch_compile_mode,
     }
     payload = {
         "metadata_json": np.asarray(json.dumps(metadata, sort_keys=True)),
         "raw_state": raw["observation/state"],
         "raw_base_image": raw["observation/image"],
         "raw_wrist_image": raw["observation/wrist_image"],
-        "raw_prompt": np.asarray(prompt),
+        "raw_prompt": np.asarray(raw["prompt"]),
         "noise": noise,
         "state": _numpy(observation.state[0]),
         "tokens": _numpy(observation.tokenized_prompt[0]),

@@ -7,6 +7,7 @@ from typing import Any, Protocol
 import numpy as np
 import torch
 import torch.nn.functional as F
+from PIL import Image
 
 from .preprocessing import Pi05Preprocessor
 
@@ -160,6 +161,37 @@ class ResizeImages:
                 )
             image = 2 * image - 1
             images[key] = image[0] if unbatched else image
+        return {**data, "image": images}
+
+
+@dataclass(frozen=True)
+class ResizeImagesPIL:
+    height: int = 224
+    width: int = 224
+
+    def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
+        images = {}
+        for key, value in data["image"].items():
+            image = np.asarray(value)
+            if image.dtype != np.uint8 or image.ndim != 3 or image.shape[0] != 3:
+                raise ValueError(f"{key} must be uint8 with shape (3, H, W)")
+            height, width = image.shape[1:]
+            if (height, width) != (self.height, self.width):
+                ratio = max(width / self.width, height / self.height)
+                resized_height = int(height / ratio)
+                resized_width = int(width / ratio)
+                pil_image = Image.fromarray(np.transpose(image, (1, 2, 0)))
+                resized = pil_image.resize(
+                    (resized_width, resized_height), Image.Resampling.BILINEAR
+                )
+                padded = Image.new("RGB", (self.width, self.height), 0)
+                padded.paste(
+                    resized,
+                    ((self.width - resized_width) // 2, (self.height - resized_height) // 2),
+                )
+                image = np.transpose(np.asarray(padded), (2, 0, 1))
+            # OpenPI resizes uint8 with PIL before converting pixels to [-1, 1].
+            images[key] = torch.from_numpy(np.array(image, copy=True)).float() / 255 * 2 - 1
         return {**data, "image": images}
 
 

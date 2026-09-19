@@ -55,14 +55,11 @@ def test_worker_teardown_does_not_wait_for_failed_peers(
 
 
 def test_pi05_sft_runs_two_steps_on_ray_gpu(tmp_path: Path) -> None:
-    model_path = os.environ.get(
-        "CARROT_PI05_MODEL_PATH",
-        "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Miical/pi05-base",
-    )
-    dataset_root = os.environ.get(
-        "CARROT_ROBOTWIN_ROOT",
-        "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified",
-    )
+    # 真实 GPU smoke 必须由 runner 指定已下载的资产，避免误读旧集群路径。
+    model_path = os.environ.get("CARROT_PI05_MODEL_PATH")
+    dataset_root = os.environ.get("CARROT_ROBOTWIN_ROOT")
+    if not model_path or not dataset_root:
+        pytest.skip("set CARROT_PI05_MODEL_PATH and CARROT_ROBOTWIN_ROOT for the GPU smoke")
     config = SFTConfig.from_dict(
         {
             "model": {"path": model_path, "tokenizer_path": model_path},

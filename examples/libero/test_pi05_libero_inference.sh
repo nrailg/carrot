@@ -6,7 +6,7 @@ CARROT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/carrot"
 OPENPI_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/openpi"
 CHECKPOINT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_libero_pytorch"
 TOKENIZER_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224"
-OUTPUT_ROOT="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-smoke"
+OUTPUT_ROOT="${OUTPUT_ROOT:-/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-smoke}"
 CARROT_PYTHON="/opt/venvs/carrot/bin/python"
 LIBERO_PYTHON="/opt/venvs/openpi-libero/bin/python"
 DGUARD="/root/dguard/dguard.sh"
@@ -14,7 +14,11 @@ DGUARD="/root/dguard/dguard.sh"
 POLICY_GPU=0
 RENDER_GPU=1
 PORT=8000
-DGUARD_STOP_MINUTES=30
+DGUARD_STOP_MINUTES="${DGUARD_STOP_MINUTES:-30}"
+TASK_SUITE="${TASK_SUITE:-libero_spatial}"
+TASK_ID="${TASK_ID:-0}"
+EPISODES="${EPISODES:-10}"
+MIN_SUCCESSES="${MIN_SUCCESSES:-9}"
 RUN_DIR="${OUTPUT_ROOT}/$(date +%Y%m%d-%H%M%S)"
 RENDER_LOG="${RUN_DIR}/render-smoke.log"
 SERVER_LOG="${RUN_DIR}/server.log"
@@ -108,6 +112,13 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 
 [[ "$POLICY_GPU" != "$RENDER_GPU" ]] || die "policy and renderer must use different GPUs"
+case "$TASK_SUITE" in
+    libero_spatial|libero_object|libero_goal|libero_10) ;;
+    *) die "unsupported TASK_SUITE: ${TASK_SUITE}" ;;
+esac
+[[ "$TASK_ID" == "all" || "$TASK_ID" =~ ^[0-9]+$ ]] || die "TASK_ID must be all or an integer"
+[[ "$EPISODES" =~ ^[1-9][0-9]*$ ]] || die "EPISODES must be a positive integer"
+[[ "$MIN_SUCCESSES" =~ ^[0-9]+$ ]] || die "MIN_SUCCESSES must be a non-negative integer"
 [[ -x "$CARROT_PYTHON" ]] || die "missing Carrot Python: ${CARROT_PYTHON}"
 [[ -x "$LIBERO_PYTHON" ]] || die "missing LIBERO Python: ${LIBERO_PYTHON}"
 [[ -f "$DGUARD" ]] || die "missing dguard: ${DGUARD}"
@@ -220,7 +231,7 @@ RENDER_PID=""
 sed -n '1,240p' "$RENDER_LOG"
 wait_for_gpu_to_clear "$RENDER_GPU"
 
-echo "[3/3] Carrot PI0.5 server plus one official LIBERO episode"
+echo "[3/3] Carrot PI0.5 server: suite=${TASK_SUITE}, task=${TASK_ID}, trials-per-task=${EPISODES}"
 if ss -ltn | awk '{print $4}' | grep -Eq "(^|:)${PORT}$"; then
     die "port ${PORT} is already in use"
 fi
@@ -266,19 +277,23 @@ render_pids="$(gpu_pids "$RENDER_GPU")"
     die "renderer GPU ${RENDER_GPU} became occupied before evaluation: ${render_pids}"
 echo "policy server uses physical GPU ${POLICY_GPU}, host PID ${policy_pids}"
 
-CUDA_VISIBLE_DEVICES="$RENDER_GPU" \
-MUJOCO_EGL_DEVICE_ID="$RENDER_GPU" \
-TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 \
-"$LIBERO_PYTHON" -u "${OPENPI_DIR}/examples/libero/main.py" \
+EVAL_ARGS=(
     --args.host=127.0.0.1 \
     --args.port="$PORT" \
-    --args.task-suite-name=libero_spatial \
-    --args.task-id=0 \
-    --args.num-trials-per-task=1 \
+    --args.task-suite-name="$TASK_SUITE" \
+    --args.num-trials-per-task="$EPISODES" \
     --args.replan-steps=5 \
     --args.seed=7 \
     --args.video-out-path="$VIDEO_DIR" \
-    --args.result-out-path="$RESULT_PATH" \
+    --args.result-out-path="$RESULT_PATH"
+)
+if [[ "$TASK_ID" != "all" ]]; then
+    EVAL_ARGS+=(--args.task-id="$TASK_ID")
+fi
+CUDA_VISIBLE_DEVICES="$RENDER_GPU" \
+MUJOCO_EGL_DEVICE_ID="$RENDER_GPU" \
+TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD=1 \
+"$LIBERO_PYTHON" -u "${OPENPI_DIR}/examples/libero/main.py" "${EVAL_ARGS[@]}" \
     >"$EVAL_LOG" 2>&1 &
 RENDER_PID=$!
 if ! wait "$RENDER_PID"; then
@@ -288,17 +303,26 @@ fi
 RENDER_PID=""
 sed -n '1,320p' "$EVAL_LOG"
 
-"$CARROT_PYTHON" - "$RESULT_PATH" <<'PY'
+"$CARROT_PYTHON" - "$RESULT_PATH" "$TASK_SUITE" "$TASK_ID" "$EPISODES" "$MIN_SUCCESSES" <<'PY'
 import json
 import pathlib
 import sys
 
 path = pathlib.Path(sys.argv[1])
+suite = sys.argv[2]
+task_id = sys.argv[3]
+trials = int(sys.argv[4])
+minimum = int(sys.argv[5])
 records = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
-assert len(records) == 1, records
-assert records[0]["task_id"] == 0, records[0]
-assert records[0]["episode_idx"] == 0, records[0]
-print(f"E2E_OK success={bool(records[0]['success'])} result={path}")
+assert all(record["suite"] == suite for record in records), suite
+keys = {(record["task_id"], record["episode_idx"]) for record in records}
+successes = sum(bool(record["success"]) for record in records)
+task_ids = range(10) if task_id == "all" else [int(task_id)]
+expected = {(task, episode) for task in task_ids for episode in range(trials)}
+assert len(records) == len(expected), (len(records), len(expected))
+assert keys == expected, keys ^ expected
+assert successes >= minimum, (successes, minimum)
+print(f"E2E_OK successes={successes}/{len(expected)} minimum={minimum} result={path}")
 PY
 
-echo "PASS: PI0.5 LIBERO inference and rendering smoke"
+echo "PASS: PI0.5 LIBERO inference gate"

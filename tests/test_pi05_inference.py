@@ -350,8 +350,11 @@ def test_invalid_stats_fail_before_model_setup(invalid: str) -> None:
 
 def _libero_stats() -> dict[str, dict[str, list[float]]]:
     return {
-        "state": {"mean": [1.0] * 8, "std": [2.0] * 8},
-        "actions": {"mean": np.arange(7, dtype=np.float32).tolist(), "std": [3.0] * 7},
+        "state": {"q01": [1.0] * 8, "q99": [5.0] * 8},
+        "actions": {
+            "q01": np.arange(7, dtype=np.float32).tolist(),
+            "q99": (2 * np.arange(7, dtype=np.float32) + 2).tolist(),
+        },
     }
 
 
@@ -390,7 +393,7 @@ def test_libero_transform_spec_is_reusable_for_training_samples() -> None:
     assert torch.all(transformed["image"]["right_wrist_0_rgb"] == -1)
     assert transformed["state"].shape == (32,)
     assert transformed["actions"].shape == (10, 32)
-    np.testing.assert_allclose(transformed["state"][:8], np.ones(8), rtol=0, atol=1e-6)
+    np.testing.assert_allclose(transformed["state"][:8], np.zeros(8), rtol=0, atol=1e-6)
 
     # LIBERO 的 PI0.5 prompt 不注入离散 state，避免错误复用 RoboTwin prompt contract。
     assert tokenizer.prompts == ["pick up the cup\n"]
@@ -398,9 +401,11 @@ def test_libero_transform_spec_is_reusable_for_training_samples() -> None:
 
 
 def test_libero_policy_preserves_mask_and_decodes_seven_actions() -> None:
-    # 通用 executor 必须消费 spec 的 mask，并将 32D 模型输出反归一化后裁成 LIBERO 7D。
+    # LIBERO 必须按官方 quantile contract 解码；失败意味着动作尺度仍与 checkpoint 不匹配。
     tokenizer = _Tokenizer()
-    model = _Model(torch.zeros(1, 10, 32), action_horizon=10)
+    normalized_actions = torch.zeros(1, 10, 32)
+    normalized_actions[..., :7] = torch.linspace(-1, 1, 7)
+    model = _Model(normalized_actions, action_horizon=10)
     spec = create_libero_transform_spec(
         tokenizer,
         _libero_stats(),
@@ -408,7 +413,7 @@ def test_libero_policy_preserves_mask_and_decodes_seven_actions() -> None:
     )
     policy = Pi05Policy(model, spec, device="cpu")
 
-    # 固定零输出对应 action mean，固定 noise 同时验证完整 sampling contract。
+    # 覆盖整个归一化区间，避免只检查中点而遗漏 quantile 缩放错误。
     result = policy.infer(_libero_obs(), noise=np.zeros((10, 32), dtype=np.float32))
 
     # 右腕图像存在但被 mask，最终动作必须 finite 且严格为 horizon=10、action_dim=7。
@@ -418,11 +423,13 @@ def test_libero_policy_preserves_mask_and_decodes_seven_actions() -> None:
     assert model.seen.tokenized_prompt.shape == (1, 200)
     assert result["actions"].shape == (10, 7)
     assert result["actions"].dtype == np.float32
+    stats = _libero_stats()["actions"]
+    q01 = np.asarray(stats["q01"], dtype=np.float32)
+    q99 = np.asarray(stats["q99"], dtype=np.float32)
+    normalized = np.linspace(-1, 1, 7, dtype=np.float32)
+    expected = (normalized + 1) / 2 * (q99 - q01 + 1e-6) + q01
     np.testing.assert_allclose(
-        result["actions"],
-        np.broadcast_to(np.arange(7, dtype=np.float32), (10, 7)),
-        rtol=0,
-        atol=1e-6,
+        result["actions"], np.broadcast_to(expected, (10, 7)), rtol=1e-6, atol=1e-6
     )
 
 

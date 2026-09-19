@@ -132,3 +132,64 @@ the official JAX result; Object and LIBERO-10 account for the deficits, with LIB
 at 30/50. This establishes close closed-loop behavior, not strict numerical parity. The
 runtime image tag and Carrot commit could not be recovered from the container or its `.git`-less
 source copy; do not attribute this run to the available v1.10 image without separate evidence.
+
+## 2026-09-19 Spatial SFT checkpoint comparison
+
+On Gemini `mpi-1760058051-launcher`, compare SFT steps 100, 200, and 300, then the
+official PyTorch base checkpoint. The unchanged runner uses `TASK_SUITE=libero_spatial`,
+`TASK_ID=all`, `EPISODES=2`, and `MIN_SUCCESSES=0`: two official initial states for each
+of the ten tasks, 20 episodes per checkpoint. Seed 7 and `replan_steps=5` are fixed by
+the runner. Policy GPU 0 and EGL renderer GPU 1 are isolated; runs are serial.
+The local Carrot source synced before this run was clean at
+`7ea4ad8cc25784b24dc7f2cccab9fb3943760f98`. The actual remote image tag and OpenPI
+commit could not be recovered from the remote `.git`-less checkout. The evaluator
+`examples/libero/main.py` was byte-identical to the local OpenPI `89d9220` file
+(SHA-256 `6dfddcdb25087f9714afe5ce39d03d2710be9cdb359fffd3a4eddf9c32460a50`).
+
+```bash
+for step in 00000100 00000200 00000300; do
+  MY_DFS="$MY_DFS" TASK_SUITE=libero_spatial TASK_ID=all EPISODES=2 MIN_SUCCESSES=0 \
+  DGUARD_STOP_MINUTES=180 \
+  CHECKPOINT_DIR="$MY_DFS/experiments/carrot/pi05_libero_sft_2k_20260919/checkpoints/step-$step" \
+  OUTPUT_ROOT="$MY_DFS/benchmarks/carrot-pi05-libero-sft-spatial-20/step-$step" \
+  bash tests/pi_05/test_libero.sh
+done
+
+# Attempted only after the three SFT evaluations finished.
+MY_DFS="$MY_DFS" TASK_SUITE=libero_spatial TASK_ID=all EPISODES=2 MIN_SUCCESSES=0 \
+DGUARD_STOP_MINUTES=180 \
+CHECKPOINT_DIR="$MY_DFS/hf-hub/Physical-Intelligence/pi05_base_pytorch" \
+OUTPUT_ROOT="$MY_DFS/benchmarks/carrot-pi05-libero-sft-spatial-20/pi05_base_pytorch" \
+bash tests/pi_05/test_libero.sh
+```
+
+The base model has `action_horizon=50` versus SFT `action_horizon=10`; all four use the
+same LIBERO normalization stats (SHA-256
+`b3a44bb2810436fb62917decaea58bd4d9110255df527dea21e8fd40c960bd84`).
+Only the three SFT checkpoints produced closed-loop scores; the attempted base comparison
+is not a weight-only ablation.
+
+| Checkpoint | Status | Successes | Evidence |
+|---|---|---:|---|
+| SFT step 100 | PASS | 5/20 | `benchmarks/carrot-pi05-libero-sft-spatial-20/step-00000100/20260919-132628/episodes.jsonl` |
+| SFT step 200 | PASS | 15/20 | `benchmarks/carrot-pi05-libero-sft-spatial-20/step-00000200/20260919-133430/episodes.jsonl` |
+| SFT step 300 | PASS | 19/20 | `benchmarks/carrot-pi05-libero-sft-spatial-20/step-00000300/20260919-134053/episodes.jsonl` |
+| `pi05_base_pytorch` | FAIL before rollout | — | `benchmarks/carrot-pi05-libero-sft-spatial-20/pi05_base_pytorch/20260919-134745/server.log` |
+
+Evidence paths in the table are relative to the current `MY_DFS` on Gemini. Each SFT runner
+exited 0; independent `test_libero.py` checks confirmed exactly 20 unique
+`(task_id, episode_idx)` records, the suite name, and Boolean success values. Per-task
+successes for task IDs 0–9 were:
+
+| Checkpoint | Per-task successes, each out of 2 |
+|---|---|
+| SFT step 100 | 0, 0, 2, 0, 1, 1, 0, 0, 0, 1 |
+| SFT step 200 | 2, 1, 2, 2, 2, 1, 2, 0, 1, 2 |
+| SFT step 300 | 2, 2, 2, 2, 1, 2, 2, 2, 2, 2 |
+
+The base runner exited 1 before creating `episodes.jsonl`: Carrot's LIBERO policy factory
+raises `ValueError: LIBERO requires action_horizon=10 and model action_dim >= 7`, while the
+base checkpoint `config.json` has horizon 50. Thus base has **no valid /20 score** from this
+entry point. After all attempts, dguard was back at `DGUARD_WATCH=1`, no evaluator/server
+remained, and no new Xid was observed. The user chose not to pursue another base entry point
+or modify the Carrot policy factory, so no base success rate is reported.

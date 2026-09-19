@@ -9,6 +9,7 @@ import torch
 import torch.nn.functional as F
 from PIL import Image
 
+from .model import PI0Observation
 from .preprocessing import Pi05Preprocessor
 
 
@@ -47,6 +48,62 @@ class CompositeTransform:
 
 def compose(transforms: Sequence[DataTransformFn]) -> CompositeTransform:
     return CompositeTransform(transforms)
+
+
+def to_observation(
+    inputs: dict[str, Any], *, device: torch.device, dtype: torch.dtype
+) -> PI0Observation:
+    """Convert shared transform output to the PI0.5 model input contract.
+
+    Parameters
+    ----------
+    inputs : dict
+        Canonical, already transformed single sample or batch.
+    device : torch.device
+    dtype : torch.dtype
+        Model action projection input dtype, used for image and state tensors.
+
+    Returns
+    -------
+    PI0Observation
+        Batched image, mask, state, and token tensors.
+    """
+    state = torch.as_tensor(inputs["state"], device=device)
+    if state.ndim == 1:
+        state = state[None]
+    if state.ndim != 2:
+        raise ValueError("transformed state must have shape (D,) or (B, D)")
+
+    images = {}
+    image_masks = {}
+    for key, value in inputs["image"].items():
+        image = torch.as_tensor(value, device=device)
+        if image.ndim == 3:
+            image = image[None]
+        if image.ndim != 4 or image.shape[0] != state.shape[0]:
+            raise ValueError(f"transformed {key} image batch must match state")
+        images[key] = image.to(dtype)
+        mask = torch.as_tensor(inputs["image_mask"][key], device=device, dtype=torch.bool)
+        if mask.ndim == 0:
+            mask = mask.expand(state.shape[0])
+        if tuple(mask.shape) != (state.shape[0],):
+            raise ValueError(f"transformed {key} mask must match state batch")
+        image_masks[key] = mask
+
+    tokens = torch.as_tensor(inputs["tokenized_prompt"], device=device, dtype=torch.long)
+    token_mask = torch.as_tensor(inputs["tokenized_prompt_mask"], device=device, dtype=torch.bool)
+    if tokens.ndim == 1:
+        tokens = tokens[None]
+        token_mask = token_mask[None]
+    if tokens.shape != token_mask.shape or tokens.shape[0] != state.shape[0]:
+        raise ValueError("transformed prompt tensors must match state batch")
+    return PI0Observation(
+        images=images,
+        image_masks=image_masks,
+        state=state.to(dtype),
+        tokenized_prompt=tokens,
+        tokenized_prompt_mask=token_mask,
+    )
 
 
 @dataclass(frozen=True)

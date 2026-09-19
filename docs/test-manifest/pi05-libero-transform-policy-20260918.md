@@ -4,7 +4,7 @@
 
 - 验证通用 `Pi05Policy` 严格执行注入的 input/output transforms，不包含 embodiment 分支。
 - 验证 RoboTwin 重构前后的 observation、动作解码和错误检查 contract 不变。
-- 验证 LIBERO 两路图像、缺失右腕 mask、8D/7D 数据、mean/std normalization、prompt-only tokenization 和 `[10,7]` 输出。
+- 验证 LIBERO 两路图像、缺失右腕 mask、8D/7D 数据、quantile normalization、prompt-only tokenization 和 `[10,7]` 输出。
 - 验证带 actions 的 LIBERO 样本可直接执行共享 input transforms，为后续训练复用锁定接口。
 
 ## 测试代码
@@ -34,7 +34,12 @@ python -m pytest -q \
   tests/test_pi05_inference.py \
   tests/test_pi05_inference_checkpoint.py
 
-# Gemini H20：先跑单 renderer EGL smoke，再跑 Carrot server + 1 episode LIBERO 闭环。
+# Gemini H20：先跑单 renderer EGL smoke，再跑 Carrot server + task 0 的 10 episode gate。
+bash examples/libero/test_pi05_libero_inference.sh
+
+# 完整 spatial benchmark：10 tasks x 50 trials，目标至少 485/500。
+TASK_ID=all EPISODES=50 MIN_SUCCESSES=485 DGUARD_STOP_MINUTES=120 \
+OUTPUT_ROOT=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-spatial \
 bash examples/libero/test_pi05_libero_inference.sh
 ```
 
@@ -45,4 +50,6 @@ bash examples/libero/test_pi05_libero_inference.sh
 - `PASS`：官方 LIBERO `norm_stats.json` 与本地 PaliGemma tokenizer 的真实资产 transform smoke；得到 state `(32,)`、actions `(10,32)`、三路 `(3,224,224)` 图像、right-wrist mask=false、tokens `(200,)`。
 - `SKIP`：真实 RoboTwin checkpoint smoke 未设置 `CARROT_PI05_INFERENCE_CHECKPOINT`。
 - `NOT RUN`：官方 LIBERO PyTorch checkpoint 单次 GPU sampling；当前机器无 GPU，且本机可见权重为 root-only。
-- `NOT RUN`：Gemini H20 单 renderer smoke 和 Carrot server + LIBERO 单 episode 闭环，等待用户审阅脚本。
+- `PASS`：quantile 修复后的 CPU regression，`24 passed, 1 skipped`。
+- `PASS`：Gemini task 0 10-episode gate，`10/10` 成功、10 条唯一 JSONL 记录，无新增 Xid；证据目录为 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-smoke/20260918-153519`。
+- `NOT RUN`：quantile 修复后的完整 spatial 500-episode benchmark。

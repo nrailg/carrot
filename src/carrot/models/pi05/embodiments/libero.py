@@ -79,7 +79,7 @@ def create_libero_transform_spec(
     ----------
     tokenizer : Any
     norm_stats : dict
-        Mean/std statistics for 8-dimensional ``state`` and 7-dimensional ``actions``.
+        Quantile statistics for 8-dimensional ``state`` and 7-dimensional ``actions``.
     model_action_dim : int
     default_prompt : str | None
 
@@ -89,7 +89,7 @@ def create_libero_transform_spec(
     """
     normalize = transforms.Normalize(
         norm_stats,
-        use_quantiles=False,
+        use_quantiles=True,
         dimensions={"state": 8, "actions": 7},
     )
     return transforms.Pi05TransformSpec(
@@ -102,7 +102,7 @@ def create_libero_transform_spec(
             transforms.TokenizePrompt(tokenizer, discrete_state_input=False),
         ),
         outputs=(
-            transforms.Unnormalize(norm_stats, use_quantiles=False),
+            transforms.Unnormalize(norm_stats, use_quantiles=True),
             LiberoOutputs(),
         ),
         action_dim=7,

@@ -1,0 +1,37 @@
+model:
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_libero_sft_2k_20260919/init
+  tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
+dataset:
+  factory: carrot.data.libero.build_dataset
+  factory_kwargs:
+    repo_id: lerobot/libero
+    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/libero
+    action_horizon: 10
+  num_workers: 4
+  norm_stats_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_libero_pytorch/assets/physical-intelligence/libero/norm_stats.json
+  norm_stats_asset_id: physical-intelligence/libero
+  preprocess: null
+optimizer:
+  learning_rate: 1.0e-5
+  weight_decay: 1.0e-10
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  warmup_steps: 0
+  decay_steps: 2000
+  decay_learning_rate: 1.0e-5
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+wandb:
+  enabled: false
+steps: 2000
+micro_batch_size: 4
+global_batch_size: 256
+log_freq: 10
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_libero_sft_2k_20260919
+save_freq: 100
+dp_size: 8
+num_nodes: 1

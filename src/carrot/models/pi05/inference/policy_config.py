@@ -76,7 +76,7 @@ def create_libero_policy(
     device : str
     tokenizer_path : str | pathlib.Path | None
     norm_stats_path : str | pathlib.Path | None
-        Defaults to the official OpenPI checkpoint asset location.
+        Defaults to the official OpenPI asset location or checkpoint root.
     num_steps : int
     default_prompt : str | None
 
@@ -85,10 +85,16 @@ def create_libero_policy(
     Pi05Policy
     """
     checkpoint_dir = _validate_checkpoint(checkpoint_dir)
+    official_stats = (
+        checkpoint_dir / "assets" / "physical-intelligence" / "libero" / "norm_stats.json"
+    )
+    default_stats = (
+        official_stats if official_stats.is_file() else checkpoint_dir / "norm_stats.json"
+    )
     stats_path = (
         Path(norm_stats_path)
         if norm_stats_path is not None
-        else checkpoint_dir / "assets" / "physical-intelligence" / "libero" / "norm_stats.json"
+        else default_stats
     )
     tokenizer_dir = _resolve_tokenizer_dir(checkpoint_dir, tokenizer_path)
     norm_stats = _load_norm_stats(stats_path)

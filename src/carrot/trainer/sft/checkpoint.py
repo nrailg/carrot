@@ -5,13 +5,17 @@ from __future__ import annotations
 import json
 import shutil
 from collections.abc import Callable
+from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 import torch
 import torch.distributed as dist
 import torch.distributed.checkpoint as dcp
+import yaml
 from torch import nn
+
+from carrot.trainer.sft.config import SFTConfig
 
 
 class _OptimizerState:
@@ -56,6 +60,7 @@ def save_checkpoint(
     scheduler: Any,
     step: int,
     artifact_writer: Callable[[Path], None] | None = None,
+    train_config: SFTConfig | None = None,
 ) -> None:
     """Write an OpenPI PyTorch model export and an optimizer-only DCP bundle.
 
@@ -74,6 +79,8 @@ def save_checkpoint(
     step : int
     artifact_writer : collections.abc.Callable[[Path], None] | None
         Invoked on rank 0 after the OpenPI model export.
+    train_config : SFTConfig | None
+        Effective training recipe, saved in reloadable YAML form.
     """
     temporary_path = path.with_name(f"tmp-{path.name}")
     if path.exists():
@@ -92,6 +99,16 @@ def save_checkpoint(
     if not dist.is_initialized() or dist.get_rank() == 0:
         if artifact_writer is not None:
             artifact_writer(temporary_path)
+        if train_config is not None:
+            if train_config.dataset.norm_stats_path is not None:
+                stats_path = Path(train_config.dataset.norm_stats_path)
+                stats_dir = temporary_path
+                if train_config.dataset.norm_stats_asset_id is not None:
+                    stats_dir = stats_dir / "assets" / train_config.dataset.norm_stats_asset_id
+                    stats_dir.mkdir(parents=True, exist_ok=True)
+                shutil.copyfile(stats_path, stats_dir / "norm_stats.json")
+            with (temporary_path / "train_config.yaml").open("w") as stream:
+                yaml.safe_dump(asdict(train_config), stream, sort_keys=False)
         with (temporary_path / "trainer_state.json").open("w") as stream:
             json.dump({"step": step, "scheduler": scheduler.state_dict()}, stream)
     if dist.is_initialized():

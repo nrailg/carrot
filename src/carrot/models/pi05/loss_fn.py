@@ -200,10 +200,11 @@ def build_pi05(
     if dataset.embodiment == "libero":
         if preprocess is not None:
             raise ValueError("LIBERO uses shared input transforms; set dataset.preprocess to null")
+        official_stats = Path(model_path) / "assets/physical-intelligence/libero/norm_stats.json"
         stats_path = (
             Path(norm_stats_path)
             if norm_stats_path is not None
-            else Path(model_path) / "assets/physical-intelligence/libero/norm_stats.json"
+            else official_stats if official_stats.is_file() else checkpoint_stats
         )
         with stats_path.open() as stream:
             normalization = json.load(stream)

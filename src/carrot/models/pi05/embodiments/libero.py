@@ -97,7 +97,7 @@ def create_libero_transform_spec(
             transforms.InjectDefaultPrompt(default_prompt),
             LiberoInputs(),
             normalize,
-            transforms.ResizeImages(),
+            transforms.ResizeImagesPIL(),
             transforms.PadStatesAndActions(model_action_dim),
             transforms.TokenizePrompt(tokenizer, discrete_state_input=False),
         ),

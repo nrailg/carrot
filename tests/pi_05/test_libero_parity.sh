@@ -16,13 +16,30 @@ RUN_DIR="${OUTPUT_ROOT}/$(date +%Y%m%d-%H%M%S)"
 [[ -f "${CHECKPOINT_DIR}/model.safetensors" ]]
 [[ -f "${CHECKPOINT_DIR}/assets/physical-intelligence/libero/norm_stats.json" ]]
 [[ -d "$TOKENIZER_DIR" ]]
+[[ -f "$TOKENIZER_DIR/tokenizer.model" ]]
 [[ -d "$DATASET_ROOT" ]]
 [[ -x /opt/venvs/openpi-libero/bin/python ]]
 [[ -x /opt/venvs/carrot/bin/python ]]
 [[ -f "${OPENPI_DIR}/examples/libero/main.py" ]]
 
+export HF_HUB_OFFLINE=1
+export HF_DATASETS_OFFLINE=1
+
 mkdir -p "$RUN_DIR"
 GOLDEN="$RUN_DIR/openpi-libero-golden.npz"
+OBSERVATION="$RUN_DIR/libero-observation.npz"
+
+(
+    source /opt/venvs/carrot/bin/activate
+    cd "$CARROT_DIR"
+    export PYTHONPATH="$PWD/src:$PWD/tests:${PYTHONPATH:-}"
+    test "$(command -v python)" = /opt/venvs/carrot/bin/python
+    python tests/pi_05/capture_libero_observation.py \
+        --dataset-root "$DATASET_ROOT" \
+        --repo-id "$DATASET_REPO_ID" \
+        --sample-index "$SAMPLE_INDEX" \
+        --output "$OBSERVATION"
+)
 
 (
     source /opt/venvs/openpi-libero/bin/activate
@@ -33,9 +50,8 @@ GOLDEN="$RUN_DIR/openpi-libero-golden.npz"
     python "$CARROT_DIR/tests/pi_05/generate_openpi_libero_golden.py" \
         --openpi-dir "$OPENPI_DIR" \
         --checkpoint "$CHECKPOINT_DIR" \
-        --dataset-root "$DATASET_ROOT" \
-        --repo-id "$DATASET_REPO_ID" \
-        --sample-index "$SAMPLE_INDEX" \
+        --tokenizer-model "$TOKENIZER_DIR/tokenizer.model" \
+        --observation "$OBSERVATION" \
         --num-steps 10 \
         --output "$GOLDEN"
 )

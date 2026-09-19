@@ -20,13 +20,16 @@ class SFTDatasetSpec:
     state_key : str
     action_key : str
     task_key : str
+    embodiment : str
+        ``libero`` selects the shared LIBERO input-transform pipeline.
     """
 
     dataset: Any
     collate_fn: Any
     state_stats: dict[str, Any]
     action_stats: dict[str, Any]
-    image_keys: tuple[str, str, str]
+    image_keys: tuple[str, ...]
     state_key: str = "observation.state"
     action_key: str = "action"
     task_key: str = "task"
+    embodiment: str = "robotwin"

@@ -94,44 +94,7 @@ class Pi05Policy:
 
     def _to_observation(self, inputs: dict[str, Any]) -> PI0Observation:
         dtype = self._model.action_in_proj.weight.dtype
-        state = torch.as_tensor(inputs["state"], device=self._device)
-        if state.ndim == 1:
-            state = state[None]
-        if state.ndim != 2:
-            raise ValueError("transformed state must have shape (D,) or (B, D)")
-
-        images = {}
-        image_masks = {}
-        for key, value in inputs["image"].items():
-            image = torch.as_tensor(value, device=self._device)
-            if image.ndim == 3:
-                image = image[None]
-            if image.ndim != 4 or image.shape[0] != state.shape[0]:
-                raise ValueError(f"transformed {key} image batch must match state")
-            images[key] = image.to(dtype)
-            mask = torch.as_tensor(inputs["image_mask"][key], device=self._device, dtype=torch.bool)
-            if mask.ndim == 0:
-                mask = mask.expand(state.shape[0])
-            if tuple(mask.shape) != (state.shape[0],):
-                raise ValueError(f"transformed {key} mask must match state batch")
-            image_masks[key] = mask
-
-        tokens = torch.as_tensor(inputs["tokenized_prompt"], device=self._device, dtype=torch.long)
-        token_mask = torch.as_tensor(
-            inputs["tokenized_prompt_mask"], device=self._device, dtype=torch.bool
-        )
-        if tokens.ndim == 1:
-            tokens = tokens[None]
-            token_mask = token_mask[None]
-        if tokens.shape != token_mask.shape or tokens.shape[0] != state.shape[0]:
-            raise ValueError("transformed prompt tensors must match state batch")
-        return PI0Observation(
-            images=images,
-            image_masks=image_masks,
-            state=state.to(dtype),
-            tokenized_prompt=tokens,
-            tokenized_prompt_mask=token_mask,
-        )
+        return transforms.to_observation(inputs, device=self._device, dtype=dtype)
 
     @property
     def metadata(self) -> dict[str, Any]:

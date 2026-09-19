@@ -26,7 +26,10 @@ fsdp:
   reduce_dtype: float32
   reshard_after_forward: true
 wandb:
-  enabled: false
+  enabled: true
+  project: carrot-sft
+  entity: "1001"
+  name: pi05_libero_sft_2k_20260919_restart
 steps: 2000
 micro_batch_size: 4
 global_batch_size: 256

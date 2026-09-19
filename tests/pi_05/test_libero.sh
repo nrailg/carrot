@@ -2,11 +2,11 @@
 
 set -Eeuo pipefail
 
-CARROT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/carrot"
-OPENPI_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/openpi"
-CHECKPOINT_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_libero_pytorch"
-TOKENIZER_DIR="/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224"
-OUTPUT_ROOT="${OUTPUT_ROOT:-/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-smoke}"
+CARROT_DIR="${MY_DFS:?set MY_DFS to the current personal DFS root}/work/carrot"
+OPENPI_DIR="${MY_DFS}/work/openpi"
+CHECKPOINT_DIR="${CHECKPOINT_DIR:-${MY_DFS}/hf-hub/Physical-Intelligence/pi05_libero_pytorch}"
+TOKENIZER_DIR="${TOKENIZER_DIR:-${MY_DFS}/hf-hub/google/paligemma-3b-pt-224}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-${MY_DFS}/benchmarks/carrot-pi05-libero-smoke}"
 CARROT_PYTHON="/opt/venvs/carrot/bin/python"
 LIBERO_PYTHON="/opt/venvs/openpi-libero/bin/python"
 DGUARD="/root/dguard/dguard.sh"
@@ -121,6 +121,8 @@ esac
 [[ "$MIN_SUCCESSES" =~ ^[0-9]+$ ]] || die "MIN_SUCCESSES must be a non-negative integer"
 [[ -x "$CARROT_PYTHON" ]] || die "missing Carrot Python: ${CARROT_PYTHON}"
 [[ -x "$LIBERO_PYTHON" ]] || die "missing LIBERO Python: ${LIBERO_PYTHON}"
+[[ -f "${CARROT_DIR}/tests/pi_05/test_libero.py" ]] || \
+    die "missing Carrot benchmark validator"
 [[ -f "$DGUARD" ]] || die "missing dguard: ${DGUARD}"
 [[ -f "${OPENPI_DIR}/examples/libero/main.py" ]] || die "missing OpenPI evaluator"
 grep -q "task_id" "${OPENPI_DIR}/examples/libero/main.py" || \
@@ -145,13 +147,15 @@ echo "[1/3] CPU contract regression"
     src/carrot/models/pi05/inference/policy_config.py \
     src/carrot/models/pi05/inference/__init__.py \
     src/carrot/cli/serve_pi05_policy.py \
-    tests/test_pi05_inference.py \
-    tests/test_pi05_inference_checkpoint.py \
-    tests/test_pi05_modeling.py
+    tests/pi_05/test_pi05_inference.py \
+    tests/pi_05/test_pi05_inference_checkpoint.py \
+    tests/pi_05/test_pi05_modeling.py \
+    tests/pi_05/test_libero.py
 "$CARROT_PYTHON" -m pytest -q --timeout=1800 \
-    tests/test_pi05_modeling.py \
-    tests/test_pi05_inference.py \
-    tests/test_pi05_inference_checkpoint.py
+    tests/pi_05/test_pi05_modeling.py \
+    tests/pi_05/test_pi05_inference.py \
+    tests/pi_05/test_pi05_inference_checkpoint.py \
+    tests/pi_05/test_libero.py
 
 command -v nvidia-smi >/dev/null || die "nvidia-smi is unavailable"
 GPU_COUNT="$(nvidia-smi --list-gpus | wc -l)"
@@ -303,26 +307,7 @@ fi
 RENDER_PID=""
 sed -n '1,320p' "$EVAL_LOG"
 
-"$CARROT_PYTHON" - "$RESULT_PATH" "$TASK_SUITE" "$TASK_ID" "$EPISODES" "$MIN_SUCCESSES" <<'PY'
-import json
-import pathlib
-import sys
-
-path = pathlib.Path(sys.argv[1])
-suite = sys.argv[2]
-task_id = sys.argv[3]
-trials = int(sys.argv[4])
-minimum = int(sys.argv[5])
-records = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
-assert all(record["suite"] == suite for record in records), suite
-keys = {(record["task_id"], record["episode_idx"]) for record in records}
-successes = sum(bool(record["success"]) for record in records)
-task_ids = range(10) if task_id == "all" else [int(task_id)]
-expected = {(task, episode) for task in task_ids for episode in range(trials)}
-assert len(records) == len(expected), (len(records), len(expected))
-assert keys == expected, keys ^ expected
-assert successes >= minimum, (successes, minimum)
-print(f"E2E_OK successes={successes}/{len(expected)} minimum={minimum} result={path}")
-PY
+"$CARROT_PYTHON" tests/pi_05/test_libero.py \
+    "$RESULT_PATH" "$TASK_SUITE" "$TASK_ID" "$EPISODES" "$MIN_SUCCESSES"
 
 echo "PASS: PI0.5 LIBERO inference gate"

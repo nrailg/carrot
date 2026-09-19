@@ -200,7 +200,8 @@ class SFTTrainWorkerImpl:
                     self.optimizer,
                     self.scheduler,
                     self.step,
-                    self.checkpoint_artifact_writer,
+                    artifact_writer=self.checkpoint_artifact_writer,
+                    train_config=self.config,
                 )
         if self.config.save_freq and self.step % self.config.save_freq != 0:
             save_checkpoint(
@@ -209,7 +210,8 @@ class SFTTrainWorkerImpl:
                 self.optimizer,
                 self.scheduler,
                 self.step,
-                self.checkpoint_artifact_writer,
+                artifact_writer=self.checkpoint_artifact_writer,
+                train_config=self.config,
             )
         return {"step": self.step, "loss": mean_loss}
 

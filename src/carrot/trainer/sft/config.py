@@ -48,6 +48,7 @@ class DatasetConfig:
         }
     )
     norm_stats_path: str | None = None
+    norm_stats_asset_id: str | None = None
     preprocess: str | None = "carrot.data.lerobot.robotwin_preprocess"
     num_workers: int = 4
 
@@ -55,6 +56,10 @@ class DatasetConfig:
         object.__setattr__(self, "factory_kwargs", dict(self.factory_kwargs))
         if not self.factory:
             raise ValueError("dataset.factory cannot be empty")
+        if self.norm_stats_asset_id is not None:
+            asset_id = Path(self.norm_stats_asset_id)
+            if asset_id.is_absolute() or not self.norm_stats_asset_id or ".." in asset_id.parts:
+                raise ValueError("dataset.norm_stats_asset_id must be a relative asset path")
         if self.num_workers < 0:
             raise ValueError("dataset.num_workers cannot be negative")
 

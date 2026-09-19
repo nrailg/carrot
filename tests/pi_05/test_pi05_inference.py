@@ -479,16 +479,22 @@ def test_policy_executes_injected_transforms_in_declared_order() -> None:
     assert events == ["input:first", "input:last", "output:first", "output:last"]
 
 
+@pytest.mark.parametrize(
+    "stats_location",
+    ["assets/physical-intelligence/libero/norm_stats.json", "norm_stats.json"],
+)
 def test_libero_loader_reads_openpi_stats_layout(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    stats_location: str,
 ) -> None:
-    # loader 必须读取官方 assets 路径和 norm_stats wrapper，不能要求 Carrot 私有 JSON 布局。
+    # 官方 assets 与新 checkpoint 根目录都应能作为默认 stats 来源。
     checkpoint = tmp_path / "checkpoint"
-    stats_dir = checkpoint / "assets" / "physical-intelligence" / "libero"
-    stats_dir.mkdir(parents=True)
+    stats_file = checkpoint / stats_location
+    stats_file.parent.mkdir(parents=True)
     for name in ("model.safetensors", "config.json", "tokenizer_config.json"):
         (checkpoint / name).touch()
-    (stats_dir / "norm_stats.json").write_text(json.dumps({"norm_stats": _libero_stats()}))
+    stats_file.write_text(json.dumps({"norm_stats": _libero_stats()}))
     model = _Model(torch.zeros(1, 10, 32), action_horizon=10)
     calls = {}
 

@@ -99,6 +99,14 @@ def test_sft_config_accepts_custom_dataset_integrations(tmp_path: Path) -> None:
     assert config.dataset.preprocess == "example.transforms.preprocess"
 
 
+@pytest.mark.parametrize("asset_id", ["/absolute", "../outside"])
+def test_sft_config_rejects_escaping_stats_asset_id(tmp_path: Path, asset_id: str) -> None:
+    # asset id 决定 checkpoint 写入目录，必须阻止绝对路径和向上跳出。
+    # 从普通配置入口构造，确认错误在保存前就被拒绝。
+    with pytest.raises(ValueError, match="norm_stats_asset_id"):
+        _config(tmp_path, {"dataset": {"norm_stats_asset_id": asset_id}})
+
+
 def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
     with pytest.raises(ValueError, match="unsupported param_dtype"):
         _config(tmp_path, {"fsdp": {"param_dtype": "float16"}})

@@ -193,3 +193,104 @@ base checkpoint `config.json` has horizon 50. Thus base has **no valid /20 score
 entry point. After all attempts, dguard was back at `DGUARD_WATCH=1`, no evaluator/server
 remained, and no new Xid was observed. The user chose not to pursue another base entry point
 or modify the Carrot policy factory, so no base success rate is reported.
+
+## 2026-09-19 SFT checkpoints versus official JAX (running)
+
+Evaluate the new SFT checkpoints at steps 100, 300, and 1000 on two Gemini
+launchers with the existing Carrot server and OpenPI LIBERO evaluator.
+Training was stopped after log step 1470; the last completed checkpoint is step 1400.
+The three selected checkpoints have nonempty model weights, config, trainer state,
+training YAML, and LIBERO norm stats. The source synced before this benchmark matches
+local Carrot `ab55aa343f87996d73d47e63dc7186bb5348be85`; remote checkouts have no
+Git metadata, so their full commit identity is not independently recoverable.
+
+Run one suite at a time on each launcher, but use the two launchers concurrently;
+their physical GPU UUIDs differ. For each suite, `TASK_ID=all`
+and `EPISODES=50` cover all ten tasks and 500 official init states. The runner
+fixes seed 7, `replan_steps=5`, policy GPU 0, and EGL renderer GPU 1.
+`mpi-1759754893-launcher` takes step 100 (all four suites) plus step 1000
+Spatial/Object; `mpi-1760058051-launcher` takes step 300 (all four suites)
+plus step 1000 Goal/LIBERO-10. Thus each H20 has at most one renderer.
+`MIN_SUCCESSES=0` checks result completeness without imposing a success-rate
+threshold on early SFT checkpoints. Each successful run must contain 500 unique
+`(task_id, episode_idx)` records and 500 videos, exit 0, and have no new Xid.
+The per-host job lists and fail-fast preflight are in `run_libero_sft_benchmark.sh`;
+each suite pauses dguard for at most 360 minutes and restores it on exit.
+
+`mpi-1759754893-launcher` (`__HOST_IP__=29.209.160.111`):
+
+```bash
+MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+MY_DFS="$MY_DFS" bash "$MY_DFS/work/carrot/tests/pi_05/run_libero_sft_benchmark.sh" \
+  old 29.209.160.111
+```
+
+`mpi-1760058051-launcher` (`__HOST_IP__=29.209.163.23`):
+
+```bash
+MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+MY_DFS="$MY_DFS" bash "$MY_DFS/work/carrot/tests/pi_05/run_libero_sft_benchmark.sh" \
+  new 29.209.163.23
+```
+
+Official JAX reference (same four suites, 50 episodes/task):
+
+| Suite | Official JAX |
+|---|---:|
+| `libero_spatial` | 489/500 |
+| `libero_object` | 497/500 |
+| `libero_goal` | 487/500 |
+| `libero_10` | 465/500 |
+| Total | 1938/2000 (96.90%) |
+
+For each SFT checkpoint, report its score by suite and total, then subtract
+the corresponding Official JAX score. Do not substitute the earlier Carrot
+1931/2000 result for the official reference. Current status: **RUNNING**.
+The two remote background tasks are `4d9b96d8-0245` (old launcher) and
+`587999ab-0111` (new launcher). Both passed the 29-passed/1-skipped CPU checks
+and H20 EGL smoke check, and reached the first Spatial suite's policy-server
+startup. Persistent output root:
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-sft-four-suites-20260919/`.
+The result table will be filled only from validated persistent JSONL and exit codes.
+
+### 2026-09-20 read-only progress snapshot
+
+The benchmark remains **RUNNING**.
+
+| Suite | step 100 | step 300 | step 1000 | Official JAX |
+|---|---:|---:|---:|---:|
+| Spatial | 167/500 | 429/500 | running | 489/500 |
+| Object | 330/500 | 485/500 | running | 497/500 |
+| Goal | 199/500 | 370/500 | 453/500 | 487/500 |
+| LIBERO-10 | running | 229/500 | running | 465/500 |
+| Total | running | 1513/2000 (75.65%) | running | 1938/2000 (96.90%) |
+
+Step 300 has completed all four suites and totals `1513/2000 (75.65%)`, versus
+Official JAX `1938/2000 (96.90%)`: `-425` successes (`-21.25 pp`). The overall
+three-checkpoint benchmark remains incomplete. The actual container image tag and
+remote OpenPI checkout commit were not recorded for this run.
+
+Both remote tasks were still running at this snapshot: old launcher task
+`4d9b96d8-0245`, new launcher task `587999ab-0111`. No OOM or Xid was seen in
+the checked logs; this is a log observation, not a hardware-wide health claim.
+Completed suites had 500 JSONL records and matching videos in the persistent
+evidence root:
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-sft-four-suites-20260919/`.
+
+### 2026-09-20 relocation to the new launcher
+
+At the user's request, the old launcher's background task `4d9b96d8-0245` was
+stopped to free that host. Its step-100 LIBERO-10 run stopped at 434/500 records;
+the partial JSONL and videos remain under
+`step-00000100/libero_10/20260919-225758/` and are **not a benchmark score**.
+No benchmark policy/evaluator processes remained on the old host, and dguard
+reported `DGUARD_WATCH=1` after the stop.
+
+The new launcher continues its original task `587999ab-0111` (step-1000
+LIBERO-10 at the time of relocation). A separate background task
+`e81633a2-0125` runs `run_libero_sft_relocated.sh 125759`: it waits for the
+original new-host runner to exit, then serially reruns step-100 LIBERO-10 and
+runs step-1000 Spatial/Object. The same `test_libero.sh` writes each rerun
+under a new timestamp directory within the existing suite output root, so the
+partial run is preserved. The queue is **RUNNING/WAITING**, not completed; it
+does not share an H20 renderer or policy port with the original task.

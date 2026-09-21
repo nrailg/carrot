@@ -2,6 +2,8 @@
 
 这组示例按从底层到上层的顺序介绍 NVIDIA Isaac 生态：
 
+`04_lightwheel_libero.py` 使用下文单独说明的 Lightwheel venv，不使用 01–03 的环境。
+
 ```text
 Isaac Lab-Arena：组合机器人、场景和任务，并统一评测策略
         ↓
@@ -159,3 +161,47 @@ Arena 当前仍处于快速开发阶段，不同版本的资产名称和构造�
 2. 修改 Cartpole 的 `num_envs`，理解 Isaac Lab 的批量 Tensor 接口。
 3. 替换 Arena 示例里的机器人或物体，理解组合式环境的价值。
 4. 最后再加入相机、任务、真实策略和指标，避免一开始同时面对所有抽象。
+
+## 04：Lightwheel-LIBERO 任务
+
+文件：[04_lightwheel_libero.py](04_lightwheel_libero.py)
+
+[LW-BenchHub](https://github.com/LightwheelAI/LW-BenchHub) 是 Lightwheel 基于
+Isaac Lab-Arena 构建的任务与模型评测平台。Lightwheel-LIBERO 是其中的 130-task
+套件，源码在 `lw_benchhub_tasks/lightwheel_libero_tasks/`。它与原始 MuJoCo LIBERO、
+Rebecca 的 Arena LIBERO fork 是不同实现。
+
+本例使用官方任务 `L90K1PutTheBlackBowlOnThePlate`、`libero-1-1` 布局和 `Panda`
+机器人：创建环境、reset、读取状态、批量发送动作、读取任务成功信号，并保存 RGB。
+上游 Panda 未预置 RGB 相机，因此本例显式添加一台 224×224 TiledCamera，
+reset 后让它朝向本次采样的碗和盘子。
+
+动作是 absolute IK 的位置、wxyz 四元数和夹爪，共 8 维。本例保持当前末端位姿并打开
+夹爪，不加载模型，不会主动完成任务；输出的 `success_seen` 仅演示任务判定接口，
+不是模型 benchmark 成绩。替换循环中的 `action` 即可接入匹配该动作定义的策略。
+
+### 独立依赖环境
+
+LW-BenchHub 当前固定栈使用 Isaac Sim 5.0；不要直接安装进 01–03 的 Isaac 6 / Carrot
+环境。本次试运行使用独立 `/opt/venvs/lightwheel-libero`（Python 3.11.16），
+Carrot 保持源码加载。上游代码和子模块固定在验证记录中的提交。Lightwheel SDK
+固定为 1.0.1；更新的 1.0.2/1.0.3 与该提交的 `lightwheel_sdk.loader.ENDPOINT`
+导入不兼容。Lightwheel 场景与物体通过 SDK 获取，NVIDIA 机器人资产也必须可访问。
+远端访问 PyPI、NVIDIA 包索引和 Lightwheel API 时，需要为命令设置可用的 HTTPS 代理。
+
+准备好依赖和资产后运行：
+
+```bash
+source /opt/venvs/lightwheel-libero/bin/activate
+export OMNI_KIT_ACCEPT_EULA=YES
+export CUDA_VISIBLE_DEVICES=0
+python examples/isaac/04_lightwheel_libero.py \
+  --headless --enable_cameras --num_envs 1 --steps 60 \
+  --output "${MY_DFS:?Set verified Gemini DFS}/benchmarks/lightwheel-libero/example"
+```
+
+从 Carrot 根目录运行；输出为 `camera.png` 和 `result.json`。去掉 `--enable_cameras`
+可只检查物理与状态接口。H20 上每张卡仅运行一个独立 renderer 进程。
+本例的 `--num_envs` 是同一进程内的环境 batch；增大该值时动作的第 0 维也同步增大。
+安装版本与本次实际验证状态见
+[验证记录](../../tests/isaac/test_lightwheel_libero.md)。

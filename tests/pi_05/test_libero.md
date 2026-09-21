@@ -194,7 +194,7 @@ entry point. After all attempts, dguard was back at `DGUARD_WATCH=1`, no evaluat
 remained, and no new Xid was observed. The user chose not to pursue another base entry point
 or modify the Carrot policy factory, so no base success rate is reported.
 
-## 2026-09-19 SFT checkpoints versus official JAX (running)
+## 2026-09-19 SFT checkpoints versus official JAX (completed)
 
 Evaluate the new SFT checkpoints at steps 100, 300, and 1000 on two Gemini
 launchers with the existing Carrot server and OpenPI LIBERO evaluator.
@@ -245,13 +245,13 @@ Official JAX reference (same four suites, 50 episodes/task):
 
 For each SFT checkpoint, report its score by suite and total, then subtract
 the corresponding Official JAX score. Do not substitute the earlier Carrot
-1931/2000 result for the official reference. Current status: **RUNNING**.
+1931/2000 result for the official reference. Current status: **COMPLETED / PASS**.
 The two remote background tasks are `4d9b96d8-0245` (old launcher) and
 `587999ab-0111` (new launcher). Both passed the 29-passed/1-skipped CPU checks
 and H20 EGL smoke check, and reached the first Spatial suite's policy-server
 startup. Persistent output root:
 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-sft-four-suites-20260919/`.
-The result table will be filled only from validated persistent JSONL and exit codes.
+The final table below is populated only from validated persistent JSONL and exit codes.
 
 ### 2026-09-20 read-only progress snapshot
 
@@ -294,3 +294,29 @@ runs step-1000 Spatial/Object. The same `test_libero.sh` writes each rerun
 under a new timestamp directory within the existing suite output root, so the
 partial run is preserved. The queue is **RUNNING/WAITING**, not completed; it
 does not share an H20 renderer or policy port with the original task.
+
+### Final benchmark acceptance
+
+Original task `587999ab-0111` and relocation task `e81633a2-0125` both completed with
+exit code 0. Their suite runners emitted `PASS`; the orchestrators reached
+`BENCHMARK_LANE_DONE` and `RELOCATED_LANE_DONE`, respectively. This is a
+**benchmark execution PASS** only; Gate 5 and Gate 6 remain unassessed.
+
+| Suite | step 100 | step 300 | step 1000 | Official JAX |
+|---|---:|---:|---:|---:|
+| Spatial | 167/500 | 429/500 | 476/500 | 489/500 |
+| Object | 330/500 | 485/500 | 487/500 | 497/500 |
+| Goal | 199/500 | 370/500 | 453/500 | 487/500 |
+| LIBERO-10 | 49/500 | 229/500 | 427/500 | 465/500 |
+| Total | 745/2000 (37.25%) | 1513/2000 (75.65%) | 1843/2000 (92.15%) | 1938/2000 (96.90%) |
+
+Step 1000 versus Official JAX is `-95` successes (`-4.75 pp`). Every final suite
+contains 500 JSONL records, 500 unique `(task_id, episode_idx)` pairs, and 500 MP4
+videos. Step-100 LIBERO-10 uses rerun `20260920-062751`; the interrupted
+`20260919-225758` run with 434 records is excluded. No OOM, Xid, kernel panic, or NCCL
+error was observed. After completion, no benchmark process remained and dguard was
+restored to `DGUARD_WATCH=1`.
+
+Final evidence root:
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/carrot-pi05-libero-sft-four-suites-20260919/`.
+The actual runtime image tag and remote OpenPI checkout commit were not recorded.

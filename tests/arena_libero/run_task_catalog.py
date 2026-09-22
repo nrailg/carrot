@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--asset-root", type=Path, required=True)
 parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--task-id", required=True)
+parser.add_argument("--physics-substeps", type=int, default=2)
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
 app = AppLauncher(args).app
@@ -36,12 +37,16 @@ def main() -> None:
         ArenaLiberoConfig(
             asset_root=args.asset_root,
             device=args.device,
+            physics_substeps=args.physics_substeps,
             task_id=spec.task_id,
             num_envs=4,
             max_episode_steps=16,
         )
     )
     try:
+        # 调整物理精度不能改变 RL 控制频率和 episode 的时间含义。
+        assert abs(env.backend.step_dt - 0.02) < 1e-9
+        assert abs(env.backend.physics_dt - 0.02 / args.physics_substeps) < 1e-9
         # 首帧、维数及元信息必须对应选择的任务，而非旧单任务的固定配置。
         obs = env.reset(seed=42)
         assert env.task_name == spec.task_id and env.task_description == spec.language
@@ -111,7 +116,7 @@ def main() -> None:
         _, _, term, trunc, info = env.step(neutral)
         assert trunc[0] and not term[0] and info["bootstrap_mask"][0]
         assert info["final_observation"] is not None
-        success_fixture(env, spec)
+        success_fixture(env, spec, args.output)
         ppo = ppo_smoke(env, 32)
         result = {
             "status": "PASS",
@@ -119,6 +124,7 @@ def main() -> None:
             "language": spec.language,
             "critic_size": spec.critic_size,
             "num_envs": 4,
+            "physics_substeps": args.physics_substeps,
             "ppo": ppo,
             "partial_reset": "PASS",
             "terminal_observation": "PASS",

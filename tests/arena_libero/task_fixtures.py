@@ -2,6 +2,7 @@ import json
 from collections import Counter, defaultdict
 from dataclasses import asdict
 from math import cos, radians, sin, sqrt
+from pathlib import Path
 
 import torch
 from isaaclab.utils.math import (
@@ -10,6 +11,7 @@ from isaaclab.utils.math import (
     quat_mul,
     subtract_frame_transforms,
 )
+from PIL import Image
 
 from carrot_sim.arena_libero.tasks.spec import GoalSpec, TaskSpec
 
@@ -71,7 +73,7 @@ def placement_pose(
             rotation, extent = candidates[selected : selected + 1], extents[selected]
         elif goal.containment != "partial":
             raise AssertionError(f"No fixture orientation fits {goal.target} in {goal.support}")
-        if goal.containment in ("opening", "partial"):
+        if goal.containment in ("opening", "partial") or support_asset == "microwave":
             offset[:, 2] += -goal.half_size[2] + extent[2] + 0.005
         if goal.containment == "partial":
             # 开放式柜子允许部分插入：下层插入薄柄，中层放锅体并让柄留在柜外。
@@ -101,6 +103,9 @@ def placement_pose(
         quat = pos.new_tensor([[0.0, 0.0, 0.0, 1.0]])
     elif goal.kind != "relative":
         offset[:, 2] += target_half[2] + 0.018
+    if support_asset == "microwave":
+        # 微波炉内从接近转盘处释放；内腔底部的 2 mm 余量不作为落体空间。
+        offset[:, 2] -= 0.002
     if support_asset == "wine_rack":
         # 酒瓶沿真实斜板横放并避开中央立柱，再由物理接触决定是否稳定。
         angle = radians(65) / 2
@@ -192,6 +197,12 @@ def _goal_diagnostics(env, spec: TaskSpec, index: int, tcp: torch.Tensor) -> dic
             name: support.data.joint_pos.torch[0, support.find_joints(name)[0][0]].item()
             for name, _ in support_spec.joints
         },
+        "support_bodies": {
+            name: support.data.body_pose_w.torch[0, body].tolist()
+            for body, name in enumerate(support.body_names)
+        }
+        if support_spec.joints
+        else {},
         "tcp_distance_to_goal_anchor": (tcp - anchor).norm(dim=-1)[0].item(),
         "contact_sensor": None,
         "contact_force_w": None,
@@ -252,7 +263,7 @@ def _failure_diagnostics(env, spec: TaskSpec) -> dict[str, object]:
     }
 
 
-def success_fixture(env, spec: TaskSpec) -> None:
+def success_fixture(env, spec: TaskSpec, output: Path) -> None:
     # 只构造 env 0 的物理成功状态，不能将其结果广播到其他 slot。
     env.reset(seed=42)
     backend = env.backend
@@ -325,17 +336,23 @@ def success_fixture(env, spec: TaskSpec) -> None:
         # 接触和静止必须经真实 PhysX 达成，成功还必须正确触发 terminal 接口。
         # 保留少量沉降轨迹，失败时区分初始穿插、滑落和静止后判据拒绝。
         history = [{"step": 0, **_failure_diagnostics(env, spec)}]
+        images = {}
         for step in range(120):
-            _, reward, term, _, info = env.step(neutral)
+            observation, reward, term, _, info = env.step(neutral)
             assert not info["success"][1:].any(), "success leaked to another environment"
             if info["success"][0]:
                 assert term[0] and reward[0] > 0 and not info["bootstrap_mask"][0]
                 assert info["final_observation"] is not None
                 return
+            if step + 1 in (1, 5, 15, 120):
+                images[step + 1] = observation["image"][0].cpu().numpy().copy()
             if step + 1 in (1, 5, 15, 30, 60):
                 history.append({"step": step + 1, **_failure_diagnostics(env, spec)})
         diagnostic = _failure_diagnostics(env, spec)
         diagnostic["settling_history"] = history
+        (output / "physical_failure.json").write_text(json.dumps(diagnostic, indent=2))
+        for step, pixels in images.items():
+            Image.fromarray(pixels).save(output / f"fixture_step_{step}.png")
         print(json.dumps(diagnostic, indent=2), flush=True)
         raise AssertionError(f"Physical success fixture failed: {spec.task_id}")
     finally:

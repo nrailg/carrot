@@ -18,6 +18,8 @@ class ArenaLiberoConfig:
         two-object bowl-on-plate smoke environment.
     num_envs : int
         Parallel environments in one simulator process, with one renderer per GPU.
+    physics_substeps : int
+        Physics steps per 20 ms control step; increasing this preserves the RL clock.
     max_episode_steps : int
         Time limit in control steps; truncations bootstrap from the final observation.
     """
@@ -33,11 +35,12 @@ class ArenaLiberoConfig:
     image_size: int = 256
     max_episode_steps: int = 400
     task_id: str | None = None
+    physics_substeps: int = 2
 
     def __post_init__(self) -> None:
         if self.task_id is not None:
             get_task(self.task_id)
-        for name in ("num_envs", "image_size", "max_episode_steps"):
+        for name in ("num_envs", "image_size", "max_episode_steps", "physics_substeps"):
             value = self.__dict__[name]
             if type(value) is not int or value < 1:
                 raise ValueError(f"{name} must be a positive integer")

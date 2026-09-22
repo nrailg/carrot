@@ -125,9 +125,9 @@ def make_env(config: ArenaLiberoConfig) -> ArenaLiberoEnv:
     )
     _, cfg, kwargs = builder.build_registered()
     cfg.sim.device = config.device
-    cfg.sim.dt = 0.01
-    cfg.decimation = 2
-    cfg.sim.render_interval = 2
+    cfg.sim.dt = 0.02 / config.physics_substeps
+    cfg.decimation = config.physics_substeps
+    cfg.sim.render_interval = config.physics_substeps
     cfg.num_rerenders_on_reset = 4
     cfg.is_finite_horizon = False
     if spec is not None:

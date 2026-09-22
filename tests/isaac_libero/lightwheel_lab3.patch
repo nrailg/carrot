@@ -1,0 +1,150 @@
+diff --git a/lw_benchhub/core/context.py b/lw_benchhub/core/context.py
+index ec380ee..aff478f 100644
+--- a/lw_benchhub/core/context.py
++++ b/lw_benchhub/core/context.py
+@@ -12,9 +12,7 @@
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ 
+-from dataclasses import field
+-
+-from isaaclab.utils import dataclass
++from dataclasses import dataclass, field
+ 
+ from lw_benchhub.utils.env import ExecuteMode
+ 
+diff --git a/lw_benchhub/core/mdp/__init__.py b/lw_benchhub/core/mdp/__init__.py
+index fb2c9ad..a17bce4 100644
+--- a/lw_benchhub/core/mdp/__init__.py
++++ b/lw_benchhub/core/mdp/__init__.py
+@@ -13,6 +13,8 @@
+ # limitations under the License.
+ 
+ from isaaclab.envs.mdp import *  # noqa: F401, F403
++from isaaclab.controllers import DifferentialIKControllerCfg  # noqa: F401
++from isaaclab.managers import ActionTerm, ActionTermCfg  # noqa: F401
+ 
+ from .observations import *  # noqa: F401, F403
+ from .actions import *  # noqa: F401, F403
+diff --git a/lw_benchhub/core/robots/robot_arena_base.py b/lw_benchhub/core/robots/robot_arena_base.py
+index 9efe073..d9b0d87 100644
+--- a/lw_benchhub/core/robots/robot_arena_base.py
++++ b/lw_benchhub/core/robots/robot_arena_base.py
+@@ -20,7 +20,8 @@ import torch
+ 
+ from isaaclab.assets import ArticulationCfg
+ from isaaclab.envs import ManagerBasedEnv
+-from isaaclab.envs.mdp.recorders.recorders_cfg import ActionStateRecorderManagerCfg, RecorderTerm, RecorderTermCfg
++from isaaclab.envs.mdp.recorders.recorders_cfg import ActionStateRecorderManagerCfg
++from isaaclab.managers import RecorderTerm, RecorderTermCfg
+ from isaaclab.managers import ObservationGroupCfg as ObsGroup, ObservationTermCfg as ObsTerm
+ from isaaclab.utils import configclass
+ from isaaclab.utils.datasets.episode_data import EpisodeData
+diff --git a/lw_benchhub/core/scenes/kitchen/kitchen.py b/lw_benchhub/core/scenes/kitchen/kitchen.py
+index 5fbfe93..ccd00bf 100644
+--- a/lw_benchhub/core/scenes/kitchen/kitchen.py
++++ b/lw_benchhub/core/scenes/kitchen/kitchen.py
+@@ -14,6 +14,7 @@
+ 
+ import os
+ from copy import deepcopy
++from importlib.metadata import version
+ 
+ import numpy as np
+ 
+@@ -153,9 +154,9 @@ class LwScene(Scene, NoDeepcopyMixin):
+         env_cfg.num_envs = self.num_envs
+         env_cfg.scene_backend = self.scene_backend
+ 
+-        env_cfg.sim.physx.bounce_threshold_velocity = 0.2
+-        env_cfg.sim.physx.bounce_threshold_velocity = 0.01
+-        env_cfg.sim.physx.friction_correlation_distance = 0.00625
++        physics = env_cfg.sim.physics if int(version("isaaclab").split(".")[0]) >= 3 else env_cfg.sim.physx
++        physics.bounce_threshold_velocity = 0.01
++        physics.friction_correlation_distance = 0.00625
+         env_cfg.sim.render.enable_translucency = True
+ 
+         scene_origin = np.mean(self.scene_range, axis=0)
+diff --git a/lw_benchhub/core/tasks/base.py b/lw_benchhub/core/tasks/base.py
+index ac4e924..6971536 100644
+--- a/lw_benchhub/core/tasks/base.py
++++ b/lw_benchhub/core/tasks/base.py
+@@ -16,13 +16,22 @@ import glob
+ import os
+ from copy import deepcopy
+ from dataclasses import MISSING
++from importlib.metadata import version
+ from typing import Any, Dict, List
+ 
+ import lazy_import
+ import numpy as np
+ import torch
++from packaging.version import Version
+ 
+-from lightwheel_sdk.loader import ENDPOINT
++ISAACLAB_V3 = int(version("isaaclab").split(".")[0]) >= 3
++if ISAACLAB_V3:
++    from isaaclab_physx.physics import PhysxCfg
++
++if Version(version("lightwheel-sdk")) >= Version("1.0.3"):
++    from lightwheel_sdk.client import ENDPOINT
++else:
++    from lightwheel_sdk.loader import ENDPOINT
+ from isaaclab.managers import EventTermCfg as EventTerm
+ from isaaclab.managers import ObservationGroupCfg as ObsGroup
+ from isaaclab.managers import RewardTermCfg as RewTerm
+@@ -247,9 +256,14 @@ class LwTaskBase(TaskBase, NoDeepcopyMixin):
+         env_cfg.sim.dt = 1 / 100  # physics frequency: 100Hz
+         env_cfg.sim.render_interval = 4  # render frequency: 25Hz
+         env_cfg.decimation = 2  # action frequency: 50Hz
+-        env_cfg.sim.physx.bounce_threshold_velocity = 0.2
+-        env_cfg.sim.physx.bounce_threshold_velocity = 0.01
+-        env_cfg.sim.physx.friction_correlation_distance = 0.00625
++        if ISAACLAB_V3:
++            env_cfg.sim.physics = PhysxCfg(
++                bounce_threshold_velocity=0.01, friction_correlation_distance=0.00625
++            )
++            env_cfg.num_rerenders_on_reset = 1
++        else:
++            env_cfg.sim.physx.bounce_threshold_velocity = 0.01
++            env_cfg.sim.physx.friction_correlation_distance = 0.00625
+         env_cfg.rerender_on_reset = True
+         return env_cfg
+ 
+diff --git a/lw_benchhub/utils/monkey_patch.py b/lw_benchhub/utils/monkey_patch.py
+index 100db4e..479e436 100644
+--- a/lw_benchhub/utils/monkey_patch.py
++++ b/lw_benchhub/utils/monkey_patch.py
+@@ -13,6 +13,7 @@
+ # limitations under the License.
+ 
+ from copy import deepcopy
++from importlib.metadata import version
+ import time
+ 
+ import torch
+@@ -678,13 +679,15 @@ def patch_termination_manager():
+     TerminationManager.compute = compute
+ 
+ 
+-patch_reset()
+ patch_configclass()
+-patch_recorder_manager_ep_meta()
+-patch_recorder_manager_joint_targets()
+-patch_step()
+-patch_yaml_load()
+-patch_reward_manager()
+-patch_create_teleop_device()
+-patch_isaaclab_tasks_mdp()
+-patch_termination_manager()
++# Isaac Lab 3 owns its reset/step/device APIs; the legacy overrides target Lab 2.
++if int(version("isaaclab").split(".")[0]) < 3:
++    patch_reset()
++    patch_recorder_manager_ep_meta()
++    patch_recorder_manager_joint_targets()
++    patch_step()
++    patch_yaml_load()
++    patch_reward_manager()
++    patch_create_teleop_device()
++    patch_isaaclab_tasks_mdp()
++    patch_termination_manager()

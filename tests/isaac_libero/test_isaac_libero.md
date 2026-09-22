@@ -121,3 +121,39 @@ bash tests/isaac_libero/test_isaac_libero.sh
 
 最终进程 exit 0，独立产物 validator PASS，同轮 CPU 19 项通过（2.68 s）。
 复核无残留 renderer、dmesg 无 Xid；dguard 已恢复 `DGUARD_WATCH=1`，无待执行恢复计划。
+
+## Python 3.12 兼容性验证（2026-09-22）
+
+目标：在现有 Carrot Python 3.12 环境运行相同的真实 RL 验收，随后检查 Ray worker 集成。
+候选环境 `/opt/venvs/carrot`：Python 3.12.13、Isaac Sim 6.0.1.0、
+Isaac Lab 3.0.0b2.post1、Arena 0.3.0、torch 2.11.0+cu128、Ray 2.58.0、SDK 1.0.3。
+当前状态：STOPPED，按用户要求停止兼容尝试；Python 3.12 / Isaac Sim 6 尚未通过 GPU RL 验证，不能沿用此前 Python 3.11 的 GPU PASS。
+
+```bash
+export ISAAC_LIBERO_VENV=/opt/venvs/carrot
+export ISAAC_LIBERO_ARENA_ROOT="${MY_DFS}/work/LW-BenchHub/third_party/IsaacLab-Arena"
+export ISAAC_LIBERO_OUTPUT="${MY_DFS}/benchmarks/isaac-libero-rl/<unique-py312-run>"
+bash tests/isaac_libero/test_isaac_libero.sh
+```
+
+仍需先确认 GPU/dguard 与资产元数据网络，单个 H20 GPU 仅一个 renderer。
+
+Ray 验证入口为 `tests/isaac_libero/ray_check.py`：在同一 Python 3.12 / Ray 版本的
+Carrot `Worker` 进程内部启动 AppLauncher、执行完整仿真/PPO 验收，再次调用 worker
+确认进程仍存活，正常关闭后才写 `ray_result.json`。当前尚未运行。
+
+Docker 评估：`docker-images/gpu/carrot` 已锁定 Isaac 6 / Python 3.12 基础栈。
+LW-BenchHub 的 `pin-pink==3.1.0` 与现有锁的 3.3.0 不一致，不能无约束安装上游依赖。
+本轮只安装其源码 entry points（`--no-deps`），先验证已有依赖；不构建或发布镜像。
+
+兼容性阻塞和修复记录：
+
+- `20260922-py312-01/02`：Lab 3 已删除 teleop `DEVICE_MAP`，LW 导入时执行的旧补丁失败。
+  runner 现会在 Kit close 前打印异常，避免 fast shutdown 掩盖根因。
+- `20260922-py312-03`：`isaaclab.utils.dataclass` 不再导出，改用标准库 `dataclasses.dataclass`。
+- 试验补丁见 `lightwheel_lab3.patch`（作用于 LW-BenchHub 上述固定 commit）。
+  Lab 3 保留其原生 reset/step/termination/device 实现，仅保留 LW configclass 循环校验补丁；
+  PhysX 配置由 `sim.physx` 适配到 `sim.physics`。
+- LIBERO 进程的 `PYTHONPATH` 前置 LW 的 `third_party/IsaacLab-Arena` 源码根，
+  **不添加其中的 IsaacLab 子模块**。环境内安装的 Arena wheel 仍是 0.3.0，但此 worker
+  实际加载固定 commit `c7b70779f103e10d690d1a13863e8d77da7fc782` 的源码；二者不可混称。

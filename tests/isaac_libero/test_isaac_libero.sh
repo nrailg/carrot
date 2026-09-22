@@ -4,8 +4,11 @@ set -euo pipefail
 : "${MY_DFS:?Set MY_DFS from the current Gemini session}"
 : "${ISAAC_LIBERO_OUTPUT:?Set a new persistent output directory under MY_DFS}"
 CARROT_DIR="${MY_DFS}/work/carrot"
-source /opt/venvs/lightwheel-libero/bin/activate
+source "${ISAAC_LIBERO_VENV:-/opt/venvs/lightwheel-libero}/bin/activate"
 export PYTHONPATH="${CARROT_DIR}/src:${CARROT_DIR}/tests:${PYTHONPATH:-}"
+if [[ -n "${ISAAC_LIBERO_ARENA_ROOT:-}" ]]; then
+    export PYTHONPATH="${ISAAC_LIBERO_ARENA_ROOT}:${PYTHONPATH}"
+fi
 export OMNI_KIT_ACCEPT_EULA=YES
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 cd "$CARROT_DIR"

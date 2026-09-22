@@ -4,6 +4,9 @@
 
 import argparse
 import json
+import platform
+import sys
+import traceback
 from importlib.metadata import version
 from pathlib import Path
 
@@ -13,14 +16,16 @@ parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--num_envs", type=int, default=4)
 parser.add_argument("--steps", type=int, default=32)
 parser.add_argument("--output", type=Path, required=True)
+parser.add_argument("--no_fast_shutdown", action="store_true")
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
 if args.num_envs < 2 or args.steps < 16:
     parser.error("reset/PPO verification requires num_envs >= 2 and steps >= 16")
 if not args.enable_cameras:
     parser.error("--enable_cameras is required")
-launcher = AppLauncher(args)
+launcher = AppLauncher(args, fast_shutdown=not args.no_fast_shutdown)
 simulation_app = launcher.app
+sys.excepthook = traceback.print_exception
 
 import torch
 from isaac_libero.rl_check import run_ppo_check
@@ -147,7 +152,8 @@ def main() -> None:
             "success_state_fixture": "PASS",
             "ppo": ppo,
             "versions": {
-                name: version(name) for name in ("torch", "isaacsim", "isaaclab", "gymnasium")
+                "python": platform.python_version(),
+                **{name: version(name) for name in ("torch", "isaacsim", "isaaclab", "gymnasium")},
             },
         }
     finally:
@@ -159,5 +165,9 @@ def main() -> None:
 if __name__ == "__main__":
     try:
         main()
+    except BaseException:
+        traceback.print_exc()
+        sys.stderr.flush()
+        raise
     finally:
         simulation_app.close()

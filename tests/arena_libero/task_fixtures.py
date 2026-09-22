@@ -8,6 +8,7 @@ import torch
 from isaaclab.utils.math import (
     combine_frame_transforms,
     quat_apply,
+    quat_apply_inverse,
     quat_mul,
     subtract_frame_transforms,
 )
@@ -268,18 +269,41 @@ def success_fixture(env, spec: TaskSpec, output: Path) -> None:
     env.reset(seed=42)
     backend = env.backend
     old_duration = backend.cfg.episode_length_s
-    backend.cfg.episode_length_s = 6.0
+    backend.cfg.episode_length_s = 8.0
     ids = torch.tensor([0], device=env.device, dtype=torch.int32)
     neutral = torch.zeros(env.num_envs, 7, device=env.device)
     neutral[:, 6] = -1
     try:
-        # 先用真实控制将 env 0 的手退向基座并抬高，满足任务各自的释放距离。
-        # Panda 基座绕 Z 旋转 -90 度，局部 -X 对应世界 +Y；其余环境保持零动作。
+        # 用实际 TCP 误差闭环退让，避免固定步数受控制器收敛速度影响。
+        robot = backend.scene["robot"]
+        hand = robot.find_bodies("panda_hand")[0][0]
+        tcp_offset = robot.data.root_pos_w.torch.new_tensor([[0.0, 0.0, 0.107]])
+        tcp, _ = combine_frame_transforms(
+            robot.data.body_pos_w.torch[:1, hand],
+            robot.data.body_quat_w.torch[:1, hand],
+            tcp_offset,
+        )
+        retreat_target = tcp + tcp.new_tensor([[0.0, 0.15, 0.15]])
         retreat = neutral.clone()
-        retreat[0, 0] = -0.5
-        retreat[0, 2] = 0.5
-        for _ in range(40):
+        for _ in range(150):
+            error = retreat_target - tcp
+            if error.norm().item() < 0.005:
+                break
+            # 平移误差转到当前基座坐标，角度与夹爪命令保持不变，其余 slot 保持 neutral。
+            error_base = quat_apply_inverse(robot.data.root_quat_w.torch[:1], error)
+            retreat[0, :3] = (error_base[0] / 0.02).clamp(-1.0, 1.0)
             env.step(retreat)
+            tcp, _ = combine_frame_transforms(
+                robot.data.body_pos_w.torch[:1, hand],
+                robot.data.body_quat_w.torch[:1, hand],
+                tcp_offset,
+            )
+        if not ((retreat_target - tcp).norm() < 0.005).item():
+            raise AssertionError(
+                f"TCP retreat failed after 150 control steps: {spec.task_id}; "
+                f"actual_tcp_w={tcp[0].tolist()}; target_tcp_w={retreat_target[0].tolist()}; "
+                f"error_m={(retreat_target - tcp).norm().item()}"
+            )
         for goal in spec.conditions:
             if not goal.joint:
                 continue

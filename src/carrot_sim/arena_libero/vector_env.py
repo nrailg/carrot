@@ -38,7 +38,16 @@ class ArenaLiberoEnv:
 
     task_name = "put_the_black_bowl_on_the_plate"
 
-    def __init__(self, backend: Backend, image_size: int = 256) -> None:
+    def __init__(
+        self,
+        backend: Backend,
+        image_size: int = 256,
+        critic_size: int = 52,
+        task_name: str = "put_the_black_bowl_on_the_plate",
+        task_description: str = "put the black bowl on the plate",
+    ) -> None:
+        self.task_name = task_name
+        self.task_description = task_description
         self.backend = backend
         self.num_envs = backend.num_envs
         self.device = torch.device(backend.device)
@@ -47,7 +56,7 @@ class ArenaLiberoEnv:
         self.single_observation_space = gym.spaces.Dict(
             {
                 "state": gym.spaces.Box(-np.inf, np.inf, (8,), dtype=np.float32),
-                "critic": gym.spaces.Box(-np.inf, np.inf, (52,), dtype=np.float32),
+                "critic": gym.spaces.Box(-np.inf, np.inf, (critic_size,), dtype=np.float32),
                 "image": gym.spaces.Box(0, 255, (image_size, image_size, 3), dtype=np.uint8),
                 "wrist_image": gym.spaces.Box(0, 255, (image_size, image_size, 3), dtype=np.uint8),
             }

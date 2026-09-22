@@ -13,6 +13,8 @@ from isaaclab_assets.robots.franka import FRANKA_PANDA_HIGH_PD_CFG
 
 from carrot_sim.arena_libero import mdp
 from carrot_sim.arena_libero.config import ArenaLiberoConfig
+from carrot_sim.arena_libero.tasks import mdp as task_mdp
+from carrot_sim.arena_libero.tasks.spec import TaskSpec
 
 
 def robot_selection() -> SceneEntityCfg:
@@ -98,12 +100,12 @@ class RobotSceneCfg:
 class Panda(EmbodimentBase):
     name = "panda"
 
-    def __init__(self, config: ArenaLiberoConfig) -> None:
+    def __init__(self, config: ArenaLiberoConfig, spec: TaskSpec | None = None) -> None:
         super().__init__(enable_cameras=False)
         self.scene_config = RobotSceneCfg()
         robot = self.scene_config.robot
         robot.spawn.usd_path = config.panda_usd
-        robot.init_state.pos = (2.432, -1.581, 0.75)
+        robot.init_state.pos = (2.432, -1.581, 0.75) if spec is None else spec.robot_position
         robot.init_state.rot = (0.0, 0.0, -0.70710678, 0.70710678)
         robot.init_state.joint_pos = dict(
             zip(
@@ -118,3 +120,23 @@ class Panda(EmbodimentBase):
             camera.width = config.image_size
         self.action_config = ActionsCfg()
         self.observation_config = ObservationsCfg()
+
+        if spec is not None:
+            self.observation_config.critic.state = ObservationTermCfg(
+                func=task_mdp.critic_state,
+                params={
+                    "robot_cfg": robot_selection(),
+                    "entities": tuple(
+                        SceneEntityCfg(item.name) for item in (*spec.objects, *spec.fixtures)
+                    ),
+                    "fixtures": tuple(
+                        SceneEntityCfg(
+                            item.name,
+                            joint_names=[name for name, _ in item.joints],
+                            preserve_order=True,
+                        )
+                        for item in (*spec.objects, *spec.fixtures)
+                        if item.joints
+                    ),
+                },
+            )

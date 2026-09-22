@@ -1,16 +1,21 @@
 from dataclasses import dataclass
 from pathlib import Path
 
+from carrot_sim.arena_libero.tasks import get_task
+
 
 @dataclass(frozen=True)
 class ArenaLiberoConfig:
-    """Configure the bowl-on-plate environment using explicit local USD assets.
+    """Configure a LIBERO task using explicit local USD assets.
 
     Parameters
     ----------
     asset_root : Path
-        Directory containing scene.usd, bowl.usd and plate.usd, including
-        their referenced files. These may be symlinks to an existing asset cache.
+        Directory containing scene.usd and the selected task's named USD assets,
+        including referenced files. Symlinks to an existing cache are supported.
+    task_id : str, optional
+        Exact suite/name from tasks.list_tasks(). None selects the original
+        two-object bowl-on-plate smoke environment.
     num_envs : int
         Parallel environments in one simulator process, with one renderer per GPU.
     max_episode_steps : int
@@ -27,8 +32,11 @@ class ArenaLiberoConfig:
     seed: int = 42
     image_size: int = 256
     max_episode_steps: int = 400
+    task_id: str | None = None
 
     def __post_init__(self) -> None:
+        if self.task_id is not None:
+            get_task(self.task_id)
         for name in ("num_envs", "image_size", "max_episode_steps"):
             value = self.__dict__[name]
             if type(value) is not int or value < 1:

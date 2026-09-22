@@ -18,11 +18,22 @@ from carrot_sim.arena_libero.config import ArenaLiberoConfig
 from carrot_sim.arena_libero.robot import Panda
 from carrot_sim.arena_libero.scene import KitchenScene
 from carrot_sim.arena_libero.task import BowlOnPlateTask
+from carrot_sim.arena_libero.tasks import get_task
+from carrot_sim.arena_libero.tasks.runtime import LiberoTask
+from carrot_sim.arena_libero.tasks.scene import TaskScene
 from carrot_sim.arena_libero.vector_env import ArenaLiberoEnv
 
 
 class TransitionEnv(IsaacLabArenaManagerBasedRLEnv):
-    def __init__(self, cfg: IsaacLabArenaManagerBasedRLEnvCfg, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        cfg: IsaacLabArenaManagerBasedRLEnvCfg,
+        camera_eye: tuple[float, float, float] = (2.48, -2.65, 1.65),
+        camera_target: tuple[float, float, float] = (2.48, -2.04, 0.80),
+        **kwargs: Any,
+    ) -> None:
+        self._camera_eye = camera_eye
+        self._camera_target = camera_target
         self._stepping = False
         self._final = None
         self._flags = None
@@ -45,8 +56,8 @@ class TransitionEnv(IsaacLabArenaManagerBasedRLEnv):
         indices = torch.as_tensor(env_ids, device=self.device, dtype=torch.long)
         origins = self.scene.env_origins[indices]
         self.scene["base_camera"].set_world_poses_from_view(
-            eyes=origins + origins.new_tensor([2.48, -2.65, 1.65]),
-            targets=origins + origins.new_tensor([2.48, -2.04, 0.80]),
+            eyes=origins + origins.new_tensor(self._camera_eye),
+            targets=origins + origins.new_tensor(self._camera_target),
             env_ids=indices,
         )
 
@@ -78,7 +89,7 @@ class TransitionEnv(IsaacLabArenaManagerBasedRLEnv):
 
 
 def make_env(config: ArenaLiberoConfig) -> ArenaLiberoEnv:
-    """Compose a kitchen, Panda and bowl-on-plate task with native Arena APIs.
+    """Compose a registered task (or the original bowl smoke) with native Arena APIs.
 
     Parameters
     ----------
@@ -89,14 +100,17 @@ def make_env(config: ArenaLiberoConfig) -> ArenaLiberoEnv:
     Returns
     -------
     ArenaLiberoEnv
-        GPU transitions with float32 state [N,8], critic [N,52], and two uint8
+        GPU transitions with float32 state [N,8], task-sized critic [N,D], and two uint8
         RGB images [N,H,W,3]. Actions are normalized relative TCP commands [N,7].
     """
+    spec = get_task(config.task_id) if config.task_id is not None else None
     description = IsaacLabArenaEnvironment(
-        name="Carrot-BowlOnPlate-v0",
-        scene=KitchenScene(config),
-        embodiment=Panda(config),
-        task=BowlOnPlateTask(config.max_episode_steps),
+        name="Carrot-BowlOnPlate-v0" if spec is None else f"Carrot-{spec.name}-v0",
+        scene=KitchenScene(config) if spec is None else TaskScene(config, spec),
+        embodiment=Panda(config, spec),
+        task=BowlOnPlateTask(config.max_episode_steps)
+        if spec is None
+        else LiberoTask(spec, config.max_episode_steps),
     )
     builder = ArenaEnvBuilder(
         description,
@@ -116,7 +130,15 @@ def make_env(config: ArenaLiberoConfig) -> ArenaLiberoEnv:
     cfg.sim.render_interval = 2
     cfg.num_rerenders_on_reset = 4
     cfg.is_finite_horizon = False
-    env = ArenaLiberoEnv(TransitionEnv(cfg, **kwargs), image_size=config.image_size)
+    if spec is not None:
+        kwargs.update(camera_eye=spec.camera_eye, camera_target=spec.camera_target)
+    env = ArenaLiberoEnv(
+        TransitionEnv(cfg, **kwargs),
+        image_size=config.image_size,
+        critic_size=52 if spec is None else spec.critic_size,
+        task_name="put_the_black_bowl_on_the_plate" if spec is None else spec.task_id,
+        task_description="put the black bowl on the plate" if spec is None else spec.language,
+    )
     try:
         # Initialize articulated rendering before exposing the first reset observation.
         env.reset(seed=config.seed)

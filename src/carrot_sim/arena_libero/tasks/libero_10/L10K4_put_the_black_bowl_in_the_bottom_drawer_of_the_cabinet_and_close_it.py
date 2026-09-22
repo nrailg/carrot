@@ -1,6 +1,7 @@
 from carrot_sim.arena_libero.tasks.spec import FixtureSpec, GoalSpec, ObjectSpec, TaskSpec
 
 TASK = TaskSpec(
+    source_class="L10K4PutTheBlackBowlInTheBottomDrawerOfTheCabinetAndCloseIt",
     suite="libero_10",
     name="L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
     language="Put the black bowl in the bottom drawer of the cabinet and close it.",

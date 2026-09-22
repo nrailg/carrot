@@ -7,6 +7,7 @@ import torch
 
 from carrot_sim.arena_libero.predicates import (
     inside_drawer_and_closed,
+    placed_beside,
     released_and_stable,
     stove_is_on,
     supported_on,
@@ -57,21 +58,50 @@ def test_release_uses_tcp_distance_and_object_speed():
     assert released_and_stable(obj, tcp, velocity).tolist() == [True, False, False]
 
 
-def test_catalog_has_five_distinct_task_files():
-    # 截图的五个任务应可枚举并一一对应文件，不能用同一场景的别名冒充。
+def test_catalog_has_all_registered_task_files():
+    # 上游五个 suite 共 131 个注册 case；每个都要有独立模块与源类身份。
     tasks = list_tasks()
-    assert len(tasks) == 5
-    assert len(list_tasks("libero_spatial")) == 3
-    assert len(list_tasks("libero_10")) == 2
+    counts = {
+        "libero_spatial": 10,
+        "libero_object": 10,
+        "libero_goal": 11,
+        "libero_10": 10,
+        "libero_90": 90,
+    }
+    assert len(tasks) == 131
+    for suite, count in counts.items():
+        assert len(list_tasks(suite)) == count
+    assert len({task.source_class for task in tasks}) == 131
+    assert all(task.source_class for task in tasks)
+    snapshot = json.loads(Path(__file__).with_name("task_sources.json").read_text())
+    expected = {case["task_id"]: case["source_class"] for case in snapshot["cases"]}
+    assert len(snapshot["cases"]) == len(expected) == 131
+    assert {task.task_id: task.source_class for task in tasks} == expected
 
     # 注册名与文件路径保持一致，未知任务必须明确失败。
     root = Path(__file__).parents[2] / "src/carrot_sim/arena_libero/tasks"
     for task in tasks:
         assert get_task(task.task_id) is task
         assert (root / task.suite / f"{task.name}.py").is_file()
-        assert task.critic_size > 52
+        assert task.critic_size >= 26
     with pytest.raises(KeyError):
         get_task("libero_spatial/not_a_task")
+
+
+def test_beside_uses_world_directions_and_rejects_vertical_or_distant_objects():
+    # LW 的 left/right 对应世界 +X/-X；不能让空中或远处同方向物体成功。
+    positions = torch.tensor(
+        [[0.16, 0, 0], [-0.16, 0, 0], [0, -0.16, 0], [0.16, 0, 0.5], [1.0, 0, 0]]
+    )
+    size = (0.05, 0.05, 0.03)
+
+    # 同一 batch 分别检查方向、距离与高度，避免跨环境广播和方向颠倒。
+    left = placed_beside(positions, size, size, "left", (0.001, 0.1), 0.25)
+    right = placed_beside(positions, size, size, "right", (0.001, 0.1), 0.25)
+    front = placed_beside(positions, size, size, "front", (0.001, 0.1), 0.25)
+    assert left.tolist() == [True, False, False, False, False]
+    assert right.tolist() == [False, True, False, False, False]
+    assert front.tolist() == [False, False, True, False, False]
 
 
 def test_spatial_target_is_between_objects_and_not_distractor():
@@ -100,7 +130,7 @@ def validate_results(root: Path) -> None:
             assert result[check] == "PASS"
         for artifact in ("initial_state.json", "image.png", "wrist_image.png"):
             assert (folder / artifact).stat().st_size > 0
-    print("Five task artifacts PASS")
+    print(f"All {len(list_tasks())} task artifacts PASS")
 
 
 if __name__ == "__main__":

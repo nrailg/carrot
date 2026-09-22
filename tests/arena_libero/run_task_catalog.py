@@ -18,8 +18,8 @@ app = AppLauncher(args).app
 
 import torch  # noqa: E402
 from arena_libero.ppo import ppo_smoke  # noqa: E402
+from arena_libero.task_fixtures import success_fixture  # noqa: E402
 from isaaclab.utils.math import (  # noqa: E402
-    combine_frame_transforms,
     subtract_frame_transforms,
 )
 from PIL import Image  # noqa: E402
@@ -29,69 +29,13 @@ from carrot_sim.arena_libero.environment import make_env  # noqa: E402
 from carrot_sim.arena_libero.tasks import get_task  # noqa: E402
 
 
-def set_goal_joint(env, spec, value: float) -> None:
-    support = env.backend.scene[spec.goal.support]
-    ids = torch.tensor([0], device=env.device, dtype=torch.int32)
-    position = support.data.joint_pos.torch[ids].clone()
-    position[:, support.find_joints(spec.goal.joint)[0][0]] = value
-    support.write_joint_position_to_sim_index(position=position, env_ids=ids)
-    support.write_joint_velocity_to_sim_index(velocity=torch.zeros_like(position), env_ids=ids)
-    env.backend.sim.forward()
-    env.backend.scene.update(env.backend.physics_dt)
-
-
-def success_fixture(env, spec) -> None:
-    # 只构造 env 0 的成功状态，其他 slot 必须继续各自的 episode。
-    env.reset(seed=42)
-    backend = env.backend
-    old_duration = backend.cfg.episode_length_s
-    backend.cfg.episode_length_s = 6.0
-    goal = spec.goal
-    ids = torch.tensor([0], device=env.device, dtype=torch.int32)
-    neutral = torch.zeros(env.num_envs, 7, device=env.device)
-    neutral[:, 6] = -1
-    try:
-        if goal.kind != "on_plate":
-            set_goal_joint(
-                env, spec, goal.closed_position if goal.kind == "in_closed_drawer" else 0.8
-            )
-        support = backend.scene[goal.support].data
-        if goal.support_body:
-            body = backend.scene[goal.support].find_bodies(goal.support_body)[0][0]
-            pos, quat = support.body_pos_w.torch[ids, body], support.body_quat_w.torch[ids, body]
-        else:
-            pos, quat = support.root_pos_w.torch[ids], support.root_quat_w.torch[ids]
-        offset = pos.new_tensor(goal.center).reshape(1, 3)
-        if goal.kind != "in_closed_drawer":
-            offset[:, 2] += goal.target_half_size[2] + 0.018
-        target_pos, target_quat = combine_frame_transforms(pos, quat, offset)
-        target = backend.scene[goal.target]
-        target.write_root_pose_to_sim_index(
-            root_pose=torch.cat((target_pos, target_quat), -1), env_ids=ids
-        )
-        target.write_root_velocity_to_sim_index(
-            root_velocity=torch.zeros(1, 6, device=env.device), env_ids=ids
-        )
-
-        # 接触/静止必须经真实 PhysX 达成，不能只直接调用纯数学谓词。
-        for _ in range(120):
-            _, reward, term, _, info = env.step(neutral)
-            assert not info["success"][1:].any(), "success leaked to another environment"
-            if info["success"][0]:
-                assert term[0] and reward[0] > 0 and not info["bootstrap_mask"][0]
-                assert info["final_observation"] is not None
-                return
-        raise AssertionError(f"Physical success fixture failed: {spec.task_id}")
-    finally:
-        backend.cfg.episode_length_s = old_duration
-
-
 def main() -> None:
     args.output.mkdir(parents=True, exist_ok=False)
     spec = get_task(args.task_id)
     env = make_env(
         ArenaLiberoConfig(
             asset_root=args.asset_root,
+            device=args.device,
             task_id=spec.task_id,
             num_envs=4,
             max_episode_steps=16,
@@ -124,7 +68,10 @@ def main() -> None:
                 assert not env.backend.scene[obj.name].is_fixed_base, obj.name
 
         # 顶抽屉目标碗必须实际在已打开的上层内部，不能只修改任务名称。
-        if "in_top_drawer" in spec.name:
+        if (
+            spec.name
+            == "LS_pick_up_black_bowl_in_top_drawer_of_wooden_cabinet_and_place_it_on_plate"
+        ):
             cabinet = env.backend.scene["cabinet"]
             body = cabinet.find_bodies("StorageFurniture136_Drawer001")[0][0]
             target = env.backend.scene["bowl_target"].data

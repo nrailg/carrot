@@ -7,7 +7,9 @@ from pathlib import Path
 from pxr import Gf, Sdf, Usd, UsdGeom, UsdPhysics
 
 
-def extract_fixture(source: Path, prim_path: str, output: Path) -> dict:
+def extract_fixture(
+    source: Path, prim_path: str, output: Path, *, static_body: bool = False
+) -> dict:
     """Reference one complete fixture subtree in meters at the origin.
 
     Parameters
@@ -18,6 +20,8 @@ def extract_fixture(source: Path, prim_path: str, output: Path) -> dict:
         Complete fixture subtree containing its rigid bodies and joints.
     output : Path
         New USD file. Existing output is rejected.
+    static_body : bool
+        Wrap a static collision subtree in a kinematic rigid body.
 
     Returns
     -------
@@ -41,6 +45,12 @@ def extract_fixture(source: Path, prim_path: str, output: Path) -> dict:
     transform = UsdGeom.Xformable(root)
     transform.ClearXformOpOrder()
     transform.AddTransformOp().Set(Gf.Matrix4d(1.0))
+    if static_body:
+        if any(prim.HasAPI(UsdPhysics.RigidBodyAPI) for prim in stage.Traverse()):
+            raise ValueError("Static wrapper cannot contain existing rigid bodies")
+        if not any(prim.HasAPI(UsdPhysics.CollisionAPI) for prim in stage.Traverse()):
+            raise ValueError("Static wrapper requires collision geometry")
+        UsdPhysics.RigidBodyAPI.Apply(root).CreateKinematicEnabledAttr(True)
     bodies, joints = [], []
     for prim in stage.Traverse():
         if prim.HasAPI(UsdPhysics.RigidBodyAPI):

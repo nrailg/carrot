@@ -1,6 +1,7 @@
 from carrot_sim.arena_libero.tasks.spec import GoalSpec, ObjectSpec, TaskSpec
 
 TASK = TaskSpec(
+    source_class="LSPickUpTheBlackBowlFromTableCenterAndPlaceItOnThePlate",
     suite="libero_spatial",
     name="LS_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
     language="Pick up the black bowl from table center and place it on the plate.",

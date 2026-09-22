@@ -59,23 +59,26 @@ class LiberoTask(TaskBase):
 
     @override
     def get_termination_cfg(self) -> object:
-        goal = self.spec.goal
-        target = SceneEntityCfg(goal.target)
-        support = SceneEntityCfg(
-            goal.support,
-            body_names=[goal.support_body] if goal.support_body else None,
-            joint_names=[goal.joint] if goal.joint else None,
+        goals = self.spec.conditions
+        targets = tuple(SceneEntityCfg(goal.target or goal.support) for goal in goals)
+        supports = tuple(
+            SceneEntityCfg(
+                goal.support,
+                body_names=[goal.support_body] if goal.support_body else None,
+                joint_names=[goal.joint] if goal.joint else None,
+            )
+            for goal in goals
         )
         terms = [
             (
                 "success",
                 TerminationTermCfg,
                 TerminationTermCfg(
-                    func=mdp.success,
+                    func=mdp.all_success,
                     params={
-                        "goal": asdict(goal),
-                        "target_cfg": target,
-                        "support_cfg": support,
+                        "goals": tuple(asdict(goal) for goal in goals),
+                        "targets": targets,
+                        "supports": supports,
                         "robot_cfg": robot_selection(),
                     },
                 ),
@@ -83,7 +86,14 @@ class LiberoTask(TaskBase):
             (
                 "dropped",
                 TerminationTermCfg,
-                TerminationTermCfg(func=mdp.dropped, params={"target_cfg": target}),
+                TerminationTermCfg(
+                    func=mdp.dropped,
+                    params={
+                        "targets": tuple(
+                            dict.fromkeys(goal.target for goal in goals if goal.target)
+                        ),
+                    },
+                ),
             ),
             (
                 "time_out",

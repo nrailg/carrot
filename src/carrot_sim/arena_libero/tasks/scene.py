@@ -3,7 +3,12 @@ from typing import override
 from isaaclab.actuators import ImplicitActuatorCfg
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg, RigidObjectCfg
 from isaaclab.sensors import ContactSensorCfg
-from isaaclab.sim import ArticulationRootPropertiesCfg, DomeLightCfg, UsdFileCfg
+from isaaclab.sim import (
+    ArticulationRootPropertiesCfg,
+    DomeLightCfg,
+    RigidBodyPropertiesCfg,
+    UsdFileCfg,
+)
 from isaaclab_arena.scene.scene import Scene
 from isaaclab_arena.utils.configclass import make_configclass
 from pxr import Usd, UsdPhysics
@@ -53,6 +58,9 @@ class TaskScene(Scene):
                 usd_path=path,
                 scale=obj.scale if isinstance(obj.scale, tuple) else (obj.scale,) * 3,
                 activate_contact_sensors=True,
+                rigid_props=RigidBodyPropertiesCfg(kinematic_enabled=True)
+                if obj.kinematic
+                else None,
             )
             if obj.joints:
                 spawn.articulation_props = ArticulationRootPropertiesCfg(
@@ -113,18 +121,30 @@ class TaskScene(Scene):
                     ),
                 )
             )
-        if spec.goal.kind != "in_closed_drawer":
-            support_path = (
-                "{ENV_REGEX_NS}/" + spec.goal.support + "/" + spec.goal.support_body
-                if spec.goal.support_body
-                else paths[spec.goal.support]
-            )
+        for index, goal in enumerate(spec.conditions):
+            if (
+                goal.kind not in ("on_plate", "on_lit_stove", "on_surface")
+                and goal.containment != "opening"
+                and not goal.require_contact
+            ):
+                continue
+            if goal.support_body:
+                support = next(
+                    item for item in (*spec.objects, *spec.fixtures) if item.name == goal.support
+                )
+                support_path = (
+                    "{ENV_REGEX_NS}/"
+                    + goal.support
+                    + rigid_body_path(config.asset(support.asset), goal.support_body)
+                )
+            else:
+                support_path = paths[goal.support]
             fields.append(
                 (
-                    "target_contact",
+                    f"target_contact_{index}",
                     ContactSensorCfg,
                     ContactSensorCfg(
-                        prim_path=paths[spec.goal.target],
+                        prim_path=paths[goal.target],
                         filter_prim_paths_expr=[support_path],
                         update_period=0.0,
                     ),

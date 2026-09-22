@@ -1,36 +1,61 @@
-# 五任务目录与真实 RL 验收
+# LIBERO 全任务目录与真实 RL 验收
 
-状态：PASS（2026-09-22 five-03）。5 个任务真实 GPU / PPO 验收通过，CPU 16 项通过。基线 `dea550f`，分支 `nrwu/newLiberoWithArena`。
-Docker image tag 未记录；依赖沿用项目 Python 3.12 / Isaac Sim 6 / IsaacLab 3 / Arena 锁定版本。
+状态：131 个原生任务定义已完成，全量 CPU / GPU 验收待运行。按用户要求先提交代码，随后测试，修复另作提交。
+分支 `nrwu/newLiberoWithArena`；Python 3.12 / Isaac Sim 6 / IsaacLab 3 / Arena 沿用项目锁定版本。
+历史首批 5 任务已在提交 `cec1e83` 通过真实 GPU / PPO 验收；该结果不代表本次 131 任务全部通过。
 
-任务目录：`src/carrot_sim/arena_libero/tasks/libero_spatial/`（3 个任务）和
-`src/carrot_sim/arena_libero/tasks/libero_10/`（2 个任务）。任务文件各自定义语言、物体、
-初始位置、关节状态和成功条件；注册表不依赖 Isaac 或 LW 的 Python 包。
+## 任务范围
 
-参考 LW-BenchHub 同名任务的语义和资产，不声称复现其所有厨房布局、随机化分布或原始
-MuJoCo LIBERO 初态。当前使用一个固定厨房桌面，多个任务的 critic 维数按物体和关节数量
-确定；通过 `env.single_observation_space["critic"].shape` 查询，不能硬编码 52。
+每个 case 有独立 Python 模块，显式定义语言、资产、布局、关节初态和成功条件。
 
-## 预期检查
+| suite | case 数 |
+| --- | ---: |
+| libero_spatial | 10 |
+| libero_object | 10 |
+| libero_goal | 11 |
+| libero_10 | 10 |
+| libero_90 | 90 |
 
-- 五个独立文件和可选择的 task ID，两个黑碗的目标身份明确。
-- 三种成功判据按 batch 逐行计算；拒绝悬空、未释放、抽屉未关、碗越界或炉灶未开。
-- 每个任务真实 GPU reset/step、两路 RGB、部分 reset 隔离和 PPO 参数更新。
-- 抽屉和旋钮使用真实关节，Panda 通过接触操纵；reset 恢复关节初态。
-- 合成成功 fixture 验证奖励/终止的物理条件，不等同于策略学会任务。
+来源为 LW-BenchHub `b2bcb2d00edef691f9fcc49039cbf0bcc7464605` 的
+`lw_benchhub_tasks/lightwheel_libero_tasks`；`task_sources.json` 保存全部源文件、注册类和 Gym ID。
+上游一个 L10L2 文件注册三个 case，本实现拆成三个模块；L10K6 按实际注册类和任务语义命名，修正上游误导性的文件名。
+运行时不导入 LW-BenchHub 或 MuJoCo。注册表可在未启动 Isaac 时读取。
 
-## 执行
+采用固定厨房桌面布局，不声称复现 LW 的房间布局、随机化分布或原始 LIBERO 轨迹。
+成功条件逐环境计算，多目标条件取 AND，目标物体身份明确；包含真实接触、释放、稳定、容器边界和关节状态检查。
+源代码的 env 0 广播、宽泛任意物体匹配和 caddy 分区 TODO 按任务语义实现。
+长柄锅在架子内采用部分插入条件；BBQ sauce 使用原始 LIBERO 资产转换，属于有意的资产差异。
+critic 维数随物体和关节数变化，请查询 `env.single_observation_space["critic"].shape`。
 
-按当前 Gemini 会话确定 MY_DFS，确认 GPU 0 无其他 renderer，暂停并在结束后恢复 dguard。
-资产准备独立于测试；`ARENA_LIBERO_ASSETS` 内需要各任务引用的 USD 及其依赖。
+## 验收与执行
+
+每个任务检查真实 GPU reset/step、两路 RGB、部分 reset 隔离、超时 bootstrap、成功终止与 PPO 参数更新。
+合成成功 fixture 验证物理条件和奖励接口，不代表策略已经学会任务。
+
+按当前 Gemini 会话确定 MY_DFS，确认 GPU 无其他 renderer，暂停并在结束后恢复 dguard。
+H20 每块物理 GPU 最多一个 renderer；当前脚本逐任务串行运行，不停止既有 Ray head。
 
 ```bash
-export ARENA_LIBERO_ASSETS=/root/arena-libero-five-assets-v2
-export ARENA_LIBERO_OUTPUT="${MY_DFS}/benchmarks/arena-libero-rl/<five-task-run>"
+export ARENA_LIBERO_ASSETS=/root/arena-libero-all-assets-v2
+export ARENA_LIBERO_OUTPUT="${MY_DFS}/benchmarks/arena-libero-rl/<new-run>"
 bash tests/arena_libero/test_task_catalog.sh
 ```
 
-GPU 每次只启动一个进程/renderer，任务顺序运行；不改依赖，不停止既有 Ray head。
+资产准备先完成 SDK 对象缓存下载，再转换原始 LIBERO BBQ sauce，最后创建新的资产目录：
+
+```bash
+python scripts/arena_libero/convert_libero_object.py \
+  --source /path/to/LIBERO/libero/libero/assets/stable_hope_objects/bbq_sauce/bbq_sauce.xml \
+  --output /root/arena-libero-converted-assets-v2/LiberoBbqSauce.usd
+python scripts/arena_libero/prepare_assets.py \
+  --scene /root/.cache/lightwheel_sdk/floorplan/robocasa-libero-1-1/scene_enabled.usd \
+  --object-cache /root/.cache/lightwheel_sdk/object \
+  --libero-bbq-usd /root/arena-libero-converted-assets-v2/LiberoBbqSauce.usd \
+  --output /root/arena-libero-all-assets-v2
+```
+
+离线转换使用 MuJoCo 读取质量、质心和惯性，生成原生 USD、贴图和碰撞体；不增加模拟器运行时依赖。
+wrapper 仍引用 SDK 缓存，缓存和原场景必须保持可访问；脚本拒绝覆盖已有输出。
 
 ## 选择任务
 
@@ -43,33 +68,35 @@ for task in list_tasks("libero_spatial"):
     print(task.task_id, task.language)
 
 config = ArenaLiberoConfig(
-    asset_root=Path("/root/arena-libero-five-assets"),
+    asset_root=Path("/root/arena-libero-all-assets-v2"),
     task_id="libero_10/L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
     num_envs=4,
 )
 # AppLauncher 启动后导入 make_env，再调用 make_env(config)。
 ```
 
-`task_id=None` 保留原来的两物体 smoke 环境；五任务需要显式 task ID。
-`env.task_description` 提供对应语言指令，`env.task_name` 是完整 suite/name。
-任务在一个 batch 中保持一致，不在 reset 时自动切换任务。
+`task_id=None` 保留原两物体 smoke 环境。`env.task_description` 提供语言，`env.task_name` 为 suite/name。
+一个 batch 使用同一任务，reset 不切换任务。
 
-参考源码：LW-BenchHub `b2bcb2d00edef691f9fcc49039cbf0bcc7464605`，
-`lw_benchhub_tasks/lightwheel_libero_tasks/{libero_spatial,libero_10}` 中的同名任务。
-原生实现不导入它们；模拟器只通过任务定义读取本地 USD。
+## 扩展运行时的已有抽样记录
+
+`20260922-all-runtime-01` 的 spatial on-stove case 已通过 4 环境、两路 RGB、128 transitions、
+2 次 PPO 更新、部分 reset 和物理成功 fixture。证据位于
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260922-all-runtime-01/`。
+它早于最终全量源码，仍需回归；下文仅保留首批 5 任务历史记录。
 
 ## 2026-09-22 CPU
 
 执行代理在远端 `/opt/venvs/carrot` Python 3.12 下运行旧接口测试与新增任务目录/谓词测试：
 16 passed（1.99s）。GPU 任务检查尚未运行，不沿用此前单任务 PASS。
 
-## 资产准备
+## 首批 5 任务历史资产准备
 
 已下载对象缓存：Bowl008、Plate012、Bowl009、Cookies002、Bottle054、Pot086。
 下载使用 `lightwheel_sdk.loader.object_loader.acquire_by_registry`，类型为 `objects` / `USD`；
 仅准备资产时使用 SDK，运行环境不导入 LW-BenchHub。
 
-缓存就绪后，用以下脚本创建一个新的资产目录；不会覆盖现有输出或修改缓存：
+以下是首批 5 任务旧版本使用的命令；当前版本请使用上文含 BBQ 参数的命令：
 
 ```bash
 python scripts/arena_libero/prepare_assets.py \

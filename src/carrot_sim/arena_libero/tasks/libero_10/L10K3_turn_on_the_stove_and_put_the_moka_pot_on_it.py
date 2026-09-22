@@ -1,6 +1,7 @@
 from carrot_sim.arena_libero.tasks.spec import FixtureSpec, GoalSpec, ObjectSpec, TaskSpec
 
 TASK = TaskSpec(
+    source_class="L10K3TurnOnTheStoveAndPutTheMokaPotOnIt",
     suite="libero_10",
     name="L10K3_turn_on_the_stove_and_put_the_moka_pot_on_it",
     language="Turn on the stove and put the moka pot on it.",

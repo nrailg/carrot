@@ -1,0 +1,792 @@
+{
+  "repository": "https://github.com/LightwheelAI/LW-BenchHub",
+  "source_commit": "b2bcb2d00edef691f9fcc49039cbf0bcc7464605",
+  "cases": [
+    {
+      "task_id": "libero_10/L10K3_turn_on_the_stove_and_put_the_moka_pot_on_it",
+      "source_class": "L10K3TurnOnTheStoveAndPutTheMokaPotOnIt",
+      "source_file": "libero_10/L10K3_turn_on_the_stove_and_put_the_moka_pot_on_it.py",
+      "gym_id": "Robocasa-Task-L10K3TurnOnTheStoveAndPutTheMokaPotOnIt"
+    },
+    {
+      "task_id": "libero_10/L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
+      "source_class": "L10K4PutTheBlackBowlInTheBottomDrawerOfTheCabinetAndCloseIt",
+      "source_file": "libero_10/L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it.py",
+      "gym_id": "Robocasa-Task-L10K4PutTheBlackBowlInTheBottomDrawerOfTheCabinetAndCloseIt"
+    },
+    {
+      "task_id": "libero_10/L10K6_put_the_yellow_and_white_mug_in_the_microwave_and_close_it",
+      "source_class": "L10K6PutTheYellowAndWhiteMugInTheMicrowaveAndCloseIt",
+      "source_file": "libero_10/L10K6_put_the_white_mug_on_the_plate_and_put_the_chocolate_pudding_to_the_right_of_the_plate.py",
+      "gym_id": "Robocasa-Task-L10K6PutTheYellowAndWhiteMugInTheMicrowaveAndCloseIt"
+    },
+    {
+      "task_id": "libero_10/L10K8_put_both_moka_pots_on_the_stove",
+      "source_class": "L10K8PutBothMokaPotsOnTheStove",
+      "source_file": "libero_10/L10K8_put_both_moka_pots_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L10K8PutBothMokaPotsOnTheStove"
+    },
+    {
+      "task_id": "libero_10/L10L1_put_both_the_alphabet_soup_and_the_cream_cheese_box_in_the_basket",
+      "source_class": "L10L1PutBothTheAlphabetSoupAndTheCreamCheeseBoxInTheBasket",
+      "source_file": "libero_10/L10L2_put_objects_in_basket.py",
+      "gym_id": "Robocasa-Task-L10L1PutBothTheAlphabetSoupAndTheCreamCheeseBoxInTheBasket"
+    },
+    {
+      "task_id": "libero_10/L10L2_put_both_the_alphabet_soup_and_the_tomato_sauce_in_the_basket",
+      "source_class": "L10L2PutBothTheAlphabetSoupAndTheTomatoSauceInTheBasket",
+      "source_file": "libero_10/L10L2_put_objects_in_basket.py",
+      "gym_id": "Robocasa-Task-L10L2PutBothTheAlphabetSoupAndTheTomatoSauceInTheBasket"
+    },
+    {
+      "task_id": "libero_10/L10L2_put_both_the_cream_cheese_box_and_the_butter_in_the_basket",
+      "source_class": "L10L2PutBothTheCreamCheeseBoxAndTheButterInTheBasket",
+      "source_file": "libero_10/L10L2_put_objects_in_basket.py",
+      "gym_id": "Robocasa-Task-L10L2PutBothTheCreamCheeseBoxAndTheButterInTheBasket"
+    },
+    {
+      "task_id": "libero_10/L10L5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate",
+      "source_class": "L10L5PutWhiteMugOnLeftPlateAndPutYellowAndWhiteMugOnRightPlate",
+      "source_file": "libero_10/L10L5_put_the_white_mug_on_the_left_plate_and_put_the_yellow_and_white_mug_on_the_right_plate.py",
+      "gym_id": "Robocasa-Task-L10L5PutWhiteMugOnLeftPlateAndPutYellowAndWhiteMugOnRightPlate"
+    },
+    {
+      "task_id": "libero_10/L10L6_MugOnAndChocolateRightPlate",
+      "source_class": "L10L6PutWhiteMugOnPlateAndPutChocolatePuddingToRightPlate",
+      "source_file": "libero_10/L10L6_MugOnAndChocolateRightPlate.py",
+      "gym_id": "Robocasa-Task-L10L6PutWhiteMugOnPlateAndPutChocolatePuddingToRightPlate"
+    },
+    {
+      "task_id": "libero_10/L10S1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy",
+      "source_class": "L10S1PickUpTheBookAndPlaceItInTheBackCompartmentOfTheCaddy",
+      "source_file": "libero_10/L10S1_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L10S1PickUpTheBookAndPlaceItInTheBackCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90K10_close_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K10CloseTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K10_close_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K10CloseTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it",
+      "source_class": "L90K10CloseTheTopDrawerOfTheCabinetAndPutTheBlackBowlOnTopOfIt",
+      "source_file": "libero_90/L90K10_close_the_top_drawer_of_the_cabinet_and_put_the_black_bowl_on_top_of_it.py",
+      "gym_id": "Robocasa-Task-L90K10CloseTheTopDrawerOfTheCabinetAndPutTheBlackBowlOnTopOfIt"
+    },
+    {
+      "task_id": "libero_90/L90K10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K10PutTheBlackBowlInTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K10_put_the_black_bowl_in_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K10PutTheBlackBowlInTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it",
+      "source_class": "L90K10PutTheButterAtTheBackInTheTopDrawerOfTheCabinetAndCloseIt",
+      "source_file": "libero_90/L90K10_put_the_butter_at_the_back_in_the_top_drawer_of_the_cabinet_and_close_it.py",
+      "gym_id": "Robocasa-Task-L90K10PutTheButterAtTheBackInTheTopDrawerOfTheCabinetAndCloseIt"
+    },
+    {
+      "task_id": "libero_90/L90K10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it",
+      "source_class": "L90K10PutTheButterAtTheFrontInTheTopDrawerOfTheCabinetAndCloseIt",
+      "source_file": "libero_90/L90K10_put_the_butter_at_the_front_in_the_top_drawer_of_the_cabinet_and_close_it.py",
+      "gym_id": "Robocasa-Task-L90K10PutTheButterAtTheFrontInTheTopDrawerOfTheCabinetAndCloseIt"
+    },
+    {
+      "task_id": "libero_90/L90K10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it",
+      "source_class": "L90K10PutTheChocolatePuddingInTheTopDrawerOfTheCabinetAndCloseIt",
+      "source_file": "libero_90/L90K10_put_the_chocolate_pudding_in_the_top_drawer_of_the_cabinet_and_close_it.py",
+      "gym_id": "Robocasa-Task-L90K10PutTheChocolatePuddingInTheTopDrawerOfTheCabinetAndCloseIt"
+    },
+    {
+      "task_id": "libero_90/L90K1_open_the_bottom_drawer_of_the_cabinet",
+      "source_class": "L90K1OpenTheBottomDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K1_open_the_bottom_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K1OpenTheBottomDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K1_open_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K1OpenTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K1_open_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K1OpenTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it",
+      "source_class": "L90K1OpenTheTopDrawerOfTheCabinetAndPutTheBowlInIt",
+      "source_file": "libero_90/L90K1_open_the_top_drawer_of_the_cabinet_and_put_the_bowl_in_it.py",
+      "gym_id": "Robocasa-Task-L90K1OpenTheTopDrawerOfTheCabinetAndPutTheBowlInIt"
+    },
+    {
+      "task_id": "libero_90/L90K1_put_the_black_bowl_on_the_plate",
+      "source_class": "L90K1PutTheBlackBowlOnThePlate",
+      "source_file": "libero_90/L90K1_put_the_black_bowl_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K1PutTheBlackBowlOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K1_put_the_black_bowl_on_top_of_the_cabinet",
+      "source_class": "L90K1PutTheBlackBowlOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K1_put_the_black_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K1PutTheBlackBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K2_open_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K2OpenTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K2_open_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K2OpenTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K2_put_the_black_bowl_at_the_back_on_the_plate",
+      "source_class": "L90K2PutTheBlackBowlAtTheBackOnThePlate",
+      "source_file": "libero_90/L90K2_put_the_black_bowl_at_the_back_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K2PutTheBlackBowlAtTheBackOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K2_put_the_black_bowl_at_the_front_on_the_plate",
+      "source_class": "L90K2PutTheBlackBowlAtTheFrontOnThePlate",
+      "source_file": "libero_90/L90K2_put_the_black_bowl_at_the_front_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K2PutTheBlackBowlAtTheFrontOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K2_put_the_middle_black_bowl_on_the_plate",
+      "source_class": "L90K2PutTheMiddleBlackBowlOnThePlate",
+      "source_file": "libero_90/L90K2_put_the_middle_black_bowl_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K2PutTheMiddleBlackBowlOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K2_put_the_middle_black_bowl_on_top_of_the_cabinet",
+      "source_class": "L90K2PutTheMiddleBlackBowlOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K2_put_the_middle_black_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K2PutTheMiddleBlackBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle",
+      "source_class": "L90K2StackTheBlackBowlAtTheFrontOnTheBlackBowlInTheMiddle",
+      "source_file": "libero_90/L90K2_stack_the_black_bowl_at_the_front_on_the_black_bowl_in_the_middle.py",
+      "gym_id": "Robocasa-Task-L90K2StackTheBlackBowlAtTheFrontOnTheBlackBowlInTheMiddle"
+    },
+    {
+      "task_id": "libero_90/L90K2_stack_the_middle_black_bowl_on_the_back_black_bowl",
+      "source_class": "L90K2StackTheMiddleBlackBowlOnTheBackBlackBowl",
+      "source_file": "libero_90/L90K2_stack_the_middle_black_bowl_on_the_back_black_bowl.py",
+      "gym_id": "Robocasa-Task-L90K2StackTheMiddleBlackBowlOnTheBackBlackBowl"
+    },
+    {
+      "task_id": "libero_90/L90K3_put_the_frying_pan_on_the_stove",
+      "source_class": "L90K3PutTheFryingPanOnTheStove",
+      "source_file": "libero_90/L90K3_put_the_frying_pan_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K3PutTheFryingPanOnTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K3_put_the_moka_pot_on_the_stove",
+      "source_class": "L90K3PutTheMokaPotOnTheStove",
+      "source_file": "libero_90/L90K3_put_the_moka_pot_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K3PutTheMokaPotOnTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K3_turn_on_the_stove",
+      "source_class": "L90K3TurnOnTheStove",
+      "source_file": "libero_90/L90K3_turn_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K3TurnOnTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K3_turn_on_the_stove_and_put_the_frying_pan_on_it",
+      "source_class": "L90K3TurnOnTheStoveAndPutTheFryingPanOnIt",
+      "source_file": "libero_90/L90K3_turn_on_the_stove_and_put_the_frying_pan_on_it.py",
+      "gym_id": "Robocasa-Task-L90K3TurnOnTheStoveAndPutTheFryingPanOnIt"
+    },
+    {
+      "task_id": "libero_90/L90K4_close_the_bottom_drawer_of_the_cabinet",
+      "source_class": "L90K4CloseTheBottomDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K4_close_the_bottom_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K4CloseTheBottomDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer",
+      "source_class": "L90K4CloseTheBottomDrawerOfTheCabinetAndOpenTheTopDrawer",
+      "source_file": "libero_90/L90K4_close_the_bottom_drawer_of_the_cabinet_and_open_the_top_drawer.py",
+      "gym_id": "Robocasa-Task-L90K4CloseTheBottomDrawerOfTheCabinetAndOpenTheTopDrawer"
+    },
+    {
+      "task_id": "libero_90/L90K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet",
+      "source_class": "L90K4PutTheBlackBowlInTheBottomDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K4PutTheBlackBowlInTheBottomDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K4_put_the_black_bowl_on_top_of_the_cabinet",
+      "source_class": "L90K4PutTheBlackBowlOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K4_put_the_black_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K4PutTheBlackBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet",
+      "source_class": "L90K4PutTheWineBottleInTheBottomDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K4_put_the_wine_bottle_in_the_bottom_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K4PutTheWineBottleInTheBottomDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K4_put_the_wine_bottle_on_the_wine_rack",
+      "source_class": "L90K4PutTheWineBottleOnTheWineRack",
+      "source_file": "libero_90/L90K4_put_the_wine_bottle_on_the_wine_rack.py",
+      "gym_id": "Robocasa-Task-L90K4PutTheWineBottleOnTheWineRack"
+    },
+    {
+      "task_id": "libero_90/L90K5_close_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K5CloseTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K5_close_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K5CloseTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K5PutTheBlackBowlInTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K5_put_the_black_bowl_in_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K5PutTheBlackBowlInTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K5_put_the_black_bowl_on_the_plate",
+      "source_class": "L90K5PutTheBlackBowlOnThePlate",
+      "source_file": "libero_90/L90K5_put_the_black_bowl_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K5PutTheBlackBowlOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K5_put_the_black_bowl_on_top_of_the_cabinet",
+      "source_class": "L90K5PutTheBlackBowlOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K5_put_the_black_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K5PutTheBlackBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K5_put_the_ketchup_in_the_top_drawer_of_the_cabinet",
+      "source_class": "L90K5PutTheKetchupInTheTopDrawerOfTheCabinet",
+      "source_file": "libero_90/L90K5_put_the_ketchup_in_the_top_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K5PutTheKetchupInTheTopDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K6_close_the_microwave",
+      "source_class": "L90K6CloseTheMicrowave",
+      "source_file": "libero_90/L90K6_close_the_microwave.py",
+      "gym_id": "Robocasa-Task-L90K6CloseTheMicrowave"
+    },
+    {
+      "task_id": "libero_90/L90K6_put_the_yellow_and_white_mug_to_the_front_of_the_white_mug",
+      "source_class": "L90K6PutTheYellowAndWhiteMugToTheFrontOfTheWhiteMug",
+      "source_file": "libero_90/L90K6_put_the_yellow_and_white_mug_to_the_front_of_the_white_mug.py",
+      "gym_id": "Robocasa-Task-L90K6PutTheYellowAndWhiteMugToTheFrontOfTheWhiteMug"
+    },
+    {
+      "task_id": "libero_90/L90K7_open_the_microwave",
+      "source_class": "L90K7OpenTheMicrowave",
+      "source_file": "libero_90/L90K7_open_the_microwave.py",
+      "gym_id": "Robocasa-Task-L90K7OpenTheMicrowave"
+    },
+    {
+      "task_id": "libero_90/L90K7_put_the_white_bowl_on_the_plate",
+      "source_class": "L90K7PutTheWhiteBowlOnThePlate",
+      "source_file": "libero_90/L90K7_put_the_white_bowl_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K7PutTheWhiteBowlOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K7_put_the_white_bowl_to_the_right_of_the_plate",
+      "source_class": "L90K7PutTheWhiteBowlToTheRightOfThePlate",
+      "source_file": "libero_90/L90K7_put_the_white_bowl_to_the_right_of_the_plate.py",
+      "gym_id": "Robocasa-Task-L90K7PutTheWhiteBowlToTheRightOfThePlate"
+    },
+    {
+      "task_id": "libero_90/L90K8_put_the_right_moka_pot_on_the_stove",
+      "source_class": "L90K8PutTheRightMokaPotOnTheStove",
+      "source_file": "libero_90/L90K8_put_the_right_moka_pot_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K8PutTheRightMokaPotOnTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K8_turn_off_the_stove",
+      "source_class": "L90K8TurnOffTheStove",
+      "source_file": "libero_90/L90K8_turn_off_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K8TurnOffTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K9_put_the_frying_pan_on_the_cabinet_shelf",
+      "source_class": "L90K9PutTheFryingPanOnTheCabinetShelf",
+      "source_file": "libero_90/L90K9_put_the_frying_pan_on_the_cabinet_shelf.py",
+      "gym_id": "Robocasa-Task-L90K9PutTheFryingPanOnTheCabinetShelf"
+    },
+    {
+      "task_id": "libero_90/L90K9_put_the_frying_pan_on_top_of_the_cabinet",
+      "source_class": "L90K9PutTheFryingPanOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K9_put_the_frying_pan_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K9PutTheFryingPanOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K9_put_the_frying_pan_under_the_cabinet_shelf",
+      "source_class": "L90K9PutTheFryingPanUnderTheCabinetShelf",
+      "source_file": "libero_90/L90K9_put_the_frying_pan_under_the_cabinet_shelf.py",
+      "gym_id": "Robocasa-Task-L90K9PutTheFryingPanUnderTheCabinetShelf"
+    },
+    {
+      "task_id": "libero_90/L90K9_put_the_white_bowl_on_top_of_the_cabinet",
+      "source_class": "L90K9PutTheWhiteBowlOnTopOfTheCabinet",
+      "source_file": "libero_90/L90K9_put_the_white_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-L90K9PutTheWhiteBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_90/L90K9_turn_on_the_stove",
+      "source_class": "L90K9TurnOnTheStove",
+      "source_file": "libero_90/L90K9_turn_on_the_stove.py",
+      "gym_id": "Robocasa-Task-L90K9TurnOnTheStove"
+    },
+    {
+      "task_id": "libero_90/L90K9_turn_on_the_stove_and_put_the_frying_pan_on_it",
+      "source_class": "L90K9TurnOnTheStoveAndPutTheFryingPanOnIt",
+      "source_file": "libero_90/L90K9_turn_on_the_stove_and_put_the_frying_pan_on_it.py",
+      "gym_id": "Robocasa-Task-L90K9TurnOnTheStoveAndPutTheFryingPanOnIt"
+    },
+    {
+      "task_id": "libero_90/L90L1_pick_up_the_alphabet_soup_and_put_it_in_the_basket",
+      "source_class": "L90L1PickUpTheAlphabetSoupAndPutItInTheBasket",
+      "source_file": "libero_90/L90L1_pick_up_the_alphabet_soup_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L1PickUpTheAlphabetSoupAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L1_pick_up_the_cream_cheese_box_and_put_it_in_the_basket",
+      "source_class": "L90L1PickUpTheCreamCheeseBoxAndPutItInTheBasket",
+      "source_file": "libero_90/L90L1_pick_up_the_cream_cheese_box_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L1PickUpTheCreamCheeseBoxAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L1_pick_up_the_ketchup_and_put_it_in_the_basket",
+      "source_class": "L90L1PickUpTheKetchupAndPutItInTheBasket",
+      "source_file": "libero_90/L90L1_pick_up_the_ketchup_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L1PickUpTheKetchupAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L1_pick_up_the_tomato_sauce_and_put_it_in_the_basket",
+      "source_class": "L90L1PickUpTheTomatoSauceAndPutItInTheBasket",
+      "source_file": "libero_90/L90L1_pick_up_the_tomato_sauce_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L1PickUpTheTomatoSauceAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L2_pick_up_the_alphabet_soup_and_put_it_in_the_basket",
+      "source_class": "L90L2PickUpTheAlphabetSoupAndPutItInTheBasket",
+      "source_file": "libero_90/L90L2_pick_up_the_alphabet_soup_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L2PickUpTheAlphabetSoupAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L2_pick_up_the_butter_and_put_it_in_the_basket",
+      "source_class": "L90L2PickUpTheButterAndPutItInTheBasket",
+      "source_file": "libero_90/L90L2_pick_up_the_butter_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L2PickUpTheButterAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L2_pick_up_the_milk_and_put_it_in_the_basket",
+      "source_class": "L90L2PickUpTheMilkAndPutItInTheBasket",
+      "source_file": "libero_90/L90L2_pick_up_the_milk_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L2PickUpTheMilkAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L2_pick_up_the_orange_juice_and_put_it_in_the_basket",
+      "source_class": "L90L2PickUpTheOrangeJuiceAndPutItInTheBasket",
+      "source_file": "libero_90/L90L2_pick_up_the_orange_juice_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L2PickUpTheOrangeJuiceAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L2_pick_up_the_tomato_sauce_and_put_it_in_the_basket",
+      "source_class": "L90L2PickUpTheTomatoSauceAndPutItInTheBasket",
+      "source_file": "libero_90/L90L2_pick_up_the_tomato_sauce_and_put_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-L90L2PickUpTheTomatoSauceAndPutItInTheBasket"
+    },
+    {
+      "task_id": "libero_90/L90L3_pick_up_the_alphabet_soup_and_put_it_in_the_tray",
+      "source_class": "L90L3PickUpTheAlphabetSoupAndPutItInTheTray",
+      "source_file": "libero_90/L90L3_pick_up_the_alphabet_soup_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L3PickUpTheAlphabetSoupAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L3_pick_up_the_butter_and_put_it_in_the_tray",
+      "source_class": "L90L3PickUpTheButterAndPutItInTheTray",
+      "source_file": "libero_90/L90L3_pick_up_the_butter_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L3PickUpTheButterAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L3_pick_up_the_cream_cheese_and_put_it_in_the_tray",
+      "source_class": "L90L3PickUpTheCreamCheeseAndPutItInTheTray",
+      "source_file": "libero_90/L90L3_pick_up_the_cream_cheese_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L3PickUpTheCreamCheeseAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L3_pick_up_the_ketchup_and_put_it_in_the_tray",
+      "source_class": "L90L3PickUpTheKetchupAndPutItInTheTray",
+      "source_file": "libero_90/L90L3_pick_up_the_ketchup_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L3PickUpTheKetchupAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L3_pick_up_the_tomato_sauce_and_put_it_in_the_tray",
+      "source_class": "L90L3PickUpTheTomatoSauceAndPutItInTheTray",
+      "source_file": "libero_90/L90L3_pick_up_the_tomato_sauce_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L3PickUpTheTomatoSauceAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L4_pick_up_the_black_bowl_on_the_left_and_put_it_in_the_tray",
+      "source_class": "L90L4PickUpTheBlackBowlOnTheLeftAndPutItInTheTray",
+      "source_file": "libero_90/L90L4_pick_up_the_black_bowl_on_the_left_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L4PickUpTheBlackBowlOnTheLeftAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L4_pick_up_the_chocolate_pudding_and_put_it_in_the_tray",
+      "source_class": "L90L4PickUpTheChocolatePuddingAndPutItInTheTray",
+      "source_file": "libero_90/L90L4_pick_up_the_chocolate_pudding_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L4PickUpTheChocolatePuddingAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L4_pick_up_the_salad_dressing_and_put_it_in_the_tray",
+      "source_class": "L90L4PickUpTheSaladDressingAndPutItInTheTray",
+      "source_file": "libero_90/L90L4_pick_up_the_salad_dressing_and_put_it_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L4PickUpTheSaladDressingAndPutItInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L4_stack_the_left_bowl_on_the_right_bowl_and_place_them_in_the_tray",
+      "source_class": "L90L4StackTheLeftBowlOnTheRightBowlAndPlaceThemInTheTray",
+      "source_file": "libero_90/L90L4_stack_the_left_bowl_on_the_right_bowl_and_place_them_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L4StackTheLeftBowlOnTheRightBowlAndPlaceThemInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray",
+      "source_class": "L90L4StackTheRightBowlOnTheLeftBowlAndPlaceThemInTheTray",
+      "source_file": "libero_90/L90L4_stack_the_right_bowl_on_the_left_bowl_and_place_them_in_the_tray.py",
+      "gym_id": "Robocasa-Task-L90L4StackTheRightBowlOnTheLeftBowlAndPlaceThemInTheTray"
+    },
+    {
+      "task_id": "libero_90/L90L5_put_the_red_mug_on_the_left_plate",
+      "source_class": "L90L5PutTheRedMugOnTheLeftPlate",
+      "source_file": "libero_90/L90L5_put_the_red_mug_on_the_left_plate.py",
+      "gym_id": "Robocasa-Task-L90L5PutTheRedMugOnTheLeftPlate"
+    },
+    {
+      "task_id": "libero_90/L90L5_put_the_red_mug_on_the_right_plate",
+      "source_class": "L90L5PutTheRedMugOnTheRightPlate",
+      "source_file": "libero_90/L90L5_put_the_red_mug_on_the_right_plate.py",
+      "gym_id": "Robocasa-Task-L90L5PutTheRedMugOnTheRightPlate"
+    },
+    {
+      "task_id": "libero_90/L90L5_put_the_white_mug_on_the_left_plate",
+      "source_class": "L90L5PutTheWhiteMugOnTheLeftPlate",
+      "source_file": "libero_90/L90L5_put_the_white_mug_on_the_left_plate.py",
+      "gym_id": "Robocasa-Task-L90L5PutTheWhiteMugOnTheLeftPlate"
+    },
+    {
+      "task_id": "libero_90/L90L5_put_the_yellow_and_white_mug_on_the_right_plate",
+      "source_class": "L90L5PutTheYellowAndWhiteMugOnTheRightPlate",
+      "source_file": "libero_90/L90L5_put_the_yellow_and_white_mug_on_the_right_plate.py",
+      "gym_id": "Robocasa-Task-L90L5PutTheYellowAndWhiteMugOnTheRightPlate"
+    },
+    {
+      "task_id": "libero_90/L90L6_put_the_chocolate_pudding_to_the_left_of_the_plate",
+      "source_class": "L90L6PutTheChocolatePuddingToTheLeftOfThePlate",
+      "source_file": "libero_90/L90L6_put_the_chocolate_pudding_to_the_left_of_the_plate.py",
+      "gym_id": "Robocasa-Task-L90L6PutTheChocolatePuddingToTheLeftOfThePlate"
+    },
+    {
+      "task_id": "libero_90/L90L6_put_the_chocolate_pudding_to_the_right_of_the_plate",
+      "source_class": "L90L6PutTheChocolatePuddingToTheRightOfThePlate",
+      "source_file": "libero_90/L90L6_put_the_chocolate_pudding_to_the_right_of_the_plate.py",
+      "gym_id": "Robocasa-Task-L90L6PutTheChocolatePuddingToTheRightOfThePlate"
+    },
+    {
+      "task_id": "libero_90/L90L6_put_the_red_mug_on_the_plate",
+      "source_class": "L90L6PutTheRedMugOnThePlate",
+      "source_file": "libero_90/L90L6_put_the_red_mug_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90L6PutTheRedMugOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90L6_put_the_white_mug_on_the_plate",
+      "source_class": "L90L6PutTheWhiteMugOnThePlate",
+      "source_file": "libero_90/L90L6_put_the_white_mug_on_the_plate.py",
+      "gym_id": "Robocasa-Task-L90L6PutTheWhiteMugOnThePlate"
+    },
+    {
+      "task_id": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+      "source_class": "L90S1PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S1PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+      "source_class": "L90S1PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S1PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+      "source_class": "L90S1PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S1_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S1PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S1_pick_up_the_yellow_and_white_mug_and_place_it_to_the_right_of_the_caddy",
+      "source_class": "L90S1PickUpTheYellowAndWhiteMugAndPlaceItToTheRightOfTheCaddy",
+      "source_file": "libero_90/L90S1_pick_up_the_yellow_and_white_mug_and_place_it_to_the_right_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S1PickUpTheYellowAndWhiteMugAndPlaceItToTheRightOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy",
+      "source_class": "L90S2PickUpTheBookAndPlaceItInTheBackCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_back_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S2PickUpTheBookAndPlaceItInTheBackCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+      "source_class": "L90S2PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S2PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+      "source_class": "L90S2PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S2PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+      "source_class": "L90S2PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S2_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S2PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy",
+      "source_class": "L90S3PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_front_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S3PickUpTheBookAndPlaceItInTheFrontCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy",
+      "source_class": "L90S3PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_left_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S3PickUpTheBookAndPlaceItInTheLeftCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy",
+      "source_class": "L90S3PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy",
+      "source_file": "libero_90/L90S3_pick_up_the_book_and_place_it_in_the_right_compartment_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S3PickUpTheBookAndPlaceItInTheRightCompartmentOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S3_pick_up_the_red_mug_and_place_it_to_the_right_of_the_caddy",
+      "source_class": "L90S3PickUpTheRedMugAndPlaceItToTheRightOfTheCaddy",
+      "source_file": "libero_90/L90S3_pick_up_the_red_mug_and_place_it_to_the_right_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S3PickUpTheRedMugAndPlaceItToTheRightOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S3_pick_up_the_white_mug_and_place_it_to_the_right_of_the_caddy",
+      "source_class": "L90S3PickUpTheWhiteMugAndPlaceItToTheRightOfTheCaddy",
+      "source_file": "libero_90/L90S3_pick_up_the_white_mug_and_place_it_to_the_right_of_the_caddy.py",
+      "gym_id": "Robocasa-Task-L90S3PickUpTheWhiteMugAndPlaceItToTheRightOfTheCaddy"
+    },
+    {
+      "task_id": "libero_90/L90S4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf",
+      "source_class": "L90S4PickUpTheBookInTheMiddleAndPlaceItOnTheCabinetShelf",
+      "source_file": "libero_90/L90S4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf.py",
+      "gym_id": "Robocasa-Task-L90S4PickUpTheBookInTheMiddleAndPlaceItOnTheCabinetShelf"
+    },
+    {
+      "task_id": "libero_90/L90S4_pick_up_the_book_on_the_left_and_place_it_on_top_of_the_shelf",
+      "source_class": "L90S4PickUpTheBookOnTheLeftAndPlaceItOnTopOfTheShelf",
+      "source_file": "libero_90/L90S4_pick_up_the_book_on_the_left_and_place_it_on_top_of_the_shelf.py",
+      "gym_id": "Robocasa-Task-L90S4PickUpTheBookOnTheLeftAndPlaceItOnTopOfTheShelf"
+    },
+    {
+      "task_id": "libero_90/L90S4_pick_up_the_book_on_the_right_and_place_it_on_the_cabinet_shelf",
+      "source_class": "L90S4PickUpTheBookOnTheRightAndPlaceItOnTheCabinetShelf",
+      "source_file": "libero_90/L90S4_pick_up_the_book_on_the_right_and_place_it_on_the_cabinet_shelf.py",
+      "gym_id": "Robocasa-Task-L90S4PickUpTheBookOnTheRightAndPlaceItOnTheCabinetShelf"
+    },
+    {
+      "task_id": "libero_90/L90S4_pick_up_the_book_on_the_right_and_place_it_under_the_cabinet_shelf",
+      "source_class": "L90S4PickUpTheBookOnTheRightAndPlaceItUnderTheCabinetShelf",
+      "source_file": "libero_90/L90S4_pick_up_the_book_on_the_right_and_place_it_under_the_cabinet_shelf.py",
+      "gym_id": "Robocasa-Task-L90S4PickUpTheBookOnTheRightAndPlaceItUnderTheCabinetShelf"
+    },
+    {
+      "task_id": "libero_goal/LG_open_the_middle_drawer_of_the_cabinet",
+      "source_class": "LGOpenTheMiddleDrawerOfTheCabinet",
+      "source_file": "libero_goal/LG_open_the_middle_drawer_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-LGOpenTheMiddleDrawerOfTheCabinet"
+    },
+    {
+      "task_id": "libero_goal/LG_open_the_top_drawer_and_put_the_bowl_inside",
+      "source_class": "LGOpenTheTopDrawerAndPutTheBowlInside",
+      "source_file": "libero_goal/LG_open_the_top_drawer_and_put_the_bowl_inside.py",
+      "gym_id": "Robocasa-Task-LGOpenTheTopDrawerAndPutTheBowlInside"
+    },
+    {
+      "task_id": "libero_goal/LG_open_top_drawer_of_cabinet",
+      "source_class": "LGOpenTopDrawerOfCabinet",
+      "source_file": "libero_goal/LG_open_top_drawer_of_cabinet.py",
+      "gym_id": "Robocasa-Task-LGOpenTopDrawerOfCabinet"
+    },
+    {
+      "task_id": "libero_goal/LG_push_the_plate_to_the_front_of_the_stove",
+      "source_class": "LGPushThePlateToTheFrontOfTheStove",
+      "source_file": "libero_goal/LG_push_the_plate_to_the_front_of_the_stove.py",
+      "gym_id": "Robocasa-Task-LGPushThePlateToTheFrontOfTheStove"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_bowl_on_the_plate",
+      "source_class": "LGPutTheBowlOnThePlate",
+      "source_file": "libero_goal/LG_put_the_bowl_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LGPutTheBowlOnThePlate"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_bowl_on_the_stove",
+      "source_class": "LGPutTheBowlOnTheStove",
+      "source_file": "libero_goal/LG_put_the_bowl_on_the_stove.py",
+      "gym_id": "Robocasa-Task-LGPutTheBowlOnTheStove"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_bowl_on_top_of_the_cabinet",
+      "source_class": "LGPutTheBowlOnTopOfTheCabinet",
+      "source_file": "libero_goal/LG_put_the_bowl_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-LGPutTheBowlOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_cream_cheese_in_the_bowl",
+      "source_class": "LGPutTheCreamCheeseInTheBowl",
+      "source_file": "libero_goal/LG_put_the_cream_cheese_in_the_bowl.py",
+      "gym_id": "Robocasa-Task-LGPutTheCreamCheeseInTheBowl"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_wine_bottle_on_the_rack",
+      "source_class": "LGPutTheWineBottleOnTheRack",
+      "source_file": "libero_goal/LG_put_the_wine_bottle_on_the_rack.py",
+      "gym_id": "Robocasa-Task-LGPutTheWineBottleOnTheRack"
+    },
+    {
+      "task_id": "libero_goal/LG_put_the_wine_bottle_on_top_of_the_cabinet",
+      "source_class": "LGPutTheWineBottleOnTopOfTheCabinet",
+      "source_file": "libero_goal/LG_put_the_wine_bottle_on_top_of_the_cabinet.py",
+      "gym_id": "Robocasa-Task-LGPutTheWineBottleOnTopOfTheCabinet"
+    },
+    {
+      "task_id": "libero_goal/LG_turn_on_the_stove",
+      "source_class": "LGTurnOnTheStove",
+      "source_file": "libero_goal/LG_turn_on_the_stove.py",
+      "gym_id": "Robocasa-Task-LGTurnOnTheStove"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_alphabet_soup_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheAlphabetSoupAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_alphabet_soup_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheAlphabetSoupAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_bbq_sauce_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheBbqSauceAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_bbq_sauce_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheBbqSauceAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_butter_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheButterAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_butter_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheButterAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_chocolate_pudding_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheChocolatePuddingAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_chocolate_pudding_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheChocolatePuddingAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_ketchup_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheKetchupAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_ketchup_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheKetchupAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_milk_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheMilkAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_milk_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheMilkAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_orange_juice_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheOrangeJuiceAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_orange_juice_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheOrangeJuiceAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_salad_dressing_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheSaladDressingAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_salad_dressing_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheSaladDressingAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_pick_up_the_tomato_sauce_and_place_it_in_the_basket",
+      "source_class": "LOPickUpTheTomatoSauceAndPlaceItInTheBasket",
+      "source_file": "libero_object/LO_pick_up_the_tomato_sauce_and_place_it_in_the_basket.py",
+      "gym_id": "Robocasa-Task-LOPickUpTheTomatoSauceAndPlaceItInTheBasket"
+    },
+    {
+      "task_id": "libero_object/LO_put_cream_cheese_in_basket",
+      "source_class": "LOPutCreamCheeseInBasket",
+      "source_file": "libero_object/LO_put_cream_cheese_in_basket.py",
+      "gym_id": "Robocasa-Task-LOPutCreamCheeseInBasket"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_black_bowl_between_plate_and_ramekin_and_place_it_on_plate",
+      "source_class": "LSPickUpBlackBowlBetweenPlateAndRamekinAndPlaceItOnPlate",
+      "source_file": "libero_spatial/LS_pick_up_black_bowl_between_plate_and_ramekin_and_place_it_on_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpBlackBowlBetweenPlateAndRamekinAndPlaceItOnPlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_black_bowl_in_top_drawer_of_wooden_cabinet_and_place_it_on_plate",
+      "source_class": "LSPickUpBlackBowlInTopDrawerOfWoodenCabinetAndPlaceItOnPlate",
+      "source_file": "libero_spatial/LS_pick_up_black_bowl_in_top_drawer_of_wooden_cabinet_and_place_it_on_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpBlackBowlInTopDrawerOfWoodenCabinetAndPlaceItOnPlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlFromTableCenterAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlFromTableCenterAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlNextToTheCookieBoxAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_cookie_box_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlNextToTheCookieBoxAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlNextToThePlateAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlNextToThePlateAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlNextToTheRamekinAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_next_to_the_ramekin_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlNextToTheRamekinAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlOnTheCookieBoxAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_on_the_cookie_box_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlOnTheCookieBoxAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlOnTheRamekinAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_on_the_ramekin_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlOnTheRamekinAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlOnTheStoveAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_on_the_stove_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlOnTheStoveAndPlaceItOnThePlate"
+    },
+    {
+      "task_id": "libero_spatial/LS_pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate",
+      "source_class": "LSPickUpTheBlackBowlOnTheWoodenCabinetAndPlaceItOnThePlate",
+      "source_file": "libero_spatial/LS_pick_up_the_black_bowl_on_the_wooden_cabinet_and_place_it_on_the_plate.py",
+      "gym_id": "Robocasa-Task-LSPickUpTheBlackBowlOnTheWoodenCabinetAndPlaceItOnThePlate"
+    }
+  ]
+}

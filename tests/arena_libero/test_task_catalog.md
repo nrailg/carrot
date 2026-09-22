@@ -233,3 +233,21 @@ runner 可传 `--physics-substeps 10` 对照 2 ms 的物理步，且断言 RL �
 微波炉夹具从接近转盘的位置释放，失败时另保存 `physical_failure.json` 和沉降截图。
 真实 Mesh points 与此前 bbox 完全一致，root 位姿读写都是 link frame，源 USD 未发现跨对象碰撞过滤。
 这些排除项不等于物理问题已解决，仍以新对照结果为准。
+
+## 2026-09-22 all-committed-06 / 07：接触问题继续定位
+
+06 使用 `946c17e`、`physics_substeps=10`，保持 RL 控制周期 20 ms。微波炉任务 PASS：
+4 个环境、128 transitions、PPO 参数更新、部分 reset、terminal observation 和物理成功 fixture
+均通过。架中层锅仍直接落到桌面，2 ms 物理步没有恢复中板接触；该结果不能把根因归结为
+10 ms 步长造成的 tunneling。证据位于 `20260922-all-committed-06/`。
+
+07 对支撑与目标做交叉验证：同一 frying pan 放炉灶和放 Shelf073 顶部均 PASS，Book042 放
+Shelf073 中层 FAIL，接触力始终为零并落到桌面。由此问题缩小到 Shelf073 的中层碰撞体，
+不是 frying pan 的通用碰撞、质量或姿态问题。三项均使用 10 个物理子步；证据位于
+`20260922-all-committed-07/`。源 USD 检查未发现过滤关系、resetXformStack、陈旧 extent 或
+link/COM frame 混用，但这些离线检查还不能证明运行时中板碰撞形状有效。
+
+下一项实验用 `normalize_box_colliders.py` 将严格等价的 8 顶点箱形 collision mesh 覆盖为
+UsdGeom.Cube。脚本拒绝非严格箱体，核对替换前后父坐标包围盒，并写输入 SHA 与误差清单；
+它输出新的 reference overlay，不修改 SDK 缓存。只有替换资产后的同任务 GPU 对照通过，才可
+将问题归到当前 Mesh/convexHull 表示；仍不能把代表任务结果外推为 131 项全部通过。

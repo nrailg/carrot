@@ -20,6 +20,7 @@ def main() -> None:
     parser.add_argument("--scene", type=Path, required=True)
     parser.add_argument("--object-cache", type=Path, required=True)
     parser.add_argument("--libero-bbq-usd", type=Path, required=True)
+    parser.add_argument("--shelf-usd", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     assets = {
@@ -32,6 +33,8 @@ def main() -> None:
         if name not in FIXTURES
     }
     scene = args.scene.resolve(strict=True)
+    if args.shelf_usd is not None:
+        assets["shelf"] = args.shelf_usd.resolve(strict=True)
     args.output.mkdir(parents=True, exist_ok=False)
     (args.output / "scene.usd").symlink_to(scene)
     for name, path in assets.items():

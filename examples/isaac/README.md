@@ -205,3 +205,11 @@ python examples/isaac/04_lightwheel_libero.py \
 本例的 `--num_envs` 是同一进程内的环境 batch；增大该值时动作的第 0 维也同步增大。
 安装版本与本次实际验证状态见
 [验证记录](../../tests/isaac/test_lightwheel_libero.md)。
+
+### 用于 RL 的环境接口
+
+`carrot_sim.isaac_libero.make_isaac_libero_env` 提供同任务的批量 RL 环境：
+7D 增量动作、外部/腕部 RGB、稀疏 reward、独立 reset 和重置前最终观测。
+`carrot_sim` 是可在上述 Python 3.11 环境直接加载的独立源码包，不导入 Carrot/Ray。
+接口约定、timeout bootstrap 和真实 PPO smoke 的运行方式见
+[RL 环境验证记录](../../tests/isaac_libero/test_isaac_libero.md)。

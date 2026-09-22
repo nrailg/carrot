@@ -65,7 +65,7 @@ carrot-compute-pi05-stats = "carrot.cli.compute_pi05_stats:main"
 carrot-serve-pi05 = "carrot.cli.serve_pi05_policy:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/carrot"]
+packages = ["src/carrot", "src/carrot_sim"]
 
 [tool.pytest.ini_options]
 addopts = "-ra"

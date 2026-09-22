@@ -174,3 +174,27 @@ SHA256 相同；`lw_imported=false`。这些结果只证明任务与 RL 链路�
 完整 shell exit 0，独立 validator 输出 `Five task artifacts PASS`。
 执行代理收尾确认无残留 Kit、无 Xid；既有 Ray head 保留、GPU 资源使用 0/8；
 dguard 已恢复，恢复定时器已取消。完整 stdout 保存在证据目录根下。
+
+## 2026-09-22 all-committed-01：提交后验证进行中
+
+被测提交 `68cc7673488e9a7d2e0f98adba3e92b119117ba9`。本地 Python 3.12 CPU：17 passed / 1.35s；
+远端 `/opt/venvs/carrot`：17 passed / 2.05s。checksum 同步无差异，170 行源码 manifest 的 SHA256 为
+`3b05b2a7bfc706c4d6f8970cb984da610889b0b344132c9d51261f13785647a6`。
+
+BBQ v2 USD 与原 MJCF 的独立比较 PASS：质量误差 4.24e-10 kg、质心最大误差 3.72e-10 m、
+对角惯量最大误差 5.05e-13 kg·m²；三个碰撞体及贴图引用检查通过。
+证据根目录：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260922-all-committed-01/`，
+包含 `cpu.stdout`、`source-files.sha256`、`source-commit.txt`、`bbq_mass_comparison.json`。
+本小节尚不代表 GPU 或全任务通过；Docker image tag 未记录。
+
+同一提交的 LO BBQ 入篮任务真实 GPU PASS（Gemini job `5f3f1fce-0857`，exit 0）：
+4 环境、critic 121 维、128 transitions、8 truncations，actor 更新 0.0006004013、
+critic 更新 0.0005775355；两路 RGB、部分 reset、terminal observation、物理成功 fixture 全部通过。
+版本为 Python 3.12.13 / Isaac Sim 6.0.1.0 / IsaacLab 3.0.0b2.post1 / Arena 0.3.0 / Torch 2.11.0+cu128。
+该任务 `result.json`、`initial_state.json` 和两张图像位于上述证据根目录的
+`libero_object/LO_pick_up_the_bbq_sauce_and_place_it_in_the_basket/`。这只是 131 个 case 中的一个。
+
+GPU 映射已确认：该任务 `runner.stdout` 的 Vulkan 表仅物理 GPU 1 标记 `Active=Yes:0`，
+实际 `Environment device : cuda:1`；GPU 1 承担约 5.8 GiB 显存和主要利用率。
+构建时较早打印的 `SimulationCfg(device='cuda:0')` 是 `environment.py` 设置 device 之前的配置，
+不代表实际运行设备。其余卡的小 CUDA 上下文不作为多卡 renderer 的证据。

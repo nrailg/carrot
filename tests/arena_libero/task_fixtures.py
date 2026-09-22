@@ -1,8 +1,15 @@
+import json
 from collections import Counter, defaultdict
+from dataclasses import asdict
 from math import cos, radians, sin, sqrt
 
 import torch
-from isaaclab.utils.math import combine_frame_transforms, quat_apply, quat_mul
+from isaaclab.utils.math import (
+    combine_frame_transforms,
+    quat_apply,
+    quat_mul,
+    subtract_frame_transforms,
+)
 
 from carrot_sim.arena_libero.tasks.spec import GoalSpec, TaskSpec
 
@@ -111,6 +118,138 @@ def placement_pose(
     return target_pos, target_quat
 
 
+def _rotated_extent(half_size: tuple[float, float, float], quat: torch.Tensor) -> torch.Tensor:
+    axes = torch.eye(3, device=quat.device, dtype=quat.dtype).expand(quat.shape[0], -1, -1)
+    rotated_axes = quat_apply(quat[:, None].expand(-1, 3, -1), axes)
+    return (rotated_axes.abs() * quat.new_tensor(half_size)[None, :, None]).sum(1)
+
+
+def _geometry_diagnostics(
+    goal: GoalSpec,
+    target_pos: torch.Tensor,
+    target_quat: torch.Tensor,
+    support_pos: torch.Tensor,
+    support_quat: torch.Tensor,
+) -> dict[str, object]:
+    geometry_center, _ = combine_frame_transforms(
+        target_pos, target_quat, target_pos.new_tensor(goal.target_center).reshape(1, 3)
+    )
+    local_pos, local_quat = subtract_frame_transforms(
+        support_pos, support_quat, geometry_center, target_quat
+    )
+    goal_pos = geometry_center - support_pos if goal.frame == "world" else local_pos
+    goal_quat = target_quat if goal.frame == "world" else local_quat
+    offset = goal_pos - goal_pos.new_tensor(goal.center)
+    extent = _rotated_extent(goal.target_half_size, goal_quat)
+    half = offset.new_tensor(goal.half_size)
+    overlap = (
+        torch.minimum(offset + extent, half) - torch.maximum(offset - extent, -half)
+    ).clamp_min(0)
+    bottom = offset[:, 2] - extent[:, 2]
+    support_center, _ = combine_frame_transforms(
+        support_pos, support_quat, support_pos.new_tensor(goal.support_center).reshape(1, 3)
+    )
+    return {
+        "target_geometry_center_w": geometry_center[0].tolist(),
+        "target_geometry_center_support_frame": local_pos[0].tolist(),
+        "target_geometry_offset_goal_frame": offset[0].tolist(),
+        "target_quat_goal_frame_xyzw": goal_quat[0].tolist(),
+        "rotated_half_size_goal_frame": extent[0].tolist(),
+        "full_containment_margin": (half - offset.abs() - extent)[0].tolist(),
+        "target_bottom_goal_frame": bottom[0].item(),
+        "opening_bottom_lower_margin": (bottom + half[2] + 0.01)[0].item(),
+        "opening_bottom_upper_margin": (half[2] - bottom)[0].item(),
+        "partial_overlap_fraction": (overlap.prod(-1) / (2 * extent).prod(-1).clamp_min(1e-9))[
+            0
+        ].item(),
+        "support_geometry_center_w": support_center[0].tolist(),
+        "target_geometry_delta_support_w": (geometry_center - support_center)[0].tolist(),
+        "target_half_size_w": _rotated_extent(goal.target_half_size, target_quat)[0].tolist(),
+        "support_half_size_w": _rotated_extent(goal.support_half_size, support_quat)[0].tolist(),
+    }
+
+
+def _goal_diagnostics(env, spec: TaskSpec, index: int, tcp: torch.Tensor) -> dict[str, object]:
+    goal = spec.conditions[index]
+    support = env.backend.scene[goal.support]
+    support_pos, support_quat = support_frame(env, goal)
+    anchor, _ = combine_frame_transforms(
+        support_pos, support_quat, support_pos.new_tensor(goal.center).reshape(1, 3)
+    )
+    support_spec = next(
+        item for item in (*spec.objects, *spec.fixtures) if item.name == goal.support
+    )
+    diagnostic: dict[str, object] = {
+        "index": index,
+        "goal": asdict(goal),
+        "support_root_pose_w_xyzw": support.data.root_pose_w.torch[0].tolist(),
+        "support_body_pose_w_xyzw": torch.cat((support_pos, support_quat), -1)[0].tolist()
+        if goal.support_body
+        else None,
+        "support_joints": {
+            name: support.data.joint_pos.torch[0, support.find_joints(name)[0][0]].item()
+            for name, _ in support_spec.joints
+        },
+        "tcp_distance_to_goal_anchor": (tcp - anchor).norm(dim=-1)[0].item(),
+        "contact_sensor": None,
+        "contact_force_w": None,
+        "contact_force_z_threshold": 0.1,
+        "target": None,
+    }
+    if goal.target:
+        target = env.backend.scene[goal.target]
+        target_pos = target.data.root_pos_w.torch[:1]
+        target_quat = target.data.root_quat_w.torch[:1]
+        target_spec = next(item for item in spec.objects if item.name == goal.target)
+        up = quat_apply(target_quat, target_pos.new_tensor([[0.0, 0.0, 1.0]]))
+        diagnostic["target"] = {
+            "root_pose_w_xyzw": target.data.root_pose_w.torch[0].tolist(),
+            "linear_velocity_w": target.data.root_lin_vel_w.torch[0].tolist(),
+            "angular_velocity_w": target.data.root_ang_vel_w.torch[0].tolist(),
+            "linear_speed": target.data.root_lin_vel_w.torch[0].norm().item(),
+            "linear_speed_threshold": 0.05,
+            "angular_speed": target.data.root_ang_vel_w.torch[0].norm().item(),
+            "tcp_distance": (tcp - target_pos).norm(dim=-1)[0].item(),
+            "up_cos": up[0, 2].item(),
+            "joints": {
+                name: target.data.joint_pos.torch[0, target.find_joints(name)[0][0]].item()
+                for name, _ in target_spec.joints
+            },
+            **_geometry_diagnostics(goal, target_pos, target_quat, support_pos, support_quat),
+        }
+    if (
+        goal.kind in ("on_plate", "on_lit_stove", "on_surface")
+        or goal.containment == "opening"
+        or goal.require_contact
+    ):
+        contact_name = f"target_contact_{index}"
+        diagnostic["contact_sensor"] = contact_name
+        diagnostic["contact_force_w"] = (
+            env.backend.scene[contact_name].data.force_matrix_w.torch[0, 0, 0].tolist()
+        )
+    return diagnostic
+
+
+def _failure_diagnostics(env, spec: TaskSpec) -> dict[str, object]:
+    robot = env.backend.scene["robot"]
+    hand = robot.find_bodies("panda_hand")[0][0]
+    tcp, _ = combine_frame_transforms(
+        robot.data.body_pos_w.torch[:1, hand],
+        robot.data.body_quat_w.torch[:1, hand],
+        robot.data.root_pos_w.torch.new_tensor([[0.0, 0.0, 0.107]]),
+    )
+    return {
+        "event": "physical_success_fixture_failed",
+        "task_id": spec.task_id,
+        "env_id": 0,
+        "steps": 120,
+        "tcp_position_w": tcp[0].tolist(),
+        "goals": [
+            _goal_diagnostics(env, spec, index, tcp) for index in range(len(spec.conditions))
+        ],
+    }
+
+
 def success_fixture(env, spec: TaskSpec) -> None:
     # 只构造 env 0 的物理成功状态，不能将其结果广播到其他 slot。
     env.reset(seed=42)
@@ -176,6 +315,7 @@ def success_fixture(env, spec: TaskSpec) -> None:
                 assert term[0] and reward[0] > 0 and not info["bootstrap_mask"][0]
                 assert info["final_observation"] is not None
                 return
+        print(json.dumps(_failure_diagnostics(env, spec), indent=2), flush=True)
         raise AssertionError(f"Physical success fixture failed: {spec.task_id}")
     finally:
         backend.cfg.episode_length_s = old_duration

@@ -133,6 +133,12 @@ def main() -> None:
             "lw_imported": any(name.startswith("lw_benchhub") for name in sys.modules),
         }
         assert not result["lw_imported"]
+    except BaseException:
+        # Kit 关闭可能返回 0；失败必须有独立持久化证据，不能仅依赖进程退出码。
+        (args.output / "failure.json").write_text(
+            json.dumps({"task_id": spec.task_id, "traceback": traceback.format_exc()}, indent=2)
+        )
+        raise
     finally:
         env.close()
     (args.output / "result.json").write_text(json.dumps(result, indent=2))

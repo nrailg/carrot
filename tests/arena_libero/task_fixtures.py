@@ -81,6 +81,8 @@ def placement_pose(
             else:
                 rotation = pos.new_tensor([[0.0, 0.0, 0.0, 1.0]])
                 offset[:, 1] -= target_half[1] * 0.6
+                # 中板只有 3.45 mm 厚，夹具从靠近板面处释放，避免额外自由落体。
+                offset[:, 2] -= 0.005
     elif goal.kind == "beside":
         axis = 0 if goal.side in ("left", "right") else 1
         sign = 1 if goal.side in ("left", "back") else -1
@@ -265,7 +267,7 @@ def success_fixture(env, spec: TaskSpec) -> None:
         retreat = neutral.clone()
         retreat[0, 0] = -0.5
         retreat[0, 2] = 0.5
-        for _ in range(20):
+        for _ in range(40):
             env.step(retreat)
         for goal in spec.conditions:
             if not goal.joint:
@@ -277,6 +279,12 @@ def success_fixture(env, spec: TaskSpec) -> None:
             else:
                 value = 0.8
             set_goal_joint(env, goal, value)
+        if any(goal.joint for goal in spec.conditions) and any(
+            goal.target for goal in spec.conditions
+        ):
+            # 让关节瞬移后的刚体/碰撞状态经过真实物理步，再向容器摆入目标。
+            for _ in range(5):
+                env.step(neutral)
 
         goals = [goal for goal in spec.conditions if goal.target]
         groups = Counter(goal.support for goal in goals if goal.kind not in ("beside", "relative"))

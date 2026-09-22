@@ -217,8 +217,10 @@ def fixture_goal(target: ObjectSpec, fixture: str, *, lit: bool = False) -> Goal
             target.name,
             "microwave",
             support_body="Microwave089",
-            center=(-0.0454, 0.0154, 0.005),
-            half_size=(0.12, 0.10, 0.075),
+            # 稳定杯子的完整几何底界比碰撞支撑面低约 2 mm；只给底面余量。
+            # 上界仍为 0.080，XY 不变，不缩小目标物体边界。
+            center=(-0.0454, 0.0154, 0.004),
+            half_size=(0.12, 0.10, 0.076),
             target_center=target_center,
             target_half_size=target_half,
         )

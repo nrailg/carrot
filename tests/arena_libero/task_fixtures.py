@@ -260,6 +260,13 @@ def success_fixture(env, spec: TaskSpec) -> None:
     neutral = torch.zeros(env.num_envs, 7, device=env.device)
     neutral[:, 6] = -1
     try:
+        # 先用真实控制将 env 0 的手退向基座并抬高，满足任务各自的释放距离。
+        # Panda 基座绕 Z 旋转 -90 度，局部 -X 对应世界 +Y；其余环境保持零动作。
+        retreat = neutral.clone()
+        retreat[0, 0] = -0.5
+        retreat[0, 2] = 0.5
+        for _ in range(20):
+            env.step(retreat)
         for goal in spec.conditions:
             if not goal.joint:
                 continue
@@ -308,14 +315,20 @@ def success_fixture(env, spec: TaskSpec) -> None:
             backend.scene.update(backend.physics_dt)
 
         # 接触和静止必须经真实 PhysX 达成，成功还必须正确触发 terminal 接口。
-        for _ in range(120):
+        # 保留少量沉降轨迹，失败时区分初始穿插、滑落和静止后判据拒绝。
+        history = [{"step": 0, **_failure_diagnostics(env, spec)}]
+        for step in range(120):
             _, reward, term, _, info = env.step(neutral)
             assert not info["success"][1:].any(), "success leaked to another environment"
             if info["success"][0]:
                 assert term[0] and reward[0] > 0 and not info["bootstrap_mask"][0]
                 assert info["final_observation"] is not None
                 return
-        print(json.dumps(_failure_diagnostics(env, spec), indent=2), flush=True)
+            if step + 1 in (1, 5, 15, 30, 60):
+                history.append({"step": step + 1, **_failure_diagnostics(env, spec)})
+        diagnostic = _failure_diagnostics(env, spec)
+        diagnostic["settling_history"] = history
+        print(json.dumps(diagnostic, indent=2), flush=True)
         raise AssertionError(f"Physical success fixture failed: {spec.task_id}")
     finally:
         backend.cfg.episode_length_s = old_duration

@@ -130,6 +130,17 @@ USD 引用的子文件/材质也必须齐全；这个参数仅替换资产路径
 
 ## 5. 再看 Arena 怎么组织同一个环境
 
+`--arena` 选择环境的**组装方式**，不是仿真或画面的开关：
+
+| 不加 `--arena` | 加 `--arena` |
+| --- | --- |
+| `ReachEnvCfg → ManagerBasedRLEnv` | `Scene + Embodiment + Task → ArenaEnvBuilder → Lab 环境` |
+| 只需 Lab/Sim 依赖 | 额外需要配套 Arena |
+| 打印循环中的成功/超时事件 | 另外配置 Arena 的成功率指标 |
+
+两条路径使用同一份机器人、动作、奖励和时步配置；这是设计意图，尚未做 GPU 一致性验证。
+都可以用 `--viz kit` 看画面。初学时先不加 `--arena`，读懂 Lab 配置后再读适配器。
+
 已有 Arena 配套环境后运行：
 
 ```bash

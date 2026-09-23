@@ -1,9 +1,14 @@
-"""先启动 AppLauncher，再导入本模块。代码块出处见 SOURCES.md 中的编号。"""
+"""先启动 AppLauncher，再导入本模块。代码块出处见 SOURCES.md 中的编号。
 
-import torch
+官方教程（基础配置、奖励/终止、机器人配置）：
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/03_envs/create_manager_base_env.html
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/03_envs/create_manager_rl_env.html
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/how-to/write_articulation_cfg.html
+"""
 
 import isaaclab.envs.mdp as mdp
 import isaaclab.sim as sim_utils
+import torch
 from isaaclab.assets import ArticulationCfg, AssetBaseCfg
 from isaaclab.envs import ManagerBasedRLEnv, ManagerBasedRLEnvCfg
 from isaaclab.managers import (
@@ -43,9 +48,7 @@ def reached_goal(
 @configclass
 class ReachSceneCfg(InteractiveSceneCfg):
     ground = AssetBaseCfg(prim_path="/World/Ground", spawn=sim_utils.GroundPlaneCfg())
-    light = AssetBaseCfg(
-        prim_path="/World/Light", spawn=sim_utils.DomeLightCfg(intensity=2000.0)
-    )
+    light = AssetBaseCfg(prim_path="/World/Light", spawn=sim_utils.DomeLightCfg(intensity=2000.0))
     robot: ArticulationCfg = FRANKA_PANDA_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
 
 
@@ -97,9 +100,7 @@ class ObservationsCfg:
             func=mdp.joint_vel_rel,
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=ARM_JOINTS)},
         )
-        goal = ObservationTermCfg(
-            func=mdp.generated_commands, params={"command_name": "ee_pose"}
-        )
+        goal = ObservationTermCfg(func=mdp.generated_commands, params={"command_name": "ee_pose"})
         last_action = ObservationTermCfg(func=mdp.last_action)
         enable_corruption = False
         concatenate_terms = True

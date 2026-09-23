@@ -1,4 +1,9 @@
-"""可选的 Arena 组合课：同一组 Lab 配置如何交给 Scene / Embodiment / Task。"""
+"""可选的 Arena 组合课：同一组 Lab 配置如何交给 Scene / Embodiment / Task。
+
+官方教程（首次组合环境、自定义 Task/Embodiment）：
+https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/quickstart/arena_env.html
+https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/arena_in_your_repo/external_tasks_and_embodiments.html
+"""
 
 from typing import Any, override
 
@@ -16,7 +21,6 @@ from isaaclab_arena.metrics.metric_base import MetricBase
 from isaaclab_arena.metrics.success_rate import SuccessRateMetric
 from isaaclab_arena.scene.scene import Scene
 from isaaclab_arena.tasks.task_base import TaskBase
-
 from reach_env_cfg import ReachEnvCfg
 
 
@@ -94,11 +98,15 @@ def make_arena_env(cfg: ReachEnvCfg) -> ManagerBasedRLEnv:
         Unwrapped Arena environment; the caller owns its close lifecycle.
     """
     ground = Object(
-        name="ground", prim_path="/World/Ground", object_type=ObjectType.BASE,
+        name="ground",
+        prim_path="/World/Ground",
+        object_type=ObjectType.BASE,
         spawner_cfg=cfg.scene.ground.spawn.copy(),
     )
     light = Object(
-        name="light", prim_path="/World/Light", object_type=ObjectType.BASE,
+        name="light",
+        prim_path="/World/Light",
+        object_type=ObjectType.BASE,
         spawner_cfg=cfg.scene.light.spawn.copy(),
     )
 

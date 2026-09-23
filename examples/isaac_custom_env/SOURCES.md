@@ -82,7 +82,7 @@ Arena 固定源码基线：`8737b4ceb25f99f81a81786b7fde73139b52f324`。
 
 **Arena 的 Scene / Embodiment / Task 三组件** → `arena_adapter.py`。
 
-- 教程：[First Arena Environment](https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/quickstart/first_arena_env.html)。
+- 教程：[First Arena Environment](https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/quickstart/arena_env.html)。
 - 教程：[Your Own Tasks and Embodiments](https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/arena_in_your_repo/external_tasks_and_embodiments.html)。
 - 概念：[RL Tasks](https://isaac-sim.github.io/IsaacLab-Arena/release/0.3.0/pages/concepts/task/concept_rl_tasks_design.html)。
 - 本例不是拷贝教程里的“步数到了就成功”；它把本例真实距离判据交给 `TaskBase`。

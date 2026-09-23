@@ -1,4 +1,9 @@
-"""独立入门入口；python run.py --help。先读 README.md 和 SOURCES.md。"""
+"""独立入门入口；python run.py --help。先读 README.md 和 SOURCES.md。
+
+官方教程（启动顺序、reset/step 循环）：
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/00_sim/launch_app.html
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/03_envs/create_manager_rl_env.html
+"""
 
 # ruff: noqa: E402, I001
 
@@ -14,7 +19,9 @@ parser.add_argument("--num_envs", type=int, default=1)
 parser.add_argument("--steps", type=int, default=300)
 parser.add_argument("--seed", type=int, default=42)
 parser.add_argument("--policy", choices=("hold", "wiggle"), default="wiggle")
-parser.add_argument("--arena", action="store_true", help="使用可选的 Arena 适配器")
+parser.add_argument(
+    "--arena", action="store_true", help="用 Arena 组合相同任务并加入评测指标；默认直接用 Lab"
+)
 parser.add_argument("--robot_usd", type=Path, help="可选：同款 Panda 的本地 USD；不能用于换型号")
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
@@ -50,7 +57,9 @@ def main() -> None:
         robot = env.scene["robot"]
         print(f"joint_names={robot.joint_names}")
         print(f"body_names={robot.body_names}")
-        print(f"policy={tuple(obs['policy'].shape)}, action={tuple(env.action_manager.action.shape)}")
+        print(
+            f"policy={tuple(obs['policy'].shape)}, action={tuple(env.action_manager.action.shape)}"
+        )
         print(f"control_dt={env.step_dt:.6f}s, max_episode_steps={env.max_episode_length}")
         terminated_count = 0
         truncated_count = 0

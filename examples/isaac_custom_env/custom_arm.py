@@ -1,4 +1,9 @@
-"""导入自己已准备好的机械臂 USD；不是包含 SO101 资产的开箱即用驱动。"""
+"""导入自己已准备好的机械臂 USD；不是包含 SO101 资产的开箱即用驱动。
+
+官方教程（导入资产、编写机器人配置）：
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/how-to/import_new_asset.html
+https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/how-to/write_articulation_cfg.html
+"""
 
 from pathlib import Path
 

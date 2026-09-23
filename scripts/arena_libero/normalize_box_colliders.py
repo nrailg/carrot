@@ -28,24 +28,33 @@ def _corners(minimum: tuple[float, ...], maximum: tuple[float, ...]):
     return list(itertools.product(*zip(minimum, maximum, strict=True)))
 
 
-def _require_box(points: list[tuple[float, float, float]], tolerance: float):
+def _require_box_like(points: list[tuple[float, float, float]], tolerance: float):
     minimum, maximum = _bbox(points)
     if any(high - low <= tolerance for low, high in zip(minimum, maximum, strict=True)):
         raise ValueError("Collider box must have positive extent on all axes")
     expected = _corners(minimum, maximum)
-    if len(points) != 8 or any(
-        not any(
-            max(abs(a - b) for a, b in zip(point, corner, strict=True)) <= tolerance
-            for corner in expected
-        )
+    if len(points) != 8 or len(set(points)) != 8:
+        raise ValueError("Collider must have exactly eight unique vertices")
+    corner_errors = [
+        min(max(abs(a - b) for a, b in zip(point, corner, strict=True)) for corner in expected)
         for point in points
-    ):
-        raise ValueError("Collision mesh is not exactly the eight corners of a box")
-    return minimum, maximum
+    ]
+    max_corner_error = max(corner_errors)
+    if max_corner_error > tolerance:
+        raise ValueError(
+            f"Collider differs from its bounding box by {max_corner_error}, "
+            f"above tolerance {tolerance}"
+        )
+    return minimum, maximum, max_corner_error
 
 
-def normalize_box_colliders(source: Path, output: Path, tolerance: float = 1e-6) -> dict:
-    """Author an overlay that preserves a source asset but replaces exact box meshes with cubes."""
+def normalize_box_colliders(
+    source: Path,
+    output: Path,
+    colliders: set[str],
+    tolerance: float = 1e-6,
+) -> dict:
+    """Replace selected box-like collision meshes with bounding-box cubes."""
     if output.exists() or output.with_suffix(".json").exists():
         raise FileExistsError(output)
     source = source.resolve(strict=True)
@@ -65,17 +74,20 @@ def normalize_box_colliders(source: Path, output: Path, tolerance: float = 1e-6)
     candidates = [
         prim
         for prim in stage.Traverse()
-        if prim.IsA(UsdGeom.Mesh) and prim.HasAPI(UsdPhysics.CollisionAPI)
+        if prim.IsA(UsdGeom.Mesh)
+        and prim.HasAPI(UsdPhysics.CollisionAPI)
+        and prim.GetName() in colliders
     ]
-    if not candidates:
-        raise ValueError(f"No collision meshes found in {source}")
+    found = {prim.GetName() for prim in candidates}
+    if missing := colliders - found:
+        raise ValueError(f"Collision meshes not found in {source}: {sorted(missing)}")
 
     converted = []
     for composed_prim in candidates:
         mesh = UsdGeom.Mesh(composed_prim)
         points = [_xyz(point) for point in mesh.GetPointsAttr().Get()]
         try:
-            minimum, maximum = _require_box(points, tolerance)
+            minimum, maximum, max_corner_error = _require_box_like(points, tolerance)
         except ValueError as error:
             raise ValueError(f"{composed_prim.GetPath()}: {error}") from error
         original_local = UsdGeom.Xformable(composed_prim).GetLocalTransformation()
@@ -122,6 +134,7 @@ def normalize_box_colliders(source: Path, output: Path, tolerance: float = 1e-6)
                 "point_bbox_local": [minimum, maximum],
                 "cube_center_local": center,
                 "cube_half_size_local": half,
+                "max_corner_error": max_corner_error,
                 "parent_bbox_before": expected_bbox,
                 "parent_bbox_after": actual_bbox,
                 "max_bbox_error": error,
@@ -144,6 +157,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--source", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--collider", action="append", required=True)
     parser.add_argument("--tolerance", type=float, default=1e-6)
     args = parser.parse_args()
-    print(json.dumps(normalize_box_colliders(args.source, args.output, args.tolerance), indent=2))
+    print(
+        json.dumps(
+            normalize_box_colliders(args.source, args.output, set(args.collider), args.tolerance),
+            indent=2,
+        )
+    )

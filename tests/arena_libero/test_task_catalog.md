@@ -247,7 +247,9 @@ Shelf073 中层 FAIL，接触力始终为零并落到桌面。由此问题缩小
 `20260922-all-committed-07/`。源 USD 检查未发现过滤关系、resetXformStack、陈旧 extent 或
 link/COM frame 混用，但这些离线检查还不能证明运行时中板碰撞形状有效。
 
-下一项实验用 `normalize_box_colliders.py` 将严格等价的 8 顶点箱形 collision mesh 覆盖为
-UsdGeom.Cube。脚本拒绝非严格箱体，核对替换前后父坐标包围盒，并写输入 SHA 与误差清单；
-它输出新的 reference overlay，不修改 SDK 缓存。只有替换资产后的同任务 GPU 对照通过，才可
-将问题归到当前 Mesh/convexHull 表示；仍不能把代表任务结果外推为 131 项全部通过。
+下一项实验用 `normalize_box_colliders.py` 将指定的 8 顶点近似箱形 collision mesh 覆盖为
+UsdGeom.Cube。Shelf073 中板 C002 不是严格长方体，其顶点与轴对齐包围盒角点的最大偏差约
+0.84 mm；实验显式使用 1 mm 容差，并只替换 C002。脚本核对替换前后父坐标包围盒，并写输入
+SHA、近似误差和包围盒误差；它输出新的 reference overlay，不修改 SDK 缓存。若替换资产后的
+同任务 GPU 对照通过，只能把原因缩小到 Mesh/convexHull 表示或这项亚毫米几何差异；仍不能把
+代表任务结果外推为 131 项全部通过。

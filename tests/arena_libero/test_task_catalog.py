@@ -117,6 +117,18 @@ def test_spatial_target_is_between_objects_and_not_distractor():
     assert task.goal.target == target.name
 
 
+def test_middle_shelf_goal_contains_objects_resting_on_its_board():
+    task = get_task(
+        "libero_90/L90S4_pick_up_the_book_in_the_middle_and_place_it_on_the_cabinet_shelf"
+    )
+    goal = task.goal
+    lower = goal.center[2] - goal.half_size[2]
+    upper = goal.center[2] + goal.half_size[2]
+    board_top = -0.03319450095295906 * 1.2
+    assert lower < board_top
+    assert upper == pytest.approx(0.096 * 1.2)
+
+
 def validate_results(root: Path) -> None:
     for task in list_tasks():
         folder = root / task.task_id

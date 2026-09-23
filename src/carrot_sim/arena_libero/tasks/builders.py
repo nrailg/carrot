@@ -159,8 +159,10 @@ def object_goal(target: ObjectSpec, support: ObjectSpec, *, region: str = "top")
     if support.asset == "shelf" and region in ("middle", "under"):
         scale = support.scale
         kind = "inside"
-        center = (0.0, -0.003 * scale, (0.032 if region == "middle" else -0.069) * scale)
-        half = (0.145 * scale, 0.080 * scale, (0.064 if region == "middle" else 0.030) * scale)
+        # C002's top is z=-0.0331945 in the source asset. Let a book rest on
+        # the board without placing its full geometry just below the goal volume.
+        center = (0.0, -0.003 * scale, (0.031 if region == "middle" else -0.069) * scale)
+        half = (0.145 * scale, 0.080 * scale, (0.065 if region == "middle" else 0.030) * scale)
     if support.asset == "wine_rack":
         center = (0.0, -0.01, 0.035)
         half = (0.16, 0.11, 0.20)

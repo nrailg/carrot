@@ -10,6 +10,7 @@ from isaaclab.app import AppLauncher
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--asset-root", type=Path, required=True)
+parser.add_argument("--panda-usd", type=Path)
 parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--task-id", required=True)
 parser.add_argument("--physics-substeps", type=int, default=2)
@@ -33,6 +34,9 @@ from carrot_sim.arena_libero.tasks import get_task  # noqa: E402
 def main() -> None:
     args.output.mkdir(parents=True, exist_ok=False)
     spec = get_task(args.task_id)
+    config_kwargs = {}
+    if args.panda_usd is not None:
+        config_kwargs["panda_usd"] = str(args.panda_usd.resolve(strict=True))
     env = make_env(
         ArenaLiberoConfig(
             asset_root=args.asset_root,
@@ -41,6 +45,7 @@ def main() -> None:
             task_id=spec.task_id,
             num_envs=4,
             max_episode_steps=16,
+            **config_kwargs,
         )
     )
     try:

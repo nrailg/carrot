@@ -253,3 +253,31 @@ UsdGeom.Cube。Shelf073 中板 C002 不是严格长方体，其顶点与轴对�
 SHA、近似误差和包围盒误差；它输出新的 reference overlay，不修改 SDK 缓存。若替换资产后的
 同任务 GPU 对照通过，只能把原因缩小到 Mesh/convexHull 表示或这项亚毫米几何差异；仍不能把
 代表任务结果外推为 131 项全部通过。
+
+## 2026-09-23 P5000：中层碰撞与 RL 对照
+
+被测提交 `4785fe0e2790d389159044aef7856d9c6e1139e4`。P5000 pod 无法连接默认的
+NVIDIA Panda USD HTTPS 地址；从先前成功的 H20 Omni 缓存重建同内容的 14 个 USD 文件，
+逐文件 SHA 核对后通过 `--panda-usd` 使用本地路径。该参数只改变 Panda 资产的获取路径。
+CPU 使用 Python 3.12.13：18 passed。三项 GPU 测试使用 Isaac Sim 6.0.1、IsaacLab
+3.0.0b2.post1、Arena 0.3.0、4 个环境、2 ms 物理步和 20 ms RL 控制步，逐项独占 GPU 0：
+
+| case | 结果 | transitions | actor / critic 最大更新 |
+| --- | --- | ---: | ---: |
+| L90S4 书放架中层 | PASS | 128 | 0.0006004 / 0.0005842 |
+| L90K9 锅放架中层 | PASS | 128 | 0.0006004 / 0.0005866 |
+| L90K9 锅放柜顶 | PASS | 128 | 0.0006004 / 0.0005864 |
+
+三项均通过两路 RGB、部分 reset、terminal observation、物理成功夹具和 PPO 参数更新。
+仅替换 Shelf073 中板 C002 为 `UsdGeom.Cube` 后，锅中层从此前无接触变为 PASS；书中层
+获得约 4.9 N 稳定支撑接触，但完整书本几何底界比原目标体积下界低 1.43 mm，因此将
+中层目标体积下界降 2.4 mm，保持上界不变。最后三项均在该目标体积修正后的提交上复跑。
+overlay 的源 SHA、0.840 mm 顶点近似误差和零包围盒误差记录在证据清单中。
+
+完整 stdout、图像、结果 JSON、资产 SHA 和 CPU 日志已校验归档到
+`/mnt/ceph-zjk1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260923-p5000-shelf-01/`；
+`artifacts.tar.gz` 的 SHA256 为
+`7961a812e1b7435102bb4c87b32f32d166c8718e8e5de1720efa3970993b6d46`。
+测试后没有残留 Kit 或 Xid，dguard 已恢复。该对照验证这三项真实 RL 链路，131 项全量
+GPU 验收仍待执行；overlay 同时改变 Mesh 类型及最多 0.840 mm 的形状，单凭此实验不能
+区分两者哪项导致恢复接触。

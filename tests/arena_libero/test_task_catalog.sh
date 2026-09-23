@@ -6,6 +6,10 @@ cd "$CARROT_DIR"
 export PYTHONPATH="$PWD/src:$PWD/tests:${PYTHONPATH:-}"
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 export OMNI_KIT_ACCEPT_EULA=YES
+TASK_ARGS=(--physics-substeps "${ARENA_LIBERO_PHYSICS_SUBSTEPS:-2}")
+if [[ -n "${ARENA_LIBERO_PANDA_USD:-}" ]]; then
+  TASK_ARGS+=(--panda-usd "$ARENA_LIBERO_PANDA_USD")
+fi
 python -m pytest -q tests/arena_libero/test_arena_libero.py tests/arena_libero/test_task_catalog.py
 test ! -e "${ARENA_LIBERO_OUTPUT:?}"
 mkdir -p "$ARENA_LIBERO_OUTPUT"
@@ -14,6 +18,7 @@ for task_id in "${TASK_IDS[@]}"; do
   python tests/arena_libero/run_task_catalog.py \
     --asset-root "${ARENA_LIBERO_ASSETS:?}" \
     --output "${ARENA_LIBERO_OUTPUT:?}/${task_id}" --task-id "$task_id" \
+    "${TASK_ARGS[@]}" \
     --headless --enable_cameras --kit_args='--/renderer/multiGpu/enabled=false'
   test -f "${ARENA_LIBERO_OUTPUT}/${task_id}/result.json"
 done

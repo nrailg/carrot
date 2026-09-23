@@ -281,3 +281,20 @@ overlay 的源 SHA、0.840 mm 顶点近似误差和零包围盒误差记录在�
 测试后没有残留 Kit 或 Xid，dguard 已恢复。该对照验证这三项真实 RL 链路，131 项全量
 GPU 验收仍待执行；overlay 同时改变 Mesh 类型及最多 0.840 mm 的形状，单凭此实验不能
 区分两者哪项导致恢复接触。
+
+## 2026-09-23 P5000：重启后可复用的 Ceph 资产
+
+将原始场景与物体、转换后的 BBQ sauce、14 个 Panda USD 文件，以及由 Shelf073
+源文件按 `Shelf073_C002`、1 mm 容差生成的碰撞覆盖，存放于当前 P5000 的
+`${MY_DFS}/isaacsim_assets/arena_libero/v1/`。`assets/` 中 33 个 USD 入口均可解析，
+场景、柜子、中层隔板和 Panda USD 均能从 Ceph 打开；`manifest.json` 留有源归档、
+隔板源和覆盖文件的 SHA256。原始归档仍在 `${MY_DFS}/benchmarks/arena-libero-assets-transfer/`。
+
+使用 `/opt/venvs/carrot`、Python 3.12.13、Isaac Sim 6.0.1，直接以 Ceph 的
+`assets/` 为 `--asset-root`、`panda/.../panda_instanceable.usd` 为 `--panda-usd`，
+对 `libero_90/L90K9_put_the_frying_pan_on_the_cabinet_shelf` 执行 4 环境、
+10 物理子步的 GPU 回归，结果 PASS：128 transitions、两路 RGB、部分 reset、
+terminal observation、success fixture 和 PPO actor/critic 参数更新均通过。
+结果 JSON 在 `${MY_DFS}/isaacsim_assets/arena_libero/v1/validation/result.json`。
+该验证证明 P5000 不依赖节点 `/root` 资产或在线 Panda URL 即可运行这个代表任务；
+没有对其他 Ceph mount 或全部 131 个 case 作相同验证。

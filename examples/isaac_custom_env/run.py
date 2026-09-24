@@ -23,6 +23,7 @@ parser.add_argument(
     "--arena", action="store_true", help="用 Arena 组合相同任务并加入评测指标；默认直接用 Lab"
 )
 parser.add_argument("--robot_usd", type=Path, help="可选：同款 Panda 的本地 USD；不能用于换型号")
+parser.add_argument("--asset_root", type=Path, help="含 Isaac/ 子目录的本地完整资产根目录")
 AppLauncher.add_app_launcher_args(parser)
 args = parser.parse_args()
 if args.num_envs < 1 or args.steps < 1:
@@ -34,7 +35,7 @@ simulation_app = launcher.app
 
 import torch
 from isaaclab.envs import ManagerBasedRLEnv
-from reach_env_cfg import ReachEnvCfg
+from reach_env_cfg import ReachEnvCfg, configure_local_assets
 
 # [S8] Arena 是可选的上层组合。普通 Lab 路径不导入或安装 Arena。
 if args.arena:
@@ -47,6 +48,8 @@ def main() -> None:
     cfg.scene.num_envs = args.num_envs
     cfg.sim.device = args.device
     cfg.seed = args.seed
+    if args.asset_root is not None:
+        configure_local_assets(cfg, args.asset_root)
     if args.robot_usd is not None:
         cfg.scene.robot.spawn.usd_path = str(args.robot_usd.resolve())
     # SO101 的 configure_robot(...) 调用插在这里，详见 SO101.md。

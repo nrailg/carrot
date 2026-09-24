@@ -42,6 +42,9 @@ Arena 固定源码基线：`8737b4ceb25f99f81a81786b7fde73139b52f324`。
 - 教程：[Interacting with an articulation](https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/01_assets/run_articulation.html)。
 - Panda 定义：[franka.py](https://github.com/isaac-sim/IsaacLab/blob/ffff603eafc6b74264a5261cc0183d6a65390d78/source/isaaclab_assets/isaaclab_assets/robots/franka.py)，`FRANKA_PANDA_CFG`。
 - USD 驱动参数继承：[actuator_cfg.py](https://github.com/isaac-sim/IsaacLab/blob/ffff603eafc6b74264a5261cc0183d6a65390d78/source/isaaclab/isaaclab/actuators/actuator_cfg.py)，`stiffness`、`damping` 的 `None` 语义。
+- 本地地面路径：[from_files_cfg.py](https://github.com/isaac-sim/IsaacLab/blob/ffff603eafc6b74264a5261cc0183d6a65390d78/source/isaaclab/isaaclab/sim/spawners/from_files/from_files_cfg.py)，`GroundPlaneCfg.usd_path`。
+- 本地坐标轴路径：[markers/config/__init__.py](https://github.com/isaac-sim/IsaacLab/blob/ffff603eafc6b74264a5261cc0183d6a65390d78/source/isaaclab/isaaclab/markers/config/__init__.py)，`FRAME_MARKER_CFG`。
+- 本例的 `configure_local_assets` 将这三处资产路径绑定到同一份已验证的本地资产树。
 
 ## S4
 

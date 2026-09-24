@@ -41,3 +41,27 @@ git diff --check
 
 README 的命令是后续运行入口，配置推导的 shape/时步是预期值，不是已通过的 GPU 结果。
 `custom_arm.py` 是资产接入 helper；`SO101.md` 中的参数化片段需要填入具体资产信息。
+
+## 2026-09-23：按用户要求委派 Luna 做远程验证
+
+已准备 [GPU 合同检查与执行记录](../../tests/isaac_custom_env/test_custom_env.md)。
+Luna 及主模型分别尝试连接用户指定的 Gemini launcher，均返回
+`Failed to connect to remote container`，未获得活动会话。
+当前状态为 **BLOCKED / GPU NOT RUN**；尚未同步或执行，不能将本例标记为 GPU PASS。
+测试恢复后在上述同一档案追加实际命令、版本和结果。
+
+## 2026-09-23：新节点资产及测试状态
+
+新 launcher 已连接。当前个人 CephFS 为
+`/mnt/ceph-zjk1-csp/mm-base-plt2/nrwu`。已将 Panda、Grid、UIElements
+资产子树从另一块个人 CephFS 同步到当前个人 CephFS，按文件内容比较无差异。
+示例现在支持 `--asset_root`，以同一个本地资产根同时指定 Panda、地面和目标坐标轴 USD。
+
+Luna 的后台任务 `11bf11e8-0019` 在启动 Isaac 前因 CephFS 结果目录创建权限失败，
+退出码为 1。远程命令以 root 运行，个人目录属于 UID 1001、权限 755；
+由于挂载是 `fuse.dop-fuse` 且 root 具有 `CAP_DAC_OVERRIDE`，仅靠这组传统
+权限位无法解释拒绝，具体的 FUSE/后端策略尚未确认。
+**Lab/Arena GPU 用例仍是 NOT RUN**，不能据此评价示例运行结果。错误原文、
+环境版本、目标结果目录和复现矩阵见
+[测试记录](../../tests/isaac_custom_env/test_custom_env.md)。
+暂停的本节点 dguard 已恢复，并独立检查其巡检与运行进程状态。

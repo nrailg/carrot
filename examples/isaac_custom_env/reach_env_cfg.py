@@ -6,6 +6,8 @@ https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/tutorials/03_envs/creat
 https://isaac-sim.github.io/IsaacLab/v3.0.0-beta2/source/how-to/write_articulation_cfg.html
 """
 
+from pathlib import Path
+
 import isaaclab.envs.mdp as mdp
 import isaaclab.sim as sim_utils
 import torch
@@ -206,3 +208,35 @@ def configure_robot(
     ranges.pos_x, ranges.pos_y, ranges.pos_z = goal_ranges
     for term in (cfg.rewards.reach, cfg.terminations.success):
         term.params["asset_cfg"] = SceneEntityCfg("robot", body_names=[ee_body])
+
+
+# [S3, S4] 地面、Panda 和命令可视化坐标轴也需要本地 USD；仅替换机器人还会访问在线资产。
+def configure_local_assets(cfg: ReachEnvCfg, asset_root: Path) -> None:
+    """Bind the three required USD assets to a complete local Isaac asset tree.
+
+    Parameters
+    ----------
+    cfg : ReachEnvCfg
+        Modified in place before constructing the simulator.
+    asset_root : Path
+        Directory containing the ``Isaac/`` subtree for one Isaac Sim asset version.
+
+    Raises
+    ------
+    FileNotFoundError
+        Any of the three root USD files is missing.
+    """
+    root = asset_root.expanduser().resolve()
+    panda = root / "Isaac/IsaacLab/Robots/FrankaEmika/panda_instanceable.usd"
+    ground = root / "Isaac/Environments/Grid/default_environment.usd"
+    marker = root / "Isaac/Props/UIElements/frame_prim.usd"
+    for path in (panda, ground, marker):
+        if not path.is_file():
+            raise FileNotFoundError(path)
+    cfg.scene.robot.spawn.usd_path = str(panda)
+    cfg.scene.ground.spawn.usd_path = str(ground)
+    for visualizer in (
+        cfg.commands.ee_pose.goal_pose_visualizer_cfg,
+        cfg.commands.ee_pose.current_pose_visualizer_cfg,
+    ):
+        visualizer.markers["frame"].usd_path = str(marker)

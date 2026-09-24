@@ -83,9 +83,19 @@ python examples/isaac_custom_env/run.py --viz kit --num_envs 1 --steps 600
 python examples/isaac_custom_env/run.py --viz none --num_envs 4 --steps 300
 ```
 
-Panda USD 默认从官方资产地址获取，首次使用需要能够访问该地址。
-已有同款完整本地资产时，可传 `--robot_usd /absolute/path/panda_instanceable.usd`。
-USD 引用的子文件/材质也必须齐全；这个参数仅替换资产路径，不会转换机器人型号。
+Panda、地面和目标坐标轴默认从官方资产地址获取，首次使用需要能够访问该地址。
+已有完整 Isaac 6.0 资产子树时，可传
+`--asset_root /absolute/path/Assets/Isaac/6.0`，一次指定三种资产的本地路径。
+远程 GPU 测试用的这份资产存放在当前 Gemini 用户的 **CephFS** 中：
+
+```bash
+python examples/isaac_custom_env/run.py --viz none --num_envs 1 --steps 300 \
+  --asset_root "${MY_DFS}/isaacsim_assets/Assets/Isaac/6.0"
+```
+
+如果只有同款 Panda 的完整本地 USD，也可传
+`--robot_usd /absolute/path/panda_instanceable.usd`；该参数仅替换机器人资产路径。
+USD 引用的子文件/材质必须齐全；这个参数不能转换机器人型号。
 资产加载方式出处：[S3](SOURCES.md#s3)、[S6](SOURCES.md#s6)。
 
 程序会打印关节名、刚体名、观测/动作 shape、奖励，以及成功/超时事件数量。

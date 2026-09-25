@@ -4,7 +4,7 @@
 
 从 `pi05_base_pytorch` 初始化 PI0.5，在 `lerobot/libero` 上做正式 SFT，观察
 训练 checkpoint 的 LIBERO 闭环表现。参数以
-[`configs/pi05_sft_libero_2k_20260919.yaml`](../../configs/pi05_sft_libero_2k_20260919.yaml)
+[`pi05_sft_libero_2k_20260919.yaml`](pi05_sft_libero_2k_20260919.yaml)
 为准：8 GPU 单节点、2000 个计划 step、global batch 256、micro batch 4、
 梯度累积 8、action horizon 10、恒定学习率 `1e-5`，每 100 step 保存。
 模型由 run 目录 `init/` 中的 base 权重初始化；数据为本地 `lerobot/libero`，

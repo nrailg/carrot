@@ -59,28 +59,26 @@ def build_dataset(
 
     Raises
     ------
-    ValueError
-        If the dataset metadata does not describe an SO101 follower.
+    AssertionError
+        If the horizon, local root, or dataset metadata violates the SO101 contract.
     """
-    if action_horizon < 1:
-        raise ValueError("action_horizon must be positive")
+    assert action_horizon >= 1, "action_horizon must be positive"
     dataset_root = Path(root) if root is not None else None
-    if dataset_root is not None and not dataset_root.is_dir():
-        raise FileNotFoundError(dataset_root)
+    assert dataset_root is None or dataset_root.is_dir(), (
+        f"SO101 dataset root does not exist: {dataset_root}"
+    )
     metadata = LeRobotDatasetMetadata(repo_id, root=dataset_root, revision=revision)
-    if metadata.robot_type != "so101_follower":
-        raise ValueError(
-            f"SO101 dataset requires robot_type='so101_follower', got {metadata.robot_type!r}"
-        )
-    if metadata.fps < 1:
-        raise ValueError("SO101 dataset FPS must be positive")
+    assert metadata.robot_type == "so101_follower", (
+        f"SO101 dataset requires robot_type='so101_follower', got {metadata.robot_type!r}"
+    )
+    assert metadata.fps >= 1, "SO101 dataset FPS must be positive"
     for key in ("observation.state", "action"):
-        if tuple(metadata.features[key]["shape"]) != (6,):
-            raise ValueError(f"SO101 {key} must have shape (6,)")
+        assert tuple(metadata.features[key]["shape"]) == (6,), f"SO101 {key} must have shape (6,)"
     for key in ("observation.images.top", "observation.images.fpv"):
         feature = metadata.features[key]
-        if feature["dtype"] not in ("video", "image") or feature["shape"][-1] != 3:
-            raise ValueError(f"SO101 {key} must be RGB video or image")
+        assert feature["dtype"] in ("video", "image") and feature["shape"][-1] == 3, (
+            f"SO101 {key} must be RGB video or image"
+        )
 
     kwargs: dict[str, Any] = {
         "root": dataset_root,

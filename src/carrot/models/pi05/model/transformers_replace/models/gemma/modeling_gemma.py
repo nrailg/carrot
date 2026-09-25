@@ -80,8 +80,9 @@ class GemmaRMSNorm(nn.Module):
             return normed_inputs.to(dtype), None  # return in original dtype with None gate
         
         # adaptive RMSNorm (if cond is provided and dense layer exists)
-        if cond.shape[-1] != self.cond_dim:
-            raise ValueError(f"Expected cond dimension {self.cond_dim}, got {cond.shape[-1]}")
+        assert cond.shape[-1] == self.cond_dim, (
+            f"Expected cond dimension {self.cond_dim}, got {cond.shape[-1]}"
+        )
         
         #self.dense.to(dtype=torch.bfloat16).to(dtype=torch.float32)
         modulation = self.dense(cond)
@@ -466,8 +467,9 @@ class GemmaModel(GemmaPreTrainedModel):
         )
         use_cache = use_cache if use_cache is not None else self.config.use_cache
 
-        if (input_ids is None) ^ (inputs_embeds is not None):
-            raise ValueError("You must specify exactly one of input_ids or inputs_embeds")
+        assert not ((input_ids is None) ^ (inputs_embeds is not None)), (
+            "You must specify exactly one of input_ids or inputs_embeds"
+        )
 
         if self.gradient_checkpointing and self.training and use_cache:
             logger.warning_once(
@@ -754,8 +756,9 @@ class GemmaForSequenceClassification(GemmaPreTrainedModel):
         else:
             batch_size = inputs_embeds.shape[0]
 
-        if self.config.pad_token_id is None and batch_size != 1:
-            raise ValueError("Cannot handle batch sizes > 1 if no padding token is defined.")
+        assert not (self.config.pad_token_id is None and batch_size != 1), (
+            "Cannot handle batch sizes > 1 if no padding token is defined."
+        )
         if self.config.pad_token_id is None:
             last_non_pad_token = -1
         elif input_ids is not None:

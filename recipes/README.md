@@ -6,4 +6,5 @@
 
 | 实验 | 配置 | 记录 |
 | --- | --- | --- |
-| PI0.5 + LIBERO 2k SFT | [`configs/pi05_sft_libero_2k_20260919.yaml`](../configs/pi05_sft_libero_2k_20260919.yaml) | [`pi05_libero_sft_2k_20260919/README.md`](pi05_libero_sft_2k_20260919/README.md) |
+| PI0.5 + LIBERO 2k SFT | [`pi05_sft_libero_2k_20260919.yaml`](pi05_libero_sft_2k_20260919/pi05_sft_libero_2k_20260919.yaml) | [`pi05_libero_sft_2k_20260919/README.md`](pi05_libero_sft_2k_20260919/README.md) |
+| PI0.5 + SO101 orange cube SFT | [`pi05_sft_so101_orange_cube.yaml`](pi05_sft_so101_orange_cube/pi05_sft_so101_orange_cube.yaml) | [`pi05_sft_so101_orange_cube/README.md`](pi05_sft_so101_orange_cube/README.md) |

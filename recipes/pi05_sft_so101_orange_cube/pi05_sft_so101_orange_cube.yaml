@@ -6,7 +6,7 @@ dataset:
   factory_kwargs:
     repo_id: felixmayor/orange_cube_merged
     revision: c021b3c22a3de4e70e81010e54fb250a5dde348b
-    root: null
+    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/felixmayor/orange_cube_merged
     action_horizon: 50
   num_workers: 4
   norm_stats_path: null
@@ -31,7 +31,7 @@ steps: 5000
 micro_batch_size: 4
 global_batch_size: 256
 log_freq: 10
-output_dir: outputs/pi05_sft_so101_orange_cube
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_orange_cube
 save_freq: 500
 dp_size: 8
 num_nodes: 1

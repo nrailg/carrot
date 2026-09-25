@@ -4,6 +4,9 @@
 - Run: set `MY_DFS`, `CARROT_PI05_MODEL_PATH`, and `CARROT_ROBOTWIN_ROOT` to existing assets;
   start Ray according to `carrot-test`, then `bash tests/sft/test_sft_trainer.sh`.
 - The runner checks assets before testing; the Python smoke no longer embeds a historical CephFS path.
+- Separate CLI diagnostics use `pi05_sft_robotwin_smoke.yaml` (one step) and
+  `pi05_sft_robotwin_preflight.yaml` (20 steps) in this directory. The Python
+  two-step smoke above constructs its config in code and does not load either YAML.
 - Historical image tag, Carrot commit, and separate result: not recorded.
 - Status after relocation: `NOT RUN`.
 - Carrot commit at relocation: `72d8168540d74e890358003cbbb4886f5c7ca0e4`.

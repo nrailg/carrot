@@ -33,7 +33,7 @@ class ModelConfig:
 
 @dataclass(frozen=True)
 class DatasetConfig:
-    factory: str = "carrot.data.lerobot.build_dataset"
+    factory: str = "carrot.data.robotwin.build_dataset"
     factory_kwargs: dict[str, Any] = field(
         default_factory=lambda: {
             "repo_id": "lerobot/robotwin_unified",
@@ -49,7 +49,7 @@ class DatasetConfig:
     )
     norm_stats_path: str | None = None
     norm_stats_asset_id: str | None = None
-    preprocess: str | None = "carrot.data.lerobot.robotwin_preprocess"
+    preprocess: str | None = "carrot.data.robotwin.robotwin_preprocess"
     num_workers: int = 4
 
     def __post_init__(self) -> None:

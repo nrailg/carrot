@@ -95,7 +95,7 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=8192)
     parser.add_argument("--action-horizon", type=int, default=50)
     parser.add_argument("--quantile-samples", type=int, default=1_000_000)
-    parser.add_argument("--preprocess", default="carrot.data.lerobot.robotwin_preprocess")
+    parser.add_argument("--preprocess", default="carrot.data.robotwin.robotwin_preprocess")
     args = parser.parse_args()
 
     root = Path(args.root)

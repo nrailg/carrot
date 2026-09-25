@@ -190,7 +190,7 @@ def build_pi05(
     dataset_factory_kwargs: dict[str, Any],
     device: str,
     norm_stats_path: str | None = None,
-    preprocess: str | None = "carrot.data.lerobot.robotwin_preprocess",
+    preprocess: str | None = None,
 ) -> Pi05Components:
     """Load PI0.5 and bind a configured SFT dataset integration."""
     dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)

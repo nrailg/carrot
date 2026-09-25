@@ -1,0 +1,37 @@
+model:
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch
+  tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
+dataset:
+  factory: carrot.data.so101.build_dataset
+  factory_kwargs:
+    repo_id: felixmayor/orange_cube_merged
+    revision: c021b3c22a3de4e70e81010e54fb250a5dde348b
+    root: null
+    action_horizon: 50
+  num_workers: 4
+  norm_stats_path: null
+  preprocess: null
+optimizer:
+  learning_rate: 1.0e-5
+  weight_decay: 1.0e-10
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  warmup_steps: 0
+  decay_steps: 5000
+  decay_learning_rate: 1.0e-5
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+wandb:
+  enabled: false
+steps: 5000
+micro_batch_size: 4
+global_batch_size: 256
+log_freq: 10
+output_dir: outputs/pi05_sft_so101_orange_cube
+save_freq: 500
+dp_size: 8
+num_nodes: 1

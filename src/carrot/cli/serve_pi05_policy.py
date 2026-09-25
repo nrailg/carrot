@@ -4,13 +4,17 @@ from __future__ import annotations
 
 import argparse
 
-from carrot.models.pi05.inference import create_libero_policy, create_robotwin_policy
+from carrot.models.pi05.inference import (
+    create_libero_policy,
+    create_robotwin_policy,
+    create_so101_policy,
+)
 from carrot.models.pi05.inference.websocket_policy_server import WebsocketPolicyServer
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Serve a Carrot PI0.5 checkpoint")
-    parser.add_argument("--embodiment", choices=("robotwin", "libero"), required=True)
+    parser.add_argument("--embodiment", choices=("robotwin", "libero", "so101"), required=True)
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--device", required=True)
     parser.add_argument("--tokenizer-path")
@@ -21,7 +25,11 @@ def main() -> None:
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
 
-    factory = create_robotwin_policy if args.embodiment == "robotwin" else create_libero_policy
+    factory = {
+        "robotwin": create_robotwin_policy,
+        "libero": create_libero_policy,
+        "so101": create_so101_policy,
+    }[args.embodiment]
     policy = factory(
         args.checkpoint,
         device=args.device,

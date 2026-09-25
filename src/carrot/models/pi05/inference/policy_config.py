@@ -9,6 +9,7 @@ from transformers import AutoTokenizer
 from carrot.models.pi05.embodiments import (
     create_aloha_transform_spec,
     create_libero_transform_spec,
+    create_so101_transform_spec,
 )
 from carrot.models.pi05.model import PI0Pytorch
 
@@ -106,6 +107,49 @@ def create_libero_policy(
         tokenizer,
         norm_stats,
         model_action_dim=model.config.action_dim,
+        default_prompt=default_prompt,
+    )
+    return Pi05Policy(model, transform_spec, device=device, num_steps=num_steps)
+
+
+def create_so101_policy(
+    checkpoint_dir: str | Path,
+    *,
+    device: str,
+    tokenizer_path: str | Path | None = None,
+    norm_stats_path: str | Path | None = None,
+    num_steps: int = 10,
+    default_prompt: str | None = None,
+) -> Pi05Policy:
+    """Load a Carrot PI0.5 checkpoint with the SO101 joint-control contract.
+
+    Parameters
+    ----------
+    checkpoint_dir : str | pathlib.Path
+    device : str
+    tokenizer_path : str | pathlib.Path | None
+    norm_stats_path : str | pathlib.Path | None
+        Defaults to ``checkpoint_dir/norm_stats.json``.
+    num_steps : int
+    default_prompt : str | None
+
+    Returns
+    -------
+    Pi05Policy
+    """
+    checkpoint_dir = _validate_checkpoint(checkpoint_dir)
+    stats_path = (
+        Path(norm_stats_path) if norm_stats_path is not None else checkpoint_dir / "norm_stats.json"
+    )
+    tokenizer_dir = _resolve_tokenizer_dir(checkpoint_dir, tokenizer_path)
+    norm_stats = _load_norm_stats(stats_path)
+    tokenizer = _load_tokenizer(tokenizer_dir)
+    model = PI0Pytorch.from_pretrained(checkpoint_dir)
+    transform_spec = create_so101_transform_spec(
+        tokenizer,
+        norm_stats,
+        model_action_dim=model.config.action_dim,
+        discrete_state_input=model.config.discrete_state_input,
         default_prompt=default_prompt,
     )
     return Pi05Policy(model, transform_spec, device=device, num_steps=num_steps)

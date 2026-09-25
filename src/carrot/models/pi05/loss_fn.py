@@ -15,6 +15,7 @@ from carrot.data import SFTDatasetSpec
 from carrot.data.loading import load_callable
 
 from .embodiments.libero import create_libero_transform_spec
+from .embodiments.so101 import create_so101_transform_spec
 from .model import PI0Observation, PI0Pytorch
 from .preprocessing import Pi05Preprocessor
 from .transforms import Pi05TransformSpec, compose, to_observation
@@ -101,7 +102,7 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         ----------
         model : PI0Pytorch
         batch : dict
-            Raw RobotWin batch or pre-transformed LIBERO batch.
+            Raw RobotWin batch or pre-transformed LIBERO/SO101 batch.
 
         Returns
         -------
@@ -197,7 +198,19 @@ def build_pi05(
     if not isinstance(dataset, SFTDatasetSpec):
         raise TypeError(f"dataset factory {dataset_factory!r} must return SFTDatasetSpec")
     checkpoint_stats = Path(model_path) / "norm_stats.json"
-    if dataset.embodiment == "libero":
+    if dataset.embodiment == "so101":
+        if preprocess is not None:
+            raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
+        if norm_stats_path is None:
+            state_stats = dataset.state_stats
+            action_stats = dataset.action_stats
+        else:
+            with Path(norm_stats_path).open() as stream:
+                normalization = json.load(stream)
+            normalization = normalization.get("norm_stats", normalization)
+            state_stats = normalization["state"]
+            action_stats = normalization["actions" if "actions" in normalization else "action"]
+    elif dataset.embodiment == "libero":
         if preprocess is not None:
             raise ValueError("LIBERO uses shared input transforms; set dataset.preprocess to null")
         official_stats = Path(model_path) / "assets/physical-intelligence/libero/norm_stats.json"
@@ -240,6 +253,15 @@ def build_pi05(
             tokenizer,
             {"state": state_stats, "actions": action_stats},
             model_action_dim=model.config.action_dim,
+        )
+        training_dataset = Pi05TransformedDataset(dataset.dataset, transform_spec)
+        collate_fn = None
+    elif dataset.embodiment == "so101":
+        transform_spec = create_so101_transform_spec(
+            tokenizer,
+            {"state": state_stats, "actions": action_stats},
+            model_action_dim=model.config.action_dim,
+            discrete_state_input=model.config.discrete_state_input,
         )
         training_dataset = Pi05TransformedDataset(dataset.dataset, transform_spec)
         collate_fn = None

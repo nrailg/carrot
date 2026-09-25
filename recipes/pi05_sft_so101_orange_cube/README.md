@@ -41,3 +41,7 @@ bash recipes/pi05_sft_so101_orange_cube/run.sh
 - 持久化日志快照：`${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube_monitor/20260925T153144Z/rank0_worker_stdout.txt` 与同目录 `backend_task_1a17e72c-0036.txt`。Ray 的实时 worker 日志仍在 launcher 的 `/tmp/ray/session_latest/logs/`，属于临时盘；后台任务状态可用 task ID 查询。计划训练输出目录为 `${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube`，截至该次检查尚不存在；首个 checkpoint 计划在 step 500。
 
 待验收：持续核对有限 loss/grad、任务退出状态、step 500 及最终 checkpoint 的完整性，再分别验证模型加载、resume 和效果。不得把早期 step 或存在 checkpoint 当作 5000-step 训练完成。
+
+### 2026-09-25 16:09 UTC：按用户要求延后约 30 分钟的只读检查
+
+后台任务 `1a17e72c-0036` 仍为 running；Ray 单节点占用 8/8 GPU、40/224 CPU。rank-0 worker 已到 step 370，`loss=0.011971`、`grad_norm=0.063847`、LR `1e-5`，最近 step 300–370 的记录均为有限数值。训练输出目录仍不存在，故尚无 step-500 checkpoint；不宣称训练完成。证据为该任务状态、`/tmp/ray/session_latest/logs/worker-b61ac2308fa1506fc82f1110f213f8d67dd5d2d2d7a439e66390b74d-01000000-17659.out` 与 `ray status` 的 2026-09-25 16:09 UTC 只读输出；Ray 日志位于临时盘，早期持久化快照路径见上文。

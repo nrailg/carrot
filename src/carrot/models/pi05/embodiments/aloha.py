@@ -23,40 +23,43 @@ class AlohaInputs:
         actions = data.get("actions")
         if isinstance(state, torch.Tensor):
             state = state.float()
-            if state.shape[-1] != 14 or not torch.isfinite(state).all():
-                raise ValueError("state must be finite with last dimension 14")
+            assert state.shape[-1] == 14 and torch.isfinite(state).all(), (
+                "state must be finite with last dimension 14"
+            )
             if actions is not None:
                 actions = torch.as_tensor(actions).float()
-                if actions.shape[-1] != 14 or not torch.isfinite(actions).all():
-                    raise ValueError("actions must be finite with last dimension 14")
+                assert actions.shape[-1] == 14 and torch.isfinite(actions).all(), (
+                    "actions must be finite with last dimension 14"
+                )
         else:
             state = np.asarray(state, dtype=np.float32)
-            if state.shape[-1] != 14 or not np.isfinite(state).all():
-                raise ValueError("state must be finite with last dimension 14")
+            assert state.shape[-1] == 14 and np.isfinite(state).all(), (
+                "state must be finite with last dimension 14"
+            )
             if actions is not None:
                 actions = np.asarray(actions, dtype=np.float32)
-                if actions.shape[-1] != 14 or not np.isfinite(actions).all():
-                    raise ValueError("actions must be finite with last dimension 14")
+                assert actions.shape[-1] == 14 and np.isfinite(actions).all(), (
+                    "actions must be finite with last dimension 14"
+                )
         state, actions = robotwin_preprocess(state, actions)
 
         images = {}
         for source, target in CAMERAS.items():
             image = data["images"][source]
             if isinstance(image, torch.Tensor):
-                if image.ndim not in (3, 4) or image.shape[-3] != 3:
-                    raise ValueError(f"{source} must have shape (3, H, W) or (B, 3, H, W)")
-                if not torch.isfinite(image.float()).all():
-                    raise ValueError(f"{source} must be finite")
+                assert image.ndim in (3, 4) and image.shape[-3] == 3, (
+                    f"{source} must have shape (3, H, W) or (B, 3, H, W)"
+                )
+                assert torch.isfinite(image.float()).all(), f"{source} must be finite"
                 image = image.clone()
             else:
                 image = np.asarray(image)
-                if image.ndim not in (3, 4) or image.shape[-3] != 3:
-                    raise ValueError(f"{source} must have shape (3, H, W) or (B, 3, H, W)")
-                if not np.isfinite(image).all():
-                    raise ValueError(f"{source} must be finite")
+                assert image.ndim in (3, 4) and image.shape[-3] == 3, (
+                    f"{source} must have shape (3, H, W) or (B, 3, H, W)"
+                )
+                assert np.isfinite(image).all(), f"{source} must be finite"
                 image = image.copy()
-            if min(image.shape[-2:]) < 1:
-                raise ValueError(f"{source} must have non-empty spatial dimensions")
+            assert min(image.shape[-2:]) >= 1, f"{source} must have non-empty spatial dimensions"
             images[target] = image
 
         result = {

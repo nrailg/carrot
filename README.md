@@ -119,12 +119,13 @@ RoboTwin's LeRobot metadata does not contain PI0.5 quantiles. Set
 and `action.q01/q99`; when omitted, the adapter uses dataset min/max statistics.
 
 SO101 uses [orange_cube_merged](https://huggingface.co/datasets/felixmayor/orange_cube_merged)
-through `configs/pi05_sft_so101_orange_cube.yaml`. The adapter maps `top` to the
-base view and `fpv` to the left wrist view, masks the missing third view, and
-trains on six absolute joint targets using the dataset's quantile statistics.
-The config pins the dataset revision; set `dataset.factory_kwargs.root` to an
-existing local copy when training without a Hub download. SO101 checkpoints can
-be served with `carrot-serve-pi05 --embodiment so101`.
+through `recipes/pi05_sft_so101_orange_cube/pi05_sft_so101_orange_cube.yaml`.
+The adapter maps `top` to the base view and `fpv` to the left wrist view,
+masks the missing third view, and trains on six absolute joint targets using
+the dataset's quantile statistics.
+The config pins the dataset revision and points `dataset.factory_kwargs.root`
+to a local copy; update that path if the dataset is stored elsewhere. SO101
+checkpoints can be served with `carrot-serve-pi05 --embodiment so101`.
 
 Resume a distributed checkpoint with:
 

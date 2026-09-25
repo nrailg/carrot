@@ -65,8 +65,9 @@ def preprocess_observation_pytorch(
 
     This function avoids complex type annotations that can cause torch.compile issues.
     """
-    if not set(image_keys).issubset(observation.images):
-        raise ValueError(f"images dict missing keys: expected {image_keys}, got {list(observation.images)}")
+    assert set(image_keys).issubset(observation.images), (
+        f"images dict missing keys: expected {image_keys}, got {list(observation.images)}"
+    )
 
     batch_shape = observation.state.shape[:-1]
 

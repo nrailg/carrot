@@ -120,12 +120,10 @@ class Pi05SFTLossFn(Pi05Preprocessor):
                 model.config.action_horizon,
                 model.config.action_dim,
             )
-            assert tuple(actions.shape) == expected and torch.isfinite(actions).all(), (
-                f"transformed actions must be finite with shape {expected}"
-            )
-            assert tuple(valid.shape) == expected[:2], (
-                f"action_is_pad must have shape {expected[:2]}"
-            )
+            if tuple(actions.shape) != expected or not torch.isfinite(actions).all():
+                raise ValueError(f"transformed actions must be finite with shape {expected}")
+            if tuple(valid.shape) != expected[:2]:
+                raise ValueError(f"action_is_pad must have shape {expected[:2]}")
             return observation, actions, valid
 
         state = batch[self.state_key].to(device, non_blocking=True)
@@ -197,14 +195,12 @@ def build_pi05(
 ) -> Pi05Components:
     """Load PI0.5 and bind a configured SFT dataset integration."""
     dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)
-    assert isinstance(dataset, SFTDatasetSpec), (
-        f"dataset factory {dataset_factory!r} must return SFTDatasetSpec"
-    )
+    if not isinstance(dataset, SFTDatasetSpec):
+        raise TypeError(f"dataset factory {dataset_factory!r} must return SFTDatasetSpec")
     checkpoint_stats = Path(model_path) / "norm_stats.json"
     if dataset.embodiment == "so101":
-        assert preprocess is None, (
-            "SO101 uses shared input transforms; set dataset.preprocess to null"
-        )
+        if preprocess is not None:
+            raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
         if norm_stats_path is None:
             state_stats = dataset.state_stats
             action_stats = dataset.action_stats
@@ -215,9 +211,8 @@ def build_pi05(
             state_stats = normalization["state"]
             action_stats = normalization["actions" if "actions" in normalization else "action"]
     elif dataset.embodiment == "libero":
-        assert preprocess is None, (
-            "LIBERO uses shared input transforms; set dataset.preprocess to null"
-        )
+        if preprocess is not None:
+            raise ValueError("LIBERO uses shared input transforms; set dataset.preprocess to null")
         official_stats = Path(model_path) / "assets/physical-intelligence/libero/norm_stats.json"
         stats_path = (
             Path(norm_stats_path)
@@ -252,9 +247,8 @@ def build_pi05(
     training_dataset = dataset.dataset
     collate_fn = dataset.collate_fn
     if dataset.embodiment == "libero":
-        assert model.config.action_horizon == 10 and model.config.action_dim >= 7, (
-            "LIBERO requires action_horizon=10 and action_dim>=7"
-        )
+        if model.config.action_horizon != 10 or model.config.action_dim < 7:
+            raise ValueError("LIBERO requires action_horizon=10 and action_dim>=7")
         transform_spec = create_libero_transform_spec(
             tokenizer,
             {"state": state_stats, "actions": action_stats},
@@ -271,10 +265,8 @@ def build_pi05(
         )
         training_dataset = Pi05TransformedDataset(dataset.dataset, transform_spec)
         collate_fn = None
-    else:
-        assert dataset.embodiment == "robotwin", (
-            f"unknown PI0.5 embodiment: {dataset.embodiment}"
-        )
+    elif dataset.embodiment != "robotwin":
+        raise ValueError(f"unknown PI0.5 embodiment: {dataset.embodiment}")
     loss_fn = Pi05SFTLossFn(
         tokenizer,
         state_stats=state_stats,

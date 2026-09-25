@@ -214,7 +214,8 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
 
             # First unmask prefix tokens during training
             if is_training:
-                assert token_type_ids is not None, "Token type ids must be provided during training"
+                if token_type_ids is None:
+                    raise ValueError("Token type ids must be provided during training")
                 causal_mask[:, :, :, :mask_length] = causal_mask[:, :, :, :mask_length].masked_fill(
                     token_type_ids[:, None, None, :].to(causal_mask.device) == 0, 0
                 )
@@ -289,9 +290,8 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
         "Where is the cat standing?\nsnow"
         ```"""
 
-        assert not ((input_ids is None) ^ (inputs_embeds is not None)), (
-            "You must specify exactly one of input_ids or inputs_embeds"
-        )
+        if (input_ids is None) ^ (inputs_embeds is not None):
+            raise ValueError("You must specify exactly one of input_ids or inputs_embeds")
 
         output_attentions = output_attentions if output_attentions is not None else self.config.output_attentions
         output_hidden_states = (
@@ -333,11 +333,11 @@ class PaliGemmaModel(PaliGemmaPreTrainedModel):
                 special_image_mask = (input_ids == self.config.image_token_id).unsqueeze(-1)
                 special_image_mask = special_image_mask.expand_as(inputs_embeds).to(inputs_embeds.device)
 
-            if not is_torchdynamo_compiling():
-                assert inputs_embeds[special_image_mask].numel() == image_features.numel(), (
+            if not is_torchdynamo_compiling() and inputs_embeds[special_image_mask].numel() != image_features.numel():
+                image_tokens_in_text = (special_image_mask).sum(dim=1).sum(dim=0)[0]
+                raise ValueError(
                     f"Number of images does not match number of special image tokens in the input text. "
-                    f"Got {(special_image_mask).sum(dim=1).sum(dim=0)[0]} image tokens in the text but "
-                    f"{image_features.shape[0] * image_features.shape[1]} "
+                    f"Got {image_tokens_in_text} image tokens in the text but {image_features.shape[0] * image_features.shape[1]} "
                     "tokens from image embeddings."
                 )
             image_features = image_features.to(inputs_embeds.device, inputs_embeds.dtype)

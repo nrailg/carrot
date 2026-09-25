@@ -111,9 +111,6 @@ def variance_scaling_(tensor, scale=1.0, mode="fan_in", distribution="normal"):
 
     variance = scale / denom
 
-    assert distribution in {"truncated_normal", "normal", "uniform"}, (
-        f"invalid distribution {distribution}"
-    )
     if distribution == "truncated_normal":
         # constant is stddev of standard normal truncated to (-2, 2)
         trunc_normal_tf_(tensor, std=math.sqrt(variance) / 0.87962566103423978)
@@ -124,6 +121,8 @@ def variance_scaling_(tensor, scale=1.0, mode="fan_in", distribution="normal"):
         bound = math.sqrt(3 * variance)
         with torch.no_grad():
             tensor.uniform_(-bound, bound)
+    else:
+        raise ValueError(f"invalid distribution {distribution}")
 
 
 def lecun_normal_(tensor):
@@ -305,10 +304,11 @@ class SiglipTextEmbeddings(nn.Module):
         seq_length = input_ids.shape[-1] if input_ids is not None else inputs_embeds.shape[-2]
         max_position_embedding = self.position_embedding.weight.shape[0]
 
-        assert seq_length <= max_position_embedding, (
-            f"Sequence length must be less than max_position_embeddings (got `sequence length`: "
-            f"{seq_length} and max_position_embeddings: {max_position_embedding}"
-        )
+        if seq_length > max_position_embedding:
+            raise ValueError(
+                f"Sequence length must be less than max_position_embeddings (got `sequence length`: "
+                f"{seq_length} and max_position_embeddings: {max_position_embedding}"
+            )
 
         if position_ids is None:
             position_ids = self.position_ids[:, :seq_length]
@@ -354,10 +354,11 @@ class SiglipAttention(nn.Module):
         self.embed_dim = config.hidden_size
         self.num_heads = config.num_attention_heads
         self.head_dim = self.embed_dim // self.num_heads
-        assert self.head_dim * self.num_heads == self.embed_dim, (
-            f"embed_dim must be divisible by num_heads (got `embed_dim`: {self.embed_dim} and `num_heads`:"
-            f" {self.num_heads})."
-        )
+        if self.head_dim * self.num_heads != self.embed_dim:
+            raise ValueError(
+                f"embed_dim must be divisible by num_heads (got `embed_dim`: {self.embed_dim} and `num_heads`:"
+                f" {self.num_heads})."
+            )
         self.scale = self.head_dim**-0.5
         self.dropout = config.attention_dropout
         self.is_causal = False
@@ -652,7 +653,8 @@ class SiglipTextTransformer(nn.Module):
             output_hidden_states if output_hidden_states is not None else self.config.output_hidden_states
         )
 
-        assert input_ids is not None, "You have to specify input_ids"
+        if input_ids is None:
+            raise ValueError("You have to specify input_ids")
 
         input_shape = input_ids.size()
         input_ids = input_ids.view(-1, input_shape[-1])
@@ -883,15 +885,17 @@ class SiglipModel(SiglipPreTrainedModel):
     def __init__(self, config: SiglipConfig):
         super().__init__(config)
 
-        assert isinstance(config.text_config, SiglipTextConfig), (
-            "config.text_config is expected to be of type SiglipTextConfig but is of type"
-            f" {type(config.text_config)}."
-        )
+        if not isinstance(config.text_config, SiglipTextConfig):
+            raise TypeError(
+                "config.text_config is expected to be of type SiglipTextConfig but is of type"
+                f" {type(config.text_config)}."
+            )
 
-        assert isinstance(config.vision_config, SiglipVisionConfig), (
-            "config.vision_config is expected to be of type SiglipVisionConfig but is of type"
-            f" {type(config.vision_config)}."
-        )
+        if not isinstance(config.vision_config, SiglipVisionConfig):
+            raise TypeError(
+                "config.vision_config is expected to be of type SiglipVisionConfig but is of type"
+                f" {type(config.vision_config)}."
+            )
 
         text_config = config.text_config
         vision_config = config.vision_config

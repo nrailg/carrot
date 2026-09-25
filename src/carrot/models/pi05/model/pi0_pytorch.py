@@ -30,12 +30,13 @@ class _GemmaConfig:
 
 
 def _get_gemma_config(variant: str) -> _GemmaConfig:
-    assert variant in ("gemma_2b", "gemma_300m", "dummy"), f"Unknown Gemma variant: {variant}"
     if variant == "gemma_2b":
         return _GemmaConfig(2048, 18, 16_384, 8, 1, 256)
     if variant == "gemma_300m":
         return _GemmaConfig(1024, 18, 4096, 8, 1, 256)
-    return _GemmaConfig(64, 4, 128, 8, 1, 16)
+    if variant == "dummy":
+        return _GemmaConfig(64, 4, 128, 8, 1, 16)
+    raise ValueError(f"Unknown Gemma variant: {variant}")
 
 
 def get_safe_dtype(target_dtype, device_type):
@@ -53,9 +54,11 @@ def create_sinusoidal_pos_embedding(
     time: torch.tensor, dimension: int, min_period: float, max_period: float, device="cpu"
 ) -> Tensor:
     """Computes sine-cosine positional embedding vectors for scalar positions."""
-    assert dimension % 2 == 0, f"dimension ({dimension}) must be divisible by 2"
+    if dimension % 2 != 0:
+        raise ValueError(f"dimension ({dimension}) must be divisible by 2")
 
-    assert time.ndim == 1, "The time tensor is expected to be of shape `(batch_size, )`."
+    if time.ndim != 1:
+        raise ValueError("The time tensor is expected to be of shape `(batch_size, )`.")
 
     dtype = get_safe_dtype(torch.float64, device.type)
     fraction = torch.linspace(0.0, 1.0, dimension // 2, dtype=dtype, device=device)
@@ -95,8 +98,10 @@ def make_att_2d_masks(pad_masks, att_masks):
       mask_ar: int32[B, N] mask that's 1 where previous tokens cannot depend on
         it and 0 where it shares the same attention mask as the previous token.
     """
-    assert att_masks.ndim == 2, f"attention masks must have 2 dimensions, got {att_masks.ndim}"
-    assert pad_masks.ndim == 2, f"padding masks must have 2 dimensions, got {pad_masks.ndim}"
+    if att_masks.ndim != 2:
+        raise ValueError(att_masks.ndim)
+    if pad_masks.ndim != 2:
+        raise ValueError(pad_masks.ndim)
 
     cumsum = torch.cumsum(att_masks, dim=1)
     att_2d_masks = cumsum[:, None, :] <= cumsum[:, :, None]
@@ -123,13 +128,14 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
             self.register_to_config(max_token_len=200 if self.config.pi05 else 48)
         if self.config.discrete_state_input is None:
             self.register_to_config(discrete_state_input=self.config.pi05)
-        assert self.config.pytorch_compile_mode in (
+        if self.config.pytorch_compile_mode not in (
             None,
             "default",
             "reduce-overhead",
             "max-autotune",
             "max-autotune-no-cudagraphs",
-        ), f"invalid pytorch_compile_mode: {self.config.pytorch_compile_mode}"
+        ):
+            raise ValueError(f"invalid pytorch_compile_mode: {self.config.pytorch_compile_mode}")
 
         paligemma_config = _get_gemma_config(self.config.paligemma_variant)
         action_expert_config = _get_gemma_config(self.config.action_expert_variant)
@@ -167,7 +173,8 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         weight_path = path / "model.safetensors"
         if not weight_path.is_file():
             return super().from_pretrained(pretrained_model_name_or_path, **kwargs)
-        assert not kwargs, f"unsupported OpenPI loading options: {sorted(kwargs)}"
+        if kwargs:
+            raise TypeError(f"unsupported OpenPI loading options: {sorted(kwargs)}")
         with (path / "config.json").open() as stream:
             config = json.load(stream)
         model = cls(
@@ -218,16 +225,14 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         )
         tied_lm_head = "paligemma_with_expert.paligemma.lm_head.weight"
         if tied_embedding in tensors and tied_lm_head in tensors:
-            assert tensors[tied_embedding].shape == tensors[tied_lm_head].shape, (
-                "PaliGemma tied weights have different shapes"
-            )
+            if tensors[tied_embedding].shape != tensors[tied_lm_head].shape:
+                raise ValueError("PaliGemma tied weights have different shapes")
             del tensors[tied_embedding]
         floating_dtypes = {
             tensor.dtype for tensor in tensors.values() if tensor.dtype.is_floating_point
         }
-        assert floating_dtypes <= {torch.bfloat16, torch.float32}, (
-            f"unsupported checkpoint dtypes: {sorted(map(str, floating_dtypes))}"
-        )
+        if not floating_dtypes <= {torch.bfloat16, torch.float32}:
+            raise ValueError(f"unsupported checkpoint dtypes: {sorted(map(str, floating_dtypes))}")
         precision = "bfloat16" if torch.bfloat16 in floating_dtypes else "float32"
         save_torch_state_dict(
             tensors,

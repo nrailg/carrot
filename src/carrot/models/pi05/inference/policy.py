@@ -30,13 +30,10 @@ class Pi05Policy:
         device: str,
         num_steps: int = 10,
     ) -> None:
-        assert num_steps >= 1, "num_steps must be positive"
-        assert (
-            model.config.action_dim >= transform_spec.action_dim
-            and model.config.action_horizon >= 1
-        ), (
-            "model action contract is incompatible with the transform spec"
-        )
+        if num_steps < 1:
+            raise ValueError("num_steps must be positive")
+        if model.config.action_dim < transform_spec.action_dim or model.config.action_horizon < 1:
+            raise ValueError("model action contract is incompatible with the transform spec")
         self._model = model.to(device).eval()
         self._device = torch.device(device)
         self._num_steps = num_steps
@@ -66,9 +63,8 @@ class Pi05Policy:
         if noise is not None:
             noise = np.asarray(noise)
             expected = (self._model.config.action_horizon, self._model.config.action_dim)
-            assert noise.shape == expected and np.isfinite(noise).all(), (
-                f"noise must be finite with shape {expected}"
-            )
+            if noise.shape != expected or not np.isfinite(noise).all():
+                raise ValueError(f"noise must be finite with shape {expected}")
             sample_noise = torch.as_tensor(noise.copy(), device=self._device, dtype=torch.float32)[
                 None
             ]
@@ -79,9 +75,8 @@ class Pi05Policy:
         )
         model_time = time.perf_counter() - start
         expected = (1, self._model.config.action_horizon, self._model.config.action_dim)
-        assert tuple(actions.shape) == expected and torch.isfinite(actions).all(), (
-            f"model actions must be finite with shape {expected}"
-        )
+        if tuple(actions.shape) != expected or not torch.isfinite(actions).all():
+            raise ValueError(f"model actions must be finite with shape {expected}")
 
         outputs = self._output_transform({"state": observation.state, "actions": actions})
         decoded = outputs["actions"]
@@ -90,9 +85,8 @@ class Pi05Policy:
         else:
             decoded = np.asarray(decoded[0], dtype=np.float32)
         expected_decoded = (self._model.config.action_horizon, self._transform_spec.action_dim)
-        assert decoded.shape == expected_decoded and np.isfinite(decoded).all(), (
-            f"decoded actions must be finite with shape {expected_decoded}"
-        )
+        if decoded.shape != expected_decoded or not np.isfinite(decoded).all():
+            raise ValueError(f"decoded actions must be finite with shape {expected_decoded}")
         return {
             "actions": decoded,
             "policy_timing": {"infer_ms": model_time * 1000},

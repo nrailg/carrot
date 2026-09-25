@@ -9,17 +9,19 @@ from carrot.models.pi05 import transforms
 
 def _parse_image(value: Any, name: str) -> np.ndarray:
     image = np.asarray(value)
-    assert image.ndim == 3, f"{name} must be an RGB image"
+    if image.ndim != 3:
+        raise ValueError(f"{name} must be an RGB image")
     if np.issubdtype(image.dtype, np.floating):
-        assert np.isfinite(image).all(), f"{name} must be finite"
+        if not np.isfinite(image).all():
+            raise ValueError(f"{name} must be finite")
         image = (255 * image).astype(np.uint8)
-    assert image.dtype == np.uint8, f"{name} must be uint8 or floating point"
-    assert image.shape[0] == 3 or image.shape[-1] == 3, (
-        f"{name} must have shape (3, H, W) or (H, W, 3)"
-    )
+    if image.dtype != np.uint8:
+        raise ValueError(f"{name} must be uint8 or floating point")
     if image.shape[0] == 3:
         return image.copy()
-    return np.transpose(image, (2, 0, 1)).copy()
+    if image.shape[-1] == 3:
+        return np.transpose(image, (2, 0, 1)).copy()
+    raise ValueError(f"{name} must have shape (3, H, W) or (H, W, 3)")
 
 
 class LiberoInputs:
@@ -27,16 +29,14 @@ class LiberoInputs:
 
     def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
         state = np.asarray(data["observation/state"], dtype=np.float32)
-        assert state.shape == (8,) and np.isfinite(state).all(), (
-            "observation/state must be finite with shape (8,)"
-        )
+        if state.shape != (8,) or not np.isfinite(state).all():
+            raise ValueError("observation/state must be finite with shape (8,)")
         base_image = _parse_image(data["observation/image"], "observation/image")
         wrist_image = _parse_image(
             data["observation/wrist_image"], "observation/wrist_image"
         )
-        assert base_image.shape[1:] == wrist_image.shape[1:], (
-            "LIBERO camera images must have matching spatial dimensions"
-        )
+        if base_image.shape[1:] != wrist_image.shape[1:]:
+            raise ValueError("LIBERO camera images must have matching spatial dimensions")
         result = {
             "state": state,
             "image": {
@@ -53,9 +53,8 @@ class LiberoInputs:
         }
         if "actions" in data:
             actions = np.asarray(data["actions"], dtype=np.float32)
-            assert actions.ndim == 2 and actions.shape[-1] == 7 and np.isfinite(actions).all(), (
-                "actions must be finite with shape (H, 7)"
-            )
+            if actions.ndim != 2 or actions.shape[-1] != 7 or not np.isfinite(actions).all():
+                raise ValueError("actions must be finite with shape (H, 7)")
             result["actions"] = actions
         return result
 

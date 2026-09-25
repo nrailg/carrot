@@ -79,7 +79,8 @@ class Pi05Preprocessor:
         elif isinstance(tasks, (np.ndarray, torch.Tensor)):
             tasks = tasks.tolist()
         prompts = []
-        assert len(tasks) == state.shape[0], "prompt batch size must match state batch size"
+        if len(tasks) != state.shape[0]:
+            raise ValueError("prompt batch size must match state batch size")
         discrete = None
         if discrete_state_input:
             bins = torch.linspace(-1, 1, 257, device=state.device)[:-1]

@@ -77,12 +77,13 @@ class PaliGemmaWithExpertModel(nn.Module):
         self.to_bfloat16_for_selected_params(precision)
 
     def to_bfloat16_for_selected_params(self, precision: Literal["bfloat16", "float32"] = "bfloat16"):
-        assert precision in ("bfloat16", "float32"), f"Invalid precision: {precision}"
         if precision == "bfloat16":
             self.to(dtype=torch.bfloat16)
         elif precision == "float32":
             self.to(dtype=torch.float32)
             return
+        else:
+            raise ValueError(f"Invalid precision: {precision}")
 
         params_to_keep_float32 = [
             "vision_tower.vision_model.embeddings.patch_embedding.weight",

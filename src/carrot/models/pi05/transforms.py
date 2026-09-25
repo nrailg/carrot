@@ -71,7 +71,8 @@ def to_observation(
     state = torch.as_tensor(inputs["state"], device=device)
     if state.ndim == 1:
         state = state[None]
-    assert state.ndim == 2, "transformed state must have shape (D,) or (B, D)"
+    if state.ndim != 2:
+        raise ValueError("transformed state must have shape (D,) or (B, D)")
 
     images = {}
     image_masks = {}
@@ -79,16 +80,14 @@ def to_observation(
         image = torch.as_tensor(value, device=device)
         if image.ndim == 3:
             image = image[None]
-        assert image.ndim == 4 and image.shape[0] == state.shape[0], (
-            f"transformed {key} image batch must match state"
-        )
+        if image.ndim != 4 or image.shape[0] != state.shape[0]:
+            raise ValueError(f"transformed {key} image batch must match state")
         images[key] = image.to(dtype)
         mask = torch.as_tensor(inputs["image_mask"][key], device=device, dtype=torch.bool)
         if mask.ndim == 0:
             mask = mask.expand(state.shape[0])
-        assert tuple(mask.shape) == (state.shape[0],), (
-            f"transformed {key} mask must match state batch"
-        )
+        if tuple(mask.shape) != (state.shape[0],):
+            raise ValueError(f"transformed {key} mask must match state batch")
         image_masks[key] = mask
 
     tokens = torch.as_tensor(inputs["tokenized_prompt"], device=device, dtype=torch.long)
@@ -96,9 +95,8 @@ def to_observation(
     if tokens.ndim == 1:
         tokens = tokens[None]
         token_mask = token_mask[None]
-    assert tokens.shape == token_mask.shape and tokens.shape[0] == state.shape[0], (
-        "transformed prompt tensors must match state batch"
-    )
+    if tokens.shape != token_mask.shape or tokens.shape[0] != state.shape[0]:
+        raise ValueError("transformed prompt tensors must match state batch")
     return PI0Observation(
         images=images,
         image_masks=image_masks,
@@ -114,9 +112,8 @@ class InjectDefaultPrompt:
 
     def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
         prompt = data.get("prompt", self.prompt)
-        assert isinstance(prompt, str) and prompt.strip(), (
-            "a non-empty prompt or default_prompt is required"
-        )
+        if not isinstance(prompt, str) or not prompt.strip():
+            raise ValueError("a non-empty prompt or default_prompt is required")
         return {**data, "prompt": prompt}
 
 
@@ -129,20 +126,20 @@ class Normalize:
     def __post_init__(self) -> None:
         first_name, second_name = ("q01", "q99") if self.use_quantiles else ("mean", "std")
         for key, width in self.dimensions.items():
-            assert key in self.norm_stats, f"normalization stats missing {key}"
+            if key not in self.norm_stats:
+                raise ValueError(f"normalization stats missing {key}")
             first = np.asarray(self.norm_stats[key][first_name], dtype=np.float32)
             second = np.asarray(self.norm_stats[key][second_name], dtype=np.float32)
-            label = "quantiles" if self.use_quantiles else "mean/std"
-            assert first.shape == (width,) and second.shape == (width,), (
-                f"{key} {label} must have shape ({width},)"
-            )
-            assert np.isfinite(first).all() and np.isfinite(second).all(), (
-                f"{key} {label} must be finite"
-            )
-            if self.use_quantiles:
-                assert not (second < first).any(), f"{key} quantiles must be ordered"
-            else:
-                assert not (second < 0).any(), f"{key} standard deviation must be non-negative"
+            if first.shape != (width,) or second.shape != (width,):
+                label = "quantiles" if self.use_quantiles else "mean/std"
+                raise ValueError(f"{key} {label} must have shape ({width},)")
+            if not np.isfinite(first).all() or not np.isfinite(second).all():
+                label = "quantiles" if self.use_quantiles else "mean/std"
+                raise ValueError(f"{key} {label} must be finite")
+            if self.use_quantiles and (second < first).any():
+                raise ValueError(f"{key} quantiles must be ordered")
+            if not self.use_quantiles and (second < 0).any():
+                raise ValueError(f"{key} standard deviation must be non-negative")
 
     def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
         result = dict(data)
@@ -189,10 +186,10 @@ class ResizeImages:
             unbatched = image.ndim == 3
             if unbatched:
                 image = image[None]
-            assert image.ndim == 4 and image.shape[1] == 3, (
-                f"{key} must have shape (3, H, W) or (B, 3, H, W)"
-            )
-            assert torch.isfinite(image.float()).all(), f"{key} must be finite"
+            if image.ndim != 4 or image.shape[1] != 3:
+                raise ValueError(f"{key} must have shape (3, H, W) or (B, 3, H, W)")
+            if not torch.isfinite(image.float()).all():
+                raise ValueError(f"{key} must be finite")
             scale_from_uint8 = not image.is_floating_point()
             image = image.float()
             if scale_from_uint8 or image.max() > 1:
@@ -233,9 +230,8 @@ class ResizeImagesPIL:
         images = {}
         for key, value in data["image"].items():
             image = np.asarray(value)
-            assert image.dtype == np.uint8 and image.ndim == 3 and image.shape[0] == 3, (
-                f"{key} must be uint8 with shape (3, H, W)"
-            )
+            if image.dtype != np.uint8 or image.ndim != 3 or image.shape[0] != 3:
+                raise ValueError(f"{key} must be uint8 with shape (3, H, W)")
             height, width = image.shape[1:]
             if (height, width) != (self.height, self.width):
                 ratio = max(width / self.width, height / self.height)

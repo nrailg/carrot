@@ -101,9 +101,8 @@ def create_libero_policy(
     norm_stats = _load_norm_stats(stats_path)
     tokenizer = _load_tokenizer(tokenizer_dir)
     model = PI0Pytorch.from_pretrained(checkpoint_dir)
-    assert model.config.action_horizon == 10 and model.config.action_dim >= 7, (
-        "LIBERO requires action_horizon=10 and model action_dim >= 7"
-    )
+    if model.config.action_horizon != 10 or model.config.action_dim < 7:
+        raise ValueError("LIBERO requires action_horizon=10 and model action_dim >= 7")
     transform_spec = create_libero_transform_spec(
         tokenizer,
         norm_stats,
@@ -159,9 +158,8 @@ def create_so101_policy(
 def _validate_checkpoint(checkpoint_dir: str | Path) -> Path:
     checkpoint_dir = Path(checkpoint_dir)
     for name in ("model.safetensors", "config.json"):
-        assert (checkpoint_dir / name).is_file(), (
-            f"missing checkpoint file: {checkpoint_dir / name}"
-        )
+        if not (checkpoint_dir / name).is_file():
+            raise FileNotFoundError(checkpoint_dir / name)
     return checkpoint_dir
 
 
@@ -170,13 +168,11 @@ def _resolve_tokenizer_dir(
 ) -> Path:
     tokenizer_dir = checkpoint_dir
     if not (tokenizer_dir / "tokenizer_config.json").is_file():
-        assert tokenizer_path is not None, (
-            f"missing tokenizer_config.json: {checkpoint_dir / 'tokenizer_config.json'}"
-        )
+        if tokenizer_path is None:
+            raise FileNotFoundError(checkpoint_dir / "tokenizer_config.json")
         tokenizer_dir = Path(tokenizer_path)
-        assert (tokenizer_dir / "tokenizer_config.json").is_file(), (
-            f"missing tokenizer_config.json: {tokenizer_dir / 'tokenizer_config.json'}"
-        )
+        if not (tokenizer_dir / "tokenizer_config.json").is_file():
+            raise FileNotFoundError(tokenizer_dir / "tokenizer_config.json")
     return tokenizer_dir
 
 
@@ -189,7 +185,8 @@ def _load_tokenizer(tokenizer_dir: Path) -> Any:
 
 
 def _load_norm_stats(path: Path) -> dict[str, dict[str, Any]]:
-    assert path.is_file(), f"missing normalization stats: {path}"
+    if not path.is_file():
+        raise FileNotFoundError(path)
     with path.open() as stream:
         payload = json.load(stream)
     if "norm_stats" in payload:

@@ -251,7 +251,7 @@ def test_loader_rejects_missing_artifact_before_model_load(tmp_path: Path, missi
             (tmp_path / name).touch()
 
     # 检查报错包含具体缺失文件，便于定位 checkpoint bundle 不完整。
-    with pytest.raises(AssertionError, match=missing):
+    with pytest.raises(FileNotFoundError, match=missing):
         create_robotwin_policy(tmp_path, device="cpu")
 
 
@@ -272,7 +272,7 @@ def test_infer_rejects_invalid_input(field: str) -> None:
     policy = _robotwin_policy(model, _Tokenizer(), _stats())
 
     # 所有错误都应在模型采样之前被发现。
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError):
         policy.infer(obs, noise=noise)
     assert model.seen is None
 
@@ -342,7 +342,7 @@ def test_invalid_stats_fail_before_model_setup(invalid: str) -> None:
         stats["q01"] = stats["q01"][:-1]
 
     # constructor 在模型转移设备之前校验统计量。
-    with pytest.raises(AssertionError, match="quantiles"):
+    with pytest.raises(ValueError, match="quantiles"):
         create_aloha_transform_spec(
             _Tokenizer(),
             {"state": stats, "actions": _stats()},

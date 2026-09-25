@@ -30,5 +30,14 @@ bash recipes/pi05_sft_so101_orange_cube/run.sh
 
 ## 状态
 
-**NOT RUN**：此 recipe 仅完成配置和运行入口整理，没有训练任务 ID、
-退出码或 checkpoint；正式运行后的环境、进度和结果应追加到本档案。
+2026-09-25 开跑前为 **NOT RUN**。本次运行记录如下；后续检查追加，保留历史状态。
+
+## 2026-09-25 首次运行（进行中）
+
+- Gemini 容器：`mpi-launcher@mpi-1759754893-launcher`，单节点 8 张 H20；`MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu`。2026-09-25 15:25 UTC 左右通过 `bash recipes/pi05_sft_so101_orange_cube/run.sh` 启动，后台任务 ID `1a17e72c-0036`。Ray 已连接，资源占用 8/8 GPU、40/224 CPU；dguard 暂停 2880 分钟。W&B 关闭。
+- 数据下载到配置指定的本地目录，Hugging Face 本地 cache 的 tree 和 `meta/info.json.metadata` 均标识固定 revision `c021b3c22a3de4e70e81010e54fb250a5dde348b`。tree 中 13 个文件全部存在且大小匹配，合计 1,130,873,263 字节；`meta/info.json` 为 `so101_follower`、30 FPS、154 episodes、68,468 frames。base checkpoint 的远端 `config.json` 实测 `action_horizon=50`。
+- 本地 Carrot HEAD 为 `d4d78ef`；远端同步副本不含 `.git`，已逐字节核对 SO101 adapter、recipe YAML 与 `run.sh` 的 SHA-256 与本地相同，不能据此宣称远端完整 checkout commit。实际容器镜像 tag 未核实。
+- 2026-09-25 15:31 UTC 只读检查：后台任务仍为 running；Ray rank-0 worker 输出 `first forward ok loss=0.072266`，step 10 `loss=0.040472, grad_norm=0.198651`，step 20 `loss=0.030198, grad_norm=0.082005`，step 30 `loss=0.028381, grad_norm=0.079973`，LR 均为 `1e-5`。这些是早期有限数值，不代表 5000-step 完成或效果验收。
+- 持久化日志快照：`${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube_monitor/20260925T153144Z/rank0_worker_stdout.txt` 与同目录 `backend_task_1a17e72c-0036.txt`。Ray 的实时 worker 日志仍在 launcher 的 `/tmp/ray/session_latest/logs/`，属于临时盘；后台任务状态可用 task ID 查询。计划训练输出目录为 `${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube`，截至该次检查尚不存在；首个 checkpoint 计划在 step 500。
+
+待验收：持续核对有限 loss/grad、任务退出状态、step 500 及最终 checkpoint 的完整性，再分别验证模型加载、resume 和效果。不得把早期 step 或存在 checkpoint 当作 5000-step 训练完成。

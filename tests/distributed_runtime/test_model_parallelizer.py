@@ -40,7 +40,7 @@ def test_disabled_fsdp_preserves_model() -> None:
 def test_fsdp_requires_initialized_process_group() -> None:
     # 验证启用 FSDP 前必须已有 torch.distributed process group。
     # Act/Assert：未初始化 distributed 时，入口应在访问 wrapping 单元前明确失败。
-    with pytest.raises(RuntimeError, match="torch.distributed"):
+    with pytest.raises(AssertionError, match="torch.distributed"):
         parallelize_model(FakePolicy(), EmptyParallelizer(), FSDPConfig())
 
 

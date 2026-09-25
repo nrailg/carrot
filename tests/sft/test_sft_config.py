@@ -68,17 +68,20 @@ def test_sft_config_derives_gas(tmp_path: Path) -> None:
 
 
 def test_sft_config_rejects_indivisible_global_batch(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="global_batch_size"):
+    # 全局批次无法按微批次和数据并行数整除时，配置必须立即断言失败。
+    with pytest.raises(AssertionError, match="global_batch_size"):
         _config(tmp_path, {"micro_batch_size": 3, "global_batch_size": 8, "dp_size": 2})
 
 
 def test_sft_config_rejects_uneven_gpu_split(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="divisible"):
+    # 数据并行数无法均分到节点时，配置必须立即断言失败。
+    with pytest.raises(AssertionError, match="divisible"):
         _config(tmp_path, {"dp_size": 16, "num_nodes": 3})
 
 
 def test_sft_config_rejects_unknown_fields(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="unknown DatasetConfig fields"):
+    # 未知字段通常是配置拼写错误，必须由嵌套配置解析器断言拒绝。
+    with pytest.raises(AssertionError, match="unknown DatasetConfig fields"):
         _config(tmp_path, {"dataset": {"silent_typo": True}})
 
 
@@ -105,12 +108,13 @@ def test_sft_config_accepts_custom_dataset_integrations(tmp_path: Path) -> None:
 def test_sft_config_rejects_escaping_stats_asset_id(tmp_path: Path, asset_id: str) -> None:
     # asset id 决定 checkpoint 写入目录，必须阻止绝对路径和向上跳出。
     # 从普通配置入口构造，确认错误在保存前就被拒绝。
-    with pytest.raises(ValueError, match="norm_stats_asset_id"):
+    with pytest.raises(AssertionError, match="norm_stats_asset_id"):
         _config(tmp_path, {"dataset": {"norm_stats_asset_id": asset_id}})
 
 
 def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="unsupported param_dtype"):
+    # FSDP 只支持训练路径定义的两种参数 dtype，其他取值必须断言失败。
+    with pytest.raises(AssertionError, match="unsupported param_dtype"):
         _config(tmp_path, {"fsdp": {"param_dtype": "float16"}})
 
 
@@ -125,12 +129,14 @@ def test_sft_config_uses_pi05_defaults() -> None:
 
 
 def test_sft_config_rejects_empty_tokenizer_path() -> None:
-    with pytest.raises(ValueError, match="tokenizer_path"):
+    # tokenizer 是模型构造的必需输入，空路径必须在配置阶段断言失败。
+    with pytest.raises(AssertionError, match="tokenizer_path"):
         SFTConfig.from_dict({"model": {"tokenizer_path": ""}})
 
 
 def test_sft_config_rejects_decay_lr_above_peak(tmp_path: Path) -> None:
-    with pytest.raises(ValueError, match="decay_learning_rate"):
+    # 衰减终值不能高于峰值，违反学习率区间时必须断言失败。
+    with pytest.raises(AssertionError, match="decay_learning_rate"):
         _config(
             tmp_path,
             {"optimizer": {"learning_rate": 1e-4, "decay_learning_rate": 2e-4}},

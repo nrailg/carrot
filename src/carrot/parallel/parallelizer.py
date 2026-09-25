@@ -26,11 +26,9 @@ class ModelParallelizer(ABC):
 
 
 def _dtype(name: str) -> torch.dtype:
-    if name == "bfloat16":
-        return torch.bfloat16
-    if name == "float32":
-        return torch.float32
-    raise ValueError(f"unsupported dtype {name!r}")
+    dtypes = {"bfloat16": torch.bfloat16, "float32": torch.float32}
+    assert name in dtypes, f"unsupported dtype {name!r}"
+    return dtypes[name]
 
 
 def _set_prefetch(units: Sequence[nn.Module], forward: int, backward: int) -> None:
@@ -56,15 +54,15 @@ def parallelize_model(
     """Apply bottom-up composable FSDP2 wrapping and return the same model."""
     if not config.enabled:
         return model
-    if not dist.is_initialized():
-        raise RuntimeError("torch.distributed must be initialized before applying FSDP2")
+    assert dist.is_initialized(), "torch.distributed must be initialized before applying FSDP2"
 
     # FSDP mixed precision casts full parameters only for forward/backward. Keep
     # the sharded master parameters in FP32 so AdamW moments are FP32 as well.
     model.to(dtype=torch.float32)
     for name, parameter in model.named_parameters():
-        if parameter.dtype.is_floating_point and parameter.dtype is not torch.float32:
-            raise ValueError(f"FSDP requires FP32 master weights, got {name}={parameter.dtype}")
+        assert not parameter.dtype.is_floating_point or parameter.dtype is torch.float32, (
+            f"FSDP requires FP32 master weights, got {name}={parameter.dtype}"
+        )
 
     policy = MixedPrecisionPolicy(
         param_dtype=_dtype(config.param_dtype),
@@ -73,19 +71,18 @@ def parallelize_model(
     )
     parallelizer.validate_config(config)
     units = tuple(parallelizer.fsdp_units(model))
-    if not units:
-        raise ValueError("FSDP2 requires at least one non-root forward unit")
-    if any(unit is model for unit in units):
-        raise ValueError("fsdp_units must not contain the root model")
-    if len({id(unit) for unit in units}) != len(units):
-        raise ValueError("fsdp_units must be unique")
+    assert units, "FSDP2 requires at least one non-root forward unit"
+    assert all(unit is not model for unit in units), "fsdp_units must not contain the root model"
+    assert len({id(unit) for unit in units}) == len(units), "fsdp_units must be unique"
     descendants = {id(module) for module in model.modules() if module is not model}
-    if any(id(unit) not in descendants for unit in units):
-        raise ValueError("every FSDP unit must be a descendant of the root model")
+    assert all(id(unit) in descendants for unit in units), (
+        "every FSDP unit must be a descendant of the root model"
+    )
 
     for unit in units:
-        if isinstance(unit, FSDPModule):
-            raise ValueError("model contains an FSDP unit before parallelization")
+        assert not isinstance(unit, FSDPModule), (
+            "model contains an FSDP unit before parallelization"
+        )
         fully_shard(
             unit,
             mesh=mesh,

@@ -47,8 +47,7 @@ def _update_episode(
         if action_stats is None:
             action_stats = Statistics(action_windows.shape[-1], sample_stride=action_sample_stride)
         action_stats.update(action_windows)
-    if action_stats is None:
-        raise ValueError("episode does not contain actions")
+    assert action_stats is not None, "episode does not contain actions"
     return state_stats, action_stats
 
 
@@ -146,8 +145,9 @@ def main() -> None:
             action_chunks.append(action[start:stop])
 
     finish_episode()
-    if state_stats is None or action_stats is None:
-        raise ValueError("dataset does not contain any episodes")
+    assert state_stats is not None and action_stats is not None, (
+        "dataset does not contain any episodes"
+    )
 
     output = Path(args.output)
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -57,8 +57,9 @@ def main() -> None:
 
     metadata = LeRobotDatasetMetadata(args.repo_id, root=args.root)
     dataset = LeRobotDataset(args.repo_id, root=args.root)
-    if not 0 <= args.index < len(dataset):
-        raise IndexError(f"index {args.index} is outside [0, {len(dataset)})")
+    assert 0 <= args.index < len(dataset), (
+        f"index {args.index} is outside [0, {len(dataset)})"
+    )
 
     print(f"repo_id: {args.repo_id}")
     print(f"root: {args.root}")

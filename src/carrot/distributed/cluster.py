@@ -30,8 +30,7 @@ class Cluster:
 
     def reserve(self, name: str, spec: PlacementSpec) -> None:
         """Reserve a named Ray placement group that roles may share."""
-        if self._closed:
-            raise RuntimeError("cluster is closed")
+        assert not self._closed, "cluster is closed"
         self._runtime.reserve(name, spec)
 
     def launch(
@@ -43,12 +42,9 @@ class Cluster:
         env_vars: dict[str, str] | None = None,
         **kwargs: Any,
     ) -> WorkerGroup:
-        if self._closed:
-            raise RuntimeError("cluster is closed")
-        if not name:
-            raise ValueError("worker group name cannot be empty")
-        if name in self._groups:
-            raise ValueError(f"worker group {name!r} already exists")
+        assert not self._closed, "cluster is closed"
+        assert name, "worker group name cannot be empty"
+        assert name not in self._groups, f"worker group {name!r} already exists"
 
         if placement is None:
             pool_name = f"__{name}"
@@ -66,8 +62,7 @@ class Cluster:
         return group
 
     def channel(self, name: str, maxsize: int = 0) -> Channel[Any]:
-        if self._closed:
-            raise RuntimeError("cluster is closed")
+        assert not self._closed, "cluster is closed"
         return self._runtime.channel(name, maxsize)
 
     def close(self) -> None:

@@ -359,12 +359,11 @@ records = [json.loads(line) for line in path.read_text().splitlines() if line.st
 task_id = int(os.environ["TASK_ID"])
 episodes = int(os.environ["EPISODES"])
 indices = [record["episode_idx"] for record in records]
-if len(records) != episodes:
-    raise SystemExit(f"expected {episodes} records, got {len(records)}")
-if any(record["task_id"] != task_id for record in records):
-    raise SystemExit("result contains an unexpected task id")
-if sorted(indices) != list(range(episodes)):
-    raise SystemExit("result episode indices are missing or duplicated")
+assert len(records) == episodes, f"expected {episodes} records, got {len(records)}"
+assert all(record["task_id"] == task_id for record in records), (
+    "result contains an unexpected task id"
+)
+assert sorted(indices) == list(range(episodes)), "result episode indices are missing or duplicated"
 successes = sum(bool(record["success"]) for record in records)
 print(f"RESULT episodes={episodes} successes={successes} success_rate={successes / episodes:.4f}")
 PY

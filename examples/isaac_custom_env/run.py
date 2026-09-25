@@ -77,8 +77,9 @@ def main() -> None:
                     action[:, 0] = 0.5 * math.sin(2.0 * math.pi * 0.5 * step * env.step_dt)
                 obs, reward, terminated, truncated, _ = env.step(action)
                 # [S5] done 槽位已自动 reset；这里的 obs 属于它们的新回合。
-                if not torch.isfinite(obs["policy"]).all() or not torch.isfinite(reward).all():
-                    raise RuntimeError("观测或奖励出现 NaN/Inf")
+                assert torch.isfinite(obs["policy"]).all() and torch.isfinite(reward).all(), (
+                    "观测或奖励出现 NaN/Inf"
+                )
                 terminated_count += int(terminated.sum().item())
                 truncated_count += int(truncated.sum().item())
                 if (step + 1) % 30 == 0:

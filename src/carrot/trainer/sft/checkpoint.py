@@ -34,8 +34,7 @@ def _initialize_optimizer_state(optimizer: Any) -> None:
         return
     for param_group in optimizer.param_groups:
         for parameter in param_group["params"]:
-            if parameter.grad is not None:
-                raise RuntimeError("optimizer state must be restored before backward")
+            assert parameter.grad is None, "optimizer state must be restored before backward"
             if parameter.requires_grad:
                 parameter.grad = torch.zeros_like(parameter)
     learning_rates = [param_group["lr"] for param_group in optimizer.param_groups]
@@ -83,8 +82,7 @@ def save_checkpoint(
         Effective training recipe, saved in reloadable YAML form.
     """
     temporary_path = path.with_name(f"tmp-{path.name}")
-    if path.exists():
-        raise FileExistsError(f"checkpoint already exists: {path}")
+    assert not path.exists(), f"checkpoint already exists: {path}"
     if not dist.is_initialized() or dist.get_rank() == 0:
         if temporary_path.exists():
             shutil.rmtree(temporary_path)

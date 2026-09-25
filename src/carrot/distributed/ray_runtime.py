@@ -54,12 +54,11 @@ def _resolve_visible_device_id(physical_device_id: int | float | str) -> int:
     value = int(float(raw_value))
     if str(value) in ids:
         return ids.index(str(value))
-    if 0 <= value < len(ids):
-        return value
-    raise RuntimeError(
+    assert 0 <= value < len(ids), (
         f"device {raw_value} is invalid under CUDA_VISIBLE_DEVICES={visible}; "
         f"expected one of {ids} or a local index"
     )
+    return value
 
 
 def _free_port() -> int:
@@ -102,8 +101,7 @@ class _RayActor:
     def call(self, method: str, args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:
         # WorkerGroup dispatches methods by name.
         target = getattr(self._worker, method)
-        if not callable(target):
-            raise TypeError(f"worker attribute {method!r} is not callable")
+        assert callable(target), f"worker attribute {method!r} is not callable"
         return target(*args, **kwargs)
 
     def teardown(self) -> None:
@@ -170,10 +168,8 @@ class RayRuntime:
         self._closed = False
 
     def reserve(self, name: str, spec: PlacementSpec) -> None:
-        if self._closed:
-            raise RuntimeError("runtime is closed")
-        if name in self._pools:
-            raise ValueError(f"placement pool {name!r} already exists")
+        assert not self._closed, "runtime is closed"
+        assert name not in self._pools, f"placement pool {name!r} already exists"
 
         nodes = self._selected_nodes(spec.num_nodes)
         bundles = []
@@ -202,14 +198,10 @@ class RayRuntime:
         group_name: str,
         env_vars: Mapping[str, str],
     ) -> list[RayActorHandle]:
-        if self._closed:
-            raise RuntimeError("runtime is closed")
-        if group_name in self._groups:
-            raise ValueError(f"worker group {group_name!r} already exists")
-        try:
-            pool = self._pools[placement.pool]
-        except KeyError as error:
-            raise ValueError(f"unknown placement pool {placement.pool!r}") from error
+        assert not self._closed, "runtime is closed"
+        assert group_name not in self._groups, f"worker group {group_name!r} already exists"
+        assert placement.pool in self._pools, f"unknown placement pool {placement.pool!r}"
+        pool = self._pools[placement.pool]
 
         bundle_ranks = placement.bundle_ranks or tuple(range(pool.spec.num_bundles))
         self._validate_role_resources(pool, bundle_ranks, placement)
@@ -269,24 +261,23 @@ class RayRuntime:
         placement: RolePlacement,
     ) -> None:
         invalid = [rank for rank in bundle_ranks if rank >= pool.spec.num_bundles]
-        if invalid:
-            raise ValueError(
-                f"bundle ranks {invalid} are outside pool {placement.pool!r} "
-                f"with {pool.spec.num_bundles} bundles"
-            )
+        assert not invalid, (
+            f"bundle ranks {invalid} are outside pool {placement.pool!r} "
+            f"with {pool.spec.num_bundles} bundles"
+        )
         for bundle_rank, actor_count in Counter(bundle_ranks).items():
             requested_cpus = actor_count * placement.cpus_per_actor
             requested_gpus = actor_count * placement.gpus_per_actor
-            if pool.used_cpus[bundle_rank] + requested_cpus > pool.spec.cpus_per_bundle:
-                raise ValueError(f"CPU capacity exceeded on {placement.pool}[{bundle_rank}]")
-            if pool.used_gpus[bundle_rank] + requested_gpus > pool.spec.gpus_per_bundle:
-                raise ValueError(f"GPU capacity exceeded on {placement.pool}[{bundle_rank}]")
+            assert (
+                pool.used_cpus[bundle_rank] + requested_cpus <= pool.spec.cpus_per_bundle
+            ), f"CPU capacity exceeded on {placement.pool}[{bundle_rank}]"
+            assert (
+                pool.used_gpus[bundle_rank] + requested_gpus <= pool.spec.gpus_per_bundle
+            ), f"GPU capacity exceeded on {placement.pool}[{bundle_rank}]"
 
     def channel(self, name: str, maxsize: int = 0) -> Channel[Any]:
-        if self._closed:
-            raise RuntimeError("runtime is closed")
-        if name in self._channels:
-            raise ValueError(f"channel {name!r} already exists")
+        assert not self._closed, "runtime is closed"
+        assert name not in self._channels, f"channel {name!r} already exists"
         channel = Channel(name=name, _queue=Queue(maxsize=maxsize))
         self._channels[name] = channel
         return channel
@@ -321,8 +312,9 @@ class RayRuntime:
     def _selected_nodes(num_nodes: int) -> list[dict[str, Any]]:
         nodes = [node for node in ray.nodes() if node["Alive"]]
         nodes.sort(key=lambda node: (node["NodeManagerAddress"], node["NodeID"]))
-        if len(nodes) < num_nodes:
-            raise ValueError(f"requested {num_nodes} Ray nodes, but only {len(nodes)} are alive")
+        assert len(nodes) >= num_nodes, (
+            f"requested {num_nodes} Ray nodes, but only {len(nodes)} are alive"
+        )
         return nodes[:num_nodes]
 
     @staticmethod

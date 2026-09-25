@@ -17,5 +17,6 @@ def test_load_callable_resolves_default_robotwin_dataset() -> None:
 
 
 def test_load_callable_rejects_non_qualified_path() -> None:
-    with pytest.raises(ValueError, match="package.module.symbol"):
+    # 路径不满足配置契约时应断言失败，避免继续导入不明确的模块。
+    with pytest.raises(AssertionError, match="package.module.symbol"):
         load_callable("robotwin_preprocess")

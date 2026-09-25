@@ -84,8 +84,9 @@ class WorkerGroup:
         self._workers = tuple(sorted(workers, key=lambda worker: worker.rank))
         expected = tuple(range(len(self._workers)))
         actual = tuple(worker.rank for worker in self._workers)
-        if actual != expected:
-            raise ValueError(f"worker ranks must be contiguous; expected {expected}, got {actual}")
+        assert actual == expected, (
+            f"worker ranks must be contiguous; expected {expected}, got {actual}"
+        )
 
     @property
     def world_size(self) -> int:
@@ -115,8 +116,9 @@ class WorkerGroup:
         ranks: Iterable[int] | None = None,
     ) -> GroupResult[Any]:
         selected = self._normalize_ranks(ranks)
-        if len(calls) != len(selected):
-            raise ValueError(f"map received {len(calls)} calls for {len(selected)} selected ranks")
+        assert len(calls) == len(selected), (
+            f"map received {len(calls)} calls for {len(selected)} selected ranks"
+        )
         pending = []
         for rank, call in zip(selected, calls, strict=True):
             pending.append(
@@ -136,9 +138,7 @@ class WorkerGroup:
 
     def _normalize_ranks(self, ranks: Iterable[int] | None) -> tuple[int, ...]:
         selected = tuple(range(self.world_size)) if ranks is None else tuple(ranks)
-        if len(set(selected)) != len(selected):
-            raise ValueError("worker ranks must be unique")
+        assert len(set(selected)) == len(selected), "worker ranks must be unique"
         invalid = [rank for rank in selected if rank < 0 or rank >= self.world_size]
-        if invalid:
-            raise ValueError(f"invalid worker ranks: {invalid}")
+        assert not invalid, f"invalid worker ranks: {invalid}"
         return selected

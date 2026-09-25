@@ -11,10 +11,11 @@ def test_placement_spec_computes_world_size() -> None:
 
 @pytest.mark.parametrize("field", ["num_nodes", "bundles_per_node"])
 def test_placement_spec_rejects_non_positive_counts(field: str) -> None:
+    # 验证节点数或每节点 bundle 数为零时，用户配置校验触发带消息断言。
     values = {"num_nodes": 1, "bundles_per_node": 1}
     values[field] = 0
 
-    with pytest.raises(ValueError, match="must be positive"):
+    with pytest.raises(AssertionError, match="must be positive"):
         PlacementSpec(**values)
 
 

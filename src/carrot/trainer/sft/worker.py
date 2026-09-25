@@ -144,10 +144,7 @@ class SFTTrainWorkerImpl:
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
                 loss, _ = self.loss_fn(self.model, batch)
-                if not torch.isfinite(loss):
-                    raise FloatingPointError(
-                        f"non-finite loss at step {self.step}: {loss.item()}"
-                    )
+                assert torch.isfinite(loss), f"non-finite loss at step {self.step}: {loss.item()}"
                 scaled = loss / self.config.gas
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print(
@@ -295,8 +292,7 @@ class SFTTrainWorker(Worker):
             self.impl.step = load_checkpoint(Path(self.resume), optimizer, scheduler)
 
     def train(self) -> dict[str, float | int]:
-        if self.impl is None:
-            raise RuntimeError("SFT train worker is not set up")
+        assert self.impl is not None, "SFT train worker is not set up"
         return self.impl.train()
 
     def teardown(self) -> None:

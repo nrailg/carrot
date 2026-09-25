@@ -25,20 +25,22 @@ def main() -> None:
 
     metadata = LeRobotDatasetMetadata(args.repo_id, root=args.dataset_root)
     dataset = LeRobotDataset(args.repo_id, root=args.dataset_root)
-    if not 0 <= args.sample_index < len(dataset):
-        raise IndexError(args.sample_index)
+    assert 0 <= args.sample_index < len(dataset), f"invalid sample index: {args.sample_index}"
     sample = dataset[args.sample_index]
     task_index = int(sample["task_index"])
     prompt = sample["task"]
-    if metadata.fps != 10 or not isinstance(prompt, str):
-        raise ValueError("unexpected LIBERO FPS or task prompt")
+    assert metadata.fps == 10 and isinstance(prompt, str), (
+        "unexpected LIBERO FPS or task prompt"
+    )
     state = _numpy(sample["observation.state"]).astype(np.float32)
     base_image = _numpy(sample["observation.images.image"])
     wrist_image = _numpy(sample["observation.images.image2"])
-    if state.shape != (8,) or base_image.shape != (3, 256, 256):
-        raise ValueError("unexpected LIBERO state or base image shape")
-    if wrist_image.shape != base_image.shape or not prompt:
-        raise ValueError("unexpected LIBERO wrist image or prompt")
+    assert state.shape == (8,) and base_image.shape == (3, 256, 256), (
+        "unexpected LIBERO state or base image shape"
+    )
+    assert wrist_image.shape == base_image.shape and prompt, (
+        "unexpected LIBERO wrist image or prompt"
+    )
 
     info = {
         "dataset_root": str(args.dataset_root.resolve()),

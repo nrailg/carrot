@@ -106,6 +106,7 @@ def test_channel_can_flow_through_workers(cluster) -> None:
 
 
 def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
+    # 验证同一 bundle 的资源预算会阻止超额分配，同时允许不同角色共享或分离资源。
     train = cluster.launch(
         "train",
         CounterWorker,
@@ -124,7 +125,7 @@ def test_roles_can_share_or_use_disjoint_bundles(cluster) -> None:
             cpus_per_actor=0.3,
         ),
     )
-    with pytest.raises(ValueError, match="CPU capacity exceeded"):
+    with pytest.raises(AssertionError, match="CPU capacity exceeded"):
         cluster.launch(
             "overcommitted",
             CounterWorker,

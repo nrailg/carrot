@@ -43,8 +43,7 @@ def _source_sha256(openpi_dir: Path) -> str:
         [*openpi_dir.joinpath("src/openpi").rglob("*.py"), openpi_dir / "examples/libero/main.py"],
         key=lambda path: str(path.relative_to(openpi_dir)),
     )
-    if not paths or any(not path.is_file() for path in paths):
-        raise FileNotFoundError("OpenPI source tree is incomplete")
+    assert paths and all(path.is_file() for path in paths), "OpenPI source tree is incomplete"
     digest = hashlib.sha256()
     for path in paths:
         relative = path.relative_to(openpi_dir)
@@ -64,17 +63,17 @@ def main() -> None:
     args = parser.parse_args()
 
     source_sha256 = _source_sha256(args.openpi_dir)
-    if source_sha256 != OPENPI_SOURCE_SHA256:
-        raise ValueError(f"OpenPI source fingerprint mismatch: {source_sha256}")
-    if args.num_steps < 1:
-        raise ValueError("num_steps must be positive")
+    assert source_sha256 == OPENPI_SOURCE_SHA256, (
+        f"OpenPI source fingerprint mismatch: {source_sha256}"
+    )
+    assert args.num_steps >= 1, "num_steps must be positive"
     stats_path = args.checkpoint / "assets/physical-intelligence/libero/norm_stats.json"
     weight_path = args.checkpoint / "model.safetensors"
     for path in (stats_path, weight_path, args.checkpoint / "config.json"):
-        if not path.is_file():
-            raise FileNotFoundError(path)
-    if _sha256(args.tokenizer_model) != TOKENIZER_SHA256:
-        raise ValueError("local PaliGemma tokenizer.model differs from the official model")
+        assert path.is_file(), f"missing OpenPI checkpoint file: {path}"
+    assert _sha256(args.tokenizer_model) == TOKENIZER_SHA256, (
+        "local PaliGemma tokenizer.model differs from the official model"
+    )
 
     with np.load(args.observation, allow_pickle=False) as source:
         source_metadata = json.loads(source["metadata_json"].item())
@@ -84,8 +83,7 @@ def main() -> None:
             "observation/wrist_image": source["raw_wrist_image"].copy(),
             "prompt": source["raw_prompt"].item(),
         }
-    if raw["observation/state"].shape != (8,):
-        raise ValueError("LIBERO state must have shape (8,)")
+    assert raw["observation/state"].shape == (8,), "LIBERO state must have shape (8,)"
 
     stats = normalize.load(stats_path.parent)
     config = get_config("pi05_libero")
@@ -121,14 +119,16 @@ def main() -> None:
             noise=torch.from_numpy(noise[None]).to("cuda"),
             num_steps=args.num_steps,
         )
-    if actions.shape != (1, 10, 32) or not torch.isfinite(actions).all():
-        raise ValueError("official raw actions must be finite with shape (1, 10, 32)")
+    assert actions.shape == (1, 10, 32) and torch.isfinite(actions).all(), (
+        "official raw actions must be finite with shape (1, 10, 32)"
+    )
     raw_actions = actions[0].float().cpu().numpy()
     decoded = policy._output_transform(
         {"state": transformed["state"], "actions": raw_actions.copy()}
     )["actions"]
-    if decoded.shape != (10, 7) or not np.isfinite(decoded).all():
-        raise ValueError("official decoded actions must be finite with shape (10, 7)")
+    assert decoded.shape == (10, 7) and np.isfinite(decoded).all(), (
+        "official decoded actions must be finite with shape (10, 7)"
+    )
 
     metadata = {
         "schema_version": 1,

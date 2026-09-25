@@ -27,8 +27,7 @@ def main() -> None:
     args = parser.parse_args()
 
     weight_path = args.checkpoint / "model.safetensors"
-    if not weight_path.is_file():
-        raise FileNotFoundError(f"OpenPI PyTorch checkpoint does not exist: {weight_path}")
+    assert weight_path.is_file(), f"OpenPI PyTorch checkpoint does not exist: {weight_path}"
 
     device = torch.device("cuda")
     with np.load(args.jax_golden, allow_pickle=False) as archive:

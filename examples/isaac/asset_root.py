@@ -18,10 +18,7 @@ def configure_asset_root_from_env() -> None:
 
     root_path = Path(root).expanduser().resolve()
     missing = [name for name in ("Isaac", "NVIDIA") if not (root_path / name).is_dir()]
-    if missing:
-        raise FileNotFoundError(
-            f"ISAACSIM_ASSET_ROOT={root_path} 缺少目录: {', '.join(missing)}"
-        )
+    assert not missing, f"ISAACSIM_ASSET_ROOT={root_path} 缺少目录: {', '.join(missing)}"
 
     root = str(root_path)
     assets.NUCLEUS_ASSET_ROOT_DIR = root

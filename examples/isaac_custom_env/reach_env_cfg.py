@@ -223,16 +223,15 @@ def configure_local_assets(cfg: ReachEnvCfg, asset_root: Path) -> None:
 
     Raises
     ------
-    FileNotFoundError
-        Any of the three root USD files is missing.
+    AssertionError
+        If any of the three root USD files is missing.
     """
     root = asset_root.expanduser().resolve()
     panda = root / "Isaac/IsaacLab/Robots/FrankaEmika/panda_instanceable.usd"
     ground = root / "Isaac/Environments/Grid/default_environment.usd"
     marker = root / "Isaac/Props/UIElements/frame_prim.usd"
-    for path in (panda, ground, marker):
-        if not path.is_file():
-            raise FileNotFoundError(path)
+    missing = [path for path in (panda, ground, marker) if not path.is_file()]
+    assert not missing, f"Required Isaac asset files are missing: {missing}"
     cfg.scene.robot.spawn.usd_path = str(panda)
     cfg.scene.ground.spawn.usd_path = str(ground)
     for visualizer in (

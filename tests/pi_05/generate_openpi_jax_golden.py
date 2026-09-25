@@ -34,8 +34,7 @@ def main() -> None:
     args = parser.parse_args()
 
     params_path = args.checkpoint / "params"
-    if not params_path.is_dir():
-        raise FileNotFoundError(f"OpenPI params directory does not exist: {params_path}")
+    assert params_path.is_dir(), f"OpenPI params directory does not exist: {params_path}"
 
     images, image_masks, tokens, token_masks, state, noise = _inputs()
     observation = openpi_model.Observation(

@@ -21,14 +21,14 @@ def load_callable(path: str) -> Callable[..., Any]:
 
     Raises
     ------
-    ValueError
+    AssertionError
         If `path` does not name a module attribute or is not callable.
     """
     module_path, separator, name = path.rpartition(".")
-    if not separator or not module_path or not name:
-        raise ValueError(f"callable path must be package.module.symbol, got {path!r}")
+    assert separator and module_path and name, (
+        f"callable path must be package.module.symbol, got {path!r}"
+    )
     module = importlib.import_module(module_path)
     symbol = vars(module).get(name)
-    if not callable(symbol):
-        raise ValueError(f"{path!r} must resolve to a callable")
+    assert callable(symbol), f"{path!r} must resolve to a callable"
     return symbol

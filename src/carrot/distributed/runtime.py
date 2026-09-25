@@ -36,8 +36,7 @@ class WorkerSpec:
 
     def build(self) -> Worker:
         worker = self.cls(*self.args, **dict(self.kwargs))
-        if not isinstance(worker, Worker):
-            raise TypeError(f"{self.cls.__name__} must be a Worker")
+        assert isinstance(worker, Worker), f"{self.cls.__name__} must be a Worker"
         return worker
 
 
@@ -61,8 +60,7 @@ class Channel[T]:
         min_items: int = 1,
         timeout: float | None = None,
     ) -> list[T]:
-        if not 1 <= min_items <= max_items:
-            raise ValueError("expected 1 <= min_items <= max_items")
+        assert 1 <= min_items <= max_items, "expected 1 <= min_items <= max_items"
         deadline = None if timeout is None else time.monotonic() + timeout
         items = []
         while len(items) < min_items:

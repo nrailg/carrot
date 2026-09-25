@@ -26,8 +26,9 @@ import carrot_sim_plugin
 class PluginEnv:
     def __init__(self) -> None:
         self.backend = carrot_sim_plugin.BACKEND
-        if self.backend != os.environ["CARROT_SIM_BACKEND"]:
-            raise RuntimeError(f"loaded the wrong simulator plugin: {{self.backend}}")
+        assert self.backend == os.environ["CARROT_SIM_BACKEND"], (
+            f"loaded the wrong simulator plugin: {{self.backend}}"
+        )
         self.state = 0
 
     def health(self) -> dict:

@@ -14,8 +14,7 @@ from carrot.parallel.config import FSDPConfig
 def _from_dict[T](cls: type[T], values: dict[str, Any]) -> T:
     valid = {item.name for item in fields(cls)}
     unknown = set(values) - valid
-    if unknown:
-        raise ValueError(f"unknown {cls.__name__} fields: {sorted(unknown)}")
+    assert not unknown, f"unknown {cls.__name__} fields: {sorted(unknown)}"
     return cls(**values)
 
 
@@ -25,10 +24,8 @@ class ModelConfig:
     tokenizer_path: str = "Miical/pi05-base"
 
     def __post_init__(self) -> None:
-        if not self.path:
-            raise ValueError("model.path cannot be empty")
-        if not self.tokenizer_path:
-            raise ValueError("model.tokenizer_path cannot be empty")
+        assert self.path, "model.path cannot be empty"
+        assert self.tokenizer_path, "model.tokenizer_path cannot be empty"
 
 
 @dataclass(frozen=True)
@@ -54,14 +51,15 @@ class DatasetConfig:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "factory_kwargs", dict(self.factory_kwargs))
-        if not self.factory:
-            raise ValueError("dataset.factory cannot be empty")
+        assert self.factory, "dataset.factory cannot be empty"
         if self.norm_stats_asset_id is not None:
             asset_id = Path(self.norm_stats_asset_id)
-            if asset_id.is_absolute() or not self.norm_stats_asset_id or ".." in asset_id.parts:
-                raise ValueError("dataset.norm_stats_asset_id must be a relative asset path")
-        if self.num_workers < 0:
-            raise ValueError("dataset.num_workers cannot be negative")
+            assert (
+                not asset_id.is_absolute()
+                and self.norm_stats_asset_id
+                and ".." not in asset_id.parts
+            ), "dataset.norm_stats_asset_id must be a relative asset path"
+        assert self.num_workers >= 0, "dataset.num_workers cannot be negative"
 
 
 @dataclass(frozen=True)
@@ -77,24 +75,18 @@ class OptimizerConfig:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "betas", tuple(self.betas))
-        if self.learning_rate <= 0:
-            raise ValueError("optimizer.learning_rate must be positive")
-        if self.weight_decay < 0:
-            raise ValueError("optimizer.weight_decay cannot be negative")
-        if len(self.betas) != 2 or any(not 0 <= beta < 1 for beta in self.betas):
-            raise ValueError("optimizer.betas must contain two values in [0, 1)")
-        if self.eps <= 0:
-            raise ValueError("optimizer.eps must be positive")
-        if self.warmup_steps < 0:
-            raise ValueError("optimizer.warmup_steps cannot be negative")
-        if self.decay_steps < 1:
-            raise ValueError("optimizer.decay_steps must be positive")
-        if not 0 < self.decay_learning_rate <= self.learning_rate:
-            raise ValueError(
-                "optimizer.decay_learning_rate must be positive and no greater than learning_rate"
-            )
-        if self.max_grad_norm <= 0:
-            raise ValueError("optimizer.max_grad_norm must be positive")
+        assert not self.learning_rate <= 0, "optimizer.learning_rate must be positive"
+        assert not self.weight_decay < 0, "optimizer.weight_decay cannot be negative"
+        assert len(self.betas) == 2 and all(0 <= beta < 1 for beta in self.betas), (
+            "optimizer.betas must contain two values in [0, 1)"
+        )
+        assert not self.eps <= 0, "optimizer.eps must be positive"
+        assert self.warmup_steps >= 0, "optimizer.warmup_steps cannot be negative"
+        assert self.decay_steps >= 1, "optimizer.decay_steps must be positive"
+        assert 0 < self.decay_learning_rate <= self.learning_rate, (
+            "optimizer.decay_learning_rate must be positive and no greater than learning_rate"
+        )
+        assert not self.max_grad_norm <= 0, "optimizer.max_grad_norm must be positive"
 
 
 @dataclass(frozen=True)
@@ -106,10 +98,12 @@ class WandBConfig:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "entity", str(self.entity))
-        if self.enabled and not self.project:
-            raise ValueError("wandb.project cannot be empty when wandb is enabled")
-        if self.enabled and not self.entity:
-            raise ValueError("wandb.entity cannot be empty when wandb is enabled")
+        assert not (self.enabled and not self.project), (
+            "wandb.project cannot be empty when wandb is enabled"
+        )
+        assert not (self.enabled and not self.entity), (
+            "wandb.entity cannot be empty when wandb is enabled"
+        )
 
 
 @dataclass(frozen=True)
@@ -130,28 +124,18 @@ class SFTConfig:
     num_nodes: int = 1
 
     def __post_init__(self) -> None:
-        if self.steps < 1:
-            raise ValueError("steps must be positive")
-        if self.micro_batch_size < 1:
-            raise ValueError("micro_batch_size must be positive")
-        if self.global_batch_size < 1:
-            raise ValueError("global_batch_size must be positive")
-        if self.log_freq < 1:
-            raise ValueError("log_freq must be positive")
-        if self.dp_size < 1:
-            raise ValueError("dp_size must be positive")
-        if self.num_nodes < 1:
-            raise ValueError("num_nodes must be positive")
-        if self.dp_size % self.num_nodes != 0:
-            raise ValueError("dp_size must be divisible by num_nodes")
-        if self.global_batch_size % (self.micro_batch_size * self.dp_size) != 0:
-            raise ValueError(
-                "global_batch_size must be divisible by micro_batch_size * dp_size"
-            )
-        if self.save_freq < 0:
-            raise ValueError("save_freq cannot be negative")
-        if not self.output_dir:
-            raise ValueError("output_dir cannot be empty")
+        assert self.steps >= 1, "steps must be positive"
+        assert self.micro_batch_size >= 1, "micro_batch_size must be positive"
+        assert self.global_batch_size >= 1, "global_batch_size must be positive"
+        assert self.log_freq >= 1, "log_freq must be positive"
+        assert self.dp_size >= 1, "dp_size must be positive"
+        assert self.num_nodes >= 1, "num_nodes must be positive"
+        assert self.dp_size % self.num_nodes == 0, "dp_size must be divisible by num_nodes"
+        assert self.global_batch_size % (self.micro_batch_size * self.dp_size) == 0, (
+            "global_batch_size must be divisible by micro_batch_size * dp_size"
+        )
+        assert self.save_freq >= 0, "save_freq cannot be negative"
+        assert self.output_dir, "output_dir cannot be empty"
 
     @property
     def gpus_per_node(self) -> int:
@@ -176,6 +160,5 @@ class SFTConfig:
     def from_yaml(cls, path: str | Path) -> SFTConfig:
         with Path(path).open() as stream:
             values = yaml.safe_load(stream)
-        if not isinstance(values, dict):
-            raise ValueError("SFT config must contain a YAML mapping")
+        assert isinstance(values, dict), "SFT config must contain a YAML mapping"
         return cls.from_dict(values)

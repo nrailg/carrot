@@ -32,12 +32,11 @@ def make_custom_arm(usd_path: str, joint_defaults: dict[str, float]) -> Articula
 
     Raises
     ------
-    FileNotFoundError
-        The root USD file does not exist; referenced assets are checked by the simulator.
+    AssertionError
+        If the root USD file does not exist; referenced assets are checked by the simulator.
     """
     path = Path(usd_path).expanduser().resolve()
-    if not path.is_file():
-        raise FileNotFoundError(path)
+    assert path.is_file(), f"USD file does not exist: {path}"
     return ArticulationCfg(
         prim_path="{ENV_REGEX_NS}/Robot",
         spawn=sim_utils.UsdFileCfg(

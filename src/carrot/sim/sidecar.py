@@ -89,8 +89,13 @@ class SimulatorSidecar:
             self._process.wait(timeout=5)
 
     def _call(self, operation: str, **payload: Any) -> Any:
-        if self._closed or self._process.stdin is None or self._process.stdout is None:
-            raise RuntimeError("simulator sidecar is not running")
+        assert (
+            not self._closed
+            and self._process.stdin is not None
+            and self._process.stdout is not None
+        ), (
+            "simulator sidecar is not running"
+        )
         self._process.stdin.write(json.dumps({"op": operation, **payload}) + "\n")
         self._process.stdin.flush()
         response = self._process.stdout.readline()
@@ -143,6 +148,5 @@ class SimulatorSupervisor(Worker):
         self.sidecar = None
 
     def _require_sidecar(self) -> SimulatorSidecar:
-        if self.sidecar is None:
-            raise RuntimeError("simulator sidecar is not running")
+        assert self.sidecar is not None, "simulator sidecar is not running"
         return self.sidecar

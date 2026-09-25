@@ -55,14 +55,11 @@ def build_dataset(
     SFTDatasetSpec
         Raw samples retain the inference field names and action padding mask.
     """
-    if action_horizon != 10:
-        raise ValueError("PI0.5 LIBERO requires action_horizon=10")
+    assert action_horizon == 10, "PI0.5 LIBERO requires action_horizon=10"
     dataset_root = Path(root)
-    if not dataset_root.is_dir():
-        raise FileNotFoundError(dataset_root)
+    assert dataset_root.is_dir(), f"LIBERO dataset root does not exist: {dataset_root}"
     metadata = LeRobotDatasetMetadata(repo_id, root=dataset_root)
-    if metadata.fps != 10:
-        raise ValueError(f"LIBERO dataset must use 10 FPS, got {metadata.fps}")
+    assert metadata.fps == 10, f"LIBERO dataset must use 10 FPS, got {metadata.fps}"
     kwargs: dict[str, Any] = {
         "root": dataset_root,
         "delta_timestamps": {"action": [index / metadata.fps for index in range(10)]},

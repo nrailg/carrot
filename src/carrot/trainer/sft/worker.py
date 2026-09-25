@@ -84,7 +84,6 @@ class SFTTrainWorkerImpl:
         scheduler: Any,
         loss_fn: Any,
         checkpoint_artifact_writer: Callable[[Path], None] | None,
-        preprocessor: Any,
         dataloader: DataLoader,
         config: SFTConfig,
         sampler: DistributedSampler | None = None,
@@ -94,7 +93,6 @@ class SFTTrainWorkerImpl:
         self.scheduler = scheduler
         self.loss_fn = loss_fn
         self.checkpoint_artifact_writer = checkpoint_artifact_writer
-        self.preprocessor = preprocessor
         self.dataloader = dataloader
         self.config = config
         self.sampler = sampler
@@ -145,7 +143,6 @@ class SFTTrainWorkerImpl:
                     batch = next(iterator)
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
-                batch = self.preprocessor(batch)
                 loss, _ = self.loss_fn(self.model, batch)
                 if not torch.isfinite(loss):
                     raise FloatingPointError(
@@ -290,7 +287,6 @@ class SFTTrainWorker(Worker):
             scheduler=scheduler,
             loss_fn=components.loss_fn,
             checkpoint_artifact_writer=components.loss_fn.save_artifacts,
-            preprocessor=lambda batch: batch,
             dataloader=dataloader,
             config=self.config,
             sampler=sampler,

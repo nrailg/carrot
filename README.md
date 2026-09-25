@@ -104,8 +104,8 @@ The LeRobot dataset must provide these fields per frame:
 `factory_kwargs` are passed through unchanged. `dataset.preprocess` is an
 optional import path for a function taking `(state, actions)` and returning the
 transformed pair. The RobotWin defaults are
-`carrot.data.lerobot.build_dataset` and
-`carrot.data.lerobot.robotwin_preprocess`; set `preprocess: null` when no
+`carrot.data.robotwin.build_dataset` and
+`carrot.data.robotwin.robotwin_preprocess`; set `preprocess: null` when no
 dataset-specific state/action conversion is required.
 
 Each `checkpoints/step-*` directory contains two representations:

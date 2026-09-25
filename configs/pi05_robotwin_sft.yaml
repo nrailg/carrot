@@ -2,7 +2,7 @@ model:
   path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch
   tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
 dataset:
-  factory: carrot.data.lerobot.build_dataset
+  factory: carrot.data.robotwin.build_dataset
   factory_kwargs:
     repo_id: lerobot/robotwin_unified
     root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified
@@ -13,7 +13,7 @@ dataset:
       - observation.images.cam_right_wrist
   num_workers: 4
   norm_stats_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified/meta/pi05_norm_stats.json
-  preprocess: carrot.data.lerobot.robotwin_preprocess
+  preprocess: carrot.data.robotwin.robotwin_preprocess
 optimizer:
   learning_rate: 1.0e-5
   weight_decay: 1.0e-10

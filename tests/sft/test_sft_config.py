@@ -16,6 +16,7 @@ def _config(tmp_path: Path, values: dict[str, Any] | None = None) -> SFTConfig:
 
 
 def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
+    # 自定义数据参数应保留，未覆盖的工厂应指向 RoboTwin 模块。
     config = _config(
         tmp_path,
         {
@@ -27,10 +28,11 @@ def test_sft_config_builds_nested_configs(tmp_path: Path) -> None:
         },
     )
 
+    # 检查覆盖值与其余默认值同时保留。
     assert config.model.path == "model"
     assert config.model.tokenizer_path == "tokenizer"
     assert config.dataset.num_workers == 0
-    assert config.dataset.factory == "carrot.data.lerobot.build_dataset"
+    assert config.dataset.factory == "carrot.data.robotwin.build_dataset"
     assert config.dataset.factory_kwargs["repo_id"] == "dataset"
     assert config.optimizer.betas == (0.8, 0.9)
     assert config.optimizer.weight_decay == 1e-10
@@ -113,11 +115,13 @@ def test_sft_config_rejects_unsupported_dtype(tmp_path: Path) -> None:
 
 
 def test_sft_config_uses_pi05_defaults() -> None:
+    # 默认配置的工厂与转换函数应在同一个 RoboTwin 模块中。
     config = SFTConfig.from_dict({})
 
+    # 核对实际写入配置对象的默认路径。
     assert config.model.path == "Miical/pi05-base"
-    assert config.dataset.factory == "carrot.data.lerobot.build_dataset"
-    assert config.dataset.preprocess == "carrot.data.lerobot.robotwin_preprocess"
+    assert config.dataset.factory == "carrot.data.robotwin.build_dataset"
+    assert config.dataset.preprocess == "carrot.data.robotwin.robotwin_preprocess"
 
 
 def test_sft_config_rejects_empty_tokenizer_path() -> None:

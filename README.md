@@ -67,7 +67,7 @@ configuration:
 
 ```bash
 python -m pip install -e ".[sft]"
-carrot-train-sft --config configs/pi05_robotwin_sft.yaml
+carrot-train-sft --config configs/pi05_sft_robotwin_main.yaml
 ```
 
 Generate the PI0.5 statistics once before the first training run:
@@ -121,7 +121,7 @@ and `action.q01/q99`; when omitted, the adapter uses dataset min/max statistics.
 Resume a distributed checkpoint with:
 
 ```bash
-carrot-train-sft --config configs/pi05_robotwin_sft.yaml \
+carrot-train-sft --config configs/pi05_sft_robotwin_main.yaml \
   --resume outputs/pi05_robotwin_sft/checkpoints/step-00001000
 ```
 

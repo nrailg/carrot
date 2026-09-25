@@ -21,7 +21,7 @@ class SFTDatasetSpec:
     action_key : str
     task_key : str
     embodiment : str
-        ``libero`` selects the shared LIBERO input-transform pipeline.
+        ``libero`` and ``so101`` select shared input-transform pipelines.
     """
 
     dataset: Any

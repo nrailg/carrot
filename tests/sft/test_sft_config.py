@@ -104,6 +104,19 @@ def test_sft_config_accepts_custom_dataset_integrations(tmp_path: Path) -> None:
     assert config.dataset.preprocess == "example.transforms.preprocess"
 
 
+def test_sft_config_rejects_conflicting_norm_stats_settings(tmp_path: Path) -> None:
+    # 数据集统计量与显式文件路径不能同时生效，避免配置值被静默忽略。
+    with pytest.raises(AssertionError, match="norm_stats_path must be null"):
+        _config(
+            tmp_path,
+            {"dataset": {"norm_stats_source": "dataset", "norm_stats_path": "/stats.json"}},
+        )
+
+    # 未声明支持的来源值必须在解析配置时失败，不能进入运行时自动猜测。
+    with pytest.raises(AssertionError, match="norm_stats_source"):
+        _config(tmp_path, {"dataset": {"norm_stats_source": "auto"}})
+
+
 @pytest.mark.parametrize("asset_id", ["/absolute", "../outside"])
 def test_sft_config_rejects_escaping_stats_asset_id(tmp_path: Path, asset_id: str) -> None:
     # asset id 决定 checkpoint 写入目录，必须阻止绝对路径和向上跳出。

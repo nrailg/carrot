@@ -11,7 +11,8 @@ action horizon 50、学习率 `1e-5`，每 500 step 保存。W&B 未启用。
 
 数据集 revision 固定为 `c021b3c22a3de4e70e81010e54fb250a5dde348b`。
 配置要求本地副本位于 `${MY_DFS}/hf-hub/felixmayor/orange_cube_merged`；
-SO101 数据适配器从该副本的元数据读取 state/action 统计量。
+配置的 `dataset.norm_stats_source: dataset` 让 SO101 数据适配器从该副本的元数据读取
+state/action 统计量。
 运行前确认本地副本对应上述 revision；脚本只检查 `meta/info.json` 是否存在。
 训练结果写入 `${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube`。
 

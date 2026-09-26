@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import torch
 from torch.utils.data import Dataset
@@ -191,52 +191,66 @@ def build_pi05(
     dataset_factory_kwargs: dict[str, Any],
     device: str,
     norm_stats_path: str | None = None,
+    norm_stats_source: Literal["file", "dataset"] = "file",
     preprocess: str | None = None,
 ) -> Pi05Components:
-    """Load PI0.5 and bind a configured SFT dataset integration."""
-    dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)
-    if not isinstance(dataset, SFTDatasetSpec):
-        raise TypeError(f"dataset factory {dataset_factory!r} must return SFTDatasetSpec")
-    checkpoint_stats = Path(model_path) / "norm_stats.json"
-    if dataset.embodiment == "so101":
-        if preprocess is not None:
-            raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
-        if norm_stats_path is None:
-            state_stats = dataset.state_stats
-            action_stats = dataset.action_stats
-        else:
-            with Path(norm_stats_path).open() as stream:
-                normalization = json.load(stream)
-            normalization = normalization.get("norm_stats", normalization)
-            state_stats = normalization["state"]
-            action_stats = normalization["actions" if "actions" in normalization else "action"]
-    elif dataset.embodiment == "libero":
-        if preprocess is not None:
-            raise ValueError("LIBERO uses shared input transforms; set dataset.preprocess to null")
-        official_stats = Path(model_path) / "assets/physical-intelligence/libero/norm_stats.json"
+    """Load PI0.5 with the configured dataset, transforms, and normalization stats.
+
+    Parameters
+    ----------
+    model_path : str
+        Base model or resume checkpoint path.
+    tokenizer_path : str
+    dataset_factory : str
+        Import path of a callable returning ``SFTDatasetSpec``.
+    dataset_factory_kwargs : dict[str, Any]
+    device : str
+    norm_stats_path : str | None
+        JSON stats file used by ``"file"``; defaults to ``model_path/norm_stats.json``.
+    norm_stats_source : {"file", "dataset"}
+        Select the stats file or the dataset metadata. A missing file is an error.
+    preprocess : str | None
+        Import path of the raw-batch preprocessing callable; null for shared transforms.
+
+    Returns
+    -------
+    Pi05Components
+        Model, loss function, dataset, and collate function for SFT.
+
+    Raises
+    ------
+    AssertionError
+        If the stats source is invalid or conflicts with an explicit stats path.
+    TypeError
+        If the dataset factory does not return ``SFTDatasetSpec``.
+    ValueError
+        If the embodiment, preprocessing contract, or LIBERO model shape is invalid.
+    FileNotFoundError
+        If the selected stats file does not exist.
+    """
+    assert norm_stats_source in ("file", "dataset"), "invalid norm_stats_source"
+    assert not (norm_stats_source == "dataset" and norm_stats_path is not None), (
+        "norm_stats_path must be null when norm_stats_source is 'dataset'"
+    )
+    if norm_stats_source == "file":
         stats_path = (
             Path(norm_stats_path)
             if norm_stats_path is not None
-            else official_stats if official_stats.is_file() else checkpoint_stats
+            else Path(model_path) / "norm_stats.json"
         )
         with stats_path.open() as stream:
             normalization = json.load(stream)
         normalization = normalization.get("norm_stats", normalization)
         state_stats = normalization["state"]
+        # lerobot 写的是 action，openPI 写的是 actions，兼容两种写法。
         action_stats = normalization["actions" if "actions" in normalization else "action"]
-    elif norm_stats_path is not None:
-        with Path(norm_stats_path).open() as stream:
-            normalization = json.load(stream)
-        state_stats = normalization["state"]
-        action_stats = normalization["action"]
-    elif checkpoint_stats.is_file():
-        with checkpoint_stats.open() as stream:
-            normalization = json.load(stream)
-        state_stats = normalization["state"]
-        action_stats = normalization["action"]
-    else:
+    dataset = load_callable(dataset_factory)(**dataset_factory_kwargs)
+    if not isinstance(dataset, SFTDatasetSpec):
+        raise TypeError(f"dataset factory {dataset_factory!r} must return SFTDatasetSpec")
+    if norm_stats_source == "dataset":
         state_stats = dataset.state_stats
         action_stats = dataset.action_stats
+
     model = PI0Pytorch.from_pretrained(model_path)
     tokenizer = AutoTokenizer.from_pretrained(
         tokenizer_path,
@@ -246,7 +260,10 @@ def build_pi05(
     transform_spec = None
     training_dataset = dataset.dataset
     collate_fn = dataset.collate_fn
+    # TODO: 这里也好傻逼，改下
     if dataset.embodiment == "libero":
+        if preprocess is not None:
+            raise ValueError("LIBERO uses shared input transforms; set dataset.preprocess to null")
         if model.config.action_horizon != 10 or model.config.action_dim < 7:
             raise ValueError("LIBERO requires action_horizon=10 and action_dim>=7")
         transform_spec = create_libero_transform_spec(
@@ -257,6 +274,8 @@ def build_pi05(
         training_dataset = Pi05TransformedDataset(dataset.dataset, transform_spec)
         collate_fn = None
     elif dataset.embodiment == "so101":
+        if preprocess is not None:
+            raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
         transform_spec = create_so101_transform_spec(
             tokenizer,
             {"state": state_stats, "actions": action_stats},

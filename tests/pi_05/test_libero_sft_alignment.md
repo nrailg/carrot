@@ -13,6 +13,9 @@ The real-sample test compares the same sample at train and inference entry
 points: images, masks, state, token IDs and token mask must be exact. It checks
 the quantile-normalized `(10, 32)` target independently against official stats
 and performs one finite forward loss without training steps.
+The configured stats file must take precedence over other stats. If file stats
+are selected but the file is missing, model setup must fail instead of using
+dataset stats.
 
 ## Run
 
@@ -65,3 +68,18 @@ tests/pi_05/test_libero_sft_alignment.sh`. The runner activates
 `/opt/venvs/carrot`, exports source `PYTHONPATH`, and forces offline loading.
 Ray was started per test environment convention and stopped after testing;
 dguard was restored to `DGUARD_WATCH=1` with no scheduled restore.
+
+## 2026-09-26 stats-source regression: BLOCKED
+
+The new CPU regression checks configured-file precedence and failure on a
+missing selected stats file. The existing runner still executes the whole
+`test_libero_sft_alignment.py` file; no runner change is needed.
+
+Local command: `PYTHONPATH=src:tests python -m pytest -q tests/pi_05/test_libero_sft_alignment.py`.
+The command used `/home/nrwu/programs/miniconda2/envs/py312/bin/python`
+(Python 3.12.13) from Carrot HEAD `31d485c` plus the working-tree changes;
+no Docker image was involved. It stopped during collection with exit code 2
+because this environment lacks `lerobot`
+(`ModuleNotFoundError: No module named 'lerobot'`).
+No test case ran; the historical Gate 4 PASS above is unchanged. The current
+changes passed `ruff check`, `py_compile`, and `git diff --check` locally.

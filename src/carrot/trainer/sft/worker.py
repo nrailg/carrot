@@ -238,6 +238,7 @@ class SFTTrainWorker(Worker):
             dataset_factory_kwargs=self.config.dataset.factory_kwargs,
             device=f"cuda:{self.local_rank}",
             norm_stats_path=self.config.dataset.norm_stats_path,
+            norm_stats_source=self.config.dataset.norm_stats_source,
             preprocess=self.config.dataset.preprocess,
         )
         model = components.model

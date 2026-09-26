@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import os
+from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
 
@@ -12,6 +14,8 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader, default_collate
 
+from carrot.data import SFTDatasetSpec
+from carrot.models.pi05 import loss_fn as loss_fn_module
 from carrot.models.pi05.embodiments.libero import create_libero_transform_spec
 from carrot.models.pi05.inference.policy import Pi05Policy
 from carrot.models.pi05.loss_fn import Pi05SFTLossFn, Pi05TransformedDataset, build_pi05
@@ -63,6 +67,56 @@ def _stats() -> dict[str, dict[str, list[float]]]:
         "state": {"q01": [0.0] * 8, "q99": [4.0] * 8},
         "actions": {"q01": [0.0] * 7, "q99": [2.0] * 7},
     }
+
+
+def test_libero_build_uses_configured_stats_file(tmp_path: Path, monkeypatch) -> None:
+    # 配置路径必须决定 LIBERO 训练统计量，即使模型目录中另有根目录统计量。
+    configured = _stats()
+    stats_path = tmp_path / "configured.json"
+    stats_path.write_text(json.dumps({"norm_stats": configured}))
+    (tmp_path / "norm_stats.json").write_text(
+        json.dumps({"state": {"q01": [0] * 14}, "action": {"q01": [0] * 14}})
+    )
+    dataset = SFTDatasetSpec(
+        dataset=_Source(),
+        collate_fn=None,
+        state_stats={"q01": [0] * 8},
+        action_stats={"q01": [0] * 7},
+        image_keys=("observation.images.image", "observation.images.image2"),
+        embodiment="libero",
+    )
+
+    # 隔离权重和 tokenizer 加载，只验证真实 build_pi05 的统计量分派与输入变换。
+    monkeypatch.setattr(loss_fn_module, "load_callable", lambda _: lambda **kwargs: dataset)
+    monkeypatch.setattr(loss_fn_module.PI0Pytorch, "from_pretrained", lambda _: _Model())
+    monkeypatch.setattr(
+        loss_fn_module.AutoTokenizer, "from_pretrained", lambda *args, **kwargs: _Tokenizer()
+    )
+    components = build_pi05(
+        model_path=str(tmp_path),
+        tokenizer_path=str(tmp_path),
+        dataset_factory="carrot.data.libero.build_dataset",
+        dataset_factory_kwargs={},
+        device="cpu",
+        norm_stats_path=str(stats_path),
+        preprocess=None,
+    )
+
+    # 根目录与数据集里的不兼容统计量均不能覆盖配置文件中的 8D/7D 来源。
+    assert components.loss_fn.state_stats == configured["state"]
+    assert components.loss_fn.action_stats == configured["actions"]
+    assert components.dataset[0]["actions"].shape == (10, 32)
+
+    # 未配置文件且 checkpoint 没有统计量时必须失败，不能回退到数据集统计量。
+    with pytest.raises(FileNotFoundError, match="norm_stats.json"):
+        build_pi05(
+            model_path=str(tmp_path / "missing_checkpoint"),
+            tokenizer_path=str(tmp_path),
+            dataset_factory="carrot.data.libero.build_dataset",
+            dataset_factory_kwargs={},
+            device="cpu",
+            preprocess=None,
+        )
 
 
 def test_libero_transforms_run_per_sample_before_loss_batch() -> None:
@@ -137,6 +191,9 @@ def test_real_libero_sample_matches_inference_and_has_finite_loss() -> None:
         dataset_factory="carrot.data.libero.build_dataset",
         dataset_factory_kwargs={"root": root, "action_horizon": 10},
         device="cuda",
+        norm_stats_path=str(
+            Path(checkpoint) / "assets/physical-intelligence/libero/norm_stats.json"
+        ),
         preprocess=None,
     )
     dataset = components.dataset

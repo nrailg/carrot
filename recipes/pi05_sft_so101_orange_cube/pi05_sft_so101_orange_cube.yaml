@@ -10,6 +10,7 @@ dataset:
     action_horizon: 50
   num_workers: 4
   norm_stats_path: null
+  norm_stats_source: dataset
   preprocess: null
 optimizer:
   learning_rate: 1.0e-5

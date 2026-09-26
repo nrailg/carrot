@@ -144,3 +144,47 @@ P50/P90/P99/Max `0.0078125/0.03125/0.0625/1.5`, FP64 Dice
 error was `0.0144917965`. This is a real parity failure after golden generation,
 not a missing-asset skip. No tolerance or model code was changed. Full output:
 `${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/openpi_parity_failed.log`.
+
+## 2026-09-26 H20 rerun: 1e-2 tolerance and SDPA backend
+
+The user changed only the intermediate-output `torch.testing.assert_close` tolerance to
+`rtol=1e-2, atol=1e-2`; the BF16 weight assertion remains exact. Carrot source was
+`24083a0d293937eb512e4b301c15f281e9cecf96` plus that test-file edit, whose local and
+remote SHA-256 both were `dcce2809974d336521f5ceea1b8433eb9eba81900433d698071ca2150f5a319d`.
+OpenPI golden commit was `215abfb217dbac7d5f1273282331b9b1866c0479`; both existing
+NPZ golden files and `pi05_base_pytorch` checkpoint from the preceding rerun were reused.
+The test ran on H20 GPU 0 with `/opt/venvs/carrot` (PyTorch `2.11.0+cu128`);
+the Docker image tag was not recorded for this rerun.
+
+| Carrot attention setting | Command after exporting the assets above | Result | Evidence |
+| --- | --- | --- | --- |
+| Default cuDNN SDPA | `CUDA_VISIBLE_DEVICES=0 python -m pytest -v -s --timeout=1800 tests/pi_05/test_openpi_parity.py` | **FAIL**: first output assertion, `image_embeddings`, 371,036/1,572,864 mismatches; max absolute error 1.5 | `openpi_parity_rtol1e-2_atol1e-2_default_sdpa.log` |
+| cuDNN SDPA disabled in test process (Flash selected) | `torch.backends.cuda.enable_cudnn_sdp(False)` before `pytest.main(["-v", "-s", "--timeout=1800", "tests/pi_05/test_openpi_parity.py"])` | **PASS**, 1 passed in 56.91s | `openpi_parity_rtol1e-2_atol1e-2_flash_sdpa.log` |
+| Test code explicitly selects Flash via `sdpa_kernel(SDPBackend.FLASH_ATTENTION)` for vision calls | `CUDA_VISIBLE_DEVICES=0 python -m pytest -v -s --timeout=1800 tests/pi_05/test_openpi_parity.py` | **PASS**, 1 passed in 58.14s | `openpi_parity_rtol1e-2_atol1e-2_code_flash.log` |
+
+In the passing controlled run, Carrot vs OpenPI PyTorch `image_embeddings` were exactly
+equal (absolute P50/P90/P99/Max and FP64 Dice all zero). For `first_v_t`, absolute
+P50/P90/P99/Max were `0.000835232437/0.00286362097/0.00763417363/0.0107033253`, Dice
+`1.74538677e-06`; for `one_step`, the same absolute quantiles and maximum applied, Dice
+`0.000185996098`. Both passed the new pointwise tolerance. The first two rows were run
+before the Flash context was added to the local test code. The third row verifies that the
+current test selects Flash itself, with no process-level backend override. The code change
+fails directly if Flash is unsupported; it does not silently fall back to another backend.
+Full logs are under `${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/`.
+The dguard GPU watcher was restored after all three runs (`DGUARD_WATCH=1`, `run.py` running).
+
+## 2026-09-26 H20 rerun: FP64 Dice assertion
+
+Added `calc_diff(carrot_tensor, pytorch_tensor) <= 3e-4` for every output tensor,
+alongside the existing `rtol=1e-2, atol=1e-2` pointwise assertion. The Dice limit
+checks aggregate squared error; pointwise checks still catch localized errors.
+The largest Carrot-vs-OpenPI-PyTorch Dice in the preceding run was `one_step` at
+`1.85996098e-4`, leaving margin below the `3e-4` limit. JAX remains diagnostic.
+
+Using the same H20 GPU 0, `/opt/venvs/carrot`, golden NPZs, and checkpoint above,
+`CUDA_VISIBLE_DEVICES=0 python -m pytest -v -s --timeout=1800 tests/pi_05/test_openpi_parity.py`
+exited 0: **1 passed in 59.35s**. The measured maximum Dice was again
+`1.85996098e-4` for `one_step`; `first_v_t` was `1.74538677e-6`, and vision,
+language, suffix, and AdaRMS conditioning Dice values were zero. Full output:
+`${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/openpi_parity_with_dice_assert.log`.
+The dguard watcher was restored after the run (`DGUARD_WATCH=1`, `run.py` running).

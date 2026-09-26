@@ -139,9 +139,10 @@ def _run_fsdp_checkpoint_round_trip(
         dist.destroy_process_group()
 
 
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="requires two CUDA devices")
 def test_fsdp_checkpoint_round_trip(tmp_path: Path) -> None:
     # 验证真实两卡 FSDP2 下，OpenPI 模型根目录与 optimizer-only DCP 能共同完成 resume。
+    if torch.cuda.device_count() < 2:
+        pytest.fail("FSDP checkpoint round trip requires two CUDA devices")
     # Arrange：使用独立 rendezvous 文件和 checkpoint 目录隔离并行测试的共享状态。
     init_file = tmp_path / "process-group-init"
     checkpoint = tmp_path / "checkpoint"

@@ -3,6 +3,8 @@
 - Python: `test_pi05_inference_checkpoint.py` checks finite sampled actions and fixed-noise reproducibility.
 - Run: set `MY_DFS` and `CARROT_PI05_INFERENCE_CHECKPOINT` to an existing RoboTwin SFT export,
   then `bash tests/pi_05/test_pi05_inference_checkpoint.sh`.
+- Missing export or CUDA now fails the pytest case; this test has no RoboTwin export available
+  in the 2026-09-26 H20 session and was not reported as passed.
 - Historical inference work marked this GPU checkpoint smoke `NOT RUN`; no image tag or Carrot
   commit was recorded for a completed run.
 - Status after relocation: `NOT RUN`.

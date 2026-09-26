@@ -9,7 +9,7 @@ DATASET_ROOT="${DATASET_ROOT:-${MY_DFS}/hf-hub/lerobot/libero}"
 DATASET_REPO_ID="${DATASET_REPO_ID:-lerobot/libero}"
 SAMPLE_INDEX="${SAMPLE_INDEX:-0}"
 POLICY_GPU="${POLICY_GPU:-0}"
-OUTPUT_ROOT="${OUTPUT_ROOT:-${MY_DFS}/benchmarks/carrot-pi05-libero-parity}"
+OUTPUT_ROOT="${OUTPUT_ROOT:-${MY_DFS}/experiments/carrot/pi05-libero-parity}"
 RUN_DIR="${OUTPUT_ROOT}/$(date +%Y%m%d-%H%M%S)"
 
 [[ -f "${CARROT_DIR}/tests/pi_05/test_libero_parity.py" ]]

@@ -235,12 +235,11 @@ def test_ray_supervises_simulators_in_two_isolated_venvs(tmp_path: Path) -> None
         ]
 
 
-@pytest.mark.skipif(
-    not os.environ.get("CARROT_TEST_MUJOCO_331_PYTHON")
-    or not os.environ.get("CARROT_TEST_MUJOCO_312_PYTHON"),
-    reason="set paths to prebuilt MuJoCo 3.3.1 and 3.12.0 venv interpreters",
-)
 def test_ray_supervises_two_real_mujoco_versions() -> None:
+    if not os.environ.get("CARROT_TEST_MUJOCO_331_PYTHON") or not os.environ.get(
+        "CARROT_TEST_MUJOCO_312_PYTHON"
+    ):
+        pytest.fail("set paths to prebuilt MuJoCo 3.3.1 and 3.12.0 venv interpreters")
     mujoco_331_python = os.environ["CARROT_TEST_MUJOCO_331_PYTHON"]
     mujoco_312_python = os.environ["CARROT_TEST_MUJOCO_312_PYTHON"]
     source_root = Path(__file__).resolve().parents[1] / "src"

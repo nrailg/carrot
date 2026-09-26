@@ -76,3 +76,23 @@ The single cold sample was 15.37% slower for fixed sizes and 49.86% slower for d
 these cold ratios are directional only because each mode has one sample. On this synthetic H20
 run, expandable segments traded about 1% steady latency for substantially lower reserved memory
 only when allocation sizes changed.
+
+## 2026-09-26 H20 rerun: PASS
+
+On `mpi-launcher@mpi-1759754893-launcher` with the synced Carrot commit
+`eddfffbda2c2980bf1563266da8275093d137bc2`, dguard paused and H20 GPU 0
+idle, run:
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+export RUN_DIR="$MY_DFS/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/cuda_allocator"
+bash tests/cuda_allocator/test_expandable_segments.sh
+```
+
+The script exited 0,
+using 5 warmups and 30 measured iterations in each allocator mode. The dynamic
+workload reserved 256 MiB with expandable segments off and 140 MiB with them on
+(ratio `0.546875`); steady wall P50 ratio was `0.99795`. This benchmark does not
+assert a performance threshold. JSON, per-mode logs, and `summary.log` are in
+the `RUN_DIR` above; full wrapper output is
+`${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/cuda_allocator_run.log`.

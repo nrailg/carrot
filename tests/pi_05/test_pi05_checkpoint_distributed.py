@@ -137,10 +137,12 @@ def _run_pi05_checkpoint_round_trip(
         dist.destroy_process_group()
 
 
-@pytest.mark.skipif(PI05_CHECKPOINT is None, reason="requires a PI0.5 checkpoint")
-@pytest.mark.skipif(torch.cuda.device_count() < 2, reason="requires two CUDA devices")
 def test_real_pi05_fsdp_checkpoint_round_trip(tmp_path: Path) -> None:
     # 该测试显式 opt-in，避免日常单测加载 3B 参数；Gemini 上使用本地 PI0.5 checkpoint。
+    if not PI05_CHECKPOINT:
+        pytest.fail("set CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT to a PI0.5 checkpoint")
+    if torch.cuda.device_count() < 2:
+        pytest.fail("PI0.5 checkpoint round trip requires two CUDA devices")
     init_file = tmp_path / "process-group-init"
     checkpoint = tmp_path / "pi05-checkpoint"
     mp.spawn(

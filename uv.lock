@@ -32,6 +32,7 @@ constraints = [
 overrides = [
     { package = { name = "isaaclab", version = "3.0.0b2.post1" }, dependencies = [{ name = "transformers", specifier = "==5.5.4" }] },
     { package = { name = "lerobot", version = "0.6.1" }, dependencies = [{ name = "numpy", specifier = "==2.3.1" }] },
+    { package = { name = "openpi-client", version = "0.1.0" }, dependencies = [{ name = "numpy", specifier = ">=1.22.4,<3" }] },
     { name = "boto3", specifier = "==1.40.61" },
     { name = "botocore", specifier = "==1.40.61" },
     { name = "click", specifier = "==8.1.7" },
@@ -437,6 +438,10 @@ isaac-arena = [
     { name = "torchaudio" },
     { name = "torchvision", version = "0.26.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
 ]
+serving = [
+    { name = "openpi-client" },
+    { name = "websockets" },
+]
 sft = [
     { name = "datasets" },
     { name = "diffusers" },
@@ -479,6 +484,7 @@ requires-dist = [
     { name = "isaacsim", extras = ["all", "extscache"], marker = "extra == 'isaac-arena'", specifier = "==6.0.1.0" },
     { name = "lerobot", extras = ["dataset"], marker = "extra == 'sft'", specifier = "==0.6.1" },
     { name = "numpy", marker = "extra == 'sft'", specifier = "==2.3.1" },
+    { name = "openpi-client", marker = "extra == 'serving'", git = "https://github.com/Physical-Intelligence/openpi.git?subdirectory=packages%2Fopenpi-client&rev=215abfb217dbac7d5f1273282331b9b1866c0479" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pytest-timeout", marker = "extra == 'dev'", specifier = ">=2.3" },
     { name = "pyyaml", marker = "extra == 'sft'", specifier = ">=6" },
@@ -494,8 +500,9 @@ requires-dist = [
     { name = "torchvision", marker = "extra == 'sft'", specifier = "==0.26.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "transformers", marker = "extra == 'sft'", specifier = "==5.5.4" },
     { name = "wandb", marker = "extra == 'sft'", specifier = ">=0.16" },
+    { name = "websockets", marker = "extra == 'serving'", specifier = "==16.1.1" },
 ]
-provides-extras = ["sft", "isaac-arena", "dev"]
+provides-extras = ["serving", "sft", "isaac-arena", "dev"]
 
 [package.metadata.requires-dev]
 openpi-libero = [
@@ -997,7 +1004,8 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "absl-py" },
     { name = "attrs" },
-    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" } },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "wrapt" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5a/66/a3ec619d22b6baffa5ab853e8dc6ec9d0c837127948af59bb15b988d7312/dm_tree-0.1.10.tar.gz", hash = "sha256:22f37b599e01cc3402a17f79c257a802aebd8d326de05b54657650845956208a", size = 35748, upload-time = "2026-03-31T17:35:39.03Z" }
@@ -3816,7 +3824,8 @@ source = { git = "https://github.com/Physical-Intelligence/openpi.git?subdirecto
 dependencies = [
     { name = "dm-tree" },
     { name = "msgpack" },
-    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" } },
+    { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "pillow" },
     { name = "websockets" },
 ]

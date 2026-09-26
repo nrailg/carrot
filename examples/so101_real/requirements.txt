@@ -1,0 +1,5 @@
+lerobot[dataset,feetech]==0.6.1
+openpi-client @ git+https://github.com/Physical-Intelligence/openpi.git@215abfb217dbac7d5f1273282331b9b1866c0479#subdirectory=packages/openpi-client
+websockets==16.1.1
+PyYAML>=6,<7
+matplotlib>=3.9,<4

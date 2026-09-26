@@ -42,7 +42,7 @@ def main() -> None:
         policy,
         host=args.host,
         port=args.port,
-        metadata=policy.metadata,
+        metadata={**policy.metadata, "embodiment": args.embodiment},
     ).serve_forever()
 
 

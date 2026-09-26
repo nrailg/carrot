@@ -10,8 +10,8 @@ from carrot.models.pi05.inference import create_robotwin_policy
 def test_real_checkpoint_inference() -> None:
     # 使用真实 SFT export 跑完整采样和动作解码，验证固定 noise 下输出可重复。
     checkpoint = os.environ.get("CARROT_PI05_INFERENCE_CHECKPOINT")
-    if checkpoint is None:
-        pytest.skip("set CARROT_PI05_INFERENCE_CHECKPOINT to a RoboTwin SFT export")
+    if not checkpoint:
+        pytest.fail("set CARROT_PI05_INFERENCE_CHECKPOINT to a RoboTwin SFT export")
     if not torch.cuda.is_available():
         pytest.fail("checkpoint smoke requires CUDA")
 

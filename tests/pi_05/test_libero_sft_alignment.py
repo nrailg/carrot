@@ -168,20 +168,21 @@ def test_libero_transforms_run_per_sample_before_loss_batch() -> None:
     torch.testing.assert_close(loss, expected_loss, rtol=0, atol=0)
 
 
-@pytest.mark.skipif(
-    not all(
-        os.environ.get(name)
+def test_real_libero_sample_matches_inference_and_has_finite_loss() -> None:
+    # 真实 LeRobot chunk 必须与 inference 逐模态同输入，并能进入官方权重的一次有限 loss。
+    missing = [
+        name
         for name in (
             "CARROT_PI05_LIBERO_DATASET_ROOT",
             "CARROT_PI05_LIBERO_CHECKPOINT",
             "CARROT_PI05_LIBERO_TOKENIZER",
         )
-    )
-    or not torch.cuda.is_available(),
-    reason="set real LIBERO dataset, checkpoint, tokenizer, and use CUDA",
-)
-def test_real_libero_sample_matches_inference_and_has_finite_loss() -> None:
-    # 真实 LeRobot chunk 必须与 inference 逐模态同输入，并能进入官方权重的一次有限 loss。
+        if not os.environ.get(name)
+    ]
+    if missing:
+        pytest.fail(f"missing required test assets: {', '.join(missing)}")
+    if not torch.cuda.is_available():
+        pytest.fail("real LIBERO sample test requires CUDA")
     root = os.environ["CARROT_PI05_LIBERO_DATASET_ROOT"]
     checkpoint = os.environ["CARROT_PI05_LIBERO_CHECKPOINT"]
     tokenizer_path = os.environ["CARROT_PI05_LIBERO_TOKENIZER"]

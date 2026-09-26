@@ -3,6 +3,7 @@
 - Python: `test_sft_checkpoint_distributed.py` checks toy-model two-GPU FSDP optimizer state round trip.
 - Run: set `MY_DFS` on a two-GPU Gemini node and
   `bash tests/sft/test_sft_checkpoint_distributed.sh`.
+- Fewer than two CUDA devices now fails the pytest case.
 - Historical result: `1 passed in 19.37s` after a paired-barrier adjustment. Its image tag and
   exact Carrot commit were not recorded.
 - Status after relocation: `NOT RUN`.
@@ -15,3 +16,12 @@
   adjustment. The earlier canonical optimizer state-dict probe failed with `KeyError: 0` and was
   replaced by raw optimizer DCP; that debugging attempt is not counted as a final result.
   Historical image and Carrot commit were not recorded.
+
+## 2026-09-26 H20 check
+
+The test passed within the current tracked-file pytest run (`73 passed,
+2 intentionally skipped, 6 asset-dependent tests deselected` overall) on
+`mpi-launcher@mpi-1759754893-launcher`, merged Carrot source `eddfffb`.
+Missing two-GPU hardware was separately verified to produce `FAILED`, not
+`SKIPPED`. Run output:
+`${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/tracked_pytest_failfast.log`.

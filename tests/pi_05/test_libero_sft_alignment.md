@@ -27,6 +27,8 @@ POLICY_GPU=0 bash tests/pi_05/test_libero_sft_alignment.sh
 ```
 
 The runner forces Hugging Face offline mode and does not download assets.
+The real-sample pytest case fails if its required asset variables or CUDA are
+missing; the runner supplies them after checking the local files.
 
 ## 2026-09-19 Gate 4 result: PASS
 
@@ -83,3 +85,20 @@ because this environment lacks `lerobot`
 (`ModuleNotFoundError: No module named 'lerobot'`).
 No test case ran; the historical Gate 4 PASS above is unchanged. The current
 changes passed `ruff check`, `py_compile`, and `git diff --check` locally.
+
+## 2026-09-26 H20 rerun: PASS
+
+On `mpi-launcher@mpi-1759754893-launcher`, the synced tree matched merged
+Carrot commit `eddfffbda2c2980bf1563266da8275093d137bc2`. With
+`MY_DFS` resolved to the current personal CephFS root, offline checkpoint,
+tokenizer, and LIBERO dataset assets, run:
+
+```bash
+POLICY_GPU=0 bash tests/pi_05/test_libero_sft_alignment.sh
+```
+
+Result: `3 passed in 74.04s`, exit 0. The real-sample forward reported finite
+loss `0.000693488866`; sampled noise makes that value nondeterministic. Full
+output: `${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/real_libero.log`.
+The earlier local collection block above was an environment limitation and is
+resolved for this remote run.

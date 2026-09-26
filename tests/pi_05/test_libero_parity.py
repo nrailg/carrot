@@ -21,10 +21,6 @@ ACTION_ATOL = 6e-3
 GOLDEN = os.environ.get("CARROT_PI05_LIBERO_GOLDEN")
 CHECKPOINT = os.environ.get("CARROT_PI05_LIBERO_CHECKPOINT")
 TOKENIZER = os.environ.get("CARROT_PI05_LIBERO_TOKENIZER")
-pytestmark = pytest.mark.skipif(
-    not GOLDEN or not CHECKPOINT or not TOKENIZER or not torch.cuda.is_available(),
-    reason="set LIBERO golden, checkpoint, tokenizer, and use a CUDA host",
-)
 
 
 def _sha256(path: Path) -> str:
@@ -64,6 +60,19 @@ def _compare_exact(name: str, actual: np.ndarray, expected: np.ndarray) -> None:
 @torch.no_grad()
 def test_libero_policy_matches_openpi_pytorch() -> None:
     # 用真实 LIBERO 样本和官方 checkpoint 锁定完整训前推理链；首次失败字段定位偏差来源。
+    missing = [
+        name
+        for name in (
+            "CARROT_PI05_LIBERO_GOLDEN",
+            "CARROT_PI05_LIBERO_CHECKPOINT",
+            "CARROT_PI05_LIBERO_TOKENIZER",
+        )
+        if not os.environ.get(name)
+    ]
+    if missing:
+        pytest.fail(f"missing required test assets: {', '.join(missing)}")
+    if not torch.cuda.is_available():
+        pytest.fail("LIBERO parity requires CUDA")
     checkpoint = Path(CHECKPOINT)
     stats_path = checkpoint / "assets/physical-intelligence/libero/norm_stats.json"
     with np.load(Path(GOLDEN), allow_pickle=False) as golden:

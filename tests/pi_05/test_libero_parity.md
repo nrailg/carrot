@@ -34,9 +34,11 @@ The runner checks the full OpenPI Python source fingerprint for the fixed commit
 (`3b5e87f546e2e8effe3dac5b54c42f103bac7dc159c30047f4745ddaf5e5264d`),
 because the remote synced copy has no `.git`. It reads the official assets and local
 LeRobot sample, and writes the golden under
-`${MY_DFS}/benchmarks/carrot-pi05-libero-parity/`. The record below must contain
+`${MY_DFS}/experiments/carrot/pi05-libero-parity/`. The record below must contain
 the actual Carrot commit or source identity, image tag, checkpoint path and size,
 stats SHA-256, dataset root/revision, test output, and artifact path.
+The pytest case fails when its required golden, checkpoint, tokenizer, or CUDA
+setting is absent; the caller must provide these assets explicitly.
 
 ## 2026-09-19 Gate 2 result: PASS at the recorded tolerances
 
@@ -105,3 +107,35 @@ tests/pi_05/test_libero_parity.py` in `/opt/venvs/carrot`, with
 the same checkpoint/tokenizer paths above. Both commands used GPU 0 and the
 source `PYTHONPATH` for their respective checkout; offline flags remained set
 for reference generation.
+
+## 2026-09-26 H20 rerun: PASS
+
+With merged Carrot commit `eddfffbda2c2980bf1563266da8275093d137bc2`
+synced to `mpi-launcher@mpi-1759754893-launcher`, the test reused the
+previously recorded `openpi-libero-golden-v2.npz`, official LIBERO checkpoint,
+and cached PaliGemma tokenizer. It ran offline with `CUDA_VISIBLE_DEVICES=0`
+and `/opt/venvs/carrot`:
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+export CARROT_PI05_LIBERO_GOLDEN="$MY_DFS/benchmarks/carrot-pi05-libero-parity/20260919-102735/openpi-libero-golden-v2.npz"
+export CARROT_PI05_LIBERO_CHECKPOINT="$MY_DFS/hf-hub/Physical-Intelligence/pi05_libero_pytorch"
+export CARROT_PI05_LIBERO_TOKENIZER="$MY_DFS/hf-hub/google/paligemma-3b-pt-224"
+source /opt/venvs/carrot/bin/activate
+cd "$MY_DFS/work/carrot"
+export PYTHONPATH="$PWD/src:$PWD/tests:${PYTHONPATH:-}"
+export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1 TRANSFORMERS_OFFLINE=1 CUDA_VISIBLE_DEVICES=0
+python -m pytest -v -s --timeout=1800 tests/pi_05/test_libero_parity.py
+```
+
+Result: `1 passed in 59.73s`, exit 0. Image masks and token fields were exact;
+raw action maximum absolute error was `0.00520157814`, within the unchanged
+pointwise `6e-3` tolerance. Full output:
+`${MY_DFS}/experiments/carrot/test-runs/pi05-pr32-20260926T043636Z/libero_parity.log`.
+
+For future runs, the runner defaults to
+`${MY_DFS}/experiments/carrot/pi05-libero-parity/`. The historical
+`20260919-102735` observation and golden NPZs were copied there without
+removing the original benchmark archive; the `openpi-libero-golden-v2.npz`
+copy matches its source at SHA-256
+`533977c4a8dc15c84f484428cf9bad950534f4214b1a1a99d4c5ee948935d8ab`.

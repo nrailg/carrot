@@ -15,16 +15,6 @@ OPENPI_PYTORCH_GOLDEN = os.environ.get("CARROT_PI05_OPENPI_PYTORCH_GOLDEN")
 OPENPI_PYTORCH_CHECKPOINT = os.environ.get("CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT")
 type ErrorSummary = tuple[float, float, float, float]
 type DifferenceRow = tuple[str, ErrorSummary, ErrorSummary, float]
-pytestmark = pytest.mark.skipif(
-    OPENPI_GOLDEN is None
-    or OPENPI_PYTORCH_GOLDEN is None
-    or OPENPI_PYTORCH_CHECKPOINT is None
-    or not torch.cuda.is_available(),
-    reason=(
-        "set CARROT_PI05_OPENPI_GOLDEN, CARROT_PI05_OPENPI_PYTORCH_GOLDEN, and "
-        "CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT and run on a CUDA host"
-    ),
-)
 
 
 def _load_inputs(
@@ -91,6 +81,19 @@ def _print_difference_table(rows: list[DifferenceRow]) -> None:
 @torch.no_grad()
 def test_carrot_pi05_matches_openpi_pytorch_sampling() -> None:
     # 验证 Carrot 官方 PyTorch port 与官方 PyTorch golden 的权重及单步采样一致；JAX 仅作诊断参考。
+    missing = [
+        name
+        for name in (
+            "CARROT_PI05_OPENPI_GOLDEN",
+            "CARROT_PI05_OPENPI_PYTORCH_GOLDEN",
+            "CARROT_PI05_OPENPI_PYTORCH_CHECKPOINT",
+        )
+        if not os.environ.get(name)
+    ]
+    if missing:
+        pytest.fail(f"missing required test assets: {', '.join(missing)}")
+    if not torch.cuda.is_available():
+        pytest.fail("OpenPI parity requires CUDA")
     device = torch.device("cuda")
 
     # Arrange：JAX golden 提供固定输入和历史参考值，但不决定测试成败。

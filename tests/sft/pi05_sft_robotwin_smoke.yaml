@@ -13,6 +13,7 @@ dataset:
       - observation.images.cam_right_wrist
   num_workers: 0
   norm_stats_path: null
+  norm_stats_source: dataset
   preprocess: carrot.data.robotwin.robotwin_preprocess
 optimizer:
   learning_rate: 2.5e-5

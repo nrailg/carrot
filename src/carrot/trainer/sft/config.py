@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field, fields
 from pathlib import Path
-from typing import Any
+from typing import Any, Literal
 
 import yaml
 
@@ -45,6 +45,7 @@ class DatasetConfig:
         }
     )
     norm_stats_path: str | None = None
+    norm_stats_source: Literal["file", "dataset"] = "file"
     norm_stats_asset_id: str | None = None
     preprocess: str | None = "carrot.data.robotwin.robotwin_preprocess"
     num_workers: int = 4
@@ -52,6 +53,12 @@ class DatasetConfig:
     def __post_init__(self) -> None:
         object.__setattr__(self, "factory_kwargs", dict(self.factory_kwargs))
         assert self.factory, "dataset.factory cannot be empty"
+        assert self.norm_stats_source in ("file", "dataset"), (
+            "dataset.norm_stats_source must be 'file' or 'dataset'"
+        )
+        assert not (self.norm_stats_source == "dataset" and self.norm_stats_path is not None), (
+            "dataset.norm_stats_path must be null when norm_stats_source is 'dataset'"
+        )
         if self.norm_stats_asset_id is not None:
             asset_id = Path(self.norm_stats_asset_id)
             assert (

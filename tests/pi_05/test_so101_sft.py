@@ -173,8 +173,10 @@ def test_so101_training_and_policy_share_absolute_action_contract() -> None:
     assert result["actions"].shape == (3, 6)
 
 
-def test_so101_build_uses_dataset_stats_instead_of_base_checkpoint(tmp_path, monkeypatch) -> None:
-    # 基座 checkpoint 可能带 RoboTwin 统计量，SO101 必须优先使用目标数据集的 6D 统计量。
+def test_so101_build_uses_configured_dataset_stats_instead_of_base_checkpoint(
+    tmp_path, monkeypatch
+) -> None:
+    # 配置选用数据集统计量时，不能误读基座 checkpoint 中的 RoboTwin 14D 统计量。
     (tmp_path / "norm_stats.json").write_text(
         json.dumps(
             {
@@ -209,6 +211,7 @@ def test_so101_build_uses_dataset_stats_instead_of_base_checkpoint(tmp_path, mon
         dataset_factory="carrot.data.so101.build_dataset",
         dataset_factory_kwargs={},
         device="cpu",
+        norm_stats_source="dataset",
         preprocess=None,
     )
 

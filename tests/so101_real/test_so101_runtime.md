@@ -56,3 +56,29 @@ log 执行端零 send_action。网络测试使用本地真实 WebSocket，硬件
 - `python -m examples.so101_real.main --help` 成功；ruff、bash -n、git diff --check、
   `uv lock --check --offline` 全通过。独立机侧依赖解析和安装均成功。
 - 无真实机器人动作，未运行完整 GPU checkpoint 推理；相应验收单独记录。
+
+
+## 2026-09-27：Gemini 验证
+
+状态：**PASS**；`17 passed in 0.33s`，runner exit=0。
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+cd "${MY_DFS}/work/carrot"
+bash tests/so101_real/test_so101_runtime.sh
+```
+
+证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_runtime.log`。
+
+### 本轮共同环境与源码
+
+- 镜像：`wepsdl/carrot:v1.10-driver-575.57.08-cuda-12.8`。
+- Python 3.12.13，pytest 9.1.1；解释器 `/opt/venvs/carrot/bin/python`。
+- PyTorch 2.11.0+cu128，LeRobot 0.6.1，NumPy 2.3.1，websockets 16.1.1，
+  matplotlib 3.10.8，transformers 5.5.4，safetensors 0.8.0；openpi-client 未安装。
+- LeRobot wheel Git commit 未记录；本轮未使用 OpenPI client 源码替代缺失安装。
+- Carrot 本地 HEAD：`3c7238c7ec8cbf2c0de9b864f6c0a493ccbd5115` 加新增 SFT runner/档案。
+- 远端源码无 `.git`；同步与依赖版本证据见同一 run 目录的 `verification.log`。
+- 主代理独立对比 82 个实现、测试和 runner 文件的 SHA256，均与远端一致。
+- 本轮五个文件共 24 项通过；client/deployment 因缺 `openpi_client` 收集失败。
+- 未连接机器人，未安装依赖。历史 devcloud PASS 不替代本轮结果。

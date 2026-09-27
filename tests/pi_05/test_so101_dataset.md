@@ -25,3 +25,18 @@ bash "${MY_DFS}/work/carrot/tests/pi_05/test_so101_dataset.sh"
 - episode 最后两帧 valid_steps 分别为 2、1，下一次读取返回 None，未跨 episode。
 - 环境为 devcloud CPU 临时 venv，LeRobot 0.6.1、PyTorch 2.11.0+cpu、NumPy 2.2.6；
   Docker image tag 不适用。未加载模型或连接机器人。
+
+
+## 2026-09-27：Gemini 验证
+
+状态：**PASS**；`1 passed in 6.79s`，runner exit=0。
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+cd "${MY_DFS}/work/carrot"
+bash tests/pi_05/test_so101_dataset.sh
+```
+
+证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_dataset.log`。
+
+本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。

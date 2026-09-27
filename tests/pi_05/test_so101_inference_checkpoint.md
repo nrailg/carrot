@@ -23,3 +23,20 @@ CUDA_VISIBLE_DEVICES=0 bash tests/pi_05/test_so101_inference_checkpoint.sh
 目标 checkpoint precision=float32、horizon=50；这不构成实际模型重载证据。
 Docker image tag / 实际运行的源码和依赖版本：未记录，等待 GPU 运行时填写。
 CPU 客户端与协议验证见 tests/so101_real/test_so101_runtime.md。
+
+
+## 2026-09-27：Gemini 验证
+
+状态：**PASS**；`1 passed in 71.43s`，runner exit=0。
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+cd "${MY_DFS}/work/carrot"
+CUDA_VISIBLE_DEVICES=0 bash tests/pi_05/test_so101_inference_checkpoint.sh
+```
+
+证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_inference_checkpoint.log`。
+使用 H20 GPU 0；dguard 暂停 10 分钟后执行，安排自动恢复。
+真实 step-00005000 checkpoint 重载及固定噪声双次推理通过；不代表真机任务成功率。
+
+本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。

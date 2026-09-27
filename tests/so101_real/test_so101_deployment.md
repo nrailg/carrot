@@ -30,3 +30,19 @@ bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_deployment.sh"
 
 运行状态：**NOT RUN**，本次未重新执行 pytest 或远端测试。
 静态检查：同名 runner 的 `bash -n` 及 `git diff --check` 通过。
+
+
+## 2026-09-27：Gemini 验证
+
+状态：**BLOCKED**；`收集阶段 ModuleNotFoundError: No module named 'openpi_client'`，runner exit=2。
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+cd "${MY_DFS}/work/carrot"
+bash tests/so101_real/test_so101_deployment.sh
+```
+
+证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_deployment.log`。
+测试断言尚未执行；本轮未安装缺失依赖或改写共享环境。
+
+本轮镜像、源码和环境记录见 [共同环境](test_so101_runtime.md#本轮共同环境与源码)。

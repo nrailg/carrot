@@ -6,11 +6,12 @@
 ## 运行
 
 ```bash
-export CARROT_SO101_DATASET=/absolute/path/to/orange_cube_merged
-python -m pytest -v tests/pi_05/test_so101_dataset.py
+export MY_DFS=/absolute/path/to/personal/dfs
+bash "${MY_DFS}/work/carrot/tests/pi_05/test_so101_dataset.sh"
 ```
 
-Gemini 环境可使用同名 .sh，通过 MY_DFS 解析源码并激活 /opt/venvs/carrot。
+只需提供 `MY_DFS`；脚本从 `${MY_DFS}/hf-hub/felixmayor/orange_cube_merged`
+读取数据，通过 `${MY_DFS}/work/carrot` 解析源码并激活 `/opt/venvs/carrot`。
 测试不下载数据、不加载模型、不连接机械臂。
 
 ## 结果

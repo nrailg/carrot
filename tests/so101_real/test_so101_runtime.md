@@ -4,23 +4,31 @@
 
 验证数据集/真机观测、日志/机器人执行、关节与相机映射、示教动作隔离、
 episode 边界与 padding、初始姿态检查、驱动限幅、超时/中断停止行为。
-本地 WebSocket 测试使用真实 TCP 连接验证 MessagePack NumPy 往返、超时和服务端异常。
+协议、部署组装和报告测试分别见同目录 `test_so101_client`、
+`test_so101_deployment`、`test_so101_report` 三件套。
 
 ## 运行
 
 机侧环境安装 examples/so101_real/README.md 的依赖后，从仓库根目录运行：
 
 ```bash
-python -m pytest -v tests/so101_real
+python -m pytest -v tests/so101_real/test_so101_runtime.py
 ```
 
 Gemini 使用既定 `/opt/venvs/carrot` 和当前 `MY_DFS`：
 
 ```bash
-bash tests/so101_real/test_so101_runtime.sh
+export MY_DFS=/absolute/path/to/personal/dfs
+bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_runtime.sh"
 ```
 
 ## 结果
+
+### 2026-09-27：runner 按同名测试拆分
+
+runtime runner 现在仅运行 `test_so101_runtime.py`；其他三个测试各有独立 runner 和档案。
+本次 pytest **NOT RUN**；四个 runner 的 `bash -n` 和 `git diff --check` 通过。
+以下保留原始合跑证据。
 
 ### 2026-09-26：PASS
 

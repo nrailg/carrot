@@ -1,0 +1,32 @@
+# SO101 WebSocket 客户端协议
+
+## 目的与关键断言
+
+通过本地真实 TCP/WebSocket 验证 MessagePack NumPy 往返、有限接收超时和服务端文本异常传播。
+
+- 动作保持 float32，状态和动作逐元素一致。
+- 服务端不响应时抛出 TimeoutError；文本异常保留原始错误信息。
+- 使用本地测试服务器，不连接远端策略服务或机械臂。
+
+## 运行
+
+只需提供个人 DFS 根目录 `MY_DFS`；公共 runner 从其下的 `work/carrot` 加载源码，
+激活 `/opt/venvs/carrot` 并设置源码 `PYTHONPATH`。
+
+```bash
+export MY_DFS=/absolute/path/to/personal/dfs
+bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_client.sh"
+```
+
+## 结果
+
+### 2026-09-26：PASS（历史合跑）
+
+本文件包含在当日 30 项通过的合跑中，完整命令、环境版本、Carrot/OpenPI commit
+及证据见 [原始合跑记录](test_so101_runtime.md#结果)。未记录本文件的独立耗时。
+实际环境为 devcloud CPU 临时 venv；Docker image tag 不适用，LeRobot wheel Git commit 未记录。
+
+### 2026-09-27：补齐独立 runner 与档案
+
+运行状态：**NOT RUN**，本次未重新执行 pytest 或远端测试。
+静态检查：同名 runner 的 `bash -n` 及 `git diff --check` 通过。

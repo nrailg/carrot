@@ -72,13 +72,18 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     for name, key in (("top", "observation/image"), ("fpv", "observation/wrist_image")):
         Image.fromarray(frame.request[key]).save(log.directory / f"first_{name}.png")
     log.write("metadata", metadata=policy.metadata)
+
+    # 预热只验证首个响应，不把返回动作交给 sink。
     validate_actions(policy.infer(frame.request, timeout=config.warmup_timeout_s), horizon)
     log.write("warmup_complete")
+
     if config.observation_source == "dataset":
+        # 数据集动作若连续下发实机，需先核对录制起点与实机起点。
         multi_step = config.execute_steps > 1 or config.max_chunks != 1
         initial = sink.check_initial(frame.request["observation/state"], multi_step=multi_step)
         log.write("initial_state", recorded=frame.request["observation/state"].tolist(), **initial)
     else:
+        # 预热期间机器人可能移动，正式推理前重新采集观测。
         frame = source.read()
 
     chunks = 0
@@ -91,8 +96,11 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
         actions = validate_actions(response, horizon)
         elapsed = time.monotonic() - start
         assert elapsed <= config.request_timeout_s, "policy response exceeded request deadline"
+
+        # 每块仅消费前 count 行，且不得超过数据集 episode 的有效帧。
         count = min(config.execute_steps, frame.valid_steps)
         assert count > 0, "no valid actions remaining"
+
         arrays = {"predicted": actions, "state": frame.request["observation/state"],
                   "frame": np.array(frame.frame), "planned_steps": np.array(count)}
         if frame.reference is not None:
@@ -100,6 +108,7 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
         np.savez_compressed(log.directory / f"chunk_{chunks:06d}.npz", **arrays)
         log.write("prediction", chunk=chunks, infer_ms=elapsed * 1000,
                   consume=count, valid_steps=frame.valid_steps)
+
         for index in range(count):
             tick = time.monotonic()
             log.write("command", chunk=chunks, index=index, target=actions[index].tolist())
@@ -109,6 +118,7 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
             delay = 1 / config.fps - (time.monotonic() - tick)
             if delay > 0:
                 time.sleep(delay)
+
         source.advance(count)
         chunks += 1
         if config.max_chunks is not None and chunks >= config.max_chunks:

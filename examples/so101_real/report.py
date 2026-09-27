@@ -11,6 +11,7 @@ from .config import JOINT_NAMES
 
 
 def write_report(directory: Path) -> None:
+    # 只统计已写入 action 事件的动作，忽略预测后尚未消费的行。
     completed = {}
     with (directory / "events.jsonl").open() as stream:
         for line in stream:
@@ -30,6 +31,7 @@ def write_report(directory: Path) -> None:
             frames.append(int(chunk["frame"]) + np.arange(count))
             if "reference" in chunk:
                 references.append(chunk["reference"][:count])
+
     if not predictions:
         return
     prediction = np.concatenate(predictions)

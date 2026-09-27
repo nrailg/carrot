@@ -29,4 +29,35 @@ CUDA_VISIBLE_DEVICES=0 bash "${MY_DFS}/work/carrot/tests/pi_05/test_so101_websoc
 
 ## 2026-09-27
 
-状态：NOT RUN，等待 Gemini 执行。镜像、依赖版本、源码和结果将在执行后回填。
+状态：**PASS**，`1 passed in 72.90s`，runner exit=0。
+同次回归 client `3 passed in 0.28s`、deployment `8 passed in 6.72s`，exit 均为 0。
+
+- 完整测试输出：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-websocket-20260927T101647-2701786/pytest.log`。
+- 客户端产物：该目录 `client/` 下的 `summary.json`、`events.jsonl`、两份 NPZ、
+  `versions.json`、首帧双相机 PNG、`comparison.json` 和 `actions.png`。
+- `summary`：completed=true、reason=max_chunks、chunks=2、steps=4。
+  观测帧 0、2，四帧动作全部 executed=false；两次稳态请求约 285.1 / 264.7 ms。
+  仅两次采样，不作为延迟基准；报告比较了 4 帧示教动作，不代表任务成功率。
+- 服务端通过正式 CLI 启动，命令留在 `server_command.json`；`server.log` 记录 localhost 监听、
+  HTTP 健康检查返回 200 及 WebSocket 连接建立。
+- 测试后检查服务进程已结束，GPU 显存归零；dguard 暂停 10 分钟并已安排自动恢复。
+- 镜像：`wepsdl/carrot:v1.10-driver-575.57.08-cuda-12.8`；GPU：H20 0。
+- Carrot HEAD：`3a3468e61c2b9ba1b64df3c798ae16c24096c0c8` （包含本次测试三件套）。
+  远端无 Git metadata，已比对源码；客户端源码 SHA256 见 `versions.json`。
+- Python 3.12.13，pytest 9.1.1，Torch 2.11.0+cu128，LeRobot 0.6.1，NumPy 2.3.1，
+  websockets 16.1.1，openpi-client 0.1.0。LeRobot wheel Git commit 未记录。
+
+### 补齐客户端依赖
+
+从已缓存的真实 wheel 安装固定 OpenPI commit
+`215abfb217dbac7d5f1273282331b9b1866c0479` 的 openpi-client；wheel 内 13 个 Python 文件
+与该 commit 内容逐一匹配。wheel SHA256：
+`585cb23bcfa6366a53bc3f01951bf29682be6ff7fe8a3897e099dfa5124c2548`。
+
+```bash
+uv pip install --python /opt/venvs/carrot/bin/python --no-deps --no-index \
+  /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/work/so101-test-deps-20260927T101542/wheels/openpi_client-0.1.0-py3-none-any.whl
+```
+
+未下载或升级其他依赖；沿用项目对 openpi-client 的 NumPy 2 兼容 override。
+`dm-tree` 仍未安装，本次协议/部署路径不导入它；不据此声称整个 openpi-client 包的依赖完整。

@@ -82,12 +82,14 @@ class DatasetSource:
         assert reference.shape == (self.horizon, 6), "unexpected demonstration action shape"
         assert np.isfinite(reference).all(), "non-finite demonstration"
         assert padding.shape == (self.horizon,), "invalid action padding mask"
+        # 以 episode 剩余帧数核对 padding，避免跨边界执行预测动作。
         valid = min(self.horizon, len(self.dataset) - self.frame)
         assert np.array_equal(padding, np.arange(self.horizon) >= valid), (
             "action padding must match the end of the selected episode"
         )
         prompt = sample["task"] if self.prompt is None else self.prompt
         assert isinstance(prompt, str) and prompt.strip(), "missing dataset task"
+        # 示教动作留在 reference，策略请求只包含观测和任务文本。
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),

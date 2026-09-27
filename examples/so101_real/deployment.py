@@ -21,6 +21,7 @@ from .runtime import RunLog, run_loop, validate_metadata
 
 def close_robot(robot: SO101Follower) -> None:
     try:
+        # 退出时保留舵机扭矩；相机仍需在总线关闭失败时逐个断开。
         if robot.bus.is_connected:
             robot.bus.disconnect(disable_torque=False)
     finally:
@@ -64,6 +65,8 @@ def run(config: DeploymentConfig) -> None:
     config.validate()
     directory = Path(config.output_dir)
     directory.mkdir(parents=True, exist_ok=False)
+
+    # 在连接服务或硬件前留存配置与源码指纹，便于核对本次运行来源。
     (directory / "config.json").write_text(json.dumps(asdict(config), indent=2))
     versions = {name: version(name) for name in ("lerobot", "numpy", "openpi-client", "websockets")}
     versions["python"] = platform.python_version()
@@ -74,10 +77,11 @@ def run(config: DeploymentConfig) -> None:
     if config.observation_source == "dataset":
         info = Path(config.dataset_root) / "meta" / "info.json"
         versions["dataset_info_sha256"] = sha256(info.read_bytes()).hexdigest()
-    if config.observation_source == "robot" or config.action_sink == "so101":
+    if config.observation_source == "robot" or config.action_sink == "robot":
         calibration = Path(config.calibration_dir) / f"{config.robot_id}.json"
         versions["calibration_sha256"] = sha256(calibration.read_bytes()).hexdigest()
     (directory / "versions.json").write_text(json.dumps(versions, indent=2))
+
     with ExitStack() as stack:
         log = RunLog(directory)
         stack.callback(log.close)
@@ -86,20 +90,23 @@ def run(config: DeploymentConfig) -> None:
                                   config.request_timeout_s)
             stack.callback(client.close)
             horizon = validate_metadata(client.metadata, config.execute_steps)
+
             source = None
             if config.observation_source == "dataset":
                 source = load_dataset_source(config, horizon)
             robot = None
-            if config.observation_source == "robot" or config.action_sink == "so101":
+            if config.observation_source == "robot" or config.action_sink == "robot":
                 robot = connect_robot(config, stack)
             if config.observation_source == "robot":
                 source = RobotSource(robot, config.prompt, horizon)
             assert source is not None
+
             sink = LogSink() if config.action_sink == "log" else SO101Sink(
                 robot, config.initial_state_tolerance
             )
             summary = run_loop(config, source, sink, client, log)
         except BaseException as error:
+            # 异常也写入持久化记录，ExitStack 随后关闭日志、网络和硬件。
             log.write("stopped", reason=type(error).__name__, detail=str(error))
             (directory / "summary.json").write_text(json.dumps({
                 "reason": type(error).__name__, "detail": str(error), "completed": False,
@@ -110,5 +117,6 @@ def run(config: DeploymentConfig) -> None:
             (directory / "summary.json").write_text(json.dumps({
                 **summary, "completed": True,
             }, indent=2))
+
     write_report(directory)
     logging.info("Run saved to %s", directory)

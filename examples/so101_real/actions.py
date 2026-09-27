@@ -37,6 +37,7 @@ class SO101Sink:
     def check_initial(self, recorded_state: np.ndarray, *, multi_step: bool) -> dict:
         live = joint_state(self.robot.get_observation())
         difference = live - recorded_state
+        # 连续执行数据集动作前要求实机起点接近录制起点。
         if multi_step:
             assert np.max(np.abs(difference)) <= self.initial_tolerance, (
                 f"recorded/live initial state mismatch: {difference.tolist()}; "
@@ -48,6 +49,7 @@ class SO101Sink:
         assert action.shape == (6,) and np.isfinite(action).all(), "invalid SO101 action"
         present = joint_state(self.robot.get_observation())
         bounded = np.clip(action, LOWER, UPPER)
+        # 此处限制绝对目标范围；相对当前位置的变化限幅由 SO101 驱动执行。
         command = dict(zip(JOINT_NAMES, map(float, bounded), strict=True))
         sent = self.robot.send_action(command)
         actual = joint_state(sent)

@@ -46,3 +46,12 @@ bash tests/so101_real/test_so101_deployment.sh
 测试断言尚未执行；本轮未安装缺失依赖或改写共享环境。
 
 本轮镜像、源码和环境记录见 [共同环境](test_so101_runtime.md#本轮共同环境与源码)。
+
+
+## 2026-09-27：补齐依赖后回归
+
+**PASS**，`8 passed in 6.72s`，runner exit=0。使用同名 runner，MY_DFS 和源码路径同上。
+仅离线安装固定 commit 的 openpi-client 0.1.0，未升级其他依赖。
+安装来源、镜像、源码版本和同次端到端测试见
+[WebSocket 测试记录](../pi_05/test_so101_websocket.md#2026-09-27)。
+完整日志：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-websocket-20260927T101647-2701786/pytest.log`。

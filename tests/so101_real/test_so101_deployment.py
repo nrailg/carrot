@@ -10,7 +10,7 @@ from examples.so101_real.observations import ObservationFrame
 
 
 @pytest.mark.parametrize("source,sink", [
-    ("dataset", "log"), ("dataset", "so101"), ("robot", "log"), ("robot", "so101"),
+    ("dataset", "log"), ("dataset", "robot"), ("robot", "log"), ("robot", "robot"),
 ])
 @pytest.mark.parametrize("fail_request", [False, True])
 def test_session_hardware_selection_and_cleanup(tmp_path, monkeypatch, source, sink, fail_request):
@@ -65,10 +65,10 @@ def test_session_hardware_selection_and_cleanup(tmp_path, monkeypatch, source, s
         deployment.run(config)
 
     # 只有显式选择机器人观测或执行才可连接；日志执行端永远不发动作。
-    needs_robot = source == "robot" or sink == "so101"
+    needs_robot = source == "robot" or sink == "robot"
     assert len(connections) == int(needs_robot)
     assert robot.disconnect.call_count == int(needs_robot)
-    assert robot.send_action.call_count == int(sink == "so101" and not fail_request)
+    assert robot.send_action.call_count == int(sink == "robot" and not fail_request)
     policy.close.assert_called_once()
     summary = json.loads((tmp_path / "run/summary.json").read_text())
     assert summary["completed"] is not fail_request

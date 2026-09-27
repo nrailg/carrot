@@ -25,6 +25,7 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     DatasetSource
         Unnormalized observations and a separate demonstration action reference.
     """
+    # 两个库会缓存离线配置，仅设置环境变量不足以约束当前进程。
     os.environ["HF_HUB_OFFLINE"] = "1"
     os.environ["HF_DATASETS_OFFLINE"] = "1"
     huggingface_hub.constants.HF_HUB_OFFLINE = True
@@ -40,6 +41,8 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     for name in ("observation.images.top", "observation.images.fpv"):
         assert meta.features[name]["dtype"] in ("image", "video")
         assert meta.features[name]["shape"][-1] == 3
+
+    # 未来 action 窗口只供参考比较；其 padding 必须与 episode 边界一致。
     dataset = LeRobotDataset(
         config.dataset_repo, root=root, revision=config.dataset_revision,
         episodes=[config.episode], return_uint8=True,

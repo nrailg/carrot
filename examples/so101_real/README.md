@@ -76,14 +76,14 @@ max_relative_target: 5.0
 initial_state_tolerance: 10.0
 ```
 
-然后显式选择 SO101 执行端，先只发一步：
+然后显式选择机器人执行端（本例为 SO101），先只发一步：
 
 ```bash
 python -m examples.so101_real.main \
   --config /absolute/path/to/my_so101.yaml \
   --server-uri ws://GPU_HOST:8000 \
   --dataset-root /absolute/path/to/orange_cube_merged \
-  --action-sink so101 --execute-steps 1 --max-chunks 1 \
+  --action-sink robot --execute-steps 1 --max-chunks 1 \
   --output-dir outputs/so101_single_action
 ```
 
@@ -133,7 +133,7 @@ python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
 
 # 真机观测和真机执行。
 python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
-  --observation-source robot --action-sink so101 --execute-steps 10 --max-chunks 30 \
+  --observation-source robot --action-sink robot --execute-steps 10 --max-chunks 30 \
   --output-dir outputs/so101_closed_loop
 ```
 

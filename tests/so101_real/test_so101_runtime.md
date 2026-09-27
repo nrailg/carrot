@@ -82,3 +82,26 @@ bash tests/so101_real/test_so101_runtime.sh
 - 主代理独立对比 82 个实现、测试和 runner 文件的 SHA256，均与远端一致。
 - 本轮五个文件共 24 项通过；client/deployment 因缺 `openpi_client` 收集失败。
 - 未连接机器人，未安装依赖。历史 devcloud PASS 不替代本轮结果。
+
+
+## 2026-09-27：合并 runner 模块回归
+
+`deployment.py` 和 `runtime.py` 合并为 `examples/so101_real/runner.py`；
+现有循环与组装测试保留各自文件名，导入及 monkeypatch 改为 runner。
+
+在 devcloud 已有 `/tmp/carrot-so101-integration-venv/bin/python` 下执行：
+
+```bash
+PYTHONPATH="$PWD:$PWD/src" /tmp/carrot-so101-integration-venv/bin/python -m pytest -q tests/so101_real
+PYTHONPATH="$PWD:$PWD/src" /tmp/carrot-so101-integration-venv/bin/python -m pytest -q tests/so101_real/test_so101_runtime.py::test_default_profile_needs_no_robot_configuration
+```
+
+首轮 28 passed、1 failed（配置文件名被误改）；修复该路径后单项重跑 1 passed。
+29 个用例均已有通过结果，未声称一次完整重跑。CLI `--help` 和 WebSocket 测试
+`--collect-only` 均成功；本轮未重新运行 GPU 端到端。
+日志：`/tmp/carrot-so101-runner-regression.D1uHnS/`（本地临时目录）。
+环境：Python 3.12.13、pytest 9.0.3、LeRobot 0.6.1、websockets 16.1.1；
+镜像不适用。runner.py SHA256 为
+`b68c387bb67758e1ee69313b505f41ad4260fc6d88d254481e90599f69b00328`。
+源码为当前工作区，Ruff、diff 检查通过，迁移函数 AST 逐项对比一致
+（仅 RemotePolicy 类型标注替换为 PolicyClient）。

@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 
 from .config import load_config
-from .deployment import run
+from .runner import run
 
 
 def main() -> None:

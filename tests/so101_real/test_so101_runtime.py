@@ -7,7 +7,7 @@ import pytest
 from examples.so101_real.actions import LogSink, SO101Sink
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig, load_config
 from examples.so101_real.observations import DatasetSource, RobotSource
-from examples.so101_real.runtime import RunLog, run_loop, validate_metadata
+from examples.so101_real.runner import RunLog, run_loop, validate_metadata
 
 
 class Dataset:
@@ -64,7 +64,7 @@ class Robot:
 @pytest.fixture
 def log(tmp_path, monkeypatch):
     # 只取消节拍等待，保留真实单调时钟用于请求耗时与超时判定。
-    monkeypatch.setattr("examples.so101_real.runtime.time.sleep", lambda seconds: None)
+    monkeypatch.setattr("examples.so101_real.runner.time.sleep", lambda seconds: None)
     journal = RunLog(tmp_path)
     yield journal
     journal.close()

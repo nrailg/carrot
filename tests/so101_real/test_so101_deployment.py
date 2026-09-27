@@ -4,7 +4,7 @@ from unittest.mock import Mock
 import numpy as np
 import pytest
 
-from examples.so101_real import deployment
+from examples.so101_real import runner
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig
 from examples.so101_real.observations import ObservationFrame
 
@@ -51,18 +51,18 @@ def test_session_hardware_selection_and_cleanup(tmp_path, monkeypatch, source, s
     )
     recorded = Mock()
     recorded.read.return_value = frame
-    monkeypatch.setattr(deployment, "PolicyClient", lambda *args: policy)
-    monkeypatch.setattr(deployment, "connect_robot", connect_robot)
-    monkeypatch.setattr(deployment, "load_dataset_source", lambda *args: recorded)
-    monkeypatch.setattr(deployment, "write_report", lambda directory: None)
-    monkeypatch.setattr("examples.so101_real.runtime.time.sleep", lambda delay: None)
+    monkeypatch.setattr(runner, "PolicyClient", lambda *args: policy)
+    monkeypatch.setattr(runner, "connect_robot", connect_robot)
+    monkeypatch.setattr(runner, "load_dataset_source", lambda *args: recorded)
+    monkeypatch.setattr(runner, "write_report", lambda directory: None)
+    monkeypatch.setattr("examples.so101_real.runner.time.sleep", lambda delay: None)
 
     # 正常运行应有完整 summary；请求失败仍要释放资源，且无任何动作下发。
     if fail_request:
         with pytest.raises(TimeoutError, match="injected"):
-            deployment.run(config)
+            runner.run(config)
     else:
-        deployment.run(config)
+        runner.run(config)
 
     # 只有显式选择机器人观测或执行才可连接；日志执行端永远不发动作。
     needs_robot = source == "robot" or sink == "robot"

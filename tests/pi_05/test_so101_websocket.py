@@ -10,7 +10,7 @@ from urllib.request import urlopen
 
 import numpy as np
 
-from examples.so101_real import deployment
+from examples.so101_real import runner
 from examples.so101_real.config import DeploymentConfig
 
 
@@ -25,7 +25,7 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
     def forbid_robot(*args, **kwargs):
         raise AssertionError("dataset+log must not connect to a robot")
 
-    monkeypatch.setattr(deployment, "connect_robot", forbid_robot)
+    monkeypatch.setattr(runner, "connect_robot", forbid_robot)
     config = DeploymentConfig(
         dataset_root=os.environ["CARROT_SO101_DATASET"],
         server_uri=f"ws://127.0.0.1:{port}",
@@ -56,7 +56,7 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
                     time.sleep(0.2)
 
             # 执行正式客户端组装入口：真实读数据、网络推理、两轮动作日志及图表生成。
-            deployment.run(config)
+            runner.run(config)
             assert process.poll() is None, "server exited during client session"
         finally:
             # 只结束本测试创建的服务进程，成功或失败都必须回收 GPU 资源。

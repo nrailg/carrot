@@ -4,7 +4,7 @@
 
 不连接真机，以真实 orange_cube_merged 观测通过正式客户端访问独立进程中的
 `carrot.cli.serve_pi05_policy`，加载 step-00005000 checkpoint 执行 GPU 推理。
-使用 `deployment.run()`，覆盖 dataset+log 的预热、两轮请求、动作日志和报告。
+使用 `runner.run()`，覆盖 dataset+log 的预热、两轮请求、动作日志和报告。
 
 - 服务绑定 localhost，测试动态选择端口，启动失败或超过 180 秒即失败。
 - 每轮消费 2 帧，共 2 个 chunk；确认请求帧为 0、2，总计记录 4 帧动作。

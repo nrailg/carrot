@@ -245,3 +245,51 @@ def test_so101_export_loads_as_six_joint_policy(tmp_path, monkeypatch) -> None:
     assert policy.metadata["action_dim"] == 6
     assert result["actions"].shape == (3, 6)
     np.testing.assert_allclose(result["actions"], 5.0, rtol=0, atol=1e-5)
+
+
+def test_so101_single_wrist_camera_at_15_fps(monkeypatch) -> None:
+    # 单腕相机15FPS录制应保留时间间隔，并在训练和推理中屏蔽不存在的视角。
+    class WristSource(_Source):
+        def __getitem__(self, index):
+            sample = super().__getitem__(index)
+            sample["observation.images.wrist"] = sample.pop("observation.images.fpv")
+            sample.pop("observation.images.top")
+            return sample
+
+    metadata = SimpleNamespace(
+        robot_type="so_follower", fps=15,
+        features={
+            "observation.state": {"shape": [6]}, "action": {"shape": [6]},
+            "observation.images.wrist": {"dtype": "video", "shape": [48, 80, 3]},
+        },
+        stats={"observation.state": _stats()["state"], "action": _stats()["actions"]},
+    )
+    captured = {}
+
+    def make_dataset(repo_id, **kwargs):
+        captured.update(kwargs)
+        return WristSource()
+
+    # 显式禁用外部相机，不复制腕图像伪造第二视角。
+    monkeypatch.setattr(so101, "LeRobotDatasetMetadata", lambda *args, **kwargs: metadata)
+    monkeypatch.setattr(so101, "LeRobotDataset", make_dataset)
+    dataset = so101.build_dataset(
+        action_horizon=3, base_image_key=None, wrist_image_key="observation.images.wrist",
+    )
+    raw = dataset.dataset[0]
+    assert captured["delta_timestamps"] == {"action": [0.0, 1 / 15, 2 / 15]}
+    assert dataset.image_keys == ("observation.images.wrist",)
+    assert "observation/image" not in raw
+
+    # 同一变换在训练collate和policy入口得到一致的单相机mask，输出仍为六维绝对动作。
+    transform = create_so101_transform_spec(_Tokenizer(), _stats(), model_action_dim=32)
+    batch = default_collate([Pi05TransformedDataset(dataset.dataset, transform)[0]])
+    policy = Pi05Policy(_Model(), transform, device="cpu")
+    obs = policy._to_observation(policy._input_transform(raw))
+    assert not obs.image_masks["base_0_rgb"].any()
+    assert obs.image_masks["left_wrist_0_rgb"].all()
+    assert not obs.image_masks["right_wrist_0_rgb"].any()
+    for name in obs.image_masks:
+        torch.testing.assert_close(batch["image_mask"][name], obs.image_masks[name])
+    output = policy.infer({key: value for key, value in raw.items() if key != "actions"})
+    np.testing.assert_allclose(output["actions"], 5.0, rtol=0, atol=1e-5)

@@ -12,10 +12,21 @@ from .dataset_spec import SFTDatasetSpec
 
 
 class SO101SFTDataset(Dataset[dict[str, Any]]):
-    """Expose two camera views and absolute joint targets for PI0.5."""
+    """Expose configured camera views and absolute joint targets for PI0.5."""
 
-    def __init__(self, source: LeRobotDataset) -> None:
+    def __init__(
+        self, source: LeRobotDataset, *,
+        base_image_key: str | None = "observation.images.top",
+        wrist_image_key: str | None = "observation.images.fpv",
+    ) -> None:
         self.source = source
+        self.image_keys = {
+            target: key for target, key in (
+                ("observation/image", base_image_key),
+                ("observation/wrist_image", wrist_image_key),
+            ) if key is not None
+        }
+        assert self.image_keys, "SO101 requires at least one camera"
 
     def __len__(self) -> int:
         return len(self.source)
@@ -24,8 +35,7 @@ class SO101SFTDataset(Dataset[dict[str, Any]]):
         sample = self.source[index]
         return {
             "observation/state": sample["observation.state"],
-            "observation/image": sample["observation.images.top"],
-            "observation/wrist_image": sample["observation.images.fpv"],
+            **{target: sample[key] for target, key in self.image_keys.items()},
             "prompt": sample["task"],
             "actions": sample["action"],
             "action_is_pad": sample["action_is_pad"],
@@ -39,6 +49,8 @@ def build_dataset(
     revision: str | None = None,
     action_horizon: int = 50,
     video_backend: str | None = None,
+    base_image_key: str | None = "observation.images.top",
+    wrist_image_key: str | None = "observation.images.fpv",
 ) -> SFTDatasetSpec:
     """Load SO101 LeRobot v3 data with episode-bounded future actions.
 
@@ -51,11 +63,13 @@ def build_dataset(
         Dataset revision used when fetching from the Hub.
     action_horizon : int
     video_backend : str | None
+    base_image_key, wrist_image_key : str | None
+        Dataset camera fields; None explicitly disables that view.
 
     Returns
     -------
     SFTDatasetSpec
-        Samples contain six absolute joint targets and two RGB views.
+        Samples contain six absolute joint targets and the configured RGB views.
 
     Raises
     ------
@@ -68,13 +82,15 @@ def build_dataset(
         f"SO101 dataset root does not exist: {dataset_root}"
     )
     metadata = LeRobotDatasetMetadata(repo_id, root=dataset_root, revision=revision)
-    assert metadata.robot_type == "so101_follower", (
-        f"SO101 dataset requires robot_type='so101_follower', got {metadata.robot_type!r}"
+    assert metadata.robot_type in ("so101_follower", "so_follower"), (
+        f"expected so101_follower or so_follower, got {metadata.robot_type!r}"
     )
     assert metadata.fps >= 1, "SO101 dataset FPS must be positive"
     for key in ("observation.state", "action"):
         assert tuple(metadata.features[key]["shape"]) == (6,), f"SO101 {key} must have shape (6,)"
-    for key in ("observation.images.top", "observation.images.fpv"):
+    image_keys = tuple(key for key in (base_image_key, wrist_image_key) if key is not None)
+    assert image_keys, "SO101 requires at least one camera"
+    for key in image_keys:
         feature = metadata.features[key]
         assert feature["dtype"] in ("video", "image") and feature["shape"][-1] == 3, (
             f"SO101 {key} must be RGB video or image"
@@ -90,11 +106,13 @@ def build_dataset(
         kwargs["video_backend"] = video_backend
     source = LeRobotDataset(repo_id, **kwargs)
     return SFTDatasetSpec(
-        dataset=SO101SFTDataset(source),
+        dataset=SO101SFTDataset(
+            source, base_image_key=base_image_key, wrist_image_key=wrist_image_key,
+        ),
         collate_fn=None,
         state_stats=metadata.stats["observation.state"],
         action_stats=metadata.stats["action"],
-        image_keys=("observation.images.top", "observation.images.fpv"),
+        image_keys=image_keys,
         state_key="observation/state",
         action_key="actions",
         task_key="prompt",

@@ -37,3 +37,11 @@ bash tests/pi_05/test_so101_sft.sh
 证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_sft.log`。
 
 本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。
+
+## 2026-09-29：15 FPS 单腕视角
+
+新增单腕相机数据配置与缺失视角mask契约回归，同时接纳LeRobot的so_follower类型名。
+Gemini既定venv运行同名runner：**5 passed**（含此前双相机4项）。
+真实两episode数据首尾样本50×6窗口、末尾49帧padding与base/right mask=false也已预检。
+证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_monitor/20260929T1129Z/cpu_tests.log`。
+源码与环境及实验最终结论见 `recipes/pi05_sft_so101_wipe_overfit/README.md`。

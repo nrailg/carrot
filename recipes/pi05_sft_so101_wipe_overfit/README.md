@@ -36,8 +36,7 @@ bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_wipe_overfit/run.sh"
 
 ## 2026-09-29
 
-状态：准备中。数据已只读预检，单相机兼容改动等待回归，尚未开始训练。
-实际版本、任务ID、日志与结果执行后补充。
+状态：100-step训练及固定训练样本推理评估已有完整日志和产物；详见下方结果。
 
 ### 启动记录
 
@@ -47,3 +46,41 @@ bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_wipe_overfit/run.sh"
 - 前置SO101 CPU测试5 passed；真实factory首尾样本和视角mask验证通过。
 - 持久监控目录 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_monitor/20260929T1129Z`，CPU日志 `cpu_tests.log`。
 - 此记录仅证明任务启动，训练完成和拟合效果待下节实际结果。
+
+
+### 2026-09-29 20:31 北京时间结果核查
+
+- 持久训练日志 `train_backend.log` 有 `SFT finished: step=100`；rank0记录step1..100共100条。
+- 首步loss=0.137848，末步=0.009677887；前10步均值0.0777427，后10步均值0.0115624。
+- step25/50/75/100四个checkpoint均有权重、config、norm_stats、tokenizer_config和8份optimizer shard；step100已由独立评估成功加载。
+- 训练前后使用同一32个训练观测、固定噪声，排除padding后1345行有效动作。
+
+| 指标 | base | step100 |
+|---|---:|---:|
+| 动作范围归一化RMSE | 0.4661695 | 0.1795024 |
+| shoulder_pan MAE（度） | 7.8626 | 2.2565 |
+| shoulder_lift MAE（度） | 30.6453 | 8.4070 |
+| elbow_flex MAE（度） | 22.9190 | 5.8599 |
+| wrist_flex MAE（度） | 9.8191 | 2.6059 |
+| wrist_roll MAE（度） | 2.2817 | 0.7456 |
+| gripper MAE（数据中的百分比单位） | 0.10930 | 0.01785 |
+
+- RMSE下降约61.5%；保持当前state基线RMSE=0.6059362。拟合明显改善，但未达到可宣称充分过拟合的证据；未延长超过用户指定的100step。
+- 这是训练样本子集评估，不是留出集或真机任务成功率。
+- 评估证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_100/evaluation/{base,step100}/metrics.json`；对应NPZ在相同目录。
+- 完整训练、评估stdout见上述monitor目录的 `train_backend.log`、`rank0_worker_stdout.log`、`eval_base.log`、`eval_step100.log`。
+
+### 2026-09-29 MacBook 联调服务
+
+- 启动入口 `serve.sh`；`MY_DFS=<个人DFS> CUDA_VISIBLE_DEVICES=0 bash recipes/pi05_sft_so101_wipe_overfit/serve.sh`。
+- 2026-09-29约20:45北京时间最初启动8000端口task `1d7252fc-0307`；用户确认Mac仅可访问8080/8081后，该任务已停止。
+- 20:49切换到8080，新后台task `1d7252fc-0313`，GPU0、host=0.0.0.0；serve.sh默认端口已改8080。
+- launcher地址 `29.209.160.111`；WebSocket `ws://29.209.160.111:8080`，健康检查 `/healthz`。
+- dguard暂停120分钟，计划22:45:48北京时间自动恢复；服务持续运行，恢复后可能竞争GPU资源。
+- 模型step100；请求字段 observation/state（6维，前5轴度数、夹爪百分比）、observation/wrist_image（RGB uint8）、prompt（训练文本 Move an object）。省略不存在的外部相机，不伪造双相机。
+- 输出绝对目标float32[50,6]，对应15FPS训练时间尺度。
+- 旧examples/so101_real配置仍强制30FPS/use_degrees=false/双相机，不能直接用于本模型控制；PolicyClient网络接口可复用。
+- 主代理从devcloud访问该IP被IDC网关拒绝：HTTP403、acl.14001/acl_denied，说明需要igate权限；此结果不能判定MacBook的办公网路由是否可达。未调整网络权限。
+
+- 20:51北京时间新服务加载完成，远端localhost和launcher IP的8080 `/healthz` 均返回200 OK；8000无监听。
+- 20:51:50北京时间WebSocket真实单腕数据推理通过：metadata horizon50/dim6/num_steps10/so101，返回float32[50,6]全部有限，首次客户端往返534ms。证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_100/serving/20260929T1249Z/health_websocket_infer.log`。主代理已独立读取日志；服务保持运行。

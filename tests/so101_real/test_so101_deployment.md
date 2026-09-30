@@ -120,3 +120,33 @@ bash tests/so101_real/test_so101_deployment.sh
   deployment_three_seconds.yaml、three_step/、three_seconds/、before/after_three_seconds.json、
   verification_three_step.json、verification_three_seconds.json。
 - 用户观察3帧时“动了一点点”；45帧效果尚未由用户描述。未切换实时相机/关节观测闭环。
+
+
+## 2026-09-30：reset后30秒实时观测试跑与3号响应排查
+
+实时链路与定时停止 **PASS**；动作跟踪/任务效果未验收，3号肘响应不足。
+
+- 用户确认先前运动正常、自行reset，并授权30秒运行且现场观察；本次切换robot+robot，
+  每块执行5步（15FPS）后读取真实关节与wrist图，不循环录制episode。相对限幅保持5°/5百分点。
+- 标定匹配、Status初始全0；reset后扭矩部分0/部分1，旧目标尚在附近。
+  启动前外部将raw Goal_Position设为当前raw Present_Position并读回，默认入口仍未自动加入该防护。
+  OpenCV index0外接相机640×480@15实测出图；实景为桌面，未断言任务物体配置正确。
+- 临时launch脚本`~/.cache/carrot/so101_step4_20260930/live_thirty_seconds/run_live.py`
+  在首次command日志后以SIGALRM计时30秒，超时抛DurationLimit，经现有runner异常清理停止。
+  未改产品代码。正式命令使用Mac独立venv Python、源码PYTHONPATH、HF离线环境运行该脚本。
+- 完成45块/225条executed=true动作；46次正式请求（不含预热），最后一次在推理等待中到时中断，
+  未产生该轮prediction/command。45份NPZ均为有限float32[50,6]，无示教reference。
+- 首条command到stopped为30.004秒，网络/相机清理后30.270秒；随后外部写当前位置保持目标，
+  读回Goal一致。终止时Status1–6全0、Torque_Enable全1。原summary completed=false、
+  reason=DurationLimit，属于计划停止，不能冒充runner自然完成；trial_summary单独记录结果。
+- 3号运动期反馈95.165..96.220°，模型目标87.399..98.752°，下发目标90.165..97.275°；
+  15条指令相对sink此前读数超过3°。此前3秒测试也仅95.604→95.429°。
+- 停止后只读3号Torque_Enable=1、Status=0、P/I/D=16/0/32、CW/CCW Dead Zone=1/1、
+  Max_Torque_Limit=1000、温度读数59；保持目标等于反馈，电流raw1/负载raw0。
+  这些是停后读数，不代表运动时电流/负载，更不能据此排除机械卡滞/舵机驱动问题。
+- 实际算法把目标误差截在当前位置±5°，当前位置不动时目标不会按上一指令累加；
+  “误差限幅+带载控制响应不足”为候选解释，未定根因、未改PID、未追加点动。
+  上游旧版本也报告小max_relative_target可能不动（issue1527），只能作线索，不证明本机原因。
+- 证据目录`~/.cache/carrot/so101_step4_20260930/live_thirty_seconds/`：
+  before/after.json、trial_summary.json、verification.json、camera_preflight.jpg、run/events.jsonl、
+  run/chunk_*.npz、servo_readonly_after.json；源码沿用此前提交，Mac环境版本同前。

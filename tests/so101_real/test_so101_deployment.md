@@ -62,3 +62,32 @@ bash tests/so101_real/test_so101_deployment.sh
 安装来源、镜像、源码版本和同次端到端测试见
 [WebSocket 测试记录](../pi_05/test_so101_websocket.md#2026-09-27)。
 完整日志：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-websocket-20260927T101647-2701786/pytest.log`。
+
+
+## 2026-09-30：wipe step100 真机单步
+
+单步 **PASS**；短块 **BLOCKED**（起始姿态超过10°阈值），默认启动路径仍需旧目标防护。
+本次结果不代表连续闭环、任务效果或默认启动行为已经验收。
+
+- 源码 commit `9e2369b`；Mac独立client Python3.12.14、LeRobot0.6.1、
+  Torch2.11.0、NumPy2.2.6、websockets16.1.1、固定commit OpenPI client0.1.0。
+  Mac无Docker镜像；服务端本轮Docker tag未核实，LeRobot wheel commit未记录。
+- 本地数据 `~/.cache/huggingface/lerobot/local/so101_32_episodes_20260929_163347`，
+  metadata与动作parquet SHA256均与GPU训练副本一致；2 episodes/354帧、单wrist、15FPS、度数。
+- follower端口 `/dev/cu.usbmodem5C821078421`、ID `my_awesome_follower_arm`；
+  现有标定与寄存器匹配。1–6号扭矩初始为0、Status为0、当前位置在标定范围内。
+- 发现初始Goal_Position为零刻度，和部分当前位置相差约180°；LeRobot的configure会启用扭矩。
+  本次先只读确认Operating_Mode=0、Phase多圈位已清除，再在扭矩关闭时将Goal_Position
+  原始值写为当前Present_Position并读回校验；然后关闭串口、调用正式客户端入口。
+  **该准备是本次外部操作，未自动包含在commit的connect_robot中。**
+- 正式入口：`run(load_config(Path("/Users/wujunyu/.cache/carrot/so101_step4_20260930/deployment.yaml"), {}))`。
+  dataset + robot、episode0/frame0、execute_steps=1、max_chunks=1、相对限幅5。
+  先预热后正式请求；summary completed=true、chunks=1、steps=1；动作日志仅一次executed=true。
+- 下发相对量（1–5号度数，6号百分点）：`[+2.425,-0.791,+1.100,-5.000,-2.880,-0.758]`。
+  2号目标经绝对下界限幅，4号经相对5°限幅。原始目标均在标定范围内。
+- 约0.3秒后读回：1/3/4/5号编码器变化 `+18/+17/-40/-29`；2/6号未观察到位置变化，
+  因此不宣称所有关节都到达目标。1–6号Status均0，标定JSON未变；退出后扭矩保留为1。
+- 单帧日志预览耗时约306ms；正式推理使用新的随机噪声，不能把预览目标等同于本次下发值。
+- 2号肩关节起始位置与录制首帧差12.48°，超过短块阈值；未重复下发或自动对齐。
+- 证据：`/Users/wujunyu/.cache/carrot/so101_step4_20260930/`，包含preview、deployment.yaml、
+  startup_before.json、single_step/events.jsonl及summary.json、after_single_step.json、verification.json。

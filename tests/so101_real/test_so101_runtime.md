@@ -24,6 +24,13 @@ bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_runtime.sh"
 
 ## 结果
 
+### 2026-09-30：单腕与度数适配回归
+
+状态：**PASS**。原双相机/30FPS/归一化用例保持回归；动作执行端现在显式接收限位。
+17项包含在完整SO101 CPU合跑中：`53 passed in 7.83s`。单腕、15FPS、度数与标定
+换算用例、命令、环境及源码版本见 [本轮共同记录](test_so101_profiles.md#2026-09-30)。
+未记录本文件独立耗时，未连接真实设备。
+
 ### 2026-09-27：runner 按同名测试拆分
 
 runtime runner 现在仅运行 `test_so101_runtime.py`；其他三个测试各有独立 runner 和档案。

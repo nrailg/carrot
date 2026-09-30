@@ -16,7 +16,7 @@ from PIL import Image
 
 from .actions import ActionSink, LogSink, SO101Sink
 from .client import PolicyClient
-from .config import DeploymentConfig
+from .config import JOINT_NAMES, DeploymentConfig
 from .dataset import load_dataset_source
 from .observations import ObservationSource, RobotSource
 from .report import write_report
@@ -74,7 +74,7 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     horizon = validate_metadata(policy.metadata, config.execute_steps)
     frame = source.read()
     assert frame is not None, "observation source is empty"
-    for name, key in (("top", "observation/image"), ("fpv", "observation/wrist_image")):
+    for key, name in config.image_keys.items():
         Image.fromarray(frame.request[key]).save(log.directory / f"first_{name}.png")
     log.write("metadata", metadata=policy.metadata)
 
@@ -152,7 +152,8 @@ def connect_robot(config: DeploymentConfig, stack: ExitStack) -> SO101Follower:
             assert camera.fps == config.fps, "camera FPS must match deployment"
     robot = SO101Follower(SO101FollowerConfig(
         port=config.robot_port, id=config.robot_id, calibration_dir=Path(config.calibration_dir),
-        cameras=cameras, use_degrees=False, max_relative_target=float(config.max_relative_target),
+        cameras=cameras, use_degrees=config.use_degrees,
+        max_relative_target=float(config.max_relative_target),
         disable_torque_on_disconnect=False,
     ))
     assert robot.calibration, "existing robot calibration must be nonempty"
@@ -160,6 +161,29 @@ def connect_robot(config: DeploymentConfig, stack: ExitStack) -> SO101Follower:
     robot.connect(calibrate=False)
     assert robot.is_calibrated, "device calibration differs from the existing calibration file"
     return robot
+
+
+def _action_limits(robot: SO101Follower) -> tuple[np.ndarray, np.ndarray]:
+    names = [name.removesuffix(".pos") for name in JOINT_NAMES]
+    for name in names:
+        calibration = robot.bus.calibration[name]
+        assert calibration.range_min < calibration.range_max, f"invalid calibration: {name}"
+    # 复用实际总线的纯换算，度数范围随标定行程变化，夹爪仍是百分比。
+    endpoints = [robot.bus._normalize({
+        robot.bus.motors[name].id: (
+            robot.bus.calibration[name].range_max if high else robot.bus.calibration[name].range_min
+        ) for name in names
+    }) for high in (False, True)]
+    values = np.array([[point[robot.bus.motors[name].id] for name in names]
+                       for point in endpoints], dtype=np.float64)
+    lower, upper = values.min(axis=0), values.max(axis=0)
+    lower32, upper32 = lower.astype(np.float32), upper.astype(np.float32)
+    # float32边界向区间内取整，避免驱动转回整数刻度时越过标定端点。
+    lower32 = np.where(lower32.astype(np.float64) < lower,
+                       np.nextafter(lower32, np.float32(np.inf)), lower32)
+    upper32 = np.where(upper32.astype(np.float64) > upper,
+                       np.nextafter(upper32, np.float32(-np.inf)), upper32)
+    return lower32, upper32
 
 
 def run(config: DeploymentConfig) -> None:
@@ -211,11 +235,11 @@ def run(config: DeploymentConfig) -> None:
             if config.observation_source == "robot" or config.action_sink == "robot":
                 robot = connect_robot(config, stack)
             if config.observation_source == "robot":
-                source = RobotSource(robot, config.prompt, horizon)
+                source = RobotSource(robot, config.prompt, horizon, image_keys=config.image_keys)
             assert source is not None
 
             sink = LogSink() if config.action_sink == "log" else SO101Sink(
-                robot, config.initial_state_tolerance
+                robot, config.initial_state_tolerance, *_action_limits(robot)
             )
             summary = run_loop(config, source, sink, client, log)
         except BaseException as error:

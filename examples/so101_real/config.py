@@ -22,7 +22,9 @@ class DeploymentConfig:
     output_dir: str = "outputs/so101_debug"
     dataset_root: str | None = None
     dataset_repo: str = "felixmayor/orange_cube_merged"
-    dataset_revision: str = "c021b3c22a3de4e70e81010e54fb250a5dde348b"
+    dataset_revision: str | None = "c021b3c22a3de4e70e81010e54fb250a5dde348b"
+    base_camera: str | None = "top"
+    wrist_camera: str = "fpv"
     episode: int = 0
     start_frame: int = 0
     prompt: str | None = None
@@ -40,12 +42,27 @@ class DeploymentConfig:
     initial_state_tolerance: float = 10.0
     cameras: dict[str, dict[str, Any]] = field(default_factory=dict)
 
+    @property
+    def image_keys(self) -> dict[str, str]:
+        keys = {"observation/wrist_image": self.wrist_camera}
+        if self.base_camera is not None:
+            keys["observation/image"] = self.base_camera
+        return keys
+
     def validate(self) -> None:
         assert self.observation_source in ("dataset", "robot"), "invalid observation_source"
         assert self.action_sink in ("log", "robot"), "invalid action_sink"
         assert self.server_uri.startswith(("ws://", "wss://")), "server_uri must be ws(s)://"
-        assert self.use_degrees is False, "this deployment profile requires use_degrees=false"
-        assert self.fps == 30, "SO101 deployment profile requires 30 FPS"
+        assert type(self.use_degrees) is bool, "use_degrees must be boolean"
+        assert type(self.fps) is int and self.fps > 0, "FPS must be a positive integer"
+        assert isinstance(self.wrist_camera, str) and self.wrist_camera.strip(), "set wrist_camera"
+        assert self.base_camera is None or (
+            isinstance(self.base_camera, str) and self.base_camera.strip()
+            and self.base_camera != self.wrist_camera
+        ), "base_camera must be distinct from wrist_camera, or null"
+        assert self.dataset_revision is None or (
+            isinstance(self.dataset_revision, str) and self.dataset_revision.strip()
+        ), "dataset_revision must be a nonempty string or null for local unversioned data"
         for name, value in (("execute_steps", self.execute_steps), ("episode", self.episode),
                             ("start_frame", self.start_frame)):
             assert type(value) is int and value >= (1 if name == "execute_steps" else 0), name
@@ -58,10 +75,11 @@ class DeploymentConfig:
         # 数据集回放与实时采集需要的输入资源不同。
         if self.observation_source == "dataset":
             assert self.dataset_root and Path(self.dataset_root).is_dir(), "set dataset_root"
-            assert self.dataset_revision, "set the locally downloaded dataset revision"
         else:
             assert self.prompt, "robot observations require a task prompt"
-            assert set(self.cameras) == {"top", "fpv"}, "configure top and fpv cameras"
+            assert set(self.cameras) == set(self.image_keys.values()), (
+                "configure exactly the selected camera views"
+            )
         if self.observation_source == "robot" or self.action_sink == "robot":
             assert self.robot_port and self.robot_id and self.calibration_dir, (
                 "set robot_port, robot_id and calibration_dir"

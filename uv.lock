@@ -8,6 +8,9 @@ supported-markers = [
     "platform_machine == 'x86_64' and sys_platform == 'linux'",
 ]
 conflicts = [[
+    { package = "carrot-rl", extra = "client" },
+    { package = "carrot-rl", group = "openpi-libero" },
+], [
     { package = "carrot-rl", extra = "sft" },
     { package = "carrot-rl", group = "openpi-libero" },
 ], [
@@ -57,7 +60,7 @@ name = "aioboto3"
 version = "15.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "aiobotocore", extra = ["boto3"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "aiobotocore", extra = ["boto3"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "aiofiles" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a2/01/92e9ab00f36e2899315f49eefcd5b4685fbb19016c7f19a9edf06da80bb0/aioboto3-15.5.0.tar.gz", hash = "sha256:ea8d8787d315594842fbfcf2c4dce3bac2ad61be275bc8584b2ce9a3402a6979", size = 255069, upload-time = "2025-10-30T13:37:16.122Z" }
@@ -164,7 +167,7 @@ version = "1.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "frozenlist" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/61/62/06741b579156360248d1ec624842ad0edf697050bbaf7c3e46394e106ad1/aiosignal-1.4.0.tar.gz", hash = "sha256:f47eecd9468083c2029cc99945502cb7708b082c232f9aca65da147157b251c7", size = 25007, upload-time = "2025-07-03T22:54:43.528Z" }
@@ -202,7 +205,7 @@ version = "4.14.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "idna" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/61/cc/a381afa6efea9f496eff839d4a6a1aed3bfafc7b3ab4b0d1b243a12573dd/anyio-4.14.2.tar.gz", hash = "sha256:cfa139f3ed1a23ee8f88a145ddb5ac7605b8bbfd8592baacd7ce3d8bb4313c7f", size = 260176, upload-time = "2026-07-12T20:29:07.082Z" }
@@ -425,15 +428,22 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
+client = [
+    { name = "lerobot", version = "0.6.1", source = { registry = "https://pypi.org/simple" }, extra = ["dataset", "feetech"], marker = "extra == 'extra-9-carrot-rl-client' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero') or (extra == 'extra-9-carrot-rl-sft' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "matplotlib" },
+    { name = "openpi-client" },
+    { name = "pyyaml" },
+    { name = "websockets" },
+]
 dev = [
     { name = "pytest" },
     { name = "pytest-timeout" },
     { name = "ruff" },
 ]
 isaac-arena = [
-    { name = "isaaclab", extra = ["all", "isaacsim"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "isaaclab", extra = ["all", "isaacsim"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "isaaclab-arena" },
-    { name = "isaacsim", extra = ["all", "extscache"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "isaacsim", extra = ["all", "extscache"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
     { name = "torchaudio" },
     { name = "torchvision", version = "0.26.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
@@ -446,7 +456,7 @@ sft = [
     { name = "datasets" },
     { name = "diffusers" },
     { name = "huggingface-hub", version = "1.31.0", source = { registry = "https://pypi.org/simple" } },
-    { name = "lerobot", version = "0.6.1", source = { registry = "https://pypi.org/simple" }, extra = ["dataset"], marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "lerobot", version = "0.6.1", source = { registry = "https://pypi.org/simple" }, extra = ["dataset"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
     { name = "pyyaml" },
     { name = "rerun-sdk", version = "0.31.4", source = { registry = "https://pypi.org/simple" } },
@@ -483,10 +493,14 @@ requires-dist = [
     { name = "isaaclab-arena", marker = "extra == 'isaac-arena'", git = "https://github.com/isaac-sim/IsaacLab-Arena.git?rev=release%2F0.3.0" },
     { name = "isaacsim", extras = ["all", "extscache"], marker = "extra == 'isaac-arena'", specifier = "==6.0.1.0" },
     { name = "lerobot", extras = ["dataset"], marker = "extra == 'sft'", specifier = "==0.6.1" },
+    { name = "lerobot", extras = ["dataset", "feetech"], marker = "extra == 'client'", specifier = "==0.6.1" },
+    { name = "matplotlib", marker = "extra == 'client'", specifier = ">=3.9,<4" },
     { name = "numpy", marker = "extra == 'sft'", specifier = "==2.3.1" },
+    { name = "openpi-client", marker = "extra == 'client'", git = "https://github.com/Physical-Intelligence/openpi.git?subdirectory=packages%2Fopenpi-client&rev=215abfb217dbac7d5f1273282331b9b1866c0479" },
     { name = "openpi-client", marker = "extra == 'serving'", git = "https://github.com/Physical-Intelligence/openpi.git?subdirectory=packages%2Fopenpi-client&rev=215abfb217dbac7d5f1273282331b9b1866c0479" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pytest-timeout", marker = "extra == 'dev'", specifier = ">=2.3" },
+    { name = "pyyaml", marker = "extra == 'client'", specifier = ">=6,<7" },
     { name = "pyyaml", marker = "extra == 'sft'", specifier = ">=6" },
     { name = "ray", specifier = ">=2.47" },
     { name = "rerun-sdk", marker = "extra == 'sft'", specifier = "==0.31.4" },
@@ -500,9 +514,10 @@ requires-dist = [
     { name = "torchvision", marker = "extra == 'sft'", specifier = "==0.26.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "transformers", marker = "extra == 'sft'", specifier = "==5.5.4" },
     { name = "wandb", marker = "extra == 'sft'", specifier = ">=0.16" },
+    { name = "websockets", marker = "extra == 'client'", specifier = "==16.1.1" },
     { name = "websockets", marker = "extra == 'serving'", specifier = "==16.1.1" },
 ]
-provides-extras = ["serving", "sft", "isaac-arena", "dev"]
+provides-extras = ["client", "serving", "sft", "isaac-arena", "dev"]
 
 [package.metadata.requires-dev]
 openpi-libero = [
@@ -761,7 +776,7 @@ version = "1.3.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/58/01/1253e6698a07380cd31a736d248a3f2a50a7c88779a1813da27503cadc2a/contourpy-1.3.3.tar.gz", hash = "sha256:083e12155b210502d0bca491432bb04d56dc3432f95a979b429f2848c3dbe880", size = 13466174, upload-time = "2025-07-26T12:03:12.549Z" }
 wheels = [
@@ -876,13 +891,13 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "dill" },
     { name = "filelock" },
-    { name = "fsspec", extra = ["http"], marker = "extra == 'extra-9-carrot-rl-sft' or extra == 'group-9-carrot-rl-openpi-libero'" },
+    { name = "fsspec", extra = ["http"] },
     { name = "httpx" },
     { name = "huggingface-hub", version = "0.36.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "huggingface-hub", version = "1.31.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "huggingface-hub", version = "1.31.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "multiprocess" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "packaging" },
     { name = "pandas" },
     { name = "pyarrow" },
@@ -907,8 +922,26 @@ wheels = [
 
 [[package]]
 name = "deepdiff"
+version = "8.6.2"
+source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "platform_machine == 'x86_64' and sys_platform == 'linux'",
+]
+dependencies = [
+    { name = "orderly-set" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/89/50/767448e792d41bfb6094ee317a355c1cb221dca24b2e178e2203bbea2a77/deepdiff-8.6.2.tar.gz", hash = "sha256:186dcbd181e4d76cef11ab05f802d0056c5d6083c5a6748c1473e9d7481e183e", size = 634860, upload-time = "2026-03-18T17:16:33.785Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2b/5f/c52bd1255db763d0cdcb7084d2e90c42119cb229302c56bdf1d0aa78abd2/deepdiff-8.6.2-py3-none-any.whl", hash = "sha256:4d22034a866c3928303a9332c279362f714192d9305bac17c498720d095fd1b4", size = 91979, upload-time = "2026-03-18T17:16:32.171Z" },
+]
+
+[[package]]
+name = "deepdiff"
 version = "9.1.0"
 source = { registry = "https://pypi.org/simple" }
+resolution-markers = [
+    "platform_machine == 'x86_64' and sys_platform == 'linux'",
+]
 dependencies = [
     { name = "cachebox" },
     { name = "orderly-set" },
@@ -925,10 +958,10 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "filelock" },
     { name = "huggingface-hub", version = "0.36.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "huggingface-hub", version = "1.31.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "huggingface-hub", version = "1.31.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "importlib-metadata" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "pillow" },
     { name = "regex" },
     { name = "requests" },
@@ -1005,7 +1038,7 @@ dependencies = [
     { name = "absl-py" },
     { name = "attrs" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "wrapt" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5a/66/a3ec619d22b6baffa5ab853e8dc6ec9d0c837127948af59bb15b988d7312/dm_tree-0.1.10.tar.gz", hash = "sha256:22f37b599e01cc3402a17f79c257a802aebd8d326de05b54657650845956208a", size = 35748, upload-time = "2026-03-31T17:35:39.03Z" }
@@ -1136,7 +1169,7 @@ wheels = [
 epath = [
     { name = "fsspec" },
     { name = "importlib-resources" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
     { name = "zipp" },
 ]
@@ -1191,6 +1224,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/33/a4/9473c7c3b87009d9c
 wheels = [
     { url = "https://files.pythonhosted.org/packages/49/82/2755c7c982086f00d4dab85bc120ec35045a9fc2191893a6ce79afe94443/fastjsonschema-2.22.2-py3-none-any.whl", hash = "sha256:0fb3915616adac85ccfdd737d26be1089845d2019819505b42d39888458f74d4", size = 27413, upload-time = "2026-08-15T19:47:04.406Z" },
 ]
+
+[[package]]
+name = "feetech-servo-sdk"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pyserial" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5f/8e/c53d6f9a8bf3a86a635b58eeb675723f1b040f1665a0681467756c8989aa/feetech-servo-sdk-1.0.0.tar.gz", hash = "sha256:d4d3832e4b1b22a8222133a414db9f868224c2fb639426a1b11d96ddfe84e69c", size = 8392, upload-time = "2022-11-08T03:44:45.269Z" }
 
 [[package]]
 name = "filelock"
@@ -1531,7 +1573,7 @@ name = "grpcio"
 version = "1.84.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/3f/4f/4435c0aae54657258d9cfcba78598f3d9e5fe4c82ff18d78558567b90faf/grpcio-1.84.0.tar.gz", hash = "sha256:19aaf172fc2edbefccce3f6e92c5150975dbe56c45744e9e87cf72ebdf85bfbe", size = 13493876, upload-time = "2026-09-14T06:59:33.291Z" }
@@ -1640,7 +1682,7 @@ version = "3.16.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/db/33/acd0ce6863b6c0d7735007df01815403f5589a21ff8c2e1ee2587a38f548/h5py-3.16.0.tar.gz", hash = "sha256:a0dbaad796840ccaa67a4c144a0d0c8080073c34c76d5a6941d6818678ef2738", size = 446526, upload-time = "2026-03-06T13:49:08.07Z" }
 wheels = [
@@ -1757,15 +1799,15 @@ resolution-markers = [
     "platform_machine == 'x86_64' and sys_platform == 'linux'",
 ]
 dependencies = [
-    { name = "click", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "filelock", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "fsspec", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "hf-xet", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "httpx", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "packaging", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "pyyaml", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "tqdm", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "click", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "filelock", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "fsspec", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "hf-xet", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "httpx", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "packaging", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "pyyaml", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "tqdm", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/9b/f0/61159db90b5cd275d55516fe27920828e7d3be4053fdbdb27c3f70e5f1ef/huggingface_hub-1.31.0.tar.gz", hash = "sha256:f8e9e710a210613fa5d0f26bba6da05ef4aef9fba5a0f23f508f5ac4d08b6f90", size = 968039, upload-time = "2026-09-10T10:27:22.724Z" }
 wheels = [
@@ -1819,7 +1861,7 @@ version = "2.37.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "pillow" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/a3/6f/606be632e37bf8d05b253e8626c2291d74c691ddc7bcdf7d6aaf33b32f6a/imageio-2.37.2.tar.gz", hash = "sha256:0212ef2727ac9caa5ca4b2c75ae89454312f440a756fcfc8ef1993e718f50f8a", size = 389600, upload-time = "2025-11-04T14:29:39.898Z" }
@@ -1957,7 +1999,7 @@ all = [
     { name = "tqdm" },
 ]
 isaacsim = [
-    { name = "isaacsim", extra = ["all", "extscache"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "isaacsim", extra = ["all", "extscache"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 
 [[package]]
@@ -1977,7 +2019,7 @@ dependencies = [
     { name = "sbi" },
     { name = "scipy" },
     { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" } },
-    { name = "vuer", marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "vuer", marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 
 [[package]]
@@ -2083,7 +2125,7 @@ dependencies = [
     { name = "contourpy" },
     { name = "cryptography" },
     { name = "cycler" },
-    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "filelock" },
     { name = "fonttools" },
     { name = "fsspec" },
@@ -2104,7 +2146,7 @@ dependencies = [
     { name = "mujoco-warp" },
     { name = "nest-asyncio" },
     { name = "networkx" },
-    { name = "newton", extra = ["sim"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "newton", extra = ["sim"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "newton-actuators" },
     { name = "newton-usd-schemas" },
     { name = "numpy-stl" },
@@ -2661,7 +2703,7 @@ dependencies = [
     { name = "av" },
     { name = "cmake" },
     { name = "datasets" },
-    { name = "deepdiff" },
+    { name = "deepdiff", version = "9.1.0", source = { registry = "https://pypi.org/simple" } },
     { name = "diffusers" },
     { name = "draccus", version = "0.10.0", source = { registry = "https://pypi.org/simple" } },
     { name = "einops" },
@@ -2726,6 +2768,11 @@ dataset = [
     { name = "pandas" },
     { name = "pyarrow" },
     { name = "torchcodec" },
+]
+feetech = [
+    { name = "deepdiff", version = "8.6.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "feetech-servo-sdk" },
+    { name = "pyserial" },
 ]
 
 [[package]]
@@ -2849,7 +2896,7 @@ dependencies = [
     { name = "fonttools" },
     { name = "kiwisolver" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "packaging" },
     { name = "pillow" },
     { name = "pyparsing" },
@@ -2965,7 +3012,7 @@ version = "1.35.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cryptography" },
-    { name = "pyjwt", extra = ["crypto"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "pyjwt", extra = ["crypto"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "requests" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/3c/aa/5a646093ac218e4a329391d5a31e5092a89db7d2ef1637a90b82cd0b6f94/msal-1.35.1.tar.gz", hash = "sha256:70cac18ab80a053bff86219ba64cfe3da1f307c74b009e2da57ef040eb1b5656", size = 165658, upload-time = "2026-03-04T23:38:51.812Z" }
@@ -3023,7 +3070,7 @@ resolution-markers = [
 ]
 dependencies = [
     { name = "absl-py" },
-    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "glfw" },
     { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
     { name = "pyopengl" },
@@ -3055,7 +3102,7 @@ version = "3.8.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "absl-py" },
-    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "etils", extra = ["epath"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "mujoco", version = "3.8.0", source = { registry = "https://pypi.org/simple" } },
     { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
     { name = "warp-lang" },
@@ -3200,7 +3247,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "llvmlite" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/23/c9/a0fb41787d01d621046138da30f6c2100d80857bf34b3390dd68040f27a3/numba-0.64.0.tar.gz", hash = "sha256:95e7300af648baa3308127b1955b52ce6d11889d16e8cfe637b4f85d2fca52b1", size = 2765679, upload-time = "2026-02-18T18:41:20.974Z" }
 wheels = [
@@ -3825,7 +3872,7 @@ dependencies = [
     { name = "dm-tree" },
     { name = "msgpack" },
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "pillow" },
     { name = "websockets" },
 ]
@@ -3835,7 +3882,7 @@ name = "opentelemetry-api"
 version = "1.44.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ee/8b/aa9e2d8b8dfa7c946f7dec5d1f8f6ba8eca062f43509a06bdb5ce93d26c0/opentelemetry_api-1.44.0.tar.gz", hash = "sha256:67647e5e9566edcf421166fdf022b3537f818635daa852b289e34604dc6fb33a", size = 72406, upload-time = "2026-07-16T15:25:32.678Z" }
@@ -3866,7 +3913,7 @@ dependencies = [
     { name = "opentelemetry-proto" },
     { name = "opentelemetry-sdk" },
     { name = "requests" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/1a/87/95e2a5aaa795b4e2260d74e16df2d5541deb2ea9de010bcd615f4dee2654/opentelemetry_exporter_otlp_proto_http-1.44.0.tar.gz", hash = "sha256:c633d7270ad6b57cd4cfbe8b0007a9e2e7c0cb50bd6c50fe2a7b245f721a09d8", size = 25806, upload-time = "2026-07-16T15:25:39.162Z" }
@@ -3893,7 +3940,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "opentelemetry-api" },
     { name = "opentelemetry-semantic-conventions" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/5d/77/a6592cbc7c8d9bcc9d6757a9df45e04a7c585e3e6e7a13456da522b21109/opentelemetry_sdk-1.44.0.tar.gz", hash = "sha256:cebe7f65dc12f26ead75c6064de12fd2a9052e5060c0272d402cfa203aae123b", size = 208624, upload-time = "2026-07-16T15:25:46.078Z" }
@@ -3907,7 +3954,7 @@ version = "0.65b0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "opentelemetry-api" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/8f/73/0cbdebcb4cf545fdd328da14f5137e37d0770c3f26185e478b0d15d94f50/opentelemetry_semantic_conventions-0.65b0.tar.gz", hash = "sha256:f9b2b81e9d5b64f11bc952075e7e9c7fb0aab075c7fd1c46d597f1b919852d60", size = 148774, upload-time = "2026-07-16T15:25:46.902Z" }
@@ -4012,7 +4059,7 @@ version = "2.2.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "python-dateutil" },
     { name = "pytz" },
     { name = "tzdata" },
@@ -4302,7 +4349,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-types" },
     { name = "pydantic-core" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-inspection" },
 ]
@@ -4316,7 +4363,7 @@ name = "pydantic-core"
 version = "2.33.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/ad/88/5f2260bdfae97aabf98f1778d43f69574390ad787afb646292a638c923d4/pydantic_core-2.33.2.tar.gz", hash = "sha256:7cb8bc3605c29176e1b105350d2e6474142d7c1bd1d9327c4a9bdb46bf827acc", size = 435195, upload-time = "2025-04-23T18:33:52.104Z" }
@@ -4428,6 +4475,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/93/cd/112f092ec27cca83e0516de0a3368dbd9128c187fb6b52aaaa7cde39c96d/pypng-0.20220715.0.tar.gz", hash = "sha256:739c433ba96f078315de54c0db975aee537cbc3e1d0ae4ed9aab0ca1e427e2c1", size = 128992, upload-time = "2022-07-15T14:11:05.301Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3e/b9/3766cc361d93edb2ce81e2e1f87dd98f314d7d513877a342d31b30741680/pypng-0.20220715.0-py3-none-any.whl", hash = "sha256:4a43e969b8f5aaafb2a415536c1a8ec7e341cd6a3f957fd5b5f32a4cfeed902c", size = 58057, upload-time = "2022-07-15T14:11:03.713Z" },
+]
+
+[[package]]
+name = "pyserial"
+version = "3.5"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/1e/7d/ae3f0a63f41e4d2f6cb66a5b57197850f919f59e558159a4dd3a818f5082/pyserial-3.5.tar.gz", hash = "sha256:3c77e014170dfffbd816e6ffc205e9842efb10be9f58ec16d3e8675b4925cddb", size = 159125, upload-time = "2020-11-23T03:59:15.045Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/07/bc/587a445451b253b285629263eb51c2d8e9bcea4fc97826266d186f96f558/pyserial-3.5-py2.py3-none-any.whl", hash = "sha256:c4451db6ba391ca6ca299fb3ec7bae67a5c55dde170964c7a14ceefec02f2cf0", size = 90585, upload-time = "2020-11-23T03:59:13.41Z" },
 ]
 
 [[package]]
@@ -4631,7 +4687,7 @@ source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "attrs" },
     { name = "rpds-py" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/22/f5/df4e9027acead3ecc63e50fe1e36aca1523e1719559c499951bb4b53188f/referencing-0.37.0.tar.gz", hash = "sha256:44aefc3142c5b842538163acb373e24cce6632bd54bdb01b21ad5863489f50d8", size = 78036, upload-time = "2025-10-13T15:30:48.871Z" }
@@ -4860,7 +4916,7 @@ version = "1.17.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "numpy", version = "1.26.4", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
-    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/56/3e/9cca699f3486ce6bc12ff46dc2031f1ec8eb9ccc9a320fdaf925f1417426/scipy-1.17.0.tar.gz", hash = "sha256:2591060c8e648d8b96439e111ac41fd8342fdeff1876be2e19dea3fe8930454e", size = 30396830, upload-time = "2026-01-10T21:34:23.009Z" }
 wheels = [
@@ -5216,7 +5272,7 @@ resolution-markers = [
 ]
 dependencies = [
     { name = "cuda-bindings" },
-    { name = "cuda-toolkit", extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvjitlink", "nvrtc", "nvtx"], marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "cuda-toolkit", extra = ["cublas", "cudart", "cufft", "cufile", "cupti", "curand", "cusolver", "cusparse", "nvjitlink", "nvrtc", "nvtx"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "filelock" },
     { name = "fsspec" },
     { name = "jinja2" },
@@ -5464,7 +5520,7 @@ version = "0.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "mypy-extensions" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/dc/74/1789779d91f1961fa9438e9a8710cdae6bd138c80d7303996933d117264a/typing_inspect-0.9.0.tar.gz", hash = "sha256:b23fc42ff6f6ef6954e4852c1fb512cdd18dbea03134f91f856a95ccc9461f78", size = 13825, upload-time = "2023-05-24T20:25:47.612Z" }
@@ -5477,7 +5533,7 @@ name = "typing-inspection"
 version = "0.4.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac53367ae42139cf4b1ca5f36bb3dc6c9d33acdb43655/typing_inspection-0.4.2.tar.gz", hash = "sha256:ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464", size = 75949, upload-time = "2025-10-01T02:14:41.687Z" }
@@ -5598,7 +5654,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pyyaml" },
     { name = "requests" },
-    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-sft' or (extra == 'extra-9-carrot-rl-isaac-arena' and extra == 'group-9-carrot-rl-openpi-libero')" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "typing-extensions", version = "4.16.0", source = { registry = "https://pypi.org/simple" }, marker = "extra == 'group-9-carrot-rl-openpi-libero'" },
     { name = "xxhash" },
 ]

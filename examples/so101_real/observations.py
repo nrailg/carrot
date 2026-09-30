@@ -3,7 +3,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from .config import JOINT_NAMES
+from .config import JOINT_NAMES, DeploymentConfig
 
 
 class Robot(Protocol):
@@ -58,16 +58,19 @@ class DatasetSource:
     horizon : int
     prompt : str | None
         Explicit override of the recorded task.
+    image_keys : dict[str, str] | None
+        Policy image fields mapped to dataset camera names; None uses top/fpv.
     """
 
     def __init__(self, dataset: Dataset, episode: int, start_frame: int, horizon: int,
-                 prompt: str | None = None) -> None:
+                 prompt: str | None = None, *, image_keys: dict[str, str] | None = None) -> None:
         assert 0 <= start_frame < len(dataset), "start_frame outside selected episode"
         self.dataset = dataset
         self.episode = episode
         self.frame = start_frame
         self.horizon = horizon
         self.prompt = prompt
+        self.image_keys = DeploymentConfig().image_keys if image_keys is None else image_keys.copy()
 
     def read(self) -> ObservationFrame | None:
         if self.frame >= len(self.dataset):
@@ -93,8 +96,8 @@ class DatasetSource:
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),
-                "observation/image": rgb_image(sample["observation.images.top"]),
-                "observation/wrist_image": rgb_image(sample["observation.images.fpv"]),
+                **{key: rgb_image(sample[f"observation.images.{camera}"])
+                   for key, camera in self.image_keys.items()},
                 "prompt": prompt,
             },
             episode=self.episode, frame=self.frame,
@@ -107,19 +110,20 @@ class DatasetSource:
 
 
 class RobotSource:
-    def __init__(self, robot: Robot, prompt: str, horizon: int) -> None:
+    def __init__(self, robot: Robot, prompt: str, horizon: int, *,
+                 image_keys: dict[str, str] | None = None) -> None:
         self.robot = robot
         self.prompt = prompt
         self.horizon = horizon
         self.frame = 0
+        self.image_keys = DeploymentConfig().image_keys if image_keys is None else image_keys.copy()
 
     def read(self) -> ObservationFrame:
         obs = self.robot.get_observation()
         return ObservationFrame(
             request={
                 "observation/state": joint_state(obs),
-                "observation/image": rgb_image(obs["top"]),
-                "observation/wrist_image": rgb_image(obs["fpv"]),
+                **{key: rgb_image(obs[camera]) for key, camera in self.image_keys.items()},
                 "prompt": self.prompt,
             },
             episode=None, frame=self.frame, reference=None, valid_steps=self.horizon,

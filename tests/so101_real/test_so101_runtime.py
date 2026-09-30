@@ -5,7 +5,7 @@ import numpy as np
 import pytest
 
 from examples.so101_real.actions import LogSink, SO101Sink
-from examples.so101_real.config import JOINT_NAMES, DeploymentConfig, load_config
+from examples.so101_real.config import JOINT_NAMES, LOWER, UPPER, DeploymentConfig, load_config
 from examples.so101_real.observations import DatasetSource, RobotSource
 from examples.so101_real.runner import RunLog, run_loop, validate_metadata
 
@@ -127,7 +127,7 @@ def test_absolute_action_mapping_and_driver_clipping():
     # 绝对目标不加当前状态，日志必须采用驱动限幅后实际下发的值。
     robot = Robot()
     robot.state[:] = 10
-    sink = SO101Sink(robot, 10)
+    sink = SO101Sink(robot, 10, LOWER, UPPER)
     target = np.array([-200, -3, 20, 50, 200, -10], dtype=np.float32)
 
     # 同时触发合法范围裁剪和驱动的相对目标限幅。
@@ -150,7 +150,8 @@ def test_multi_step_initial_mismatch_stops_before_send(log, execute_steps, max_c
 
     # 预热可以完成，但位置不一致时不得产生任何运动命令。
     with pytest.raises(AssertionError, match="initial state mismatch"):
-        run_loop(config, DatasetSource(Dataset(), 2, 0, 4), SO101Sink(robot, 10), Policy(), log)
+        run_loop(config, DatasetSource(Dataset(), 2, 0, 4),
+                 SO101Sink(robot, 10, LOWER, UPPER), Policy(), log)
     assert robot.commands == []
 
 
@@ -159,7 +160,7 @@ def test_single_action_uses_prediction_not_demonstration(log):
     robot = Robot()
     policy = Policy()
     result = run_loop(DeploymentConfig(), DatasetSource(Dataset(), 2, 0, 4),
-                      SO101Sink(robot, 10), policy, log)
+                      SO101Sink(robot, 10, LOWER, UPPER), policy, log)
 
     # 只发一条值为 2 的预测；99 是示教动作，不能出现在命令里。
     assert result["steps"] == 1
@@ -183,7 +184,7 @@ def test_failure_never_sends_remaining_actions(log, failure):
     # 第一块执行两步，然后在下一请求中注入异常并检查命令总数。
     with pytest.raises(failure):
         run_loop(config, DatasetSource(Dataset(), 2, 0, 4),
-                 SO101Sink(robot, 10), FailingPolicy(), log)
+                 SO101Sink(robot, 10, LOWER, UPPER), FailingPolicy(), log)
     assert len(robot.commands) == 2
 
 
@@ -201,7 +202,7 @@ def test_bad_actions_never_reach_robot(log, actions):
     # 预热响应也校验完整契约，防止非法响应进入执行循环。
     with pytest.raises(AssertionError):
         run_loop(DeploymentConfig(), DatasetSource(Dataset(), 2, 0, 4),
-                 SO101Sink(robot, 10), BadPolicy(), log)
+                 SO101Sink(robot, 10, LOWER, UPPER), BadPolicy(), log)
     assert not robot.commands
 
 
@@ -212,7 +213,7 @@ def test_robot_observations_refresh_after_warmup_and_action(log):
     config = DeploymentConfig(observation_source="robot", max_chunks=2)
 
     # 共执行两块，每块一步；真实状态由 fake driver 的实际命令更新。
-    run_loop(config, RobotSource(robot, "pick", 4), SO101Sink(robot, 10), policy, log)
+    run_loop(config, RobotSource(robot, "pick", 4), SO101Sink(robot, 10, LOWER, UPPER), policy, log)
 
     # 第三次请求已包含上一动作的真实反馈，区别于录制观测开环模式。
     assert len(policy.requests) == 3

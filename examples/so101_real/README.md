@@ -21,6 +21,10 @@ OpenPI 客户端的历史依赖声明为 NumPy <2，而 LeRobot 0.6.1 要求 Num
 对应兼容性由 `tests/so101_real/test_so101_client.py` 验证。`--no-config` 避免继承
 仓库 GPU 环境的依赖覆盖与索引；机侧选用 CPU PyTorch，无需安装完整 Carrot 或 CUDA。
 
+仓库 `client` extra 与上述机侧 requirements 一致，声明 LeRobot 的 `dataset,feetech` extras，
+包含 `pyserial`、`deepdiff` 和 Feetech SDK。root `uv.lock` 仍面向 Linux x86_64/CUDA；
+Mac 继续使用上面的独立 CPU 环境安装命令。
+
 GPU 机器沿用已有 `/opt/venvs/carrot` 环境，确认包含 OpenPI 客户端及 websockets。
 仓库 `serving` extra 声明服务依赖；root uv 配置也明确覆盖 OpenPI 的旧 NumPy 上限。
 已完成环境配置并确认 `MY_DFS` 后：
@@ -38,6 +42,35 @@ python -m carrot.cli.serve_pi05_policy \
 
 使用 checkpoint 自带 tokenizer、统计量和精度配置。现有 step 5000 保存的是 FP32
 配置；先在有足够显存的 GPU 上验证加载及推理延迟。服务只允许一个控制客户端串行使用。
+
+### 单腕 wipe：15 FPS、度数模式
+
+`wipe.yaml` 对应 `nrailg/so101_wipe_down_the_cylinder` 与其 step100 checkpoint。
+配置使用 `base_camera: null`、`wrist_camera: wrist`、`fps: 15`、`use_degrees: true`。
+数据集字段 `observation.images.wrist` 和实时相机名 `wrist` 都映射为
+`observation/wrist_image`；不发送缺失的 base 视角，也不复制腕图填充它。
+
+本地自采数据没有 Hub revision 时显式设置 `dataset_revision: null`。
+完整数据目录必须包含 `meta/`、`data/`、`videos/`；数据原始 FPS 必须与配置一致。
+从仓库根目录先运行无硬件的单帧日志模式：
+
+```bash
+python -m examples.so101_real.main \
+  --config examples/so101_real/wipe.yaml \
+  --server-uri ws://GPU_HOST:8080 \
+  --dataset-root /absolute/path/to/so101_wipe_down_the_cylinder \
+  --output-dir outputs/so101_wipe_one_frame
+```
+
+真机模式需复制该模板，填写 follower 串口、ID、标定目录，以及腕相机的实际编号与朝向。
+前五轴使用度数，第六轴夹爪仍为开合百分比；动作绝对限位从驱动现有标定换算，
+不得使用旧归一化位置的 `[-100,100]` 作为角度限位。`max_relative_target` 和
+`initial_state_tolerance` 与该模式的单位一致：前五轴为度数，夹爪为百分点。
+实际关节已越过标定范围时停止下发；标定限位不替代摄像头线缆的活动范围检查。
+
+块内按15Hz执行，块间等待推理；模型仍预测50步、去噪10步，`execute_steps` 控制消费
+几行动作。新增配置仍默认 `dataset + log`、单块单步。下方双相机示例使用旧公共数据的
+30FPS归一化配置；四种运行模式也适用于wipe，但必须使用wipe模板与对应checkpoint。
 
 ## 2. 数据集观测 → 日志
 
@@ -145,7 +178,7 @@ python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
 - 模型返回 `[50,6]`；`execute_steps` 控制消费几行，`num_steps` 是服务端去噪次数。
 - 每行是绝对目标位置，顺序为 shoulder_pan、shoulder_lift、elbow_flex、wrist_flex、
   wrist_roll、gripper，各带 `.pos` 后缀。
-- 块内目标频率 30 Hz，块间等待推理，实际全程频率会降低；记录实际耗时。
+- 块内目标频率由 `fps` 配置决定，块间等待推理，实际全程频率会降低；记录实际耗时。
 - 连接超时 10 秒、预热 60 秒、后续响应 5 秒，可在配置中调整。
 - Ctrl+C、断连、超时或错误时停止新增命令，退出后不自动续跑；断开保留最后位置目标。
   舵机仍可能完成已收到的动作，此行为不等同于硬件急停。

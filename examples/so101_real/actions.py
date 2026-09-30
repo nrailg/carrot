@@ -20,16 +20,16 @@ class LogSink:
 
 
 class SO101Sink:
-    """Apply calibrated limits to degree targets and gripper percentage points.
+    """Apply calibrated limits to source targets.
 
     Parameters
     ----------
     robot : Robot
-        Driver enforces max_relative_target in its native units.
+        Driver enforces max_relative_target.
     config : DeploymentConfig
-        Initial tolerance and log arrays use the same units as the driver.
+        Initial tolerance and log arrays retain the source scale.
     lower, upper : np.ndarray
-        Shape (6,); driver units, including gripper percentage points.
+        Shape (6,); calibrated command limits.
     """
 
     def __init__(self, robot: Robot, config: DeploymentConfig,
@@ -62,7 +62,7 @@ class SO101Sink:
             "live joints are outside calibrated action limits; align the robot manually"
         )
         bounded = np.clip(action, self.lower, self.upper)
-        # command使用驱动单位；绝对限幅在此执行，相对限幅由驱动执行。
+        # 绝对限幅在此执行，相对限幅由驱动执行。
         command = dict(zip(JOINT_NAMES, map(float, bounded), strict=True))
         sent = self.robot.send_action(command)
         # 驱动返回限幅后的发送目标，不代表运动后的实测位置。

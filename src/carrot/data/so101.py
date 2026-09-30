@@ -13,7 +13,7 @@ from .dataset_spec import SFTDatasetSpec
 
 
 class SO101SFTDataset(Dataset[dict[str, Any]]):
-    """Expose degree targets, gripper percentage points and explicit camera views.
+    """Expose source targets and explicit camera views.
 
     Parameters
     ----------
@@ -130,5 +130,4 @@ def build_dataset(
         action_key="actions",
         task_key="prompt",
         embodiment="so101",
-        joint_units="degrees",
     )

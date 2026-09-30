@@ -34,7 +34,7 @@ steps: 100
 micro_batch_size: 4
 global_batch_size: 64
 log_freq: 1
-output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_100
 save_freq: 25
 dp_size: 8
 num_nodes: 1

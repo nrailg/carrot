@@ -143,14 +143,6 @@ def create_so101_policy(
     )
     tokenizer_dir = _resolve_tokenizer_dir(checkpoint_dir, tokenizer_path)
     norm_stats = _load_norm_stats(stats_path)
-    stats_metadata = json.loads(stats_path.read_text())
-    # 无单位字段的早期SO101导出使用原始degree/百分点；有声明时必须匹配。
-    if "joint_units" in stats_metadata:
-        assert stats_metadata["joint_units"] == "degrees", "SO101 stats must use degrees"
-    if "gripper_units" in stats_metadata:
-        assert stats_metadata["gripper_units"] == "percentage_points", (
-            "SO101 gripper stats must use [0, 100]"
-        )
     tokenizer = _load_tokenizer(tokenizer_dir)
     model = PI0Pytorch.from_pretrained(checkpoint_dir)
     transform_spec = create_so101_transform_spec(
@@ -160,8 +152,7 @@ def create_so101_policy(
         discrete_state_input=model.config.discrete_state_input,
         default_prompt=default_prompt,
     )
-    return Pi05Policy(model, transform_spec, device=device, num_steps=num_steps,
-                     joint_units="degrees")
+    return Pi05Policy(model, transform_spec, device=device, num_steps=num_steps)
 
 
 def _validate_checkpoint(checkpoint_dir: str | Path) -> Path:

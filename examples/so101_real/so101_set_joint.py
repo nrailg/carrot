@@ -1,4 +1,4 @@
-"""Set one SO101 joint target in degrees, or gripper opening percentage."""
+"""Set one SO101 joint target."""
 # python3 so101_set_joint.py --joint 3 --target 60
 
 import argparse
@@ -25,7 +25,7 @@ def main() -> None:
     parser.add_argument("--max-delta", type=float, default=90.0)
     parser.add_argument(
         "--position-tolerance", type=float, default=1.0,
-        help="allowed feedback overshoot, in degrees or gripper percentage points",
+        help="allowed feedback overshoot",
     )
     args = parser.parse_args()
     assert math.isfinite(args.target), "target must be finite"
@@ -49,10 +49,10 @@ def main() -> None:
         f"target outside calibration: {min(endpoints):.3f} .. {max(endpoints):.3f}"
     )
     assert calibration.range_min <= target_raw <= calibration.range_max
-    units_per_count = abs(endpoints[1] - endpoints[0]) / (
+    position_per_count = abs(endpoints[1] - endpoints[0]) / (
         calibration.range_max - calibration.range_min
     )
-    raw_tolerance = args.position_tolerance / units_per_count
+    raw_tolerance = args.position_tolerance / position_per_count
     try:
         bus.connect()
         assert bus.is_calibrated, "servo calibration differs from saved file"

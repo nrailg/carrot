@@ -99,3 +99,17 @@ bash tests/pi_05/test_so101_dataset.sh
 
 首轮87通过、2失败：握手报错匹配和反馈夹爪期望仍使用旧值；修正后89通过。
 首轮证据保存在同目录 `initial_tests.log`，最终90项通过包含1项真实数据检查。
+
+
+## 2026-09-30：删除数据语义字段
+
+范围：删除dataset spec、训练导出、policy与握手、报告中的额外声明和校验。
+样本与stats保留源数值，已有Normalize/Unnormalize与标定限幅保留。
+预期：无额外metadata的统计文件可以加载、日志可以绘图；握手仍核对动作维度等推理结构。
+命令：合跑SO101 SFT、全部so101_real、共享PI05 inference与SFT checkpoint回归，
+另执行 `bash tests/pi_05/test_so101_dataset.sh` 验证真实录制数据。
+状态：PASS，含本文件的CPU回归共88项通过（10.44s），Ruff通过；未进行GPU推理、训练或真机操作。
+源码：bf11592加工作区改动；Docker tag未记录。
+
+环境：Python 3.12.13、LeRobot 0.6.1；证据：
+`$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。

@@ -1,4 +1,4 @@
-"""Read SO101 joint angles in degrees, or gripper opening percentage, without moving."""
+"""Read SO101 joint positions and status without moving."""
 
 import argparse
 from pathlib import Path
@@ -49,8 +49,7 @@ def main() -> None:
             # Status 按位表示故障：1 电压、2 磁编码器、4 温度、8 电流、32 过载。
             # 0 表示无故障；多个故障可叠加，如 5=1+4；16、64、128 未定义。
             status = bus.read("Status", name, normalize=False, num_retry=2)
-            unit = "%" if name == "gripper" else "deg"
-            print(f"Joint {joint_id} {name}: position={actual:.3f} {unit}, status={status}")
+            print(f"Joint {joint_id} {name}: position={actual:.3f}, status={status}")
     finally:
         if bus.is_connected:
             bus.disconnect(disable_torque=False)

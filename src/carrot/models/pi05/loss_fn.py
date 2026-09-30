@@ -68,7 +68,6 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         task_key: str = "task",
         preprocess: Any | None = None,
         transform_spec: Pi05TransformSpec | None = None,
-        joint_units: str | None = None,
     ) -> None:
         super().__init__(tokenizer)
         self.state_stats = state_stats
@@ -79,7 +78,6 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         self.task_key = task_key
         self.preprocess = preprocess
         self.transform_spec = transform_spec
-        self.joint_units = joint_units
 
     def __call__(
         self, model: PI0Pytorch, batch: dict[str, Any]
@@ -182,9 +180,6 @@ class Pi05SFTLossFn(Pi05Preprocessor):
             },
         }
         with (Path(path) / "norm_stats.json").open("w") as stream:
-            if self.joint_units is not None:
-                serializable_stats["joint_units"] = self.joint_units
-                serializable_stats["gripper_units"] = "percentage_points"
             json.dump(serializable_stats, stream)
 
 
@@ -279,15 +274,6 @@ def build_pi05(
         training_dataset = Pi05TransformedDataset(dataset.dataset, transform_spec)
         collate_fn = None
     elif dataset.embodiment == "so101":
-        if norm_stats_source == "file":
-            if "joint_units" in normalization:
-                assert normalization["joint_units"] == dataset.joint_units, (
-                    "SO101 statistics and dataset joint units differ"
-                )
-            if "gripper_units" in normalization:
-                assert normalization["gripper_units"] == "percentage_points", (
-                    "expected [0, 100] gripper stats"
-                )
         if preprocess is not None:
             raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
         transform_spec = create_so101_transform_spec(
@@ -310,7 +296,6 @@ def build_pi05(
         task_key=dataset.task_key,
         preprocess=load_callable(preprocess) if preprocess is not None else None,
         transform_spec=transform_spec,
-        joint_units=dataset.joint_units,
     )
     return Pi05Components(
         model=model.to(device),

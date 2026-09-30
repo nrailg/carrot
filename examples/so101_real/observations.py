@@ -53,7 +53,7 @@ class DatasetSource:
     dataset : Dataset
         Must contain only ``episode`` and horizon-sized action chunks with padding masks.
     config : DeploymentConfig
-        Episode, start frame, prompt and cameras; joints remain in driver units.
+        Episode, start frame, prompt and cameras.
     horizon : int
     """
 

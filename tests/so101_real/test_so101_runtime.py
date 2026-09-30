@@ -35,8 +35,7 @@ class Dataset:
 
 
 class Policy:
-    metadata = {"embodiment": "so101", "action_dim": 6, "action_horizon": 4, "num_steps": 10,
-                "joint_units": "degrees", "gripper_units": "percentage_points"}
+    metadata = {"embodiment": "so101", "action_dim": 6, "action_horizon": 4, "num_steps": 10}
 
     def __init__(self):
         self.requests = []
@@ -261,12 +260,12 @@ def test_default_profile_requires_explicit_dataset_repo(tmp_path):
         config.validate()
 
 
-def test_policy_metadata_matches_fixed_degree_interface():
-    # 模型内部归一化不改变外部degree接口；声明degree才能与client一致。
+def test_policy_metadata_only_requires_inference_structure():
+    # 服务握手只需要推理结构；输入数据的数值约定不由metadata决定。
     config = DeploymentConfig()
-    metadata = {**Policy.metadata, "joint_units": "degrees"}
+    metadata = dict(Policy.metadata)
 
-    # 正确声明通过；其他单位不会被自动猜测或转换。
+    # 最小握手正常通过，错误动作维度仍应在任何硬件操作前拒绝。
     assert validate_metadata(metadata, config) == 4
-    with pytest.raises(AssertionError, match="differ from client units"):
-        validate_metadata({**metadata, "joint_units": "invalid"}, config)
+    with pytest.raises(AssertionError, match="six-dimensional"):
+        validate_metadata({**metadata, "action_dim": 7}, config)

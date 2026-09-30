@@ -128,7 +128,6 @@ def main() -> None:
         assert source.read() is None
     audit = {
         "frames": len(requests), "fps": metadata.fps, "joint_order": JOINT_NAMES,
-        "units": ["degrees"] * 5 + ["percentage_points"],
         "stats_max_abs_differences": differences,
         "timestamp_max_abs_error_s": timestamp_error,
         "reference_action_alignment": "exact for all valid actions",
@@ -164,8 +163,6 @@ def main() -> None:
     predicted, inference_ms = [], []
     try:
         assert client.metadata["embodiment"] == "so101"
-        assert client.metadata["joint_units"] == "degrees"
-        assert client.metadata["gripper_units"] == "percentage_points"
         assert client.metadata["action_horizon"] == horizon and client.metadata["action_dim"] == 6
         assert client.metadata["num_steps"] == 10
         (args.output / "server_metadata.json").write_text(json.dumps(client.metadata, indent=2))

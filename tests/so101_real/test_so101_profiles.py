@@ -37,7 +37,7 @@ def test_invalid_fps_rejected(tmp_path, fps):
 
 
 def test_knock_down_the_cylinder_profile_and_camera_validation(tmp_path):
-    # 推倒圆柱模板必须显式使用单腕、15FPS和度数；自采本地数据允许没有Hub revision。
+    # 推倒圆柱模板必须显式使用单腕、15FPS；自采本地数据允许没有Hub revision。
     config = load_config(
         Path("examples/so101_real/knock_down_the_cylinder.yaml"), {"dataset_root": str(tmp_path)},
     )
@@ -62,7 +62,6 @@ def test_single_wrist_requests_padding_and_logs(tmp_path, monkeypatch):
     )
     source = DatasetSource(WristDataset(), config, 4)
     policy = Policy()
-    policy.metadata = {**policy.metadata, "joint_units": "degrees"}
     monkeypatch.setattr(runner.time, "sleep", lambda seconds: None)
 
     # 执行真实循环和日志，预热及三个动作块共享同一单腕输入契约。
@@ -83,7 +82,7 @@ def test_single_wrist_requests_padding_and_logs(tmp_path, monkeypatch):
 
 
 def test_robot_single_wrist_source():
-    # 实时源按同一映射读取腕图，不要求top/fpv；关节状态保持degree，夹爪保持[0,100]。
+    # 实时源按同一映射读取腕图，不要求top/fpv；状态保留原值。
     robot = Mock()
     state = [-12, -105, 96, 54, 150, 0.5]
     robot.get_observation.return_value = {
@@ -91,12 +90,12 @@ def test_robot_single_wrist_source():
         "wrist": np.full((12, 16, 3), 17, dtype=np.uint8),
     }
 
-    # 单腕请求只从一次真实观测组装，原单位透传，不复制视角。
+    # 单腕请求只从一次真实观测组装，原值透传，不复制视角。
     config = DeploymentConfig(prompt="Move an object", base_camera=None,
                               wrist_camera="wrist")
     frame = RobotSource(robot, config, 50).read()
 
-    # 超过100度的关节不能被当成归一化位置截断。
+    # 超过100的反馈值不能被硬编码范围截断。
     np.testing.assert_array_equal(
         frame.request["observation/state"], np.float32(state),
     )
@@ -186,12 +185,12 @@ def test_calibrated_action_limits_and_raw_targets():
     sink = SO101Sink(robot, config, lower, upper)
     target = np.array([-300, 300, -300, -300, 150, -10], dtype=np.float32)
 
-    # 发送前的绝对裁剪应让所有raw目标落在标定范围内，夹爪始终使用0..100百分比。
+    # 发送前的绝对裁剪应让所有raw目标落在标定范围内，保留驱动发送范围。
     result = sink.send(target)
     raw = robot.bus._unnormalize({robot.bus.motors[name].id: robot.commands[0][f"{name}.pos"]
                                  for name in names})
 
-    # 标定允许腕旋转150度，不能把物理角度裁剪到旧位置约定的100。
+    # 标定允许目标150，不能硬编码裁剪到100。
     assert result["bounded_target"][4] == pytest.approx(150)
     assert result["bounded_target"][5] == 0
     for name in names:
@@ -207,8 +206,8 @@ def test_calibrated_action_limits_and_raw_targets():
     assert len(robot.commands) == count
 
 
-def test_connect_robot_uses_degree_profile_and_validates_camera(tmp_path, monkeypatch):
-    # 真机工厂应透传度数和单腕配置；用替身保证测试绝不打开真实设备。
+def test_connect_robot_uses_profile_and_validates_camera(tmp_path, monkeypatch):
+    # 真机工厂应透传单腕配置；用替身保证测试绝不打开真实设备。
     config = load_config(Path("examples/so101_real/knock_down_the_cylinder.yaml"),
                          {"dataset_root": str(tmp_path)})
     config.observation_source = "robot"
@@ -238,8 +237,8 @@ def test_connect_robot_uses_degree_profile_and_validates_camera(tmp_path, monkey
     factory.assert_not_called()
 
 
-def test_driver_units_preserved_at_robot_boundary():
-    # policy给degree和夹爪百分点；驱动和日志必须使用完全相同的值。
+def test_targets_preserved_at_robot_boundary():
+    # 驱动和日志必须使用与policy目标完全相同的值。
     config = DeploymentConfig(use_degrees=True)
     robot = Mock()
     current = np.float32([0, 0, 0, 0, 0, 50])
@@ -249,20 +248,20 @@ def test_driver_units_preserved_at_robot_boundary():
                      np.float32([180] * 5 + [100]))
     target = np.float32([90, -90, 0, 45, -45, 25])
 
-    # 真实sink透传和限幅，mock仅替代串口；起点比较也必须在driver单位中进行。
+    # 真实sink透传和限幅，mock仅替代串口；起点比较也必须直接使用源数值。
     result = sink.send(target)
     sink.check_initial(current, multi_step=True)
     command = robot.send_action.call_args.args[0]
 
-    # 角度必须保持degree；25%夹爪不能被错误缩放。
+    # 所有六轴必须保留原值，不能额外缩放。
     np.testing.assert_allclose(list(command.values()), [90, -90, 0, 45, -45, 25],
                                rtol=0, atol=1e-5)
     np.testing.assert_allclose(result["sent"], target, rtol=0, atol=1e-6)
     assert not result["clipped"]
 
 
-def test_legacy_policy_units_rejected_before_hardware(tmp_path, monkeypatch):
-    # 缺单位metadata的旧服务不能驱动新客户端，即便六维shape正确也必须在连接硬件前拒绝。
+def test_wrong_action_dimension_rejected_before_hardware(tmp_path, monkeypatch):
+    # 动作维度不符的服务必须在连接硬件前拒绝。
     (tmp_path / "arm.json").write_text("{}")
     config = DeploymentConfig(observation_source="robot", action_sink="robot",
                               output_dir=str(tmp_path / "run"), robot_port="fake", robot_id="arm",
@@ -271,12 +270,13 @@ def test_legacy_policy_units_rejected_before_hardware(tmp_path, monkeypatch):
     policy = Mock()
     policy.metadata = {"embodiment": "so101", "action_dim": 6,
                        "action_horizon": 4, "num_steps": 10}
+    policy.metadata["action_dim"] = 7
     connect = Mock()
     monkeypatch.setattr(runner, "PolicyClient", lambda *args: policy)
     monkeypatch.setattr(runner, "connect_robot", connect)
 
     # 握手不匹配只释放网络资源，禁止打开相机、总线或发送动作。
-    with pytest.raises(AssertionError, match="policy units are missing"):
+    with pytest.raises(AssertionError, match="six-dimensional"):
         runner.run(config)
     connect.assert_not_called()
     policy.close.assert_called_once()

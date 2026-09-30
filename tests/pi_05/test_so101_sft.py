@@ -240,9 +240,7 @@ def test_so101_export_loads_as_six_joint_policy(tmp_path, monkeypatch) -> None:
     (tmp_path / "config.json").write_text("{}")
     (tmp_path / "tokenizer_config.json").write_text("{}")
     (tmp_path / "norm_stats.json").write_text(
-        json.dumps({"state": _stats()["state"],
-                    "action": _stats()["actions"],
-                    "joint_units": "degrees", "gripper_units": "percentage_points"})
+        json.dumps({"state": _stats()["state"], "action": _stats()["actions"]})
     )
     monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", lambda path: _Model())
     monkeypatch.setattr(
@@ -315,8 +313,8 @@ def test_so101_single_wrist_camera_at_15_fps(monkeypatch) -> None:
                                np.full((3, 6), 5, dtype=np.float32), rtol=0, atol=1e-5)
 
 
-def test_degree_samples_and_stats_keep_driver_units(monkeypatch) -> None:
-    # 六轴使用不同尺度，确保样本和统计量都保留原始degree与夹爪百分点。
+def test_samples_and_stats_preserve_source_values(monkeypatch) -> None:
+    # 六轴使用不同尺度，确保样本和统计量都保留原值。
     joints = np.float32([-180, -90, 0, 90, 180, 50])
     raw_stats = {key: joints.copy() for key in ("mean", "min", "max", "q01", "q99")}
     raw_stats["std"] = np.float32([180, 90, 1, 90, 180, 50])
@@ -340,9 +338,9 @@ def test_degree_samples_and_stats_keep_driver_units(monkeypatch) -> None:
     monkeypatch.setattr(so101, "LeRobotDatasetMetadata", lambda *args, **kwargs: metadata)
     monkeypatch.setattr(so101, "LeRobotDataset", lambda *args, **kwargs: DegreeSource())
 
-    # 真实工厂读取样本与stats，所有六轴均不做单位换算。
+    # 真实工厂读取样本与stats，所有六轴均原样传递。
     config = DATASET_CONFIGS["two_camera"]
-    dataset = so101.build_dataset(repo_id="local/degrees", action_horizon=3, **config)
+    dataset = so101.build_dataset(repo_id="local/source_values", action_horizon=3, **config)
     sample = dataset.dataset[0]
     expected = [-180, -90, 0, 90, 180, 50]
 
@@ -358,7 +356,6 @@ def test_degree_samples_and_stats_keep_driver_units(monkeypatch) -> None:
         np.testing.assert_array_equal(raw_stats[key], original[key])
     np.testing.assert_allclose(sample["actions"],
                                [joints] * 3, rtol=0, atol=2e-5)
-    assert dataset.joint_units == "degrees"
 
 
 def test_so101_factory_requires_explicit_repo_before_io(monkeypatch) -> None:
@@ -378,52 +375,45 @@ def test_camera_keys_must_be_explicit() -> None:
         so101.SO101SFTDataset(_Source())
 
 
-def test_export_preserves_model_unit_metadata(tmp_path) -> None:
-    # 导出的统计量必须记录degree和[0,100]夹爪，确保训练与服务单位一致。
+def test_export_preserves_source_stats(tmp_path) -> None:
+    # 导出只包含state/action统计量，不能添加额外的数据语义假设。
     tokenizer = _Tokenizer()
     tokenizer.save_pretrained = lambda path: None
     loss = Pi05SFTLossFn(tokenizer, state_stats=_stats()["state"],
-                        action_stats=_stats()["actions"], image_keys=(), joint_units="degrees")
+                        action_stats=_stats()["actions"], image_keys=())
 
-    # 经过实际artifact导出入口，验证单位字段与六维统计量同时落盘。
+    # 使用实际artifact入口，确认所有统计量原值落盘。
     loss.save_artifacts(tmp_path)
     payload = json.loads((tmp_path / "norm_stats.json").read_text())
-    assert payload["joint_units"] == "degrees"
-    assert payload["gripper_units"] == "percentage_points"
-    assert payload["action"] == _stats()["actions"]
+    assert payload == {"state": _stats()["state"], "action": _stats()["actions"]}
 
 
-@pytest.mark.parametrize("with_metadata", [False, True])
-def test_policy_keeps_degree_and_percentage_stats(tmp_path, monkeypatch, with_metadata) -> None:
-    # 早期无metadata与新导出均按degree/百分点加载，绝不能缩放夹爪统计量。
+def test_policy_preserves_arbitrary_source_stats(tmp_path, monkeypatch) -> None:
+    # 六轴统计量采用不同原值；服务只能根据这些stats解码，不能额外缩放任何轴。
     for name in ("model.safetensors", "tokenizer_config.json"):
         (tmp_path / name).touch()
     (tmp_path / "config.json").write_text("{}")
-    raw_stats = {"state": _stats()["state"], "action": _stats()["actions"]}
-    metadata = {"joint_units": "degrees", "gripper_units": "percentage_points"}
+    raw_stats = {
+        "state": {"q01": [0, 1, 2, 3, 4, 20], "q99": [10, 11, 12, 13, 14, 80]},
+        "action": {"q01": [0, 1, 2, 3, 4, 20], "q99": [10, 11, 12, 13, 14, 80]},
+    }
     stats_path = tmp_path / "norm_stats.json"
-    stats_path.write_text(json.dumps(raw_stats | (metadata if with_metadata else {})))
+    stats_path.write_text(json.dumps(raw_stats))
     monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", lambda path: _Model())
     monkeypatch.setattr(policy_config.AutoTokenizer, "from_pretrained",
                         lambda *args, **kwargs: _Tokenizer())
 
-    # 零模型输出应反归一化到5度与5%，保留原stats文件和固定握手单位。
+    # 零模型输出还原到每轴分位数中点，原文件不变且metadata只包含推理结构。
     policy = policy_config.create_so101_policy(tmp_path, device="cpu")
     sample = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["two_camera"])[0]
-    expected = np.full((3, 6), 5, dtype=np.float32)
+    expected = np.tile(np.float32([5, 6, 7, 8, 9, 50]), (3, 1))
     np.testing.assert_allclose(policy.infer(sample)["actions"], expected, rtol=0, atol=1e-5)
-    assert json.loads(stats_path.read_text()) == raw_stats | (metadata if with_metadata else {})
-    assert policy.metadata["joint_units"] == "degrees"
-    assert policy.metadata["gripper_units"] == "percentage_points"
-
-    # 带错误夹爪单位的文件必须在加载权重前失败，不能静默换算成百分点。
-    stats_path.write_text(json.dumps(raw_stats | metadata | {"gripper_units": "fraction"}))
-    with pytest.raises(AssertionError, match=r"must use \[0, 100\]"):
-        policy_config.create_so101_policy(tmp_path, device="cpu")
+    assert json.loads(stats_path.read_text()) == raw_stats
+    assert policy.metadata == {"action_dim": 6, "action_horizon": 3, "num_steps": 10}
 
 
 def test_so101_only_uses_statistical_normalization_without_clipping() -> None:
-    # 物理单位只经过已有norm stats变换；分位数外的角度与夹爪目标不能被额外裁剪。
+    # 原始数值只经过已有norm stats变换；分位数外的角度与夹爪目标不能被额外裁剪。
     stats = {
         "state": {"q01": [-90.0] * 5 + [20.0], "q99": [90.0] * 5 + [80.0]},
         "actions": {"q01": [-45.0] * 5 + [10.0], "q99": [45.0] * 5 + [90.0]},
@@ -435,7 +425,7 @@ def test_so101_only_uses_statistical_normalization_without_clipping() -> None:
            "prompt": "Move an object", "actions": action[None]}
     spec = create_so101_transform_spec(_Tokenizer(), stats, model_action_dim=32)
 
-    # 按独立公式计算六轴期望，证明没有degrees转换、夹爪缩放或[-1,1]裁剪。
+    # 按独立公式计算六轴期望，证明没有额外缩放或[-1,1]裁剪。
     processed = transforms.compose(spec.inputs)(raw)
     for key, values in (("state", state), ("actions", action[None])):
         low, high = np.float32(stats[key]["q01"]), np.float32(stats[key]["q99"])
@@ -443,7 +433,7 @@ def test_so101_only_uses_statistical_normalization_without_clipping() -> None:
         np.testing.assert_allclose(processed[key][..., :6], expected, rtol=0, atol=1e-6)
         assert processed[key].max() > 1 and processed[key].min() < -1
 
-    # 同一action stats反归一化应还原degree与百分点；源数组也必须保持不变。
+    # 同一action stats反归一化应还原原始值；源数组也必须保持不变。
     decoded = transforms.compose(spec.outputs)({"actions": processed["actions"]})
     np.testing.assert_allclose(decoded["actions"], action[None], rtol=0, atol=2e-5)
     np.testing.assert_array_equal(raw["observation/state"], state)

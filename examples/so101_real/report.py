@@ -13,14 +13,9 @@ from .config import JOINT_NAMES
 def write_report(directory: Path) -> None:
     # 只统计已写入 action 事件的动作，忽略预测后尚未消费的行。
     completed = {}
-    joint_units = None
-    gripper_units = None
     with (directory / "events.jsonl").open() as stream:
         for line in stream:
             event = json.loads(line)
-            if event["event"] == "metadata":
-                joint_units = event["metadata"]["joint_units"]
-                gripper_units = event["metadata"]["gripper_units"]
             if event["event"] == "action":
                 completed[event["chunk"]] = completed.get(event["chunk"], 0) + 1
     predictions = []
@@ -39,9 +34,6 @@ def write_report(directory: Path) -> None:
 
     if not predictions:
         return
-    assert joint_units == "degrees" and gripper_units == "percentage_points", (
-        "action reports require policy unit metadata from events.jsonl"
-    )
     prediction = np.concatenate(predictions)
     frame_indices = np.concatenate(frames)
     metrics = {"compared_frames": 0}
@@ -51,8 +43,6 @@ def write_report(directory: Path) -> None:
         metrics = {"compared_frames": len(prediction), "joint_mae": dict(zip(
             JOINT_NAMES, np.abs(prediction - reference).mean(axis=0).astype(float), strict=True
         ))}
-    metrics["joint_units"] = joint_units
-    metrics["gripper_units"] = gripper_units
     (directory / "comparison.json").write_text(json.dumps(metrics, indent=2, allow_nan=False))
     figure, axes = plt.subplots(3, 2, figsize=(12, 9), sharex=True)
     for index, axis in enumerate(axes.flat):
@@ -61,7 +51,7 @@ def write_report(directory: Path) -> None:
             axis.plot(frame_indices, reference[:, index], label="demonstration", marker=".")
         axis.set_title(JOINT_NAMES[index])
         axis.set_xlabel("episode frame")
-        axis.set_ylabel(gripper_units if index == 5 else joint_units)
+        axis.set_ylabel("value")
         axis.legend()
     figure.tight_layout()
     figure.savefig(directory / "actions.png")

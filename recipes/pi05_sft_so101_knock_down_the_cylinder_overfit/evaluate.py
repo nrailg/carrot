@@ -30,7 +30,7 @@ def main() -> None:
     stats_path.write_text(json.dumps({
         key: {name: np.asarray(value).tolist() for name, value in values.items()}
         for key, values in stats.items()
-    } | {"joint_units": "degrees", "gripper_units": "percentage_points"}))
+    }))
     policy = create_so101_policy(
         args.checkpoint, device=args.device, tokenizer_path=args.tokenizer,
         norm_stats_path=stats_path,

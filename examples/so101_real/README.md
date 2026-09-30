@@ -37,30 +37,27 @@ bash recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/serve.sh
 ```
 
 `serve.sh` 仍加载历史 step100 checkpoint；不会启动训练或控制机械臂。
-服务加载 checkpoint 自带 tokenizer 和 `norm_stats.json`，不提供关节单位切换参数。
+服务加载 checkpoint 自带 tokenizer 和 `norm_stats.json`。
 服务只允许一个控制客户端串行使用。
 
-## 单位与统计量
+## 数据与统计量
 
-全链路使用同一单位：前五轴为 degree，角度约定 `[-180,180]`；夹爪为 `[0,100]` 百分点。
-数据读取、WebSocket 请求/响应、示教 reference、动作日志和 LeRobot 下发均不换算单位。
-驱动设置 `use_degrees: true`；实际可下发的角度范围仍由现有标定决定。
-
-训练配置使用 `norm_stats_source: dataset`，由 LeRobot 从数据集 `meta/stats.json`
-读取 `observation.state` 和 `action` 的原始统计量，Carrot 不重新计算或缩放统计量。
-模型已有 Normalize 使用每轴 q01/q99：
+数据读取、WebSocket请求/响应、示教reference、日志和下发直接使用源数值。
+训练配置使用 `norm_stats_source: dataset`，由LeRobot从数据集 `meta/stats.json`
+读取 `observation.state` 和 `action` 的统计量；Carrot不重新计算或缩放统计量。
+模型已有Normalize使用每轴q01/q99：
 
 ```text
 z = 2 * (x - q01) / (q99 - q01 + 1e-6) - 1
 x = (z + 1) / 2 * (q99 - q01 + 1e-6) + q01
 ```
 
-训练和推理共用这一层 Normalize；输出由 action stats 反归一化成 degree/百分点。
-超过分位数的数据可以超出 `[-1,1]`，不额外裁剪或按机器人范围归一化。
+训练与推理共用这层Normalize，输出由action stats反归一化还原。
+分位数外的数据可以超出 `[-1,1]`，不额外裁剪或按机器人范围归一化。
 训练导出实际统计量到 `output_dir/checkpoints/step-XXXXXXXX/norm_stats.json`，
-包含 `state`、`action`、`joint_units: degrees`、`gripper_units: percentage_points`。
-服务默认读取此文件，新旧degree/百分点统计量都不做转换；已有单位声明必须匹配。
-报告读取握手单位，客户端在连接硬件前核对服务单位。
+内容仅包含 `state` 和 `action`；服务默认读取此文件，不增加数据语义假设。
+服务握手包含embodiment、action_dim、action_horizon、num_steps；客户端核对推理结构。
+实际下发的范围仍由机器人现有标定和相对目标限幅决定。
 
 ## 数据集观测 → 日志
 
@@ -94,7 +91,7 @@ python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
 ```
 
 该命令会控制机械臂。动作先按标定绝对范围裁剪，再由驱动限制相对当前反馈的目标变化。
-`max_relative_target`、`initial_state_tolerance` 的前五轴单位为度，夹爪单位为百分点。
+`max_relative_target`、`initial_state_tolerance` 直接与反馈值比较。
 多步执行前核对实机与录制起点，不自动对齐姿态。日志中的 `sent` 是驱动返回的发送目标，
 不代表运动后的反馈位置。
 

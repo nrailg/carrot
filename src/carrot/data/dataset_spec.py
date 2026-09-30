@@ -22,8 +22,6 @@ class SFTDatasetSpec:
     task_key : str
     embodiment : str
         ``libero`` and ``so101`` select shared input-transform pipelines.
-    joint_units : str | None
-        SO101 model joint units; its gripper always uses [0, 1].
     """
 
     dataset: Any
@@ -35,4 +33,3 @@ class SFTDatasetSpec:
     action_key: str = "action"
     task_key: str = "task"
     embodiment: str = "robotwin"
-    joint_units: str | None = None

@@ -22,7 +22,7 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     Returns
     -------
     DatasetSource
-        Model-unit observations and a separate demonstration action reference.
+        Source observations and a separate demonstration action reference.
     """
     # 两个库会缓存离线配置，仅设置环境变量不足以约束当前进程。
     os.environ["HF_HUB_OFFLINE"] = "1"

@@ -33,7 +33,7 @@ class DeploymentConfig:
     robot_port: str | None = None
     robot_id: str | None = None
     calibration_dir: str | None = None
-    use_degrees: bool = True  # LeRobot驱动、录制数据和策略接口统一使用degree。
+    use_degrees: bool = True
     max_relative_target: float = 5.0
     initial_state_tolerance: float = 10.0
     cameras: dict[str, dict[str, Any]] = field(default_factory=dict)
@@ -49,7 +49,6 @@ class DeploymentConfig:
         assert self.observation_source in ("dataset", "robot"), "invalid observation_source"
         assert self.action_sink in ("log", "robot"), "invalid action_sink"
         assert self.server_uri.startswith(("ws://", "wss://")), "server_uri must be ws(s)://"
-        assert self.use_degrees is True, "SO101 recording and driver must use degrees"
         assert type(self.fps) is int and self.fps > 0, "FPS must be a positive integer"
         assert isinstance(self.wrist_camera, str) and self.wrist_camera.strip(), "set wrist_camera"
         assert self.base_camera is None or (

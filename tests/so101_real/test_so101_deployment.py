@@ -45,9 +45,7 @@ def test_session_hardware_selection_and_cleanup(
     robot.send_action.return_value = joints
     policy = Mock()
     policy.metadata = {"embodiment": "so101", "action_dim": 6,
-                       "action_horizon": 4, "num_steps": 10,
-                       "joint_units": "degrees",
-                       "gripper_units": "percentage_points"}
+                       "action_horizon": 4, "num_steps": 10}
     response = {"actions": np.zeros((4, 6), dtype=np.float32)}
     policy.infer.side_effect = [response, TimeoutError("injected") if fail_request else response]
 

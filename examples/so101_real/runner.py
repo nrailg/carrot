@@ -41,18 +41,6 @@ def validate_metadata(metadata: dict, config: DeploymentConfig) -> int:
     horizon = metadata["action_horizon"]
     assert type(horizon) is int and horizon >= config.execute_steps >= 1, "invalid action horizon"
     assert type(metadata["num_steps"]) is int and metadata["num_steps"] >= 1
-    assert "joint_units" in metadata and "gripper_units" in metadata, (
-        "policy units are missing; restart a legacy server with explicit units"
-    )
-    expected_joint_units = "degrees"
-    assert metadata["joint_units"] == expected_joint_units, (
-        f"policy joint units {metadata['joint_units']!r} differ from client units "
-        f"{expected_joint_units!r} for recorded/driver inputs "
-        f"(use_degrees={config.use_degrees})"
-    )
-    assert metadata["gripper_units"] == "percentage_points", (
-        "policy must use [0, 100] gripper units"
-    )
     return horizon
 
 
@@ -180,7 +168,7 @@ def _action_limits(robot: SO101Follower) -> tuple[np.ndarray, np.ndarray]:
     for name in names:
         calibration = robot.bus.calibration[name]
         assert calibration.range_min < calibration.range_max, f"invalid calibration: {name}"
-    # 复用实际总线的纯换算，度数范围随标定行程变化，夹爪仍是百分比。
+    # 复用总线标定换算，避免硬编码动作范围。
     endpoints = [robot.bus._normalize({
         robot.bus.motors[name].id: (
             robot.bus.calibration[name].range_max if high else robot.bus.calibration[name].range_min

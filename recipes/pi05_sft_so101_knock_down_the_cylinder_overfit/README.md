@@ -1,18 +1,17 @@
 # SO101 knock_down_the_cylinder：两条 episode 的拟合实验
 
-## 2026-09-30：单位与配置清理（尚未启动新训练）
+## 2026-09-30：数据直接传递（尚未启动新训练）
 
-- 任务名为 knock_down_the_cylinder（推倒圆柱体），录制prompt `Move an object` 保留。
-- 数据、训练统计量、策略请求/响应、日志及驱动统一使用degree/夹爪百分点。
-  不做单位转换或额外范围归一化；模型原有q01/q99 Normalize/Unnormalize保留。
-- `train.yaml` 显式单腕相机字段，factory相机key默认None；统计量直接读取dataset metadata。
-- 新输出目录为 `pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100`，尚未运行。
-  历史step100、诊断路径和指标仍保留原名，不覆盖旧模型或数据。
-- `serve.sh` 加载历史degree/百分点step100，不传单位参数、不转换stats。
-  `diagnose.sh`、`evaluate.py` 也直接比较degree/百分点；本轮未运行GPU推理。
-- 本地数据路径 `$MY_DFS/hf-hub/nrailg/so101_knock_down_the_cylinder`；Mac缓存同名。
-  之前仅重命名本地路径，6个文件SHA256不变，未重命名Hub仓库。
-- 旧公共数据recipe已删除。转折预测不可靠的诊断结论仍待排查，单位清理不代表效果修复。
+- 任务为knock_down_the_cylinder，录制prompt `Move an object` 保留。
+- 数据、统计量、策略请求/响应、日志和下发直接使用源数值，不添加语义字段或校验。
+  模型原有q01/q99 Normalize/Unnormalize保留，不额外缩放或裁剪训练目标。
+- `train.yaml` 显式单腕相机字段，factory相机key默认None，直接读取dataset metadata stats。
+- 新输出目录为 `pi05_sft_so101_knock_down_the_cylinder_overfit_100`，尚未运行。
+  历史step100、诊断路径和指标保留原名，不覆盖旧模型或数据。
+- `serve.sh` 加载历史step100；`diagnose.py`、`evaluate.py` 直接比较源数值。
+  本轮未执行GPU推理、重启服务或操作真机。
+- 本地数据目录为 `$MY_DFS/hf-hub/nrailg/so101_knock_down_the_cylinder`；Mac缓存同名。
+- 以下已完成实验和测试保留当时的记录，当前实现以本节为准。
 
 ## 2026-09-30：训练输入与前 5 帧动作诊断（完成）
 
@@ -98,7 +97,7 @@ export RAY_ADDRESS=<verified-ray-address>
 bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/run.sh"
 ```
 
-当前新输出目录 `${MY_DFS}/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100`；不覆盖已有目录。
+当前新输出目录 `${MY_DFS}/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_100`；不覆盖已有目录。
 预期 checkpoints/step-00000025、50、75、100，保存权重、统计量、tokenizer与训练状态。
 
 ## 验收

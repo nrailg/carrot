@@ -1,10 +1,9 @@
 observation_source: dataset
 action_sink: log
 server_uri: ws://127.0.0.1:8080
-output_dir: outputs/so101_wipe_debug
+output_dir: outputs/so101_knock_down_the_cylinder_debug
 dataset_root: null
-dataset_repo: nrailg/so101_wipe_down_the_cylinder
-dataset_revision: null
+dataset_repo: nrailg/so101_knock_down_the_cylinder
 base_camera: null
 wrist_camera: wrist
 fps: 15

@@ -45,3 +45,16 @@ bash tests/so101_real/test_so101_report.sh
 证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_report.log`。
 
 本轮镜像、源码和环境记录见 [共同环境](test_so101_runtime.md#本轮共同环境与源码)。
+
+
+## 2026-09-30：报告单位必须来自日志
+
+状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest或生成测试图表。
+
+- 原有效帧比较用例分别覆盖radians、normalized，并断言夹爪单位为fraction。
+- 新增缺少握手单位metadata的动作日志拒绝用例，不能默认标成normalized或percentage_points。
+- 静态检查PASS：Python AST语法与100字符行长、runner `bash -n`、`git diff --check`。
+
+复现：`bash tests/so101_real/test_so101_report.sh`（按runner要求先设置当前Gemini的 `MY_DFS`）。
+相关三件套：`test_so101_report.py`、`test_so101_report.sh`、本文件。
+源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。

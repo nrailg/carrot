@@ -14,6 +14,7 @@ def main() -> None:
     parser.add_argument("--action-sink", choices=("log", "robot"))
     parser.add_argument("--server-uri")
     parser.add_argument("--dataset-root")
+    parser.add_argument("--dataset-repo")
     parser.add_argument("--output-dir")
     parser.add_argument("--episode", type=int)
     parser.add_argument("--start-frame", type=int)

@@ -112,3 +112,34 @@ PYTHONPATH="$PWD:$PWD/src" /tmp/carrot-so101-integration-venv/bin/python -m pyte
 `b68c387bb67758e1ee69313b505f41ad4260fc6d88d254481e90599f69b00328`。
 源码为当前工作区，Ruff、diff 检查通过，迁移函数 AST 逐项对比一致
 （仅 RemotePolicy 类型标注替换为 PolicyClient）。
+
+
+## 2026-09-30：review清理与模型单位边界回归（准备）
+
+- 范围：显式YAML相机字段、config传递、degree→radian及夹爪百分点→[0,1]，样本/stats同时换算；反向驱动换算、起点容差、导出与握手单位契约。
+- 命令：既定Gemini venv中从当前同步源码运行 `python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real`。均使用CPU及fake设备，不接触真实串口或相机，不启动训练/模型评估。
+- 预期：新单位回归与已有客户端/日志/调度测试通过，旧服务缺单位声明时在硬件连接前拒绝。
+- 状态：NOT RUN；源码d16d29a加本轮未提交改动，Docker image tag未记录；实际结果运行后补充。
+
+
+### 2026-09-30 20:38北京时间：实际结果 PASS
+
+- Gemini task56253f33-0052 exit0：`tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py` 合计92 passed；真实数据同名shell另2 passed，共94项。CPU-only，CUDA_VISIBLE_DEVICES为空；未接触机器人或新模型推理。
+- Ruff通过；31个改动源码/配置/shell的Mac与hz1 SHA256一致，shell语法、py_compile和git diff --check通过。实际源码d16d29a加未提交改动，Docker tag未记录。
+- 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
+- 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
+- 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
+
+
+## 2026-09-30：显式数据来源与转换后的接口单位
+
+状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest或连接硬件。
+
+- 通用 `dataset_repo` 默认为空，缺失时配置校验失败；测试中显式提供来源。
+- 新增两种单位模式的握手校验：degree输入转换后应为radians，旧位置模式应为normalized；degree或另一模式的服务声明均被拒绝。
+- runner错误消息显示实际服务单位和输入转换后预期单位，缺少单位metadata时单独报错。
+- 静态检查PASS：修改文件Python AST语法与100字符行长、通用YAML空repo、runner `bash -n`、`git diff --check`。
+
+复现：`bash tests/so101_real/test_so101_runtime.sh`；硬件组装mock回归入口为 `test_so101_deployment.sh`。
+相关三件套：`test_so101_runtime.py`、`test_so101_runtime.sh`、本文件。
+源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。

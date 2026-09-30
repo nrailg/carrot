@@ -44,4 +44,35 @@ bash tests/pi_05/test_so101_sft.sh
 Gemini既定venv运行同名runner：**5 passed**（含此前双相机4项）。
 真实两episode数据首尾样本50×6窗口、末尾49帧padding与base/right mask=false也已预检。
 证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_monitor/20260929T1129Z/cpu_tests.log`。
-源码与环境及实验最终结论见 `recipes/pi05_sft_so101_wipe_overfit/README.md`。
+源码与环境及实验最终结论见 `recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/README.md`。
+
+
+## 2026-09-30：review清理与模型单位边界回归（准备）
+
+- 范围：显式YAML相机字段、config传递、degree→radian及夹爪百分点→[0,1]，样本/stats同时换算；反向驱动换算、起点容差、导出与握手单位契约。
+- 命令：既定Gemini venv中从当前同步源码运行 `python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real`。均使用CPU及fake设备，不接触真实串口或相机，不启动训练/模型评估。
+- 预期：新单位回归与已有客户端/日志/调度测试通过，旧服务缺单位声明时在硬件连接前拒绝。
+- 状态：NOT RUN；源码d16d29a加本轮未提交改动，Docker image tag未记录；实际结果运行后补充。
+
+
+### 2026-09-30 20:38北京时间：实际结果 PASS
+
+- Gemini task56253f33-0052 exit0：`tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py` 合计92 passed；真实数据同名shell另2 passed，共94项。CPU-only，CUDA_VISIBLE_DEVICES为空；未接触机器人或新模型推理。
+- Ruff通过；31个改动源码/配置/shell的Mac与hz1 SHA256一致，shell语法、py_compile和git diff --check通过。实际源码d16d29a加未提交改动，Docker tag未记录。
+- 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
+- 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
+- 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
+
+
+## 2026-09-30：录制单位命名与显式repo配置
+
+状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest、训练或推理。
+
+- 数据集配置改用 `recorded_in_degrees`；已有degree样本、统计量与推理一致性用例沿用该字段。
+- repo默认留空；新增断言要求缺少repo时在LeRobot元数据I/O之前失败。
+- 真实数据、checkpoint与WebSocket测试显式填写其测试对象的repo，不再依赖通用默认值。
+- 静态检查PASS：Python AST语法与100字符行长、recipe/test YAML字段与factory签名匹配、runner `bash -n`、`git diff --check`。
+
+复现：`bash tests/pi_05/test_so101_sft.sh`（按runner要求先设置当前Gemini的 `MY_DFS`）。
+相关三件套：`test_so101_sft.py`、`test_so101_sft.sh`、本文件。
+源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。

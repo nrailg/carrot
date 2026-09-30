@@ -1,12 +1,20 @@
 import os
+from pathlib import Path
 
-from examples.so101_real.config import DeploymentConfig
+import numpy as np
+import yaml
+
+from carrot.data.so101 import build_dataset
+from carrot.data.so101_units import to_model_units
+from examples.so101_real.config import load_config
 from examples.so101_real.dataset import load_dataset_source
 
 
 def test_real_so101_episode_observations() -> None:
     # 使用真实本地视频和 parquet，验证 episode 过滤与实际 LeRobot padding 契约。
-    config = DeploymentConfig(dataset_root=os.environ["CARROT_SO101_DATASET"])
+    config = load_config(Path("examples/so101_real/deployment.yaml"),
+                         {"dataset_root": os.environ["CARROT_SO101_DATASET"],
+                          "dataset_repo": "felixmayor/orange_cube_merged"})
     source = load_dataset_source(config, 50)
     first = source.read()
 
@@ -25,3 +33,45 @@ def test_real_so101_episode_observations() -> None:
     assert source.read().valid_steps == 1
     source.advance(1)
     assert source.read() is None
+
+
+def test_real_knock_down_the_cylinder_model_units() -> None:
+    # 同一真实录制帧经训练和client入口，必须得到一致的radian/[0,1]状态和reference。
+    root = os.environ["CARROT_SO101_KNOCK_DOWN_DATASET"]
+    config = load_config(Path("examples/so101_real/knock_down_the_cylinder.yaml"),
+                         {"dataset_root": root})
+    training_config = yaml.safe_load(Path(
+        "recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/train.yaml",
+    ).read_text())["dataset"]["factory_kwargs"]
+    spec = build_dataset(**(training_config | {"root": root}))
+    assert len(spec.dataset) == 354
+
+    # 首帧及episode0末帧包含不同padding长度，逐一核对单位、RGB和有效动作对齐。
+    source = load_dataset_source(config, 50)
+    for index in (0, len(source.dataset) - 1):
+        source.frame = index
+        frame = source.read()
+        sample = spec.dataset[index]
+        np.testing.assert_array_equal(
+            frame.request["observation/state"], sample["observation/state"],
+        )
+        np.testing.assert_array_equal(frame.reference, sample["actions"][:frame.valid_steps])
+        np.testing.assert_array_equal(
+            frame.request["observation/wrist_image"],
+            np.asarray(sample["observation/wrist_image"]).transpose(1, 2, 0),
+        )
+        raw = spec.dataset.source[index]
+        np.testing.assert_allclose(sample["observation/state"][:5],
+                                   np.deg2rad(np.asarray(raw["observation.state"])[:5]), atol=1e-7)
+        assert sample["observation/state"][5] == np.float32(raw["observation.state"][5]) / 100
+
+    # 全部位置/尺度统计按同一比例转换，count保持354，保证export与样本单位匹配。
+    for feature, stats in (("observation.state", spec.state_stats), ("action", spec.action_stats)):
+        raw_stats = spec.dataset.source.meta.stats[feature]
+        for name, value in stats.items():
+            if name == "count":
+                np.testing.assert_array_equal(value, raw_stats[name])
+            else:
+                np.testing.assert_array_equal(
+                    value, to_model_units(raw_stats[name], use_degrees=True),
+                )

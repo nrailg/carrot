@@ -28,6 +28,7 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
     monkeypatch.setattr(runner, "connect_robot", forbid_robot)
     config = DeploymentConfig(
         dataset_root=os.environ["CARROT_SO101_DATASET"],
+        dataset_repo="felixmayor/orange_cube_merged",
         server_uri=f"ws://127.0.0.1:{port}",
         output_dir=str(directory / "client"),
         execute_steps=2, max_chunks=2,
@@ -38,6 +39,7 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
     command = [
         sys.executable, "-m", "carrot.cli.serve_pi05_policy",
         "--embodiment", "so101", "--checkpoint", os.environ["CARROT_SO101_CHECKPOINT"],
+        "--joint-units", "normalized",
         "--device", "cuda:0", "--host", "127.0.0.1", "--port", str(port),
     ]
     (directory / "server_command.json").write_text(json.dumps(command))

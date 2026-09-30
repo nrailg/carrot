@@ -61,3 +61,8 @@ uv pip install --python /opt/venvs/carrot/bin/python --no-deps --no-index \
 
 未下载或升级其他依赖；沿用项目对 openpi-client 的 NumPy 2 兼容 override。
 `dm-tree` 仍未安装，本次协议/部署路径不导入它；不据此声称整个 openpi-client 包的依赖完整。
+
+
+## 2026-09-30：服务单位接口更新
+
+旧orange-cube测试服务显式加 `--joint-units normalized`，服务将夹爪统计量转换为[0,1]并声明握手单位，client采用相同转换。该真实GPU重载/网络测试本轮NOT RUN；CPU mock及共享推理回归另见本轮SFT/客户端测试结果。源码d16d29a加未提交改动，Docker tag未记录。

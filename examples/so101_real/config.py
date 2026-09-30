@@ -9,7 +9,7 @@ JOINT_NAMES = (
     "shoulder_pan.pos", "shoulder_lift.pos", "elbow_flex.pos",
     "wrist_flex.pos", "wrist_roll.pos", "gripper.pos",
 )
-# 此部署配置按 LeRobot 归一化位置约定限幅，夹爪下界与其他关节不同。
+# LeRobot归一化位置模式的驱动单位边界；角度模式从实机标定生成边界。
 LOWER = np.array([-100, -100, -100, -100, -100, 0], dtype=np.float32)
 UPPER = np.full(6, 100, dtype=np.float32)
 
@@ -21,8 +21,7 @@ class DeploymentConfig:
     server_uri: str = "ws://127.0.0.1:8000"
     output_dir: str = "outputs/so101_debug"
     dataset_root: str | None = None
-    dataset_repo: str = "felixmayor/orange_cube_merged"
-    dataset_revision: str | None = "c021b3c22a3de4e70e81010e54fb250a5dde348b"
+    dataset_repo: str = ""
     base_camera: str | None = "top"
     wrist_camera: str = "fpv"
     episode: int = 0
@@ -37,7 +36,7 @@ class DeploymentConfig:
     robot_port: str | None = None
     robot_id: str | None = None
     calibration_dir: str | None = None
-    use_degrees: bool = False
+    use_degrees: bool = False  # 录制/驱动单位；策略接口使用radians或LeRobot归一化位置。
     max_relative_target: float = 5.0
     initial_state_tolerance: float = 10.0
     cameras: dict[str, dict[str, Any]] = field(default_factory=dict)
@@ -60,9 +59,6 @@ class DeploymentConfig:
             isinstance(self.base_camera, str) and self.base_camera.strip()
             and self.base_camera != self.wrist_camera
         ), "base_camera must be distinct from wrist_camera, or null"
-        assert self.dataset_revision is None or (
-            isinstance(self.dataset_revision, str) and self.dataset_revision.strip()
-        ), "dataset_revision must be a nonempty string or null for local unversioned data"
         for name, value in (("execute_steps", self.execute_steps), ("episode", self.episode),
                             ("start_frame", self.start_frame)):
             assert type(value) is int and value >= (1 if name == "execute_steps" else 0), name
@@ -75,6 +71,9 @@ class DeploymentConfig:
         # 数据集回放与实时采集需要的输入资源不同。
         if self.observation_source == "dataset":
             assert self.dataset_root and Path(self.dataset_root).is_dir(), "set dataset_root"
+            assert isinstance(self.dataset_repo, str) and self.dataset_repo.strip(), (
+                "set dataset_repo explicitly"
+            )
         else:
             assert self.prompt, "robot observations require a task prompt"
             assert set(self.cameras) == set(self.image_keys.values()), (

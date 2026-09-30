@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 import pyarrow.parquet as pq
+import yaml
 
 from carrot.data.so101 import build_dataset
 from carrot.models.pi05.inference import create_so101_policy
@@ -20,16 +21,16 @@ def main() -> None:
     parser.add_argument("--device", default="cuda:0")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
-    spec = build_dataset(
-        repo_id="nrailg/so101_wipe_down_the_cylinder", root=str(args.dataset_root),
-        action_horizon=50, base_image_key=None, wrist_image_key="observation.images.wrist",
-    )
+    dataset_config = yaml.safe_load(Path(__file__).with_name("train.yaml").read_text())[
+        "dataset"
+    ]["factory_kwargs"]
+    spec = build_dataset(**(dataset_config | {"root": str(args.dataset_root)}))
     stats = {"state": spec.state_stats, "actions": spec.action_stats}
     stats_path = args.output / "norm_stats.json"
     stats_path.write_text(json.dumps({
         key: {name: np.asarray(value).tolist() for name, value in values.items()}
         for key, values in stats.items()
-    }))
+    } | {"joint_units": "radians", "gripper_units": "fraction"}))
     policy = create_so101_policy(
         args.checkpoint, device=args.device, tokenizer_path=args.tokenizer,
         norm_stats_path=stats_path,

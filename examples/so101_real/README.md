@@ -5,7 +5,7 @@ GPU 上运行 Carrot PI0.5，控制电脑通过 OpenPI WebSocket 协议获取动
 
 ## 1. 环境与策略服务
 
-控制电脑使用独立 Python 3.12 环境，从本仓库根目录运行：
+控制电脑使用独立 Python 3.12 环境，从本仓库根目录运行，并加载当前源码：
 
 ```bash
 uv venv --python 3.12 examples/so101_real/.venv
@@ -14,6 +14,7 @@ uv --no-config pip install --python examples/so101_real/.venv/bin/python \
   --overrides examples/so101_real/overrides.txt \
   -r examples/so101_real/requirements.txt
 source examples/so101_real/.venv/bin/activate
+export PYTHONPATH="$PWD/src:${PYTHONPATH:-}"
 ```
 
 OpenPI 客户端的历史依赖声明为 NumPy <2，而 LeRobot 0.6.1 要求 NumPy >=2。
@@ -37,58 +38,93 @@ export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1
 python -m carrot.cli.serve_pi05_policy \
   --embodiment so101 \
   --checkpoint "$MY_DFS/experiments/carrot/pi05_sft_so101_orange_cube/checkpoints/step-00005000" \
-  --device cuda:0 --num-steps 10 --port 8000
+  --device cuda:0 --num-steps 10 --port 8000 --joint-units normalized
 ```
 
 使用 checkpoint 自带 tokenizer、统计量和精度配置。现有 step 5000 保存的是 FP32
 配置；先在有足够显存的 GPU 上验证加载及推理延迟。服务只允许一个控制客户端串行使用。
 
-### 单腕 wipe：15 FPS、度数模式
+### 单腕 knock_down_the_cylinder：15 FPS、模型 radian
 
-`wipe.yaml` 对应 `nrailg/so101_wipe_down_the_cylinder` 与其 step100 checkpoint。
+`knock_down_the_cylinder.yaml` 对应本地 `nrailg/so101_knock_down_the_cylinder` 数据。
 配置使用 `base_camera: null`、`wrist_camera: wrist`、`fps: 15`、`use_degrees: true`。
 数据集字段 `observation.images.wrist` 和实时相机名 `wrist` 都映射为
 `observation/wrist_image`；不发送缺失的 base 视角，也不复制腕图填充它。
 
-本地自采数据没有 Hub revision 时显式设置 `dataset_revision: null`。
+部署仅加载指定本地目录，配置不再包含 dataset_revision。
 完整数据目录必须包含 `meta/`、`data/`、`videos/`；数据原始 FPS 必须与配置一致。
 从仓库根目录先运行无硬件的单帧日志模式：
 
 ```bash
 python -m examples.so101_real.main \
-  --config examples/so101_real/wipe.yaml \
+  --config examples/so101_real/knock_down_the_cylinder.yaml \
   --server-uri ws://GPU_HOST:8080 \
-  --dataset-root /absolute/path/to/so101_wipe_down_the_cylinder \
-  --output-dir outputs/so101_wipe_one_frame
+  --dataset-root /absolute/path/to/so101_knock_down_the_cylinder \
+  --output-dir outputs/so101_knock_down_the_cylinder_one_frame
 ```
 
 真机模式需复制该模板，填写 follower 串口、ID、标定目录，以及腕相机的实际编号与朝向。
-前五轴使用度数，第六轴夹爪仍为开合百分比；动作绝对限位从驱动现有标定换算，
+录制文件和 LeRobot 驱动的前五轴使用 degree、夹爪使用百分点。读取后将前五轴转换
+为 radian，夹爪除以100转换为 `[0,1]`；写入驱动前反向转换。预测、reference、state和
+发送目标日志均使用模型单位。动作绝对限位从驱动现有标定换算，
 不得使用旧归一化位置的 `[-100,100]` 作为角度限位。`max_relative_target` 和
 `initial_state_tolerance` 与该模式的单位一致：前五轴为度数，夹爪为百分点。
-wipe 模板的 `max_relative_target: 90.0` 允许每次目标相对当前反馈最多变化90°，
+knock_down_the_cylinder 模板的 `max_relative_target: 90.0` 允许每次目标相对当前反馈最多变化90°，
 夹爪为90个百分点；实际下发仍受标定绝对限位约束，运动速度由舵机控制。
 实际关节已越过标定范围时停止下发；标定限位不替代摄像头线缆的活动范围检查。
 
 块内按15Hz执行，块间等待推理；模型仍预测50步、去噪10步，`execute_steps` 控制消费
 几行动作。新增配置仍默认 `dataset + log`、单块单步。下方双相机示例使用旧公共数据的
-30FPS归一化配置；四种运行模式也适用于wipe，但必须使用wipe模板与对应checkpoint。
+30FPS归一化配置；四种运行模式也适用于推倒圆柱体，但必须使用对应模板和checkpoint。
+
+新训练导出在 `norm_stats.json` 中记录 `joint_units: radians`、`gripper_units: fraction`，
+服务握手声明相同单位，客户端在连接硬件前校验。旧step100权重/统计量仍保留在原实验目录，
+若用当前代码重新加载，需显式 `--joint-units degrees`：服务只在内存中将统计量转为模型单位，
+不改旧文件。公开orange-cube旧导出使用 `--joint-units normalized`，仅转换夹爪比例。
+已有旧服务没有单位metadata，必须用当前代码重启才能连接新客户端；本轮未自动重启。
+
+### 单位与训练统计量
+
+训练数据配置的 `recorded_in_degrees: true` 描述录制单位：前五轴是degree，
+不是要求网络直接使用degree。训练入口与部署客户端均先将其转换为radians，
+夹爪百分比除以100。部署的 `use_degrees` 则设置LeRobot驱动模式，与录制单位保持一致。
+
+| 位置 | 前五轴 | 夹爪 |
+| --- | --- | --- |
+| degree录制数据、角度模式驱动 | degrees | 百分点 |
+| 训练统计归一化前、策略请求与响应、动作日志 | radians | `[0,1]`比例 |
+| 网络输入与输出 | 按六轴各自的q01/q99统计归一化 | 按夹爪q01/q99统计归一化 |
+
+旧录制数据使用LeRobot的 `[-100,100]` 位置单位时，`recorded_in_degrees` 为false，
+策略元数据为 `joint_units: normalized`。这里的normalized是位置单位约定，
+与网络的统计归一化不同；它不能直接换算为弧度。
+
+两个SO101训练recipe均设置 `norm_stats_source: dataset`：从数据集 `meta/stats.json`
+读取 `observation.state` 和 `action` 的六轴统计量，前五轴按 `π/180` 换算，
+夹爪按 `1/100` 换算，count保持原值。SO101的Normalize使用每轴的q01、q99：
+`2 * (x - q01) / (q99 - q01 + 1e-6) - 1`；响应经Unnormalize还原后才发送给客户端。
+
+训练导出将实际使用的统计量保存在 `output_dir/checkpoints/step-XXXXXXXX/norm_stats.json`，
+字段为 `state`、`action`、`joint_units`、`gripper_units`。服务默认加载该文件；
+新导出已经转换单位，加载时不再重复转换。`norm_stats_source: file` 则使用配置指定的
+统计文件，并核对SO101单位。报告读取日志中的握手单位，缺失时会报错。
 
 ## 2. 数据集观测 → 日志
 
 将已下载的 `felixmayor/orange_cube_merged` 完整本地目录复制到控制电脑，包含
-`meta/`、`data/` 和 `videos/`。默认 revision 为
-`c021b3c22a3de4e70e81010e54fb250a5dde348b`。
-客户端禁止 Hub 联网；配置中的 revision 不会自动校验本地文件来自哪个提交，
-复制时应保留下载记录。缺少必需文件会失败，不会改用其他数据集。
+`meta/`、`data/` 和 `videos/`。
+客户端禁止 Hub 联网，仅加载本地文件；复制时应保留下载记录。缺少必需文件会失败，不会改用其他数据集。
 
 ```bash
 python -m examples.so101_real.main \
   --config examples/so101_real/deployment.yaml \
   --server-uri ws://GPU_HOST:8000 \
   --dataset-root /absolute/path/to/orange_cube_merged \
+  --dataset-repo felixmayor/orange_cube_merged \
   --output-dir outputs/so101_one_frame
 ```
+
+通用模板的 `dataset_repo` 默认为空，需在自己的配置或CLI中显式填写。
 
 默认 episode 0、frame 0、一次正式请求，只记录第一步；另有一次无动作下发的预热。
 日志会保存完整 50 步预测。可增加 `--episode`、`--start-frame` 或 `--prompt`；默认任务
@@ -118,6 +154,7 @@ python -m examples.so101_real.main \
   --config /absolute/path/to/my_so101.yaml \
   --server-uri ws://GPU_HOST:8000 \
   --dataset-root /absolute/path/to/orange_cube_merged \
+  --dataset-repo felixmayor/orange_cube_merged \
   --action-sink robot --execute-steps 1 --max-chunks 1 \
   --output-dir outputs/so101_single_action
 ```

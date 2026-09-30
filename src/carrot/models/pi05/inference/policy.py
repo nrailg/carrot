@@ -20,6 +20,9 @@ class Pi05Policy:
     device : str
     num_steps : int
         Denoising iterations, independent of the predicted action horizon.
+    joint_units : str | None
+        SO101 API units after output unnormalization: radians or LeRobot normalized
+        positions. Gripper outputs use [0, 1] fractions.
     """
 
     def __init__(
@@ -29,6 +32,7 @@ class Pi05Policy:
         *,
         device: str,
         num_steps: int = 10,
+        joint_units: str | None = None,
     ) -> None:
         if num_steps < 1:
             raise ValueError("num_steps must be positive")
@@ -37,6 +41,7 @@ class Pi05Policy:
         self._model = model.to(device).eval()
         self._device = torch.device(device)
         self._num_steps = num_steps
+        self._joint_units = joint_units
         self._transform_spec = transform_spec
         self._input_transform = transforms.compose(transform_spec.inputs)
         self._output_transform = transforms.compose(transform_spec.outputs)
@@ -48,14 +53,16 @@ class Pi05Policy:
         Parameters
         ----------
         obs : dict
-            Raw observation accepted by the injected embodiment transforms.
+            Observation before statistical normalization. SO101 first five state
+            components use metadata joint_units; the gripper uses a [0, 1] fraction.
         noise : numpy.ndarray | None
             Optional finite noise with shape ``(action_horizon, model_action_dim)``.
 
         Returns
         -------
         dict
-            Environment actions and model inference timing.
+            Actions after statistical unnormalization and model inference timing.
+            SO101 actions use the same units as the input state.
         """
         inputs = self._input_transform(dict(obs))
         observation = self._to_observation(inputs)
@@ -99,6 +106,8 @@ class Pi05Policy:
     @property
     def metadata(self) -> dict[str, Any]:
         return {
+            **({"joint_units": self._joint_units, "gripper_units": "fraction"}
+               if self._joint_units is not None else {}),
             "action_horizon": self._model.config.action_horizon,
             "action_dim": self._transform_spec.action_dim,
             "num_steps": self._num_steps,

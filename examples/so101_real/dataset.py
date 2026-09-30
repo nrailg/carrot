@@ -15,15 +15,14 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     Parameters
     ----------
     config : DeploymentConfig
-        Local files must correspond to dataset_revision when supplied; null denotes
-        unversioned local data. Hub access is disabled for this process.
+        Complete local files; Hub access is disabled for this process.
     horizon : int
         Future action window used only for comparison and episode-boundary checks.
 
     Returns
     -------
     DatasetSource
-        Unnormalized observations and a separate demonstration action reference.
+        Model-unit observations and a separate demonstration action reference.
     """
     # 两个库会缓存离线配置，仅设置环境变量不足以约束当前进程。
     os.environ["HF_HUB_OFFLINE"] = "1"
@@ -33,7 +32,7 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     root = Path(config.dataset_root)
     for name in ("info.json", "stats.json", "tasks.parquet"):
         assert (root / "meta" / name).is_file(), f"missing local dataset meta/{name}"
-    meta = LeRobotDatasetMetadata(config.dataset_repo, root=root, revision=config.dataset_revision)
+    meta = LeRobotDatasetMetadata(config.dataset_repo, root=root)
     assert meta.robot_type in ("so101_follower", "so_follower"), "expected a SO101 dataset"
     assert meta.fps == config.fps, "dataset FPS must match deployment"
     for name in ("observation.state", "action"):
@@ -47,9 +46,8 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
 
     # 未来 action 窗口只供参考比较；其 padding 必须与 episode 边界一致。
     dataset = LeRobotDataset(
-        config.dataset_repo, root=root, revision=config.dataset_revision,
+        config.dataset_repo, root=root,
         episodes=[config.episode], return_uint8=True,
         delta_timestamps={"action": [step / config.fps for step in range(horizon)]},
     )
-    return DatasetSource(dataset, config.episode, config.start_frame, horizon, config.prompt,
-                         image_keys=config.image_keys)
+    return DatasetSource(dataset, config, horizon)

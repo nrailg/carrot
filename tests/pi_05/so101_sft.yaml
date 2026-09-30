@@ -1,0 +1,8 @@
+orange_cube:
+  base_image_key: observation.images.top
+  wrist_image_key: observation.images.fpv
+  recorded_in_degrees: false
+knock_down_the_cylinder:
+  base_image_key: null
+  wrist_image_key: observation.images.wrist
+  recorded_in_degrees: true

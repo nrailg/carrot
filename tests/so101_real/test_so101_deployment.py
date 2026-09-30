@@ -25,6 +25,7 @@ def test_session_hardware_selection_and_cleanup(
     (tmp_path / "arm.json").write_text("{}")
     config = DeploymentConfig(
         observation_source=source, action_sink=sink, dataset_root=str(tmp_path),
+        dataset_repo="local/test",
         output_dir=str(tmp_path / "run"), robot_port="fake", robot_id="arm",
         calibration_dir=str(tmp_path), cameras={"top": {}, "fpv": {}}, prompt="pick",
         use_degrees=use_degrees,
@@ -47,7 +48,9 @@ def test_session_hardware_selection_and_cleanup(
     robot.send_action.return_value = joints
     policy = Mock()
     policy.metadata = {"embodiment": "so101", "action_dim": 6,
-                       "action_horizon": 4, "num_steps": 10}
+                       "action_horizon": 4, "num_steps": 10,
+                       "joint_units": "radians" if use_degrees else "normalized",
+                       "gripper_units": "fraction"}
     response = {"actions": np.zeros((4, 6), dtype=np.float32)}
     policy.infer.side_effect = [response, TimeoutError("injected") if fail_request else response]
 

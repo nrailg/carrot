@@ -64,7 +64,7 @@ bash tests/so101_real/test_so101_deployment.sh
 完整日志：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-websocket-20260927T101647-2701786/pytest.log`。
 
 
-## 2026-09-30：wipe step100 真机单步
+## 2026-09-30：knock_down_the_cylinder step100 真机单步
 
 单步 **PASS**；短块 **BLOCKED**（起始姿态超过10°阈值），默认启动路径仍需旧目标防护。
 本次结果不代表连续闭环、任务效果或默认启动行为已经验收。
@@ -193,3 +193,20 @@ bash tests/so101_real/test_so101_deployment.sh
   后续需分离PID/负载/机械因素；本轮未更改这些参数。
 - 证据 `~/.cache/carrot/so101_step4_20260930/elbow_rel90_probe/`：before/after.json、
   samples.jsonl、results.json、verification.json；Mac独立client与先前环境一致。
+
+
+## 2026-09-30：review清理与模型单位边界回归（准备）
+
+- 范围：显式YAML相机字段、config传递、degree→radian及夹爪百分点→[0,1]，样本/stats同时换算；反向驱动换算、起点容差、导出与握手单位契约。
+- 命令：既定Gemini venv中从当前同步源码运行 `python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real`。均使用CPU及fake设备，不接触真实串口或相机，不启动训练/模型评估。
+- 预期：新单位回归与已有客户端/日志/调度测试通过，旧服务缺单位声明时在硬件连接前拒绝。
+- 状态：NOT RUN；源码d16d29a加本轮未提交改动，Docker image tag未记录；实际结果运行后补充。
+
+
+### 2026-09-30 20:38北京时间：实际结果 PASS
+
+- Gemini task56253f33-0052 exit0：`tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py` 合计92 passed；真实数据同名shell另2 passed，共94项。CPU-only，CUDA_VISIBLE_DEVICES为空；未接触机器人或新模型推理。
+- Ruff通过；31个改动源码/配置/shell的Mac与hz1 SHA256一致，shell语法、py_compile和git diff --check通过。实际源码d16d29a加未提交改动，Docker tag未记录。
+- 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
+- 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
+- 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。

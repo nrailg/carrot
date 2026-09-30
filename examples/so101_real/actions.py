@@ -2,7 +2,9 @@ from typing import Protocol
 
 import numpy as np
 
-from .config import JOINT_NAMES
+from carrot.data.so101_units import to_model_units, to_robot_units
+
+from .config import JOINT_NAMES, DeploymentConfig
 from .observations import Robot, joint_state
 
 
@@ -20,22 +22,22 @@ class LogSink:
 
 
 class SO101Sink:
-    """Send absolute joint targets bounded in the configured LeRobot units.
+    """Convert model targets into driver units before applying calibrated limits.
 
     Parameters
     ----------
     robot : Robot
-        Driver must enforce max_relative_target in the same units as the policy.
-    initial_tolerance : float
-        Maximum per-joint recorded/live difference for multi-step dataset execution.
+        Driver enforces max_relative_target in its native units.
+    config : DeploymentConfig
+        Initial tolerance is in driver units; returned log arrays use model units.
     lower, upper : np.ndarray
-        Six limits derived from the driver's calibration and normalization modes.
+        Shape (6,); driver units, including gripper percentage points.
     """
 
-    def __init__(self, robot: Robot, initial_tolerance: float,
+    def __init__(self, robot: Robot, config: DeploymentConfig,
                  lower: np.ndarray, upper: np.ndarray) -> None:
         self.robot = robot
-        self.initial_tolerance = initial_tolerance
+        self.config = config
         self.lower = np.asarray(lower, dtype=np.float32).copy()
         self.upper = np.asarray(upper, dtype=np.float32).copy()
         assert self.lower.shape == self.upper.shape == (6,), "expected six action limits"
@@ -44,13 +46,16 @@ class SO101Sink:
 
     def check_initial(self, recorded_state: np.ndarray, *, multi_step: bool) -> dict:
         live = joint_state(self.robot.get_observation())
-        difference = live - recorded_state
+        recorded = to_robot_units(recorded_state, use_degrees=self.config.use_degrees)
+        difference = live - recorded
         # 连续执行数据集动作前要求实机起点接近录制起点。
         if multi_step:
-            assert np.max(np.abs(difference)) <= self.initial_tolerance, (
+            assert np.max(np.abs(difference)) <= self.config.initial_state_tolerance, (
                 f"recorded/live initial state mismatch: {difference.tolist()}; "
                 "align the robot manually or use a single-step run"
             )
+        live = to_model_units(live, use_degrees=self.config.use_degrees)
+        difference = to_model_units(difference, use_degrees=self.config.use_degrees)
         return {"initial_live_state": live.tolist(), "initial_difference": difference.tolist()}
 
     def send(self, action: np.ndarray) -> dict:
@@ -61,33 +66,18 @@ class SO101Sink:
                 & (present <= np.nextafter(self.upper, np.float32(np.inf)))).all(), (
             "live joints are outside calibrated action limits; align the robot manually"
         )
-        bounded = np.clip(action, self.lower, self.upper)
-        # 此处限制绝对目标范围；相对当前位置的变化限幅由 SO101 驱动执行。
+        target = to_robot_units(action, use_degrees=self.config.use_degrees)
+        bounded = np.clip(target, self.lower, self.upper)
+        # command使用驱动单位；绝对限幅在此执行，相对限幅由驱动执行。
         command = dict(zip(JOINT_NAMES, map(float, bounded), strict=True))
-        # 例如 command 可以是：
-        # command = {
-        #     "shoulder_pan.pos": -12.0,
-        #     "shoulder_lift.pos": 8.0,
-        #     "elbow_flex.pos": -30.0,
-        #     "wrist_flex.pos": 15.0,
-        #     "wrist_roll.pos": 5.0,
-        #     "gripper.pos": 40.0,
-        # }
         sent = self.robot.send_action(command)
-        # 若 shoulder_lift 当前为 0、其余关节距目标不超过 5，max_relative_target=5：
-        # sent = {
-        #     "shoulder_pan.pos": -12.0,
-        #     "shoulder_lift.pos": 5.0,
-        #     "elbow_flex.pos": -30.0,
-        #     "wrist_flex.pos": 15.0,
-        #     "wrist_roll.pos": 5.0,
-        #     "gripper.pos": 40.0,
-        # }
-        # sent_targets 是按关节顺序排列的已发送目标，不是运动后的实测位置。
-        # 以上示例对应 [-12, 5, -30, 15, 5, 40]。
+        # 驱动返回限幅后的发送目标；转回策略单位用于比较，不代表运动后的实测位置。
         sent_targets = joint_state(sent)
+        present = to_model_units(present, use_degrees=self.config.use_degrees)
+        bounded = to_model_units(bounded, use_degrees=self.config.use_degrees)
+        sent_targets = to_model_units(sent_targets, use_degrees=self.config.use_degrees)
         return {
             "executed": True, "present": present.tolist(),
             "bounded_target": bounded.tolist(), "sent": sent_targets.tolist(),
-            "clipped": bool(np.any(sent_targets != action)),
+            "clipped": not np.allclose(sent_targets, action, rtol=0, atol=1e-6),
         }

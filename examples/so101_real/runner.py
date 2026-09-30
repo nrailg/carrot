@@ -35,12 +35,23 @@ class RunLog:
         self.events.close()
 
 
-def validate_metadata(metadata: dict, execute_steps: int) -> int:
+def validate_metadata(metadata: dict, config: DeploymentConfig) -> int:
     assert metadata["embodiment"] == "so101", "server must serve a SO101 policy"
     assert metadata["action_dim"] == 6, "server must return six-dimensional actions"
     horizon = metadata["action_horizon"]
-    assert type(horizon) is int and horizon >= execute_steps >= 1, "invalid action horizon"
+    assert type(horizon) is int and horizon >= config.execute_steps >= 1, "invalid action horizon"
     assert type(metadata["num_steps"]) is int and metadata["num_steps"] >= 1
+    assert "joint_units" in metadata and "gripper_units" in metadata, (
+        "policy units are missing; restart a legacy server with explicit units"
+    )
+    # 客户端把度数转为弧度；normalized仅表示LeRobot旧位置单位，不是训练统计归一化。
+    expected_joint_units = "radians" if config.use_degrees else "normalized"
+    assert metadata["joint_units"] == expected_joint_units, (
+        f"policy joint units {metadata['joint_units']!r} differ from client units "
+        f"{expected_joint_units!r} after converting recorded/driver inputs "
+        f"(use_degrees={config.use_degrees})"
+    )
+    assert metadata["gripper_units"] == "fraction", "policy must use [0, 1] gripper units"
     return horizon
 
 
@@ -71,7 +82,7 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     dict
         Completion counts and reason. Errors propagate without another action being sent.
     """
-    horizon = validate_metadata(policy.metadata, config.execute_steps)
+    horizon = validate_metadata(policy.metadata, config)
     frame = source.read()
     assert frame is not None, "observation source is empty"
     for key, name in config.image_keys.items():
@@ -226,7 +237,7 @@ def run(config: DeploymentConfig) -> None:
             client = PolicyClient(config.server_uri, config.connect_timeout_s,
                                   config.request_timeout_s)
             stack.callback(client.close)
-            horizon = validate_metadata(client.metadata, config.execute_steps)
+            horizon = validate_metadata(client.metadata, config)
 
             source = None
             if config.observation_source == "dataset":
@@ -235,11 +246,11 @@ def run(config: DeploymentConfig) -> None:
             if config.observation_source == "robot" or config.action_sink == "robot":
                 robot = connect_robot(config, stack)
             if config.observation_source == "robot":
-                source = RobotSource(robot, config.prompt, horizon, image_keys=config.image_keys)
+                source = RobotSource(robot, config, horizon)
             assert source is not None
 
             sink = LogSink() if config.action_sink == "log" else SO101Sink(
-                robot, config.initial_state_tolerance, *_action_limits(robot)
+                robot, config, *_action_limits(robot)
             )
             summary = run_loop(config, source, sink, client, log)
         except BaseException as error:

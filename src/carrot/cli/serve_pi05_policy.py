@@ -21,9 +21,13 @@ def main() -> None:
     parser.add_argument("--norm-stats-path")
     parser.add_argument("--num-steps", type=int, default=10)
     parser.add_argument("--default-prompt")
+    parser.add_argument("--joint-units", choices=("degrees", "radians", "normalized"))
     parser.add_argument("--host", default="0.0.0.0")
     parser.add_argument("--port", type=int, default=8000)
     args = parser.parse_args()
+    assert args.joint_units is None or args.embodiment == "so101", (
+        "--joint-units is only valid for SO101"
+    )
 
     factory = {
         "robotwin": create_robotwin_policy,
@@ -37,6 +41,7 @@ def main() -> None:
         norm_stats_path=args.norm_stats_path,
         num_steps=args.num_steps,
         default_prompt=args.default_prompt,
+        **({"joint_units": args.joint_units} if args.embodiment == "so101" else {}),
     )
     WebsocketPolicyServer(
         policy,

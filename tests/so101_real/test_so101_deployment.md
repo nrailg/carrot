@@ -91,3 +91,32 @@ bash tests/so101_real/test_so101_deployment.sh
 - 2号肩关节起始位置与录制首帧差12.48°，超过短块阈值；未重复下发或自动对齐。
 - 证据：`/Users/wujunyu/.cache/carrot/so101_step4_20260930/`，包含preview、deployment.yaml、
   startup_before.json、single_step/events.jsonl及summary.json、after_single_step.json、verification.json。
+
+
+## 2026-09-30：用户现场观察后的3帧与约3秒测试
+
+3帧与45帧动作块执行 **PASS**；跟踪精度/任务效果未验收。
+
+- 用户明确环境安全并在现场观察，先要求3帧，再要求3秒；起始容差临时设为15°，
+  容纳2号肩与录制首帧12.48°偏差。相对目标限幅仍5°/5百分点；每次仅1个response，
+  分别消费前3行、前45行，15FPS、max_chunks=1。源码未改变。
+- 运行前只读复核标定、Status、原始当前位置/目标范围及旧目标差；旧目标已在当前姿态附近。
+  不再复用最初零刻度旧目标，也没有扩大绝对限位。
+- 录制episode0前三行动作相同：`[2.021978,-105.142860,96.131866,54.285713,-4.527472,0.407166]`；
+  单位为前五轴度数、夹爪百分比。用户对角度的疑问已用原始parquet核对。
+- 3帧：summary completed=true、steps=3；命令区间0.212秒，4号实际下发64.099/63.571/61.462°，
+  退出读回所有Status为0。没有继续消费该response后续行。
+- 45帧：summary completed=true、steps=45；首条command至complete为3.191秒，
+  包含日志与节拍开销；不能表述成精确3.000秒。动作块结束后额外写当前位置保持目标，
+  读回确认Goal一致，扭矩保留为1，Status1–6均0。
+- 45帧前后反馈：2号肩 -104.044→-69.582°，4号腕俯仰63.121→23.912°，
+  3号肘95.604→95.429°。肘最后模型目标52.023°、限幅下发89.989°，实际未跟上；
+  不能把状态码0或执行完成等同于轨迹/任务通过。本轮未放宽相对限幅。
+- 日志present来自sink读数，驱动限幅使用其后更新的读数：最大sent与前一读数差5.088°。
+  一次机械验证误以该旧读数检验严格5°阈值而失败；复核调用顺序及驱动日志后明确其并非
+  驱动限幅所用位置。不声称日志旧读数能独立证明每次驱动限幅，需进一步记录同步位置验证。
+- 运行入口仍为`run(load_config(Path(...), {}))`；配置与证据在
+  `/Users/wujunyu/.cache/carrot/so101_step4_20260930/` 下deployment_three_step.yaml、
+  deployment_three_seconds.yaml、three_step/、three_seconds/、before/after_three_seconds.json、
+  verification_three_step.json、verification_three_seconds.json。
+- 用户观察3帧时“动了一点点”；45帧效果尚未由用户描述。未切换实时相机/关节观测闭环。

@@ -173,3 +173,23 @@ bash tests/so101_real/test_so101_deployment.sh
   单次对照仍不能独立确定PID或机械原因，也未测试更长保持时间。
 - 证据 `~/.cache/carrot/so101_step4_20260930/elbow_direct_probe/`：before.json、
   samples.jsonl、results.json、after.json、verification.json；数据采集命令在工具记录中。
+
+
+## 2026-09-30：90°限幅正式下发路径检查
+
+配置与下发角度 **PASS**；减小角度方向的实际跟踪仍不满足目标。
+
+- 用户要求直接跑，核对放宽后角度。实际读取90.0配置，用SO101Sink→SOFollower.send_action
+  正式路径发送6维向量；只改变3号目标，其余轴目标保持初始反馈。现有总线已配置/扭矩已开，
+  本次仅bus.connect，不调用configure或修改PID/标定。源码commit707a627。
+- 起点3号95.956°，请求85.956°，sent85.956°、clipped=false；原始Goal读回与驱动换算一致。
+  保持3秒后实际89.626°，误差+3.670°。返回95.956°，sent同值、clipped=false，
+  3秒后95.868°，误差-0.088°。
+- 每段53样本，共106组；全部Torque_Enable1/Status0。减小方向电流max raw49、
+  负载绝对值max raw380；返回电流max raw1、负载绝对值max raw225。
+- 末尾所有目标设为实测当前位置保持，所有Status0。未发90°幅度动作，未运行完整policy。
+  90°是限幅参数，实际诊断只请求-10°及返回，不能声称90°幅度运动已验收。
+- 未被相对限幅的目标仍留下方向性反馈误差，因此单独放宽软件限幅不能证明全部解决。
+  后续需分离PID/负载/机械因素；本轮未更改这些参数。
+- 证据 `~/.cache/carrot/so101_step4_20260930/elbow_rel90_probe/`：before/after.json、
+  samples.jsonl、results.json、verification.json；Mac独立client与先前环境一致。

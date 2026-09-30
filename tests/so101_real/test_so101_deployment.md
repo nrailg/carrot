@@ -150,3 +150,26 @@ bash tests/so101_real/test_so101_deployment.sh
 - 证据目录`~/.cache/carrot/so101_step4_20260930/live_thirty_seconds/`：
   before/after.json、trial_summary.json、verification.json、camera_preflight.jpg、run/events.jsonl、
   run/chunk_*.npz、servo_readonly_after.json；源码沿用此前提交，Mac环境版本同前。
+
+
+## 2026-09-30：3号肘单关节直接目标诊断
+
+直接命令与反馈采集 **PASS**；减小角度方向跟踪不足，根因尚未完全分离。
+
+- 用户明确授权通过代码直接下发角度测试。仅写3号elbow_flex的Goal_Position，
+  使用带应答write并读回原始目标；不调用configure、不改PID/标定、不写其他关节目标。
+  扭矩原已开启，初始标定匹配、Status全0。
+- 初始反馈96.220°/raw3002；依次请求91.220°（raw2945）、86.220°（raw2888）、
+  返回96.220°（raw3002），每段保持2秒、采35组位置/目标/扭矩/状态/电流/负载/温度/Moving。
+  此诊断绕过SOFollower的5°目标差限幅，目标仍在已确认标定范围内。
+- -5°：96.220→94.813°，仅移动-1.407°；电流最大raw1、负载绝对值最大raw218。
+- -10°：94.813→90.154°，该段移动-4.659°（相对最初-6.066°）；电流最大raw108、
+  负载绝对值最大raw283。返回：90.154→95.956°，电流最大raw1、负载绝对值最大raw174。
+  电流/负载未换算物理单位，不把负载PWM估计值当成测得扭矩。
+- 105样本原始Goal均读回匹配、扭矩1/Status0；所有关节退出Status0。
+  结束把3号目标设为实测raw2999保持；未继续试更大角度或更改控制参数。
+- 最后0.5秒反馈基本停住、减小方向仍有约3.6–3.9°误差，反向回起点误差约0.26°。
+  证据支持5°误差限幅与带载/摩擦/PID响应组合导致欠跟踪，而非完全不响应直接命令；
+  单次对照仍不能独立确定PID或机械原因，也未测试更长保持时间。
+- 证据 `~/.cache/carrot/so101_step4_20260930/elbow_direct_probe/`：before.json、
+  samples.jsonl、results.json、after.json、verification.json；数据采集命令在工具记录中。

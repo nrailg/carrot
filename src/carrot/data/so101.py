@@ -10,30 +10,24 @@ from lerobot.datasets import LeRobotDataset, LeRobotDatasetMetadata
 from torch.utils.data import Dataset
 
 from .dataset_spec import SFTDatasetSpec
-from .so101_units import model_stats, to_model_units
 
 
 class SO101SFTDataset(Dataset[dict[str, Any]]):
-    """Expose absolute targets in model units and explicitly configured camera views.
+    """Expose degree targets, gripper percentage points and explicit camera views.
 
     Parameters
     ----------
     source : LeRobotDataset
     base_image_key, wrist_image_key : str | None
         Omit a view with None; at least one camera must be explicitly configured.
-    recorded_in_degrees : bool
-        Convert degree angles to radians when true. Gripper percentages always
-        become [0, 1] fractions; source samples are not modified.
     """
 
     def __init__(
         self, source: LeRobotDataset, *,
         base_image_key: str | None = None,
         wrist_image_key: str | None = None,
-        recorded_in_degrees: bool = False,
     ) -> None:
         self.source = source
-        self.recorded_in_degrees = recorded_in_degrees
         self.image_keys = {
             target: key for target, key in (
                 ("observation/image", base_image_key),
@@ -48,8 +42,8 @@ class SO101SFTDataset(Dataset[dict[str, Any]]):
     def __getitem__(self, index: int) -> dict[str, Any]:
         sample = self.source[index]
         state, actions = sample["observation.state"], sample["action"]
-        state = to_model_units(np.asarray(state), use_degrees=self.recorded_in_degrees)
-        actions = to_model_units(np.asarray(actions), use_degrees=self.recorded_in_degrees)
+        state = np.asarray(state, dtype=np.float32)
+        actions = np.asarray(actions, dtype=np.float32)
         return {
             "observation/state": state,
             **{target: sample[key] for target, key in self.image_keys.items()},
@@ -68,7 +62,6 @@ def build_dataset(
     video_backend: str | None = None,
     base_image_key: str | None = None,
     wrist_image_key: str | None = None,
-    recorded_in_degrees: bool = False,
 ) -> SFTDatasetSpec:
     """Load SO101 LeRobot v3 data with episode-bounded future actions.
 
@@ -84,9 +77,6 @@ def build_dataset(
     video_backend : str | None
     base_image_key, wrist_image_key : str | None
         Dataset camera fields; None explicitly disables that view.
-    recorded_in_degrees : bool
-        Recorded first five joints are degrees; convert samples and statistics to radians.
-        False preserves legacy normalized joint positions. Gripper percentages become [0, 1].
 
     Returns
     -------
@@ -100,7 +90,6 @@ def build_dataset(
     """
     assert isinstance(repo_id, str) and repo_id.strip(), "set SO101 repo_id explicitly"
     assert action_horizon >= 1, "action_horizon must be positive"
-    assert type(recorded_in_degrees) is bool, "recorded_in_degrees must be boolean"
     dataset_root = Path(root) if root is not None else None
     assert dataset_root is None or dataset_root.is_dir(), (
         f"SO101 dataset root does not exist: {dataset_root}"
@@ -132,17 +121,14 @@ def build_dataset(
     return SFTDatasetSpec(
         dataset=SO101SFTDataset(
             source, base_image_key=base_image_key, wrist_image_key=wrist_image_key,
-            recorded_in_degrees=recorded_in_degrees,
         ),
         collate_fn=None,
-        state_stats=model_stats(
-            metadata.stats["observation.state"], use_degrees=recorded_in_degrees,
-        ),
-        action_stats=model_stats(metadata.stats["action"], use_degrees=recorded_in_degrees),
+        state_stats=metadata.stats["observation.state"],
+        action_stats=metadata.stats["action"],
         image_keys=image_keys,
         state_key="observation/state",
         action_key="actions",
         task_key="prompt",
         embodiment="so101",
-        joint_units="radians" if recorded_in_degrees else "normalized",
+        joint_units="degrees",
     )

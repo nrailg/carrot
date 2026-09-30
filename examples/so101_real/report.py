@@ -39,7 +39,7 @@ def write_report(directory: Path) -> None:
 
     if not predictions:
         return
-    assert joint_units in ("radians", "normalized") and gripper_units == "fraction", (
+    assert joint_units == "degrees" and gripper_units == "percentage_points", (
         "action reports require policy unit metadata from events.jsonl"
     )
     prediction = np.concatenate(predictions)

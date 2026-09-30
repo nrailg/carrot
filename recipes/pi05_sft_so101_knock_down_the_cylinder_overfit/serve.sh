@@ -10,5 +10,5 @@ cd "$carrot_dir"
 export PYTHONPATH="$PWD/src:$PWD:${PYTHONPATH:-}"
 export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1 TRANSFORMERS_OFFLINE=1
 python -u -m carrot.cli.serve_pi05_policy \
-  --embodiment so101 --joint-units degrees --checkpoint "$checkpoint" --device cuda:0 \
+  --embodiment so101 --checkpoint "$checkpoint" --device cuda:0 \
   --host 0.0.0.0 --port "${PORT:-8080}" --default-prompt 'Move an object'

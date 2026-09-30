@@ -184,7 +184,7 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         with (Path(path) / "norm_stats.json").open("w") as stream:
             if self.joint_units is not None:
                 serializable_stats["joint_units"] = self.joint_units
-                serializable_stats["gripper_units"] = "fraction"
+                serializable_stats["gripper_units"] = "percentage_points"
             json.dump(serializable_stats, stream)
 
 
@@ -280,10 +280,14 @@ def build_pi05(
         collate_fn = None
     elif dataset.embodiment == "so101":
         if norm_stats_source == "file":
-            assert normalization["joint_units"] == dataset.joint_units, (
-                "SO101 statistics and dataset joint units differ"
-            )
-            assert normalization["gripper_units"] == "fraction", "expected [0, 1] gripper stats"
+            if "joint_units" in normalization:
+                assert normalization["joint_units"] == dataset.joint_units, (
+                    "SO101 statistics and dataset joint units differ"
+                )
+            if "gripper_units" in normalization:
+                assert normalization["gripper_units"] == "percentage_points", (
+                    "expected [0, 100] gripper stats"
+                )
         if preprocess is not None:
             raise ValueError("SO101 uses shared input transforms; set dataset.preprocess to null")
         transform_spec = create_so101_transform_spec(

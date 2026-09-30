@@ -15,8 +15,8 @@ from torch import nn
 from torch.utils.data import default_collate
 
 from carrot.data import so101
-from carrot.data.so101_units import model_stats, to_model_units, to_robot_units
 from carrot.models.pi05 import loss_fn as loss_fn_module
+from carrot.models.pi05 import transforms
 from carrot.models.pi05.embodiments.so101 import create_so101_transform_spec
 from carrot.models.pi05.inference import policy_config
 from carrot.models.pi05.inference.policy import Pi05Policy
@@ -48,7 +48,7 @@ class _Source:
             "observation.state": torch.full((6,), 2.0),
             "observation.images.top": torch.full((3, 64, 96), 255, dtype=torch.uint8),
             "observation.images.fpv": torch.zeros((3, 48, 80), dtype=torch.uint8),
-            "task": "pick orange cube",
+            "task": "pick cylinder",
             "action": torch.full((3, 6), 5.0),
             "action_is_pad": torch.tensor([False, False, True]),
         }
@@ -86,8 +86,8 @@ def _stats() -> dict[str, dict[str, list[float]]]:
     }
 
 
-def test_so101_loader_maps_orange_cube_metadata_and_sample(monkeypatch) -> None:
-    # 用公开数据集的字段形状构造元数据，防止工厂丢失相机、帧率或 padding 契约。
+def test_so101_loader_maps_two_camera_metadata_and_sample(monkeypatch) -> None:
+    # 用双视角数据集的字段形状构造元数据，防止工厂丢失相机、帧率或 padding 契约。
     metadata = SimpleNamespace(
         robot_type="so101_follower",
         fps=30,
@@ -116,14 +116,14 @@ def test_so101_loader_maps_orange_cube_metadata_and_sample(monkeypatch) -> None:
     monkeypatch.setattr(so101, "LeRobotDatasetMetadata", fake_metadata)
     monkeypatch.setattr(so101, "LeRobotDataset", fake_dataset)
     spec = so101.build_dataset(
-        repo_id="local/orange_cube", revision="pinned", action_horizon=3,
-        **DATASET_CONFIGS["orange_cube"],
+        repo_id="local/two_camera", revision="pinned", action_horizon=3,
+        **DATASET_CONFIGS["two_camera"],
     )
     sample = spec.dataset[0]
 
     # 动作保持绝对 6D，语言和 pad mask 直接来自 LeRobot 样本。
     assert captured["metadata"] == (
-        "local/orange_cube",
+        "local/two_camera",
         {"root": None, "revision": "pinned"},
     )
     assert captured["dataset"][1]["delta_timestamps"] == {
@@ -133,17 +133,17 @@ def test_so101_loader_maps_orange_cube_metadata_and_sample(monkeypatch) -> None:
     assert spec.embodiment == "so101"
     assert sample["observation/image"].shape == (3, 64, 96)
     assert sample["observation/wrist_image"].shape == (3, 48, 80)
-    assert sample["prompt"] == "pick orange cube"
-    np.testing.assert_allclose(sample["actions"], [[5, 5, 5, 5, 5, 0.05]] * 3)
+    assert sample["prompt"] == "pick cylinder"
+    np.testing.assert_allclose(sample["actions"], np.full((3, 6), 5, dtype=np.float32))
     torch.testing.assert_close(sample["action_is_pad"], torch.tensor([False, False, True]))
 
 
 def test_so101_training_and_policy_share_absolute_action_contract() -> None:
     # 两路不同分辨率图像和 6D 绝对动作应能经过同一 SO101 输入变换。
     tokenizer = _Tokenizer()
-    stats = {key: model_stats(value, use_degrees=False) for key, value in _stats().items()}
+    stats = _stats()
     spec = create_so101_transform_spec(tokenizer, stats, model_action_dim=32)
-    source = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["orange_cube"])
+    source = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["two_camera"])
     raw = source[0]
     batch = default_collate([Pi05TransformedDataset(source, spec)[0]])
     model = _Model()
@@ -166,11 +166,10 @@ def test_so101_training_and_policy_share_absolute_action_contract() -> None:
     torch.testing.assert_close(training.tokenized_prompt, inference.tokenized_prompt)
     assert not training.image_masks["right_wrist_0_rgb"].any()
     assert all(image.shape[-2:] == (224, 224) for image in training.images.values())
-    assert tokenizer.prompts[0].startswith("Task: pick orange cube, State:")
+    assert tokenizer.prompts[0].startswith("Task: pick cylinder, State:")
 
     # 绝对动作 5 经 quantile 归一化为零，尾部补零且末帧不参与 loss。
     assert actions.shape == (1, 3, 32)
-    # 固定1e-6归一化epsilon在0.1夹爪范围中带来约1e-5偏差。
     torch.testing.assert_close(actions, torch.zeros_like(actions), rtol=0, atol=2e-5)
     torch.testing.assert_close(valid[0], torch.tensor([True, True, False]))
     loss, metrics = loss_fn(model, batch)
@@ -179,7 +178,9 @@ def test_so101_training_and_policy_share_absolute_action_contract() -> None:
 
     # 零归一化输出必须还原为 5，而不是加到当前 state 上的 delta。
     result = policy.infer({key: value for key, value in raw.items() if key != "actions"})
-    np.testing.assert_allclose(result["actions"], [[5, 5, 5, 5, 5, 0.05]] * 3, rtol=0, atol=1e-5)
+    np.testing.assert_allclose(
+        result["actions"], np.full((3, 6), 5, dtype=np.float32), rtol=0, atol=1e-5,
+    )
     assert result["actions"].shape == (3, 6)
 
 
@@ -196,7 +197,7 @@ def test_so101_build_uses_configured_dataset_stats_instead_of_base_checkpoint(
         )
     )
     dataset_spec = so101.SFTDatasetSpec(
-        dataset=so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["orange_cube"]),
+        dataset=so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["two_camera"]),
         collate_fn=None,
         state_stats=_stats()["state"],
         action_stats=_stats()["actions"],
@@ -239,7 +240,9 @@ def test_so101_export_loads_as_six_joint_policy(tmp_path, monkeypatch) -> None:
     (tmp_path / "config.json").write_text("{}")
     (tmp_path / "tokenizer_config.json").write_text("{}")
     (tmp_path / "norm_stats.json").write_text(
-        json.dumps({"state": _stats()["state"], "action": _stats()["actions"]})
+        json.dumps({"state": _stats()["state"],
+                    "action": _stats()["actions"],
+                    "joint_units": "degrees", "gripper_units": "percentage_points"})
     )
     monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", lambda path: _Model())
     monkeypatch.setattr(
@@ -249,12 +252,14 @@ def test_so101_export_loads_as_six_joint_policy(tmp_path, monkeypatch) -> None:
     )
 
     # 真实工厂装配输入/输出变换，输出应为六维绝对关节位置。
-    policy = policy_config.create_so101_policy(tmp_path, device="cpu", joint_units="normalized")
-    raw = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["orange_cube"])[0]
+    policy = policy_config.create_so101_policy(tmp_path, device="cpu")
+    raw = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["two_camera"])[0]
     result = policy.infer({key: value for key, value in raw.items() if key != "actions"})
     assert policy.metadata["action_dim"] == 6
     assert result["actions"].shape == (3, 6)
-    np.testing.assert_allclose(result["actions"], [[5, 5, 5, 5, 5, 0.05]] * 3, rtol=0, atol=1e-5)
+    np.testing.assert_allclose(
+        result["actions"], np.full((3, 6), 5, dtype=np.float32), rtol=0, atol=1e-5,
+    )
 
 
 def test_so101_single_wrist_camera_at_15_fps(monkeypatch) -> None:
@@ -307,12 +312,11 @@ def test_so101_single_wrist_camera_at_15_fps(monkeypatch) -> None:
         torch.testing.assert_close(batch["image_mask"][name], obs.image_masks[name])
     output = policy.infer({key: value for key, value in raw.items() if key != "actions"})
     np.testing.assert_allclose(output["actions"],
-                               to_model_units(np.full((3, 6), 5, dtype=np.float32),
-                                              use_degrees=True), rtol=0, atol=1e-5)
+                               np.full((3, 6), 5, dtype=np.float32), rtol=0, atol=1e-5)
 
 
-def test_degree_samples_and_stats_use_radians_and_gripper_fraction(monkeypatch) -> None:
-    # 六轴使用不同尺度，防止整向量乘同一个角度系数或遗漏统计量/夹爪转换。
+def test_degree_samples_and_stats_keep_driver_units(monkeypatch) -> None:
+    # 六轴使用不同尺度，确保样本和统计量都保留原始degree与夹爪百分点。
     joints = np.float32([-180, -90, 0, 90, 180, 50])
     raw_stats = {key: joints.copy() for key in ("mean", "min", "max", "q01", "q99")}
     raw_stats["std"] = np.float32([180, 90, 1, 90, 180, 50])
@@ -336,27 +340,25 @@ def test_degree_samples_and_stats_use_radians_and_gripper_fraction(monkeypatch) 
     monkeypatch.setattr(so101, "LeRobotDatasetMetadata", lambda *args, **kwargs: metadata)
     monkeypatch.setattr(so101, "LeRobotDataset", lambda *args, **kwargs: DegreeSource())
 
-    # 真实工厂同时处理样本与stats；只修改degree开关，不依赖隐式相机默认。
-    config = {**DATASET_CONFIGS["orange_cube"], "recorded_in_degrees": True}
+    # 真实工厂读取样本与stats，所有六轴均不做单位换算。
+    config = DATASET_CONFIGS["two_camera"]
     dataset = so101.build_dataset(repo_id="local/degrees", action_horizon=3, **config)
     sample = dataset.dataset[0]
-    expected = [-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi, 0.5]
+    expected = [-180, -90, 0, 90, 180, 50]
 
-    # float32角度换算采用1e-6绝对容差；源样本、源stats和count必须保持不变。
+    # 源样本、源stats和count必须保持不变；float32数值采用1e-6绝对容差。
     np.testing.assert_allclose(sample["observation/state"], expected, rtol=0, atol=1e-6)
     np.testing.assert_allclose(sample["actions"], [expected] * 3, rtol=0, atol=1e-6)
     for stats in (dataset.state_stats, dataset.action_stats):
         for key in ("mean", "min", "max", "q01", "q99"):
             np.testing.assert_allclose(stats[key], expected, rtol=0, atol=1e-6)
-        np.testing.assert_allclose(stats["std"], np.abs(to_model_units(original["std"],
-                                                                      use_degrees=True)))
+        np.testing.assert_allclose(stats["std"], np.abs(original["std"]))
         assert stats["count"] == [354]
     for key in raw_stats:
         np.testing.assert_array_equal(raw_stats[key], original[key])
-    np.testing.assert_allclose(to_robot_units(sample["actions"], use_degrees=True),
+    np.testing.assert_allclose(sample["actions"],
                                [joints] * 3, rtol=0, atol=2e-5)
-    assert dataset.joint_units == "radians"
-    assert dataset.dataset.recorded_in_degrees is True
+    assert dataset.joint_units == "degrees"
 
 
 def test_so101_factory_requires_explicit_repo_before_io(monkeypatch) -> None:
@@ -367,7 +369,7 @@ def test_so101_factory_requires_explicit_repo_before_io(monkeypatch) -> None:
     # 在相机、视频或统计量读取之前报告缺失repo。
     monkeypatch.setattr(so101, "LeRobotDatasetMetadata", forbid_metadata)
     with pytest.raises(AssertionError, match="repo_id explicitly"):
-        so101.build_dataset(**DATASET_CONFIGS["orange_cube"])
+        so101.build_dataset(**DATASET_CONFIGS["two_camera"])
 
 
 def test_camera_keys_must_be_explicit() -> None:
@@ -377,50 +379,72 @@ def test_camera_keys_must_be_explicit() -> None:
 
 
 def test_export_preserves_model_unit_metadata(tmp_path) -> None:
-    # 导出的统计量必须记录radian和[0,1]夹爪，避免新客户端误连degree旧服务。
+    # 导出的统计量必须记录degree和[0,100]夹爪，确保训练与服务单位一致。
     tokenizer = _Tokenizer()
     tokenizer.save_pretrained = lambda path: None
     loss = Pi05SFTLossFn(tokenizer, state_stats=_stats()["state"],
-                        action_stats=_stats()["actions"], image_keys=(), joint_units="radians")
+                        action_stats=_stats()["actions"], image_keys=(), joint_units="degrees")
 
     # 经过实际artifact导出入口，验证单位字段与六维统计量同时落盘。
     loss.save_artifacts(tmp_path)
     payload = json.loads((tmp_path / "norm_stats.json").read_text())
-    assert payload["joint_units"] == "radians"
-    assert payload["gripper_units"] == "fraction"
+    assert payload["joint_units"] == "degrees"
+    assert payload["gripper_units"] == "percentage_points"
     assert payload["action"] == _stats()["actions"]
 
 
-def test_legacy_degree_stats_and_new_export_use_same_model_units(tmp_path, monkeypatch) -> None:
-    # 旧degree checkpoint只能显式迁移；新export必须直接读模型单位，不能重复转换。
+@pytest.mark.parametrize("with_metadata", [False, True])
+def test_policy_keeps_degree_and_percentage_stats(tmp_path, monkeypatch, with_metadata) -> None:
+    # 早期无metadata与新导出均按degree/百分点加载，绝不能缩放夹爪统计量。
     for name in ("model.safetensors", "tokenizer_config.json"):
         (tmp_path / name).touch()
     (tmp_path / "config.json").write_text("{}")
+    raw_stats = {"state": _stats()["state"], "action": _stats()["actions"]}
+    metadata = {"joint_units": "degrees", "gripper_units": "percentage_points"}
     stats_path = tmp_path / "norm_stats.json"
-    legacy = {"state": _stats()["state"], "action": _stats()["actions"]}
-    stats_path.write_text(json.dumps(legacy))
+    stats_path.write_text(json.dumps(raw_stats | (metadata if with_metadata else {})))
     monkeypatch.setattr(policy_config.PI0Pytorch, "from_pretrained", lambda path: _Model())
     monkeypatch.setattr(policy_config.AutoTokenizer, "from_pretrained",
                         lambda *args, **kwargs: _Tokenizer())
-    config = {**DATASET_CONFIGS["orange_cube"], "recorded_in_degrees": True}
-    sample = so101.SO101SFTDataset(_Source(), **config)[0]
 
-    # 无声明时拒绝猜测；显式degree只在内存转换统计量，不修改历史checkpoint。
-    with pytest.raises(AssertionError, match="require joint_units"):
-        policy_config.create_so101_policy(tmp_path, device="cpu")
-    legacy_policy = policy_config.create_so101_policy(tmp_path, device="cpu", joint_units="degrees")
-    legacy_actions = legacy_policy.infer(sample)["actions"]
-    expected = to_model_units(np.full((3, 6), 5, dtype=np.float32), use_degrees=True)
-    np.testing.assert_allclose(legacy_actions, expected, rtol=0, atol=1e-5)
-    assert legacy_policy.metadata["joint_units"] == "radians"
-    assert legacy_policy.metadata["gripper_units"] == "fraction"
-    assert json.loads(stats_path.read_text()) == legacy
-
-    # 新统计量附带单位，按原值使用；冲突的旧单位override必须报错。
-    converted = {key: model_stats(value, use_degrees=True) for key, value in legacy.items()}
-    stats_path.write_text(json.dumps(converted | {"joint_units": "radians",
-                                                 "gripper_units": "fraction"}))
+    # 零模型输出应反归一化到5度与5%，保留原stats文件和固定握手单位。
     policy = policy_config.create_so101_policy(tmp_path, device="cpu")
-    np.testing.assert_array_equal(policy.infer(sample)["actions"], legacy_actions)
-    with pytest.raises(AssertionError, match="disagrees"):
-        policy_config.create_so101_policy(tmp_path, device="cpu", joint_units="degrees")
+    sample = so101.SO101SFTDataset(_Source(), **DATASET_CONFIGS["two_camera"])[0]
+    expected = np.full((3, 6), 5, dtype=np.float32)
+    np.testing.assert_allclose(policy.infer(sample)["actions"], expected, rtol=0, atol=1e-5)
+    assert json.loads(stats_path.read_text()) == raw_stats | (metadata if with_metadata else {})
+    assert policy.metadata["joint_units"] == "degrees"
+    assert policy.metadata["gripper_units"] == "percentage_points"
+
+    # 带错误夹爪单位的文件必须在加载权重前失败，不能静默换算成百分点。
+    stats_path.write_text(json.dumps(raw_stats | metadata | {"gripper_units": "fraction"}))
+    with pytest.raises(AssertionError, match=r"must use \[0, 100\]"):
+        policy_config.create_so101_policy(tmp_path, device="cpu")
+
+
+def test_so101_only_uses_statistical_normalization_without_clipping() -> None:
+    # 物理单位只经过已有norm stats变换；分位数外的角度与夹爪目标不能被额外裁剪。
+    stats = {
+        "state": {"q01": [-90.0] * 5 + [20.0], "q99": [90.0] * 5 + [80.0]},
+        "actions": {"q01": [-45.0] * 5 + [10.0], "q99": [45.0] * 5 + [90.0]},
+    }
+    state = np.float32([-180, -45, 0, 45, 180, 100])
+    action = np.float32([-90, -45, 0, 45, 90, 100])
+    raw = {"observation/state": state,
+           "observation/wrist_image": np.zeros((3, 16, 16), dtype=np.uint8),
+           "prompt": "Move an object", "actions": action[None]}
+    spec = create_so101_transform_spec(_Tokenizer(), stats, model_action_dim=32)
+
+    # 按独立公式计算六轴期望，证明没有degrees转换、夹爪缩放或[-1,1]裁剪。
+    processed = transforms.compose(spec.inputs)(raw)
+    for key, values in (("state", state), ("actions", action[None])):
+        low, high = np.float32(stats[key]["q01"]), np.float32(stats[key]["q99"])
+        expected = 2 * (values - low) / (high - low + 1e-6) - 1
+        np.testing.assert_allclose(processed[key][..., :6], expected, rtol=0, atol=1e-6)
+        assert processed[key].max() > 1 and processed[key].min() < -1
+
+    # 同一action stats反归一化应还原degree与百分点；源数组也必须保持不变。
+    decoded = transforms.compose(spec.outputs)({"actions": processed["actions"]})
+    np.testing.assert_allclose(decoded["actions"], action[None], rtol=0, atol=2e-5)
+    np.testing.assert_array_equal(raw["observation/state"], state)
+    np.testing.assert_array_equal(raw["actions"], action[None])

@@ -1,9 +1,9 @@
 # SO101：数据集输入调试与真机部署
 
-GPU 上运行 Carrot PI0.5，控制电脑通过 OpenPI WebSocket 协议获取动作。
-客户端使用 LeRobot 0.6.1 控制 SO101；默认读取数据集、记录预测，不连接机械臂。
+GPU 上运行 Carrot PI0.5，Mac 通过 WebSocket 获取动作，LeRobot 0.6.1 控制 SO101。
+默认读取数据集并记录预测，不连接机械臂。
 
-## 1. 环境与策略服务
+## 环境与策略服务
 
 控制电脑使用独立 Python 3.12 环境，从本仓库根目录运行，并加载当前源码：
 
@@ -26,34 +26,48 @@ OpenPI 客户端的历史依赖声明为 NumPy <2，而 LeRobot 0.6.1 要求 Num
 包含 `pyserial`、`deepdiff` 和 Feetech SDK。root `uv.lock` 仍面向 Linux x86_64/CUDA；
 Mac 继续使用上面的独立 CPU 环境安装命令。
 
-GPU 机器沿用已有 `/opt/venvs/carrot` 环境，确认包含 OpenPI 客户端及 websockets。
-仓库 `serving` extra 声明服务依赖；root uv 配置也明确覆盖 OpenPI 的旧 NumPy 上限。
-已完成环境配置并确认 `MY_DFS` 后：
+GPU 使用已有 `/opt/venvs/carrot`，确认 `MY_DFS` 后运行：
 
 ```bash
 source /opt/venvs/carrot/bin/activate
 cd "$MY_DFS/work/carrot"
 export PYTHONPATH="$PWD/src:${PYTHONPATH:-}"
 export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1
-python -m carrot.cli.serve_pi05_policy \
-  --embodiment so101 \
-  --checkpoint "$MY_DFS/experiments/carrot/pi05_sft_so101_orange_cube/checkpoints/step-00005000" \
-  --device cuda:0 --num-steps 10 --port 8000 --joint-units normalized
+bash recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/serve.sh
 ```
 
-使用 checkpoint 自带 tokenizer、统计量和精度配置。现有 step 5000 保存的是 FP32
-配置；先在有足够显存的 GPU 上验证加载及推理延迟。服务只允许一个控制客户端串行使用。
+`serve.sh` 仍加载历史 step100 checkpoint；不会启动训练或控制机械臂。
+服务加载 checkpoint 自带 tokenizer 和 `norm_stats.json`，不提供关节单位切换参数。
+服务只允许一个控制客户端串行使用。
 
-### 单腕 knock_down_the_cylinder：15 FPS、模型 radian
+## 单位与统计量
 
-`knock_down_the_cylinder.yaml` 对应本地 `nrailg/so101_knock_down_the_cylinder` 数据。
-配置使用 `base_camera: null`、`wrist_camera: wrist`、`fps: 15`、`use_degrees: true`。
-数据集字段 `observation.images.wrist` 和实时相机名 `wrist` 都映射为
-`observation/wrist_image`；不发送缺失的 base 视角，也不复制腕图填充它。
+全链路使用同一单位：前五轴为 degree，角度约定 `[-180,180]`；夹爪为 `[0,100]` 百分点。
+数据读取、WebSocket 请求/响应、示教 reference、动作日志和 LeRobot 下发均不换算单位。
+驱动设置 `use_degrees: true`；实际可下发的角度范围仍由现有标定决定。
 
-部署仅加载指定本地目录，配置不再包含 dataset_revision。
-完整数据目录必须包含 `meta/`、`data/`、`videos/`；数据原始 FPS 必须与配置一致。
-从仓库根目录先运行无硬件的单帧日志模式：
+训练配置使用 `norm_stats_source: dataset`，由 LeRobot 从数据集 `meta/stats.json`
+读取 `observation.state` 和 `action` 的原始统计量，Carrot 不重新计算或缩放统计量。
+模型已有 Normalize 使用每轴 q01/q99：
+
+```text
+z = 2 * (x - q01) / (q99 - q01 + 1e-6) - 1
+x = (z + 1) / 2 * (q99 - q01 + 1e-6) + q01
+```
+
+训练和推理共用这一层 Normalize；输出由 action stats 反归一化成 degree/百分点。
+超过分位数的数据可以超出 `[-1,1]`，不额外裁剪或按机器人范围归一化。
+训练导出实际统计量到 `output_dir/checkpoints/step-XXXXXXXX/norm_stats.json`，
+包含 `state`、`action`、`joint_units: degrees`、`gripper_units: percentage_points`。
+服务默认读取此文件，新旧degree/百分点统计量都不做转换；已有单位声明必须匹配。
+报告读取握手单位，客户端在连接硬件前核对服务单位。
+
+## 数据集观测 → 日志
+
+`knock_down_the_cylinder.yaml` 对应推倒圆柱体的单腕数据：15FPS、
+`base_camera: null`、`wrist_camera: wrist`。数据字段 `observation.images.wrist`
+和实时相机 `wrist` 映射到 `observation/wrist_image`，不伪造其他视角。
+本地目录须包含 `meta/`、`data/`、`videos/`；FPS 与配置一致。
 
 ```bash
 python -m examples.so101_real.main \
@@ -63,167 +77,54 @@ python -m examples.so101_real.main \
   --output-dir outputs/so101_knock_down_the_cylinder_one_frame
 ```
 
-真机模式需复制该模板，填写 follower 串口、ID、标定目录，以及腕相机的实际编号与朝向。
-录制文件和 LeRobot 驱动的前五轴使用 degree、夹爪使用百分点。读取后将前五轴转换
-为 radian，夹爪除以100转换为 `[0,1]`；写入驱动前反向转换。预测、reference、state和
-发送目标日志均使用模型单位。动作绝对限位从驱动现有标定换算，
-不得使用旧归一化位置的 `[-100,100]` 作为角度限位。`max_relative_target` 和
-`initial_state_tolerance` 与该模式的单位一致：前五轴为度数，夹爪为百分点。
-knock_down_the_cylinder 模板的 `max_relative_target: 90.0` 允许每次目标相对当前反馈最多变化90°，
-夹爪为90个百分点；实际下发仍受标定绝对限位约束，运动速度由舵机控制。
-实际关节已越过标定范围时停止下发；标定限位不替代摄像头线缆的活动范围检查。
+默认 episode0/frame0，只记录第一步，另有一次无下发的预热；日志保存完整动作窗口。
+可增加 `--episode`、`--start-frame`、`--prompt`；默认 prompt 来自录制样本。
+输出目录须不存在。通用 `deployment.yaml` 的 `dataset_repo` 留空，需显式填写。
+完整episode调试可将 `max_chunks: null`、`execute_steps: 10`；末块按剩余帧数截断。
+示教动作仅供比较，不发送给模型或机器人。
 
-块内按15Hz执行，块间等待推理；模型仍预测50步、去噪10步，`execute_steps` 控制消费
-几行动作。新增配置仍默认 `dataset + log`、单块单步。下方双相机示例使用旧公共数据的
-30FPS归一化配置；四种运行模式也适用于推倒圆柱体，但必须使用对应模板和checkpoint。
+## 数据集观测 → 机器人开环
 
-新训练导出在 `norm_stats.json` 中记录 `joint_units: radians`、`gripper_units: fraction`，
-服务握手声明相同单位，客户端在连接硬件前校验。旧step100权重/统计量仍保留在原实验目录，
-若用当前代码重新加载，需显式 `--joint-units degrees`：服务只在内存中将统计量转为模型单位，
-不改旧文件。公开orange-cube旧导出使用 `--joint-units normalized`，仅转换夹爪比例。
-已有旧服务没有单位metadata，必须用当前代码重启才能连接新客户端；本轮未自动重启。
-
-### 单位与训练统计量
-
-训练数据配置的 `recorded_in_degrees: true` 描述录制单位：前五轴是degree，
-不是要求网络直接使用degree。训练入口与部署客户端均先将其转换为radians，
-夹爪百分比除以100。部署的 `use_degrees` 则设置LeRobot驱动模式，与录制单位保持一致。
-
-| 位置 | 前五轴 | 夹爪 |
-| --- | --- | --- |
-| degree录制数据、角度模式驱动 | degrees | 百分点 |
-| 训练统计归一化前、策略请求与响应、动作日志 | radians | `[0,1]`比例 |
-| 网络输入与输出 | 按六轴各自的q01/q99统计归一化 | 按夹爪q01/q99统计归一化 |
-
-旧录制数据使用LeRobot的 `[-100,100]` 位置单位时，`recorded_in_degrees` 为false，
-策略元数据为 `joint_units: normalized`。这里的normalized是位置单位约定，
-与网络的统计归一化不同；它不能直接换算为弧度。
-
-两个SO101训练recipe均设置 `norm_stats_source: dataset`：从数据集 `meta/stats.json`
-读取 `observation.state` 和 `action` 的六轴统计量，前五轴按 `π/180` 换算，
-夹爪按 `1/100` 换算，count保持原值。SO101的Normalize使用每轴的q01、q99：
-`2 * (x - q01) / (q99 - q01 + 1e-6) - 1`；响应经Unnormalize还原后才发送给客户端。
-
-训练导出将实际使用的统计量保存在 `output_dir/checkpoints/step-XXXXXXXX/norm_stats.json`，
-字段为 `state`、`action`、`joint_units`、`gripper_units`。服务默认加载该文件；
-新导出已经转换单位，加载时不再重复转换。`norm_stats_source: file` 则使用配置指定的
-统计文件，并核对SO101单位。报告读取日志中的握手单位，缺失时会报错。
-
-## 2. 数据集观测 → 日志
-
-将已下载的 `felixmayor/orange_cube_merged` 完整本地目录复制到控制电脑，包含
-`meta/`、`data/` 和 `videos/`。
-客户端禁止 Hub 联网，仅加载本地文件；复制时应保留下载记录。缺少必需文件会失败，不会改用其他数据集。
+复制单腕模板，填写串口、机器人ID、标定目录。数据集观测模式不连接相机：
 
 ```bash
-python -m examples.so101_real.main \
-  --config examples/so101_real/deployment.yaml \
-  --server-uri ws://GPU_HOST:8000 \
-  --dataset-root /absolute/path/to/orange_cube_merged \
-  --dataset-repo felixmayor/orange_cube_merged \
-  --output-dir outputs/so101_one_frame
-```
-
-通用模板的 `dataset_repo` 默认为空，需在自己的配置或CLI中显式填写。
-
-默认 episode 0、frame 0、一次正式请求，只记录第一步；另有一次无动作下发的预热。
-日志会保存完整 50 步预测。可增加 `--episode`、`--start-frame` 或 `--prompt`；默认任务
-文本来自数据集样本。输出目录必须不存在，避免覆盖结果。
-
-完整 episode 调试：复制模板并将 `max_chunks: null`、`execute_steps: 10`，再指定该配置。
-每轮读取位置前进实际消费的 N 帧，最后一轮按 episode 剩余帧数截断，遇到边界即结束。
-示教动作仅作比较，不会发送给 policy 或作为机器人命令。
-
-## 3. 数据集观测 → SO101 开环动作测试
-
-复制 `deployment.yaml`，填写以下硬件字段：
-
-```yaml
-robot_port: /dev/ttyACM0          # 替换为实际串口
-robot_id: my_follower           # 必须匹配已有标定文件名
-calibration_dir: /absolute/path/to/calibration
-use_degrees: false
-max_relative_target: 5.0
-initial_state_tolerance: 10.0
-```
-
-然后显式选择机器人执行端（本例为 SO101），先只发一步：
-
-```bash
-python -m examples.so101_real.main \
-  --config /absolute/path/to/my_so101.yaml \
-  --server-uri ws://GPU_HOST:8000 \
-  --dataset-root /absolute/path/to/orange_cube_merged \
-  --dataset-repo felixmayor/orange_cube_merged \
+python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
   --action-sink robot --execute-steps 1 --max-chunks 1 \
   --output-dir outputs/so101_single_action
 ```
 
-这条命令会实际控制机械臂。数据集观测模式不连接相机；真实关节读数只用于起始状态核对、
-限幅和记录，不混入 policy 的录制观测。预测来自旧图像，因此此模式验证开环动作链路。
+该命令会控制机械臂。动作先按标定绝对范围裁剪，再由驱动限制相对当前反馈的目标变化。
+`max_relative_target`、`initial_state_tolerance` 的前五轴单位为度，夹爪单位为百分点。
+多步执行前核对实机与录制起点，不自动对齐姿态。日志中的 `sent` 是驱动返回的发送目标，
+不代表运动后的反馈位置。
 
-公共数据元信息未注明单位和标定。该配置根据数据范围采用 LeRobot 归一化位置假设：
-五个关节 [-100,100]，夹爪 [0,100]；下发前核对你的机器人约定。
-LeRobot 0.6.1 的默认角度制在这里被显式关闭。
+## 真机观测 → 日志或闭环
 
-动作目标先按合法位置范围裁剪，再由驱动按当前读数限制每个关节的相对目标变化，
-日志记录预测、裁剪目标和 `send_action()` 返回的实际命令。多步或多块执行前，
-真实起始状态与录制状态逐维差必须不超过 10；不满足时退出，不自动对齐姿态。
-单步验证后，可用 `--execute-steps 10 --max-chunks 3` 做短序列测试。
-
-## 4. 真机观测 → 日志／SO101 闭环
-
-在同一配置中设置非空 `prompt`，并填写真实相机参数，例如：
-
-```yaml
-prompt: pick up the orange cube
-cameras:
-  top:
-    index_or_path: 0
-    width: 640
-    height: 480
-    fps: 30
-    color_mode: rgb
-    rotation: 0
-  fpv:
-    index_or_path: 1
-    width: 640
-    height: 480
-    fps: 30
-    color_mode: rgb
-    rotation: 0
-```
-
-设备编号、分辨率和旋转填写你的实际采集配置；先检查输出目录中的首帧图像。
-本机自采与部署应使用同一相机朝向、标定和归一化位置配置。
+模板中填写非空 prompt、腕相机实际编号、朝向和15FPS采集参数，再运行：
 
 ```bash
-# 真机观测，只记录预测；会打开机器人和相机，但不调用 send_action。
+# 打开机器人与相机，记录预测，不调用send_action。
 python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
   --observation-source robot --action-sink log --max-chunks 5 \
   --output-dir outputs/so101_live_observations
 
-# 真机观测和真机执行。
+# 真机观测与执行。
 python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
   --observation-source robot --action-sink robot --execute-steps 10 --max-chunks 30 \
   --output-dir outputs/so101_closed_loop
 ```
 
-两条命令使用配置中的 server_uri。首次启动从单步开始；`robot + log` 也会执行 LeRobot
-正常的连接与舵机配置过程，不代表硬件完全不受影响。
+这两条命令使用配置中的 server_uri。采集视角、朝向和标定需与录制一致。
+`robot + log` 仍会执行 LeRobot 的正常连接和舵机配置过程。
 
-## 5. 时序、退出与结果
+## 时序与结果
 
-- 模型返回 `[50,6]`；`execute_steps` 控制消费几行，`num_steps` 是服务端去噪次数。
-- 每行是绝对目标位置，顺序为 shoulder_pan、shoulder_lift、elbow_flex、wrist_flex、
-  wrist_roll、gripper，各带 `.pos` 后缀。
-- 块内目标频率由 `fps` 配置决定，块间等待推理，实际全程频率会降低；记录实际耗时。
-- 连接超时 10 秒、预热 60 秒、后续响应 5 秒，可在配置中调整。
-- Ctrl+C、断连、超时或错误时停止新增命令，退出后不自动续跑；断开保留最后位置目标。
-  舵机仍可能完成已收到的动作，此行为不等同于硬件急停。
-- 每次运行保存 `config.json`、`versions.json`、`events.jsonl`、`summary.json`、
-  首帧图像、各块 `chunk_*.npz`；正常结束还生成 `comparison.json` 与 `actions.png`。
-- MAE/轨迹仅比较本轮消费的有效帧，不统计 padding；这些指标用于调试，不代表任务成功率。
+- 模型返回 `[50,6]` 的绝对位置目标，顺序为 shoulder_pan、shoulder_lift、elbow_flex、
+  wrist_flex、wrist_roll、gripper；`execute_steps` 决定消费几行。
+- `num_steps` 是服务端去噪次数；块内按配置FPS执行，块间等待推理。
+- Ctrl+C、断连、超时或错误时停止新增命令，断开后保留最后位置目标。
+- 输出包括配置、版本、事件、首帧图像、`chunk_*.npz`；正常结束生成比较指标与轨迹图。
+  MAE只比较消费的有效帧，不含padding，也不代表任务成功率。
 
-CPU 测试：`python -m pytest -v tests/so101_real`。
-GPU 重载测试及状态见 `tests/pi_05/test_so101_inference_checkpoint.md`。
+CPU测试及档案位于 `tests/so101_real/`；模型重载测试见
+`tests/pi_05/test_so101_inference_checkpoint.md`。

@@ -21,8 +21,7 @@ class Pi05Policy:
     num_steps : int
         Denoising iterations, independent of the predicted action horizon.
     joint_units : str | None
-        SO101 API units after output unnormalization: radians or LeRobot normalized
-        positions. Gripper outputs use [0, 1] fractions.
+        SO101 API units after output unnormalization: degrees and gripper percentage points.
     """
 
     def __init__(
@@ -54,7 +53,7 @@ class Pi05Policy:
         ----------
         obs : dict
             Observation before statistical normalization. SO101 first five state
-            components use metadata joint_units; the gripper uses a [0, 1] fraction.
+            components use metadata joint_units; the gripper uses [0, 100] percentage points.
         noise : numpy.ndarray | None
             Optional finite noise with shape ``(action_horizon, model_action_dim)``.
 
@@ -106,7 +105,7 @@ class Pi05Policy:
     @property
     def metadata(self) -> dict[str, Any]:
         return {
-            **({"joint_units": self._joint_units, "gripper_units": "fraction"}
+            **({"joint_units": self._joint_units, "gripper_units": "percentage_points"}
                if self._joint_units is not None else {}),
             "action_horizon": self._model.config.action_horizon,
             "action_dim": self._transform_spec.action_dim,

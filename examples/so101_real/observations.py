@@ -3,8 +3,6 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from carrot.data.so101_units import to_model_units
-
 from .config import JOINT_NAMES, DeploymentConfig
 
 
@@ -55,7 +53,7 @@ class DatasetSource:
     dataset : Dataset
         Must contain only ``episode`` and horizon-sized action chunks with padding masks.
     config : DeploymentConfig
-        Episode, start frame, prompt and cameras; degree inputs become model radians.
+        Episode, start frame, prompt and cameras; joints remain in driver units.
     horizon : int
     """
 
@@ -85,8 +83,6 @@ class DatasetSource:
         assert np.array_equal(padding, np.arange(self.horizon) >= valid), (
             "action padding must match the end of the selected episode"
         )
-        state = to_model_units(state, use_degrees=self.config.use_degrees)
-        reference = to_model_units(reference, use_degrees=self.config.use_degrees)
         prompt = sample["task"] if self.config.prompt is None else self.config.prompt
         assert isinstance(prompt, str) and prompt.strip(), "missing dataset task"
         # 示教动作留在 reference，策略请求只包含观测和任务文本。
@@ -116,7 +112,6 @@ class RobotSource:
     def read(self) -> ObservationFrame:
         obs = self.robot.get_observation()
         state = joint_state(obs)
-        state = to_model_units(state, use_degrees=self.config.use_degrees)
         return ObservationFrame(
             request={
                 "observation/state": state,

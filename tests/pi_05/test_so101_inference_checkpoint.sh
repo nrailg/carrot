@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 : "${MY_DFS:?set MY_DFS from the current Gemini session}"
-export CARROT_SO101_CHECKPOINT="${CARROT_SO101_CHECKPOINT:-${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube/checkpoints/step-00005000}"
-export CARROT_SO101_DATASET="${CARROT_SO101_DATASET:-${MY_DFS}/hf-hub/felixmayor/orange_cube_merged}"
+: "${CARROT_SO101_CHECKPOINT:?set a SO101 checkpoint with degree/percentage statistics}"
+export CARROT_SO101_CHECKPOINT
+export CARROT_SO101_DATASET="${CARROT_SO101_DATASET:-${MY_DFS}/hf-hub/nrailg/so101_knock_down_the_cylinder}"
 [[ -f "${CARROT_SO101_CHECKPOINT}/model.safetensors" ]]
 [[ -f "${CARROT_SO101_CHECKPOINT}/norm_stats.json" ]]
 [[ -f "${CARROT_SO101_CHECKPOINT}/tokenizer_config.json" ]]

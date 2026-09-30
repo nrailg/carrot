@@ -18,7 +18,7 @@ request_timeout_s: 5.0
 robot_port: null
 robot_id: null
 calibration_dir: null
-use_degrees: false
+use_degrees: true
 max_relative_target: 5.0
 initial_state_tolerance: 10.0
 cameras: {}  # robot source requires the selected camera names

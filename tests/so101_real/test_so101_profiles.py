@@ -8,7 +8,6 @@ import pytest
 from lerobot.motors import Motor, MotorCalibration, MotorNormMode
 from lerobot.motors.feetech import FeetechMotorsBus
 
-from carrot.data.so101_units import to_model_units
 from examples.so101_real import dataset as dataset_module
 from examples.so101_real import runner
 from examples.so101_real.actions import LogSink, SO101Sink
@@ -58,12 +57,12 @@ def test_knock_down_the_cylinder_profile_and_camera_validation(tmp_path):
 def test_single_wrist_requests_padding_and_logs(tmp_path, monkeypatch):
     # 单腕episode仍按原边界截断，缺失base视角不发送、不复制，也不保存伪造图像。
     config = DeploymentConfig(
-        base_camera=None, wrist_camera="wrist", fps=15, use_degrees=True, episode=2,
+        base_camera=None, wrist_camera="wrist", fps=15, episode=2,
         execute_steps=3, max_chunks=None,
     )
     source = DatasetSource(WristDataset(), config, 4)
     policy = Policy()
-    policy.metadata = {**policy.metadata, "joint_units": "radians"}
+    policy.metadata = {**policy.metadata, "joint_units": "degrees"}
     monkeypatch.setattr(runner.time, "sleep", lambda seconds: None)
 
     # 执行真实循环和日志，预热及三个动作块共享同一单腕输入契约。
@@ -84,7 +83,7 @@ def test_single_wrist_requests_padding_and_logs(tmp_path, monkeypatch):
 
 
 def test_robot_single_wrist_source():
-    # 实时源按同一映射读取腕图，不要求top/fpv；关节状态转换为radian，夹爪转换为[0,1]。
+    # 实时源按同一映射读取腕图，不要求top/fpv；关节状态保持degree，夹爪保持[0,100]。
     robot = Mock()
     state = [-12, -105, 96, 54, 150, 0.5]
     robot.get_observation.return_value = {
@@ -92,14 +91,14 @@ def test_robot_single_wrist_source():
         "wrist": np.full((12, 16, 3), 17, dtype=np.uint8),
     }
 
-    # 单腕请求只从一次真实观测组装，在边界转换单位，不复制视角。
+    # 单腕请求只从一次真实观测组装，原单位透传，不复制视角。
     config = DeploymentConfig(prompt="Move an object", base_camera=None,
-                              wrist_camera="wrist", use_degrees=True)
+                              wrist_camera="wrist")
     frame = RobotSource(robot, config, 50).read()
 
     # 超过100度的关节不能被当成归一化位置截断。
     np.testing.assert_array_equal(
-        frame.request["observation/state"], to_model_units(np.float32(state), use_degrees=True),
+        frame.request["observation/state"], np.float32(state),
     )
     assert "observation/image" not in frame.request
     assert frame.request["observation/wrist_image"].shape == (12, 16, 3)
@@ -135,7 +134,7 @@ def test_knock_down_the_cylinder_dataset_metadata_and_time_window(
         (tmp_path / "meta" / file).touch()
     config = DeploymentConfig(
         dataset_root=str(tmp_path), dataset_repo="local/knock_down_the_cylinder", base_camera=None,
-        wrist_camera="wrist", fps=15, use_degrees=True, episode=2,
+        wrist_camera="wrist", fps=15, episode=2,
     )
     features = {name: {"shape": [6], "names": list(JOINT_NAMES)}
                 for name in ("observation.state", "action")}
@@ -167,16 +166,14 @@ def test_knock_down_the_cylinder_dataset_metadata_and_time_window(
         assert "observation/image" not in source.read().request
 
 
-@pytest.mark.parametrize("use_degrees", [False, True])
-def test_calibrated_action_limits_and_raw_targets(use_degrees):
+def test_calibrated_action_limits_and_raw_targets():
     # 用真实LeRobot总线纯换算作为限位oracle；构造总线不会打开串口或写寄存器。
     robot = Robot()
     names = [name.removesuffix(".pos") for name in JOINT_NAMES]
     robot.bus = FeetechMotorsBus(
         port="fake",
         motors={name: Motor(index, "sts3215", MotorNormMode.RANGE_0_100 if name == "gripper"
-                            else MotorNormMode.DEGREES if use_degrees
-                            else MotorNormMode.RANGE_M100_100)
+                            else MotorNormMode.DEGREES)
                 for index, name in enumerate(names, 1)},
         calibration={name: MotorCalibration(
             index, 0, 0, 0 if name == "wrist_roll" else 1000,
@@ -185,17 +182,17 @@ def test_calibrated_action_limits_and_raw_targets(use_degrees):
                      for index, name in enumerate(names, 1)},
     )
     lower, upper = _action_limits(robot)
-    config = DeploymentConfig(use_degrees=use_degrees)
+    config = DeploymentConfig()
     sink = SO101Sink(robot, config, lower, upper)
     target = np.array([-300, 300, -300, -300, 150, -10], dtype=np.float32)
 
     # 发送前的绝对裁剪应让所有raw目标落在标定范围内，夹爪始终使用0..100百分比。
-    result = sink.send(to_model_units(target, use_degrees=use_degrees))
+    result = sink.send(target)
     raw = robot.bus._unnormalize({robot.bus.motors[name].id: robot.commands[0][f"{name}.pos"]
                                  for name in names})
 
-    # 度数模式允许腕旋转150度；旧归一化模式仍限制到100，检测错误共用限位的回归。
-    assert result["bounded_target"][4] == pytest.approx(np.deg2rad(150) if use_degrees else 100)
+    # 标定允许腕旋转150度，不能把物理角度裁剪到旧位置约定的100。
+    assert result["bounded_target"][4] == pytest.approx(150)
     assert result["bounded_target"][5] == 0
     for name in names:
         calibration = robot.bus.calibration[name]
@@ -206,7 +203,7 @@ def test_calibrated_action_limits_and_raw_targets(use_degrees):
     count = len(robot.commands)
     robot.state[0] = upper[0] + 1
     with pytest.raises(AssertionError, match="outside calibrated"):
-        sink.send(to_model_units(target, use_degrees=use_degrees))
+        sink.send(target)
     assert len(robot.commands) == count
 
 
@@ -241,8 +238,8 @@ def test_connect_robot_uses_degree_profile_and_validates_camera(tmp_path, monkey
     factory.assert_not_called()
 
 
-def test_model_units_converted_at_robot_boundary():
-    # policy给radian和[0,1]夹爪；驱动必须收到degree和百分点，日志再还原模型单位。
+def test_driver_units_preserved_at_robot_boundary():
+    # policy给degree和夹爪百分点；驱动和日志必须使用完全相同的值。
     config = DeploymentConfig(use_degrees=True)
     robot = Mock()
     current = np.float32([0, 0, 0, 0, 0, 50])
@@ -250,14 +247,14 @@ def test_model_units_converted_at_robot_boundary():
     robot.send_action.side_effect = lambda command: command
     sink = SO101Sink(robot, config, np.float32([-180] * 5 + [0]),
                      np.float32([180] * 5 + [100]))
-    target = np.float32([np.pi / 2, -np.pi / 2, 0, np.pi / 4, -np.pi / 4, 0.25])
+    target = np.float32([90, -90, 0, 45, -45, 25])
 
-    # 真实sink换算和限幅，mock仅替代串口；起点比较也必须在driver单位中进行。
+    # 真实sink透传和限幅，mock仅替代串口；起点比较也必须在driver单位中进行。
     result = sink.send(target)
-    sink.check_initial(to_model_units(current, use_degrees=True), multi_step=True)
+    sink.check_initial(current, multi_step=True)
     command = robot.send_action.call_args.args[0]
 
-    # 角度float32往返有舍入；25%夹爪不能被误当作0.25%下发。
+    # 角度必须保持degree；25%夹爪不能被错误缩放。
     np.testing.assert_allclose(list(command.values()), [90, -90, 0, 45, -45, 25],
                                rtol=0, atol=1e-5)
     np.testing.assert_allclose(result["sent"], target, rtol=0, atol=1e-6)
@@ -270,7 +267,7 @@ def test_legacy_policy_units_rejected_before_hardware(tmp_path, monkeypatch):
     config = DeploymentConfig(observation_source="robot", action_sink="robot",
                               output_dir=str(tmp_path / "run"), robot_port="fake", robot_id="arm",
                               calibration_dir=str(tmp_path), prompt="pick",
-                              cameras={"top": {}, "fpv": {}}, use_degrees=True)
+                              cameras={"top": {}, "fpv": {}})
     policy = Mock()
     policy.metadata = {"embodiment": "so101", "action_dim": 6,
                        "action_horizon": 4, "num_steps": 10}
@@ -279,7 +276,7 @@ def test_legacy_policy_units_rejected_before_hardware(tmp_path, monkeypatch):
     monkeypatch.setattr(runner, "connect_robot", connect)
 
     # 握手不匹配只释放网络资源，禁止打开相机、总线或发送动作。
-    with pytest.raises(AssertionError, match="joint units"):
+    with pytest.raises(AssertionError, match="policy units are missing"):
         runner.run(config)
     connect.assert_not_called()
     policy.close.assert_called_once()

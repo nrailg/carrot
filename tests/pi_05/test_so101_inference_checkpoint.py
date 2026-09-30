@@ -14,12 +14,11 @@ def test_so101_checkpoint_on_recorded_observation() -> None:
     checkpoint = os.environ["CARROT_SO101_CHECKPOINT"]
     dataset_root = os.environ["CARROT_SO101_DATASET"]
     assert torch.cuda.is_available(), "SO101 checkpoint test requires CUDA"
-    policy = create_so101_policy(checkpoint, device="cuda:0", joint_units="normalized")
+    policy = create_so101_policy(checkpoint, device="cuda:0")
     horizon = policy.metadata["action_horizon"]
     assert horizon == 50 and policy.metadata["action_dim"] == 6
-    config = load_config(Path("examples/so101_real/deployment.yaml"),
-                         {"dataset_root": dataset_root,
-                          "dataset_repo": "felixmayor/orange_cube_merged"})
+    config = load_config(Path("examples/so101_real/knock_down_the_cylinder.yaml"),
+                         {"dataset_root": dataset_root})
     source = load_dataset_source(config, horizon)
     frame = source.read()
     assert frame is not None

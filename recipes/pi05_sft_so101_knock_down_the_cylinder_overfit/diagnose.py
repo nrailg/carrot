@@ -14,7 +14,6 @@ import yaml
 from transformers import AutoTokenizer
 
 from carrot.data.so101 import build_dataset
-from carrot.data.so101_units import model_stats, to_model_units
 from carrot.models.pi05 import transforms
 from carrot.models.pi05.embodiments.so101 import create_so101_transform_spec
 from carrot.models.pi05.inference.policy_config import _load_norm_stats
@@ -42,7 +41,6 @@ def main() -> None:
     parser.add_argument("--tokenizer", type=Path, required=True)
     parser.add_argument("--previous-evaluation", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--checkpoint-joint-units", choices=("degrees", "radians"), required=True)
     parser.add_argument("--server-uri", default="ws://127.0.0.1:8080")
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=False)
@@ -62,9 +60,6 @@ def main() -> None:
         assert tuple(metadata.features[key]["names"]) == JOINT_NAMES, key
     dataset_stats = {"state": spec.state_stats, "actions": spec.action_stats}
     checkpoint_stats = _load_norm_stats(args.checkpoint / "norm_stats.json")
-    if args.checkpoint_joint_units == "degrees":
-        checkpoint_stats = {key: model_stats(stats, use_degrees=True)
-                            for key, stats in checkpoint_stats.items()}
     differences = {}
     for key, stats in dataset_stats.items():
         assert set(stats) == set(checkpoint_stats[key]), key
@@ -94,8 +89,6 @@ def main() -> None:
     timestamps = np.asarray(table["timestamp"])
     states = np.stack(table["observation.state"].to_pylist()).astype(np.float32)
     raw_actions = np.stack(table["action"].to_pylist()).astype(np.float32)
-    states = to_model_units(states, use_degrees=True)
-    raw_actions = to_model_units(raw_actions, use_degrees=True)
     assert len(episodes) == 354
     timestamp_error = float(np.max(np.abs(timestamps - frames / metadata.fps)))
     assert timestamp_error < 1e-6, timestamp_error
@@ -106,7 +99,7 @@ def main() -> None:
         source = load_dataset_source(DeploymentConfig(
             dataset_root=str(args.dataset_root),
             dataset_repo="nrailg/so101_knock_down_the_cylinder",
-            episode=int(episode), fps=15, use_degrees=True, base_camera=None,
+            episode=int(episode), fps=15, base_camera=None,
             wrist_camera="wrist", prompt="Move an object",
         ), horizon)
         for index in indices:
@@ -135,7 +128,7 @@ def main() -> None:
         assert source.read() is None
     audit = {
         "frames": len(requests), "fps": metadata.fps, "joint_order": JOINT_NAMES,
-        "units": ["radians"] * 5 + ["fraction"],
+        "units": ["degrees"] * 5 + ["percentage_points"],
         "stats_max_abs_differences": differences,
         "timestamp_max_abs_error_s": timestamp_error,
         "reference_action_alignment": "exact for all valid actions",
@@ -158,8 +151,8 @@ def main() -> None:
     assert len(previous) == 32
     old = [np.load(path) for path in previous]
     previous_metrics = {str(count): _window_metrics(
-        to_model_units(np.stack([x["predicted"] for x in old]), use_degrees=True),
-        to_model_units(np.stack([x["reference"] for x in old]), use_degrees=True),
+        np.stack([x["predicted"] for x in old]),
+        np.stack([x["reference"] for x in old]),
         np.stack([x["valid"] for x in old]), count,
     ) for count in (1, 5, 50)}
     (args.output / "previous_32_window_metrics.json").write_text(
@@ -171,8 +164,8 @@ def main() -> None:
     predicted, inference_ms = [], []
     try:
         assert client.metadata["embodiment"] == "so101"
-        assert client.metadata["joint_units"] == "radians"
-        assert client.metadata["gripper_units"] == "fraction"
+        assert client.metadata["joint_units"] == "degrees"
+        assert client.metadata["gripper_units"] == "percentage_points"
         assert client.metadata["action_horizon"] == horizon and client.metadata["action_dim"] == 6
         assert client.metadata["num_steps"] == 10
         (args.output / "server_metadata.json").write_text(json.dumps(client.metadata, indent=2))

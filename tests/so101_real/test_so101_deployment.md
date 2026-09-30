@@ -210,3 +210,16 @@ bash tests/so101_real/test_so101_deployment.sh
 - 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
 - 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
 - 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，包含本文件的CPU回归共89项通过，耗时9.88s；Ruff通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。

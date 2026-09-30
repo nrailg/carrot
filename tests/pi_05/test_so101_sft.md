@@ -76,3 +76,26 @@ Gemini既定venv运行同名runner：**5 passed**（含此前双相机4项）。
 复现：`bash tests/pi_05/test_so101_sft.sh`（按runner要求先设置当前Gemini的 `MY_DFS`）。
 相关三件套：`test_so101_sft.py`、`test_so101_sft.sh`、本文件。
 源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，包含本文件的CPU回归共89项通过，耗时9.88s；Ruff通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。
+
+实际CPU命令（/opt/venvs/carrot，当前源码PYTHONPATH，CUDA_VISIBLE_DEVICES为空）：
+
+```bash
+python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py
+bash tests/pi_05/test_so101_dataset.sh
+```
+
+首轮87通过、2失败：握手报错匹配和反馈夹爪期望仍使用旧值；修正后89通过。
+首轮证据保存在同目录 `initial_tests.log`，最终90项通过包含1项真实数据检查。

@@ -6,7 +6,6 @@ from typing import Any
 
 from transformers import AutoTokenizer
 
-from carrot.data.so101_units import model_stats
 from carrot.models.pi05.embodiments import (
     create_aloha_transform_spec,
     create_libero_transform_spec,
@@ -121,7 +120,6 @@ def create_so101_policy(
     norm_stats_path: str | Path | None = None,
     num_steps: int = 10,
     default_prompt: str | None = None,
-    joint_units: str | None = None,
 ) -> Pi05Policy:
     """Load a Carrot PI0.5 checkpoint with the SO101 joint-control contract.
 
@@ -134,10 +132,6 @@ def create_so101_policy(
         Defaults to ``checkpoint_dir/norm_stats.json``.
     num_steps : int
     default_prompt : str | None
-    joint_units : str | None
-        Statistics units for legacy exports without unit metadata, or a consistency
-        check for new exports. Legacy degrees become radians in memory; legacy
-        gripper percentages become fractions. New exports already use API units.
 
     Returns
     -------
@@ -150,23 +144,13 @@ def create_so101_policy(
     tokenizer_dir = _resolve_tokenizer_dir(checkpoint_dir, tokenizer_path)
     norm_stats = _load_norm_stats(stats_path)
     stats_metadata = json.loads(stats_path.read_text())
-    recorded_units = stats_metadata.get("joint_units")
-    assert joint_units is None or recorded_units is None or joint_units == recorded_units, (
-        "joint_units disagrees with checkpoint statistics"
-    )
-    units = recorded_units if recorded_units is not None else joint_units
-    assert units in ("degrees", "radians", "normalized"), (
-        "SO101 statistics require joint_units; explicitly set legacy checkpoint units"
-    )
-    if recorded_units is None:
-        # 旧统计量缺单位声明，需显式指定；新导出已由训练入口完成单位转换。
-        assert units != "radians", "legacy statistics require degrees or normalized source units"
-        norm_stats = {key: model_stats(stats, use_degrees=units == "degrees")
-                      for key, stats in norm_stats.items()}
-    else:
-        assert stats_metadata["gripper_units"] == "fraction", "expected [0, 1] gripper statistics"
-        assert units != "degrees", "exported SO101 statistics must use model units"
-    units = "radians" if units == "degrees" else units
+    # 无单位字段的早期SO101导出使用原始degree/百分点；有声明时必须匹配。
+    if "joint_units" in stats_metadata:
+        assert stats_metadata["joint_units"] == "degrees", "SO101 stats must use degrees"
+    if "gripper_units" in stats_metadata:
+        assert stats_metadata["gripper_units"] == "percentage_points", (
+            "SO101 gripper stats must use [0, 100]"
+        )
     tokenizer = _load_tokenizer(tokenizer_dir)
     model = PI0Pytorch.from_pretrained(checkpoint_dir)
     transform_spec = create_so101_transform_spec(
@@ -177,7 +161,7 @@ def create_so101_policy(
         default_prompt=default_prompt,
     )
     return Pi05Policy(model, transform_spec, device=device, num_steps=num_steps,
-                     joint_units=units)
+                     joint_units="degrees")
 
 
 def _validate_checkpoint(checkpoint_dir: str | Path) -> Path:

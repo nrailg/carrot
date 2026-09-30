@@ -44,14 +44,15 @@ def validate_metadata(metadata: dict, config: DeploymentConfig) -> int:
     assert "joint_units" in metadata and "gripper_units" in metadata, (
         "policy units are missing; restart a legacy server with explicit units"
     )
-    # 客户端把度数转为弧度；normalized仅表示LeRobot旧位置单位，不是训练统计归一化。
-    expected_joint_units = "radians" if config.use_degrees else "normalized"
+    expected_joint_units = "degrees"
     assert metadata["joint_units"] == expected_joint_units, (
         f"policy joint units {metadata['joint_units']!r} differ from client units "
-        f"{expected_joint_units!r} after converting recorded/driver inputs "
+        f"{expected_joint_units!r} for recorded/driver inputs "
         f"(use_degrees={config.use_degrees})"
     )
-    assert metadata["gripper_units"] == "fraction", "policy must use [0, 1] gripper units"
+    assert metadata["gripper_units"] == "percentage_points", (
+        "policy must use [0, 100] gripper units"
+    )
     return horizon
 
 

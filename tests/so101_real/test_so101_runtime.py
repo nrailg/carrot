@@ -5,9 +5,12 @@ import numpy as np
 import pytest
 
 from examples.so101_real.actions import LogSink, SO101Sink
-from examples.so101_real.config import JOINT_NAMES, LOWER, UPPER, DeploymentConfig, load_config
+from examples.so101_real.config import JOINT_NAMES, DeploymentConfig, load_config
 from examples.so101_real.observations import DatasetSource, RobotSource
 from examples.so101_real.runner import RunLog, run_loop, validate_metadata
+
+LOWER = np.float32([-180] * 5 + [0])
+UPPER = np.float32([180] * 5 + [100])
 
 
 class Dataset:
@@ -25,7 +28,7 @@ class Dataset:
             "observation.state": np.zeros(6, dtype=np.float32),
             "observation.images.top": np.full((3, 12, 16), 123, dtype=np.uint8),
             "observation.images.fpv": np.full((3, 16, 12), 45, dtype=np.uint8),
-            "task": "pick orange cube",
+            "task": "pick cylinder",
             "action": np.full((self.horizon, 6), 99, dtype=np.float32),
             "action_is_pad": np.arange(self.horizon) >= valid,
         }
@@ -33,14 +36,14 @@ class Dataset:
 
 class Policy:
     metadata = {"embodiment": "so101", "action_dim": 6, "action_horizon": 4, "num_steps": 10,
-                "joint_units": "normalized", "gripper_units": "fraction"}
+                "joint_units": "degrees", "gripper_units": "percentage_points"}
 
     def __init__(self):
         self.requests = []
 
     def infer(self, observation, *, timeout=None):
         self.requests.append(observation)
-        return {"actions": np.tile(np.float32([2, 2, 2, 2, 2, 0.02]), (4, 1))}
+        return {"actions": np.tile(np.float32([2, 2, 2, 2, 2, 2]), (4, 1))}
 
 
 class Robot:
@@ -91,8 +94,8 @@ def test_dataset_mapping_and_episode_boundary(log):
                             "observation/wrist_image", "prompt"} for req in policy.requests)
     assert policy.requests[0]["observation/image"].shape == (12, 16, 3)
     assert np.all(policy.requests[0]["observation/wrist_image"] == 45)
-    assert policy.requests[0]["prompt"] == "pick orange cube"
-    assert all(event["target"] == [2, 2, 2, 2, 2, pytest.approx(0.02)]
+    assert policy.requests[0]["prompt"] == "pick cylinder"
+    assert all(event["target"] == [2, 2, 2, 2, 2, pytest.approx(2)]
                for event in events if event["event"] == "action")
     with np.load(log.directory / "chunk_000002.npz") as chunk:
         assert chunk["reference"].shape == (1, 6)
@@ -138,10 +141,10 @@ def test_absolute_action_mapping_and_driver_clipping():
 
     # 固定键序对应五关节加夹爪，实际下发不同于原始预测时必须留证据。
     assert list(robot.commands[0]) == list(JOINT_NAMES)
-    assert list(robot.commands[0].values()) == [-100, -3, 20, 50, 100, 0]
-    assert result["sent"] == [5, 5, 15, 15, 15, pytest.approx(0.05)]
+    assert list(robot.commands[0].values()) == [-180, -3, 20, 50, 180, 0]
+    assert result["sent"] == [5, 5, 15, 15, 15, pytest.approx(5)]
     assert result["clipped"]
-    assert result["present"] == [10, 10, 10, 10, 10, pytest.approx(0.1)]
+    assert result["present"] == [10, 10, 10, 10, 10, pytest.approx(10)]
 
 
 @pytest.mark.parametrize("execute_steps,max_chunks", [(2, 1), (1, 2), (1, None)])
@@ -223,7 +226,7 @@ def test_robot_observations_refresh_after_warmup_and_action(log):
 
     # 第三次请求已包含上一动作的真实反馈，区别于录制观测开环模式。
     assert len(policy.requests) == 3
-    np.testing.assert_allclose(policy.requests[-1]["observation/state"], [2, 2, 2, 2, 2, 0.02])
+    np.testing.assert_allclose(policy.requests[-1]["observation/state"], [2, 2, 2, 2, 2, 2])
 
 
 def test_server_metadata_rejects_wrong_embodiment():
@@ -258,14 +261,12 @@ def test_default_profile_requires_explicit_dataset_repo(tmp_path):
         config.validate()
 
 
-@pytest.mark.parametrize("use_degrees,expected_units", [(True, "radians"), (False, "normalized")])
-def test_policy_metadata_matches_converted_client_units(use_degrees, expected_units):
-    # 度数输入转换后的接口单位为弧度；旧归一化输入不能冒充弧度。
-    config = DeploymentConfig(use_degrees=use_degrees)
-    metadata = {**Policy.metadata, "joint_units": expected_units}
+def test_policy_metadata_matches_fixed_degree_interface():
+    # 模型内部归一化不改变外部degree接口；声明degree才能与client一致。
+    config = DeploymentConfig()
+    metadata = {**Policy.metadata, "joint_units": "degrees"}
 
-    # 正确声明可通过，使用原始degree声明或另一个模式则必须拒绝。
+    # 正确声明通过；其他单位不会被自动猜测或转换。
     assert validate_metadata(metadata, config) == 4
-    for wrong_units in ("degrees", "normalized" if use_degrees else "radians"):
-        with pytest.raises(AssertionError, match="differ from client units"):
-            validate_metadata({**metadata, "joint_units": wrong_units}, config)
+    with pytest.raises(AssertionError, match="differ from client units"):
+        validate_metadata({**metadata, "joint_units": "invalid"}, config)

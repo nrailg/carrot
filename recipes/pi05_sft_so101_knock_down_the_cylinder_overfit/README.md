@@ -1,23 +1,18 @@
 # SO101 knock_down_the_cylinder：两条 episode 的拟合实验
 
-## 2026-09-30：review清理后的配置（尚未启动新训练）
+## 2026-09-30：单位与配置清理（尚未启动新训练）
 
-- 任务名修正为 knock_down_the_cylinder（推倒圆柱体）；recipe、部署模板和本地数据目录已重命名。
-  recorded task文本 `Move an object` 暂保留，避免改变已有checkpoint的输入语义；不修改示教标签。
-- 原始文件仍是degree/夹爪百分点，dataset读取后状态与绝对动作的前五轴转radian、夹爪转[0,1]。
-  所有mean/std/min/max/quantile使用同样比例，count不变；导出保存单位metadata。
-- 训练factory相机key默认None；train.yaml显式配置单腕字段及recorded_in_degrees=true。
-  新输出目录带radian名称；未启动训练/续训，不覆盖旧模型。
-- 旧step100与诊断产物在历史 `pi05_sft_so101_wipe_overfit_100` 目录保留，下面的旧指标仍是
-  degree/百分点，不能按新单位解读。serve.sh用于旧模型，显式degrees统计量转换为radian/[0,1]接口；
-  新模型直接从导出metadata读取单位，不传legacy override。evaluate.py使用当前dataset统计量（模型单位）。
-- 原数据DFS路径已改为 `$MY_DFS/hf-hub/nrailg/so101_knock_down_the_cylinder`；Mac路径为
-  `/Users/wujunyu/.cache/huggingface/lerobot/local/so101_knock_down_the_cylinder`。
-  两端6个文件的重命名前后SHA256一致。只改本地目录/repo标识，未创建或重命名Hub上的仓库。
-- diagnose.sh仍引用历史checkpoint和32帧评估，以当前模型单位比较；其新增结果会记录radian/[0,1]，
-  并转换旧32帧NPZ的单位。运行前须按当前服务代码重启旧服务，否则握手拒绝；本轮未运行推理。
-- 用户要求先清理代码再继续排查；原“转折预测不可靠”结论保留，单位整理不是效果修复验收。
-
+- 任务名为 knock_down_the_cylinder（推倒圆柱体），录制prompt `Move an object` 保留。
+- 数据、训练统计量、策略请求/响应、日志及驱动统一使用degree/夹爪百分点。
+  不做单位转换或额外范围归一化；模型原有q01/q99 Normalize/Unnormalize保留。
+- `train.yaml` 显式单腕相机字段，factory相机key默认None；统计量直接读取dataset metadata。
+- 新输出目录为 `pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100`，尚未运行。
+  历史step100、诊断路径和指标仍保留原名，不覆盖旧模型或数据。
+- `serve.sh` 加载历史degree/百分点step100，不传单位参数、不转换stats。
+  `diagnose.sh`、`evaluate.py` 也直接比较degree/百分点；本轮未运行GPU推理。
+- 本地数据路径 `$MY_DFS/hf-hub/nrailg/so101_knock_down_the_cylinder`；Mac缓存同名。
+  之前仅重命名本地路径，6个文件SHA256不变，未重命名Hub仓库。
+- 旧公共数据recipe已删除。转折预测不可靠的诊断结论仍待排查，单位清理不代表效果修复。
 
 ## 2026-09-30：训练输入与前 5 帧动作诊断（完成）
 
@@ -85,7 +80,7 @@
 - 当前本地数据 `${MY_DFS}/hf-hub/nrailg/so101_knock_down_the_cylinder`，2 episodes，354 帧（198/156），15 FPS。
 - 唯一相机 `observation.images.wrist`，映射模型左腕槽；缺失 base/right_wrist 的 mask=false。
 - robot_type=so_follower；沿用数据任务文本 `Move an object`，不改标注或单位。
-- 用户确认录制日志 robot.use_degrees=True、teleop.use_degrees=True：前五轴度数，第六轴夹爪开合百分比。原始数据保留这些单位；当前训练入口将样本与统计量转换为radian/[0,1]，部署在驱动边界反向换算。下方历史100step训练仍使用原单位。
+- 用户确认录制日志 robot.use_degrees=True、teleop.use_degrees=True：前五轴度数，第六轴夹爪开合百分比。样本、统计量和部署均保留这些单位。下方历史100step训练仍使用原单位。
 - 数据夹爪state全程0.549073，action约0.244..0.407；记录此数据限制，不改数值。
 - 初始化 `${MY_DFS}/hf-hub/Physical-Intelligence/pi05_base_pytorch`，不使用旧 orange-cube SFT 权重。
 - horizon=50，15FPS目标时距；8 GPU BF16 FSDP，micro batch4，global batch64，GAS2。
@@ -103,7 +98,7 @@ export RAY_ADDRESS=<verified-ray-address>
 bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/run.sh"
 ```
 
-当前新输出目录 `${MY_DFS}/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_radian_100`；不覆盖已有目录。
+当前新输出目录 `${MY_DFS}/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100`；不覆盖已有目录。
 预期 checkpoints/step-00000025、50、75、100，保存权重、统计量、tokenizer与训练状态。
 
 ## 验收
@@ -157,7 +152,7 @@ bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit
 - dguard暂停120分钟，计划22:45:48北京时间自动恢复；服务持续运行，恢复后可能竞争GPU资源。
 - 模型step100；请求字段 observation/state（6维，前5轴度数、夹爪百分比）、observation/wrist_image（RGB uint8）、prompt（训练文本 Move an object）。省略不存在的外部相机，不伪造双相机。
 - 输出绝对目标float32[50,6]，对应15FPS训练时间尺度。
-- 旧examples/so101_real配置仍强制30FPS/use_degrees=false/双相机，不能直接用于本模型控制；PolicyClient网络接口可复用。
+- 当前部署使用单腕15FPS、use_degrees=true配置；历史诊断过程保留原结果。
 - 主代理从devcloud访问该IP被IDC网关拒绝：HTTP403、acl.14001/acl_denied，说明需要igate权限；此结果不能判定MacBook的办公网路由是否可达。未调整网络权限。
 
 - 20:51北京时间新服务加载完成，远端localhost和launcher IP的8080 `/healthz` 均返回200 OK；8000无监听。

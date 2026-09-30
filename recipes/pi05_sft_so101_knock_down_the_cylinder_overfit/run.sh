@@ -12,7 +12,7 @@ my_dfs="${MY_DFS:?resolve MY_DFS in the current Gemini session}"
 carrot_dir="$my_dfs/work/carrot"
 recipe_dir="$carrot_dir/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit"
 dataset_dir="$my_dfs/hf-hub/nrailg/so101_knock_down_the_cylinder"
-run_dir="$my_dfs/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_radian_100"
+run_dir="$my_dfs/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_degrees_100"
 
 [[ -f "$recipe_dir/train.yaml" ]]
 [[ -s "$my_dfs/hf-hub/Physical-Intelligence/pi05_base_pytorch/model.safetensors" ]]

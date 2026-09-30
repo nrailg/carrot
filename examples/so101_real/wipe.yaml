@@ -15,7 +15,7 @@ max_chunks: 1
 robot_port: null
 robot_id: null
 calibration_dir: null
-max_relative_target: 5.0
+max_relative_target: 90.0
 initial_state_tolerance: 10.0
 cameras:
   wrist:

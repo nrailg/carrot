@@ -64,10 +64,30 @@ class SO101Sink:
         bounded = np.clip(action, self.lower, self.upper)
         # 此处限制绝对目标范围；相对当前位置的变化限幅由 SO101 驱动执行。
         command = dict(zip(JOINT_NAMES, map(float, bounded), strict=True))
+        # 例如 command 可以是：
+        # command = {
+        #     "shoulder_pan.pos": -12.0,
+        #     "shoulder_lift.pos": 8.0,
+        #     "elbow_flex.pos": -30.0,
+        #     "wrist_flex.pos": 15.0,
+        #     "wrist_roll.pos": 5.0,
+        #     "gripper.pos": 40.0,
+        # }
         sent = self.robot.send_action(command)
-        actual = joint_state(sent)
+        # 若 shoulder_lift 当前为 0、其余关节距目标不超过 5，max_relative_target=5：
+        # sent = {
+        #     "shoulder_pan.pos": -12.0,
+        #     "shoulder_lift.pos": 5.0,
+        #     "elbow_flex.pos": -30.0,
+        #     "wrist_flex.pos": 15.0,
+        #     "wrist_roll.pos": 5.0,
+        #     "gripper.pos": 40.0,
+        # }
+        # sent_targets 是按关节顺序排列的已发送目标，不是运动后的实测位置。
+        # 以上示例对应 [-12, 5, -30, 15, 5, 40]。
+        sent_targets = joint_state(sent)
         return {
             "executed": True, "present": present.tolist(),
-            "bounded_target": bounded.tolist(), "sent": actual.tolist(),
-            "clipped": bool(np.any(actual != action)),
+            "bounded_target": bounded.tolist(), "sent": sent_targets.tolist(),
+            "clipped": bool(np.any(sent_targets != action)),
         }

@@ -45,3 +45,43 @@ bash tests/so101_real/test_so101_report.sh
 证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_report.log`。
 
 本轮镜像、源码和环境记录见 [共同环境](test_so101_runtime.md#本轮共同环境与源码)。
+
+
+## 2026-09-30：报告单位必须来自日志
+
+状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest或生成测试图表。
+
+- 原有效帧比较用例分别覆盖radians、normalized，并断言夹爪单位为fraction。
+- 新增缺少握手单位metadata的动作日志拒绝用例，不能默认标成normalized或percentage_points。
+- 静态检查PASS：Python AST语法与100字符行长、runner `bash -n`、`git diff --check`。
+
+复现：`bash tests/so101_real/test_so101_report.sh`（按runner要求先设置当前Gemini的 `MY_DFS`）。
+相关三件套：`test_so101_report.py`、`test_so101_report.sh`、本文件。
+源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，包含本文件的CPU回归共89项通过，耗时9.88s；Ruff通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。
+
+
+## 2026-09-30：删除数据语义字段
+
+范围：删除dataset spec、训练导出、policy与握手、报告中的额外声明和校验。
+样本与stats保留源数值，已有Normalize/Unnormalize与标定限幅保留。
+预期：无额外metadata的统计文件可以加载、日志可以绘图；握手仍核对动作维度等推理结构。
+命令：合跑SO101 SFT、全部so101_real、共享PI05 inference与SFT checkpoint回归，
+另执行 `bash tests/pi_05/test_so101_dataset.sh` 验证真实录制数据。
+状态：PASS，含本文件的CPU回归共88项通过（10.44s），Ruff通过；未进行GPU推理、训练或真机操作。
+源码：bf11592加工作区改动；Docker tag未记录。
+
+环境：Python 3.12.13、LeRobot 0.6.1；证据：
+`$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。

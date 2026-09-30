@@ -55,3 +55,16 @@ bash tests/so101_real/test_so101_client.sh
 安装来源、镜像、源码版本和同次端到端测试见
 [WebSocket 测试记录](../pi_05/test_so101_websocket.md#2026-09-27)。
 完整日志：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-websocket-20260927T101647-2701786/pytest.log`。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，包含本文件的CPU回归共89项通过，耗时9.88s；Ruff通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。

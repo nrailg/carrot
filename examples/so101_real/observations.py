@@ -3,7 +3,7 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from .config import JOINT_NAMES
+from .config import JOINT_NAMES, DeploymentConfig
 
 
 class Robot(Protocol):
@@ -52,22 +52,18 @@ class DatasetSource:
     ----------
     dataset : Dataset
         Must contain only ``episode`` and horizon-sized action chunks with padding masks.
-    episode : int
-    start_frame : int
-        Episode-local frame index.
+    config : DeploymentConfig
+        Episode, start frame, prompt and cameras.
     horizon : int
-    prompt : str | None
-        Explicit override of the recorded task.
     """
 
-    def __init__(self, dataset: Dataset, episode: int, start_frame: int, horizon: int,
-                 prompt: str | None = None) -> None:
-        assert 0 <= start_frame < len(dataset), "start_frame outside selected episode"
+    def __init__(self, dataset: Dataset, config: DeploymentConfig, horizon: int) -> None:
+        assert 0 <= config.start_frame < len(dataset), "start_frame outside selected episode"
         self.dataset = dataset
-        self.episode = episode
-        self.frame = start_frame
+        self.config = config
+        self.episode = config.episode
+        self.frame = config.start_frame
         self.horizon = horizon
-        self.prompt = prompt
 
     def read(self) -> ObservationFrame | None:
         if self.frame >= len(self.dataset):
@@ -87,14 +83,14 @@ class DatasetSource:
         assert np.array_equal(padding, np.arange(self.horizon) >= valid), (
             "action padding must match the end of the selected episode"
         )
-        prompt = sample["task"] if self.prompt is None else self.prompt
+        prompt = sample["task"] if self.config.prompt is None else self.config.prompt
         assert isinstance(prompt, str) and prompt.strip(), "missing dataset task"
         # 示教动作留在 reference，策略请求只包含观测和任务文本。
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),
-                "observation/image": rgb_image(sample["observation.images.top"]),
-                "observation/wrist_image": rgb_image(sample["observation.images.fpv"]),
+                **{key: rgb_image(sample[f"observation.images.{camera}"])
+                   for key, camera in self.config.image_keys.items()},
                 "prompt": prompt,
             },
             episode=self.episode, frame=self.frame,
@@ -107,20 +103,20 @@ class DatasetSource:
 
 
 class RobotSource:
-    def __init__(self, robot: Robot, prompt: str, horizon: int) -> None:
+    def __init__(self, robot: Robot, config: DeploymentConfig, horizon: int) -> None:
         self.robot = robot
-        self.prompt = prompt
+        self.config = config
         self.horizon = horizon
         self.frame = 0
 
     def read(self) -> ObservationFrame:
         obs = self.robot.get_observation()
+        state = joint_state(obs)
         return ObservationFrame(
             request={
-                "observation/state": joint_state(obs),
-                "observation/image": rgb_image(obs["top"]),
-                "observation/wrist_image": rgb_image(obs["fpv"]),
-                "prompt": self.prompt,
+                "observation/state": state,
+                **{key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()},
+                "prompt": self.config.prompt,
             },
             episode=None, frame=self.frame, reference=None, valid_steps=self.horizon,
         )

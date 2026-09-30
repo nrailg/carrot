@@ -40,3 +40,46 @@ bash tests/pi_05/test_so101_dataset.sh
 证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_dataset.log`。
 
 本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。
+
+
+## 2026-09-30：真实数据单位/输入契约（准备）
+
+- 运行同名shell，读取公开orange-cube和重命名后的knock_down_the_cylinder本地数据；不访问Hub。
+- 新用例读取recipe YAML单腕字段与degree开关，比较真实首帧/episode0末帧训练与client状态、图像、padding和reference，以及所有统计量比例；无GPU推理/硬件。
+- 预期：两用例PASS。状态NOT RUN；源码d16d29a加本轮改动，Docker tag未记录。
+
+
+### 2026-09-30 20:38北京时间：实际结果 PASS
+
+- Gemini task56253f33-0052 exit0：`tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py` 合计92 passed；真实数据同名shell另2 passed，共94项。CPU-only，CUDA_VISIBLE_DEVICES为空；未接触机器人或新模型推理。
+- Ruff通过；31个改动源码/配置/shell的Mac与hz1 SHA256一致，shell语法、py_compile和git diff --check通过。实际源码d16d29a加未提交改动，Docker tag未记录。
+- 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
+- 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
+- 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，真实录制数据检查1项通过，耗时7.19s。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。
+
+
+## 2026-09-30：删除数据语义字段
+
+范围：删除dataset spec、训练导出、policy与握手、报告中的额外声明和校验。
+样本与stats保留源数值，已有Normalize/Unnormalize与标定限幅保留。
+预期：无额外metadata的统计文件可以加载、日志可以绘图；握手仍核对动作维度等推理结构。
+命令：合跑SO101 SFT、全部so101_real、共享PI05 inference与SFT checkpoint回归，
+另执行 `bash tests/pi_05/test_so101_dataset.sh` 验证真实录制数据。
+状态：PASS，真实数据检查1项通过（7.17s）；未进行GPU推理、训练或真机操作。
+源码：bf11592加工作区改动；Docker tag未记录。
+
+环境：Python 3.12.13、LeRobot 0.6.1；证据：
+`$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。

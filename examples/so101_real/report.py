@@ -51,7 +51,7 @@ def write_report(directory: Path) -> None:
             axis.plot(frame_indices, reference[:, index], label="demonstration", marker=".")
         axis.set_title(JOINT_NAMES[index])
         axis.set_xlabel("episode frame")
-        axis.set_ylabel("normalized position")
+        axis.set_ylabel("value")
         axis.legend()
     figure.tight_layout()
     figure.savefig(directory / "actions.png")

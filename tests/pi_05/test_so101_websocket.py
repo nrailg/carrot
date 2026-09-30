@@ -11,7 +11,7 @@ from urllib.request import urlopen
 import numpy as np
 
 from examples.so101_real import runner
-from examples.so101_real.config import DeploymentConfig
+from examples.so101_real.config import load_config
 
 
 def test_dataset_through_real_policy_server(monkeypatch) -> None:
@@ -26,13 +26,12 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
         raise AssertionError("dataset+log must not connect to a robot")
 
     monkeypatch.setattr(runner, "connect_robot", forbid_robot)
-    config = DeploymentConfig(
-        dataset_root=os.environ["CARROT_SO101_DATASET"],
-        server_uri=f"ws://127.0.0.1:{port}",
-        output_dir=str(directory / "client"),
-        execute_steps=2, max_chunks=2,
-        warmup_timeout_s=120, request_timeout_s=120,
-    )
+    config = load_config(Path("examples/so101_real/knock_down_the_cylinder.yaml"), {
+        "dataset_root": os.environ["CARROT_SO101_DATASET"],
+        "server_uri": f"ws://127.0.0.1:{port}", "output_dir": str(directory / "client"),
+        "execute_steps": 2, "max_chunks": 2,
+        "warmup_timeout_s": 120, "request_timeout_s": 120,
+    })
 
     # 使用正式 server CLI 加载真实 checkpoint；健康检查只重试服务启动期连接失败。
     command = [
@@ -95,5 +94,5 @@ def test_dataset_through_real_policy_server(monkeypatch) -> None:
     comparison = json.loads((client / "comparison.json").read_text())
     assert comparison["compared_frames"] == 4
     assert np.isfinite(list(comparison["joint_mae"].values())).all()
-    for name in ("actions.png", "first_top.png", "first_fpv.png"):
+    for name in ("actions.png", "first_wrist.png"):
         assert (client / name).stat().st_size > 0

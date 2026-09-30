@@ -24,6 +24,13 @@ bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_runtime.sh"
 
 ## 结果
 
+### 2026-09-30：单腕与度数适配回归
+
+状态：**PASS**。原双相机/30FPS/归一化用例保持回归；动作执行端现在显式接收限位。
+17项包含在完整SO101 CPU合跑中：`53 passed in 7.83s`。单腕、15FPS、度数与标定
+换算用例、命令、环境及源码版本见 [本轮共同记录](test_so101_profiles.md#2026-09-30)。
+未记录本文件独立耗时，未连接真实设备。
+
 ### 2026-09-27：runner 按同名测试拆分
 
 runtime runner 现在仅运行 `test_so101_runtime.py`；其他三个测试各有独立 runner 和档案。
@@ -105,3 +112,61 @@ PYTHONPATH="$PWD:$PWD/src" /tmp/carrot-so101-integration-venv/bin/python -m pyte
 `b68c387bb67758e1ee69313b505f41ad4260fc6d88d254481e90599f69b00328`。
 源码为当前工作区，Ruff、diff 检查通过，迁移函数 AST 逐项对比一致
 （仅 RemotePolicy 类型标注替换为 PolicyClient）。
+
+
+## 2026-09-30：review清理与模型单位边界回归（准备）
+
+- 范围：显式YAML相机字段、config传递、degree→radian及夹爪百分点→[0,1]，样本/stats同时换算；反向驱动换算、起点容差、导出与握手单位契约。
+- 命令：既定Gemini venv中从当前同步源码运行 `python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real`。均使用CPU及fake设备，不接触真实串口或相机，不启动训练/模型评估。
+- 预期：新单位回归与已有客户端/日志/调度测试通过，旧服务缺单位声明时在硬件连接前拒绝。
+- 状态：NOT RUN；源码d16d29a加本轮未提交改动，Docker image tag未记录；实际结果运行后补充。
+
+
+### 2026-09-30 20:38北京时间：实际结果 PASS
+
+- Gemini task56253f33-0052 exit0：`tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py` 合计92 passed；真实数据同名shell另2 passed，共94项。CPU-only，CUDA_VISIBLE_DEVICES为空；未接触机器人或新模型推理。
+- Ruff通过；31个改动源码/配置/shell的Mac与hz1 SHA256一致，shell语法、py_compile和git diff --check通过。实际源码d16d29a加未提交改动，Docker tag未记录。
+- 初轮夹爪缩放后固定归一化epsilon造成约1e-5偏差，测试原1e-6零点容差过严；改成有解释的2e-5。随后wrapper子shell因MY_DFS未export失败，已修正执行环境；风格问题已修正。最终测试正常完成，未跳过失败项。
+- 完整最终日志及初轮失败日志在 `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101_review_cleanup_20260930/`，含final_tests.log和source_hashes.json。
+- 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
+
+
+## 2026-09-30：显式数据来源与转换后的接口单位
+
+状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest或连接硬件。
+
+- 通用 `dataset_repo` 默认为空，缺失时配置校验失败；测试中显式提供来源。
+- 新增两种单位模式的握手校验：degree输入转换后应为radians，旧位置模式应为normalized；degree或另一模式的服务声明均被拒绝。
+- runner错误消息显示实际服务单位和输入转换后预期单位，缺少单位metadata时单独报错。
+- 静态检查PASS：修改文件Python AST语法与100字符行长、通用YAML空repo、runner `bash -n`、`git diff --check`。
+
+复现：`bash tests/so101_real/test_so101_runtime.sh`；硬件组装mock回归入口为 `test_so101_deployment.sh`。
+相关三件套：`test_so101_runtime.py`、`test_so101_runtime.sh`、本文件。
+源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：PASS，包含本文件的CPU回归共89项通过，耗时9.88s；Ruff通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。
+
+
+## 2026-09-30：删除数据语义字段
+
+范围：删除dataset spec、训练导出、policy与握手、报告中的额外声明和校验。
+样本与stats保留源数值，已有Normalize/Unnormalize与标定限幅保留。
+预期：无额外metadata的统计文件可以加载、日志可以绘图；握手仍核对动作维度等推理结构。
+命令：合跑SO101 SFT、全部so101_real、共享PI05 inference与SFT checkpoint回归，
+另执行 `bash tests/pi_05/test_so101_dataset.sh` 验证真实录制数据。
+状态：PASS，含本文件的CPU回归共88项通过（10.44s），Ruff通过；未进行GPU推理、训练或真机操作。
+源码：bf11592加工作区改动；Docker tag未记录。
+
+环境：Python 3.12.13、LeRobot 0.6.1；证据：
+`$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。

@@ -48,14 +48,14 @@ class Pi05Policy:
         Parameters
         ----------
         obs : dict
-            Raw observation accepted by the injected embodiment transforms.
+            Observation before statistical normalization.
         noise : numpy.ndarray | None
             Optional finite noise with shape ``(action_horizon, model_action_dim)``.
 
         Returns
         -------
         dict
-            Environment actions and model inference timing.
+            Actions after statistical unnormalization and model inference timing.
         """
         inputs = self._input_transform(dict(obs))
         observation = self._to_observation(inputs)

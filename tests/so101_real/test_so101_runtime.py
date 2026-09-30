@@ -9,6 +9,9 @@ from examples.so101_real.config import JOINT_NAMES, DeploymentConfig, load_confi
 from examples.so101_real.observations import DatasetSource, RobotSource
 from examples.so101_real.runner import RunLog, run_loop, validate_metadata
 
+LOWER = np.float32([-180] * 5 + [0])
+UPPER = np.float32([180] * 5 + [100])
+
 
 class Dataset:
     def __init__(self, length=7, horizon=4):
@@ -25,7 +28,7 @@ class Dataset:
             "observation.state": np.zeros(6, dtype=np.float32),
             "observation.images.top": np.full((3, 12, 16), 123, dtype=np.uint8),
             "observation.images.fpv": np.full((3, 16, 12), 45, dtype=np.uint8),
-            "task": "pick orange cube",
+            "task": "pick cylinder",
             "action": np.full((self.horizon, 6), 99, dtype=np.float32),
             "action_is_pad": np.arange(self.horizon) >= valid,
         }
@@ -39,7 +42,7 @@ class Policy:
 
     def infer(self, observation, *, timeout=None):
         self.requests.append(observation)
-        return {"actions": np.full((4, 6), 2, dtype=np.float32)}
+        return {"actions": np.tile(np.float32([2, 2, 2, 2, 2, 2]), (4, 1))}
 
 
 class Robot:
@@ -72,7 +75,7 @@ def log(tmp_path, monkeypatch):
 
 def test_dataset_mapping_and_episode_boundary(log):
     # 7 帧 episode 按 3 步消费，最后一轮只能消费 1 步；示教动作不能进入请求。
-    source = DatasetSource(Dataset(), 2, 0, 4)
+    source = DatasetSource(Dataset(), DeploymentConfig(episode=2, start_frame=0), 4)
     policy = Policy()
     config = DeploymentConfig(execute_steps=3, max_chunks=None)
 
@@ -90,8 +93,9 @@ def test_dataset_mapping_and_episode_boundary(log):
                             "observation/wrist_image", "prompt"} for req in policy.requests)
     assert policy.requests[0]["observation/image"].shape == (12, 16, 3)
     assert np.all(policy.requests[0]["observation/wrist_image"] == 45)
-    assert policy.requests[0]["prompt"] == "pick orange cube"
-    assert all(event["target"] == [2] * 6 for event in events if event["event"] == "action")
+    assert policy.requests[0]["prompt"] == "pick cylinder"
+    assert all(event["target"] == [2, 2, 2, 2, 2, pytest.approx(2)]
+               for event in events if event["event"] == "action")
     with np.load(log.directory / "chunk_000002.npz") as chunk:
         assert chunk["reference"].shape == (1, 6)
         assert int(chunk["planned_steps"]) == 1
@@ -99,7 +103,8 @@ def test_dataset_mapping_and_episode_boundary(log):
 
 def test_start_frame_and_prompt_override():
     # 指定起始帧应为 episode 内索引，任务覆盖不改变其余观测。
-    source = DatasetSource(Dataset(), 2, 5, 4, "move cube")
+    config = DeploymentConfig(episode=2, start_frame=5, prompt="move cube")
+    source = DatasetSource(Dataset(), config, 4)
     frame = source.read()
 
     # 末尾两帧可用，示教中的 padding 不作为有效比较样本。
@@ -107,7 +112,7 @@ def test_start_frame_and_prompt_override():
     assert frame.request["prompt"] == "move cube"
     assert frame.reference.shape == (2, 6)
     with pytest.raises(AssertionError, match="start_frame"):
-        DatasetSource(Dataset(), 2, 7, 4)
+        DatasetSource(Dataset(), DeploymentConfig(episode=2, start_frame=7), 4)
 
 
 def test_padding_mismatch_rejected():
@@ -120,25 +125,25 @@ def test_padding_mismatch_rejected():
 
     # 对非末尾帧伪造全部 padding，断言不会被当作正常结束吞掉。
     with pytest.raises(AssertionError, match="padding"):
-        DatasetSource(BadDataset(), 2, 0, 4).read()
+        DatasetSource(BadDataset(), DeploymentConfig(episode=2, start_frame=0), 4).read()
 
 
 def test_absolute_action_mapping_and_driver_clipping():
     # 绝对目标不加当前状态，日志必须采用驱动限幅后实际下发的值。
     robot = Robot()
     robot.state[:] = 10
-    sink = SO101Sink(robot, 10)
-    target = np.array([-200, -3, 20, 50, 200, -10], dtype=np.float32)
+    sink = SO101Sink(robot, DeploymentConfig(), LOWER, UPPER)
+    target = np.array([-200, -3, 20, 50, 200, -0.1], dtype=np.float32)
 
     # 同时触发合法范围裁剪和驱动的相对目标限幅。
     result = sink.send(target)
 
     # 固定键序对应五关节加夹爪，实际下发不同于原始预测时必须留证据。
     assert list(robot.commands[0]) == list(JOINT_NAMES)
-    assert list(robot.commands[0].values()) == [-100, -3, 20, 50, 100, 0]
-    assert result["sent"] == [5, 5, 15, 15, 15, 5]
+    assert list(robot.commands[0].values()) == [-180, -3, 20, 50, 180, 0]
+    assert result["sent"] == [5, 5, 15, 15, 15, pytest.approx(5)]
     assert result["clipped"]
-    assert result["present"] == [10] * 6
+    assert result["present"] == [10, 10, 10, 10, 10, pytest.approx(10)]
 
 
 @pytest.mark.parametrize("execute_steps,max_chunks", [(2, 1), (1, 2), (1, None)])
@@ -150,7 +155,8 @@ def test_multi_step_initial_mismatch_stops_before_send(log, execute_steps, max_c
 
     # 预热可以完成，但位置不一致时不得产生任何运动命令。
     with pytest.raises(AssertionError, match="initial state mismatch"):
-        run_loop(config, DatasetSource(Dataset(), 2, 0, 4), SO101Sink(robot, 10), Policy(), log)
+        run_loop(config, DatasetSource(Dataset(), DeploymentConfig(episode=2, start_frame=0), 4),
+                 SO101Sink(robot, DeploymentConfig(), LOWER, UPPER), Policy(), log)
     assert robot.commands == []
 
 
@@ -158,8 +164,9 @@ def test_single_action_uses_prediction_not_demonstration(log):
     # 单步动作值取自 policy，预热、示教动作和其余 chunk 都不得下发。
     robot = Robot()
     policy = Policy()
-    result = run_loop(DeploymentConfig(), DatasetSource(Dataset(), 2, 0, 4),
-                      SO101Sink(robot, 10), policy, log)
+    source = DatasetSource(Dataset(), DeploymentConfig(episode=2), 4)
+    result = run_loop(DeploymentConfig(), source,
+                      SO101Sink(robot, DeploymentConfig(), LOWER, UPPER), policy, log)
 
     # 只发一条值为 2 的预测；99 是示教动作，不能出现在命令里。
     assert result["steps"] == 1
@@ -182,8 +189,8 @@ def test_failure_never_sends_remaining_actions(log, failure):
 
     # 第一块执行两步，然后在下一请求中注入异常并检查命令总数。
     with pytest.raises(failure):
-        run_loop(config, DatasetSource(Dataset(), 2, 0, 4),
-                 SO101Sink(robot, 10), FailingPolicy(), log)
+        run_loop(config, DatasetSource(Dataset(), DeploymentConfig(episode=2, start_frame=0), 4),
+                 SO101Sink(robot, DeploymentConfig(), LOWER, UPPER), FailingPolicy(), log)
     assert len(robot.commands) == 2
 
 
@@ -200,8 +207,9 @@ def test_bad_actions_never_reach_robot(log, actions):
 
     # 预热响应也校验完整契约，防止非法响应进入执行循环。
     with pytest.raises(AssertionError):
-        run_loop(DeploymentConfig(), DatasetSource(Dataset(), 2, 0, 4),
-                 SO101Sink(robot, 10), BadPolicy(), log)
+        source = DatasetSource(Dataset(), DeploymentConfig(episode=2), 4)
+        run_loop(DeploymentConfig(), source,
+                 SO101Sink(robot, DeploymentConfig(), LOWER, UPPER), BadPolicy(), log)
     assert not robot.commands
 
 
@@ -212,11 +220,12 @@ def test_robot_observations_refresh_after_warmup_and_action(log):
     config = DeploymentConfig(observation_source="robot", max_chunks=2)
 
     # 共执行两块，每块一步；真实状态由 fake driver 的实际命令更新。
-    run_loop(config, RobotSource(robot, "pick", 4), SO101Sink(robot, 10), policy, log)
+    run_loop(config, RobotSource(robot, DeploymentConfig(prompt="pick"), 4),
+             SO101Sink(robot, DeploymentConfig(), LOWER, UPPER), policy, log)
 
     # 第三次请求已包含上一动作的真实反馈，区别于录制观测开环模式。
     assert len(policy.requests) == 3
-    np.testing.assert_array_equal(policy.requests[-1]["observation/state"], [2] * 6)
+    np.testing.assert_allclose(policy.requests[-1]["observation/state"], [2, 2, 2, 2, 2, 2])
 
 
 def test_server_metadata_rejects_wrong_embodiment():
@@ -225,17 +234,38 @@ def test_server_metadata_rejects_wrong_embodiment():
 
     # 连接错误策略或执行长度超过模型 horizon 时均提前失败。
     with pytest.raises(AssertionError, match="SO101"):
-        validate_metadata(metadata, 1)
+        validate_metadata(metadata, DeploymentConfig())
     with pytest.raises(AssertionError, match="horizon"):
-        validate_metadata(Policy.metadata, 5)
+        validate_metadata(Policy.metadata, DeploymentConfig(execute_steps=5))
 
 
 def test_default_profile_needs_no_robot_configuration(tmp_path):
     # 默认配置必须是数据集加日志；无需串口、标定或相机，防止意外接入硬件。
     config = load_config(Path("examples/so101_real/deployment.yaml"),
-                         {"dataset_root": str(tmp_path)})
+                         {"dataset_root": str(tmp_path), "dataset_repo": "local/test"})
 
     # 真机读写由独立显式选项控制，原始模板保持单块单步。
     assert config.observation_source == "dataset" and config.action_sink == "log"
     assert config.robot_port is None
     assert config.execute_steps == 1 and config.max_chunks == 1
+
+
+def test_default_profile_requires_explicit_dataset_repo(tmp_path):
+    # 通用配置不能默认选择个人数据集，即使本地目录已存在也要显式声明repo。
+    config = DeploymentConfig(dataset_root=str(tmp_path))
+
+    # 在网络或硬件连接前报出缺失字段，而不是尝试读取默认数据集。
+    assert config.dataset_repo == ""
+    with pytest.raises(AssertionError, match="set dataset_repo"):
+        config.validate()
+
+
+def test_policy_metadata_only_requires_inference_structure():
+    # 服务握手只需要推理结构；输入数据的数值约定不由metadata决定。
+    config = DeploymentConfig()
+    metadata = dict(Policy.metadata)
+
+    # 最小握手正常通过，错误动作维度仍应在任何硬件操作前拒绝。
+    assert validate_metadata(metadata, config) == 4
+    with pytest.raises(AssertionError, match="six-dimensional"):
+        validate_metadata({**metadata, "action_dim": 7}, config)

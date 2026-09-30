@@ -1,0 +1,26 @@
+observation_source: dataset
+action_sink: log
+server_uri: ws://127.0.0.1:8080
+output_dir: outputs/so101_knock_down_the_cylinder_debug
+dataset_root: null
+dataset_repo: nrailg/so101_knock_down_the_cylinder
+base_camera: null
+wrist_camera: wrist
+fps: 15
+use_degrees: true
+prompt: Move an object
+execute_steps: 1
+max_chunks: 1
+robot_port: null
+robot_id: null
+calibration_dir: null
+max_relative_target: 90.0
+initial_state_tolerance: 10.0
+cameras:
+  wrist:
+    index_or_path: 0
+    width: 640
+    height: 480
+    fps: 15
+    color_mode: rgb
+    rotation: 0

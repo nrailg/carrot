@@ -15,15 +15,14 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     Parameters
     ----------
     config : DeploymentConfig
-        Local files must already correspond to dataset_revision; offline loading does
-        not verify their Hub revision. Hub access is disabled for this process.
+        Complete local files; Hub access is disabled for this process.
     horizon : int
         Future action window used only for comparison and episode-boundary checks.
 
     Returns
     -------
     DatasetSource
-        Unnormalized observations and a separate demonstration action reference.
+        Source observations and a separate demonstration action reference.
     """
     # 两个库会缓存离线配置，仅设置环境变量不足以约束当前进程。
     os.environ["HF_HUB_OFFLINE"] = "1"
@@ -33,19 +32,22 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     root = Path(config.dataset_root)
     for name in ("info.json", "stats.json", "tasks.parquet"):
         assert (root / "meta" / name).is_file(), f"missing local dataset meta/{name}"
-    meta = LeRobotDatasetMetadata(config.dataset_repo, root=root, revision=config.dataset_revision)
-    assert meta.robot_type == "so101_follower" and meta.fps == config.fps
+    meta = LeRobotDatasetMetadata(config.dataset_repo, root=root)
+    assert meta.robot_type in ("so101_follower", "so_follower"), "expected a SO101 dataset"
+    assert meta.fps == config.fps, "dataset FPS must match deployment"
     for name in ("observation.state", "action"):
         assert tuple(meta.features[name]["shape"]) == (6,)
         assert tuple(meta.features[name]["names"]) == JOINT_NAMES, f"wrong joint order: {name}"
-    for name in ("observation.images.top", "observation.images.fpv"):
+    for camera in config.image_keys.values():
+        name = f"observation.images.{camera}"
+        assert name in meta.features, f"missing configured camera: {name}"
         assert meta.features[name]["dtype"] in ("image", "video")
         assert meta.features[name]["shape"][-1] == 3
 
     # 未来 action 窗口只供参考比较；其 padding 必须与 episode 边界一致。
     dataset = LeRobotDataset(
-        config.dataset_repo, root=root, revision=config.dataset_revision,
+        config.dataset_repo, root=root,
         episodes=[config.episode], return_uint8=True,
         delta_timestamps={"action": [step / config.fps for step in range(horizon)]},
     )
-    return DatasetSource(dataset, config.episode, config.start_frame, horizon, config.prompt)
+    return DatasetSource(dataset, config, horizon)

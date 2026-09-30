@@ -3,8 +3,9 @@ action_sink: log
 server_uri: ws://127.0.0.1:8000
 output_dir: outputs/so101_debug
 dataset_root: null
-dataset_repo: felixmayor/orange_cube_merged
-dataset_revision: c021b3c22a3de4e70e81010e54fb250a5dde348b
+dataset_repo: ''
+base_camera: top
+wrist_camera: fpv
 episode: 0
 start_frame: 0
 prompt: null
@@ -17,7 +18,7 @@ request_timeout_s: 5.0
 robot_port: null
 robot_id: null
 calibration_dir: null
-use_degrees: false
+use_degrees: true
 max_relative_target: 5.0
 initial_state_tolerance: 10.0
-cameras: {}  # robot source requires top and fpv OpenCVCameraConfig mappings
+cameras: {}  # robot source requires the selected camera names

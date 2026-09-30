@@ -1,0 +1,6 @@
+two_camera:
+  base_image_key: observation.images.top
+  wrist_image_key: observation.images.fpv
+knock_down_the_cylinder:
+  base_image_key: null
+  wrist_image_key: observation.images.wrist

@@ -25,24 +25,29 @@ def _parse_image(value: Any, name: str) -> np.ndarray:
 
 
 class SO101Inputs:
-    """Map six joints and two RGB cameras to the PI0.5 model fields."""
+    """Map six joints and available RGB views; omitted views have a false mask."""
 
     def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
         state = np.asarray(data["observation/state"], dtype=np.float32)
         if state.shape != (6,) or not np.isfinite(state).all():
             raise ValueError("observation/state must be finite with shape (6,)")
-        base_image = _parse_image(data["observation/image"], "observation/image")
-        wrist_image = _parse_image(data["observation/wrist_image"], "observation/wrist_image")
+        camera_keys = {
+            "base_0_rgb": "observation/image", "left_wrist_0_rgb": "observation/wrist_image",
+        }
+        images = {name: _parse_image(data[key], key)
+                  for name, key in camera_keys.items() if key in data}
+        assert images, "SO101 requires at least one camera observation"
+        empty = np.zeros_like(next(iter(images.values())))
         result = {
             "state": state,
             "image": {
-                "base_0_rgb": base_image,
-                "left_wrist_0_rgb": wrist_image,
-                "right_wrist_0_rgb": np.zeros_like(base_image),
+                "base_0_rgb": images.get("base_0_rgb", empty),
+                "left_wrist_0_rgb": images.get("left_wrist_0_rgb", empty),
+                "right_wrist_0_rgb": empty,
             },
             "image_mask": {
-                "base_0_rgb": True,
-                "left_wrist_0_rgb": True,
+                "base_0_rgb": "base_0_rgb" in images,
+                "left_wrist_0_rgb": "left_wrist_0_rgb" in images,
                 "right_wrist_0_rgb": False,
             },
             "prompt": data["prompt"],

@@ -1,50 +1,47 @@
-# SO101 SFT 数据与推理契约
+# SO101 单腕、15FPS与度数部署配置
 
 ## 目的与关键断言
 
-使用模拟数据、tokenizer 和小模型验证四项契约，不加载真实 checkpoint 或连接机械臂。
-
-- 数据工厂保留 revision、30 FPS 动作窗口、双相机字段及 padding mask。
-- 训练和推理共用图像、状态、任务 token 变换；第三视角无效，padding 不参与 loss。
-- 六维绝对位置动作正确归一化和还原，不误作相对状态的增量。
-- 配置指定数据集统计量时不误读基座的 14 维统计量；导出布局可装配六关节 policy。
+- 单腕观测只包含wrist视角，不复制或伪造base视角，保留episode边界/padding。
+- 本地无Hub revision的so_follower数据按15FPS构造动作窗口；非法metadata提前失败。
+- 15FPS执行节拍扣除发送耗时，机器人构造器显式透传use_degrees与相机配置。
+- 动作限位复用真实LeRobot总线的标定换算，度数与归一化模式分别校验raw目标范围；
+  夹爪保持百分比，实际关节已越限时不继续下发。
+- 使用fake设备和未连接的Feetech总线；不读真实串口、不发送机器人运动命令。
 
 ## 运行
 
-只需提供个人 DFS 根目录；公共 runner 激活 `/opt/venvs/carrot`，
-从 `${MY_DFS}/work/carrot` 加载源码并设置 `PYTHONPATH`。测试无需 GPU 或下载资源。
-
 ```bash
-export MY_DFS=/absolute/path/to/personal/dfs
-bash "${MY_DFS}/work/carrot/tests/pi_05/test_so101_sft.sh"
+bash "${MY_DFS}/work/carrot/tests/so101_real/test_so101_profiles.sh"
 ```
 
-## 2026-09-27
+同时回归整个`tests/so101_real`，保留旧双相机30FPS归一化配置的行为。
 
-补齐同名 runner 和档案；Shell 语法及 diff 检查通过。
+## 2026-09-30
 
-
-## 2026-09-27：Gemini 验证
-
-状态：**PASS**；`4 passed in 6.87s`，runner exit=0。
+状态：**PASS**。独立 runner：`16 passed in 6.70s`；完整 SO101 CPU 回归：
+`53 passed in 7.83s`（profiles 16、deployment 16、runtime 17、client 3、report 1）。
 
 ```bash
 export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+source /opt/venvs/carrot/bin/activate
 cd "${MY_DFS}/work/carrot"
-bash tests/pi_05/test_so101_sft.sh
+export PYTHONPATH="$PWD/src:$PWD/tests:$PWD:${PYTHONPATH:-}"
+bash tests/so101_real/test_so101_profiles.sh
+python -m pytest -q tests/so101_real
 ```
 
-证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/test-runs/so101-20260927T/test_so101_sft.log`。
-
-本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。
-
-## 2026-09-29：15 FPS 单腕视角
-
-新增单腕相机数据配置与缺失视角mask契约回归，同时接纳LeRobot的so_follower类型名。
-Gemini既定venv运行同名runner：**5 passed**（含此前双相机4项）。
-真实两episode数据首尾样本50×6窗口、末尾49帧padding与base/right mask=false也已预检。
-证据：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_sft_so101_wipe_overfit_monitor/20260929T1129Z/cpu_tests.log`。
-源码与环境及实验最终结论见 `recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/README.md`。
+- Gemini launcher：`mpi-1784764303-launcher`；Docker image tag 本轮未核实。
+- Python 3.12.13、pytest 9.1.1、PyTorch 2.11.0+cu128、LeRobot 0.6.1、
+  NumPy 2.3.1、websockets 16.1.1。LeRobot wheel Git commit 未记录。
+- OpenPI client 固定源码 commit：`215abfb217dbac7d5f1273282331b9b1866c0479`。
+- Carrot HEAD：`005d87293de85e4fa3900c02416dce08bef5e652` 加当前工作区改动；
+  通过 Mutagen 同步，运行前对比修改源码/测试的 SHA256。
+- 首轮收集缺 pyserial，补齐后两项硬件工厂测试缺 deepdiff；最终离线补齐
+  feetech-servo-sdk 1.0.0、pyserial 3.5、deepdiff 8.6.2、orderly-set 5.5.0 后合跑通过。
+  来源为 Mac uv 缓存，未升级其他既有依赖；项目 `client` extra 正式声明硬件依赖。
+- 证据为上述命令的远程工具输出；未额外保存独立日志文件。
+- 本次使用替身与未连接总线，没有真实机器人运动或新 checkpoint 推理。
 
 
 ## 2026-09-30：review清理与模型单位边界回归（准备）
@@ -64,20 +61,6 @@ Gemini既定venv运行同名runner：**5 passed**（含此前双相机4项）。
 - 新YAML配置/新单位接口准备完成；未启动新训练或真机任务，未commit。旧服务没有单位metadata，后续联调须按当前代码重启。
 
 
-## 2026-09-30：录制单位命名与显式repo配置
-
-状态：**NOT RUN**；本轮没有可用Gemini会话，未执行pytest、训练或推理。
-
-- 数据集配置改用 `recorded_in_degrees`；已有degree样本、统计量与推理一致性用例沿用该字段。
-- repo默认留空；新增断言要求缺少repo时在LeRobot元数据I/O之前失败。
-- 真实数据、checkpoint与WebSocket测试显式填写其测试对象的repo，不再依赖通用默认值。
-- 静态检查PASS：Python AST语法与100字符行长、recipe/test YAML字段与factory签名匹配、runner `bash -n`、`git diff --check`。
-
-复现：`bash tests/pi_05/test_so101_sft.sh`（按runner要求先设置当前Gemini的 `MY_DFS`）。
-相关三件套：`test_so101_sft.py`、`test_so101_sft.sh`、本文件。
-源码：`d16d29a7245c56f17d9eec07e42234c11b831200` 加当前未提交改动；Docker image tag及远端依赖commit未记录，本轮未连接远端。
-
-
 ## 2026-09-30：统一degree/夹爪百分点
 
 当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
@@ -89,16 +72,6 @@ CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、
 源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
 
 证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。
-
-实际CPU命令（/opt/venvs/carrot，当前源码PYTHONPATH，CUDA_VISIBLE_DEVICES为空）：
-
-```bash
-python -m pytest -q tests/pi_05/test_so101_sft.py tests/so101_real tests/pi_05/test_pi05_inference.py tests/sft/test_sft_checkpoint.py
-bash tests/pi_05/test_so101_dataset.sh
-```
-
-首轮87通过、2失败：握手报错匹配和反馈夹爪期望仍使用旧值；修正后89通过。
-首轮证据保存在同目录 `initial_tests.log`，最终90项通过包含1项真实数据检查。
 
 
 ## 2026-09-30：删除数据语义字段

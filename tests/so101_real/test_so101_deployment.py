@@ -3,6 +3,8 @@ from unittest.mock import Mock
 
 import numpy as np
 import pytest
+from lerobot.motors import Motor, MotorCalibration, MotorNormMode
+from lerobot.motors.feetech import FeetechMotorsBus
 
 from examples.so101_real import runner
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig
@@ -13,13 +15,16 @@ from examples.so101_real.observations import ObservationFrame
     ("dataset", "log"), ("dataset", "robot"), ("robot", "log"), ("robot", "robot"),
 ])
 @pytest.mark.parametrize("fail_request", [False, True])
-def test_session_hardware_selection_and_cleanup(tmp_path, monkeypatch, source, sink, fail_request):
+def test_session_hardware_selection_and_cleanup(
+    tmp_path, monkeypatch, source, sink, fail_request,
+):
     # 验证四种模式真正的组装入口；默认模式不得连接硬件，失败也必须关闭资源并记录原因。
     (tmp_path / "meta").mkdir()
     (tmp_path / "meta/info.json").write_text("{}")
     (tmp_path / "arm.json").write_text("{}")
     config = DeploymentConfig(
         observation_source=source, action_sink=sink, dataset_root=str(tmp_path),
+        dataset_repo="local/test",
         output_dir=str(tmp_path / "run"), robot_port="fake", robot_id="arm",
         calibration_dir=str(tmp_path), cameras={"top": {}, "fpv": {}}, prompt="pick",
     )
@@ -27,6 +32,15 @@ def test_session_hardware_selection_and_cleanup(tmp_path, monkeypatch, source, s
               "fpv": np.zeros((16, 12, 3), dtype=np.uint8)}
     joints = dict.fromkeys(JOINT_NAMES, 0.0)
     robot = Mock()
+    names = [name.removesuffix(".pos") for name in JOINT_NAMES]
+    robot.bus = FeetechMotorsBus(
+        port="fake",
+        motors={name: Motor(index, "sts3215", MotorNormMode.RANGE_0_100 if name == "gripper"
+                            else MotorNormMode.DEGREES)
+                for index, name in enumerate(names, 1)},
+        calibration={name: MotorCalibration(index, 0, 0, 1000, 3000)
+                     for index, name in enumerate(names, 1)},
+    )
     robot.get_observation.return_value = {**joints, **images}
     robot.send_action.return_value = joints
     policy = Mock()

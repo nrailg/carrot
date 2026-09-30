@@ -40,3 +40,21 @@ CUDA_VISIBLE_DEVICES=0 bash tests/pi_05/test_so101_inference_checkpoint.sh
 真实 step-00005000 checkpoint 重载及固定噪声双次推理通过；不代表真机任务成功率。
 
 本轮镜像、源码和环境记录见 [共同环境](../so101_real/test_so101_runtime.md#本轮共同环境与源码)。
+
+
+## 2026-09-30：旧checkpoint单位声明
+
+公开orange-cube重载入口显式声明legacy统计量 `joint_units="normalized"`；原始关节仍归一化位置，夹爪统计量及client输入转换为[0,1]。原真GPU重载测试本轮NOT RUN；显式degree迁移/新export不重复转换已在CPU mock覆盖。源码d16d29a加未提交改动，Docker tag未记录。
+
+
+## 2026-09-30：统一degree/夹爪百分点
+
+当前契约取代此前单位方案：所有SO101样本、stats、网络接口、日志和驱动使用degree与[0,100]夹爪。
+删除单位换算及额外裁剪，保留模型已有q01/q99 Normalize/Unnormalize。
+CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、握手、mock驱动与报告。
+真实数据入口：`bash tests/pi_05/test_so101_dataset.sh`，逐帧核对单腕录制与client数据。
+状态：NOT RUN（本轮未执行GPU checkpoint/WebSocket测试）；相关CPU契约回归已通过。
+未操作真机、启动训练或重启policy server。
+源码：c4593f2加工作区改动；Docker image tag未记录，Python 3.12.13，LeRobot 0.6.1。
+
+证据：`$MY_DFS/test-runs/so101_degrees_20260930/final_tests.log`、`source_hashes.json`。

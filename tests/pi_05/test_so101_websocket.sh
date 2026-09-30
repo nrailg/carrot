@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 : "${MY_DFS:?set MY_DFS to the current personal DFS root}"
-export CARROT_SO101_CHECKPOINT="${MY_DFS}/experiments/carrot/pi05_sft_so101_orange_cube/checkpoints/step-00005000"
-export CARROT_SO101_DATASET="${MY_DFS}/hf-hub/felixmayor/orange_cube_merged"
+: "${CARROT_SO101_CHECKPOINT:?set a SO101 checkpoint}"
+export CARROT_SO101_CHECKPOINT
+export CARROT_SO101_DATASET="${MY_DFS}/hf-hub/nrailg/so101_knock_down_the_cylinder"
 export CARROT_SO101_WEBSOCKET_RUN="${MY_DFS}/test-runs/so101-websocket-$(date -u +%Y%m%dT%H%M%S)-$$"
 [[ -r "${CARROT_SO101_CHECKPOINT}/model.safetensors" ]]
 [[ -r "${CARROT_SO101_CHECKPOINT}/norm_stats.json" ]]

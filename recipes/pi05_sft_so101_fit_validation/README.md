@@ -1,5 +1,15 @@
 # SO101逐步拟合验证
 
+## 2026-10-03：用户取消后续简化实验（当前计划）
+
+拟合能力已获得证据，后续不再跑无视觉、单frame或固定noise的额外测试。
+已有实验和待评项保留为历史档案，不继续排队执行。改用完整单episode、腕部视觉、
+随机noise/t、h10、constant1e-6条件延长训练，按用户后续确认从官方pi05 base重新训练5000step，
+前100step warmup，不resume。当前配置与入口见
+[完整episode延长拟合](../pi05_sft_so101_knock_down_the_cylinder_overfit/README.md)。
+本轮尚未启动训练；用户休假结束后再做原始action replay、dataset-input policy和同步简单闭环，
+泛化位于真机验证之后；自动检查保持暂停。
+
 ## 2026-10-03：含视觉完整 episode 的 BF16 生产入口重评
 
 用户要求测试解除无视觉、单frame、固定noise后的拟合能力。复用新suite

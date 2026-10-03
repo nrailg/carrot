@@ -11,12 +11,13 @@ my_dfs="${MY_DFS:?resolve MY_DFS in the current Gemini session}"
 
 carrot_dir="$my_dfs/work/carrot"
 recipe_dir="$carrot_dir/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit"
-dataset_dir="$my_dfs/hf-hub/nrailg/so101_knock_down_the_cylinder"
-run_dir="$my_dfs/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_100"
+dataset_dir="$my_dfs/hf-hub/nrailg/knock_down_the_cylinder_1_20260930_222251"
+model_dir="$my_dfs/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10"
+run_dir="$my_dfs/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_h10_5000"
 
 [[ -f "$recipe_dir/train.yaml" ]]
-[[ -s "$my_dfs/hf-hub/Physical-Intelligence/pi05_base_pytorch/model.safetensors" ]]
-[[ -f "$my_dfs/hf-hub/Physical-Intelligence/pi05_base_pytorch/config.json" ]]
+[[ -s "$model_dir/model.safetensors" ]]
+[[ -f "$model_dir/config.json" ]]
 [[ -s "$my_dfs/hf-hub/google/paligemma-3b-pt-224/tokenizer.json" ]]
 [[ -f "$dataset_dir/meta/info.json" ]] || {
     echo "missing local SO101 dataset: $dataset_dir" >&2

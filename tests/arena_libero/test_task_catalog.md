@@ -1,0 +1,300 @@
+# LIBERO 全任务目录与真实 RL 验收
+
+状态：131 个原生任务定义已完成，全量 CPU / GPU 验收待运行。按用户要求先提交代码，随后测试，修复另作提交。
+分支 `nrwu/newLiberoWithArena`；Python 3.12 / Isaac Sim 6 / IsaacLab 3 / Arena 沿用项目锁定版本。
+历史首批 5 任务已在提交 `cec1e83` 通过真实 GPU / PPO 验收；该结果不代表本次 131 任务全部通过。
+
+## 任务范围
+
+每个 case 有独立 Python 模块，显式定义语言、资产、布局、关节初态和成功条件。
+
+| suite | case 数 |
+| --- | ---: |
+| libero_spatial | 10 |
+| libero_object | 10 |
+| libero_goal | 11 |
+| libero_10 | 10 |
+| libero_90 | 90 |
+
+来源为 LW-BenchHub `b2bcb2d00edef691f9fcc49039cbf0bcc7464605` 的
+`lw_benchhub_tasks/lightwheel_libero_tasks`；`task_sources.json` 保存全部源文件、注册类和 Gym ID。
+上游一个 L10L2 文件注册三个 case，本实现拆成三个模块；L10K6 按实际注册类和任务语义命名，修正上游误导性的文件名。
+运行时不导入 LW-BenchHub 或 MuJoCo。注册表可在未启动 Isaac 时读取。
+
+采用固定厨房桌面布局，不声称复现 LW 的房间布局、随机化分布或原始 LIBERO 轨迹。
+成功条件逐环境计算，多目标条件取 AND，目标物体身份明确；包含真实接触、释放、稳定、容器边界和关节状态检查。
+源代码的 env 0 广播、宽泛任意物体匹配和 caddy 分区 TODO 按任务语义实现。
+长柄锅在架子内采用部分插入条件；BBQ sauce 使用原始 LIBERO 资产转换，属于有意的资产差异。
+critic 维数随物体和关节数变化，请查询 `env.single_observation_space["critic"].shape`。
+
+## 验收与执行
+
+每个任务检查真实 GPU reset/step、两路 RGB、部分 reset 隔离、超时 bootstrap、成功终止与 PPO 参数更新。
+合成成功 fixture 验证物理条件和奖励接口，不代表策略已经学会任务。
+
+按当前 Gemini 会话确定 MY_DFS，确认 GPU 无其他 renderer，暂停并在结束后恢复 dguard。
+H20 每块物理 GPU 最多一个 renderer；当前脚本逐任务串行运行，不停止既有 Ray head。
+
+```bash
+export ARENA_LIBERO_ASSETS=/root/arena-libero-all-assets-v2
+export ARENA_LIBERO_OUTPUT="${MY_DFS}/benchmarks/arena-libero-rl/<new-run>"
+bash tests/arena_libero/test_task_catalog.sh
+```
+
+资产准备先完成 SDK 对象缓存下载，再转换原始 LIBERO BBQ sauce，最后创建新的资产目录：
+
+```bash
+python scripts/arena_libero/convert_libero_object.py \
+  --source /path/to/LIBERO/libero/libero/assets/stable_hope_objects/bbq_sauce/bbq_sauce.xml \
+  --output /root/arena-libero-converted-assets-v2/LiberoBbqSauce.usd
+python scripts/arena_libero/prepare_assets.py \
+  --scene /root/.cache/lightwheel_sdk/floorplan/robocasa-libero-1-1/scene_enabled.usd \
+  --object-cache /root/.cache/lightwheel_sdk/object \
+  --libero-bbq-usd /root/arena-libero-converted-assets-v2/LiberoBbqSauce.usd \
+  --output /root/arena-libero-all-assets-v2
+```
+
+离线转换使用 MuJoCo 读取质量、质心和惯性，生成原生 USD、贴图和碰撞体；不增加模拟器运行时依赖。
+wrapper 仍引用 SDK 缓存，缓存和原场景必须保持可访问；脚本拒绝覆盖已有输出。
+
+## 选择任务
+
+```python
+from pathlib import Path
+from carrot_sim.arena_libero import ArenaLiberoConfig
+from carrot_sim.arena_libero.tasks import list_tasks
+
+for task in list_tasks("libero_spatial"):
+    print(task.task_id, task.language)
+
+config = ArenaLiberoConfig(
+    asset_root=Path("/root/arena-libero-all-assets-v2"),
+    task_id="libero_10/L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it",
+    num_envs=4,
+)
+# AppLauncher 启动后导入 make_env，再调用 make_env(config)。
+```
+
+`task_id=None` 保留原两物体 smoke 环境。`env.task_description` 提供语言，`env.task_name` 为 suite/name。
+一个 batch 使用同一任务，reset 不切换任务。
+
+## 扩展运行时的已有抽样记录
+
+`20260922-all-runtime-01` 的 spatial on-stove case 已通过 4 环境、两路 RGB、128 transitions、
+2 次 PPO 更新、部分 reset 和物理成功 fixture。证据位于
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260922-all-runtime-01/`。
+它早于最终全量源码，仍需回归；下文仅保留首批 5 任务历史记录。
+
+## 2026-09-22 CPU
+
+执行代理在远端 `/opt/venvs/carrot` Python 3.12 下运行旧接口测试与新增任务目录/谓词测试：
+16 passed（1.99s）。GPU 任务检查尚未运行，不沿用此前单任务 PASS。
+
+## 首批 5 任务历史资产准备
+
+已下载对象缓存：Bowl008、Plate012、Bowl009、Cookies002、Bottle054、Pot086。
+下载使用 `lightwheel_sdk.loader.object_loader.acquire_by_registry`，类型为 `objects` / `USD`；
+仅准备资产时使用 SDK，运行环境不导入 LW-BenchHub。
+
+以下是首批 5 任务旧版本使用的命令；当前版本请使用上文含 BBQ 参数的命令：
+
+```bash
+python scripts/arena_libero/prepare_assets.py \
+  --scene /root/.cache/lightwheel_sdk/floorplan/robocasa-libero-1-1/scene_enabled.usd \
+  --object-cache /root/.cache/lightwheel_sdk/object \
+  --output /root/arena-libero-five-assets-v2
+```
+
+木柜、炉灶和摩卡壶分别来自 source scene 的
+`/world/storage_furniture_right_group_1`、`/world/stovetop_front_group_1`、
+`/world/mokapot_1_front_group_1`。提取保留引用与内部关节，去掉根的原场景变换并归零世界固定
+关节锚点；任务配置显式恢复测量所得缩放与朝向，再给定新布局的位置。
+原始 scene 和所有引用文件仍必须可访问，wrapper 不是脱离缓存的自包含资产包。
+
+木柜三个滑动关节从上到下为 `StorageFurniture136_Drawer001_joint` 至 `003_joint`；
+炉灶旋钮为 `knob_center_joint`，摩卡壶的自由根保留被动 `MokaPot001_Lid_joint`。
+炉灶“打开”由真实旋钮角度判定，不包含热传导仿真。
+
+静态源资产记录：
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-five-assets/inventory_20260922.json`。
+该记录是 v1 wrapper 的盘点，运行验收另记录实际资产目录。
+
+## 2026-09-22 five-01：FAIL
+
+首个 between 任务在创建 termination 配置时失败，未进入任务步：IsaacLab 的配置字符串
+包装器会递归写入参数，而传入的 GoalSpec 是 frozen dataclass，触发 FrozenInstanceError。
+已改为在 ManagerTermCfg 边界传递普通字典；目录定义本身仍保持不可变。
+没有修改第三方源码或降级依赖。
+
+任务 `5f3f1fce-0736` 的日志保存在
+`${MY_DFS}/benchmarks/arena-libero-rl/20260922-five-01/libero_spatial/LS_pick_up_black_bowl_between_plate_and_ramekin_and_place_it_on_plate/runner.stdout`。
+Kit fast shutdown 可能使进程返回码掩盖 Python traceback；因此脚本还要求每个任务写出
+完整 result.json，缺少结果立即失败，最终再独立校验全部产物。
+该轮没有 result.json 或图像，不计作 GPU 通过；执行代理确认已恢复 dguard、无残留 renderer。
+
+## 2026-09-22 five-02：3 PASS，整轮 FAIL
+
+输出根 `${MY_DFS}/benchmarks/arena-libero-rl/20260922-five-02`，实际 GPU 执行任务
+`5f3f1fce-0745`。此前 `-0743` 仅因 MY_DFS 未 export 退出，没有启动 GPU。
+
+三个 spatial 任务各完成 4×32 transitions、8 次超时和两次 PPO 参数更新；成功 fixture、
+部分 reset、terminal observation 均通过。主模型独立读取结果并查看外部相机图像：
+两只黑碗与干扰物清晰可见，顶抽屉打开且目标碗实际位于其中。
+
+第 4 个炉灶任务失败：IsaacLab 将选中全部关节的 SceneEntityCfg.joint_ids 优化成 slice，
+原实现按 list 取第 0 个元素引发 TypeError。已改为先按 selector 切 tensor，再取单个关节。
+底抽屉任务本轮未运行。新增可移动 articulation 的 is_fixed_base=False 断言检查摩卡壶自由根。
+执行代理确认已清理 renderer、恢复 dguard；原 Ray head 保留。
+
+
+## 2026-09-22 five-03：最终 PASS
+
+执行任务 `5f3f1fce-0753`，资产目录 `/root/arena-libero-five-assets-v2`。
+完整证据目录：
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260922-five-03/`。
+
+每个任务单独启动一个 Kit 进程、4 个环境、GPU 0 一个 renderer，顺序执行。
+5 个任务分别完成 128 transitions（合计 640）和两次 PPO actor/critic 参数更新；
+每项成功 fixture、部分 reset、terminal observation、纯超时 bootstrap 均 PASS。
+摩卡壶额外验证为自由根 articulation；顶抽屉目标初态检查实际位于打开的上层内部。
+
+| 任务 | critic 维数 | actor 最大更新 | critic 最大更新 |
+| --- | ---: | ---: | ---: |
+| L10K3_turn_on_the_stove_and_put_the_moka_pot_on_it | 69 | 0.0006004 | 0.0005946 |
+| L10K4_put_the_black_bowl_in_the_bottom_drawer_of_the_cabinet_and_close_it | 71 | 0.0006004 | 0.0006002 |
+| LS_pick_up_black_bowl_between_plate_and_ramekin_and_place_it_on_plate | 91 | 0.0006004 | 0.0005950 |
+| LS_pick_up_black_bowl_in_top_drawer_of_wooden_cabinet_and_place_it_on_plate | 110 | 0.0006004 | 0.0005864 |
+| LS_pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate | 91 | 0.0006004 | 0.0006004 |
+
+实际版本：Python 3.12.13、Isaac Sim 6.0.1.0、IsaacLab 3.0.0b2.post1、
+Arena 0.3.0、Torch 2.11.0+cu128。Docker image tag 未记录。
+主模型独立读取全部结果、检查两路相机图像，并确认本地与远端 32 个实现/测试/脚本文件
+SHA256 相同；`lw_imported=false`。这些结果只证明任务与 RL 链路可运行，不代表 PPO 已学会任务。
+
+完整 shell exit 0，独立 validator 输出 `Five task artifacts PASS`。
+执行代理收尾确认无残留 Kit、无 Xid；既有 Ray head 保留、GPU 资源使用 0/8；
+dguard 已恢复，恢复定时器已取消。完整 stdout 保存在证据目录根下。
+
+## 2026-09-22 all-committed-01：提交后验证进行中
+
+被测提交 `68cc7673488e9a7d2e0f98adba3e92b119117ba9`。本地 Python 3.12 CPU：17 passed / 1.35s；
+远端 `/opt/venvs/carrot`：17 passed / 2.05s。checksum 同步无差异，170 行源码 manifest 的 SHA256 为
+`3b05b2a7bfc706c4d6f8970cb984da610889b0b344132c9d51261f13785647a6`。
+
+BBQ v2 USD 与原 MJCF 的独立比较 PASS：质量误差 4.24e-10 kg、质心最大误差 3.72e-10 m、
+对角惯量最大误差 5.05e-13 kg·m²；三个碰撞体及贴图引用检查通过。
+证据根目录：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260922-all-committed-01/`，
+包含 `cpu.stdout`、`source-files.sha256`、`source-commit.txt`、`bbq_mass_comparison.json`。
+本小节尚不代表 GPU 或全任务通过；Docker image tag 未记录。
+
+同一提交的 LO BBQ 入篮任务真实 GPU PASS（Gemini job `5f3f1fce-0857`，exit 0）：
+4 环境、critic 121 维、128 transitions、8 truncations，actor 更新 0.0006004013、
+critic 更新 0.0005775355；两路 RGB、部分 reset、terminal observation、物理成功 fixture 全部通过。
+版本为 Python 3.12.13 / Isaac Sim 6.0.1.0 / IsaacLab 3.0.0b2.post1 / Arena 0.3.0 / Torch 2.11.0+cu128。
+该任务 `result.json`、`initial_state.json` 和两张图像位于上述证据根目录的
+`libero_object/LO_pick_up_the_bbq_sauce_and_place_it_in_the_basket/`。这只是 131 个 case 中的一个。
+
+GPU 映射已确认：该任务 `runner.stdout` 的 Vulkan 表仅物理 GPU 1 标记 `Active=Yes:0`，
+实际 `Environment device : cuda:1`；GPU 1 承担约 5.8 GiB 显存和主要利用率。
+构建时较早打印的 `SimulationCfg(device='cuda:0')` 是 `environment.py` 设置 device 之前的配置，
+不代表实际运行设备。其余卡的小 CUDA 上下文不作为多卡 renderer 的证据。
+
+## 2026-09-22 all-committed-02 / 03：代表任务与失败定位
+
+02 在 `68cc767` 上运行 9 个代表任务：5 PASS（酒架、双物体入篮、锅在架下、叠碗入托盘、书在 caddy 前格），
+4 FAIL（沙拉酱入篮、书在 caddy 后格、微波炉、锅在架中层）。每个 PASS 都有 128 transitions 和非零 PPO 参数更新。
+03 使用 `6b4174f` 诊断测试代码，生产源码未变，复现全部 4 个失败。两轮证据位于相邻的
+`20260922-all-committed-02/`、`20260922-all-committed-03/`，失败日志在 `logs/`。
+
+沙拉酱和后格书的容器、稳定、接触均满足，TCP 距离分别 0.3383 / 0.3233 m，未满足原任务 0.35 m 阈值。
+微波炉门已关闭，但 TCP 距离 0.3904 m 未达到 0.4 m，且杯完整几何底界比原生容器下界低 1.2875 mm。
+修正夹具：摆物体之前让 env 0 的手通过真实控制向基座退让并抬高；保持所有释放阈值。
+微波炉内腔只将底界从 -0.070 移至 -0.072 m，容纳完整视觉/碰撞几何与支撑面的偏差；上界及 XY 不变。
+锅在架中层最终掉到桌面，接触为 0；继续记录沉降轨迹定位，不放宽生产成功条件。以上修正仍待 GPU 重跑。
+
+## 2026-09-22 all-committed-04 / 05：部分修复验证
+
+04 使用 `0e9f090`：沙拉酱入篮 PASS；后格书仍因释放距离 0.34785 < 0.35 m 失败，
+微波炉首次接触后杯子被弹出；架中层锅仍竖直落到桌面且无支撑接触。CPU 17 项 PASS。
+05 使用 `96f2510`：延长夹具退让后，后格书 PASS；微波炉及架中层锅仍 FAIL。
+微波炉设置关节后等待 5 个物理控制步未消除异常冲量；降低锅的夹具释放高度 5 mm 也未修复无支撑。
+因此不能把这两项归因于已证实的关节缓存或薄板穿越问题，更不能视为已修复。
+证据根为 `20260922-all-committed-04/` 和 `20260922-all-committed-05/`，各含结果、失败日志和源码记录。
+05 误启动后取消的 salad task 0943 不计入验收，未覆盖 04 的结果。
+
+新增判据与原 LW 不完全相同：原 LW 微波炉检查单个点在 fixture 外包围盒内；本实现检查完整物体在原生内腔内。
+沙拉酱和后格书的 0.35 m、微波炉的 0.4 m 释放阈值来自上游，之前夹具漏退让属于本地测试实现错误。
+原生微波炉底界由本地重新测量构造，1.2875 mm 边界误差属于本地配置问题，不归因于上游。
+
+## 接触问题的后续对照（待运行）
+
+增加 `ArenaLiberoConfig.physics_substeps`，默认仍为 2；固定控制周期 20 ms，物理 dt 为 20 ms / substeps。
+runner 可传 `--physics-substeps 10` 对照 2 ms 的物理步，且断言 RL 的 step_dt 始终是 20 ms。
+微波炉夹具从接近转盘的位置释放，失败时另保存 `physical_failure.json` 和沉降截图。
+真实 Mesh points 与此前 bbox 完全一致，root 位姿读写都是 link frame，源 USD 未发现跨对象碰撞过滤。
+这些排除项不等于物理问题已解决，仍以新对照结果为准。
+
+## 2026-09-22 all-committed-06 / 07：接触问题继续定位
+
+06 使用 `946c17e`、`physics_substeps=10`，保持 RL 控制周期 20 ms。微波炉任务 PASS：
+4 个环境、128 transitions、PPO 参数更新、部分 reset、terminal observation 和物理成功 fixture
+均通过。架中层锅仍直接落到桌面，2 ms 物理步没有恢复中板接触；该结果不能把根因归结为
+10 ms 步长造成的 tunneling。证据位于 `20260922-all-committed-06/`。
+
+07 对支撑与目标做交叉验证：同一 frying pan 放炉灶和放 Shelf073 顶部均 PASS，Book042 放
+Shelf073 中层 FAIL，接触力始终为零并落到桌面。由此问题缩小到 Shelf073 的中层碰撞体，
+不是 frying pan 的通用碰撞、质量或姿态问题。三项均使用 10 个物理子步；证据位于
+`20260922-all-committed-07/`。源 USD 检查未发现过滤关系、resetXformStack、陈旧 extent 或
+link/COM frame 混用，但这些离线检查还不能证明运行时中板碰撞形状有效。
+
+下一项实验用 `normalize_box_colliders.py` 将指定的 8 顶点近似箱形 collision mesh 覆盖为
+UsdGeom.Cube。Shelf073 中板 C002 不是严格长方体，其顶点与轴对齐包围盒角点的最大偏差约
+0.84 mm；实验显式使用 1 mm 容差，并只替换 C002。脚本核对替换前后父坐标包围盒，并写输入
+SHA、近似误差和包围盒误差；它输出新的 reference overlay，不修改 SDK 缓存。若替换资产后的
+同任务 GPU 对照通过，只能把原因缩小到 Mesh/convexHull 表示或这项亚毫米几何差异；仍不能把
+代表任务结果外推为 131 项全部通过。
+
+## 2026-09-23 P5000：中层碰撞与 RL 对照
+
+被测提交 `4785fe0e2790d389159044aef7856d9c6e1139e4`。P5000 pod 无法连接默认的
+NVIDIA Panda USD HTTPS 地址；从先前成功的 H20 Omni 缓存重建同内容的 14 个 USD 文件，
+逐文件 SHA 核对后通过 `--panda-usd` 使用本地路径。该参数只改变 Panda 资产的获取路径。
+CPU 使用 Python 3.12.13：18 passed。三项 GPU 测试使用 Isaac Sim 6.0.1、IsaacLab
+3.0.0b2.post1、Arena 0.3.0、4 个环境、2 ms 物理步和 20 ms RL 控制步，逐项独占 GPU 0：
+
+| case | 结果 | transitions | actor / critic 最大更新 |
+| --- | --- | ---: | ---: |
+| L90S4 书放架中层 | PASS | 128 | 0.0006004 / 0.0005842 |
+| L90K9 锅放架中层 | PASS | 128 | 0.0006004 / 0.0005866 |
+| L90K9 锅放柜顶 | PASS | 128 | 0.0006004 / 0.0005864 |
+
+三项均通过两路 RGB、部分 reset、terminal observation、物理成功夹具和 PPO 参数更新。
+仅替换 Shelf073 中板 C002 为 `UsdGeom.Cube` 后，锅中层从此前无接触变为 PASS；书中层
+获得约 4.9 N 稳定支撑接触，但完整书本几何底界比原目标体积下界低 1.43 mm，因此将
+中层目标体积下界降 2.4 mm，保持上界不变。最后三项均在该目标体积修正后的提交上复跑。
+overlay 的源 SHA、0.840 mm 顶点近似误差和零包围盒误差记录在证据清单中。
+
+完整 stdout、图像、结果 JSON、资产 SHA 和 CPU 日志已校验归档到
+`/mnt/ceph-zjk1-csp/mm-base-plt2/nrwu/benchmarks/arena-libero-rl/20260923-p5000-shelf-01/`；
+`artifacts.tar.gz` 的 SHA256 为
+`7961a812e1b7435102bb4c87b32f32d166c8718e8e5de1720efa3970993b6d46`。
+测试后没有残留 Kit 或 Xid，dguard 已恢复。该对照验证这三项真实 RL 链路，131 项全量
+GPU 验收仍待执行；overlay 同时改变 Mesh 类型及最多 0.840 mm 的形状，单凭此实验不能
+区分两者哪项导致恢复接触。
+
+## 2026-09-23 P5000：重启后可复用的 Ceph 资产
+
+将原始场景与物体、转换后的 BBQ sauce、14 个 Panda USD 文件，以及由 Shelf073
+源文件按 `Shelf073_C002`、1 mm 容差生成的碰撞覆盖，存放于当前 P5000 的
+`${MY_DFS}/isaacsim_assets/arena_libero/v1/`。`assets/` 中 33 个 USD 入口均可解析，
+场景、柜子、中层隔板和 Panda USD 均能从 Ceph 打开；`manifest.json` 留有源归档、
+隔板源和覆盖文件的 SHA256。原始归档仍在 `${MY_DFS}/benchmarks/arena-libero-assets-transfer/`。
+
+使用 `/opt/venvs/carrot`、Python 3.12.13、Isaac Sim 6.0.1，直接以 Ceph 的
+`assets/` 为 `--asset-root`、`panda/.../panda_instanceable.usd` 为 `--panda-usd`，
+对 `libero_90/L90K9_put_the_frying_pan_on_the_cabinet_shelf` 执行 4 环境、
+10 物理子步的 GPU 回归，结果 PASS：128 transitions、两路 RGB、部分 reset、
+terminal observation、success fixture 和 PPO actor/critic 参数更新均通过。
+结果 JSON 在 `${MY_DFS}/isaacsim_assets/arena_libero/v1/validation/result.json`。
+该验证证明 P5000 不依赖节点 `/root` 资产或在线 Panda URL 即可运行这个代表任务；
+没有对其他 Ceph mount 或全部 131 个 case 作相同验证。

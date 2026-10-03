@@ -197,7 +197,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         *,
         state_dict: dict[str, Tensor] | None = None,
     ) -> None:
-        """Save weights and architecture metadata in OpenPI PyTorch format.
+        """Save BF16 inference weights and metadata in OpenPI PyTorch format.
 
         Parameters
         ----------
@@ -233,7 +233,10 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
         }
         if not floating_dtypes <= {torch.bfloat16, torch.float32}:
             raise ValueError(f"unsupported checkpoint dtypes: {sorted(map(str, floating_dtypes))}")
-        precision = "bfloat16" if torch.bfloat16 in floating_dtypes else "float32"
+        tensors = {
+            name: tensor.to(torch.bfloat16) if tensor.is_floating_point() else tensor
+            for name, tensor in tensors.items()
+        }
         save_torch_state_dict(
             tensors,
             directory,
@@ -245,9 +248,7 @@ class PI0Pytorch(ModelMixin, ConfigMixin):
             "action_horizon": self.config.action_horizon,
             "paligemma_variant": self.config.paligemma_variant,
             "action_expert_variant": self.config.action_expert_variant,
-            # FSDP2 exports FP32 master weights. Record their storage precision so
-            # resume does not silently cast them back to the source BF16 config.
-            "precision": precision,
+            "precision": "bfloat16",
         }
         with (directory / "config.json").open("w") as stream:
             json.dump(config, stream, indent=2)

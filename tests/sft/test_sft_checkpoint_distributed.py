@@ -25,7 +25,7 @@ class _ExportableLinear(torch.nn.Linear):
         for name, value in state_dict.items():
             tensor = value.full_tensor() if isinstance(value, DTensor) else value
             if rank_zero:
-                tensors[name] = tensor.detach().cpu().contiguous()
+                tensors[name] = tensor.detach().cpu().bfloat16().contiguous()
             del tensor
         if not rank_zero:
             dist.barrier()
@@ -88,8 +88,12 @@ def _run_fsdp_checkpoint_round_trip(
         assert (checkpoint / "model.safetensors").is_file()
         assert (checkpoint / "optimizer" / ".metadata").is_file()
 
-        # 在销毁旧训练对象前保存期望输出；optimizer 预期值已按各 rank 本地 shard 固化。
-        expected_output = model(inputs).detach()
+        # 续训接受 BF16 舍入，输出参考应来自导出的参数而非原 FP32 master。
+        exported = {
+            name: value.to(device=inputs.device, dtype=torch.float32)
+            for name, value in load_file(checkpoint / "model.safetensors").items()
+        }
+        expected_output = torch.nn.functional.linear(inputs, exported["weight"], exported["bias"])
         del model, optimizer
 
         # 模拟新进程先加载 OpenPI 模型文件，再按相同拓扑重新建立 FSDP2 和 optimizer。
@@ -103,7 +107,7 @@ def _run_fsdp_checkpoint_round_trip(
             lambda _: 1.0,
         )
 
-        # optimizer-only DCP 必须恢复 shard，trainer_state 必须恢复 scheduler 和 step。
+        # DCP 只恢复 optimizer shard，trainer_state 恢复 scheduler 和 step。
         step = load_checkpoint(
             checkpoint,
             resumed_optimizer,
@@ -112,7 +116,7 @@ def _run_fsdp_checkpoint_round_trip(
         assert step == 1
         assert resumed_scheduler.state_dict() == scheduler.state_dict()
 
-        # 两个 FSDP2 模型在相同输入上的输出必须严格一致，证明根目录模型权重完整。
+        # 恢复后的输出必须与 BF16 导出参考一致，允许与原 FP32 master 输出有差异。
         torch.testing.assert_close(resumed_model(inputs), expected_output, rtol=0, atol=0)
 
         # 每个 rank 的本地 AdamW step 和两个 moment 必须与保存前的 shard 严格一致。
@@ -140,7 +144,7 @@ def _run_fsdp_checkpoint_round_trip(
 
 
 def test_fsdp_checkpoint_round_trip(tmp_path: Path) -> None:
-    # 验证真实两卡 FSDP2 下，OpenPI 模型根目录与 optimizer-only DCP 能共同完成 resume。
+    # 验证两卡 FSDP2 从 BF16 模型导出续训，并完整恢复 optimizer-only DCP。
     if torch.cuda.device_count() < 2:
         pytest.fail("FSDP checkpoint round trip requires two CUDA devices")
     # Arrange：使用独立 rendezvous 文件和 checkpoint 目录隔离并行测试的共享状态。

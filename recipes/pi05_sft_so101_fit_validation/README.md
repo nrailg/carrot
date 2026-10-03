@@ -1,5 +1,97 @@
 # SO101逐步拟合验证
 
+## 2026-10-03：当前进度与后续顺序
+
+目标顺序保持：**拟合能力 → 简单条件真机 closed-loop replay → 泛化**。
+只采用主代理独立核验的新 suite/audit 证据；旧代理结论不作为验收。
+
+| 验证条件 | 当前进度 | 已确认的结论 / 尚缺的证据 |
+|---|---|---|
+| 单 episode | 新数据264帧，含视觉h10组1000step完成 | 原FP32评估已核验；完整episode需在BF16生产采样条件下重评，未验收充分拟合 |
+| horizon 降到10 | 四个新消融组均使用h10 | 这是新suite统一条件，未新做h50与h10的严格配对对照 |
+| 去掉视觉 | 整episode无视觉组1000step完成 | 原FP32主指标核验通过；BF16重评待执行 |
+| 只用一个frame | frame53随机noise组1000step完成 | 原FP32八noise评估已核验；BF16同条件重评待执行 |
+| 同frame固定noise | frame53/noise1053组1000step完成 | BF16/eager全计算与条件KV cache均能很好拟合，五运动轴MAE约0.02–0.09°；不扩展为跨noise或整episode成功 |
+| 推理路径与导出 | BF16导出、optimizer-only续训、SDPA dtype assert已实现 | 最后两轮定向测试7项与cache测试6项PASS；旧37.55°来自audit错误的SDPA/mask组合，并非生产cache代表 |
+
+下一步先复用现有checkpoint，在独立输出目录保存BF16推理导出，
+通过正常policy/`sample_actions()`重评同frame、同noise，再覆盖其余三组。
+不追加训练、不覆盖历史checkpoint；episode主指标仍为264唯一观测各一次，
+固定noise验收使用1053本身，重复/其他noise另列。首1/5步指标与全10步指标分开报告。
+当前尚未执行这轮完整生产入口重评，不能把代码回归PASS当成新的拟合结果。
+
+真机阶段等用户结束休假、有设备后执行：
+1. 绕过模型，按录制FPS replay原始action，核对关节顺序、单位、限幅后的实际目标和反馈。
+2. 录制observation输入已离线验收的policy，执行预测动作，检查正式部署链路与离线结果一致。
+3. 使用真实state/图像，在接近示教的简单场景中闭环重放；**同步infer→执行→重新观测作为基线**。
+4. 同步闭环通过后再比较异步，再进行物体位置/初始姿态等泛化验证。
+
+当前无新policy/机器人操作，自动检查保持暂停；新日志均已归档，dguard恢复。
+
+## 2026-10-03：BF16 保存与续训
+
+用户确认推理导出应保存 BF16。`PI0Pytorch.save_pretrained()` 现在将浮点权重副本
+转换为 BF16，并写入 `precision=bfloat16`；不原地改动训练参数，不覆盖旧实验 checkpoint。
+strict reload 后 attention 使用 BF16，保留模型原有的 FP32 normalization/projection 计算规则。
+
+续训直接加载根目录 BF16 模型，建立 FSDP 后恢复 optimizer、scheduler 和 step。
+`optimizer/` DCP 只保存 optimizer，不额外保存 FP32 master；接受模型参数的 BF16 舍入损失。
+无版本字段、历史格式兼容分支或额外 model 恢复参数。
+
+BF16 导出初次验证：50项回归 **PASS**（41.45s），含当时的两项兼容测试；
+用户随后要求移除兼容逻辑，这两项测试已删除；简化后的定向回归 **7项 PASS**（34.70s）。
+简化前真实 PI05 两卡保存/重载/再次保存：**PASS**（228.84s）；
+这是此前完整master恢复方案的历史结果；当前改回 optimizer-only DCP，定向回归 **7项 PASS**（34.78s）；
+本轮未重跑真实3B两卡测试。证据位于上述目录的 `optimizer_only/`。
+证据：`MY_DFS/test-runs/so101_bf16_export_20261003/`；测试三件套见
+`tests/pi_05/test_pi05_modeling.*`、`tests/pi_05/test_pi05_checkpoint_distributed.*`、
+`tests/sft/test_sft_checkpoint.*`、`tests/sft/test_sft_checkpoint_distributed.*`。
+
+SDPA mask dtype BUG 是独立问题：旧 audit 的条件 prefill 使用 SDPA；当前训练的双流
+full forward 和正常 `sample_actions()` 都使用 eager，未经过出错的 cuDNN SDPA 分支。
+本次没有重新跑四组训练或宣称新增拟合指标；真机验证仍待执行。
+
+## 2026-10-03：缓存差异定位与修复
+
+**旧 audit 的 BF16 缓存 37.55° 肩部误差来自错误的 backend/mask dtype 组合，
+不能代表生产 `sample_actions()` 的缓存路径。** 生产入口将条件/action 设为 eager；
+旧 audit 直接 prefill，条件分支默认 SDPA，却传入 FP32 additive mask。
+
+当前 H20 / torch2.11.0+cu128 / transformers5.5.4，BF16 SDPA 实际使用 cuDNN。
+最小复现中，修改被 block mask 禁止读取的动作 token，条件输出仍改变，最大差异8.8125。
+独立数学参考验证：BF16 Q/K/V + FP32 mask 时 cuDNN 有效 query max error0.857032；
+同一 mask 转成 BF16 或 bool 后降到0.003536，与 math backend 同量级。
+最初在 `GemmaAttention` 内转换 mask dtype 以验证修复；按用户要求现改为 assert，
+浮点 mask 必须与 query dtype 一致，bool 合法，禁止底层隐式转换。
+audit 在 prefix mask 构造入口显式指定计算 dtype；默认 eager，并记录实际 SDPA 内核。
+当前 mask contract/cache GPU 回归 **6项 PASS**（17.29s），未重跑真实 checkpoint audit；
+证据位于上述 cache diagnosis 证据根的 `dtype_assert/`。
+
+同一已训练 checkpoint/frame53/noise1053，10 NFE，无新增训练：
+
+| 条件 | 采样路径 | pan MAE° | lift MAE° | 五运动轴 MAE° |
+|---|---|---:|---:|---|
+| BF16参数/输入，原FP32 buffers | full forward/eager | 0.05496 | 0.07471 | [0.05496,0.07471,0.06648,0.08541,0.02029] |
+| 同精度，修复前正确设置eager | KV cache/eager | 0.05853 | 0.05841 | [0.05853,0.05841,0.07138,0.06983,0.01971] |
+| 同精度，旧SDPA+FP32 mask复现 | KV cache/错误mask dtype | 6.38102 | 37.55038 | [6.38102,37.55038,4.69201,12.24285,1.75125] |
+| 同精度，修复mask dtype | KV cache/SDPA-cuDNN | 0.02739 | 0.06163 | [0.02739,0.06163,0.10193,0.07087,0.01166] |
+| 原FP32 master参数/FP32计算 | full forward/eager | 1.44334 | 1.68998 | [1.44334,1.68998,0.39601,0.36083,0.17860] |
+| 参数先BF16舍入，再转回FP32计算 | full forward/eager | 0.02116 | 0.06865 | [0.02116,0.06865,0.09663,0.04767,0.02208] |
+
+最后一个对照保留 FP32 运算，仅把参数变成训练BF16计算所使用的可表示值；
+证据将原FP32重载残差主要定位到 master 参数值与 BF16 有效参数值的差异，
+不能解释为 FP32 运算本身错误。FSDP配置param_dtype=BF16，导出保存FP32 master且precision=FP32；
+本节诊断时默认推理加载该FP32配置；后续BF16导出修复见顶部小节，旧checkpoint仍保留原样。
+缓存结构本身没有发现跨层/位置错误；eager full/cache teacher velocity max gap0.015625，
+修复后的SDPA/full max gap0.078125，两个backend数值不保证逐bit相同。
+
+6项新GPU回归及相关推理/SFT/recipe测试共 **48/48 PASS**，17.96s；
+修复前新增block隔离测试FAIL，修复后PASS；Ruff/bash/compile检查PASS。
+主代理在Mac从原Parquet frame53..62复算3次审计/30份rollout的MAE/P95/max，全部通过。
+证据：`MY_DFS/test-runs/so101_cache_diagnosis_20261003/`，包含修复前源码、3次audit结果、
+SDPA mask探测、独立复算、日志与源码hash；详细测试档案见
+`tests/pi_05/test_pi05_cache_parity.md`。未追加训练或操作机器人，自动检查仍暂停。
+
 ## 2026-10-03：主代理独立重跑（训练、评估与推理审计已完成）
 
 ### 本轮实验进度表

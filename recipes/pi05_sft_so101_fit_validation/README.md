@@ -1,5 +1,79 @@
 # SO101逐步拟合验证
 
+## 2026-10-03：含视觉完整 episode 的 BF16 生产入口重评
+
+用户要求测试解除无视觉、单frame、固定noise后的拟合能力。复用新suite
+`20261002T183105Z/episode_h10/training_output/checkpoints/step-00001000`，
+训练条件是264帧、腕部视觉、随机noise、h10、1000step、warmup100、constant1e-6。
+本轮不训练。源码基线 `a64da4ae92839e2b1f175cdf29b1e33eaafd3782`，
+另加本节评估脚本；历史上游OpenPI参考commit `215abfb217dbac7d5f1273282331b9b1866c0479`，
+本次Mac没有上游checkout，未重新核验其HEAD；实际Docker image tag未记录。
+
+| 项目 | 条件 / 进度 |
+|---|---|
+| 权重 | 新目录保存BF16副本，严格重载；保留生产FP32 norm/projection规则 |
+| 推理 | `create_so101_policy → Pi05Policy.infer → sample_actions`，eager条件KV cache，10 NFE |
+| 主指标 | 264唯一观测各一次，2595有效action行；首1/5/10步MAE/P95/max分别统计 |
+| noise | 每帧使用不同的seeded Gaussian；与旧FP32评估逐元素配对，不是固定训练noise；沿用BF16舍入latent协议 |
+| 跨noise探测 | frame53/82/201/202各额外7个noise，共28预测，单列统计 |
+| 验收 | 核对exit0、292份NPZ、原Parquet reference/padding/noise、独立复算指标及旧checkpoint未改；0.1°逐轴MAE仅作与最简case比较的诊断线 |
+| 当前状态 | 已完成：task `32434904-0263` exit0（212s），远端独立核验task `32434904-0266` exit0；Mac原始Parquet再次核验PASS；dguard开关恢复，负载异常见收尾记录 |
+
+执行命令（MY_DFS经本次Gemini会话实际检测）：
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+CUDA_VISIBLE_DEVICES=2 bash recipes/pi05_sft_so101_fit_validation/reevaluate.sh \
+  --case-dir "$MY_DFS/experiments/carrot/pi05_so101_fit_validation/20261002T183105Z/episode_h10" \
+  --output "$MY_DFS/experiments/carrot/pi05_so101_fit_validation/reeval_episode_h10_bf16_20261003T100100Z" \
+  --source-commit a64da4ae92839e2b1f175cdf29b1e33eaafd3782
+```
+
+预期输出：BF16派生checkpoint/stats、源码快照与hash、环境/provenance、
+`loaded_dtypes.json`、292份NPZ、`metrics.json`、独立核验和后台日志。
+结果只用于同一条训练episode的离线拟合判断，真机与泛化仍待执行。
+
+**结论：解除无视觉、单frame、固定noise后，现有1000step checkpoint没有保持最简case的拟合精度。**
+BF16正式入口比同frame/reference/noise的旧FP32评估明显改善，五轴全h10 MAE均值下降39.0%，
+这比较的是旧FP32导出/重载与BF16精度对齐后的生产eager结果，**不是SDPA mask BUG修复前后对照**。
+旧整episode评估同样使用`sample_actions()` eager，不触发SDPA/cuDNN浮点mask问题。
+但仍存在约1.19°肩部抬升平均误差，P95约3.23°，最大7.91°；不能宣称充分overfit。
+误差是Unnormalize后的源action单位：前五轴degrees，gripper单列源单位。
+
+本轮讨论后的阶段判断：**拟合能力已验证，完整episode含视觉/随机noise也达到较小平均角度误差**。
+不要求所有条件都达到最简case的0.1°诊断线才进入下一阶段；下一步重点是简单条件真机replay，
+检查局部大误差及闭环累积偏差。用户仍休假无设备，硬件保持待执行。
+
+| 主指标：264唯一观测 | shoulder_pan | shoulder_lift | elbow_flex | wrist_flex | wrist_roll |
+|---|---:|---:|---:|---:|---:|
+| 旧FP32，全h10 MAE° | 0.649220 | 1.872763 | 0.929508 | 1.536900 | 0.146973 |
+| BF16，首1步 MAE° | 0.457278 | 1.105927 | 0.510130 | 0.745900 | 0.084642 |
+| BF16，首5步 MAE° | 0.420957 | 1.073697 | 0.495869 | 0.748692 | 0.074026 |
+| BF16，全h10 MAE° | 0.486372 | 1.191866 | 0.562415 | 0.813097 | 0.078097 |
+| BF16，全h10 P95° | 1.411389 | 3.227396 | 1.654141 | 2.133708 | 0.221232 |
+| BF16，全h10 max° | 6.175968 | 7.906086 | 5.923515 | 5.559110 | 1.144932 |
+
+首1/5/10步有效action行数分别264/1310/2595。28额外noise probe共280行，
+全h10五轴MAE `[0.386385,1.461881,0.601726,1.243343,0.091566]°`，
+P95 `[1.230163,3.227892,1.338897,3.019072,0.232683]°`，
+max `[2.919974,6.858925,1.870647,5.748055,0.417030]°`；不混入主指标。
+gripper全h10主指标MAE/P95/max为0.005780/0.021923/0.077322源单位，不能标为degrees。
+
+292份NPZ、292个不同noise张量、264唯一主观测及28probe全部核对；每份reference/padding
+与远端原Parquet、Mac录制原Parquet逐元素一致，noise与原FP32评估及seed重建逐元素一致。
+MAE/P95/max均独立复算通过；原checkpoint权重/config/stats SHA256前后不变。
+存储权重全部BF16，严格生产加载后690个BF16/122个FP32 parameter tensors；
+LM/action Q projection均BF16，action_in_proj及既有norm/patch规则保持FP32，两个attention backend为eager。
+大误差主观测frame96/65/150/8/94等已写入独立核验，尚不能从这些数值推断新的BUG或剩余误差根因。
+
+证据根：`MY_DFS/experiments/carrot/pi05_so101_fit_validation/reeval_episode_h10_bf16_20261003T100100Z/`。
+评估与核验后台日志分别`evaluation_backend.log`/`validation_backend.log`，任务均dump释放；
+本地副本`/Users/wujunyu/.cache/carrot/reeval_episode_h10_bf16_20261003T100100Z/`。
+torch2.11.0+cu128/transformers5.5.4/lerobot0.6.1/NumPy2.3.1/H20；
+Mac/GPU六评估相关源码hash一致，脚本Ruff/compile/bash/diff检查PASS。
+其它消融的BF16生产入口重评仍待执行；评估阶段没有新增训练、机器人操作或commit/push，
+自动检查保持暂停。本轮提交只保存评估/核验脚本与记录，不改生产模型或attention backend。
+
 ## 2026-10-03：当前进度与后续顺序
 
 目标顺序保持：**拟合能力 → 简单条件真机 closed-loop replay → 泛化**。
@@ -7,18 +81,18 @@
 
 | 验证条件 | 当前进度 | 已确认的结论 / 尚缺的证据 |
 |---|---|---|
-| 单 episode | 新数据264帧，含视觉h10组1000step完成 | 原FP32评估已核验；完整episode需在BF16生产采样条件下重评，未验收充分拟合 |
+| 单 episode | 新数据264帧，含视觉h10组1000step完成；BF16正式入口重评完成 | 配对全h10五轴MAE [0.486,1.192,0.562,0.813,0.078]°，平均误差较小；局部误差及闭环待真机验证 |
 | horizon 降到10 | 四个新消融组均使用h10 | 这是新suite统一条件，未新做h50与h10的严格配对对照 |
 | 去掉视觉 | 整episode无视觉组1000step完成 | 原FP32主指标核验通过；BF16重评待执行 |
 | 只用一个frame | frame53随机noise组1000step完成 | 原FP32八noise评估已核验；BF16同条件重评待执行 |
 | 同frame固定noise | frame53/noise1053组1000step完成 | BF16/eager全计算与条件KV cache均能很好拟合，五运动轴MAE约0.02–0.09°；不扩展为跨noise或整episode成功 |
 | 推理路径与导出 | BF16导出、optimizer-only续训、SDPA dtype assert已实现 | 最后两轮定向测试7项与cache测试6项PASS；旧37.55°来自audit错误的SDPA/mask组合，并非生产cache代表 |
 
-下一步先复用现有checkpoint，在独立输出目录保存BF16推理导出，
-通过正常policy/`sample_actions()`重评同frame、同noise，再覆盖其余三组。
+本轮按用户要求先完成含视觉完整episode的BF16正式入口重评。拟合能力阶段已经获得证据，
+后续重点转向简单条件真机replay；其余消融BF16重评保留为可继续诊断的事项。
 不追加训练、不覆盖历史checkpoint；episode主指标仍为264唯一观测各一次，
 固定noise验收使用1053本身，重复/其他noise另列。首1/5步指标与全10步指标分开报告。
-当前尚未执行这轮完整生产入口重评，不能把代码回归PASS当成新的拟合结果。
+本轮完整episode结果见顶部；其余组的代码回归PASS不能作为新的拟合结果。
 
 真机阶段等用户结束休假、有设备后执行：
 1. 绕过模型，按录制FPS replay原始action，核对关节顺序、单位、限幅后的实际目标和反馈。
@@ -26,7 +100,13 @@
 3. 使用真实state/图像，在接近示教的简单场景中闭环重放；**同步infer→执行→重新观测作为基线**。
 4. 同步闭环通过后再比较异步，再进行物体位置/初始姿态等泛化验证。
 
-当前无新policy/机器人操作，自动检查保持暂停；新日志均已归档，dguard恢复。
+当前未启动策略服务或机器人操作，自动检查保持暂停；新日志均已归档。
+
+收尾补充：`dguard on`已恢复DGUARD_WATCH=1、guard.sh运行、无恢复计划，
+随后复检发现run.py未持续运行，日志报告C10d rendezvous连接127.0.0.1:53628超时。
+这不影响已退出并独立核验的评估；未改dguard源码/配置或打断其它任务。
+前文“dguard已恢复”仅确认开关恢复，不作为巡检负载持续正常的证据，
+状态及错误日志已存`dguard_status_inspection.log`/`dguard_log_inspection.log`。
 
 ## 2026-10-03：BF16 保存与续训
 

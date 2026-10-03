@@ -1,4 +1,71 @@
-# SO101 knock_down_the_cylinder：两条 episode 的拟合实验
+# SO101 knock_down_the_cylinder：拟合实验
+
+## 2026-10-03：完整单 episode 延长拟合（当前配置，尚未启动）
+
+用户取消后续无视觉、单frame、固定noise等简化实验，继续已验证能拟合的完整episode条件。
+目的：在同一训练数据上增加训练预算，比较误差能进一步降低到什么程度；真机测试等用户休假结束。
+以下历史配置与结果保留，本轮以本节和当前`train.yaml`为准。
+
+| 项目 | 本轮配置 |
+|---|---|
+| 数据 | `nrailg/knock_down_the_cylinder_1_20260930_222251`，1 episode / 264帧 / 15 FPS |
+| 输入 | 全部帧、腕部RGB、原prompt `Knock down the cylinder`、原metadata统计量 |
+| 随机性 | 普通`Pi05SFTLossFn`，每batch随机noise与t，不使用简化实验worker |
+| 初始化 | 官方`Physical-Intelligence/pi05_base_pytorch`的独立副本`pi05_base_pytorch_h10`；权重不变，不resume，新optimizer/scheduler，从step0开始 |
+| action horizon | 副本`config.json`中只将`action_horizon`从50改为10，匹配dataset h10 |
+| 预算 | 全新训练5000step，未加载先前SFT模型或训练状态 |
+| LR | 前100step warmup到1e-6，之后constant1e-6；decay_steps=5000且floor=peak |
+| 并行 / batch | 8 GPU BF16 FSDP，micro4 / global64 / GAS2，seed1000 |
+| checkpoint | 每1000step保存；预期新step1000/2000/3000/4000/5000，模型导出BF16 |
+| 输出 | `$MY_DFS/experiments/carrot/pi05_sft_so101_knock_down_the_cylinder_overfit_h10_5000`，禁止覆盖旧结果 |
+| 状态 | 只调整配置和入口，尚未启动；本地源码基线`0d030f4`加本轮修改；镜像tag未记录 |
+
+启动时先重新核对MY_DFS、源码同步、GPU/Ray和dguard，再运行：
+
+```bash
+export MY_DFS=/mnt/ceph-hz1-csp/mm-base-plt2/nrwu
+export RAY_ADDRESS=<verified-ray-address>
+bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/run.sh"
+```
+
+用户明确要求从官方base重新训练，已撤销先前step1000续训方案。
+按用户要求，复制官方base到`$MY_DFS/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10`，
+仅修改副本`config.json`的`action_horizon: 10`。原base及复制后的权重不修改。
+已删除新增recipe `train.py`；`run.sh`恢复普通`python -m carrot.cli.train_sft`入口，
+不传`--resume`，训练loop/loss/随机noise和t保持生产实现。新checkpoint按已合入fix导出BF16。
+
+评估计划：用正式`create_so101_policy → infer → sample_actions`，eager cache / 10NFE，
+每个checkpoint在264唯一训练观测各测一次，固定每帧各自的noise以与step1000配对，
+额外跨noise探测单列；首1/5/10步分别报告MAE/P95/max及最差帧，排除episode padding。
+当前step1000全h10五轴MAE基线为`[0.486372,1.191866,0.562415,0.813097,0.078097]°`。
+本目录原`evaluate.py`/`diagnose.py`/`serve.sh`保留历史两episode/h50与旧模型设置，
+不作为本轮评估/服务入口；本轮完整episode评估协议见
+[已完成的BF16重评](../pi05_sft_so101_fit_validation/README.md)。
+
+验收分别核对官方base初始化/step0、新optimizer/scheduler、100step warmup、
+训练结束step5000/exit0、5000条有限训练指标/LR、五个BF16 checkpoint和stats，再独立复算评估预测。
+本轮仅准备配置，不声称新训练或评估已完成；不进行机器人动作，不恢复简化实验自动检查。
+
+此前已撤销的resume方案准备检查（不作为当前base初始化证据）：Gemini32434904实际检测当前MY_DFS，同步后train.yaml/run.sh SHA256与Mac一致；
+`/opt/venvs/carrot`下`SFTConfig`解析通过，源checkpoint架构h10/dim32、step与scheduler均1000，
+optimizer DCP metadata、tokenizer和dataset完整，新输出目录未存在。
+CPU scheduler恢复原状态后逐步检查1001–5000，LR始终1e-6；bash语法和git diff检查通过。
+本次没有执行真实DCP恢复、训练、GPU评估或机器人操作，不能把配置检查当续训通过。
+
+此前已撤销的自定义worker方案准备检查：Gemini32434904重新检测MY_DFS，train.yaml/run.sh/train.py
+三文件Mac/GPU SHA256一致，Ruff/compile/bash/diff检查PASS。
+CPU契约检查用生产`Pi05SFTLossFn.prepare_inputs`确认未对齐h50会拒绝h10 batch，
+隔离GPU/FSDP初始化后执行真实recipe setup hook，h10 batch通过，权重、loss对象和step0不变。
+新scheduler逐步检查step1–99为warmup，100–5000保持1e-6；官方base资源/config存在。
+这是CPU配置/契约检查，未完整重载3B base或执行真实训练，不能当成GPU启动通过。
+
+当前简化方案已落实：Gemini task`32434904-0278`复制官方checkpoint到上述h10副本，exit0/30s，
+只修改根`config.json`的horizon。权重SHA256两份一致：
+`df7352a32146db5dc72708cc70932cf7ff79f222769dce5a80dc4b23616cb974`，文件为独立副本；
+原config仍h50，其它checkpoint文件内容核对一致，普通SFT配置解析和bash/diff检查PASS。
+已确认新增`train.py`在Mac/GPU均删除，train.yaml/run.sh两端hash一致，模型与数据均h10。
+复制日志：`MY_DFS/experiments/carrot/pi05_so101_fit_validation/base_h10_copy_20261003.log`，
+任务已归档释放；没有启动训练或GPU评估。
 
 ## 2026-09-30：数据直接传递（尚未启动新训练）
 

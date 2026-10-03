@@ -312,6 +312,13 @@ class GemmaAttention(nn.Module):
         attention_interface: Callable = eager_attention_forward
         if self.config._attn_implementation != "eager":
             attention_interface = ALL_ATTENTION_FUNCTIONS[self.config._attn_implementation]
+        if self.config._attn_implementation == "sdpa" and attention_mask is not None:
+            # 旧 audit 的 prefix prefill 默认 SDPA，却给 BF16 Q/K/V 传入 FP32 additive mask。
+            # 在 H20 / PyTorch 2.11 的 cuDNN SDPA 中，该组合使 mask 失效，缓存结果大幅偏离 eager。
+            # 调用方须对齐浮点 mask dtype；此处拒绝错误组合而不隐式转换，bool mask 仍合法。
+            assert attention_mask.dtype in (torch.bool, query_states.dtype), (
+                f"SDPA mask dtype {attention_mask.dtype} must be bool or {query_states.dtype}"
+            )
 
         attn_output, attn_weights = attention_interface(
             self,

@@ -84,22 +84,30 @@ def _run_pi05_checkpoint_round_trip(
             first_exp_avg[0] = rank + 1
         expected_optimizer = _optimizer_probe(optimizer)
 
+        # 写入 BF16 无法精确表达的参数，验证续训明确接受模型导出的舍入。
+        master_probe = _local_tensor(model.action_in_proj.weight).flatten()
+        master_probe[:8].fill_(0.123456)
+        expected_master = master_probe[:8].bfloat16().float().cpu().clone()
+
         save_checkpoint(checkpoint, model, optimizer, scheduler, step=123)
         if rank == 0:
             assert (checkpoint / "model.safetensors").is_file()
             assert (checkpoint / "optimizer" / ".metadata").is_file()
             with (checkpoint / "config.json").open() as stream:
                 saved_config = json.load(stream)
-            assert saved_config["precision"] == "float32"
+            assert saved_config["precision"] == "bfloat16"
         dist.barrier()
 
-        del model, optimizer, scheduler, first_state, first_exp_avg
+        del model, optimizer, scheduler, first_state, first_exp_avg, master_probe
         gc.collect()
         torch.cuda.empty_cache()
 
         # checkpoint 根目录必须能被 PI0Pytorch 直接 strict load，再恢复 optimizer shard。
         resumed_model = PI0Pytorch.from_pretrained(checkpoint).to(rank)
-        assert all(parameter.dtype is torch.float32 for parameter in resumed_model.parameters())
+        query = (
+            resumed_model.paligemma_with_expert.paligemma.language_model.layers[0].self_attn.q_proj
+        )
+        assert query.weight.dtype is torch.bfloat16
         parallelize_model(resumed_model, Pi05Parallelizer(), FSDPConfig())
         resumed_optimizer = torch.optim.AdamW(
             resumed_model.parameters(),
@@ -112,6 +120,10 @@ def _run_pi05_checkpoint_round_trip(
         )
         step = load_checkpoint(checkpoint, resumed_optimizer, resumed_scheduler)
         assert step == 123
+
+        # FSDP 参数应为 BF16 舍入值转回 FP32，不要求额外保存原始 master。
+        actual_master = _local_tensor(resumed_model.action_in_proj.weight).flatten()[:8].cpu()
+        torch.testing.assert_close(actual_master, expected_master, rtol=0, atol=0)
 
         actual_optimizer = _optimizer_probe(resumed_optimizer)
         assert actual_optimizer["count"] == expected_optimizer["count"]

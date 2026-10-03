@@ -21,13 +21,16 @@ class _ExportableLinear(torch.nn.Linear):
         directory.mkdir(parents=True, exist_ok=True)
         tensors = self.state_dict() if state_dict is None else state_dict
         save_file(
-            {name: tensor.detach().cpu().contiguous() for name, tensor in tensors.items()},
+            {
+                name: tensor.detach().cpu().bfloat16().contiguous()
+                for name, tensor in tensors.items()
+            },
             str(directory / "model.safetensors"),
         )
 
 
 def test_checkpoint_round_trip(tmp_path: Path) -> None:
-    # 验证模型使用 OpenPI 根目录格式保存，同时 optimizer DCP、scheduler 和 step 能完整恢复。
+    # 续训接受模型参数的 BF16 舍入，但 optimizer、scheduler 和 step 必须完整恢复。
     # Arrange：先执行一次 AdamW 更新，确保 optimizer 已创建非空 moment 状态。
     checkpoint = tmp_path / "checkpoint"
     model = _ExportableLinear(2, 1)
@@ -40,14 +43,14 @@ def test_checkpoint_round_trip(tmp_path: Path) -> None:
     expected = {name: value.detach().clone() for name, value in model.state_dict().items()}
     expected_optimizer = copy.deepcopy(optimizer.state_dict())
 
-    # Act：保存统一目录，并检查模型不再嵌套在 pretrained_model 或模型 DCP 中。
+    # Act：保存统一目录，检查根目录推理导出和独立 DCP 训练状态。
     save_checkpoint(checkpoint, model, optimizer, scheduler, step=1)
     exported = load_file(checkpoint / "model.safetensors")
     assert (checkpoint / "optimizer" / ".metadata").is_file()
     assert not (checkpoint / "pretrained_model").exists()
     assert not (checkpoint / "dcp").exists()
     for name, value in expected.items():
-        torch.testing.assert_close(exported[name], value)
+        torch.testing.assert_close(exported[name], value.bfloat16(), rtol=0, atol=0)
 
     # Arrange：新建模型和空 optimizer，模拟进程重启后先读模型、再恢复训练状态。
     resumed_model = _ExportableLinear(2, 1)
@@ -55,18 +58,18 @@ def test_checkpoint_round_trip(tmp_path: Path) -> None:
     resumed_optimizer = torch.optim.AdamW(resumed_model.parameters(), lr=1e-3)
     resumed_scheduler = torch.optim.lr_scheduler.LambdaLR(resumed_optimizer, lambda _: 1.0)
 
-    # Act：optimizer-only DCP 应按新模型参数重新绑定状态，并恢复 scheduler 与 step。
+    # Act：模型已从 BF16 导出加载，DCP 只负责恢复 optimizer，不覆盖模型参数。
     step = load_checkpoint(
         checkpoint,
         resumed_optimizer,
         resumed_scheduler,
     )
 
-    # Assert：模型来自 OpenPI 文件，训练状态来自独立 DCP，二者共同构成完整 resume。
+    # Assert：模型保留 BF16 舍入后的值，其余训练状态与保存前一致。
     assert step == 1
     assert resumed_scheduler.state_dict() == scheduler.state_dict()
     for name, value in resumed_model.state_dict().items():
-        torch.testing.assert_close(value, expected[name])
+        torch.testing.assert_close(value, expected[name].bfloat16().float(), rtol=0, atol=0)
     actual_optimizer = resumed_optimizer.state_dict()
     assert actual_optimizer["param_groups"] == expected_optimizer["param_groups"]
     for parameter_id, expected_state in expected_optimizer["state"].items():

@@ -4,7 +4,7 @@ import argparse
 import json
 from dataclasses import replace
 from pathlib import Path
-from typing import Any, override
+from typing import Any, Literal, override
 
 import numpy as np
 import torch
@@ -27,7 +27,8 @@ class AuditModel(PI0Pytorch):
 
 @torch.no_grad()
 def _trace(model: AuditModel, transformed: dict, noise: np.ndarray,
-           spec: transforms.Pi05TransformSpec, *, bf16_inputs: bool) -> dict:
+           spec: transforms.Pi05TransformSpec, *, bf16_inputs: bool,
+           prefix_attention: Literal["eager", "sdpa"]) -> dict:
     device = torch.device("cuda:0")
     dtype = torch.bfloat16 if bf16_inputs else torch.float32
     observation = transforms.to_observation(transformed, device=device, dtype=dtype)
@@ -35,12 +36,20 @@ def _trace(model: AuditModel, transformed: dict, noise: np.ndarray,
     latent = torch.as_tensor(noise, device=device, dtype=dtype)[None]
     images, masks, tokens, token_masks, state = model._preprocess_observation(observation)
     prefix, pad_masks, att_masks = model.embed_prefix(images, masks, tokens, token_masks)
-    attention = model._prepare_attention_masks_4d(make_att_2d_masks(pad_masks, att_masks))
+    attention = model._prepare_attention_masks_4d(make_att_2d_masks(pad_masks, att_masks)).to(dtype)
     positions = torch.cumsum(pad_masks, dim=1) - 1
-    _, cache = model.paligemma_with_expert.forward(
-        attention_mask=attention, position_ids=positions, past_key_values=None,
-        inputs_embeds=[prefix, None], use_cache=True,
+    # Match sample_actions' prefix backend rather than the constructor's SDPA default.
+    model.paligemma_with_expert.paligemma.language_model.config._attn_implementation = (
+        prefix_attention
     )
+    with torch.profiler.profile(activities=[torch.profiler.ProfilerActivity.CPU]) as profiler:
+        _, cache = model.paligemma_with_expert.forward(
+            attention_mask=attention, position_ids=positions, past_key_values=None,
+            inputs_embeds=[prefix, None], use_cache=True,
+        )
+    prefix_sdpa_ops = [
+        event.key for event in profiler.key_averages() if "scaled_dot_product" in event.key
+    ]
     velocities = []
     handle = model.action_out_proj.register_forward_hook(
         lambda module, inputs, output: velocities.append(output.detach().clone())
@@ -89,7 +98,9 @@ def _trace(model: AuditModel, transformed: dict, noise: np.ndarray,
                          "actions": decoded[0].float().cpu().tolist()})
     finally:
         handle.remove()
-    return {"weight_dtype": str(model.action_in_proj.weight.dtype),
+    return {"prefix_attention": prefix_attention, "prefix_sdpa_ops": prefix_sdpa_ops,
+            "action_attention": "eager",
+            "weight_dtype": str(model.action_in_proj.weight.dtype),
             "input_dtype": str(dtype), "teacher_points": rows, "rollouts": rollouts}
 
 
@@ -97,6 +108,8 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--case-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--prefix-attention", choices=("eager", "sdpa"), default="eager")
+    parser.add_argument("--rounded-weight-fp32-probe", action="store_true")
     args = parser.parse_args()
     cfg = yaml.safe_load((args.case_dir / "train.yaml").read_text())
     assert cfg["fit"] == {"vision": False, "noise_seed": 1053}
@@ -134,24 +147,36 @@ def main() -> None:
                "action_transform_roundtrip_max_abs": float(
                    np.abs(restored - sample["actions"]).max()
                )}
-    results["native_loaded_fp32"] = _trace(model, transformed, noise, spec, bf16_inputs=False)
+    results["native_loaded_fp32"] = _trace(
+        model, transformed, noise, spec, bf16_inputs=False,
+        prefix_attention=args.prefix_attention,
+    )
     original_buffers = {name: value.clone() for name, value in model.named_buffers()}
     model.to(dtype=torch.bfloat16)
     results["bf16_weights_and_inputs_diagnostic"] = _trace(
-        model, transformed, noise, spec, bf16_inputs=True
+        model, transformed, noise, spec, bf16_inputs=True, prefix_attention=args.prefix_attention
     )
     for name, value in original_buffers.items():
         parent, _, attribute = name.rpartition(".")
         model.get_submodule(parent).register_buffer(attribute, value, persistent=False)
     results["bf16_parameters_original_buffers_diagnostic"] = _trace(
-        model, transformed, noise, spec, bf16_inputs=True
+        model, transformed, noise, spec, bf16_inputs=True, prefix_attention=args.prefix_attention
     )
+    labels = ["native_loaded_fp32", "bf16_weights_and_inputs_diagnostic",
+              "bf16_parameters_original_buffers_diagnostic"]
+    if args.rounded_weight_fp32_probe:
+        model.to(dtype=torch.float32)
+        label = "bf16_rounded_parameters_fp32_compute"
+        results[label] = _trace(
+            model, transformed, noise, spec, bf16_inputs=False,
+            prefix_attention=args.prefix_attention,
+        )
+        labels.append(label)
     results["precision_scope"] = (
         "Single-device diagnostics; BF16 parameters/original buffers approximates FSDP compute "
         "but does not reproduce distributed wrapping or training augmentation."
     )
-    for label in ["native_loaded_fp32", "bf16_weights_and_inputs_diagnostic",
-                  "bf16_parameters_original_buffers_diagnostic"]:
+    for label in labels:
         for row in results[label]["rollouts"]:
             error = np.asarray(row["actions"], dtype=np.float32) - sample["actions"]
             row["joint_mae"] = np.abs(error).mean(axis=0).tolist()

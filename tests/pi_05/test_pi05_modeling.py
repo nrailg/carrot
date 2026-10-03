@@ -6,6 +6,7 @@ from types import SimpleNamespace
 from typing import Any
 
 import torch
+from safetensors import safe_open
 from torch import nn
 
 from carrot.models.pi05.loss_fn import Pi05SFTLossFn
@@ -98,7 +99,7 @@ def test_pi05_batch_contract_and_padding_mask() -> None:
 
 
 def test_pi05_openpi_checkpoint_round_trip(tmp_path: Path) -> None:
-    # 验证 PI0Pytorch 导出官方 OpenPI PyTorch 文件名与配置 schema，并能严格回读权重。
+    # 推理导出必须舍入为 BF16；导出不能改动训练中的 FP32 master 参数。
     # Arrange：dummy Gemma 保留完整模块和 tied-weight 关系，同时限制测试资源消耗。
     model = PI0Pytorch(
         dtype="float32",
@@ -129,13 +130,31 @@ def test_pi05_openpi_checkpoint_round_trip(tmp_path: Path) -> None:
         "action_horizon": 2,
         "paligemma_variant": "dummy",
         "action_expert_variant": "dummy",
-        "precision": "float32",
+        "precision": "bfloat16",
     }
 
-    # Assert：动作投影与 tied language embedding 均严格一致，避免导出时错误去重权重。
-    torch.testing.assert_close(restored.action_in_proj.weight, expected_action_in, rtol=0, atol=0)
+    # 文件中的所有浮点权重必须是 BF16，回读后的 attention 也必须采用 BF16。
+    with safe_open(tmp_path / "model.safetensors", framework="pt") as weights:
+        names = weights.keys()
+        assert all(weights.get_slice(name).get_dtype() == "BF16" for name in names)
+    query = restored.paligemma_with_expert.paligemma.language_model.layers[0].self_attn.q_proj
+    assert query.weight.dtype is torch.bfloat16
+
+    # 动作投影保留模型既有 FP32 计算规则，但参数值必须与导出的 BF16 舍入值一致。
+    torch.testing.assert_close(
+        restored.action_in_proj.weight, expected_action_in.bfloat16().float(), rtol=0, atol=0
+    )
     torch.testing.assert_close(
         restored.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4],
+        expected_language.bfloat16(),
+        rtol=0,
+        atol=0,
+    )
+
+    # 保存不能原地舍入 master 参数，否则继续训练会丢失 FP32 更新精度。
+    torch.testing.assert_close(model.action_in_proj.weight, expected_action_in, rtol=0, atol=0)
+    torch.testing.assert_close(
+        model.paligemma_with_expert.paligemma.language_model.embed_tokens.weight[:4],
         expected_language,
         rtol=0,
         atol=0,

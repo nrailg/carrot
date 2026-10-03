@@ -161,3 +161,17 @@ bash "$MY_DFS/work/carrot/recipes/pi05_sft_so101_knock_down_the_cylinder_overfit
 ## 2026-09-30：review清理验收
 
 94项CPU/真实数据契约回归通过，Ruff/语法/diff检查通过，31个同步文件hash一致。部署字段dataset_revision移除；相机配置通过config对象传递；camera key默认None并在recipe/test YAML显式指定。单位转换包含状态、动作、统计量、起点比较和发送日志，旧checkpoint必须显式声明统计量单位，新checkpoint导出自带单位。数据目录两端真实重命名，文件内容未改。未commit、未新增训练/模型评估/真机动作，旧服务未重启。测试日志在个人DFS `test-runs/so101_review_cleanup_20260930/final_tests.log`。
+
+
+## 2026-10-03：单帧数据选择器归档
+
+- `single_frame.py`提供recipe专用dataset factory：
+  `recipes.pi05_sft_so101_knock_down_the_cylinder_overfit.single_frame.build_dataset`。
+  它调用原SO101 factory后用Subset重复指定源帧，保留原action窗口、metadata与统计量。
+- kwargs中的`frame_index=53`、`repeat_count=64`可为8rank/micro4/GAS2提供完整batch；
+  其他数据/模型参数应来自对应实验的实际配置，不能将本README历史两episode配置当作新实验配置。
+- 越界frame和非正repeat_count直接失败，不回退到全量训练。
+- 测试三件套`tests/pi_05/test_so101_single_frame_recipe.{py,sh,md}`，
+  2026-10-03提交前真实回归4/4 PASS；运行记录见测试md。
+- 最新264帧/horizon10/去视觉/固定noise的完整实验及精度审计在
+  [SO101逐步拟合验证](../pi05_sft_so101_fit_validation/README.md)，本目录历史产物保留。

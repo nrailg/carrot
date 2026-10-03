@@ -1,0 +1,12 @@
+# The original episode50 and frame53/50 baselines are already archived.
+cases:
+  - {name: episode_h10, frame_index: null, vision: true, noise_seed: null}
+  - {name: episode_h10_no_vision, frame_index: null, vision: false, noise_seed: null}
+  - {name: frame53_h10_no_vision, frame_index: 53, vision: false, noise_seed: null}
+  - {name: frame53_h10_no_vision_fixed_noise, frame_index: 53, vision: false, noise_seed: 1053}
+action_horizon: 10
+steps: 1000
+warmup_steps: 100
+learning_rate: 1.0e-6
+noise_repeats: 8
+monitor_seconds: 900

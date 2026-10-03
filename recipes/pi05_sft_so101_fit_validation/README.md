@@ -7,8 +7,11 @@
 随机noise/t、h10、constant1e-6条件延长训练，按用户后续确认从官方pi05 base重新训练5000step，
 前100step warmup，不resume。当前配置与入口见
 [完整episode延长拟合](../pi05_sft_so101_knock_down_the_cylinder_overfit/README.md)。
-本轮尚未启动训练；用户休假结束后再做原始action replay、dataset-input policy和同步简单闭环，
-泛化位于真机验证之后；自动检查保持暂停。
+本轮已提交`27bedad`并启动训练task `32434904-0284`（2026-10-03 20:33 UTC+8），
+训练task `32434904-0284` exit0/5000step、五checkpoint串行评估task `32434904-0302` exit0；全5000有限指标、1460 NPZ原始数据/指标独立核验PASS，曲线与五step完整表已交付（见上述完整episode recipe）。`so101`已暂停，dguard恢复实际运行。
+全程loss/grad norm/LR曲线及新step1000/2000/3000/4000/5000完整统计已交付。
+用户休假结束后再做原始action replay、dataset-input policy和同步简单闭环，泛化位于真机验证之后。
+旧消融suite不再运行。
 
 ## 2026-10-03：含视觉完整 episode 的 BF16 生产入口重评
 

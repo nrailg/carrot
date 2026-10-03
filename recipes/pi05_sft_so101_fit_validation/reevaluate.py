@@ -41,17 +41,23 @@ def summarize(errors: list[np.ndarray]) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--case-dir", type=Path, required=True)
+    parser.add_argument("--step", type=int, default=1000)
+    parser.add_argument("--paired-eval", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--source-commit", required=True)
     args = parser.parse_args()
     cfg = yaml.safe_load((args.case_dir / "train.yaml").read_text())
     kwargs = dict(cfg["dataset"]["factory_kwargs"])
-    assert kwargs.pop("frame_index") is None
-    kwargs.pop("repeat_count")
-    assert cfg["fit"] == {"vision": True, "noise_seed": None}
-    assert kwargs["action_horizon"] == 10 and cfg["steps"] == 1000
-    checkpoint = Path(cfg["output_dir"]) / "checkpoints/step-00001000"
-    assert json.loads((checkpoint / "trainer_state.json").read_text())["step"] == 1000
+    if "fit" in cfg:
+        assert kwargs.pop("frame_index") is None
+        kwargs.pop("repeat_count")
+        assert cfg["fit"] == {"vision": True, "noise_seed": None}
+    else:
+        assert cfg["dataset"]["factory"] == "carrot.data.so101.build_dataset"
+    assert kwargs["action_horizon"] == 10 and 0 < args.step <= cfg["steps"]
+    checkpoint = Path(cfg["output_dir"]) / "checkpoints" / f"step-{args.step:08d}"
+    assert json.loads((checkpoint / "trainer_state.json").read_text())["step"] == args.step
+    paired_eval = args.paired_eval or args.case_dir / "evaluation/step1000"
     args.output.mkdir(parents=True, exist_ok=False)
     export = args.output / "bf16_checkpoint"
     predictions = args.output / "predictions"
@@ -73,7 +79,7 @@ def main() -> None:
         for name in ("model.safetensors", "config.json", "norm_stats.json")
     }
     write_json(args.output / "provenance.json", {
-        "source_commit": args.source_commit, "source_hashes": hashes,
+        "source_commit": args.source_commit, "source_hashes": hashes, "step": args.step,
         "original_checkpoint": str(checkpoint), "original_hashes": original_hashes,
         "docker_image_tag": "未记录", "gpu": torch.cuda.get_device_name(0),
         "packages": {name: importlib.metadata.version(name)
@@ -81,12 +87,15 @@ def main() -> None:
         "protocol": "264 unique frames; 28 additional noise probes separate; NFE10; eager cache",
         "noise": "same distinct per-frame seeded BF16-rounded Gaussian as old FP32 evaluation",
     })
-    print("EXPORT_START", str(checkpoint), flush=True)
-    model = PI0Pytorch.from_pretrained(checkpoint)
-    model.save_pretrained(export)
-    del model
-    gc.collect()
-    shutil.copyfile(checkpoint / "norm_stats.json", export / "norm_stats.json")
+    if json.loads((checkpoint / "config.json").read_text())["precision"] == "bfloat16":
+        export = checkpoint
+    else:
+        print("EXPORT_START", str(checkpoint), flush=True)
+        model = PI0Pytorch.from_pretrained(checkpoint)
+        model.save_pretrained(export)
+        del model
+        gc.collect()
+        shutil.copyfile(checkpoint / "norm_stats.json", export / "norm_stats.json")
     assert json.loads((export / "config.json").read_text())["precision"] == "bfloat16"
     with safe_open(export / "model.safetensors", framework="pt", device="cpu") as stream:
         stored_dtypes = {stream.get_slice(key).get_dtype() for key in stream.keys()}  # noqa: SIM118
@@ -120,7 +129,7 @@ def main() -> None:
             noise = fixed_noise(seed, 10, policy._model.config.action_dim)
             name = f"frame_{index:06d}_noise_{seed}.npz"
             # 噪声仅与旧评估配对，每个frame及probe均不同，不采用固定训练noise。
-            with np.load(args.case_dir / "evaluation/step1000" / name) as old:
+            with np.load(paired_eval / name) as old:
                 np.testing.assert_array_equal(noise, old["noise"])
                 np.testing.assert_array_equal(reference, old["reference"])
                 np.testing.assert_array_equal(valid, old["valid"])
@@ -136,7 +145,7 @@ def main() -> None:
         if (index + 1) % 20 == 0 or index == 263:
             print("PROGRESS", index + 1, "/264", "predictions", len(rows), flush=True)
     metrics = {
-        "unique_frames": 264, "samples": len(rows), "vision": True,
+        "step": args.step, "unique_frames": 264, "samples": len(rows), "vision": True,
         "training_noise_seed": None, "horizon": 10, "denoising_steps": 10,
         "units": ["degrees"] * 5 + ["source gripper unit"],
         "primary": {str(s): summarize(groups["primary"][s]) for s in (1, 5, 10)},

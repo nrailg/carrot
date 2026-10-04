@@ -24,9 +24,11 @@ def main() -> None:
     parser.add_argument("--case-dir", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--source-commit", required=True)
+    parser.add_argument("--step", type=int, default=500)
     args = parser.parse_args()
     cfg = yaml.safe_load((args.case_dir / "train.yaml").read_text())
-    assert cfg["steps"] == 500 and cfg["fit"] == {"vision": False, "noise_seed": None}
+    assert 0 < args.step <= cfg["steps"]
+    assert cfg["fit"] == {"vision": False, "noise_seed": None}
     kwargs = dict(cfg["dataset"]["factory_kwargs"])
     jitter = kwargs.pop("state_jitter_degrees", 0.0)
     assert (cfg["dataset"]["factory"], jitter) in (
@@ -35,7 +37,9 @@ def main() -> None:
     ), "evaluate clean source states; training jitter is a separate condition"
     source = build_dataset(**kwargs)
     assert len(source.dataset) == 264
-    checkpoint = Path(cfg["output_dir"]) / "checkpoints/step-00000500"
+    checkpoint = Path(cfg["output_dir"]) / "checkpoints" / f"step-{args.step:08d}"
+    trainer_state = yaml.safe_load((checkpoint / "trainer_state.json").read_text())
+    assert trainer_state["step"] == args.step
     checkpoint_hashes = {name: digest(checkpoint / name) for name in
                          ("model.safetensors", "config.json", "norm_stats.json")}
     args.output.mkdir(parents=True, exist_ok=False)
@@ -45,6 +49,7 @@ def main() -> None:
     paths = list((root / "src/carrot").rglob("*.py"))
     paths += list(Path(__file__).parent.glob("*.py"))
     paths += list((root / "recipes/pi05_sft_so101_fit_validation").glob("*.py"))
+    paths += list((root / "recipes/pi05_sft_so101_state_jitter").glob("*.py"))
     paths += list(args.case_dir.resolve().glob("*.py"))
     hashes = {str(path.relative_to(root)): digest(path) for path in paths}
     for path in paths:
@@ -115,6 +120,7 @@ def main() -> None:
         print("CHAIN_COMPLETE", repetition + 1, "/8", "chunks", depth + 1, flush=True)
     metrics = {
         "checkpoint": str(checkpoint), "chains": 8, "chunks_per_chain": 53,
+        "checkpoint_step": args.step, "configured_training_steps": cfg["steps"],
         "samples": len(rows), "nfe": 10, "horizon": 10, "execute_steps": 5,
         "per_sample": rows,
         "modes": {mode: {

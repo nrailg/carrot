@@ -6,7 +6,6 @@ os.environ.setdefault(
     "ISAACSIM_ASSET_ROOT",
     "/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/isaacsim_assets/Assets/Isaac/6.0",
 )
-os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0")
 
 import isaaclab.utils.assets as assets
 

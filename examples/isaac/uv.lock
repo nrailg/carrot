@@ -326,7 +326,9 @@ version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
     { name = "daqp" },
+    { name = "imageio", extra = ["ffmpeg"] },
     { name = "isaaclab", extra = ["all", "isaacsim"] },
+    { name = "pytetwild", extra = ["all"] },
     { name = "rsl-rl-lib" },
     { name = "torch" },
     { name = "torchaudio" },
@@ -341,7 +343,9 @@ arena = [
 [package.metadata]
 requires-dist = [
     { name = "daqp", specifier = "==0.8.5" },
+    { name = "imageio", extras = ["ffmpeg"], specifier = "==2.37.2" },
     { name = "isaaclab", extras = ["isaacsim", "all"], specifier = "==3.0.0b2.post1" },
+    { name = "pytetwild", extras = ["all"], specifier = "==0.4.2" },
     { name = "rsl-rl-lib", specifier = "==5.0.1" },
     { name = "torch", specifier = "==2.11.0", index = "https://download.pytorch.org/whl/cu128" },
     { name = "torchaudio", specifier = "==2.11.0", index = "https://download.pytorch.org/whl/cu128" },
@@ -672,6 +676,21 @@ wheels = [
 ]
 
 [[package]]
+name = "cyclopts"
+version = "5.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "attrs" },
+    { name = "docstring-parser" },
+    { name = "rich" },
+    { name = "rich-rst" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/85/8c/7a7f5a3af1845cb6b9c28bf2a6db1bc510a6b9661109138c70ab6d8d650a/cyclopts-5.1.1.tar.gz", hash = "sha256:252fe37b01a80f10933f91c312db551e4e86ffd87bee401ab2ed091769135426", size = 237903, upload-time = "2026-10-01T00:00:02.762Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/37/1afff6923395f2f0ce730bae8851371b7418be17dc44d90ba80f72799240/cyclopts-5.1.1-py3-none-any.whl", hash = "sha256:ff0da67b2d2d8fe716d20ab82c698277ef30a8fb75d24e9b38a06f56c44931fd", size = 279527, upload-time = "2026-10-01T00:00:00.485Z" },
+]
+
+[[package]]
 name = "daqp"
 version = "0.8.5"
 source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
@@ -696,6 +715,15 @@ source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
 sdist = { url = "https://mirrors.tencent.com/yun/pypi/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed" }
 wheels = [
     { url = "https://mirrors.tencent.com/yun/pypi/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2" },
+]
+
+[[package]]
+name = "docstring-parser"
+version = "0.18.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/e0/4d/f332313098c1de1b2d2ff91cf2674415cc7cddab2ca1b01ae29774bd5fdf/docstring_parser-0.18.0.tar.gz", hash = "sha256:292510982205c12b1248696f44959db3cdd1740237a968ea1e2e7a900eeb2015", size = 29341, upload-time = "2026-04-14T04:09:19.867Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a7/5f/ed01f9a3cdffbd5a008556fc7b2a08ddb1cc6ace7effa7340604b1d16699/docstring_parser-0.18.0-py3-none-any.whl", hash = "sha256:b3fcbed555c47d8479be0796ef7e19c2670d428d72e96da63f3a40122860374b", size = 22484, upload-time = "2026-04-14T04:09:18.638Z" },
 ]
 
 [[package]]
@@ -2453,6 +2481,15 @@ wheels = [
 ]
 
 [[package]]
+name = "platformdirs"
+version = "4.12.3"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/23/4a86fc741c38c5b69792a4ef954b281afa69bea9f083f881de1b0d23bc07/platformdirs-4.12.3.tar.gz", hash = "sha256:427fc0bb321ae0c5b037fa03238ca74820437be162e78b4848c4d4055b9b766c", size = 59538, upload-time = "2026-10-03T23:40:46.595Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c5/9b/6ce1ead737fe496611bda600c263b9a11ae7bd8f41bb13f9bd7e0a2c37a4/platformdirs-4.12.3-py3-none-any.whl", hash = "sha256:080f3b39423b5abfca9a23d84c4e9795f54d395cd8459867a8ded44084fcd5f8", size = 32493, upload-time = "2026-10-03T23:40:45.104Z" },
+]
+
+[[package]]
 name = "plotly"
 version = "7.0.0"
 source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
@@ -2472,6 +2509,20 @@ source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
 sdist = { url = "https://mirrors.tencent.com/yun/pypi/packages/f9/e2/3e91f31a7d2b083fe6ef3fa267035b518369d9511ffab804f839851d2779/pluggy-1.6.0.tar.gz", hash = "sha256:7dcc130b76258d33b90f61b658791dede3486c3e6bfb003ee5c9bfb396dd22f3" }
 wheels = [
     { url = "https://mirrors.tencent.com/yun/pypi/packages/54/20/4d324d65cc6d9205fabedc306948156824eb9f0ee1633355a8f7ec5c66bf/pluggy-1.6.0-py3-none-any.whl", hash = "sha256:e920276dd6813095e9377c0bc5566d94c932c33b27a3e3945d8389c374dd4746" },
+]
+
+[[package]]
+name = "pooch"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "platformdirs" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/83/43/85ef45e8b36c6a48546af7b266592dc32d7f67837a6514d111bced6d7d75/pooch-1.9.0.tar.gz", hash = "sha256:de46729579b9857ffd3e741987a2f6d5e0e03219892c167c6578c0091fb511ed", size = 61788, upload-time = "2026-01-30T19:15:09.649Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/2d/d4bf65e47cea8ff2c794a600c4fd1273a7902f268757c531e0ee9f18aa58/pooch-1.9.0-py3-none-any.whl", hash = "sha256:f265597baa9f760d25ceb29d0beb8186c243d6607b0f60b83ecf14078dbc703b", size = 67175, upload-time = "2026-01-30T19:15:08.36Z" },
 ]
 
 [[package]]
@@ -2716,6 +2767,23 @@ wheels = [
 ]
 
 [[package]]
+name = "pytetwild"
+version = "0.4.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3d/66/925933fde3a76a38792f89eb4546ca96f861b4922fbacb4b9c3ee7b994e1/pytetwild-0.4.2.tar.gz", hash = "sha256:60b88a5c9d0fd3cba24b3ab677b6a8344161de958622ce301bd3913fc1f4b917", size = 2627116, upload-time = "2026-08-17T21:24:21.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/ea/10e1219ff042b3e01cdfc8a1734b4e4fde8d865d69ad591ad8eb91022839/pytetwild-0.4.2-cp312-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e387d6c2803edaeeee7b970ebf157c281a7ee8b257e6c522e26557314ae0e765", size = 3111366, upload-time = "2026-08-17T21:24:17.821Z" },
+]
+
+[package.optional-dependencies]
+all = [
+    { name = "pyvista" },
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
@@ -2764,6 +2832,40 @@ source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
 sdist = { url = "https://mirrors.tencent.com/yun/pypi/packages/62/21/9daf8da2793d112a04b46ac33ab9046c91b0af8292cd93b3cfdd07ff7169/pyvers-0.2.3.tar.gz", hash = "sha256:c4b81c3a033963245e124cdecb052783c9c4cea3bb08c051833af1c44faa6283" }
 wheels = [
     { url = "https://mirrors.tencent.com/yun/pypi/packages/2d/8d/63787e8feda59d981ebc953b6581ccab3c97cf7bfe0a6a407c07b50fc86c/pyvers-0.2.3-py3-none-any.whl", hash = "sha256:6f5b5612f2f4bd08caa49baa70fc5f875fc7da701a5385c13e244eea6b8114dd" },
+]
+
+[[package]]
+name = "pyvista"
+version = "0.49.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "cyclopts" },
+    { name = "matplotlib" },
+    { name = "numpy" },
+    { name = "pillow" },
+    { name = "pooch" },
+    { name = "pyvista-validation" },
+    { name = "scooby" },
+    { name = "typing-extensions" },
+    { name = "vtk" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/99/8f/fc7f2662d989d489d4b9048fdc030f6960ad5a0d09dd00016abc64ffa02d/pyvista-0.49.0.tar.gz", hash = "sha256:5bc914769dfa9baeedb3b761c81e3326bd4c7a3aeed475c25f164c798806dba2", size = 2704091, upload-time = "2026-09-08T03:50:50.682Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/13/28/10413555dd9cbd410c2762c8e6172ce9bd88c8c7997f7290f173969614dc/pyvista-0.49.0-py3-none-any.whl", hash = "sha256:8528b753baf9a32dd7a44f4e88912fe5c8771f7d921c813e1cbac35fc5a37996", size = 2732156, upload-time = "2026-09-08T03:50:48.933Z" },
+]
+
+[[package]]
+name = "pyvista-validation"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy" },
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b5/c5/d800d91bae144a71fbae31fcb6b3279c55179acf93639e3443ae87373782/pyvista_validation-0.2.2.tar.gz", hash = "sha256:af234130a3b34b3e1af49584d75b41fafc694752b2958b36e9dbfd9f188e6a0c", size = 554920, upload-time = "2026-09-06T08:42:14.076Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/75/e7/24d49960620aa770fc1fb527a019ec5a860e27c73bcd69c4bdfcc510c7a7/pyvista_validation-0.2.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:a45b633b89d843329db1608ba2bbed75d075ab63c5a7427c8dfa9ad9c23eadb4", size = 261436, upload-time = "2026-09-06T08:42:07.546Z" },
+    { url = "https://files.pythonhosted.org/packages/51/c9/1dd3831f373dfc0b3ba8fe3a8de0b17f4b8610df9f262f6904f20f7d507b/pyvista_validation-0.2.2-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:672991acf11588de5ce4042cf4f1cc59d0f2b0e84bca792c3358fac6b07e2b38", size = 259212, upload-time = "2026-09-06T08:42:10.297Z" },
 ]
 
 [[package]]
@@ -2882,6 +2984,19 @@ wheels = [
 ]
 
 [[package]]
+name = "rich-rst"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pygments" },
+    { name = "rich" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cf/0e/faf7c7e36630561e3e9611730c47510cd972dd5fde8f95941ff78f76accd/rich_rst-2.2.0.tar.gz", hash = "sha256:b1e6a67f8f694a6f36035624bf73e2b1a0a4be13edaf3ba5e654d9758b61073a", size = 326270, upload-time = "2026-09-27T19:12:42.163Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/4e/716b42bf066e180c1235783b46f095a5d871d05dca7006d2295aac29c491/rich_rst-2.2.0-py3-none-any.whl", hash = "sha256:1ea1c43813dc4a8d86475fce27ffb74e0ada3d4656c9f8130ba2a59868055fe9", size = 279274, upload-time = "2026-09-27T19:12:40.548Z" },
+]
+
+[[package]]
 name = "rsl-rl-lib"
 version = "5.0.1"
 source = { registry = "https://mirrors.tencent.com/pypi/simple/" }
@@ -2981,6 +3096,15 @@ sdist = { url = "https://mirrors.tencent.com/yun/pypi/packages/56/3e/9cca699f348
 wheels = [
     { url = "https://mirrors.tencent.com/yun/pypi/packages/d1/fe/66d73b76d378ba8cc2fe605920c0c75092e3a65ae746e1e767d9d020a75a/scipy-1.17.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9eeb9b5f5997f75507814ed9d298ab23f62cf79f5a3ef90031b1ee2506abdb5b" },
     { url = "https://mirrors.tencent.com/yun/pypi/packages/81/61/0470810c8a093cdacd4ba7504b8a218fd49ca070d79eca23a615f5d9a0b0/scipy-1.17.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:0cf46c8013fec9d3694dc572f0b54100c28405d55d3e2cb15e2895b25057996e" },
+]
+
+[[package]]
+name = "scooby"
+version = "0.12.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/43/945c26345e126b96488d52afa7e40e6ea4997129ba6c0ffe9223e7c85c3f/scooby-0.12.0.tar.gz", hash = "sha256:e1eff64727b60b68634719326e220cd1ddbb299f8c073421c2abaa4f59ca5f20", size = 246208, upload-time = "2026-09-11T03:38:11.726Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5b/32/e263e888bec1c30b40dd834ca8ea6227a9ca9d5c8091986ea0c8746f0305/scooby-0.12.0-py3-none-any.whl", hash = "sha256:65dea5b32006ef554aea9e945032c0c448eaacada96078187681e24f0a2fe8fa", size = 21732, upload-time = "2026-09-11T03:38:10.246Z" },
 ]
 
 [[package]]
@@ -3377,6 +3501,17 @@ dependencies = [
 sdist = { url = "https://mirrors.tencent.com/yun/pypi/packages/49/8d/5005d39cd79c9ae87baf7d7aafdcdfe0b13aa69d9a1e3b7f1c984a2ac6d2/uvicorn-0.29.0.tar.gz", hash = "sha256:6a69214c0b6a087462412670b3ef21224fa48cae0e452b5883e8e8bdfdd11dd0" }
 wheels = [
     { url = "https://mirrors.tencent.com/yun/pypi/packages/73/f5/cbb16fcbe277c1e0b8b3ddd188f2df0e0947f545c49119b589643632d156/uvicorn-0.29.0-py3-none-any.whl", hash = "sha256:2c2aac7ff4f4365c206fd773a39bf4ebd1047c238f8b8268ad996829323473de" },
+]
+
+[[package]]
+name = "vtk"
+version = "9.7.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2c/98/4bf4bc0146f7342f987a48d796100a018867049711a56cf3ad13e448bb17/vtk-9.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:04740a3bc2d492327d650fb9c4a9ff54e80f3a064d5ce677ef48c3b08fa96bcd", size = 139655538, upload-time = "2026-09-28T09:50:58.3Z" },
 ]
 
 [[package]]

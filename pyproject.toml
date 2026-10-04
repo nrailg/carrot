@@ -44,6 +44,8 @@ isaac-arena = [
   "isaaclab[isaacsim,all]==3.0.0b2.post1",
   "isaaclab-arena @ git+https://github.com/isaac-sim/IsaacLab-Arena.git@release/0.3.0",
   "isaacsim[all,extscache]==6.0.1.0",
+  "pytetwild[all]==0.4.2",
+  "imageio[ffmpeg]==2.37.2",
   "torch==2.11.0",
   "torchaudio==2.11.0",
   "torchvision==0.26.0",

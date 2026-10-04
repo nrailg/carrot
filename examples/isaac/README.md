@@ -43,14 +43,15 @@ Isaac Sim 首次启动会要求接受 NVIDIA EULA：
 export OMNI_KIT_ACCEPT_EULA=YES
 ```
 
-示例默认接受 EULA、使用 GPU 0，并从以下本地目录读取完整资产包：
+示例默认接受 EULA，并从以下本地目录读取完整资产包：
 
 ```bash
 /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/isaacsim_assets/Assets/Isaac/6.0
 ```
 
-代码使用环境变量作为默认值；仍可在启动前设置 `CUDA_VISIBLE_DEVICES` 或
-`ISAACSIM_ASSET_ROOT` 来选择其他 GPU 或资产目录。
+设置 `ISAACSIM_ASSET_ROOT` 可选择其他资产目录。设备通过示例的设备参数及 Kit
+的 `--/renderer/activeGpu` 选择；helper 不再自动设置 `CUDA_VISIBLE_DEVICES`，
+避免 CUDA 与 Omniverse 设备枚举不一致。
 
 ## 01：Isaac Sim 让方块落下
 

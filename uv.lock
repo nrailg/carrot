@@ -441,9 +441,11 @@ dev = [
     { name = "ruff" },
 ]
 isaac-arena = [
+    { name = "imageio", extra = ["ffmpeg"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "isaaclab", extra = ["all", "isaacsim"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "isaaclab-arena" },
     { name = "isaacsim", extra = ["all", "extscache"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
+    { name = "pytetwild", extra = ["all"], marker = "extra == 'extra-9-carrot-rl-client' or extra == 'extra-9-carrot-rl-isaac-arena' or extra == 'extra-9-carrot-rl-sft' or extra != 'group-9-carrot-rl-openpi-libero'" },
     { name = "torch", version = "2.11.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
     { name = "torchaudio" },
     { name = "torchvision", version = "0.26.0+cu128", source = { registry = "https://download.pytorch.org/whl/cu128" } },
@@ -489,6 +491,7 @@ requires-dist = [
     { name = "datasets", marker = "extra == 'sft'", specifier = ">=4" },
     { name = "diffusers", marker = "extra == 'sft'", specifier = "==0.35.1" },
     { name = "huggingface-hub", marker = "extra == 'sft'", specifier = "==1.31.0" },
+    { name = "imageio", extras = ["ffmpeg"], marker = "extra == 'isaac-arena'", specifier = "==2.37.2" },
     { name = "isaaclab", extras = ["isaacsim", "all"], marker = "extra == 'isaac-arena'", specifier = "==3.0.0b2.post1" },
     { name = "isaaclab-arena", marker = "extra == 'isaac-arena'", git = "https://github.com/isaac-sim/IsaacLab-Arena.git?rev=release%2F0.3.0" },
     { name = "isaacsim", extras = ["all", "extscache"], marker = "extra == 'isaac-arena'", specifier = "==6.0.1.0" },
@@ -500,6 +503,7 @@ requires-dist = [
     { name = "openpi-client", marker = "extra == 'serving'", git = "https://github.com/Physical-Intelligence/openpi.git?subdirectory=packages%2Fopenpi-client&rev=215abfb217dbac7d5f1273282331b9b1866c0479" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=8" },
     { name = "pytest-timeout", marker = "extra == 'dev'", specifier = ">=2.3" },
+    { name = "pytetwild", extras = ["all"], marker = "extra == 'isaac-arena'", specifier = "==0.4.2" },
     { name = "pyyaml", marker = "extra == 'client'", specifier = ">=6,<7" },
     { name = "pyyaml", marker = "extra == 'sft'", specifier = ">=6" },
     { name = "ray", specifier = ">=2.47" },
@@ -882,6 +886,21 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/a9/95/a3dbbb5028f35eafb79008e7522a75244477d2838f38cbb722248dabc2a8/cycler-0.12.1.tar.gz", hash = "sha256:88bb128f02ba341da8ef447245a9e138fae777f6a23943da4540077d3601eb1c", size = 7615, upload-time = "2023-10-07T05:32:18.335Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e7/05/c19819d5e3d95294a6f5947fb9b9629efb316b96de511b418c53d245aae6/cycler-0.12.1-py3-none-any.whl", hash = "sha256:85cef7cff222d8644161529808465972e51340599459b8ac3ccbac5a854e0d30", size = 8321, upload-time = "2023-10-07T05:32:16.783Z" },
+]
+
+[[package]]
+name = "cyclopts"
+version = "5.1.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "attrs" },
+    { name = "docstring-parser" },
+    { name = "rich" },
+    { name = "rich-rst" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/85/8c/7a7f5a3af1845cb6b9c28bf2a6db1bc510a6b9661109138c70ab6d8d650a/cyclopts-5.1.1.tar.gz", hash = "sha256:252fe37b01a80f10933f91c312db551e4e86ffd87bee401ab2ed091769135426", size = 237903, upload-time = "2026-10-01T00:00:02.762Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/37/1afff6923395f2f0ce730bae8851371b7418be17dc44d90ba80f72799240/cyclopts-5.1.1-py3-none-any.whl", hash = "sha256:ff0da67b2d2d8fe716d20ab82c698277ef30a8fb75d24e9b38a06f56c44931fd", size = 279527, upload-time = "2026-10-01T00:00:00.485Z" },
 ]
 
 [[package]]
@@ -4190,6 +4209,20 @@ wheels = [
 ]
 
 [[package]]
+name = "pooch"
+version = "1.9.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "packaging" },
+    { name = "platformdirs" },
+    { name = "requests" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/83/43/85ef45e8b36c6a48546af7b266592dc32d7f67837a6514d111bced6d7d75/pooch-1.9.0.tar.gz", hash = "sha256:de46729579b9857ffd3e741987a2f6d5e0e03219892c167c6578c0091fb511ed", size = 61788, upload-time = "2026-01-30T19:15:09.649Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2a/2d/d4bf65e47cea8ff2c794a600c4fd1273a7902f268757c531e0ee9f18aa58/pooch-1.9.0-py3-none-any.whl", hash = "sha256:f265597baa9f760d25ceb29d0beb8186c243d6607b0f60b83ecf14078dbc703b", size = 67175, upload-time = "2026-01-30T19:15:08.36Z" },
+]
+
+[[package]]
 name = "portalocker"
 version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -4526,6 +4559,23 @@ wheels = [
 ]
 
 [[package]]
+name = "pytetwild"
+version = "0.4.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3d/66/925933fde3a76a38792f89eb4546ca96f861b4922fbacb4b9c3ee7b994e1/pytetwild-0.4.2.tar.gz", hash = "sha256:60b88a5c9d0fd3cba24b3ab677b6a8344161de958622ce301bd3913fc1f4b917", size = 2627116, upload-time = "2026-08-17T21:24:21.422Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d8/ea/10e1219ff042b3e01cdfc8a1734b4e4fde8d865d69ad591ad8eb91022839/pytetwild-0.4.2-cp312-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:e387d6c2803edaeeee7b970ebf157c281a7ee8b257e6c522e26557314ae0e765", size = 3111366, upload-time = "2026-08-17T21:24:17.821Z" },
+]
+
+[package.optional-dependencies]
+all = [
+    { name = "pyvista" },
+]
+
+[[package]]
 name = "python-dateutil"
 version = "2.9.0.post0"
 source = { registry = "https://pypi.org/simple" }
@@ -4586,6 +4636,40 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/62/21/9daf8da2793d112a04b46ac33ab9046c91b0af8292cd93b3cfdd07ff7169/pyvers-0.2.3.tar.gz", hash = "sha256:c4b81c3a033963245e124cdecb052783c9c4cea3bb08c051833af1c44faa6283", size = 12347, upload-time = "2026-07-09T13:58:07.046Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/2d/8d/63787e8feda59d981ebc953b6581ccab3c97cf7bfe0a6a407c07b50fc86c/pyvers-0.2.3-py3-none-any.whl", hash = "sha256:6f5b5612f2f4bd08caa49baa70fc5f875fc7da701a5385c13e244eea6b8114dd", size = 11757, upload-time = "2026-07-09T13:58:06.078Z" },
+]
+
+[[package]]
+name = "pyvista"
+version = "0.49.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "cyclopts" },
+    { name = "matplotlib" },
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
+    { name = "pillow" },
+    { name = "pooch" },
+    { name = "pyvista-validation" },
+    { name = "scooby" },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" } },
+    { name = "vtk" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/99/8f/fc7f2662d989d489d4b9048fdc030f6960ad5a0d09dd00016abc64ffa02d/pyvista-0.49.0.tar.gz", hash = "sha256:5bc914769dfa9baeedb3b761c81e3326bd4c7a3aeed475c25f164c798806dba2", size = 2704091, upload-time = "2026-09-08T03:50:50.682Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/13/28/10413555dd9cbd410c2762c8e6172ce9bd88c8c7997f7290f173969614dc/pyvista-0.49.0-py3-none-any.whl", hash = "sha256:8528b753baf9a32dd7a44f4e88912fe5c8771f7d921c813e1cbac35fc5a37996", size = 2732156, upload-time = "2026-09-08T03:50:48.933Z" },
+]
+
+[[package]]
+name = "pyvista-validation"
+version = "0.2.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "numpy", version = "2.3.1", source = { registry = "https://pypi.org/simple" } },
+    { name = "typing-extensions", version = "4.12.2", source = { registry = "https://pypi.org/simple" } },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b5/c5/d800d91bae144a71fbae31fcb6b3279c55179acf93639e3443ae87373782/pyvista_validation-0.2.2.tar.gz", hash = "sha256:af234130a3b34b3e1af49584d75b41fafc694752b2958b36e9dbfd9f188e6a0c", size = 554920, upload-time = "2026-09-06T08:42:14.076Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/75/e7/24d49960620aa770fc1fb527a019ec5a860e27c73bcd69c4bdfcc510c7a7/pyvista_validation-0.2.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:a45b633b89d843329db1608ba2bbed75d075ab63c5a7427c8dfa9ad9c23eadb4", size = 261436, upload-time = "2026-09-06T08:42:07.546Z" },
+    { url = "https://files.pythonhosted.org/packages/51/c9/1dd3831f373dfc0b3ba8fe3a8de0b17f4b8610df9f262f6904f20f7d507b/pyvista_validation-0.2.2-cp310-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:672991acf11588de5ce4042cf4f1cc59d0f2b0e84bca792c3358fac6b07e2b38", size = 259212, upload-time = "2026-09-06T08:42:10.297Z" },
 ]
 
 [[package]]
@@ -4783,6 +4867,19 @@ wheels = [
 ]
 
 [[package]]
+name = "rich-rst"
+version = "2.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pygments" },
+    { name = "rich" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/cf/0e/faf7c7e36630561e3e9611730c47510cd972dd5fde8f95941ff78f76accd/rich_rst-2.2.0.tar.gz", hash = "sha256:b1e6a67f8f694a6f36035624bf73e2b1a0a4be13edaf3ba5e654d9758b61073a", size = 326270, upload-time = "2026-09-27T19:12:42.163Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/d1/4e/716b42bf066e180c1235783b46f095a5d871d05dca7006d2295aac29c491/rich_rst-2.2.0-py3-none-any.whl", hash = "sha256:1ea1c43813dc4a8d86475fce27ffb74e0ada3d4656c9f8130ba2a59868055fe9", size = 279274, upload-time = "2026-09-27T19:12:40.548Z" },
+]
+
+[[package]]
 name = "robosuite"
 version = "1.4.1"
 source = { registry = "https://pypi.org/simple" }
@@ -4922,6 +5019,15 @@ sdist = { url = "https://files.pythonhosted.org/packages/56/3e/9cca699f3486ce6bc
 wheels = [
     { url = "https://files.pythonhosted.org/packages/d1/fe/66d73b76d378ba8cc2fe605920c0c75092e3a65ae746e1e767d9d020a75a/scipy-1.17.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:9eeb9b5f5997f75507814ed9d298ab23f62cf79f5a3ef90031b1ee2506abdb5b", size = 35009148, upload-time = "2026-01-10T21:25:50.591Z" },
     { url = "https://files.pythonhosted.org/packages/81/61/0470810c8a093cdacd4ba7504b8a218fd49ca070d79eca23a615f5d9a0b0/scipy-1.17.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:0cf46c8013fec9d3694dc572f0b54100c28405d55d3e2cb15e2895b25057996e", size = 37405953, upload-time = "2026-01-10T21:26:07.75Z" },
+]
+
+[[package]]
+name = "scooby"
+version = "0.12.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/71/43/945c26345e126b96488d52afa7e40e6ea4997129ba6c0ffe9223e7c85c3f/scooby-0.12.0.tar.gz", hash = "sha256:e1eff64727b60b68634719326e220cd1ddbb299f8c073421c2abaa4f59ca5f20", size = 246208, upload-time = "2026-09-11T03:38:11.726Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5b/32/e263e888bec1c30b40dd834ca8ea6227a9ca9d5c8091986ea0c8746f0305/scooby-0.12.0-py3-none-any.whl", hash = "sha256:65dea5b32006ef554aea9e945032c0c448eaacada96078187681e24f0a2fe8fa", size = 21732, upload-time = "2026-09-11T03:38:10.246Z" },
 ]
 
 [[package]]
@@ -5608,6 +5714,17 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/49/8d/5005d39cd79c9ae87baf7d7aafdcdfe0b13aa69d9a1e3b7f1c984a2ac6d2/uvicorn-0.29.0.tar.gz", hash = "sha256:6a69214c0b6a087462412670b3ef21224fa48cae0e452b5883e8e8bdfdd11dd0", size = 40894, upload-time = "2024-03-20T06:43:25.747Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/73/f5/cbb16fcbe277c1e0b8b3ddd188f2df0e0947f545c49119b589643632d156/uvicorn-0.29.0-py3-none-any.whl", hash = "sha256:2c2aac7ff4f4365c206fd773a39bf4ebd1047c238f8b8268ad996829323473de", size = 60813, upload-time = "2024-03-20T06:43:21.841Z" },
+]
+
+[[package]]
+name = "vtk"
+version = "9.7.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "matplotlib" },
+]
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/2c/98/4bf4bc0146f7342f987a48d796100a018867049711a56cf3ad13e448bb17/vtk-9.7.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:04740a3bc2d492327d650fb9c4a9ff54e80f3a064d5ce677ef48c3b08fa96bcd", size = 139655538, upload-time = "2026-09-28T09:50:58.3Z" },
 ]
 
 [[package]]

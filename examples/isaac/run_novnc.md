@@ -51,6 +51,8 @@ noVNC 和 `spawn_prims.py --viz kit`。不要加 `--headless` 或 `--livestream`
 ```bash
 cd "$DFS/work/carrot"
 bash examples/isaac/run_novnc.sh examples/isaac/spawn_prims.py --num_steps 1000
+# 运行两个 Cartpole：随机施加关节力，每 500 步重置状态。
+bash examples/isaac/run_novnc.sh examples/isaac/run_articulation.py
 # 换成你的程序；相对路径以当前工作目录为准，也可以传绝对路径。
 bash examples/isaac/run_novnc.sh /path/to/your_isaac_program.py
 ```

@@ -1,0 +1,45 @@
+model:
+  path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10
+  tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
+dataset:
+  factory: recipes.pi05_sft_so101_state_jitter.augmentation.build_dataset
+  factory_kwargs:
+    repo_id: nrailg/knock_down_the_cylinder_1_20260930_222251
+    revision: null
+    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/nrailg/knock_down_the_cylinder_1_20260930_222251
+    action_horizon: 10
+    state_jitter_degrees: 3.0
+    base_image_key: null
+    wrist_image_key: observation.images.wrist
+  num_workers: 4
+  norm_stats_path: null
+  norm_stats_source: dataset
+  preprocess: null
+optimizer:
+  learning_rate: 1.0e-6
+  weight_decay: 1.0e-10
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  warmup_steps: 100
+  decay_steps: 500
+  decay_learning_rate: 1.0e-6
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+wandb:
+  enabled: false
+steps: 500
+micro_batch_size: 4
+global_batch_size: 64
+log_freq: 1
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_state_jitter/20261004T033515Z/training
+save_freq: 500
+seed: 1000
+dp_size: 8
+num_nodes: 1
+fit:
+  vision: false
+  noise_seed: null

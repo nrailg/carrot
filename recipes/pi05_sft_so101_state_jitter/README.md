@@ -1,17 +1,18 @@
 # SO101无视觉：输入state ±3°增强
 
-## 2026-10-08：no vision + clamped jitter，2000 steps（准备）
+## 2026-10-08：no vision + clamped jitter，2000 steps（完成）
 
 | 项目 | 本轮设置/状态 |
 |---|---|
-| 目标 | 修复输入越界并统一标定来源后，重新训练无视觉模型；尚无效果结论 |
+| 目标 | 修复输入越界并统一标定来源后，重新训练无视觉模型；结果与旧2000step严格复现 |
 | 初始化 | 官方 pi05_base_pytorch_h10，从 step0 新训，不 resume |
 | 数据 | 原始单 episode 264 帧；horizon10；五轴每次独立 U(-3°,3°)，按 LeRobot 标定 clip |
 | 视觉/noise | 所有视觉 pixels0/maskfalse；训练 noise/t 始终随机 |
 | 预算 | 2000 steps、warmup100 后 constant1e-6；8GPU BF16 FSDP、micro4/global64/GAS2、seed1000 |
 | 保存/评估 | 每500保存；训练完成后自动用最终step2000跑既有h10/K5、8noise×53chunk离线评估及Parquet核验 |
 | 输出 | $MY_DFS/experiments/carrot/pi05_so101_state_jitter/20261008T093114Z |
-| 状态 | 待提交当前代码、预检并启动；Docker image tag 未记录 |
+| 状态 | 2026-10-08 17:36:22 Asia/Shanghai 启动；19:14起核验task exit0/SFT finished2000；2000条连续有限指标，warmup/constant正确；step2000 loss0.006175/grad_norm0.132241，末20步平均loss0.007045；最终评估/独立核验PASS |
+| 源码/任务 | Mac提交133357115cc0820abf24c96a5b0dba87f0956a49；96文件SHA一致；Gemini b1c4b5e1 / task b1c4b5e1-0526 / Ray job13000000；Docker image tag 未记录 |
 
 运行：确认当前MY_DFS与RAY_ADDRESS，设置SOURCE_COMMIT为本轮Mac实际提交，然后执行
 `bash recipes/pi05_sft_so101_state_jitter/run.sh`。runner拒绝覆盖已有训练/评估目录，
@@ -19,6 +20,60 @@
 做增强clamp；policy输出保持原样，机器人执行限幅不参与该离线评估。验收训练2000连续有限
 指标、step2000/checkpoint完整与参数更新；评估需核对NPZ/reference/padding/noise及复算指标。
 新结果不能替代下方历史500step结果，也不能单次证明输入clamp的独立因果收益；不操作机器人。
+
+本轮h10权重SHA与官方base相同；已归档preflight.json、expected_source_hashes.json、source_snapshot、launch.json及ray_logs。
+rank0日志为`/tmp/ray/session_latest/logs/worker-604ba4b757cf8bfdda37a465a0a4ad6c50529e3e2ace9605a666d29b-13000000-555994.out`，
+输出根monitor.py可持久化training_metrics.csv/latest_training_status.json并检查连续性、有限性和LR。
+结束已亲核dguard watch1/guard.sh与run.py运行，无恢复计划，Ray空闲224CPU/8GPU。Ray dashboard未开放；状态以后台task及worker日志核对，不重启Ray。
+本轮运行源码为1333571；以下记录在训练结束后归档，保持训练源码与结果记录可区分。
+
+### 1000→2000 steps的进展判断
+
+| 五运动轴平均MAE（degrees） | 历史增强1000step | 本轮增强2000step | 降幅 |
+|---|---:|---:|---:|
+| 真实state输入 | 1.391723 | 1.191509 | 14.39% |
+| 连续action→state反馈 | 14.209092 | 10.313210 | 27.42% |
+
+1000step来自[历史匹配拟合实验](../pi05_sft_so101_state_jitter_matched_fit/README.md)的step1000，
+2000step来自本轮实际训练/评估；本轮已独立证明与同一历史实验的step2000权重及预测严格一致。
+两者均为no vision+±3° jitter、完整264帧、h10/K5/NFE10和配对noise评估。
+在这组实验中，延长训练同时改善了基础拟合和连续反馈，反馈MAE降幅更大；
+这一观察不等同于已验证反馈稳定性，反馈仍约10.31°，且存在尾部大误差和预测越界。
+改善不能归因于新增input clamp，因为当前离散state condition及新旧2000step结果没有改变；
+也不能单凭这一条episode、一个训练seed证明jitter的独立收益或泛化能力。
+
+### 本轮最终结果与重复性核验
+
+| step2000评估模式 | 五运动轴平均MAE（degrees） | 有效action行 | 原始预测越界行 |
+|---|---:|---:|---:|
+| 每块输入数据集真实state | 1.191509 | 2112 | 80（3.79%） |
+| 连续action→state反馈 | 10.313210 | 2112 | 109（5.16%） |
+
+共同协议：无视觉，horizon10/NFE10/K5；8条noise序列×53块，424NPZ/848次推理。
+下一state精确等于上一块采用index4；只统计有效采用动作，gripper不计入五轴degrees平均。
+真实state五轴MAE=[1.068920,1.975627,1.198843,1.537592,0.176563]°；
+反馈五轴MAE=[6.203267,21.274952,8.119689,15.537370,0.430771]°。
+反馈肩抬P95/max=67.460030/90.218208°，仍有明显轨迹偏离；不是每块单调增大，也不是真机结果。
+原始预测最大越界幅度为真实state肩抬2.616570°/肘0.707642°，反馈肩抬1.690331°/肘1.078781°；
+统计使用本轮标定。离线输出/反馈没有执行限幅，不能当作启用robot clamp后的实际表现。
+
+本轮step2000与20261004_2000step旧未clamp增强实验的model.safetensors/config/norm_stats SHA一致，
+424NPZ的全部key数组逐元素相同。因此这些结果是本次重新训练/评估的真实复现，没有观察到输入clamp带来的效果变化。
+检查64×264=16896个增强state：1906行raw角度因clamp改变，state离散桶差异为0。
+当前五轴标定下界经quantile归一化均<-1，上界均>最后桶边界0.9921875；
+所以被clamp的边界外数值原本已落入相同端点桶。PI0.5的state经prompt离散输入，
+embed_suffix仅非pi05分支使用连续state投影。这解释了为什么原始角度限幅有效、模型condition仍相同；
+它不约束预测action，也不能据此断言jitter普遍无效。旧无增强500step基线1.346750°/12.450586°
+训练预算不同，不能据新2000结果把差异单独归因于增强或clamp。
+
+完成证据：四checkpoint（500/1000/1500/2000）actualstep/h10/812参数全BF16，stats/tokenizer及
+8份optimizer shard完整；四组权重hash不同、8rank action head有限非零更新。
+原Parquet逐元素核对reference/state/padding/424不同noise/index4反馈，MAE/P95/max复算PASS；
+Mac回拉424NPZ再次NumPy复算PASS。详见输出根completion_audit.py/json、evaluation/independent_validation.json、
+training_metrics.csv和training_evaluation_backend.log（后台task已dump释放）。
+Mac缓存：`~/.cache/carrot/so101_state_jitter_20261008T093114Z/`，包含轻量结果与预测，无checkpoint权重。
+本节为提交1333571之后的实验记录；无机器人操作，生成物不入Git。
+
 
 ## 2026-10-08：训练增强改读 LeRobot 标定文件（未重训）
 

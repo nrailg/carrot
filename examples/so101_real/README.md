@@ -163,4 +163,9 @@ target_timeout_s: 3.0
 默认关闭，保持录制动作回放的原时序；只允许`action_sink: robot`、`use_degrees: true`。
 `action`事件记录`target_reached`、`target_error`、`target_wait_s`和全部`target_samples`。
 若超过时限仍未到位，先记录已经发送的动作和残差，再停止下一次推理。
-等待不修改PID、不补偿Goal，也不能消除静态追踪偏差；无法到位时会明确报错。
+等待本身不修改PID、不补偿Goal，也不能消除静态追踪偏差；无法到位时会明确报错。
+
+真机执行连接完成后，客户端将`elbow_flex`和`wrist_flex`的`P_Coefficient`设为32，
+并读回校验；写入失败或读回不符即停止初始化。覆盖发生在LeRobot默认配置之后，
+避免每次重连被重设为16。I/D沿用SDK默认的0/32，其余关节P保持默认16；
+日志模式不额外写入P。此设置来自固定目标对照，完整轨迹的改善程度尚待验证。

@@ -166,6 +166,16 @@ def connect_robot(config: DeploymentConfig, stack: ExitStack) -> SO101Follower:
     stack.callback(close_robot, robot)
     robot.connect(calibrate=False)
     assert robot.is_calibrated, "device calibration differs from the existing calibration file"
+    if config.action_sink == "robot":
+        # 在 SDK 默认配置之后覆盖，避免重连将这两轴的 P 重设为 16。
+        for joint in ("elbow_flex", "wrist_flex"):
+            robot.bus.write("Lock", joint, 0, normalize=False, num_retry=2)
+            try:
+                robot.bus.write("P_Coefficient", joint, 32, normalize=False, num_retry=2)
+                actual = robot.bus.read("P_Coefficient", joint, normalize=False, num_retry=2)
+                assert actual == 32, f"{joint} P_Coefficient readback mismatch: {actual}"
+            finally:
+                robot.bus.write("Lock", joint, 1, normalize=False, num_retry=2)
     return robot
 
 

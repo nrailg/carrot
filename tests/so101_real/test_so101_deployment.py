@@ -1,5 +1,6 @@
 import json
-from unittest.mock import Mock
+from contextlib import ExitStack
+from unittest.mock import Mock, call
 
 import numpy as np
 import pytest
@@ -10,6 +11,69 @@ from examples.so101_real import runner
 from examples.so101_real.actions import SO101Sink, action_limits
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig
 from examples.so101_real.observations import ObservationFrame
+
+
+@pytest.mark.parametrize("sink", ["robot", "log"])
+def test_robot_connection_applies_execution_p_after_sdk_configuration(monkeypatch, sink):
+    # SDK connect 会重设默认 P；只有真机执行模式覆盖肘/腕，I/D 和其余轴不得改写。
+    robot = Mock()
+    robot.cameras = {}
+    robot.bus.is_connected = True
+    robot.is_calibrated = True
+    robot.bus.read.return_value = 32
+    events = []
+    robot.connect.side_effect = lambda **kwargs: events.append("connect")
+    robot.bus.write.side_effect = lambda *args, **kwargs: events.append(args)
+    monkeypatch.setattr(runner, "SO101Follower", lambda config: robot)
+    config = DeploymentConfig(action_sink=sink, calibration_dir="unused")
+
+    # 运行真实连接入口但使用硬件替身；ExitStack 必须仍执行既有资源清理。
+    with ExitStack() as stack:
+        assert runner.connect_robot(config, stack) is robot
+        robot.bus.disconnect.assert_not_called()
+
+    # 所有参数写入发生在 connect 之后，仅写两个 P 并锁回；log 模式不得写参数。
+    assert events[0] == "connect"
+    expected = [call(register, joint, value, normalize=False, num_retry=2)
+                for joint in ("elbow_flex", "wrist_flex")
+                for register, value in (("Lock", 0), ("P_Coefficient", 32), ("Lock", 1))]
+    assert robot.bus.write.call_args_list == (expected if sink == "robot" else [])
+    assert robot.bus.read.call_args_list == ([
+        call("P_Coefficient", joint, normalize=False, num_retry=2)
+        for joint in ("elbow_flex", "wrist_flex")
+    ] if sink == "robot" else [])
+    robot.connect.assert_called_once_with(calibrate=False)
+    robot.bus.disconnect.assert_called_once_with(disable_torque=False)
+
+
+@pytest.mark.parametrize("failure", ["write", "readback"])
+def test_p_configuration_failure_relocks_and_closes_robot(monkeypatch, failure):
+    # 写入失败或读回不匹配必须阻止后续执行，且失败轴重新锁定、已连接硬件关闭。
+    robot = Mock()
+    robot.cameras = {}
+    robot.bus.is_connected = True
+    robot.is_calibrated = True
+    robot.bus.read.return_value = 16
+    if failure == "write":
+        def fail_p_write(register, *args, **kwargs):
+            if register == "P_Coefficient":
+                raise ConnectionError("injected")
+
+        robot.bus.write.side_effect = fail_p_write
+    monkeypatch.setattr(runner, "SO101Follower", lambda config: robot)
+    config = DeploymentConfig(action_sink="robot", calibration_dir="unused")
+
+    # 替身只在参数写入处失败，不连接串口或运行模型。
+    error = ConnectionError if failure == "write" else AssertionError
+    with pytest.raises(error), ExitStack() as stack:
+        runner.connect_robot(config, stack)
+
+    # 失败后不设置第二轴；finally 重锁与 ExitStack 清理不能被跳过。
+    assert robot.bus.write.call_args_list[-1] == call(
+        "Lock", "elbow_flex", 1, normalize=False, num_retry=2,
+    )
+    assert all(c.args[1] == "elbow_flex" for c in robot.bus.write.call_args_list)
+    robot.bus.disconnect.assert_called_once_with(disable_torque=False)
 
 
 @pytest.mark.parametrize("source,sink", [

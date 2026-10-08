@@ -1,5 +1,37 @@
 # SO101无视觉模型：连续action chunk反馈测试
 
+## 2026-10-08：无视觉 + state ±3°，重新训练1000步
+
+按用户要求原地修改本recipe的`train.yaml`，复用既有state_jitter dataset wrapper，不增加训练实现。
+本节是新运行；下方2026-10-04的无增强500步记录及其产物保持为历史结果。
+
+| 项目 | 新运行设置/状态 |
+|---|---|
+| 目的 | 重新训练带state jitter的无视觉模型，供后续模型输出与真机执行排查；尚无效果结论 |
+| 初始化/数据 | 官方pi05_base_pytorch_h10从step0开始，不resume；完整单episode/264帧 |
+| 增强 | Normalize/TokenizePrompt之前，五运动轴各自独立U(-3°,3°)；action、gripper、padding、原统计量保持不变 |
+| 训练 | 1000step，warmup100后constant1e-6，8×H20 BF16 FSDP，micro4/global64/GAS2，seed1000；每500保存 |
+| 视觉/随机性 | 视觉pixels=0、mask=false；训练noise和t随机 |
+| 输出根 | `$MY_DFS/experiments/carrot/pi05_so101_state_only_rollout/20261008T074452Z`，独立目录 |
+| 进度 | 2026-10-08 15:48 UTC+8启动；task `26a05933-0480` / Ray job `11000000`；15:51亲核step1–33连续有限，step33 loss0.087952/grad1.820903/LR3.366e-7，暂无异常 |
+| 后续离线评估 | 最终step1000复用evaluate.py/verify.py，8条noise序列×53chunk；真实state对照与预测末action反馈分别统计，NFE10/h10/采用5 |
+
+实际MY_DFS已由本会话唯一CephFS挂载与`__SYS_USER_NAME__`核验。
+命令：`MY_DFS=<已核验DFS> RAY_ADDRESS=29.209.160.111:6379 SOURCE_COMMIT=7650c4acf7cbff76b887a7f2cfc096645043f83a bash recipes/pi05_sft_so101_state_only_rollout/run.sh`。
+源码基于该Mac提交加本轮未提交recipe改动，执行前归档源码快照和SHA；Docker image tag未记录。
+run.sh从当前配置解析输出目录和最终step，避免误写历史evaluation；不操作机器人或启动推理服务。
+验收以1000条连续有限loss/grad/LR、训练退出码、checkpoint实际step/BF16/h10/stats/参数更新及原Parquet独立评估核验为准。
+预计纯训练约30分钟、含加载/保存/离线评估约40分钟，以实际日志为准；NaN/Inf或实际崩溃停止本轮，不自动重训。
+历史matched-fit实验已有相同增强1000步结果；本次是相同seed配置重跑，不是独立训练seed的因果对照。
+图片、模型、日志和临时诊断脚本留Ceph/Mac缓存，不入Git；启动时recipe改动尚未提交，执行版本以启动快照和SHA为准。
+
+预检task `26a05933-0479` exit0/29s，已归档`preflight_backend.log`。
+72文件Mac/GPU SHA一致，官方base和h10副本权重SHA相同，Parquet SHA与原录制相同；32次实际读取验证五轴扰动范围、action/gripper/padding不变、原统计量一致、视觉全屏蔽和action反归一化roundtrip通过。
+dguard已暂停60分钟，EXIT恢复；后台supervise每1800秒归档本job日志、核验连续/有限指标与LR，异常停止本轮，不自动重训。
+启动时加载的收尾脚本误把checkpoint的根目录tokenizer文件当成`tokenizer/`目录；已保留`supervise_loaded_snapshot.py`并修正磁盘脚本，训练代码/已加载配置未变。
+独立收尾task `26a05933-0483`等待训练/离线评估结束后使用正确文件位置复核；若0480因该旧检查exit1，须以failure.json中的训练评估wrapper退出码和独立completion.json区分，不能报告训练崩溃或重新训练。
+输出根含preflight/source_snapshot/expected_source_hashes/launch/ray_logs/latest_training_status；原始执行快照与后续README进度更新分开保留。
+
 ## 2026-10-04：训练、连续反馈评估与独立核验完成
 
 | 阶段 | 真实进展 |

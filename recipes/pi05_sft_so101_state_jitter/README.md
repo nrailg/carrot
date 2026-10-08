@@ -99,3 +99,6 @@ Mac副本：`~/.cache/carrot/so101_state_jitter_20261004T033515Z/`，不含大�
 后续增强2000step及500/1000/1500/2000评估已完成，见 [匹配拟合实验记录](../pi05_sft_so101_state_jitter_matched_fit/README.md)。增强模型较晚checkpoint的真实state和反馈平均MAE均下降，1500/2000的反馈指标也低于旧无增强500对照。因此，本文500step下的退化现象只能作为这次固定预算的观察，不能推广为增强的一般效果。
 
 按用户要求，整个增强比较统一记为探索性实验，尚不能判断增强对模型鲁棒性的独立收益。本文关于基础拟合、监督与状态转移的解释仍是未隔离验证的可能原因；不同输入分布下的训练loss，以及相近的真实state平均MAE，都不足以完成因果归因。保留原始结果和解释的历史记录，不据此决定采用或放弃增强。
+
+> 2026-10-08：当前共享augmentation/config已增加五轴标定bounds，raw state加噪后clip；
+> action/gripper/stats不变。CPU契约测试8 passed。本文历史运行使用未clamp的旧版本，未重训。

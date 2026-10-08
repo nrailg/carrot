@@ -95,3 +95,6 @@ run.sh用同一新训练产生四个checkpoint，再依次评估及原Parquet独
 全四checkpoint六维MAE/P95/max保留checkpoint_metrics.csv；逐chunk逐noise指标在paired_chunk_metrics.csv。training_metrics.csv保留2000逐步原始loss/clip前grad/LR。training_curves、fit_vs_budget、paired_feedback均保存PNG/SVG/PDF；训练图粗线是尾随20step均值，反馈图阴影为8条noise的P10–P90（不是置信区间）。预算图x轴是训练step；反馈图x轴是录制frame的chunk起点0/5/.../260，15fps。图片不入Git。
 
 Mac cache为/Users/wujunyu/.cache/carrot/so101_state_jitter_matched_fit_20261004_2000step/，无大权重/optimizer；已独立复算并展示图。最终源码仍为abd265ee5b49be99f5e91e3b0d7fd3c108365754加本轮未提交recipe/evaluate扩展，Docker tag/上游commit未记录；用户Isaac文件保持原状。
+
+> 2026-10-08：当前共享augmentation/config已增加五轴标定bounds，raw state加噪后clip；
+> action/gripper/stats不变。CPU契约测试8 passed。本文历史运行使用未clamp的旧版本，未重训。

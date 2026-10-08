@@ -31,6 +31,7 @@ def main() -> None:
     assert cfg["fit"] == {"vision": False, "noise_seed": None}
     kwargs = dict(cfg["dataset"]["factory_kwargs"])
     jitter = kwargs.pop("state_jitter_degrees", 0.0)
+    jitter_bounds = kwargs.pop("state_jitter_bounds", None)
     assert (cfg["dataset"]["factory"], jitter) in (
         ("carrot.data.so101.build_dataset", 0.0),
         ("recipes.pi05_sft_so101_state_jitter.augmentation.build_dataset", 3.0),
@@ -132,6 +133,7 @@ def main() -> None:
             "whole_episode": summarize([np.concatenate(v) for v in groups[mode].values()]),
         } for mode in MODES},
         "vision": False, "training_state_jitter_degrees": jitter,
+        "training_state_jitter_bounds": jitter_bounds,
         "units": ["degrees"] * 5 + ["source gripper unit"],
         "scope": "8 noise sequences over one recorded episode. State-only offline feedback; "
                  "all image masks false, pixels zero; predicted executed endpoint as next state; "

@@ -207,3 +207,26 @@ Gemini25dad1a8，当前唯一CephFS/mm-base-plt2与__SYS_USER_NAME__nrwu已重�
 证据`$MY_DFS/test-runs/so101_wait_for_target_20261008/`含source_hashes与初轮日志。
 源码7135c72+未提交改动，Docker tag/上游commit未记录；CPU测试无串口/相机/模型动作。
 真机到位效果单列recipe，不以mock PASS替代真机结果。
+
+## 2026-10-08：超差时重发固定目标（准备）
+
+状态PASS。源码a4b9053加本轮未提交改动，Docker tag/上游commit未记录。
+用户要求wait期间mismatch时重发；每次反馈超差且未到3s截止时，重复首次实际sent，
+不改变目标、不补偿、不推进下次模型请求。已进容差时只确认连续3次，不重发。
+新增target_resends和逐sample resent记录；驱动若改变重发目标立即拒绝。
+fake driver/确定性时钟验证超差重发、短暂到位计数重置、截止不写/不继续推理、
+相对限幅后的sent重复而非原预测；无真实串口/相机/GPU。
+命令：bash tests/so101_real/test_so101_runtime.sh -q。
+
+实际CPU结果PASS：Gemini25dad1a8，当前DFS重新核验，源码同步SHA一致，/opt/venvs/carrot与离线/CPU-only；26 passed in6.76s，Ruff PASS。无硬件操作。
+
+## 2026-10-08：撤销重发，等待超时记录后继续（准备）
+
+NOT RUN。用户明确撤销retry，并要求完整闭环统计目标/反馈误差。
+actions.py恢复为只发一次、只读等待；runner到位超时记录false/error/samples后继续，
+下一次模型请求使用最新真实反馈，不能把超时记成到位。其他错误仍正常传播。
+替身两次均超时，验证两个发送、三个推理请求（含预热）、反馈0.5而非目标2、完整残差。
+命令：bash tests/so101_real/test_so101_runtime.sh -q；CPU-only，无串口/相机/GPU。
+源码a4b9053加未提交修改；Docker tag/上游commit未记录。
+
+实际结果PASS：Gemini25dad1a8，当前DFS重新核验；25 passed in6.91s，Ruff PASS；三个必要Python文件Mac/GPU SHA一致，CPU-only，无硬件/GPU。

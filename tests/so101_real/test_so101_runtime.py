@@ -321,26 +321,27 @@ def test_wait_for_target_requires_sustained_arrival(log, motion_clock):
     np.testing.assert_array_equal(policy.requests[-1]["observation/state"], np.full(6, 2))
 
 
-def test_target_timeout_records_sent_action_and_stops_inference(log, motion_clock):
-    # 静止偏差不能靠超时后继续推理掩盖，已发送动作与完整等待反馈必须保留。
-    robot = TrackingRobot([0])
+def test_target_timeout_records_residual_and_continues_with_live_feedback(log, motion_clock):
+    # 超时只结束当前等待，残差必须留存且下一次推理使用新反馈，不重发目标。
+    robot = TrackingRobot([0, 0, 0, 0.5])
     config = DeploymentConfig(observation_source="robot", action_sink="robot",
                               max_chunks=2, wait_for_target=True, target_timeout_s=0.05)
     policy = Policy()
 
-    # 首个目标无法到位，预热和首请求后应退出，不能读取下一块并重新请求。
-    with pytest.raises(AssertionError, match="robot target timeout"):
-        run_loop(config, RobotSource(robot, DeploymentConfig(prompt="pick"), 4),
-                 SO101Sink(robot, config, LOWER, UPPER), policy, log)
+    # 两个目标均超时也应完成两轮，并让第二次正式请求读取变化后的0.5反馈。
+    result = run_loop(config, RobotSource(robot, DeploymentConfig(prompt="pick"), 4),
+                      SO101Sink(robot, config, LOWER, UPPER), policy, log)
     events = [json.loads(line) for line in
               (log.directory / "events.jsonl").read_text().splitlines()]
     actions = [event for event in events if event["event"] == "action"]
 
-    # 即使超时，真实发送计数仍为一，日志明确记录残差及失败状态。
-    assert len(robot.commands) == 1 and len(policy.requests) == 2 and len(actions) == 1
-    assert not actions[0]["target_reached"]
-    assert actions[0]["target_wait_s"] == pytest.approx(0.05)
-    assert actions[0]["target_error"] == [-2] * 6
+    # 每轮只发送一次，超时日志不冒充到位；下一观测必须是实测值而非目标2。
+    assert result["steps"] == 2 and len(robot.commands) == 2
+    assert len(policy.requests) == 3 and len(actions) == 2
+    assert all(not action["target_reached"] for action in actions)
+    assert all(action["target_wait_s"] == pytest.approx(0.05) for action in actions)
+    assert all(action["target_error"] == [-1.5] * 6 for action in actions)
+    np.testing.assert_array_equal(policy.requests[-1]["observation/state"], np.full(6, 0.5))
 
 
 def test_target_wait_uses_driver_sent_target(motion_clock):

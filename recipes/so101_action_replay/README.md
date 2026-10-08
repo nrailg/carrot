@@ -1,6 +1,6 @@
 # SO101 原始示教动作真机 replay（2026-10-08）
 
-最新诊断（2026-10-08）：固定目标测试定位到增益相关、方向相关静态跟踪残差。仅本轴P16→32，肘3.43→1.58°/腕1.58→0.62°；恢复P16残差再现。全参数已恢复、Status0；整段P32效果待验证。详细结果见文末“固定目标诊断完成”。
+最新进展（2026-10-08）：no-vision+jitter step2000真机K1/P32肘腕、3°等待/3s超时后继续，264动作完整执行，263到位/1超时。等待结束时五轴对sent平均MAE0.650°、对原模型目标0.674°；重发已撤销，肩抬一次残差3.351°。当前硬件肘腕P32/其余P16。完整表与曲线见文末。
 
 
 用户休假归来，明确要求先检查机器人，再开始走SFT数据。此轮执行step1：Mac直接读取单episode原始Parquet action，绕过policy/GPU/视觉，逐步5帧→30帧→264帧；没有修改标定、PID、加速度或生产runner，没有模型训练/推理，也没有leader/camera访问。
@@ -302,3 +302,102 @@ P32在本姿态将肘约3.4→1.58°、腕1.58→0.62°，只是候选执行参�
 主产物Mac `/Users/wujunyu/.cache/carrot/so101_fixed_tracking_20261008T130136Z`、Ceph `$MY_DFS/experiments/carrot/so101_fixed_tracking_20261008T130136Z`：6case events/summary、精确运行版本快照、安装SDK源码/hash、firmware_registers.json、final_register_check.json、independent_results.json/completion.json、samples.csv/phase_metrics.csv及PNG/SVG/PDF。第一4轮中间分析以initial4_前缀保留；最终图只比较本轴P32与P16/I1/恢复轮。Goal_Position_2全部读0，仅作为原始记录，不据此推断内部profile或到位；固件主3/次15、型号777。运行脚本在recipe/diagnose_tracking.py，离线py_compile通过、实际54段完整日志核验通过，未宣称pytest或Ruff运行（本机ruff不可用）。
 
 Carrot HEAD7135c722ab0813fa8a08cebe162ff127b8035260+未提交wait及诊断脚本；Mac LeRobot0.6.1/NumPy2.2.6/Matplotlib3.11.2/pyserial3.5，本机无Docker，上游commit未记录。CLI stdout会话baseline34680/p327898/i152664/restored_p1660392/elbow_only_p329121/wrist_only_p3268187全部exit0；只读preflight48124 exit0/未发目标。无GPU任务/dguard变更，归档前远端确认watch1/guard.sh+run.py运行/无restore计划。图片数据不入Git，未commit/push，用户已stage的recipe记录未动index。
+
+
+## 2026-10-08：P32 真机 K1 到位等待复测（准备）
+
+状态：本轮已运行并因到位超时提前停止，未完成264。源码 `a4b905351c2e19ef1443d0655b510eb969497217`。同一 step2000/no vision/jitter±3°模型，h10/NFE10/eager/随机noise、K1、2°连续3次/3s超时、相对限幅20°，对齐同录制起点后最多264动作。通过生产 `connect_robot` 在SDK默认配置后设置肘/腕P32，I0/D32及其余P16；读回核对。超时不放宽、不补偿模型目标。比较sent与实测反馈、完成步数；随机推理目标并非旧轮逐项配对，不将变化全归因于P。
+
+Mac产物 `/Users/wujunyu/.cache/carrot/so101_jitter2000_p32_wait2deg_act1_20261008T140224Z`；Ceph `$MY_DFS/experiments/carrot/so101_jitter2000_p32_wait2deg_act1_20261008T140224Z`。实际命令见产物plan.json/client.py/serve.sh；client调用生产run_loop/SO101Sink，起点对齐与退出当前位置hold沿用前轮外部包装。模型权重SHA605eecdff3df591a6a3249e4b9a6b9070c6f6d656989b185d16e54596f1d4b5c。预期NPZ/逐动作等待反馈/PID与Goal读回/summary、最后Status0且保持当前位置。Docker tag/上游commit未记录；图数据不入Git。
+
+
+### P32/2° 本轮提前停止；用户要求3°重跑
+
+2°轮实际发送3动作，前2动作到位，第三动作肩抬残差2.021973°、肘1.638077°/腕屈−0.050121°，3.003848s超时而停止，client exit1。上一P16轮在第二动作肘3.480621°停止；本轮第二动作肘1.722015°，但模型随机noise/反馈不同，目标85.266632° vs87.904358°，不作为同目标因果估计。第三目标肩抬已被绝对限幅为−106.241753°。Status全0、退出raw hold读回通过、P32保留，服务0585 exit0已释放/8080关闭/dguard恢复。
+
+新3°轮准备：`/Users/wujunyu/.cache/carrot/so101_jitter2000_p32_wait3deg_act1_20261008T140606Z`，用户明确仅放宽到位容差至3°，K1/P32/3s超时/264预算不变；重新对齐起点。此改动放宽执行验收，不代表伺服物理残差自动减小；实测结果待记录。
+
+
+### P32/3° 实测结果：27动作到位，第28动作肩抬静态误差而停止
+
+同step2000/no vision+jitter/h10/NFE10/eager/随机noise，K1；仅容差2→3°（夹爪3原单位），3s超时与其他参数不变。起点五轴最大差0.263737°，真实新鲜state反馈。client session7356 exit1是超时保护，实际发送28/264动作、前27动作达到连续3次≤3的条件，没有第29次请求；**未完成整段轨迹**。前一条现场进度误报为第25步，已按完整日志更正28。
+
+| 运行 | 实际发送 | 达标动作 | 停止轴与残差（实测−sent，°） |
+|---|---:|---:|---|
+| 旧P16/2° | 2 | 1 | 肘 +3.480621 |
+| 本轮肘/腕P32，2° | 3 | 2 | 肩抬 +2.021973 |
+| 本轮肘/腕P32，3° | 28 | 27 | 肩抬 +3.507830 |
+
+3°轮第28动作sent=[−1.248312,−17.529808,59.210396,−12.566795,−3.967663,0.398405]，最后残差=[+0.369191,+3.507830,+0.350044,+0.171191,−0.032337,+0.356571]；108次反馈/3.003770s，最后1秒所有轴位置span0。该步无clamp；完整28步有2步绝对限幅、无相对限幅。28个动作停止等待时五运动轴平均绝对残差分别[0.866409,1.335503,1.443760,0.767571,0.415230]°；夹爪0.342030原单位。该均值是停止等待时残差，受容差/动作目标/反馈路径影响，不能当模型拟合MAE或与旧两步直接做因果比较。
+
+判断：3°放宽使本次能走过更多动作；未改变肩抬的物理控制能力，仍因该轴P16静态残差停止。肘/腕P32在固定目标实验有独立改善证据，此次跟踪也符合该迹象；不能据随机闭环目标变化量化其整段收益。没有进一步放宽、修改肩部P或补偿模型目标。对示教轨迹/任务成功尚未完成验收。
+
+独立读取28份NPZ/request/command/action/全部等待反馈，与sent/Goal逐项核对，复算error与连续3次条件，数据Parquet SHA与原录制一致，PASS；Goal读回量化差均<0.1°、全部Status0/退出raw当前位置hold读回一致。独立停后读回肘/腕P32，其余P16，全轴I0/D32/Lock1/Torque1/Status0、最高温56°C，串口关闭。硬件P32保留，未恢复P16。
+
+模型服务25dad1a8-0589 PID579946 exit0/123s，归属确认后仅SIGTERM本服务，日志dump释放；亲核进程消失/8080关闭/dguard watch1、guard.sh/run.py运行/无restore计划。上轮0585同样已清理。两轮产物各自Mac ~/.cache/carrot 与Ceph $MY_DFS/experiments/carrot同名目录，含client/serve/plan、原始反馈、CSV、verify_run.py/independent_results.json、hardware_after与服务证据；90个必要源码Mac/GPU hash一致，源码a4b9053，模型权重SHA同前。实际Docker tag/上游commit未记录；无图数据入Git，未commit/push。
+
+
+## 2026-10-08：超差时重发固定sent目标的真机对照（准备）
+
+NOT RUN。用户要求mismatch时重发同一目标。源码a4b9053加未提交actions.py改动；26项CPU模拟测试/Ruff通过。同step2000 no-vision+jitter模型、h10/NFE10/eager/随机noise、K1/P32肘腕/其他P16、3°连续3次/3s超时，最多264动作；不补偿目标、不重置截止时间。先慢速倒序已执行目标回起点，然后原精确对齐；记录target_resends与逐反馈resent、Goal读回和退出hold。对照是上一轮3°/28动作（27达标，第28肩抬3.507830°超时），随机模型闭环非精确配对。
+
+产物Mac `/Users/wujunyu/.cache/carrot/so101_jitter2000_p32_resend_wait3deg_act1_20261008T141851Z` /Ceph `$MY_DFS/experiments/carrot/so101_jitter2000_p32_resend_wait3deg_act1_20261008T141851Z`；命令见plan.json/client.py/serve.sh。预期核对重发目标恒定、发送次数、到位/超时不推进、反馈与状态、停止后hold；没有因重发成功就宣称解决所有跟踪问题。镜像tag/上游commit未记录，图数据不入Git。
+
+
+### 重发版本实测：32动作/31到位，同目标重发未消除肩抬静态残差
+
+client58503 exit1按3s超时停止：实际32/264动作、前31连续3次≤3达标，无第33请求。全程200次重发，第32动作115次反馈/114次同sent重发，3.006554s后肩抬仍+3.351120°；最后1秒所有轴读数span0。该步sent肩抬−17.724747°、Goal读回−17.802198°、实际−14.373627°，肘+1.420452°/腕+0.363421°。这是执行跟踪残差，非模型对示教误差，也不证明机械上该角度不可达。没有自行更改肩抬P或继续放宽容差。
+
+| 相同K1/P32肘腕/3°/3s条件 | 发送动作 | 达标动作 | 最后肩抬残差 ° | 最后动作重发次数 |
+|---|---:|---:|---:|---:|
+| 前轮只等待 | 28 | 27 | 3.507830 | 0 |
+| 本轮超差重发 | 32 | 31 | 3.351120 | 114 |
+
+模型noise和反馈轨迹未配对，28→32不能归因于重发收益；能直接确认的是本轮同目标重发114次仍未消除静态误差。32份NPZ/request/index0/Goal/反馈及target_resends=sample resent计数独立复算PASS，已在容差时不重发、截止最后一条不重发，驱动重发返回目标与首次sent严格一致（生产assert）。五轴停止等待时MAE[0.825144,1.270191,1.469306,0.850263,0.427472]°，夹爪0.347422原单位；非模型MAE，受停止容差影响。
+
+重发实现已保留于actions.py，runtime CPU26项/Ruff PASS；未commit/push。起点前慢速倒序上一轮28目标回退exit0，再原精确对齐（最大差0.615382°）。全部Status0、末尾raw当前位置hold读回一致；独立硬件读回肘腕P32/其余P16/I0/D32/Lock1/Torque1，最高温56°C/串口关闭。服务25dad1a8-0594 PID581578 exit0/132s，归属确认SIGTERM后dump释放，进程消失/8080关闭，dguard watch1/guard.sh/run.py运行/无restore计划。
+
+产物Mac ~/.cache/carrot/so101_jitter2000_p32_resend_wait3deg_act1_20261008T141851Z，Ceph $MY_DFS/experiments/carrot同名根（含mac_results）。90必要源码Mac/GPU SHA一致；a4b9053加未提交重发代码，模型权重同前，无新训练；镜像tag/上游commit未记录。若继续定位，建议固定同一肩抬raw目标对比P16/P32，不将换随机模型目标当控制变量验证；尚未执行。
+
+
+## 2026-10-08：撤销retry，到位等待超时后继续完整轨迹（准备）
+
+NOT RUN。用户明确撤销刚才的重发逻辑，允许到位超时后继续下一模型动作，完整记录目标与反馈差距。actions.py已恢复HEAD单次发送，只改runner去掉target_reached失败即终止的断言；其余故障正常终止。runtime25项/Ruff PASS。完整264动作，同step2000/no-vision+jitter模型，P32肘/腕、其他P16，h10/K1/NFE10/eager/random noise、3°连续3读数/3s等待、相对限幅20°。超时后下一次使用最新真实state，超时仍记false，不冒充到位。
+
+先慢速倒序上一轮32个已执行目标回起点，再精确对齐。每动作一次记录raw模型目标、absolute/relative限幅sent、最后等待反馈和servoGoal读回；完成后各轴MAE/P95/max按264个动作各一次统计，模型target-vs-real与sent-vs-real分列。保存CSV与全程曲线（不进Git）。产物Mac `/Users/wujunyu/.cache/carrot/so101_jitter2000_p32_wait3deg_continue_act1_20261008T142755Z` /Ceph `$MY_DFS/experiments/carrot/so101_jitter2000_p32_wait3deg_continue_act1_20261008T142755Z`，脚本与命令见plan/client/serve；最大等待总量792s，dguard暂停20分钟后结束恢复。源码a4b9053加未提交改动，镜像tag/上游commit未记录。
+
+
+### 完整执行 PASS；到位263/264，单次超时已记录并继续
+
+client22706 exit0、summary completed=true/264chunks/264steps，264份有限float32[10,6] NPZ、一对一request/command/action，1265次等待反馈。起点五轴最大差0.351648°；动作前只发送一次，等待期间不重发，达到3次≤3或最多3s后继续使用实测state推理。独立从原始日志重算NPZ/index0/最新live_observation配对、Goal读回<0.1°、等待条件、误差与结束hold全部PASS。不会把不达标动作记成到位。
+
+**主指标为每个动作等待结束时的实测−实际发送目标sent，各264样本且包含超时：**
+
+| 关节 | MAE ° | P95绝对误差 ° | 最大绝对误差 ° |
+|---|---:|---:|---:|
+| 肩旋shoulder_pan | 0.507350 | 1.567314 | 2.456977 |
+| 肩抬shoulder_lift | 1.106184 | 2.503593 | 3.351345 |
+| 肘elbow_flex | 0.546800 | 1.790310 | 2.768364 |
+| 腕屈wrist_flex | 0.684801 | 1.509824 | 2.443221 |
+| 腕转wrist_roll | 0.403468 | 0.598189 | 0.961319 |
+
+五轴均值0.649721°；夹爪另计MAE0.352490/P95 0.433713/max0.443431原始单位。相对**原模型输出**的五轴MAE=[0.507350,1.188565,0.583423,0.684801,0.403468]°，均值0.673522°；raw目标vs实测绝对max肩抬4.989655°。本轮28动作有绝对clamp，无相对clamp，所以raw-vs-real与sent-vs-real不完全相同。这里均为执行端跟踪差距，**不是模型对示教的拟合误差**。
+
+唯一超时为第34动作，肩抬sent−21.241455°、最后误差+3.351345°，等待3.005916s后已记录并继续第35动作。263动作满足连续3次≤3，整体等待均值0.096672s/累计25.521511s；第一至末动作日志窗口95.176855s，不等于原录制17.6s。初始运动尚未到位的瞬态sample最大差另列[7.024497,12.679335,7.712952,15.415575,2.895385]°，不与等待结束残差混用。x轴为执行的模型动作编号1..264，非原录制等时间帧。
+
+结果：本次完整闭环的大多数目标可在3°内跟上，少数姿态仍有肩抬静态残差；忽略一次到位超时后，轨迹能够继续完成。单次随机noise闭环没有精确配对P16对照，不能量化P改动的整段因果收益，亦不能宣称任务成功或示教轨迹已经复现。状态全0，退出当前位置raw hold读回一致/扭矩保留/串口关闭；当前肘腕P32、其余P16/I0/D32/Lock1。
+
+温度说明：本轮`Present_Temperature`寄存器最大原始值57，来自夹爪；用户手摸外壳感觉凉。停后六轴原始读数54/56/55/53/54/57，型号全777，LeRobot sync_read、逐轴read与直接packet_handler.read1ByteTxRx(address63)三种方式逐轴一致，厂商官方SDK同样定义温度地址63并直接返回字节：https://github.com/ftservo/FTServo_Arduino/blob/main/src/SMS_STS.h 、https://github.com/ftservo/FTServo_Arduino/blob/main/src/SMS_STS.cpp 。不存在当前可见的软件归一化/地址错配证据，但未用外部温度计校准，不能将上报57直接称为外壳实测57°C，内外温差与温感偏差尚未分离。历史“最高57°C”表述据此澄清为寄存器上报值。
+
+曲线与数据在Mac产物根：target_feedback.png/svg/pdf（raw模型/sent/等待结束实测）、tracking_residual.png/svg/pdf（实测−sent），target_feedback.csv（264动作全部6轴目标/反馈/两类误差）、wait_samples.csv（1265反馈）与analyze_run.py/independent_results.json。图片均不入Git。
+
+服务25dad1a8-0599 PID583154 exit0/247s，归属确认后SIGTERM/dump归档释放；亲核进程消失/8080关闭/dguard watch1/guard.sh/run.py运行/无restore计划。Mac ~/.cache/carrot/so101_jitter2000_p32_wait3deg_continue_act1_20261008T142755Z 与当前确认DFS /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot同名根/mac_results。90必要源码SHA一致，模型SHA仍605eecdf...；Carrot a4b9053加未提交超时继续代码，CPU runtime25项/Ruff PASS；镜像tag/上游commit未记录。未commit/push，没有修改标定或添加训练预算。
+
+
+### 2026-10-08：逐轴曲线复核与用户反馈
+
+已在对话展示目标/实测轨迹与结束等待残差两张六关节图。横轴为执行动作编号1–264；蓝线raw模型目标、橙线限幅后sent、绿线等待结束实测，残差图为实测−sent，红虚线±3，红点标记第34动作超时。夹爪为原始单位，排除于五轴平均值。各轴MAE/P95/max见上表，肩抬误差最大；五轴平均0.649721°并非每轴都为0.65°。
+
+用户查看后反馈“看着还行”，接受本轮目标跟踪表现；这不是模型轨迹对示教轨迹或推倒圆柱任务的验收。温度问题按用户要求暂时搁置，不继续排查或据未校准读数推断真实外壳温度。保留K1、只发送一次、等待最多3s且超时记录后继续、下一次使用实测state的执行方式。
+
+Ceph mac_results归档共383项文件，按archive_hashes.json逐文件SHA256复核PASS；图像/CSV/NPZ/脚本与原始日志留在缓存及Ceph，不提交Git。代码及文档提交包含超时继续行为和对应回归测试；本轮测试结果仍为25 passed/Ruff PASS，无新增训练或机器人动作。

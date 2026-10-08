@@ -1,5 +1,45 @@
 # SO101无视觉模型：连续action chunk反馈测试
 
+## 2026-10-08：保留原始数据，按实测范围小幅扩肩抬标定
+
+用户改变方案：不采用清洗数据，检查实际state/action后小幅扩机器人range_min/max。
+原始单episode264帧的肩抬action最小−105.142860°，原范围外8帧；30episode3213帧最小−105.758240°，原范围外521帧。
+两份数据的state及其余四个运动轴action均无越界。只将follower肩抬raw范围[932,3317]对称扩为[916,3333]，
+degrees范围±104.835165°→±106.241758°，每侧增加1.406593°，覆盖最极端原action并留约0.4835°。
+原始数据、stats和旧checkpoint不改；当前recipe已恢复指向原始单episode，不使用生成的`_clamped`副本。
+三个jitter recipe与契约测试中的肩抬bounds同步更新，其余关节/gripper/homing_offset均不改。
+
+已通过bus-only连接，只解锁肩抬EEPROM、写Min_Position_Limit/Max_Position_Limit并恢复Lock；
+未调用Robot.connect/configure、未写Goal或Torque。六轴读回证实Goal/Torque/Lock/homing/其余limits和Status均与写前相同，
+设备范围与保存文件一致；Status全0。备份/脚本/前后寄存器与SHA在Mac `~/.cache/carrot/so101_range_expand_20261008/`。
+原标定SHA9bb12feb1f18ff03e4f6298e6655fd0a0f5f68d68409f0a5c79f06178d0ee65b，
+新SHA68ba463158a5bfde211bb2633d552ba13790c17be378d2e657338990e3bf1243。
+离线SDK枚举全部4096个肩抬raw值确认degrees不变；两份数据全部state/action的degrees→raw目标也逐项不变。
+新范围下两份原数据state/action均无越界，原单episode6个文件SHA保持原值。没有动作轨迹或机械极限实测，
+旧评估的133/41行越界等仍以旧标定为基准，不能视作新范围下统计。
+新bounds版本Gemini CPU回归8 passed in7.20s，Ruff/7文件Mac-GPU同步SHA通过；Ceph原Parquet SHA未变。
+
+## 2026-10-08：修复state jitter越出标定范围（未重训）
+
+当前配置新增五轴`state_jitter_bounds`，源自`my_awesome_follower_arm`现有标定：
+±[112,104.835164835,97.274725275,96.615384615,180]°，顺序pan/lift/elbow/wrist flex/wrist roll。
+共享augmentation在raw state加U(-3°,3°)后、Normalize/Tokenize之前clip五轴；gripper/action/padding/stats不变。
+evaluate移除增强专用bounds再读取干净数据，并将bounds记入评估metadata。
+Gemini CPU契约测试8 passed，Ruff/语法/7文件同步SHA通过，见`tests/pi_05/test_so101_state_jitter.md`。
+**下方所有已完成训练及checkpoint使用未clamp的旧增强，本次只改代码/config，没有重训或重新评估模型。**
+
+复查旧step1000的h10/K5真实state组：133/2112采用action行越界，其中108行对应五轴均合法的reference。
+肩抬95个越界预测的reference全部距离下界≤2.8572°（部分reference本身越出0.3077°），
+这95个预测对reference的MAE2.4918°；肘42个越界预测的reference距上界0.3516–1.0549°，MAE0.9932°。
+说明边界附近的小幅拟合误差即可触发越界；不能仅由“有越界”推断feedback或增强是主因。
+分析证据：Mac缓存本轮输出根`bounds_cause_observations.json`，使用旧424NPZ，无新推理。
+
+现有flow-matching loss、NFE10 Euler和quantile反归一化没有关节范围硬约束；输入clamp不能保证输出合法。
+原action略超当前标定的原因仍需核对录制/当前标定一致性，不能直接认定标签错误。
+相关研究与方法取舍记录在canonical memory同名状态文档：DAgger/DART针对反馈分布偏移及纠正示教；
+SafeDiffuser在生成过程加入约束。后续可考虑raw degrees终点投影并单列原始越界统计，或收集纠正示教；
+这些输出/采样/数据采集改动均未执行，不能把clamp当作轨迹拟合或闭环恢复成功。
+
 ## 2026-10-08：无视觉 + state ±3°，重新训练1000步
 
 按用户要求原地修改本recipe的`train.yaml`，复用既有state_jitter dataset wrapper，不增加训练实现。
@@ -13,7 +53,7 @@
 | 训练 | 1000step，warmup100后constant1e-6，8×H20 BF16 FSDP，micro4/global64/GAS2，seed1000；每500保存 |
 | 视觉/随机性 | 视觉pixels=0、mask=false；训练noise和t随机 |
 | 输出根 | `$MY_DFS/experiments/carrot/pi05_so101_state_only_rollout/20261008T074452Z`，独立目录 |
-| 进度 | 2026-10-08 15:48 UTC+8启动；task `26a05933-0480` / Ray job `11000000`；15:51亲核step1–33连续有限，step33 loss0.087952/grad1.820903/LR3.366e-7，暂无异常 |
+| 进度 | 已完成1000step及424NPZ离线评估；训练/评估wrapper exit0，1000条指标连续有限，独立修正后收尾核验PASS；16:27已确认dguard实际恢复、GPU/Ray资源释放 |
 | 后续离线评估 | 最终step1000复用evaluate.py/verify.py，8条noise序列×53chunk；真实state对照与预测末action反馈分别统计，NFE10/h10/采用5 |
 
 实际MY_DFS已由本会话唯一CephFS挂载与`__SYS_USER_NAME__`核验。
@@ -28,6 +68,7 @@ run.sh从当前配置解析输出目录和最终step，避免误写历史evaluat
 预检task `26a05933-0479` exit0/29s，已归档`preflight_backend.log`。
 72文件Mac/GPU SHA一致，官方base和h10副本权重SHA相同，Parquet SHA与原录制相同；32次实际读取验证五轴扰动范围、action/gripper/padding不变、原统计量一致、视觉全屏蔽和action反归一化roundtrip通过。
 dguard已暂停60分钟，EXIT恢复；后台supervise每1800秒归档本job日志、核验连续/有限指标与LR，异常停止本轮，不自动重训。
+15:59按用户要求将当前对话`so101` heartbeat启用为每15分钟；运行输出根`monitor.py`亲核并归档本job指标，原后台30分钟保护检查保留。执行源码/config/script共71文件SHA仍与启动一致（进度README除外）。本轮recipe改动已提交`56b9b17`，回放记录另提交`eca46af`；启动版本仍以当时快照为准，未push。
 启动时加载的收尾脚本误把checkpoint的根目录tokenizer文件当成`tokenizer/`目录；已保留`supervise_loaded_snapshot.py`并修正磁盘脚本，训练代码/已加载配置未变。
 独立收尾task `26a05933-0483`等待训练/离线评估结束后使用正确文件位置复核；若0480因该旧检查exit1，须以failure.json中的训练评估wrapper退出码和独立completion.json区分，不能报告训练崩溃或重新训练。
 输出根含preflight/source_snapshot/expected_source_hashes/launch/ray_logs/latest_training_status；原始执行快照与后续README进度更新分开保留。
@@ -117,3 +158,47 @@ dguard已暂停60分钟，EXIT恢复；后台supervise每1800秒归档本job日�
 - 完整Ceph输出：`$MY_DFS/experiments/carrot/pi05_so101_state_only_rollout/20261004T023935Z`，实际本次MY_DFS为`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu`；含训练checkpoint、500行原始CSV/曲线、worker日志、424NPZ、metrics/comparison/核验/脚本快照。
 - Mac结果与曲线：`/Users/wujunyu/.cache/carrot/so101_state_only_rollout_20261004T023935Z/`，不含模型/optimizer巨量权重。`evaluation/chunk_feedback_error.*`、`chunk_feedback_trajectory.*`、`chunk_metrics.csv`、`training_curves.*`已生成；曲线阴影表示8序列10–90百分位，训练平滑窗口20步。图片在Codex显示，未加入Git。
 - 结束亲核dguard watch1、guard.sh/run.py实际运行、无restore计划；没有服务/机器人操作。原so101周期检查保持暂停；训练预算未追加，未commit/push。下一步真机执行与简单同步closed-loop replay仍等用户休假结束，之后再泛化。
+
+
+### 2026-10-08 16:18 UTC+8进度核验
+
+本轮训练959/1000，所有已记录step连续且loss/clip前grad/LR有限、warmup/constant核验通过，无alarm；71个执行源码/config/script hash保持不变。step500已亲读trainer_state/config/safetensors头：actualstep500/h10/precision BF16/812张量全部BF16，norm_stats与根tokenizer文件存在，optimizer8shards完整；不是只看目录名。当前没有evaluation NPZ，不提前下拟合/鲁棒性结论。dguard watch0/run.py未运行/restore scheduled（启动60分钟后约16:48恢复），此时无需延长；15分钟heartbeat仍ACTIVE。checkpoint_progress.json和最新CSV/status/ray_logs已持久化。
+
+
+### 2026-10-08 16:27 UTC+8：1000步训练与离线评估完成
+
+SFT finished实际step1000，最终loss0.0095510483、clip前grad0.200166，末20步loss均值0.00793345；1000条连续有限、warmup100/constant1e-6逐步核验通过。8rank action head均有有限非零更新。step500/1000均actualstep正确/h10/precision BF16/812张量全BF16/norm_stats/root tokenizer文件/8optimizer shards完整。训练和既有离线评估wrapper退出0，未重训或追加预算，启动至wrapper完成约36分钟。
+
+424NPZ/848infer及原Parquet validator通过，8noise序列×53chunk、每模式2112个有效采用action行；首5步采用、index4直接反馈、视觉全屏蔽/NFE10。独立逐元素核对原state/reference/padding、与旧baseline的noise配对及实际反馈输入，FP64重算MAE/P95/max通过；Mac拉回全部424NPZ再次重算通过。下面是五轴反归一化degrees等权平均，gripper另列源单位。
+
+| 模型 | 每段真实state MAE | 连续预测action反馈 MAE |
+|---|---:|---:|
+| 原无增强500step对照 | 1.346750° | 12.450578° |
+| 本轮±3°增强1000step | 1.391723° | 14.209092° |
+
+同协议配对下分别高3.34%/14.12%。两者训练预算不同、只有一个训练seed，不能隔离增强的独立影响；连续反馈误差仍大，未解决偏离。该离线采用5步协议不同于刚才真机预测10取1、录制state输入协议，不能直接拿1.187°首动作MAE当同条件对照。本轮全部424NPZ所有数组与历史matched-fit增强1000step逐元素相同，是相同seed配置复现，不是额外训练seed证据。新模型尚未执行真机。
+
+| 本轮输入 | 五轴MAE°（肩旋/肩抬/肘/腕屈/腕转） | 五轴P95° | 五轴max° | gripper MAE / P95 / max |
+|---|---|---|---|---|
+| 真实state | [1.243971, 2.335813, 1.446337, 1.744409, 0.188084] | [4.273483, 6.964398, 4.399042, 4.917789, 0.480837] | [17.647377, 19.134695, 20.410488, 24.369333, 3.299152] | 0.015534 / 0.061571 / 0.118214 |
+| 预测反馈state | [7.346681, 33.046529, 14.704263, 15.504951, 0.443034] | [22.114888, 84.127824, 35.795469, 62.207777, 1.023831] | [36.802103, 91.045082, 40.682957, 65.194218, 4.248776] | 0.079941 / 0.236089 / 0.261443 |
+
+收尾状态分别保留：0480因启动时已加载的tokenizer目录断言exit1，failure.json明确训练/评估wrapper_exit_code=0；0483完成checkpoint/评估核验后因GPU尚未完全空闲时检查dguard run.py而exit1。两者均是收尾核验错误，非训练失败。释放后触发dguard并再次执行正确finish_audit，INDEPENDENT_COMPLETION_AUDIT_PASS；实际watch1/guard.sh与run.py运行/无restore计划，Ray空闲224CPU/8GPU、run.sh PID释放。final_remote_checks.json记录最终状态，初始失败日志和快照保留，无需恢复或重训。
+
+0480/0483后台已dump归档释放为training_evaluation_backend.log和initial_finish_audit_backend.log。输出根保存completion/completion_audit_notes/independent_final_comparison/final_remote_checks/逐stepCSV/原始worker日志；Mac副本~/.cache/carrot/so101_no_vision_jitter_20261008T074452Z，排除训练大权重/optimizer，含mac_validation.json。15分钟so101 heartbeat在完成核验后暂停。只更新记录，未额外commit/push、机器人动作或改动用户Isaac。
+
+
+### 2026-10-08：预测角度与当前标定范围核验
+
+只读全部424NPZ，对当前follower保存的标定端点使用LeRobot bus._normalize转换成degrees；bus未connect、无串口打开。五轴范围分别为±[112,104.835165,97.274725,96.615385,180]°，这是当前标定软件范围，不是经过验证的机械硬限位。calibration SHA9bb12feb1f18ff03e4f6298e6655fd0a0f5f68d68409f0a5c79f06178d0ee65b，具体结果保存Mac缓存angle_bounds_validation.json。
+
+| 输入模式 | 采用前5步越界action行/总行 | 比例 | 肩抬/肘越界行数 | 肩抬/肘最大越出边界 |
+|---|---:|---:|---:|---:|
+| 真实state | 133/2112 | 6.30% | 95 / 42 | 4.929850° / 0.935709° |
+| 连续预测反馈 | 41/2112 | 1.94% | 30 / 15 | 3.629404° / 0.926431° |
+
+同一action可多个轴越界，逐轴计数不能直接相加；2112行是同一episode×8noise序列，不是2112个唯一时刻。仅肩抬/肘越界，其余三运动轴没有。采用前5动作里，两模式都没有越界幅度>5°的动作。反馈组最严重肩抬chain3/frame255/offset0预测−108.464569°，比标定下界−104.835165°低3.629404°。
+
+若计算全10步有效预测（包含丢弃后5步、排除padding，4184行/模式），真实state组213行越界，其中5行越出>5°、最大肩抬7.533076°；反馈组62行越界，最大仍3.629404°，无>5°。原示教action本身肩抬最大越出0.307696°；8条重复序列共64/2112源action行越界。
+
+此离线递推直接使用原始未限幅预测，反馈condition有3/424个chunk输入state越界（肩抬2、肘1）；这些state并未模拟机器人限幅后的状态。14.209°指相对示教action的MAE，不是越出标定范围14°；越界比例更低也不意味着轨迹更准确。新模型未执行机器人，无任何实际超范围目标发送。

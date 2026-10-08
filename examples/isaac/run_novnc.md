@@ -55,6 +55,8 @@ bash examples/isaac/run_novnc.sh examples/isaac/spawn_prims.py --num_steps 1000
 bash examples/isaac/run_novnc.sh examples/isaac/run_articulation.py
 # 四个软方块：两个自由落体，两个通过一个顶点拉伸，每三秒重置。
 bash examples/isaac/run_novnc.sh examples/isaac/run_deformable_object.py
+# 两个 Surface Gripper，随机发送吸盘开闭命令；此版本要求 CPU 物理。
+bash examples/isaac/run_novnc.sh examples/isaac/run_surface_gripper.py --device cpu
 # 换成你的程序；相对路径以当前工作目录为准，也可以传绝对路径。
 bash examples/isaac/run_novnc.sh /path/to/your_isaac_program.py
 ```
@@ -123,3 +125,29 @@ Openbox 和 Xvfb，不停止已有 Jupyter 或其他 Python 任务。通过 Gemi
 `3.0.0b2.post1` 上验证：`Setup complete...` 后仿真时间持续增长，完成多轮重置；
 MacBook Chrome 通过 TCP 8080 连接，看到四个软方块、两个顶点目标标记和落地/提拉运动。
 Kit 仍会报告 telemetry 子进程 fork 失败；本次场景在该报错之后持续正常运行。
+
+## Surface Gripper 示例
+
+[run_surface_gripper.py](run_surface_gripper.py) 对应官方
+[Surface Gripper 教程](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/how-to/run_surface_gripper.html)，
+基于匹配服务器接口的
+[v3.0.0-beta2 示例](https://github.com/isaac-sim/IsaacLab/blob/v3.0.0-beta2/scripts/tutorials/01_assets/run_surface_gripper.py)。
+创建两个 PickAndPlace 机器人及其 Surface Gripper，每 500 步重置，逐步发送随机开闭命令。
+相机同时覆盖两个机器人，每 50 步打印命令和状态。
+
+服务器 Isaac Lab `3.0.0b2.post1` 的 Surface Gripper 要求 CPU 物理，因此示例默认
+`--device cpu`，显式指定其他设备会报错；Kit 仍使用 GPU 渲染。
+机器人资产使用已有完整包中的
+`$DFS/isaacsim_assets/Assets/Isaac/6.0/Isaac/IsaacLab/Tests/PickAndPlace/pick_and_place_robot.usd`。
+使用此版本的 `set_grippers_command_index` 写入命令，不需要新增依赖或下载资产。
+
+命令小于 -0.3 时打开，大于 0.3 时尝试吸附，中间区间不发起新的开闭操作。
+返回状态 -1 为 Open、0 为 Closing、1 为 Closed；发出 Closing 命令不代表吸附成功，
+需要附近存在符合条件的碰撞刚体。本例沿用官方随机命令，不包含完整的物体搬运轨迹。
+
+2026-10-08 在 RTX PRO 5000 Blackwell、Isaac Sim `6.0.1.0`、Isaac Lab
+`3.0.0b2.post1` 上验证：最终代码运行超过 500 步并完成机器人和吸盘重置，
+状态返回 Open/Closing；MacBook Chrome 经 TCP 8080 连接成功，显示两套机器人。
+本次未验证到 Closed 状态或物体搬运成功。telemetry 子进程仍有 fork 失败报错，
+主仿真持续运行。首次启动日志保存在
+`$DFS/work/carrot/outputs/isaac/novnc/surface_gripper_first_start.log`。

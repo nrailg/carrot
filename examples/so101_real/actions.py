@@ -1,3 +1,4 @@
+import time
 from pathlib import Path
 from typing import Protocol
 
@@ -69,13 +70,35 @@ class SO101Sink:
         sent = self.robot.send_action(command)
         # 驱动返回限幅后的发送目标，不代表运动后的实测位置。
         sent_targets = joint_state(sent)
-        return {
+        result = {
             "executed": True, "present": present.tolist(),
             "bounded_target": bounded.tolist(), "sent": sent_targets.tolist(),
             "absolute_clipped": (bounded != action).tolist(),
             "clip_delta": (bounded - action).tolist(),
             "clipped": not np.allclose(sent_targets, action, rtol=0, atol=1e-6),
         }
+        if self.config.wait_for_target:
+            result.update(self._wait_for_target(sent_targets))
+        return result
+
+    def _wait_for_target(self, target: np.ndarray) -> dict:
+        start = time.monotonic()
+        samples = []
+        consecutive = 0
+        while True:
+            position = joint_state(self.robot.get_observation())
+            elapsed = time.monotonic() - start
+            error = position - target
+            samples.append({"elapsed_s": elapsed, "position": position.tolist()})
+            consecutive = consecutive + 1 if (
+                np.abs(error) <= self.config.target_tolerance
+            ).all() else 0
+            # 连续读数达标，避免穿过目标的一瞬间就继续推理。
+            reached = consecutive >= 3 and elapsed <= self.config.target_timeout_s
+            if reached or elapsed >= self.config.target_timeout_s:
+                return {"target_reached": reached, "target_error": error.tolist(),
+                        "target_wait_s": elapsed, "target_samples": samples}
+            time.sleep(min(0.02, self.config.target_timeout_s - elapsed))
 
 
 def action_limits(robot: SO101Follower) -> tuple[np.ndarray, np.ndarray]:

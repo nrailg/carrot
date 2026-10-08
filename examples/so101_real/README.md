@@ -146,3 +146,21 @@ LeRobot 的 DEGREES 写入分支本身没有绝对限幅，故执行端先 clamp
 读取同步到 GPU 的同一份 LeRobot 标定 JSON，无需在 YAML 重复五轴范围。
 远端保留相同目录布局：`$MY_DFS/.cache/huggingface/lerobot/calibration/`。
 Mac 标定文件变更后需更新 GPU 的共享副本；离线读取不连接硬件。
+
+## 单步到位后再推理
+
+同步单步真机执行可在YAML显式开启：
+
+```yaml
+execute_steps: 1
+wait_for_target: true
+target_tolerance: 1.0
+target_timeout_s: 3.0
+```
+
+每次只发送一个目标，等待实际反馈连续3次落入容差后再采集下一观测、请求模型。
+容差作用于五轴degrees和夹爪原始单位；等待对象是绝对/相对限幅后实际发送的`sent`。
+默认关闭，保持录制动作回放的原时序；只允许`action_sink: robot`、`use_degrees: true`。
+`action`事件记录`target_reached`、`target_error`、`target_wait_s`和全部`target_samples`。
+若超过时限仍未到位，先记录已经发送的动作和残差，再停止下一次推理。
+等待不修改PID、不补偿Goal，也不能消除静态追踪偏差；无法到位时会明确报错。

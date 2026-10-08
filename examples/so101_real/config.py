@@ -36,6 +36,9 @@ class DeploymentConfig:
     use_degrees: bool = True
     max_relative_target: float = 5.0
     initial_state_tolerance: float = 10.0
+    wait_for_target: bool = False
+    target_tolerance: float = 1.0
+    target_timeout_s: float = 3.0
     cameras: dict[str, dict[str, Any]] = field(default_factory=dict)
 
     @property
@@ -60,8 +63,14 @@ class DeploymentConfig:
             assert type(value) is int and value >= (1 if name == "execute_steps" else 0), name
         assert self.max_chunks is None or (type(self.max_chunks) is int and self.max_chunks > 0)
         for value in (self.connect_timeout_s, self.warmup_timeout_s, self.request_timeout_s,
-                      self.max_relative_target, self.initial_state_tolerance):
+                      self.max_relative_target, self.initial_state_tolerance,
+                      self.target_tolerance, self.target_timeout_s):
             assert np.isfinite(value) and value > 0, "timeouts and motion limits must be positive"
+        assert type(self.wait_for_target) is bool, "wait_for_target must be boolean"
+        if self.wait_for_target:
+            assert self.action_sink == "robot" and self.execute_steps == 1 and self.use_degrees, (
+                "wait_for_target requires robot execution, execute_steps=1 and use_degrees=true"
+            )
         assert self.prompt is None or (isinstance(self.prompt, str) and self.prompt.strip())
 
         # 数据集回放与实时采集需要的输入资源不同。

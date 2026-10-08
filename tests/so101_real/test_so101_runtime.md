@@ -186,3 +186,24 @@ SO101 SFT/共享推理/全部so101_real：**86 passed in9.20s**，exit0；4个�
 真实LeRobot换算通过，未连接串口/相机、启动模型服务、使用GPU或更改dguard/Ray。
 源码600acb0加本轮未提交修改，Python3.12.13/pytest9.1.1，Docker tag/上游commit未记录。
 证据：`$MY_DFS/test-runs/so101_execution_bounds_20261008/source_hashes.json`。
+
+## 2026-10-08：单动作到位等待（准备）
+
+状态：NOT RUN。源码7135c72加未提交改动，Docker tag/上游commit未记录。
+wait_for_target仅degree真机execute_steps1开启；实际sent目标连续3次误差≤target_tolerance才继续，
+超时保留已发送action与反馈samples后停止下一推理，不重发/补偿/PID修改。
+新增fake driver+确定性时钟验证短暂到位后离开时重置、下一推理读取到位state、
+超时动作不漏记/后续推理停止、采用驱动sent限幅目标，以及不兼容模式拒绝。
+执行：`bash tests/so101_real/test_so101_runtime.sh`，随后全部so101_real CPU回归。
+不打开串口/相机，不启动模型服务或GPU实验。
+
+
+### 实际CPU验证 PASS
+
+Gemini25dad1a8，当前唯一CephFS/mm-base-plt2与__SYS_USER_NAME__nrwu已重核。
+/opt/venvs/carrot，源码PYTHONPATH和offline/CPU-only。runtime runner **25 passed in6.84s**，
+全部so101_real **57 passed in7.83s**；初次Ruff仅import顺序失败，Mac修正后同步再检PASS，
+无需重复已经通过的测试。90源码/测试/配置Mac/GPU SHA一致。
+证据`$MY_DFS/test-runs/so101_wait_for_target_20261008/`含source_hashes与初轮日志。
+源码7135c72+未提交改动，Docker tag/上游commit未记录；CPU测试无串口/相机/模型动作。
+真机到位效果单列recipe，不以mock PASS替代真机结果。

@@ -21,4 +21,7 @@ calibration_dir: null
 use_degrees: true
 max_relative_target: 5.0
 initial_state_tolerance: 10.0
+wait_for_target: false  # single-step robot mode can wait for measured arrival
+target_tolerance: 1.0  # five axes in degrees; gripper in its original units
+target_timeout_s: 3.0
 cameras: {}  # robot source requires the selected camera names

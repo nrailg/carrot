@@ -120,6 +120,12 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
             result = sink.send(actions[index])
             steps += 1
             log.write("action", chunk=chunks, index=index, **result)
+            # 超时动作已经发送，先留存动作与反馈，再停止下一次推理。
+            if config.wait_for_target:
+                assert result["target_reached"], (
+                    f"robot target timeout after {result['target_wait_s']:.3f}s; "
+                    f"residual: {result['target_error']}"
+                )
             delay = 1 / config.fps - (time.monotonic() - tick)
             if delay > 0:
                 time.sleep(delay)

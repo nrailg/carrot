@@ -271,3 +271,107 @@ def test_policy_metadata_only_requires_inference_structure():
     assert validate_metadata(metadata, config) == 4
     with pytest.raises(AssertionError, match="six-dimensional"):
         validate_metadata({**metadata, "action_dim": 7}, config)
+
+
+class TrackingRobot(Robot):
+    def __init__(self, feedback):
+        super().__init__()
+        self.feedback = feedback
+        self.reads = 0
+
+    def get_observation(self):
+        if self.commands:
+            self.state[:] = self.feedback[min(self.reads, len(self.feedback) - 1)]
+            self.reads += 1
+        return super().get_observation()
+
+    def send_action(self, action):
+        self.commands.append(action)
+        return action
+
+
+@pytest.fixture
+def motion_clock(monkeypatch):
+    # 用确定性时钟验证等待与超时，避免测试真的睡眠或忙等。
+    now = [0.0]
+    monkeypatch.setattr("examples.so101_real.actions.time.monotonic", lambda: now[0])
+    monkeypatch.setattr("examples.so101_real.actions.time.sleep",
+                        lambda seconds: now.__setitem__(0, now[0] + seconds))
+    return now
+
+
+def test_wait_for_target_requires_sustained_arrival(log, motion_clock):
+    # 首次接近后又离开目标不能算到位；连续三次达标后才允许下一次推理。
+    robot = TrackingRobot([1.5, 0, 2, 2, 2])
+    config = DeploymentConfig(observation_source="robot", action_sink="robot",
+                              execute_steps=1, max_chunks=2, wait_for_target=True)
+    policy = Policy()
+
+    # 真实反馈源与执行端共享同一设备，模型下一请求应看到已经到位的状态。
+    result = run_loop(config, RobotSource(robot, DeploymentConfig(prompt="pick"), 4),
+                      SO101Sink(robot, config, LOWER, UPPER), policy, log)
+    events = [json.loads(line) for line in
+              (log.directory / "events.jsonl").read_text().splitlines()]
+    actions = [event for event in events if event["event"] == "action"]
+
+    # 五次读数证明计数发生过重置；等待期间只下发原目标，不追发补偿动作。
+    assert result["steps"] == 2 and len(robot.commands) == 2
+    assert actions[0]["target_reached"] and len(actions[0]["target_samples"]) == 5
+    assert actions[0]["target_wait_s"] == pytest.approx(0.08)
+    np.testing.assert_array_equal(policy.requests[-1]["observation/state"], np.full(6, 2))
+
+
+def test_target_timeout_records_sent_action_and_stops_inference(log, motion_clock):
+    # 静止偏差不能靠超时后继续推理掩盖，已发送动作与完整等待反馈必须保留。
+    robot = TrackingRobot([0])
+    config = DeploymentConfig(observation_source="robot", action_sink="robot",
+                              max_chunks=2, wait_for_target=True, target_timeout_s=0.05)
+    policy = Policy()
+
+    # 首个目标无法到位，预热和首请求后应退出，不能读取下一块并重新请求。
+    with pytest.raises(AssertionError, match="robot target timeout"):
+        run_loop(config, RobotSource(robot, DeploymentConfig(prompt="pick"), 4),
+                 SO101Sink(robot, config, LOWER, UPPER), policy, log)
+    events = [json.loads(line) for line in
+              (log.directory / "events.jsonl").read_text().splitlines()]
+    actions = [event for event in events if event["event"] == "action"]
+
+    # 即使超时，真实发送计数仍为一，日志明确记录残差及失败状态。
+    assert len(robot.commands) == 1 and len(policy.requests) == 2 and len(actions) == 1
+    assert not actions[0]["target_reached"]
+    assert actions[0]["target_wait_s"] == pytest.approx(0.05)
+    assert actions[0]["target_error"] == [-2] * 6
+
+
+def test_target_wait_uses_driver_sent_target(motion_clock):
+    # 驱动可能进一步限幅，等待目标必须是实际sent，不能等待永远未下发的原预测。
+    class LimitedRobot(TrackingRobot):
+        def send_action(self, action):
+            limited = {name: min(value, 2.0) for name, value in action.items()}
+            self.commands.append(limited)
+            return limited
+
+    # 模型请求10，驱动只发2；反馈2应正常到位并保留限幅记录。
+    robot = LimitedRobot([2])
+    config = DeploymentConfig(action_sink="robot", wait_for_target=True)
+    result = SO101Sink(robot, config, LOWER, UPPER).send(np.full(6, 10, np.float32))
+
+    # 没有反复重发或修改目标，成功判据与日志实际发送值一致。
+    assert result["target_reached"] and result["clipped"]
+    assert result["sent"] == [2] * 6 and result["target_error"] == [0] * 6
+    assert len(robot.commands) == 1
+
+
+@pytest.mark.parametrize("changes", [{"execute_steps": 2}, {"action_sink": "log"},
+                                     {"use_degrees": False}])
+def test_wait_mode_rejects_incompatible_execution(changes):
+    # 到位等待只允许degree真机单步模式，避免意外改变数据回放节奏或单位。
+    config = DeploymentConfig(action_sink="robot", wait_for_target=True, **{
+        key: value for key, value in changes.items() if key != "action_sink"
+    })
+    if "action_sink" in changes:
+        config.action_sink = changes["action_sink"]
+
+    # 执行模式检查早于数据/硬件资源检查，错误配置不能进入连接流程。
+    with pytest.raises(AssertionError, match="wait_for_target requires"):
+        config.validate()

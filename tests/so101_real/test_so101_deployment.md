@@ -256,3 +256,14 @@ SO101 SFT/共享推理/全部so101_real：**86 passed in9.20s**，exit0；4个�
 真实LeRobot换算通过，未连接串口/相机、启动模型服务、使用GPU或更改dguard/Ray。
 源码600acb0加本轮未提交修改，Python3.12.13/pytest9.1.1，Docker tag/上游commit未记录。
 证据：`$MY_DFS/test-runs/so101_execution_bounds_20261008/source_hashes.json`。
+
+## 2026-10-08：真机初始化覆盖肘/腕 P=32
+
+状态：PASS。源码cddd42e加本轮未提交改动；Docker tag/上游commit未记录。
+目的：验证SDK连接完成后，仅robot执行模式设置elbow_flex/wrist_flex的P=32并读回；
+不写I/D和其他轴。写入异常或读回不匹配时必须重锁、关闭总线并阻止后续执行。
+使用模拟总线，不连接串口/相机、不运行模型、不使用GPU。
+命令：`bash tests/so101_real/test_so101_deployment.sh -q`。
+Gemini session25dad1a8，/opt/venvs/carrot，Python3.12.13/pytest9.1.1；14 passed in7.00s，
+Ruff PASS。Mutagen同步后runner.py和test_so101_deployment.py的Mac/GPU SHA256一致。
+未连接真机；物理舵机参数仍以此前恢复后的P16/I0/D32为准，下次执行连接才应用P32。

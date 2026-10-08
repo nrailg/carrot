@@ -237,3 +237,22 @@ CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、
 
 环境：Python 3.12.13、LeRobot 0.6.1；证据：
 `$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。
+
+## 2026-10-08：执行端从 LeRobot 标定取得限位（准备）
+
+状态：NOT RUN。源码600acb0加本轮未提交修改；Docker tag/上游commit未记录。
+新增离线 Feetech SDK/fake robot 回归：DEGREES 与 RANGE_M100_100、反向轴、gripper单位，
+从当前bus标定读取范围并换算；float32端点向内取整，SDK反向换算raw不越界。
+极端预测只在SO101Sink中裁剪，原始数组不变，记录逐轴mask/delta；组装入口仅robot sink
+记录真实action_limits。全部不connect串口、相机或模型服务，无GPU/下载/Ray操作。
+命令：`bash tests/pi_05/test_so101_sft.sh tests/pi_05/test_pi05_inference.py tests/so101_real -q`。
+
+### 实际结果 PASS
+
+Gemini session b1c4b5e1，重新核验当前CephFS/team/用户nrwu，MY_DFS仍为
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu`。Mutagen同步后12必要文件Mac/GPU SHA一致，包含恢复的
+policy/factory/CLI/report/SO101 SFT测试。/opt/venvs/carrot、源码PYTHONPATH、离线和CPU-only环境。
+SO101 SFT/共享推理/全部so101_real：**86 passed in9.20s**，exit0；4个相关Python文件Ruff PASS。
+真实LeRobot换算通过，未连接串口/相机、启动模型服务、使用GPU或更改dguard/Ray。
+源码600acb0加本轮未提交修改，Python3.12.13/pytest9.1.1，Docker tag/上游commit未记录。
+证据：`$MY_DFS/test-runs/so101_execution_bounds_20261008/source_hashes.json`。

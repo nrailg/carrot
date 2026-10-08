@@ -10,11 +10,11 @@ from lerobot.motors.feetech import FeetechMotorsBus
 
 from examples.so101_real import dataset as dataset_module
 from examples.so101_real import runner
-from examples.so101_real.actions import LogSink, SO101Sink
+from examples.so101_real.actions import LogSink, SO101Sink, action_limits
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig, load_config
 from examples.so101_real.dataset import load_dataset_source
 from examples.so101_real.observations import DatasetSource, RobotSource
-from examples.so101_real.runner import RunLog, _action_limits, run_loop
+from examples.so101_real.runner import RunLog, run_loop
 from tests.so101_real.test_so101_runtime import Dataset, Policy, Robot
 
 
@@ -180,7 +180,7 @@ def test_calibrated_action_limits_and_raw_targets():
         )
                      for index, name in enumerate(names, 1)},
     )
-    lower, upper = _action_limits(robot)
+    lower, upper = action_limits(robot)
     config = DeploymentConfig()
     sink = SO101Sink(robot, config, lower, upper)
     target = np.array([-300, 300, -300, -300, 150, -10], dtype=np.float32)

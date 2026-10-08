@@ -13,6 +13,7 @@ import yaml
 from carrot.data.so101 import build_dataset
 from carrot.models.pi05 import transforms
 from carrot.models.pi05.inference.policy_config import create_so101_policy
+from examples.so101_real.actions import load_action_limits
 from recipes.pi05_sft_so101_fit_validation.fit import DropVision, fixed_noise
 from recipes.pi05_sft_so101_fit_validation.reevaluate import digest, summarize, write_json
 
@@ -31,7 +32,11 @@ def main() -> None:
     assert cfg["fit"] == {"vision": False, "noise_seed": None}
     kwargs = dict(cfg["dataset"]["factory_kwargs"])
     jitter = kwargs.pop("state_jitter_degrees", 0.0)
-    jitter_bounds = kwargs.pop("state_jitter_bounds", None)
+    calibration_path = kwargs.pop("state_jitter_calibration_path", None)
+    jitter_bounds = None
+    if calibration_path is not None:
+        lower, upper = load_action_limits(calibration_path)
+        jitter_bounds = np.stack((lower[:5], upper[:5]), axis=1).tolist()
     assert (cfg["dataset"]["factory"], jitter) in (
         ("carrot.data.so101.build_dataset", 0.0),
         ("recipes.pi05_sft_so101_state_jitter.augmentation.build_dataset", 3.0),
@@ -46,8 +51,11 @@ def main() -> None:
     args.output.mkdir(parents=True, exist_ok=False)
     predictions = args.output / "predictions"
     predictions.mkdir()
+    if calibration_path is not None:
+        shutil.copyfile(calibration_path, args.output / "calibration.json")
     root = Path(__file__).resolve().parents[2]
     paths = list((root / "src/carrot").rglob("*.py"))
+    paths += list((root / "examples/so101_real").glob("*.py"))
     paths += list(Path(__file__).parent.glob("*.py"))
     paths += list((root / "recipes/pi05_sft_so101_fit_validation").glob("*.py"))
     paths += list((root / "recipes/pi05_sft_so101_state_jitter").glob("*.py"))
@@ -134,6 +142,7 @@ def main() -> None:
         } for mode in MODES},
         "vision": False, "training_state_jitter_degrees": jitter,
         "training_state_jitter_bounds": jitter_bounds,
+        "training_state_jitter_calibration_path": calibration_path,
         "units": ["degrees"] * 5 + ["source gripper unit"],
         "scope": "8 noise sequences over one recorded episode. State-only offline feedback; "
                  "all image masks false, pixels zero; predicted executed endpoint as next state; "
@@ -145,6 +154,9 @@ def main() -> None:
     write_json(args.output / "provenance.json", {
         "source_commit": args.source_commit, "source_hashes": hashes,
         "checkpoint_hashes": checkpoint_hashes, "gpu": torch.cuda.get_device_name(0),
+        "calibration_sha256": (
+            digest(Path(calibration_path)) if calibration_path is not None else None
+        ),
         "docker_image_tag": "未记录", "packages": {
             name: importlib.metadata.version(name) for name in ("torch", "numpy", "transformers")
         }, "noise": "1000+frame+chain*100000, fresh per chunk, paired across two modes",

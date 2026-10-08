@@ -9,13 +9,7 @@ dataset:
     root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/nrailg/knock_down_the_cylinder_1_20260930_222251
     action_horizon: 10
     state_jitter_degrees: 3.0
-    # Follower calibration in raw degrees: pan, lift, elbow, wrist flex, wrist roll.
-    state_jitter_bounds:
-      - [-112.0, 112.0]
-      - [-106.24175824175825, 106.24175824175825]
-      - [-97.27472527472527, 97.27472527472527]
-      - [-96.61538461538461, 96.61538461538461]
-      - [-180.0, 180.0]
+    state_jitter_calibration_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/.cache/huggingface/lerobot/calibration/robots/so_follower/my_awesome_follower_arm.json
     base_image_key: null
     wrist_image_key: observation.images.wrist
   num_workers: 4
@@ -28,7 +22,7 @@ optimizer:
   betas: [0.9, 0.95]
   eps: 1.0e-8
   warmup_steps: 100
-  decay_steps: 500
+  decay_steps: 2000
   decay_learning_rate: 1.0e-6
   max_grad_norm: 1.0
 fsdp:
@@ -38,11 +32,11 @@ fsdp:
   reshard_after_forward: true
 wandb:
   enabled: false
-steps: 500
+steps: 2000
 micro_batch_size: 4
 global_batch_size: 64
 log_freq: 1
-output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_state_jitter/20261004T033515Z/training
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_state_jitter/20261008T093114Z/training
 save_freq: 500
 seed: 1000
 dp_size: 8

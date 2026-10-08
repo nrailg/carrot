@@ -170,3 +170,19 @@ CPU验证范围：样本/stats原值、训练/推理一致性、导出/加载、
 
 环境：Python 3.12.13、LeRobot 0.6.1；证据：
 `$MY_DFS/test-runs/so101_source_values_20260930/final_tests.log` 和 `source_hashes.json`。
+
+## 2026-10-08：机器人执行前限幅记录（准备）
+
+状态：NOT RUN。源码600acb0加本轮未提交修改；Docker tag/上游commit未记录。
+现有绝对/相对限幅回归补查absolute_clipped与clip_delta，区分标定box裁剪和驱动相对限幅。
+policy/server/预测NPZ保持原始输出，没有action_bounds参数。命令同test_so101_deployment.md本轮。
+
+### 实际结果 PASS
+
+Gemini session b1c4b5e1，重新核验当前CephFS/team/用户nrwu，MY_DFS仍为
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu`。Mutagen同步后12必要文件Mac/GPU SHA一致，包含恢复的
+policy/factory/CLI/report/SO101 SFT测试。/opt/venvs/carrot、源码PYTHONPATH、离线和CPU-only环境。
+SO101 SFT/共享推理/全部so101_real：**86 passed in9.20s**，exit0；4个相关Python文件Ruff PASS。
+真实LeRobot换算通过，未连接串口/相机、启动模型服务、使用GPU或更改dguard/Ray。
+源码600acb0加本轮未提交修改，Python3.12.13/pytest9.1.1，Docker tag/上游commit未记录。
+证据：`$MY_DFS/test-runs/so101_execution_bounds_20261008/source_hashes.json`。

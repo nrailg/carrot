@@ -7,6 +7,7 @@ from lerobot.motors import Motor, MotorCalibration, MotorNormMode
 from lerobot.motors.feetech import FeetechMotorsBus
 
 from examples.so101_real import runner
+from examples.so101_real.actions import SO101Sink, action_limits
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig
 from examples.so101_real.observations import ObservationFrame
 
@@ -87,3 +88,60 @@ def test_session_hardware_selection_and_cleanup(
     summary = json.loads((tmp_path / "run/summary.json").read_text())
     assert summary["completed"] is not fail_request
     assert summary["reason"] == ("TimeoutError" if fail_request else "max_chunks")
+
+    # 只有执行端读取并留存实际 LeRobot 限位，日志模式不引入手工 bounds 配置。
+    events = [json.loads(line) for line in (tmp_path / "run/events.jsonl").read_text().splitlines()]
+    limits = [event for event in events if event["event"] == "action_limits"]
+    assert len(limits) == int(sink == "robot")
+    if limits:
+        lower, upper = action_limits(robot)
+        np.testing.assert_array_equal(limits[0]["lower"], lower)
+        np.testing.assert_array_equal(limits[0]["upper"], upper)
+
+
+@pytest.mark.parametrize("use_degrees", [True, False])
+def test_execution_limits_come_from_lerobot_calibration(use_degrees) -> None:
+    # SDK 使用的标定与归一化模式应决定限位；夹爪不能被误作 degrees，反向轴也需正确排序。
+    names = [name.removesuffix(".pos") for name in JOINT_NAMES]
+    ranges = [(777, 3325), (916, 3333), (801, 3014),
+              (980, 3178), (0, 4095), (1371, 2828)]
+    mode = MotorNormMode.DEGREES if use_degrees else MotorNormMode.RANGE_M100_100
+    bus = FeetechMotorsBus(
+        port="unused",
+        motors={name: Motor(index, "sts3215", MotorNormMode.RANGE_0_100 if name == "gripper"
+                            else mode) for index, name in enumerate(names, 1)},
+        calibration={name: MotorCalibration(index, 1, 0, *ranges[index - 1])
+                     for index, name in enumerate(names, 1)},
+    )
+    robot = Mock()
+    robot.bus = bus
+    robot.get_observation.return_value = dict(zip(JOINT_NAMES, [0] * 5 + [50], strict=True))
+    robot.send_action.side_effect = lambda command: command
+
+    # 仅实例化 SDK、不 connect 串口；极端预测在 sink 内裁剪，原始预测保持不变。
+    lower, upper = action_limits(robot)
+    sink = SO101Sink(robot, DeploymentConfig(), lower, upper)
+    target = np.array([-1000, 1000, -1000, 1000, 0, 150], dtype=np.float32)
+    original = target.copy()
+    result = sink.send(target)
+
+    # 用独立刻度公式检查边界和 float32 向内取整，误差不超过一个 float32 ULP。
+    half_ranges = np.array([(high - low) * 180 / 4095 for low, high in ranges[:5]])
+    expected_upper = np.r_[half_ranges if use_degrees else [100] * 5, 100]
+    expected_lower = np.r_[-expected_upper[:5], 0]
+    assert lower.dtype == upper.dtype == np.float32
+    assert (lower >= expected_lower).all() and (upper <= expected_upper).all()
+    np.testing.assert_allclose(lower, expected_lower, rtol=0, atol=2e-5)
+    np.testing.assert_allclose(upper, expected_upper, rtol=0, atol=2e-5)
+    np.testing.assert_array_equal(target, original)
+    sent = np.array(result["sent"])
+    assert (sent >= expected_lower).all() and (sent <= expected_upper).all()
+    assert result["absolute_clipped"] == [True, True, True, True, False, True]
+    np.testing.assert_allclose(result["clip_delta"], sent - original, atol=1e-5)
+    robot.send_action.assert_called_once()
+    assert not bus.is_connected
+
+    # 将边界命令走 SDK 写入换算，保证不会因浮点取整写到标定 raw 范围之外。
+    for endpoint in (lower, upper):
+        raw = bus._unnormalize(dict(enumerate(map(float, endpoint), 1)))
+        assert all(low <= raw[index] <= high for index, (low, high) in enumerate(ranges, 1))

@@ -24,3 +24,40 @@ action、padding或底层sample；重复访问重新采样。Factory保留干净
 运行：`MY_DFS=<当前实测DFS> bash tests/pi_05/test_so101_state_jitter.sh`。
 CPU契约测试在Gemini既有`/opt/venvs/carrot`执行，不占GPU、不下载或安装依赖。
 源码commit71b1144加本轮未提交改动；Docker image tag未记录。实际75文件SHA见本轮source_hashes.json；证据位于当前MY_DFS/experiments/carrot/pi05_so101_state_jitter/20261004T033515Z/contract_test.log。
+
+## 2026-10-08：移除重复 bounds，统一 LeRobot 标定来源（准备）
+
+状态：NOT RUN；HEAD600acb0加本轮未提交修改；Docker tag/上游commit未记录。
+三个recipe改为同一个state_jitter_calibration_path，增强通过LeRobot离线读取标定，
+与robot执行共用action_limits。修改测试fixture为raw标定JSON，保留不污染label/gripper/stats、
+逐访问采样、归一化前抖动、上下界clip及非法bounds断言。新增：文件更新立即改变工厂限位、
+禁止SDK连接硬件、缺文件先于数据I/O失败、三个配置无重复角度表。
+本轮同步实际LeRobot JSON到$MY_DFS/robots/so101/my_awesome_follower_arm.json，需核对Mac/GPU SHA。
+命令：`bash tests/pi_05/test_so101_state_jitter.sh`；相关回归另跑
+`bash tests/pi_05/test_so101_sft.sh tests/pi_05/test_pi05_inference.py tests/so101_real -q`。
+CPU测试，无权重加载/GPU/训练/机器人动作；历史实验不重跑。
+
+### 实际结果 PASS
+
+Gemini session b1c4b5e1，当前CephFS/mm-base-plt2/用户nrwu重新核验。
+Mac/GPU 18改动文件与共享标定JSON合计19文件SHA一致；共享JSON与Mac现有标定SHA均为
+68ba463158a5bfde211bb2633d552ba13790c17be378d2e657338990e3bf1243。
+Ruff 7相关Python文件PASS；同名shell增强契约10 passed in7.32s，其他SO101 SFT/共享inference/
+全部so101_real回归86 passed in8.57s，合计96通过。
+实际264frame原数据工厂通过新YAML加载、bounds由共享SDK解析且float32向内取整，未读取视频帧或执行模型。
+/opt/venvs/carrot、源码PYTHONPATH、离线、CUDA_VISIBLE_DEVICES为空；没有机器人connect、GPU占用、
+训练/模型评估/服务启动，dguard/Ray未操作。源码600acb0加工作区修改（之前用户stage的执行端改动保留），
+Python3.12.13/pytest9.1.1，Docker tag/上游commit未记录。未commit/push，标定JSON不入Git。
+证据：`$MY_DFS/test-runs/so101_calibration_source_20261008/source_hashes.json`、`preflight.json`。
+
+### 2026-10-08：标定目录统一为 LeRobot cache 布局
+
+按用户要求将Mac ~/.cache/huggingface/lerobot/calibration/同步到
+$MY_DFS/.cache/huggingface/lerobot/calibration/，保留robots/teleoperators/backups与备份文件。
+rsync排除.DS_Store、未使用--delete；7个标定/备份文件逐文件SHA一致，三份recipe均指向
+新目录robots/so_follower/my_awesome_follower_arm.json。旧robots/so101副本不再被recipe引用，未删除。
+首次因新目录root属主导致SSH写入失败；仅修正新建lerobot与calibration两个目录属主为
+实际DevCloud用户1001:100后重传exit0，未改其他cache目录权限或绕过保护。
+当前Gemini会话已核验MY_DFS；新路径真实264帧工厂PASS、既有增强契约10 passed in7.39s。
+仅路径/文档修改，无新增训练/评估/硬件动作；源码600acb0加工作区修改，Docker tag未记录。
+证据：$MY_DFS/test-runs/so101_calibration_source_20261008/cache_layout_upload.json。

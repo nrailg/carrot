@@ -53,6 +53,8 @@ cd "$DFS/work/carrot"
 bash examples/isaac/run_novnc.sh examples/isaac/spawn_prims.py --num_steps 1000
 # 运行两个 Cartpole：随机施加关节力，每 500 步重置状态。
 bash examples/isaac/run_novnc.sh examples/isaac/run_articulation.py
+# 四个软方块：两个自由落体，两个通过一个顶点拉伸，每三秒重置。
+bash examples/isaac/run_novnc.sh examples/isaac/run_deformable_object.py
 # 换成你的程序；相对路径以当前工作目录为准，也可以传绝对路径。
 bash examples/isaac/run_novnc.sh /path/to/your_isaac_program.py
 ```
@@ -103,3 +105,21 @@ Openbox 和 Xvfb，不停止已有 Jupyter 或其他 Python 任务。通过 Gemi
 - 部署日志位于 `$DFS/work/carrot/outputs/isaac/novnc/install.log` 和 `first_start.log`。
 
 参考：[noVNC 官方项目](https://github.com/novnc/noVNC)。
+
+## 可变形物体示例
+
+[run_deformable_object.py](run_deformable_object.py) 对应官方
+[Deformable Object 教程](https://isaac-sim.github.io/IsaacLab/release/3.0.0/source/how-to/run_deformable_object.html)。
+保留四个软方块的节点状态、随机姿态重置和运动学顶点约束逻辑；代码基于官方
+[v3.0.0-beta2 示例](https://github.com/isaac-sim/IsaacLab/blob/v3.0.0-beta2/scripts/tutorials/01_assets/run_deformable_object.py)，
+使用服务器 Isaac Lab `3.0.0b2.post1` 的 `AppLauncher` 和 PhysX 接口。
+
+需要已安装 `pytetwild`，用于把方块表面网格转换为四面体体积网格。
+地面使用 `$DFS/isaacsim_assets/Assets/Isaac/6.0` 中的已有资产，无需另外下载软体模型。
+浏览器中的粉色球是受约束顶点的目标位置；第 0、3 个方块被缓慢向上提拉，
+其余两个受重力落到地面。仿真运行时每三秒随机重置一次，可用工具栏暂停观察。
+
+2026-10-08 在 RTX PRO 5000 Blackwell、Isaac Sim `6.0.1.0`、Isaac Lab
+`3.0.0b2.post1` 上验证：`Setup complete...` 后仿真时间持续增长，完成多轮重置；
+MacBook Chrome 通过 TCP 8080 连接，看到四个软方块、两个顶点目标标记和落地/提拉运动。
+Kit 仍会报告 telemetry 子进程 fork 失败；本次场景在该报错之后持续正常运行。

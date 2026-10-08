@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 
 from carrot.data.dataset_spec import SFTDatasetSpec
 from carrot.data.so101 import build_dataset as build_so101_dataset
+from examples.so101_real.actions import load_action_limits
 
 
 class StateJitterDataset(Dataset[dict[str, Any]]):
@@ -36,7 +37,7 @@ class StateJitterDataset(Dataset[dict[str, Any]]):
 
 
 def build_dataset(
-    *, state_jitter_degrees: float, state_jitter_bounds: list[list[float]], **kwargs: Any
+    *, state_jitter_degrees: float, state_jitter_calibration_path: str, **kwargs: Any
 ) -> SFTDatasetSpec:
     """Perturb only training state, preserving original targets and normalization stats.
 
@@ -44,9 +45,9 @@ def build_dataset(
     ----------
     state_jitter_degrees : float
         Each of five angular joints receives independent uniform signed noise in degrees.
-    state_jitter_bounds : list[list[float]]
-        Five calibrated [lower, upper] limits in raw degrees, in dataset joint order.
-        Augmented state is clipped before normalization; targets and gripper are unchanged.
+    state_jitter_calibration_path : str
+        Shared LeRobot SO101 calibration JSON. Bounds are converted by the SDK without
+        connecting a robot; augmented state is clipped, targets and gripper are unchanged.
     kwargs : Any
         Forwarded to the SO101 dataset factory.
 
@@ -60,7 +61,9 @@ def build_dataset(
     AssertionError
         If jitter is not positive and finite, or joint bounds are invalid.
     """
+    lower, upper = load_action_limits(state_jitter_calibration_path)
+    bounds = np.stack((lower[:5], upper[:5]), axis=1).tolist()
     spec = build_so101_dataset(**kwargs)
     return replace(
-        spec, dataset=StateJitterDataset(spec.dataset, state_jitter_degrees, state_jitter_bounds)
+        spec, dataset=StateJitterDataset(spec.dataset, state_jitter_degrees, bounds)
     )

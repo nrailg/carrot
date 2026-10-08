@@ -143,6 +143,8 @@ def test_absolute_action_mapping_and_driver_clipping():
     assert list(robot.commands[0].values()) == [-180, -3, 20, 50, 180, 0]
     assert result["sent"] == [5, 5, 15, 15, 15, pytest.approx(5)]
     assert result["clipped"]
+    assert result["absolute_clipped"] == [True, False, False, False, True, True]
+    np.testing.assert_allclose(result["clip_delta"], [20, 0, 0, 0, -20, 0.1], atol=1e-6)
     assert result["present"] == [10, 10, 10, 10, 10, pytest.approx(10)]
 
 

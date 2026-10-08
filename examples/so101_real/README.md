@@ -125,3 +125,24 @@ python -m examples.so101_real.main --config /absolute/path/to/my_so101.yaml \
 
 CPU测试及档案位于 `tests/so101_real/`；模型重载测试见
 `tests/pi_05/test_so101_inference_checkpoint.md`。
+
+## 执行端动作兜底
+
+限幅仅在 `SO101Sink.send()` 下发机器人前执行；policy 返回原始反归一化预测，无需额外
+bounds 配置或服务参数。连接时先核对 LeRobot 文件与设备标定一致，再读取
+`robot.bus.calibration` 的 `range_min/range_max`，经 SDK `_normalize()` 换算为各轴动作单位。
+五个角度轴遵循 `use_degrees`，夹爪为 [0,100]；float32 命令边界向区间内取整。
+LeRobot 的 DEGREES 写入分支本身没有绝对限幅，故执行端先 clamp，再交给驱动处理
+`max_relative_target`。
+
+`action_limits` 事件记录本次实际采用的范围；NPZ `predicted` 和 `command.target` 保留原始
+模型输出。`action` 事件中的 `bounded_target` 是绝对限幅结果，`absolute_clipped` 为逐轴
+标记，`clip_delta = bounded_target - 原始目标`；`sent` 是驱动相对限幅后的发送目标，
+不是机器人运动后的实测反馈。原有 `clipped` 表示最终发送目标是否改变。
+日志模式保持原始预测，报告 MAE 仍衡量原始模型拟合。此轮仅验证 fake robot/离线 SDK，
+尚未实际驱动机器人。
+
+训练 jitter recipe 也复用 `actions.py` 的限位换算，通过 `state_jitter_calibration_path`
+读取同步到 GPU 的同一份 LeRobot 标定 JSON，无需在 YAML 重复五轴范围。
+远端保留相同目录布局：`$MY_DFS/.cache/huggingface/lerobot/calibration/`。
+Mac 标定文件变更后需更新 GPU 的共享副本；离线读取不连接硬件。

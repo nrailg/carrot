@@ -1,4 +1,31 @@
-# SO101无视觉500step：输入state ±3°增强
+# SO101无视觉：输入state ±3°增强
+
+## 2026-10-08：no vision + clamped jitter，2000 steps（准备）
+
+| 项目 | 本轮设置/状态 |
+|---|---|
+| 目标 | 修复输入越界并统一标定来源后，重新训练无视觉模型；尚无效果结论 |
+| 初始化 | 官方 pi05_base_pytorch_h10，从 step0 新训，不 resume |
+| 数据 | 原始单 episode 264 帧；horizon10；五轴每次独立 U(-3°,3°)，按 LeRobot 标定 clip |
+| 视觉/noise | 所有视觉 pixels0/maskfalse；训练 noise/t 始终随机 |
+| 预算 | 2000 steps、warmup100 后 constant1e-6；8GPU BF16 FSDP、micro4/global64/GAS2、seed1000 |
+| 保存/评估 | 每500保存；训练完成后自动用最终step2000跑既有h10/K5、8noise×53chunk离线评估及Parquet核验 |
+| 输出 | $MY_DFS/experiments/carrot/pi05_so101_state_jitter/20261008T093114Z |
+| 状态 | 待提交当前代码、预检并启动；Docker image tag 未记录 |
+
+运行：确认当前MY_DFS与RAY_ADDRESS，设置SOURCE_COMMIT为本轮Mac实际提交，然后执行
+`bash recipes/pi05_sft_so101_state_jitter/run.sh`。runner拒绝覆盖已有训练/评估目录，
+保存实际train.yaml/calibration.json；dguard暂停120分钟，退出恢复。当前训练只对输入state
+做增强clamp；policy输出保持原样，机器人执行限幅不参与该离线评估。验收训练2000连续有限
+指标、step2000/checkpoint完整与参数更新；评估需核对NPZ/reference/padding/noise及复算指标。
+新结果不能替代下方历史500step结果，也不能单次证明输入clamp的独立因果收益；不操作机器人。
+
+## 2026-10-08：训练增强改读 LeRobot 标定文件（未重训）
+
+已移除五轴 bounds 数值，三个 jitter recipe 统一通过 state_jitter_calibration_path
+读取同一份 LeRobot 标定 JSON，与 robot 执行共用 SDK 换算。路径与同步约定见
+[标定来源说明](../pi05_sft_so101_state_only_rollout/README.md)。历史训练结果不变，未重跑实验。
+
 
 2026-10-04已完成。这轮训练state增强没有降低整体连续反馈误差：五轴平均MAE由12.450586°增至14.705301°（+18.109%）；真实state输入也由1.346750°增至1.656161°（+22.975%）。中段局部改善、后段偏离更大；不能用放大倍率9.245→8.879的下降宣称改善，因为基础误差也增加了。
 

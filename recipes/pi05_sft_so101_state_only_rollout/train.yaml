@@ -9,13 +9,7 @@ dataset:
     root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/nrailg/knock_down_the_cylinder_1_20260930_222251
     action_horizon: 10
     state_jitter_degrees: 3.0
-    # Follower calibration in raw degrees: pan, lift, elbow, wrist flex, wrist roll.
-    state_jitter_bounds:
-      - [-112.0, 112.0]
-      - [-106.24175824175825, 106.24175824175825]
-      - [-97.27472527472527, 97.27472527472527]
-      - [-96.61538461538461, 96.61538461538461]
-      - [-180.0, 180.0]
+    state_jitter_calibration_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/.cache/huggingface/lerobot/calibration/robots/so_follower/my_awesome_follower_arm.json
     base_image_key: null
     wrist_image_key: observation.images.wrist
   num_workers: 4

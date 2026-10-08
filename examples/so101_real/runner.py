@@ -14,7 +14,7 @@ from lerobot.cameras.opencv.configuration_opencv import OpenCVCameraConfig
 from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
 from PIL import Image
 
-from .actions import ActionSink, LogSink, SO101Sink
+from .actions import ActionSink, LogSink, SO101Sink, action_limits
 from .client import PolicyClient
 from .config import JOINT_NAMES, DeploymentConfig
 from .dataset import load_dataset_source
@@ -163,29 +163,6 @@ def connect_robot(config: DeploymentConfig, stack: ExitStack) -> SO101Follower:
     return robot
 
 
-def _action_limits(robot: SO101Follower) -> tuple[np.ndarray, np.ndarray]:
-    names = [name.removesuffix(".pos") for name in JOINT_NAMES]
-    for name in names:
-        calibration = robot.bus.calibration[name]
-        assert calibration.range_min < calibration.range_max, f"invalid calibration: {name}"
-    # 复用总线标定换算，避免硬编码动作范围。
-    endpoints = [robot.bus._normalize({
-        robot.bus.motors[name].id: (
-            robot.bus.calibration[name].range_max if high else robot.bus.calibration[name].range_min
-        ) for name in names
-    }) for high in (False, True)]
-    values = np.array([[point[robot.bus.motors[name].id] for name in names]
-                       for point in endpoints], dtype=np.float64)
-    lower, upper = values.min(axis=0), values.max(axis=0)
-    lower32, upper32 = lower.astype(np.float32), upper.astype(np.float32)
-    # float32边界向区间内取整，避免驱动转回整数刻度时越过标定端点。
-    lower32 = np.where(lower32.astype(np.float64) < lower,
-                       np.nextafter(lower32, np.float32(np.inf)), lower32)
-    upper32 = np.where(upper32.astype(np.float64) > upper,
-                       np.nextafter(upper32, np.float32(-np.inf)), upper32)
-    return lower32, upper32
-
-
 def run(config: DeploymentConfig) -> None:
     """Run one deployment session and close network/hardware on every exit.
 
@@ -238,9 +215,13 @@ def run(config: DeploymentConfig) -> None:
                 source = RobotSource(robot, config, horizon)
             assert source is not None
 
-            sink = LogSink() if config.action_sink == "log" else SO101Sink(
-                robot, config, *_action_limits(robot)
-            )
+            if config.action_sink == "log":
+                sink = LogSink()
+            else:
+                lower, upper = action_limits(robot)
+                log.write("action_limits", joints=JOINT_NAMES,
+                          lower=lower.tolist(), upper=upper.tolist())
+                sink = SO101Sink(robot, config, lower, upper)
             summary = run_loop(config, source, sink, client, log)
         except BaseException as error:
             # 异常也写入持久化记录，ExitStack 随后关闭日志、网络和硬件。

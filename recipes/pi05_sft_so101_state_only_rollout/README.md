@@ -1,5 +1,28 @@
 # SO101无视觉模型：连续action chunk反馈测试
 
+## 2026-10-08：训练增强改读 LeRobot 标定文件（未重训）
+
+三个 jitter recipe 已删除重复的五轴 `state_jitter_bounds` 数值，统一使用：
+
+```yaml
+state_jitter_calibration_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/.cache/huggingface/lerobot/calibration/robots/so_follower/my_awesome_follower_arm.json
+```
+
+远端目录统一为 `$MY_DFS/.cache/huggingface/lerobot/calibration/`，对应 Mac 的
+`~/.cache/huggingface/lerobot/calibration/`，包含 robots/teleoperators/backups。
+该文件是 Mac 现有 LeRobot 标定 JSON 的共享副本，SHA256
+`68ba463158a5bfde211bb2633d552ba13790c17be378d2e657338990e3bf1243`。
+GPU 无法直接读取 Mac 缓存，标定变更后需同步这一文件；不再逐个修改 YAML 的角度表。
+`examples/so101_real/actions.py` 的 `load_action_limits()` 实例化 SDK 但不 connect，
+与机器人执行共用 `action_limits()`；五轴按 degrees 换算、float32 边界向内取整，
+增强后 clip，action/gripper/stats 保持原值。缺文件立即失败，不生成默认标定。
+评估读取干净 state，记录配置中的路径、解析后的范围及标定 SHA，并保存 calibration.json；
+这些是当前配置来源，不能据此声称下方旧 checkpoint 曾使用输入 clamp。
+验证：增强契约10项、相关回归86项（合计96）通过，Ruff通过；实际264帧数据工厂加载及
+Mac/GPU标定SHA核对通过，证据见`tests/pi_05/test_so101_state_jitter.md`。
+本轮没有新训练、模型评估或真机动作；历史结果和训练快照保持原值。
+
+
 ## 2026-10-08：保留原始数据，按实测范围小幅扩肩抬标定
 
 用户改变方案：不采用清洗数据，检查实际state/action后小幅扩机器人range_min/max。
@@ -21,7 +44,7 @@ degrees范围±104.835165°→±106.241758°，每侧增加1.406593°，覆盖�
 
 ## 2026-10-08：修复state jitter越出标定范围（未重训）
 
-当前配置新增五轴`state_jitter_bounds`，源自`my_awesome_follower_arm`现有标定：
+当时新增五轴`state_jitter_bounds`（现已改为标定文件路径），源自`my_awesome_follower_arm`现有标定：
 ±[112,104.835164835,97.274725275,96.615384615,180]°，顺序pan/lift/elbow/wrist flex/wrist roll。
 共享augmentation在raw state加U(-3°,3°)后、Normalize/Tokenize之前clip五轴；gripper/action/padding/stats不变。
 evaluate移除增强专用bounds再读取干净数据，并将bounds记入评估metadata。

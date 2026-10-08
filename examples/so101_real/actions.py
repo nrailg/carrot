@@ -1,6 +1,8 @@
+from pathlib import Path
 from typing import Protocol
 
 import numpy as np
+from lerobot.robots.so_follower import SO101Follower, SO101FollowerConfig
 
 from .config import JOINT_NAMES, DeploymentConfig
 from .observations import Robot, joint_state
@@ -70,5 +72,63 @@ class SO101Sink:
         return {
             "executed": True, "present": present.tolist(),
             "bounded_target": bounded.tolist(), "sent": sent_targets.tolist(),
+            "absolute_clipped": (bounded != action).tolist(),
+            "clip_delta": (bounded - action).tolist(),
             "clipped": not np.allclose(sent_targets, action, rtol=0, atol=1e-6),
         }
+
+
+def action_limits(robot: SO101Follower) -> tuple[np.ndarray, np.ndarray]:
+    """Read calibrated command limits in the robot's configured action units.
+
+    Parameters
+    ----------
+    robot : SO101Follower
+        Uses its loaded LeRobot calibration; performs no hardware I/O.
+
+    Returns
+    -------
+    tuple[numpy.ndarray, numpy.ndarray]
+        Lower and upper float32 limits, shape (6,), in dataset joint order.
+    """
+    names = [name.removesuffix(".pos") for name in JOINT_NAMES]
+    for name in names:
+        calibration = robot.bus.calibration[name]
+        assert calibration.range_min < calibration.range_max, f"invalid calibration: {name}"
+    # 复用总线标定换算，避免硬编码动作范围。
+    endpoints = [robot.bus._normalize({
+        robot.bus.motors[name].id: (
+            robot.bus.calibration[name].range_max if high else robot.bus.calibration[name].range_min
+        ) for name in names
+    }) for high in (False, True)]
+    values = np.array([[point[robot.bus.motors[name].id] for name in names]
+                       for point in endpoints], dtype=np.float64)
+    lower, upper = values.min(axis=0), values.max(axis=0)
+    lower32, upper32 = lower.astype(np.float32), upper.astype(np.float32)
+    # float32边界向区间内取整，避免驱动转回整数刻度时越过标定端点。
+    lower32 = np.where(lower32.astype(np.float64) < lower,
+                       np.nextafter(lower32, np.float32(np.inf)), lower32)
+    upper32 = np.where(upper32.astype(np.float64) > upper,
+                       np.nextafter(upper32, np.float32(-np.inf)), upper32)
+    return lower32, upper32
+
+
+def load_action_limits(calibration_path: str | Path) -> tuple[np.ndarray, np.ndarray]:
+    """Load degree/gripper limits from an existing LeRobot SO101 calibration file.
+
+    Parameters
+    ----------
+    calibration_path : str | pathlib.Path
+        Shared calibration JSON; no serial port is opened or robot connected.
+
+    Returns
+    -------
+    tuple[numpy.ndarray, numpy.ndarray]
+        Five degree axes and one [0,100] gripper axis, as in action_limits.
+    """
+    path = Path(calibration_path).expanduser()
+    assert path.is_file(), f"missing SO101 calibration: {path}"
+    robot = SO101Follower(SO101FollowerConfig(
+        port="unused", id=path.stem, calibration_dir=path.parent, use_degrees=True,
+    ))
+    return action_limits(robot)

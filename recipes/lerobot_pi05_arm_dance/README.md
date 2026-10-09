@@ -83,3 +83,19 @@ gripper独立统计。离线拟合不代表真机闭环成功；本runner不操�
   CPU预检增加独立副本可通过、篡改副本必失败检查。仍未进入训练，dguard恢复。
 - `weight_cpu_20261009T124500Z` / task816a3192-0721：exit0，embedding独立副本及故意篡改
   检查通过，完整processor/数据/源码预检仍通过。
+
+## 正式训练已启动：2026-10-09 20:50 +08
+
+- 分支 `codex/lerobot-pi05-arm-dance`；实际训练源码提交
+  `6b9e809557fdf38e8bcc16e9eacc779778975b0a`，远端10文件SHA已核验。
+- run `matched_20261009T124600Z` / Gemini task `816a3192-0723`。
+- 持久化目录：
+  `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/lerobot_pi05_arm_dance/matched_20261009T124600Z/`。
+- CPU预检通过；base的812归档张量及恢复的embedding逐值核验通过，3帧no-vision离线推理通过。
+- 12:50:23Z正式进入训练；已亲核8个rank、8GPU均100%利用率、约49.5GiB占用。
+  前20步loss/gradient/LR全部有限；step1 loss0.841，step20 loss0.837、grad norm7.030、
+  warmup LR2.1e-7。官方确认batch8×8=64、2000step。
+- 证据：`preflight.json`、`base_play/metrics.json`、`train_command.txt`、
+  `startup_backend_snapshot.log`、`startup_audit.json`；完整后台日志在任务结束后另行dump。
+- 状态：训练运行中；尚未验收2000step/checkpoint/完整144帧离线play。runner在训练成功后
+  自动执行离线play，退出时恢复dguard；本次未操作机器人。

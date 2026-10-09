@@ -20,7 +20,7 @@ class DeploymentConfig:
     dataset_root: str | None = None
     dataset_repo: str = ""
     base_camera: str | None = "top"
-    wrist_camera: str = "fpv"
+    wrist_camera: str | None = "fpv"
     frame_index_prompt_frames: int | None = None
     episode: int = 0
     start_frame: int = 0
@@ -44,9 +44,9 @@ class DeploymentConfig:
 
     @property
     def image_keys(self) -> dict[str, str]:
-        if self.frame_index_prompt_frames is not None:
-            return {"observation/wrist_image": "placeholder"}
-        keys = {"observation/wrist_image": self.wrist_camera}
+        keys = {}
+        if self.wrist_camera is not None:
+            keys["observation/wrist_image"] = self.wrist_camera
         if self.base_camera is not None:
             keys["observation/image"] = self.base_camera
         return keys
@@ -56,11 +56,13 @@ class DeploymentConfig:
         assert self.action_sink in ("log", "robot"), "invalid action_sink"
         assert self.server_uri.startswith(("ws://", "wss://")), "server_uri must be ws(s)://"
         assert type(self.fps) is int and self.fps > 0, "FPS must be a positive integer"
-        assert isinstance(self.wrist_camera, str) and self.wrist_camera.strip(), "set wrist_camera"
-        assert self.base_camera is None or (
-            isinstance(self.base_camera, str) and self.base_camera.strip()
-            and self.base_camera != self.wrist_camera
-        ), "base_camera must be distinct from wrist_camera, or null"
+        for camera in (self.base_camera, self.wrist_camera):
+            assert camera is None or (isinstance(camera, str) and camera.strip()), (
+                "camera names must be non-empty strings, or null"
+            )
+        assert self.base_camera is None or self.base_camera != self.wrist_camera, (
+            "base_camera and wrist_camera must be distinct when both are configured"
+        )
         for name, value in (("execute_steps", self.execute_steps), ("episode", self.episode),
                             ("start_frame", self.start_frame)):
             assert type(value) is int and value >= (1 if name == "execute_steps" else 0), name
@@ -78,11 +80,8 @@ class DeploymentConfig:
 
         if self.frame_index_prompt_frames is not None:
             assert type(self.frame_index_prompt_frames) is int and (
-                1 <= self.frame_index_prompt_frames <= 10000
-            ), "frame_index_prompt_frames must be an integer in [1, 10000]"
-            assert self.base_camera is None and self.cameras == {}, (
-                "frame prompt requires base_camera=null and cameras={}"
-            )
+                self.frame_index_prompt_frames > 0
+            ), "frame_index_prompt_frames must be a positive integer"
             assert self.start_frame < self.frame_index_prompt_frames, (
                 "start_frame outside frame prompt episode"
             )
@@ -95,9 +94,7 @@ class DeploymentConfig:
             )
         else:
             assert self.prompt, "robot observations require a task prompt"
-            assert self.frame_index_prompt_frames is not None or (
-                set(self.cameras) == set(self.image_keys.values())
-            ), (
+            assert set(self.cameras) == set(self.image_keys.values()), (
                 "configure exactly the selected camera views"
             )
         if self.observation_source == "robot" or self.action_sink == "robot":

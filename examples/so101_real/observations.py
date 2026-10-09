@@ -94,10 +94,8 @@ class DatasetSource:
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),
-                **({"observation/wrist_image": np.zeros((224, 224, 3), dtype=np.uint8)}
-                   if self.config.frame_index_prompt_frames is not None else
-                   {key: rgb_image(sample[f"observation.images.{camera}"])
-                    for key, camera in self.config.image_keys.items()}),
+                **{key: rgb_image(sample[f"observation.images.{camera}"])
+                   for key, camera in self.config.image_keys.items()},
                 "prompt": (format_frame_prompt(prompt, self.frame)
                            if self.config.frame_index_prompt_frames is not None else prompt),
             },
@@ -126,9 +124,7 @@ class RobotSource:
         return ObservationFrame(
             request={
                 "observation/state": state,
-                **({"observation/wrist_image": np.zeros((224, 224, 3), dtype=np.uint8)}
-                   if frames is not None else
-                   {key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()}),
+                **{key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()},
                 "prompt": (format_frame_prompt(self.config.prompt, self.frame)
                            if frames is not None else self.config.prompt),
             },

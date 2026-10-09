@@ -11,8 +11,8 @@
 f"{prompt.rstrip()} Frame: {index:04d}."
 ```
 
-例如 `Knock down the cylinder Frame: 0263.`。仅接受0..9999整数，拒绝bool、负数、
-非整数及越界值。每次从原始任务文本拼接，不在上一请求prompt上重复追加。
+例如 `Knock down the cylinder Frame: 0263.`。帧号接受非负整数，拒绝bool、负数与非整数；
+`:04d`仅指定最小宽度，10000等更大索引也合法。每次从原始任务文本拼接，不在上一请求prompt上重复追加。
 帧号条件不编码state/action/未来帧或任务答案，无字体或相机依赖。
 
 训练数据：`nrailg/knock_down_the_cylinder_1_20260930_222251`，264帧、15FPS、单episode；
@@ -46,6 +46,8 @@ runner复用fit_validation训练入口，不复制trainer，不修改模型结�
 
 必须使用本recipe的no-vision服务入口。它复用生产policy factory/WebsocketPolicyServer，并按
 现有state_only_rollout评估机制追加共享DropVision、重建input transform；不加载新模型结构。
+服务本地适配在SO101Inputs之前补固定全零uint8[224,224,3] wrist输入，仅用于满足现有输入契约；
+末端DropVision仍将所有图像pixels与mask清零。生产policy与SO101Inputs未改。
 未来空闲GPU且获准启动服务时：
 
 ```bash
@@ -55,8 +57,7 @@ python -m recipes.pi05_sft_so101_knock_down_the_cylinder_frame_prompt.serve \
 ```
 
 checkpoint应自带tokenizer与norm_stats。服务握手发布 `frame_index_prompt=true`、`no_vision=true`，
-客户端启用帧prompt时必须验证两标志，拒绝普通vision服务。零图占位本身不等于禁用vision，
-服务端DropVision才确保所有mask=false。
+客户端启用帧prompt时必须验证两标志，拒绝普通vision服务。服务端DropVision确保所有mask=false。
 
 将下面配置另存为本地绝对路径的 `frame_prompt_offline.yaml`，替换数据、服务和新输出路径：
 
@@ -68,6 +69,7 @@ dataset_root: /absolute/local/knock_down_the_cylinder_1_20260930_222251
 dataset_repo: nrailg/knock_down_the_cylinder_1_20260930_222251
 output_dir: /absolute/new/frame_prompt_offline
 base_camera: null
+wrist_camera: null
 cameras: {}
 frame_index_prompt_frames: 264
 episode: 0
@@ -83,9 +85,12 @@ PYTHONPATH="$PWD/src:$PWD" python -m examples.so101_real.main \
 ```
 
 总帧数必须等于所选episode长度，使用episode局部frame_index。未覆盖prompt时读数据原task。
-客户端只生成固定全零uint8[224,224,3] wrist占位以满足既有SO101输入契约，不打开相机。
+本recipe显式设置base_camera/wrist_camera均为null且cameras为空，客户端请求只有state与prompt，
+不生成图像、不打开相机。帧prompt开关与相机选择正交，image_keys仅由非null视角配置决定；
+如显式选了相机，source照常读取所选图片，robot配置必须精确匹配所选视角。
 检查config.json中的frame_index_prompt_frames、events.jsonl的image_mode=no_vision、
 frame_index_prompt/总帧数/request.frame/request.prompt，以及NPZ.frame/planned_steps。
+image_mode由是否配置视角决定，不由帧prompt开关决定。
 默认 `frame_index_prompt_frames=null` 保持普通模式。
 
 ## 未来真机 opt-in 示例（默认不得执行硬件）
@@ -96,6 +101,7 @@ frame_index_prompt/总帧数/request.frame/request.prompt，以及NPZ.frame/plan
 observation_source: robot
 action_sink: robot
 base_camera: null
+wrist_camera: null
 cameras: {}
 frame_index_prompt_frames: 264
 start_frame: 0

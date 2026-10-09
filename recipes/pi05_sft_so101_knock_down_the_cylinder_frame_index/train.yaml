@@ -2,11 +2,11 @@ model:
   path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10
   tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
 dataset:
-  factory: recipes.pi05_sft_so101_arm_dance_frame_index.augmentation.build_dataset
+  factory: recipes.pi05_sft_so101_knock_down_the_cylinder_frame_index.augmentation.build_dataset
   factory_kwargs:
-    repo_id: nrailg/arm_dance_20261008_225311_20261008_225313
+    repo_id: nrailg/knock_down_the_cylinder_1_20260930_222251
     revision: null
-    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/nrailg/arm_dance_20261008_225311_20261008_225313
+    root: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/nrailg/knock_down_the_cylinder_1_20260930_222251
     action_horizon: 10
     state_jitter_degrees: 5.0
     state_jitter_calibration_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/.cache/huggingface/lerobot/calibration/robots/so_follower/my_awesome_follower_arm.json
@@ -36,7 +36,7 @@ steps: 2000
 micro_batch_size: 4
 global_batch_size: 64
 log_freq: 1
-output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_arm_dance_frame_index/arm_dance_20261008_225311_20261008_225313/training
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_knock_down_the_cylinder_frame_index/knock_down_the_cylinder_1_20260930_222251/training
 save_freq: 500
 seed: 1000
 dp_size: 8

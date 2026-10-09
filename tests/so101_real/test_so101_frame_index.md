@@ -26,7 +26,7 @@ bash tests/so101_real/test_so101_frame_index.sh
 本地静态检查（exit 0）：
 
 - `python -m compileall -q`：新增renderer、recipe augmentation、测试，以及修改的五个客户端模块。
-- `bash -n recipes/pi05_sft_so101_arm_dance_frame_index/run.sh tests/so101_real/test_so101_frame_index.sh`。
+- `bash -n recipes/pi05_sft_so101_knock_down_the_cylinder_frame_index/run.sh tests/so101_real/test_so101_frame_index.sh`。
 - `git diff --check`。
 - 纯renderer smoke：0/143/9999 shape/dtype/确定性、143与144图区别；非法输入拒绝。
 

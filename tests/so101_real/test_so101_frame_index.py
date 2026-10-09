@@ -12,7 +12,7 @@ from examples.so101_real import runner
 from examples.so101_real.actions import LogSink
 from examples.so101_real.config import JOINT_NAMES, DeploymentConfig
 from examples.so101_real.observations import DatasetSource, RobotSource
-from recipes.pi05_sft_so101_arm_dance_frame_index import augmentation
+from recipes.pi05_sft_so101_knock_down_the_cylinder_frame_index import augmentation
 from recipes.pi05_sft_so101_state_jitter.augmentation import StateJitterDataset
 
 
@@ -31,7 +31,7 @@ class Episode:
             "episode_index": 2, "frame_index": index,
             "observation.state": self.state, "action": self.actions,
             "action_is_pad": np.arange(self.horizon) >= min(self.horizon, self.frames - index),
-            "task": "Dance with the arm",
+            "task": "Knock down the cylinder",
             "observation.images.fpv": np.full((12, 16, 3), 17, dtype=np.uint8),
         }
 
@@ -39,7 +39,7 @@ class Episode:
 class TrainingSamples(Episode):
     def __getitem__(self, index: int) -> dict:
         return {"observation/state": self.state, "actions": self.actions,
-                "prompt": "Dance with the arm", "action_is_pad": np.zeros(10, dtype=bool),
+                "prompt": "Knock down the cylinder", "action_is_pad": np.zeros(10, dtype=bool),
                 "observation/wrist_image": np.full((12, 16, 3), 17, dtype=np.uint8)}
 
 
@@ -142,7 +142,7 @@ def test_factory_single_episode_and_stats(monkeypatch) -> None:
 def test_loop_advances_only_consumed_actions(tmp_path, monkeypatch, source_type, steps) -> None:
     # h10/K1与K5都按已采用动作推进；重复read、预热和等待读状态不能推进。
     config = DeploymentConfig(observation_source=source_type, base_camera=None, episode=2,
-                              frame_index_image_frames=7, prompt="Dance with the arm",
+                              frame_index_image_frames=7, prompt="Knock down the cylinder",
                               execute_steps=steps, max_chunks=None)
     robot = StateOnlyRobot()
     source = (DatasetSource(Episode(), config, 10) if source_type == "dataset"
@@ -212,7 +212,7 @@ def test_synthetic_robot_never_constructs_camera(tmp_path, monkeypatch) -> None:
     # 真机合成模式可读实测state，但连接工厂不得构造或打开相机。
     (tmp_path / "arm.json").write_text("{}")
     config = DeploymentConfig(observation_source="robot", base_camera=None,
-                              frame_index_image_frames=7, prompt="Dance with the arm",
+                              frame_index_image_frames=7, prompt="Knock down the cylinder",
                               robot_port="fake", robot_id="arm", calibration_dir=str(tmp_path))
     config.validate()
     robot = Mock()

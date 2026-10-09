@@ -18,6 +18,8 @@ from configuration_pi05_control import PI05ControlConfig
 from modeling_pi05_control import PI05ControlPolicy
 from state_jitter import StateJitterStep
 from lerobot.configs import FeatureType, PolicyFeature
+from lerobot.utils.feature_utils import dataset_to_policy_features
+from lerobot.policies import make_pre_post_processors
 from lerobot.policies.pi05.configuration_pi05 import PI05Config
 
 
@@ -135,6 +137,30 @@ def main() -> None:
         image = sample["observation.images.wrist"]
         assert image.shape == (3, 480, 640) and image.dtype == torch.uint8
         assert np.asarray(image).std() > 0
+    features = dataset_to_policy_features(dataset.meta.features)
+    cfg = PI05ControlConfig(device="cpu", chunk_size=10, n_action_steps=1, empty_cameras=2)
+    cfg.input_features = {k: v for k, v in features.items() if v.type != FeatureType.ACTION}
+    cfg.output_features = {k: v for k, v in features.items() if v.type == FeatureType.ACTION}
+    cfg.validate_features()
+    preprocessor, postprocessor = make_pre_post_processors(
+        policy_cfg=cfg, pretrained_path=str(initial),
+        preprocessor_overrides={
+            "device_processor": {"device": "cpu"},
+            "normalizer_processor": {
+                "features": {**cfg.input_features, **cfg.output_features},
+                "norm_map": cfg.normalization_mapping, "stats": dataset.meta.stats,
+            },
+        },
+        postprocessor_overrides={"unnormalizer_processor": {
+            "features": cfg.output_features, "norm_map": cfg.normalization_mapping,
+            "stats": dataset.meta.stats,
+        }},
+    )
+    sample = dataset[0]
+    processed = preprocessor(sample.copy())
+    assert processed["observation.language.tokens"].shape == (1, 200)
+    restored = postprocessor(processed["action"])
+    assert torch.allclose(restored[0], sample["action"], atol=1e-4, rtol=1e-5)
     files = {str(p.relative_to(root)): sha256(p) for p in root.rglob("*") if p.is_file()}
     assert files["data/chunk-000/file-000.parquet"] == (
         "752fb901eab1ddb0892ceee2ed4b68afe36fabdb971a805db40a28c3424f8629"

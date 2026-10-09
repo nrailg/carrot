@@ -71,3 +71,10 @@ gripper独立统计。离线拟合不代表真机闭环成功；本runner不操�
 
 参考：[官方训练/推理](https://huggingface.co/docs/lerobot/il_robots)、
 [PI0.5](https://huggingface.co/docs/lerobot/pi05)。
+
+- `matched_20261009T123800Z` / task816a3192-0714：12:37:00Z启动，CPU预检通过，
+  官方加载全部key成功；base-play权重检查错误要求812归档张量=813个state-dict键，exit1。
+  官方loader从lm_head恢复共享embedding别名，修正检查为逐张量相等+别名data_ptr相同，
+  未进入训练，dguard恢复。补充完整CPU processor加载/归一化逆变换检查与显式PI0.5注册。
+- `processor_cpu_20261009T124100Z` / task816a3192-0718：exit0；完整官方processor加载、
+  state tokenization、action归一化逆变换通过。

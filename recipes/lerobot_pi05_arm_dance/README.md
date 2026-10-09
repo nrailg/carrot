@@ -78,3 +78,8 @@ gripper独立统计。离线拟合不代表真机闭环成功；本runner不操�
   未进入训练，dguard恢复。补充完整CPU processor加载/归一化逆变换检查与显式PI0.5注册。
 - `processor_cpu_20261009T124100Z` / task816a3192-0718：exit0；完整官方processor加载、
   state tokenization、action归一化逆变换通过。
+- `matched_20261009T124200Z` / task816a3192-0720：144s后exit1，官方812张量加载成功，
+  检查进一步发现embedding恢复为独立clone，非共享存储；改为缺省embedding从源lm_head逐值精确核验。
+  CPU预检增加独立副本可通过、篡改副本必失败检查。仍未进入训练，dguard恢复。
+- `weight_cpu_20261009T124500Z` / task816a3192-0721：exit0，embedding独立副本及故意篡改
+  检查通过，完整processor/数据/源码预检仍通过。

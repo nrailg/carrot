@@ -26,8 +26,7 @@ def metrics(error: np.ndarray) -> dict:
     }
 
 
-def verify_weights(policy, checkpoint: Path) -> int:
-    parameters = policy.state_dict()
+def verify_weights(parameters: dict[str, torch.Tensor], checkpoint: Path) -> int:
     count = 0
     with safe_open(checkpoint / "model.safetensors", framework="pt") as archive:
         mapped_keys = {key if key.startswith("model.") else f"model.{key}" for key in archive.keys()}
@@ -36,9 +35,6 @@ def verify_weights(policy, checkpoint: Path) -> int:
         embedding = "model.paligemma_with_expert.paligemma.model.language_model.embed_tokens.weight"
         assert missing in [set(), {head}, {embedding}], missing
         assert mapped_keys <= set(parameters), mapped_keys - set(parameters)
-        if missing:
-            # safetensors omits the tied embedding alias; the official loader restores it.
-            assert parameters[head].data_ptr() == parameters[embedding].data_ptr()
         assert len(mapped_keys) + len(missing) == len(parameters)
         for key in archive.keys():
             model_key = key if key.startswith("model.") else f"model.{key}"
@@ -48,6 +44,13 @@ def verify_weights(policy, checkpoint: Path) -> int:
             assert torch.equal(actual, expected), f"Weight load differs: {key}"
             assert torch.isfinite(actual).all(), model_key
             count += 1
+        for model_key in missing:
+            # The official loader restores a separate embedding copy from lm_head.
+            counterpart = embedding if model_key == head else head
+            source = counterpart if counterpart in archive.keys() else counterpart.removeprefix("model.")
+            actual = parameters[model_key].detach().cpu()
+            expected = archive.get_tensor(source).to(actual.dtype)
+            assert torch.equal(actual, expected) and torch.isfinite(actual).all(), model_key
     return count
 
 
@@ -82,7 +85,7 @@ def main() -> None:
     assert config.chunk_size == 10 and config.n_action_steps == 1
     dataset = load_dataset(config)
     policy = make_policy(config, ds_meta=dataset.meta)
-    verified = verify_weights(policy, checkpoint)
+    verified = verify_weights(policy.state_dict(), checkpoint)
     print(f"WEIGHTS VERIFIED: {verified}", flush=True)
     processor_kwargs = {"preprocessor_overrides": {
         "device_processor": {"device": "cuda"},

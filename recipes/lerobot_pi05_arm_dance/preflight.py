@@ -12,8 +12,10 @@ import lerobot
 import numpy as np
 import torch
 from transformers import AutoTokenizer
+from safetensors.torch import save_file
 
 from common import VENV, WHEEL_SHA256, load_dataset, resources
+from evaluate import verify_weights
 from configuration_pi05_control import PI05ControlConfig
 from modeling_pi05_control import PI05ControlPolicy
 from state_jitter import StateJitterStep
@@ -45,6 +47,22 @@ def main() -> None:
     assert sys.prefix != sys.base_prefix
     assert not any("/opt/venvs/carrot/" in p for p in sys.path), sys.path
     args.run_dir.mkdir(parents=True, exist_ok=False)
+    # 用不同存储、相同数值的副本覆盖官方加载器的embedding恢复行为。
+    probe_dir = args.run_dir / "weight_probe"
+    probe_dir.mkdir()
+    head = "model.paligemma_with_expert.paligemma.lm_head.weight"
+    embedding = "model.paligemma_with_expert.paligemma.model.language_model.embed_tokens.weight"
+    probe = {head: torch.arange(8, dtype=torch.float32), embedding: torch.arange(8, dtype=torch.float32)}
+    assert probe[head].data_ptr() != probe[embedding].data_ptr()
+    save_file({head.removeprefix("model."): probe[head]}, probe_dir / "model.safetensors")
+    assert verify_weights(probe, probe_dir) == 1
+    probe[embedding][0] = -1
+    try:
+        verify_weights(probe, probe_dir)
+    except AssertionError as error:
+        assert str(error) == embedding
+    else:
+        assert False, "weight verifier accepted a corrupted restored embedding"
     source = args.run_dir / "source"
     shutil.copytree(Path(__file__).parent, source, ignore=shutil.ignore_patterns("__pycache__"))
     dfs = Path(os.environ["MY_DFS"])

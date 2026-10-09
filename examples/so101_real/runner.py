@@ -76,7 +76,9 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     assert frame is not None, "observation source is empty"
     for key, name in config.image_keys.items():
         Image.fromarray(frame.request[key]).save(log.directory / f"first_{name}.png")
-    log.write("metadata", metadata=policy.metadata)
+    log.write("metadata", metadata=policy.metadata,
+              image_mode="camera" if config.frame_index_image_frames is None else "frame_index",
+              frame_index_image_frames=config.frame_index_image_frames)
 
     # 预热只验证首个响应，不把返回动作交给 sink。
     validate_actions(policy.infer(frame.request, timeout=config.warmup_timeout_s), horizon)

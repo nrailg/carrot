@@ -4,6 +4,7 @@ from typing import Any, Protocol
 import numpy as np
 
 from .config import JOINT_NAMES, DeploymentConfig
+from .frame_index import render_frame_index
 
 
 class Robot(Protocol):
@@ -59,6 +60,10 @@ class DatasetSource:
 
     def __init__(self, dataset: Dataset, config: DeploymentConfig, horizon: int) -> None:
         assert 0 <= config.start_frame < len(dataset), "start_frame outside selected episode"
+        if config.frame_index_image_frames is not None:
+            assert len(dataset) == config.frame_index_image_frames, (
+                "frame_index_image_frames must match selected episode length"
+            )
         self.dataset = dataset
         self.config = config
         self.episode = config.episode
@@ -89,8 +94,10 @@ class DatasetSource:
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),
-                **{key: rgb_image(sample[f"observation.images.{camera}"])
-                   for key, camera in self.config.image_keys.items()},
+                **({"observation/wrist_image": render_frame_index(self.frame)}
+                   if self.config.frame_index_image_frames is not None else
+                   {key: rgb_image(sample[f"observation.images.{camera}"])
+                    for key, camera in self.config.image_keys.items()}),
                 "prompt": prompt,
             },
             episode=self.episode, frame=self.frame,
@@ -107,19 +114,29 @@ class RobotSource:
         self.robot = robot
         self.config = config
         self.horizon = horizon
-        self.frame = 0
+        self.frame = config.start_frame if config.frame_index_image_frames is not None else 0
 
-    def read(self) -> ObservationFrame:
+    def read(self) -> ObservationFrame | None:
+        frames = self.config.frame_index_image_frames
+        if frames is not None and self.frame >= frames:
+            return None
         obs = self.robot.get_observation()
         state = joint_state(obs)
         return ObservationFrame(
             request={
                 "observation/state": state,
-                **{key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()},
+                **({"observation/wrist_image": render_frame_index(self.frame)}
+                   if frames is not None else
+                   {key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()}),
                 "prompt": self.config.prompt,
             },
-            episode=None, frame=self.frame, reference=None, valid_steps=self.horizon,
+            episode=None, frame=self.frame, reference=None,
+            valid_steps=self.horizon if frames is None else min(self.horizon, frames - self.frame),
         )
 
     def advance(self, steps: int) -> None:
+        if self.config.frame_index_image_frames is not None:
+            assert type(steps) is int and 0 < steps <= min(
+                self.horizon, self.config.frame_index_image_frames - self.frame,
+            ), "advance exceeds remaining frame index actions"
         self.frame += steps

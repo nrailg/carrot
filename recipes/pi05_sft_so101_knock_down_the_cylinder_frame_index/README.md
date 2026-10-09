@@ -1,7 +1,7 @@
-# Arm Dance：frame-index wrist image + clamped state jitter
+# Knock down the cylinder：frame-index wrist image + clamped state jitter
 
 状态：**NOT RUN / PENDING**。本轮仅编写代码与静态检查；未启动训练、推理服务或机器人。
-不修改独立运行的 `pi05_sft_so101_arm_dance` no-vision baseline。
+比较对象为旧cylinder no-vision + ±3° state jitter；不修改其配置、源码或历史记录。
 
 目的：用确定的 episode 内 zero-based frame index 图片提供外部进度条件。
 这是带外部进度的轨迹重放，不能据此声称策略已自主识别阶段。
@@ -9,30 +9,30 @@
 十进制七段数字（0000..9999），无随机性、字体、文件I/O或真实相机。
 图中仅含当前index，不含state/action/未来帧或任务答案。
 
-训练数据：`nrailg/arm_dance_20261008_225311_20261008_225313`，144帧、15 FPS、单episode；
-prompt由数据读取 `Dance with the arm`。factory验证metadata total_episodes==1，且
-metadata total_frames等于实际长度；其他单episode数据（例如264帧）可复用同一factory。
+训练数据：`nrailg/knock_down_the_cylinder_1_20260930_222251`，264帧、15 FPS、单episode；
+prompt由数据读取 `Knock down the cylinder`。factory验证metadata total_episodes==1，且
+metadata total_frames等于实际长度；其他单episode数据也可复用同一factory。
 旧loader仍会读取视频再丢弃，这轮不优化loader。先复用现有state_jitter wrapper，五轴
 U(-5°,5°)按共享标定clamp；夹爪、action、padding和norm_stats保持原契约，随后只替换腕图。
 仅wrist mask=true，base/right=false；fit.vision=true，不使用DropVision。
 
-相对正在训练的baseline，本recipe有两项实验条件变化：引入frame-index腕图条件，以及
+相对旧cylinder no-vision + ±3° jitter baseline，本recipe有两项实验条件变化：引入frame-index腕图条件，以及
 将五轴state jitter从±3°提高到±5°；共享SDK标定clamp仍保留。因此不能将效果差异仅归因于vision。
 
 其余对照设置：官方 `pi05_base_pytorch_h10` step0，h10，2000steps，warmup100后constant1e-6；
 8 GPU BF16 FSDP、micro4/global64/GAS2、seed1000，每500step保存。noise/t保持随机。
-独立输出：`$MY_DFS/experiments/carrot/pi05_so101_arm_dance_frame_index/arm_dance_20261008_225311_20261008_225313/training`。
+独立输出：`$MY_DFS/experiments/carrot/pi05_so101_knock_down_the_cylinder_frame_index/knock_down_the_cylinder_1_20260930_222251/training`。
 运行前按carrot-recipe核对空闲GPU、当前MY_DFS、已有Ray、资源、配置固定路径与源码版本。
 未来获准运行训练时：
 
 ```bash
 export SOURCE_COMMIT=<verified-source-commit>
-bash recipes/pi05_sft_so101_arm_dance_frame_index/run.sh
+bash recipes/pi05_sft_so101_knock_down_the_cylinder_frame_index/run.sh
 ```
 
 runner复用现有fit_validation训练入口，不复制trainer，不修改模型结构。预期step500/1000/
 1500/2000各有checkpoint、tokenizer、norm_stats和optimizer shards。验收需分别证明训练退出、
-checkpoint完整/可加载与离线效果；当前均PENDING，不复用写死264帧的旧evaluate.py。
+checkpoint完整/可加载与离线效果；当前均PENDING；旧no-vision评估需适配相同帧号图片条件，不能直接沿用。
 
 ## 离线 dataset -> log（未来执行）
 
@@ -40,7 +40,7 @@ checkpoint完整/可加载与离线效果；当前均PENDING，不复用写死26
 
 ```bash
 python -m carrot.cli.serve_pi05_policy --embodiment so101 \
-  --checkpoint "$MY_DFS/experiments/carrot/pi05_so101_arm_dance_frame_index/arm_dance_20261008_225311_20261008_225313/training/checkpoints/step-00002000" \
+  --checkpoint "$MY_DFS/experiments/carrot/pi05_so101_knock_down_the_cylinder_frame_index/knock_down_the_cylinder_1_20260930_222251/training/checkpoints/step-00002000" \
   --device cuda:0 --host 0.0.0.0 --port 8080
 ```
 
@@ -51,12 +51,12 @@ python -m carrot.cli.serve_pi05_policy --embodiment so101 \
 observation_source: dataset
 action_sink: log
 server_uri: ws://GPU_HOST:8080
-dataset_root: /absolute/local/arm_dance_20261008_225311_20261008_225313
-dataset_repo: nrailg/arm_dance_20261008_225311_20261008_225313
+dataset_root: /absolute/local/knock_down_the_cylinder_1_20260930_222251
+dataset_repo: nrailg/knock_down_the_cylinder_1_20260930_222251
 output_dir: /absolute/new/frame_index_offline
 base_camera: null
 cameras: {}
-frame_index_image_frames: 144
+frame_index_image_frames: 264
 episode: 0
 start_frame: 0
 fps: 15
@@ -83,9 +83,9 @@ observation_source: robot
 action_sink: robot
 base_camera: null
 cameras: {}
-frame_index_image_frames: 144
+frame_index_image_frames: 264
 start_frame: 0
-prompt: Dance with the arm
+prompt: Knock down the cylinder
 robot_port: /dev/REPLACE_WITH_VERIFIED_PORT
 robot_id: REPLACE_WITH_VERIFIED_ID
 calibration_dir: /absolute/existing/calibration

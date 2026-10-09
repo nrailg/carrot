@@ -2,7 +2,7 @@ model:
   path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10
   tokenizer_path: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/google/paligemma-3b-pt-224
 dataset:
-  factory: recipes.pi05_sft_so101_knock_down_the_cylinder_frame_index.augmentation.build_dataset
+  factory: recipes.pi05_sft_so101_knock_down_the_cylinder_frame_prompt.augmentation.build_dataset
   factory_kwargs:
     repo_id: nrailg/knock_down_the_cylinder_1_20260930_222251
     revision: null
@@ -36,11 +36,11 @@ steps: 2000
 micro_batch_size: 4
 global_batch_size: 64
 log_freq: 1
-output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_knock_down_the_cylinder_frame_index/knock_down_the_cylinder_1_20260930_222251/training
+output_dir: /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_so101_knock_down_the_cylinder_frame_prompt/knock_down_the_cylinder_1_20260930_222251/training
 save_freq: 500
 seed: 1000
 dp_size: 8
 num_nodes: 1
 fit:
-  vision: true
+  vision: false
   noise_seed: null

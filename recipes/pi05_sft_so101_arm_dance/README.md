@@ -1,6 +1,6 @@
 # SO101 arm dance：no vision + state jitter
 
-## 2026-10-09：训练完成，首轮真机 K=1 验证完成
+## 2026-10-09：训练完成，三轮真机 K=1 与离线配对诊断已记录
 
 | 项目 | 设置 / 状态 |
 |---|---|
@@ -16,8 +16,8 @@
 | 统计量 | 从这份 arm dance 原始数据计算；不复用 cylinder 的 norm_stats |
 | 保存 | step500/1000/1500/2000 已保存并核验 |
 | 输出 | `$MY_DFS/experiments/carrot/pi05_so101_arm_dance/arm_dance_20261008_225311_20261008_225313/` |
-| 状态 | 训练2000步验收通过；新模型真机K1完成144/144，五轴平均跟踪MAE0.574°，现场反馈平稳；尚未精确复现示教节奏 |
-| 当前判断 | 已学到部分动作趋势，但学习与轨迹复现效果一般；尚未达到精确重放 |
+| 状态 | 训练2000步验收通过；三轮真机均144/144、0超时；最新跟踪MAE0.551°，但模型对同序号示教action MAE6.616°；现场无卡住/碰撞，末端似仍抖动 |
+| 当前判断 | 录制state输入首动作MAE0.557°；真实反馈下进度明显偏移，约frame30–40进入末段姿态；稳定闭环重放尚未通过 |
 | 实际任务 / 环境 | 源码 bb3374b0560f141cf65a57fe21932bd62ff7ba89；Gemini session224605fe / task224605fe-0613 / Ray job17000000；Docker image tag / 上游 commit 未记录 |
 
 Mac 原始数据：
@@ -215,3 +215,107 @@ Mac ~/.cache/carrot/so101_arm_dance2000_act1_20261009T081422Z，
 并已归档Ceph $MY_DFS/experiments/carrot/同名根/mac_results。
 服务0626已退出0并归档释放，dguard已恢复。此次仅补充实验结论和长期记忆，
 不新训、不再驱动机器人、不commit/push；图片、数据和权重不入Git。
+
+
+### 2026-10-09 18:08：按用户要求重新对齐frame0后复跑Arm Dance
+
+用户明确引用本recipe与长期记忆，要求设置机器人到frame0 state后试跑，选择已有arm_dance step2000（非cylinder帧prompt新模型）。无视觉/随机noise/h10/NFE10/K1/真实state反馈；wait3°3秒超时继续、无retry；P32 elbow/wrist其余P16/I0D32/绝对标定+相对20°限幅。
+
+六轴Status0、标定通过；从上轮末态缓慢回位（初始肘距起点约58°，每50ms插值不超过0.5°），再沿用实测校正。正式起点相对原frame0 state五轴差[-0.615385,0.263733,-0.087915,-0.087912,0.263736]°，max0.615385°，夹爪差约0。并非完全重合。
+live144正常退出0，144/144、0超时，2次肩抬绝对clamp，无相对clamp，Status全0/退出hold Goal读回通过，正式过程48.848秒。
+
+| 关节 | 实测对发送目标MAE | 模型对同序号示教action MAE |
+| --- | ---: | ---: |
+| shoulder_pan | 0.077547° | 0.083815° |
+| shoulder_lift | 1.019346° | 6.819054° |
+| elbow_flex | 1.348018° | 10.728541° |
+| wrist_flex | 0.353394° | 0.570005° |
+| wrist_roll | 0.064655° | 0.122999° |
+
+五轴跟踪均值0.572592°（上轮0.573962°）；模型对同序号示教action均值3.664883°（上轮3.805747°），等待结束实测对示教action3.778998°。gripper原单位跟踪MAE0.423140、模型对示教0.019620，另列不混角度。肩/肘路径差异仍已出现在模型目标；相近起点下本轮中段推进与上轮也有差异。单轮随机noise且实测反馈，不能用序号对照证明同输入拟合/时间对齐跟踪，也未隔离noise、局部状态敏感性、阶段歧义及执行节奏贡献。用户现场反馈：“中间有点往复运动，没有卡住/碰撞/明显异常。”往复运动原因未隔离，不归因于已确定BUG。
+
+独立产物Mac /Users/wujunyu/.cache/carrot/so101_arm_dance2000_replay_20261009T100610Z，Ceph /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/so101_arm_dance2000_replay_20261009T100610Z/mac_results，含plan/client/analyze/plot_three_trajectories、144NPZ/events/tracking CSV/PNG SVG PDF及逐帧三线图、独立复算结果/source_snapshot/hash/completion。70必要源码Mac/GPU SHA一致且运行前后未变；源码HEAD db756f9加既有frame_prompt文档修改。本次仅修改缓存里的回位插值步数/起始距离断言以适配已知末态，无生产代码改动。
+
+Gemini重新连接cb69ab63并重新核验唯一Ceph/usernrwu；服务cb69ab63-0654加载同一SHA84636381b984478bab138648864bb663d267b889ea008f1eea73ae279d6e37cc，runtime dtype/DropVision/eager核验通过。执行后只SIGTERM本服务PID637691，exit0并dump service_backend.log/释放，8080已关闭；dguard watch1、guard.sh/run.py实际运行、无restore计划。Docker tag/上游commit未记录。不commit/push，图数据不入Git。
+
+
+### 2026-10-09：Arm Dance拟合与真实闭环轨迹差异的离线配对诊断
+
+用户要求解释差异，并明确离开吃饭、禁止驱动机械臂。本轮仅数据/日志/GPU直接policy.infer，不连接机器人、串口或WebSocket服务，无训练、无生产代码修改。
+
+复用同一arm_dance step2000、BF16含FP32岛/eager cache/no vision/NFE10/h10/prompt Dance with the arm。对144个原始录制state及最近live144记录的144个实测输入各预测一次，同帧两者使用相同显式noise(seed1000+frame)。8个指定帧各8noise、两种输入共128次探测，合计416次infer；不把noise重复当独立训练。直接加载相同checkpoint SHA84636381b984478bab138648864bb663d267b889ea008f1eea73ae279d6e37cc；70源码SHA与刚才真机一致，dtype和pixels0/maskfalse核验通过。
+
+| 输入与比较口径 | 首动作肩抬MAE | 首动作肘MAE | 首动作五轴平均MAE | 全10步五轴平均MAE |
+| --- | ---: | ---: | ---: | ---: |
+| 原录制state -> 同序号示教action | 0.981263° | 1.417510° | 0.556572° | 0.714458° |
+| 本轮实测state -> 同序号示教action，同noise | 6.723857° | 10.762649° | 3.657425° | 3.908785° |
+| 仅更换state的两组预测差，同noise | 6.810687° | 10.630133° | 3.603685° | 3.767089° |
+
+首5步原录制state五轴平均MAE0.640300°。录制state首动作肘P954.423075°/max6.123253°，肩P952.159222°/max4.950081°；所以拟合大体有效但局部仍非极小。gripper原单位另列results.json；五轴degrees是反归一化输出。更换为实测输入能复现大部分序号差距，但这是冻结日志输入的配对检查，不是新的闭环干预，不能把两项MAE相减解释成因果占比。
+
+证据链：
+1. 实机对发送目标跟踪MAE0.572592°，显著小于模型/实机相对示教的肩肘差距，故不是仅靠机器人追不上目标解释。
+2. 最近第3次输入肘95.956°、模型给90.406°，第4次实测变92°，全五轴Linf最近原数据frame28（残差0.440°）；第5次实测91.385°最近frame29，模型81.542°；第10次输入68.440°最近frame67（1.231°）。139/144实测点在至少一个原state的五轴±3°邻域内，但仅23/144在同序号邻域内，不能简单宣称全部是训练域外输入。早期进入后段姿态，中途又停留不同长度，进度与路径均发生改变。
+3. 录制frame0肘state95.956/action93.758，录制frame1 state95.868。即使目标预测准确，等待目标后再读输入也不同于录制15FPS的动态跟踪状态；本轮执行48.85s vs原序列约9.53s。此数据关系说明闭环动力学/节奏变化确实存在，但不单独证明所有偏移的原因。
+4. 144原录制state实际token条件只有80种，PI05不经连续state_proj，而用离散state文本（preprocessing.py bucketize，pi0_pytorch.py pi05分支）；例如frame3–18条件相同，h10肘监督最大差5.1868°；frame56–64条件相同，h10肩/肘监督差最大7.4725°/6.5055°。无帧号/历史时无法从相同condition唯一判定录制阶段；diffusion可学习分布，但不保证按原frame顺序选中动作。
+5. ±3°独立state增强保持监督action不变，邻近阶段增强支持重叠。例如frame0/30原state各轴差均<=6°（肘5.187°），首action肘差9.934°；支持存在交集，不代表该交集频率或本轮因果已测定。单demo保留局部容错与保持阶段可辨识均需关注。
+6. 同录制frame10八noise肘首动作STD2.134°/range6.623°，frame5 STD1.352°/range4.611°；实测frame5输入noise STD2.369°。随机输出残差可触发下一state变化的解释与证据相符，但本轮未用真机固定noise作干预，不能断言唯一触发因素。
+7. 次要编码观察：state q99-q01五轴约[0.8791,30.1535,53.9747,2.1099,0]°；±3°增强使窄范围轴大量超出[-1,1]归一化范围，bucketize后在端点归并，原常量wrist_roll尤明显。未改stats；CPU比例估算未加硬件clamp，作为编码检查线索，不能称已定位BUG或贸然改生产代码。
+
+结论：当前大差距主要在真实反馈输入/阶段进度变化后出现，另有局部拟合残差与随机性；不是“整个原始episode在同输入上有10°平均拟合误差”，也不是“模型完全拟合，全部怪硬件”。应优先验证保留state jitter并增加明确阶段条件能否稳定局部闭环，再看执行节奏。已训练cylinder frame_prompt模型属于另一任务，不能直接拿来执行Arm Dance。需要对Arm Dance新方案时另行确定，不追加训练、不驱动。
+
+task cb69ab63-0660 exit0，163s，所有预测有限；原Parquet逐元素核对state/action/reference/padding、1395有效主action行、显式noise重建、MAE/P95/max独立复算通过；16个同noise重复预测逐元素一致。backend.log已dump并释放；dguardwatch1/guard.sh/run.py实际运行/无restore，模型GPU释放。Docker tag/上游commit未记录。独立产物 /Users/wujunyu/.cache/carrot/so101_arm_dance2000_diagnosis_20261009T102000Z，Ceph /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/so101_arm_dance2000_diagnosis_20261009T102000Z，含plan/offline_eval.py/paired.npz/results.json/data_audit/independent_verification/paired_state_effect PNG SVG PDF/绘图脚本，Mac补充归档mac_results。图数据不入Git，无commit/push。
+
+### 2026-10-09：按servo复核P50/P90/max，修正整体更好的概括
+
+用户要求不只看五轴平均，今后比较同时列每servo绝对误差P50/P90/max。以下沿用此前前5有效预测动作口径（与展示的首action曲线不同）；均原录制state输入、step2000/no vision/±3°增强/h10/NFE10。
+
+| servo | Arm Dance P50/P90/max | 旧cylinder P50/P90/max |
+| --- | --- | --- |
+| shoulder_pan | 0.015442/0.110440/0.864205 | 0.498938/2.580646/16.877382 |
+| shoulder_lift | 0.848351/2.417358/9.794907 | 1.455885/4.382833/18.148634 |
+| elbow_flex | 1.251205/3.689473/10.641136 | 0.727123/2.874411/16.635605 |
+| wrist_flex | 0.198933/0.519033/1.536777 | 1.157810/3.198086/17.355345 |
+| wrist_roll | 0.050820/0.151697/0.387327 | 0.126547/0.335613/3.509707 |
+| gripper（原单位） | 0.001471/0.003542/0.081418 | 0.005570/0.040193/0.134837 |
+
+五运动轴单位degrees。Arm Dance肘部P50/P90为1.251/3.689°，高于旧cylinder0.727/2.874°；其余四运动轴P50/P90较低。因此不能笼统称每个servo都更好；五轴平均掩盖肘部相对变差。最大值本轮均较小，但Arm Dance710有效行（144观测x1noise），旧cylinder2112有效行（53起点x8noise），极值暴露次数及采样位置不同，且旧增强未clamp，不据此宣称受控的尾部优势。旧NPZ reference/executed_valid与原validation raw_actions逐元素核对通过。JSON/CSV及compare_servo_quantiles.py保存在诊断Mac缓存并归档Ceph mac_results，无新推理或机器人动作，不commit/push。
+
+
+### 2026-10-09：再次授权真机，Arm Dance step2000第三轮K1完成
+
+用户在离线拟合/逐servo分位数比较后明确要求“ok，真机执行”，撤销先前吃饭期间不驱动的约束。本轮沿用同Arm Dance step2000（不是cylinder frame_prompt），no vision/random noise/BF16 FP32岛/eager cache/NFE10/h10/K1；每次真实state反馈，wait3°/3s超时继续，无retry；P32 elbow+wrist其余P16/I0D32、绝对标定clamp+相对20°。
+
+启动前六轴Status0/标定通过、GPU进程核对为dguard看护、8080空闲，唯一MY_DFS重新核验nrwu/mm-base-plt2。同步70源码SHA全部一致。模型SHA84636381b984478bab138648864bb663d267b889ea008f1eea73ae279d6e37cc；runtime dtype、pixels0/maskfalse等检查通过。缓慢回frame0并实测校正：五轴起点残差[-0.351648,0.351645,-0.087915,-0.175824,0.263736]°，max0.351648°，夹爪几乎0。
+
+live144 exit0，144/144、0超时、Status全0、退出hold+Goal读回通过，正式过程47.1303秒。1次肩抬绝对clamp。用户现场反馈：“无卡住、碰撞或其他明显异常；末端抖动似乎还有。”已展示本轮144帧三线图：dataset=录制observation.state，model=本轮raw action[0]，robot state=每次正式推理前实测state；横轴frame index，无平滑，不是录制物理时间对齐。
+
+| servo | 等待后实测对发送目标 P50/P90/max | 模型raw首action对同序号示教action P50/P90/max |
+| --- | --- | --- |
+| shoulder_pan | 0.228588/0.257855/0.674626 | 0.059540/0.259755/0.970231 |
+| shoulder_lift | 0.615105/1.626055/2.647835 | 8.580864/29.736194/31.190010 |
+| elbow_flex | 1.223806/1.997230/2.785461 | 20.415791/39.438847/44.528397 |
+| wrist_flex | 0.511879/0.782290/0.969482 | 0.817909/1.531034/2.038670 |
+| wrist_roll | 0.138028/0.214555/0.420059 | 0.144851/0.306990/0.571422 |
+| gripper（原单位） | 0.427857/0.429017/0.437265 | 0.001709/0.080497/0.089455 |
+
+五运动轴degrees，gripper原单位另列。跟踪五轴平均MAE0.551409°；模型对同序号示教action平均MAE6.616107°，相对上轮3.664883°显著更大。肘部在约frame40已接近39°终段姿态，肩抬约-75.7°，比录制与前轮更早进入末段；余下帧继续在终段附近。跟踪误差仍小、路径进度却变动明显，不能将充分拟合或稳定重放视为已通过。同序号参考不是时间对齐GT，也不能从本轮独立归因noise/起点残差/局部反馈/阶段歧义。
+
+亲读144NPZ/events、原Parquet核对reference/state/首action发送/Goal读回/Status/hold，重新统计MAE/P50/P90/P95/max及三线图通过。产物 /Users/wujunyu/.cache/carrot/so101_arm_dance2000_live_20261009T112516Z，Ceph /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/so101_arm_dance2000_live_20261009T112516Z/mac_results，含plan/client/serve脚本/70源快照hash、144NPZ、事件、tracking.csv、独立结果/completion/三线图PNG SVG PDF。运行源码HEAD db756f9加既有文档记录修改；生产代码未变，无图数据入Git，无commit/push。Docker tag/上游commit未记录。
+
+服务cb69ab63-0667/PID641378，执行结束只SIGTERM本服务，exit0/dump service_backend.log/释放，8080关闭。dguard恢复watch1/guard.sh+run.py实际运行/无restore计划；串口关闭且当前位置hold。没有继续自动重跑。
+
+
+### 2026-10-09：闭环误差与两图对比的结论边界
+
+本阶段要验证的是demo附近稳定闭环推进，而不只是单次动作拟合。当前记录支持：原录制state输入时大致拟合，真机能够执行且跟踪误差较小，但真实state反馈下轨迹进度不稳定；不能宣称已稳定重放或解决末端抖动。
+
+两图口径不同：离线两线图的dataset是示教action[i]，model是原录制state[i]输入的首预测action；最新真机三线图的dataset是录制observation.state[i]，model是实测state输入的raw首action，robot是每次推理前实测state。横轴均为frame/inference序号，不是物理时间对齐。gripper原录制state/action本就不同。模型和蓝线的视觉距离不能直接当执行误差；跟踪指标来自同次发送目标与等待结束实测位置的配对日志。
+
+闭环链路为“实测state → 模型目标 → 机器人执行 → 新实测state”。模型预测残差、随机noise及硬件执行偏差都可能影响下一次输入，之后可能被纠正，也可能放大；不是两种误差逐步线性相加，也未证明每一步都单调增大。最新轮肩抬/肘的模型对同序号示教action P90为29.736°/39.439°，等待结束对发送目标P90仅1.626°/1.997°。大差距已在模型目标中出现，并伴随约frame30–40提前进入末态；不能主要用“机器人转动幅度不够”解释。
+
+离线配对诊断使用18:08第二轮的冻结实测输入，并非19:27第三轮：同checkpoint/同frame/同noise，仅把录制state替换为日志实测state，首动作五轴平均MAE由0.556572°变为3.657425°。这支持输入/阶段变化与输出差异相关，但不是完整闭环干预，不能计算硬件或模型的因果贡献比例。当前候选原因包括无进度条件的阶段歧义、局部状态敏感性、随机采样及录制15FPS与wait执行节奏不同；均未单独隔离。模型腕部目标确有波动，但稀疏实测位置尚不能证明现场抖动全部来自模型或全部来自舵机。
+
+下一步方向是保留局部state增强并验证显式阶段条件能否稳定推进；Arm Dance本轮没有frame prompt，独立cylinder帧prompt模型也不能用于此任务。新Arm Dance训练或真机干预需另行确定，本次只整理记录，不启动实验或驱动机器人。
+
+本次文档核验：重新读取已归档independent_results.json与independent_verification.json，确认144样本/416次离线推理、1395有效主action行、原Parquet与noise及指标复算PASS；沿用上述既有实验核验记录，没有新增pytest或GPU测试，不把旧结果记作本次重跑。图片、CSV/NPZ、日志和权重保留在前述Mac缓存/Ceph，不入Git。

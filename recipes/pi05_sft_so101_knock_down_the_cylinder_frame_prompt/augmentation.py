@@ -13,7 +13,7 @@ from recipes.pi05_sft_so101_state_jitter.augmentation import build_dataset as bu
 
 class FramePromptDataset(Dataset[dict[str, Any]]):
     def __init__(self, source: Dataset, frames: int) -> None:
-        assert type(frames) is int and 1 <= frames <= 10000, "frames must be in [1, 10000]"
+        assert type(frames) is int and frames > 0, "frames must be a positive integer"
         assert len(source) == frames, "single episode length must match metadata total_frames"
         self.source = source
         self.frames = frames
@@ -37,7 +37,7 @@ def build_dataset(**kwargs: Any) -> SFTDatasetSpec:
     Parameters
     ----------
     kwargs : Any
-        Existing state-jitter factory arguments; requires one episode and wrist-only views.
+        Existing state-jitter factory arguments; requires one episode.
 
     Returns
     -------
@@ -47,11 +47,8 @@ def build_dataset(**kwargs: Any) -> SFTDatasetSpec:
     Raises
     ------
     AssertionError
-        If metadata is not one episode, its length disagrees, or views are incompatible.
+        If metadata is not one episode or its length disagrees.
     """
-    assert kwargs["base_image_key"] is None and kwargs["wrist_image_key"] is not None, (
-        "frame prompt training requires wrist-only loader input"
-    )
     root = Path(kwargs["root"]) if kwargs["root"] is not None else None
     metadata = LeRobotDatasetMetadata(
         kwargs["repo_id"], root=root, revision=kwargs["revision"],

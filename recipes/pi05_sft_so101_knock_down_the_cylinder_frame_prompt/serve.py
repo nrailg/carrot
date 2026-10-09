@@ -3,10 +3,18 @@ from dataclasses import replace
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 from carrot.models.pi05 import transforms
 from carrot.models.pi05.inference import create_so101_policy
 from carrot.models.pi05.inference.websocket_policy_server import WebsocketPolicyServer
 from recipes.pi05_sft_so101_fit_validation.fit import DropVision
+
+
+class ZeroWristInput:
+    def __call__(self, data: dict[str, Any]) -> dict[str, Any]:
+        # 占位只用于满足共享SO101Inputs的相机契约，末端DropVision才关闭视觉。
+        return data | {"observation/wrist_image": np.zeros((224, 224, 3), dtype=np.uint8)}
 
 
 def enable_no_vision(policy: Any) -> None:
@@ -22,7 +30,10 @@ def enable_no_vision(policy: Any) -> None:
     None
         Updates the policy input pipeline in place; does not load or run the model.
     """
-    spec = replace(policy._transform_spec, inputs=policy._transform_spec.inputs + (DropVision(),))
+    spec = replace(
+        policy._transform_spec,
+        inputs=(ZeroWristInput(), *policy._transform_spec.inputs, DropVision()),
+    )
     policy._transform_spec = spec
     policy._input_transform = transforms.compose(spec.inputs)
 

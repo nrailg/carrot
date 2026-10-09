@@ -78,20 +78,21 @@ class Policy:
 def test_formatter_contract() -> None:
     # 帧条件只能依赖原始任务与整数索引，尾空白去除规则必须在训练推理间完全相同。
     base = "Knock down the cylinder  "
-    values = [format_frame_prompt(base, index) for index in (0, 1, 263, 9999)]
+    values = [format_frame_prompt(base, index) for index in (0, 1, 263, 9999, 10000)]
 
-    # 固定四位十进制避免编码歧义，重复格式化原task必须稳定。
+    # 四位是最小宽度，10000不能截断或因旧图像上限被拒绝；原task重复格式化必须稳定。
     assert values == ["Knock down the cylinder Frame: 0000.",
                       "Knock down the cylinder Frame: 0001.",
                       "Knock down the cylinder Frame: 0263.",
-                      "Knock down the cylinder Frame: 9999."]
+                      "Knock down the cylinder Frame: 9999.",
+                      "Knock down the cylinder Frame: 10000."]
     assert values[0] == format_frame_prompt(base, np.int64(0))
     assert base == "Knock down the cylinder  "
 
 
-@pytest.mark.parametrize("index", [True, np.bool_(False), -1, 10000, 1.5, "1", None])
+@pytest.mark.parametrize("index", [True, np.bool_(False), -1, 1.5, "1", None])
 def test_formatter_rejects_illegal_index(index) -> None:
-    # 布尔、非整数与越界值不能被隐式转成可训练帧号。
+    # 布尔、非整数与负数不能被隐式转成可训练帧号。
     with pytest.raises(AssertionError):
         format_frame_prompt("Knock down the cylinder", index)
 
@@ -137,14 +138,20 @@ def test_no_vision_service_uses_shared_drop_vision() -> None:
         inputs=(SO101Inputs(),), outputs=(), action_dim=6,
     )
     sample = {"observation/state": np.zeros(6, dtype=np.float32),
-              "observation/wrist_image": np.full((224, 224, 3), 17, dtype=np.uint8),
               "prompt": "Knock down the cylinder Frame: 0003."}
 
-    # 使用服务实际组装的完整input_transform，不只检查对象名字或配置布尔值。
+    # 补图仅位于服务适配层，输入原dict与客户端无相机契约不被污染。
+    adapted = serve.ZeroWristInput()(sample)
+    assert set(sample) == {"observation/state", "prompt"}
+    assert adapted["observation/wrist_image"].shape == (224, 224, 3)
+    assert adapted["observation/wrist_image"].dtype == np.uint8
+    assert not adapted["observation/wrist_image"].any()
+
+    # 使用服务实际完整input_transform验证补图先于SO101Inputs，末端DropVision仍关闭全部mask。
     serve.enable_no_vision(policy)
     transformed = policy._input_transform(sample)
 
-    # 即使输入图非零，末端所有mask和像素仍清零，prompt条件保持完整。
+    # 服务接受无图请求，最终所有mask和像素清零，prompt条件保持完整。
     assert transformed["image_mask"] == {
         "base_0_rgb": False, "left_wrist_0_rgb": False, "right_wrist_0_rgb": False,
     }
@@ -182,7 +189,8 @@ def test_factory_single_episode_and_stats(monkeypatch) -> None:
 @pytest.mark.parametrize("steps", [1, 5])
 def test_loop_advances_only_consumed_actions(tmp_path, monkeypatch, source_type, steps) -> None:
     # h10/K1与K5都按已采用动作推进；重复read、预热和等待读状态不能推进。
-    config = DeploymentConfig(observation_source=source_type, base_camera=None, episode=2,
+    config = DeploymentConfig(observation_source=source_type, base_camera=None, wrist_camera=None,
+                              episode=2,
                               frame_index_prompt_frames=7, prompt="Knock down the cylinder",
                               execute_steps=steps, max_chunks=None)
     robot = StateOnlyRobot()
@@ -207,18 +215,17 @@ def test_loop_advances_only_consumed_actions(tmp_path, monkeypatch, source_type,
     assert len(policy.requests) == len(expected) + 1
     for request, index in zip(policy.requests, [0, *expected], strict=True):
         assert request["prompt"] == format_frame_prompt("Knock down the cylinder", index)
-        placeholder = request["observation/wrist_image"]
-        assert placeholder.shape == (224, 224, 3) and placeholder.dtype == np.uint8
-        assert not placeholder.any()
-        assert set(request) == {"observation/state", "observation/wrist_image", "prompt"}
+        assert set(request) == {"observation/state", "prompt"}
     assert source.frame == 7 and source.read() is None
+    assert not list(tmp_path.glob("first_*.png"))
     with np.load(tmp_path / f"chunk_{len(expected) - 1:06d}.npz") as chunk:
         assert int(chunk["planned_steps"]) == 7 - expected[-1]
 
 
 def test_start_frame_and_normal_mode() -> None:
     # 帧prompt真机模式尊重显式起点并终止；普通模式仍读取真实腕图且无有限帧限制。
-    config = DeploymentConfig(base_camera=None, frame_index_prompt_frames=7, start_frame=5,
+    config = DeploymentConfig(base_camera=None, wrist_camera=None,
+                              frame_index_prompt_frames=7, start_frame=5,
                               prompt="Knock down the cylinder")
     source = RobotSource(StateOnlyRobot(), config, 10)
     frame = source.read()
@@ -241,15 +248,16 @@ def test_start_frame_and_normal_mode() -> None:
 
 
 @pytest.mark.parametrize("changes", [{"frame_index_prompt_frames": True},
-                                     {"frame_index_prompt_frames": 10001},
-                                     {"base_camera": "top"}, {"cameras": {"fpv": {}}},
-                                     {"start_frame": 7}])
+                                     {"frame_index_prompt_frames": 0},
+                                     {"frame_index_prompt_frames": -1},
+                                     {"base_camera": ""}, {"wrist_camera": ""},
+                                     {"base_camera": "fpv"}, {"start_frame": 7}])
 def test_invalid_frame_prompt_config(tmp_path, changes) -> None:
     # 配置冲突必须早于任何数据/网络/硬件访问报错。
     config = DeploymentConfig(base_camera=None, dataset_root=str(tmp_path),
                               dataset_repo="local/test", frame_index_prompt_frames=7)
 
-    # 拒绝非法总帧数、真实相机混用与越界起点。
+    # 拒绝非法总帧数、空相机名称、重复视角与越界起点；帧prompt本身不限制相机选择。
     with pytest.raises(AssertionError):
         replace(config, **changes).validate()
 
@@ -257,7 +265,7 @@ def test_invalid_frame_prompt_config(tmp_path, changes) -> None:
 def test_frame_prompt_robot_never_constructs_camera(tmp_path, monkeypatch) -> None:
     # 真机帧prompt模式可读实测state，但连接工厂不得构造或打开相机。
     (tmp_path / "arm.json").write_text("{}")
-    config = DeploymentConfig(observation_source="robot", base_camera=None,
+    config = DeploymentConfig(observation_source="robot", base_camera=None, wrist_camera=None,
                               frame_index_prompt_frames=7, prompt="Knock down the cylinder",
                               robot_port="fake", robot_id="arm", calibration_dir=str(tmp_path))
     config.validate()
@@ -283,7 +291,7 @@ def test_frame_prompt_robot_never_constructs_camera(tmp_path, monkeypatch) -> No
 @pytest.mark.parametrize("flags", [{}, {"frame_index_prompt": True}, {"no_vision": True},
                                    {"frame_index_prompt": True, "no_vision": False}])
 def test_frame_prompt_rejects_wrong_server(flags) -> None:
-    # 零图占位不能送给普通vision服务；握手必须明确帧prompt与no-vision两项契约。
+    # 本recipe的无图请求不能送给普通vision服务；握手必须明确帧prompt与no-vision两项契约。
     metadata = {key: value for key, value in Policy.metadata.items()
                 if key not in ("frame_index_prompt", "no_vision")}
     metadata.update(flags)
@@ -294,3 +302,28 @@ def test_frame_prompt_rejects_wrong_server(flags) -> None:
         runner.validate_metadata(metadata, config)
     assert runner.validate_metadata(metadata, DeploymentConfig()) == 10
     assert runner.validate_metadata(Policy.metadata, config) == 10
+
+
+@pytest.mark.parametrize("frames", [None, 10001])
+@pytest.mark.parametrize("base,wrist", [(None, None), ("top", None), (None, "fpv"),
+                                       ("top", "fpv")])
+def test_prompt_and_camera_config_are_independent(tmp_path, frames, base, wrist) -> None:
+    # 帧prompt与视角选择正交：启用或关闭帧条件均可独立选择零、一或两个相机。
+    (tmp_path / "arm.json").write_text("{}")
+    expected = {key: value for key, value in (("observation/image", base),
+                                             ("observation/wrist_image", wrist))
+                if value is not None}
+    config = DeploymentConfig(
+        observation_source="robot", base_camera=base, wrist_camera=wrist,
+        cameras={name: {} for name in expected.values()}, frame_index_prompt_frames=frames,
+        prompt="Knock down the cylinder", robot_port="fake", robot_id="arm",
+        calibration_dir=str(tmp_path),
+    )
+
+    # 仅验证纯配置，不调用SDK；10001总帧数必须合法，不残留四位图片编码上限。
+    config.validate()
+    assert config.image_keys == expected
+
+    # 真机相机配置必须始终精确匹配所选视角，帧prompt不能绕过这一验证。
+    with pytest.raises(AssertionError, match="selected camera views"):
+        replace(config, cameras={**config.cameras, "unexpected": {}}).validate()

@@ -81,7 +81,7 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     for key, name in config.image_keys.items():
         Image.fromarray(frame.request[key]).save(log.directory / f"first_{name}.png")
     log.write("metadata", metadata=policy.metadata,
-              image_mode="camera" if config.frame_index_prompt_frames is None else "no_vision",
+              image_mode="camera" if config.image_keys else "no_vision",
               frame_index_prompt=config.frame_index_prompt_frames is not None,
               frame_index_prompt_frames=config.frame_index_prompt_frames)
 

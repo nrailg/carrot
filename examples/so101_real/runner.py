@@ -38,6 +38,10 @@ class RunLog:
 def validate_metadata(metadata: dict, config: DeploymentConfig) -> int:
     assert metadata["embodiment"] == "so101", "server must serve a SO101 policy"
     assert metadata["action_dim"] == 6, "server must return six-dimensional actions"
+    if config.frame_index_prompt_frames is not None:
+        assert metadata.get("frame_index_prompt") is True and metadata.get("no_vision") is True, (
+            "frame prompt requires a frame_index_prompt=true/no_vision=true server"
+        )
     horizon = metadata["action_horizon"]
     assert type(horizon) is int and horizon >= config.execute_steps >= 1, "invalid action horizon"
     assert type(metadata["num_steps"]) is int and metadata["num_steps"] >= 1
@@ -77,8 +81,9 @@ def run_loop(config: DeploymentConfig, source: ObservationSource, sink: ActionSi
     for key, name in config.image_keys.items():
         Image.fromarray(frame.request[key]).save(log.directory / f"first_{name}.png")
     log.write("metadata", metadata=policy.metadata,
-              image_mode="camera" if config.frame_index_image_frames is None else "frame_index",
-              frame_index_image_frames=config.frame_index_image_frames)
+              image_mode="camera" if config.frame_index_prompt_frames is None else "no_vision",
+              frame_index_prompt=config.frame_index_prompt_frames is not None,
+              frame_index_prompt_frames=config.frame_index_prompt_frames)
 
     # 预热只验证首个响应，不把返回动作交给 sink。
     validate_actions(policy.infer(frame.request, timeout=config.warmup_timeout_s), horizon)

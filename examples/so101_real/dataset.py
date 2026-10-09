@@ -38,7 +38,7 @@ def load_dataset_source(config: DeploymentConfig, horizon: int) -> DatasetSource
     for name in ("observation.state", "action"):
         assert tuple(meta.features[name]["shape"]) == (6,)
         assert tuple(meta.features[name]["names"]) == JOINT_NAMES, f"wrong joint order: {name}"
-    for camera in (() if config.frame_index_image_frames is not None
+    for camera in (() if config.frame_index_prompt_frames is not None
                    else config.image_keys.values()):
         name = f"observation.images.{camera}"
         assert name in meta.features, f"missing configured camera: {name}"

@@ -11,7 +11,7 @@ source /opt/venvs/carrot/bin/activate
 cd "$MY_DFS/work/carrot"
 export PYTHONPATH="$PWD/src:$PWD/tests:$PWD"
 export HF_HUB_OFFLINE=1 HF_DATASETS_OFFLINE=1 TRANSFORMERS_OFFLINE=1
-CASE_DIR="$PWD/recipes/pi05_sft_so101_knock_down_the_cylinder_frame_index"
+CASE_DIR="$PWD/recipes/pi05_sft_so101_knock_down_the_cylinder_frame_prompt"
 OUTPUT_ROOT=$(python -c 'import pathlib,sys,yaml; print(pathlib.Path(yaml.safe_load(pathlib.Path(sys.argv[1]).read_text())["output_dir"]).parent)' "$CASE_DIR/train.yaml")
 CALIBRATION=$(python -c 'import pathlib,sys,yaml; print(yaml.safe_load(pathlib.Path(sys.argv[1]).read_text())["dataset"]["factory_kwargs"]["state_jitter_calibration_path"])' "$CASE_DIR/train.yaml")
 test -s "$MY_DFS/hf-hub/Physical-Intelligence/pi05_base_pytorch_h10/model.safetensors"

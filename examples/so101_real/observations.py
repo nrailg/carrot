@@ -4,7 +4,7 @@ from typing import Any, Protocol
 import numpy as np
 
 from .config import JOINT_NAMES, DeploymentConfig
-from .frame_index import render_frame_index
+from .frame_prompt import format_frame_prompt
 
 
 class Robot(Protocol):
@@ -60,9 +60,9 @@ class DatasetSource:
 
     def __init__(self, dataset: Dataset, config: DeploymentConfig, horizon: int) -> None:
         assert 0 <= config.start_frame < len(dataset), "start_frame outside selected episode"
-        if config.frame_index_image_frames is not None:
-            assert len(dataset) == config.frame_index_image_frames, (
-                "frame_index_image_frames must match selected episode length"
+        if config.frame_index_prompt_frames is not None:
+            assert len(dataset) == config.frame_index_prompt_frames, (
+                "frame_index_prompt_frames must match selected episode length"
             )
         self.dataset = dataset
         self.config = config
@@ -94,11 +94,12 @@ class DatasetSource:
         return ObservationFrame(
             request={
                 "observation/state": state.copy(),
-                **({"observation/wrist_image": render_frame_index(self.frame)}
-                   if self.config.frame_index_image_frames is not None else
+                **({"observation/wrist_image": np.zeros((224, 224, 3), dtype=np.uint8)}
+                   if self.config.frame_index_prompt_frames is not None else
                    {key: rgb_image(sample[f"observation.images.{camera}"])
                     for key, camera in self.config.image_keys.items()}),
-                "prompt": prompt,
+                "prompt": (format_frame_prompt(prompt, self.frame)
+                           if self.config.frame_index_prompt_frames is not None else prompt),
             },
             episode=self.episode, frame=self.frame,
             reference=reference[:valid].copy(), valid_steps=valid,
@@ -114,10 +115,10 @@ class RobotSource:
         self.robot = robot
         self.config = config
         self.horizon = horizon
-        self.frame = config.start_frame if config.frame_index_image_frames is not None else 0
+        self.frame = config.start_frame if config.frame_index_prompt_frames is not None else 0
 
     def read(self) -> ObservationFrame | None:
-        frames = self.config.frame_index_image_frames
+        frames = self.config.frame_index_prompt_frames
         if frames is not None and self.frame >= frames:
             return None
         obs = self.robot.get_observation()
@@ -125,18 +126,19 @@ class RobotSource:
         return ObservationFrame(
             request={
                 "observation/state": state,
-                **({"observation/wrist_image": render_frame_index(self.frame)}
+                **({"observation/wrist_image": np.zeros((224, 224, 3), dtype=np.uint8)}
                    if frames is not None else
                    {key: rgb_image(obs[camera]) for key, camera in self.config.image_keys.items()}),
-                "prompt": self.config.prompt,
+                "prompt": (format_frame_prompt(self.config.prompt, self.frame)
+                           if frames is not None else self.config.prompt),
             },
             episode=None, frame=self.frame, reference=None,
             valid_steps=self.horizon if frames is None else min(self.horizon, frames - self.frame),
         )
 
     def advance(self, steps: int) -> None:
-        if self.config.frame_index_image_frames is not None:
+        if self.config.frame_index_prompt_frames is not None:
             assert type(steps) is int and 0 < steps <= min(
-                self.horizon, self.config.frame_index_image_frames - self.frame,
+                self.horizon, self.config.frame_index_prompt_frames - self.frame,
             ), "advance exceeds remaining frame index actions"
         self.frame += steps

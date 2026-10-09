@@ -18,7 +18,7 @@ def main() -> None:
     parser.add_argument("--output-dir")
     parser.add_argument("--episode", type=int)
     parser.add_argument("--start-frame", type=int)
-    parser.add_argument("--frame-index-image-frames", type=int)
+    parser.add_argument("--frame-index-prompt-frames", type=int)
     parser.add_argument("--execute-steps", type=int)
     parser.add_argument("--max-chunks", type=int)
     parser.add_argument("--prompt")

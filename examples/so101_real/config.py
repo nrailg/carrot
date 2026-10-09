@@ -21,6 +21,7 @@ class DeploymentConfig:
     dataset_repo: str = ""
     base_camera: str | None = "top"
     wrist_camera: str = "fpv"
+    frame_index_image_frames: int | None = None
     episode: int = 0
     start_frame: int = 0
     prompt: str | None = None
@@ -43,6 +44,8 @@ class DeploymentConfig:
 
     @property
     def image_keys(self) -> dict[str, str]:
+        if self.frame_index_image_frames is not None:
+            return {"observation/wrist_image": "frame_index"}
         keys = {"observation/wrist_image": self.wrist_camera}
         if self.base_camera is not None:
             keys["observation/image"] = self.base_camera
@@ -73,6 +76,17 @@ class DeploymentConfig:
             )
         assert self.prompt is None or (isinstance(self.prompt, str) and self.prompt.strip())
 
+        if self.frame_index_image_frames is not None:
+            assert type(self.frame_index_image_frames) is int and (
+                1 <= self.frame_index_image_frames <= 10000
+            ), "frame_index_image_frames must be an integer in [1, 10000]"
+            assert self.base_camera is None and self.cameras == {}, (
+                "frame index images require base_camera=null and cameras={}"
+            )
+            assert self.start_frame < self.frame_index_image_frames, (
+                "start_frame outside frame index image episode"
+            )
+
         # 数据集回放与实时采集需要的输入资源不同。
         if self.observation_source == "dataset":
             assert self.dataset_root and Path(self.dataset_root).is_dir(), "set dataset_root"
@@ -81,7 +95,9 @@ class DeploymentConfig:
             )
         else:
             assert self.prompt, "robot observations require a task prompt"
-            assert set(self.cameras) == set(self.image_keys.values()), (
+            assert self.frame_index_image_frames is not None or (
+                set(self.cameras) == set(self.image_keys.values())
+            ), (
                 "configure exactly the selected camera views"
             )
         if self.observation_source == "robot" or self.action_sink == "robot":

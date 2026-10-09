@@ -6,6 +6,12 @@ import torch
 from lerobot.configs import PipelineFeatureType, PolicyFeature
 from lerobot.lerobot_types import RobotObservation
 from lerobot.processor.pipeline import ObservationProcessorStep, ProcessorStepRegistry
+from lerobot.policies.pi05.processor_pi05 import Pi05PrepareStateTokenizerProcessorStep
+
+assert (
+    ProcessorStepRegistry.get("pi05_prepare_state_tokenizer_processor_step")
+    is Pi05PrepareStateTokenizerProcessorStep
+)
 
 
 @dataclass

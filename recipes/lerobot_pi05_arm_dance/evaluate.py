@@ -30,7 +30,16 @@ def verify_weights(policy, checkpoint: Path) -> int:
     parameters = policy.state_dict()
     count = 0
     with safe_open(checkpoint / "model.safetensors", framework="pt") as archive:
-        assert len(archive.keys()) == len(parameters), (len(archive.keys()), len(parameters))
+        mapped_keys = {key if key.startswith("model.") else f"model.{key}" for key in archive.keys()}
+        missing = set(parameters) - mapped_keys
+        head = "model.paligemma_with_expert.paligemma.lm_head.weight"
+        embedding = "model.paligemma_with_expert.paligemma.model.language_model.embed_tokens.weight"
+        assert missing in [set(), {head}, {embedding}], missing
+        assert mapped_keys <= set(parameters), mapped_keys - set(parameters)
+        if missing:
+            # safetensors omits the tied embedding alias; the official loader restores it.
+            assert parameters[head].data_ptr() == parameters[embedding].data_ptr()
+        assert len(mapped_keys) + len(missing) == len(parameters)
         for key in archive.keys():
             model_key = key if key.startswith("model.") else f"model.{key}"
             assert model_key in parameters, model_key

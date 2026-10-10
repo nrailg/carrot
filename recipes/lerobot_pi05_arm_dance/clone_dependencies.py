@@ -14,12 +14,13 @@ def main() -> None:
     parser.add_argument("--base", type=Path, required=True)
     parser.add_argument("--target", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--requirement", default="lerobot[pi,training]==0.6.1")
     args = parser.parse_args()
     sources = {}
     for root in [args.base, args.target]:
         for dist in metadata.distributions(path=[str(root)]):
             sources[canonicalize_name(dist.metadata["Name"])] = (root, dist)
-    queue = deque([Requirement("lerobot[pi,training]==0.6.1")])
+    queue = deque([Requirement(args.requirement)])
     visited = set()
     selected = {}
     while queue:

@@ -1,0 +1,544 @@
+{
+  "snapshot_date": "2026-10-12",
+  "window_utc": [
+    "2026-07-12T00:00:00Z",
+    "2026-10-12T23:59:59Z"
+  ],
+  "statistics": {
+    "arxiv_csro": 4850,
+    "arxiv_csro_unique": 4850,
+    "arxiv_date_min": "2026-07-12T03:55:51Z",
+    "arxiv_date_max": "2026-10-09T17:59:06Z",
+    "cross_candidates": 1692,
+    "cross_robot_keyword_matches": 1233,
+    "rss": 210,
+    "conference": {
+      "eccv": {
+        "raw_events": 2997,
+        "unique_title_author_groups": 2834,
+        "robotics_candidates": 291,
+        "abstract_only": 0,
+        "matched_arxiv": 41
+      },
+      "neurips": {
+        "raw_events": 9242,
+        "unique_title_author_groups": 6347,
+        "robotics_candidates": 368,
+        "abstract_only": 177,
+        "matched_arxiv": 52
+      }
+    },
+    "iros_secondary_candidates": 1933,
+    "arxiv_metadata_unique": 6857,
+    "jsonl_records": 9659,
+    "topic_counts": {
+      "vla": 604,
+      "data": 514,
+      "policy": 309,
+      "rl": 331,
+      "world": 798,
+      "manipulation": 1118,
+      "locomotion": 437,
+      "navigation": 672,
+      "perception": 577,
+      "planning": 1509,
+      "evaluation": 1225,
+      "systems": 921,
+      "interaction": 352,
+      "other": 34
+    },
+    "author_venue_counts": {
+      "IROS": 494,
+      "CoRL": 115
+    }
+  },
+  "csro_query": "cat:cs.RO AND submittedDate:[202607120000 TO 202610122359]",
+  "csro_pages": [
+    {
+      "file": "arxiv-00000.xml",
+      "total": 4850,
+      "start": 0,
+      "entries": 500,
+      "first": "2026-10-09T17:59:06Z",
+      "last": "2026-10-04T23:15:50Z"
+    },
+    {
+      "file": "arxiv-00500.xml",
+      "total": 4850,
+      "start": 500,
+      "entries": 500,
+      "first": "2026-10-04T22:37:24Z",
+      "last": "2026-09-29T07:20:32Z"
+    },
+    {
+      "file": "arxiv-01000.xml",
+      "total": 4850,
+      "start": 1000,
+      "entries": 500,
+      "first": "2026-09-29T07:11:25Z",
+      "last": "2026-09-23T15:41:54Z"
+    },
+    {
+      "file": "arxiv-01500.xml",
+      "total": 4850,
+      "start": 1500,
+      "entries": 500,
+      "first": "2026-09-23T15:32:11Z",
+      "last": "2026-09-17T17:59:58Z"
+    },
+    {
+      "file": "arxiv-02000.xml",
+      "total": 4850,
+      "start": 2000,
+      "entries": 500,
+      "first": "2026-09-17T17:59:53Z",
+      "last": "2026-09-10T17:43:16Z"
+    },
+    {
+      "file": "arxiv-02500.xml",
+      "total": 4850,
+      "start": 2500,
+      "entries": 500,
+      "first": "2026-09-10T16:29:00Z",
+      "last": "2026-08-29T17:26:20Z"
+    },
+    {
+      "file": "arxiv-03000.xml",
+      "total": 4850,
+      "start": 3000,
+      "entries": 500,
+      "first": "2026-08-29T16:06:32Z",
+      "last": "2026-08-16T12:19:04Z"
+    },
+    {
+      "file": "arxiv-03500.xml",
+      "total": 4850,
+      "start": 3500,
+      "entries": 500,
+      "first": "2026-08-16T11:15:55Z",
+      "last": "2026-08-03T11:53:12Z"
+    },
+    {
+      "file": "arxiv-04000.xml",
+      "total": 4850,
+      "start": 4000,
+      "entries": 500,
+      "first": "2026-08-03T11:33:30Z",
+      "last": "2026-07-20T14:16:17Z"
+    },
+    {
+      "file": "arxiv-04500.xml",
+      "total": 4850,
+      "start": 4500,
+      "entries": 350,
+      "first": "2026-07-20T14:13:27Z",
+      "last": "2026-07-12T03:55:51Z"
+    }
+  ],
+  "cross_title_query": "(ti:robot OR ti:robotic OR ti:robotics OR ti:\"vision-language-action\" OR ti:embodied OR ti:manipulation OR ti:locomotion OR ti:\"world model\") ANDNOT cat:cs.RO AND submittedDate:[202607120000 TO 202610122359]",
+  "cross_title_raw_count": 5000,
+  "cross_title_api_total": 28831,
+  "cross_title_returned_chronological": true,
+  "cross_title_earliest_fetched": "2026-01-20T06:12:53Z",
+  "cross_title_client_filtered_count": 719,
+  "cross_abstract_queries": [
+    {
+      "query": "abs:robot AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 3703,
+      "retrieved": 3703
+    },
+    {
+      "query": "abs:robotic AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 3703,
+      "retrieved": 3703
+    },
+    {
+      "query": "abs:embodied AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 1048,
+      "retrieved": 1048
+    },
+    {
+      "query": "abs:\"vision-language-action\" AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 677,
+      "retrieved": 677
+    },
+    {
+      "query": "abs:locomotion AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 295,
+      "retrieved": 295
+    },
+    {
+      "query": "abs:\"autonomous driving\" AND submittedDate:[202607120000 TO 202610122359]",
+      "reported_total": 430,
+      "retrieved": 430
+    }
+  ],
+  "venue_query": "(co:\"IROS 2026\" OR co:\"CoRL 2026\" OR co:\"IROS2026\" OR co:\"CoRL2026\" OR jr:\"IROS 2026\" OR jr:\"CoRL 2026\")",
+  "venue_query_count": 607,
+  "cached_sources": [
+    {
+      "file": "arxiv-00000.xml",
+      "bytes": 1228981,
+      "sha256": "cf7ab2edb67306244551b3ed592fa111d581dc674baf3bc0cd8e4d87f25f0603"
+    },
+    {
+      "file": "arxiv-00500.xml",
+      "bytes": 1257761,
+      "sha256": "b6a65f456269c6f7381f4b239b1651fa59e6f5d83aafaaddc8d7a31228a5a516"
+    },
+    {
+      "file": "arxiv-01000.xml",
+      "bytes": 1244522,
+      "sha256": "8f7d1c9eab8b5f7afcdb6a582203ed775276047c41dbe2d39282ce90fc88702d"
+    },
+    {
+      "file": "arxiv-01500.xml",
+      "bytes": 1216908,
+      "sha256": "692df4cb95850e38a861ff062357814f35dfd0f5b057fe4866b165f76d7314e2"
+    },
+    {
+      "file": "arxiv-02000.xml",
+      "bytes": 1227805,
+      "sha256": "b2e22e06e7b92e2dd1601d0e5d5b881559d9a7adccbf8c365cdcb2609502df73"
+    },
+    {
+      "file": "arxiv-02500.xml",
+      "bytes": 1230880,
+      "sha256": "abcb4c737d0affc0da9d2b2f083acbcb2fe0e4d077583a29f5ff72b974a501c6"
+    },
+    {
+      "file": "arxiv-03000.xml",
+      "bytes": 1256619,
+      "sha256": "d45ba8ecc6e5d6ff7a8c1061f65bcf01e2aabe597e9af542a86bce1339eb6638"
+    },
+    {
+      "file": "arxiv-03500.xml",
+      "bytes": 1251665,
+      "sha256": "787d62a98a9d268ebc96e9768cbf101cb413a69d98e897271403448a2617dc78"
+    },
+    {
+      "file": "arxiv-04000.xml",
+      "bytes": 1258806,
+      "sha256": "08ce78f0f0bda869b56528cd82ac00e507fff977fc6adf61c350d8670b335794"
+    },
+    {
+      "file": "arxiv-04500.xml",
+      "bytes": 877161,
+      "sha256": "c5955cce112f942009f088e0d5f47a860d2a8398ac78043fe59e86ec410a4214"
+    },
+    {
+      "file": "arxiv-abstract-0-00000.xml",
+      "bytes": 1226653,
+      "sha256": "87bb642179b91de67251f3930bee409530bd854eeff8655df9ce82ff8f5667a0"
+    },
+    {
+      "file": "arxiv-abstract-0-00500.xml",
+      "bytes": 1265293,
+      "sha256": "70b495fdb02d3662b5317a98c1eacd403a85818ada7d50dbd1aac86391cb5e23"
+    },
+    {
+      "file": "arxiv-abstract-0-01000.xml",
+      "bytes": 1228681,
+      "sha256": "bda0a3e0915f365b24c2e2a7231afdccdddf35b0e258d7d3fe597a51fe9f54c8"
+    },
+    {
+      "file": "arxiv-abstract-0-01500.xml",
+      "bytes": 1229064,
+      "sha256": "c016f5552967e6ed1c3e398c0aa24b54204e0abbd1edcdba4135975cfdcb3294"
+    },
+    {
+      "file": "arxiv-abstract-0-02000.xml",
+      "bytes": 1264318,
+      "sha256": "1d3c92d0419dc7de73788fe64231b79c11a4c491ae59f640fbfae3ac60574c3a"
+    },
+    {
+      "file": "arxiv-abstract-0-02500.xml",
+      "bytes": 1267292,
+      "sha256": "a70fc424a99758e283de9fd20b51ec093681a89da87385cc8d6f3b929871d9f7"
+    },
+    {
+      "file": "arxiv-abstract-0-03000.xml",
+      "bytes": 1264136,
+      "sha256": "37d95aba46b9aaa1692a132a69fd4d02c15b48df36e00f0e01dc3c7813e205e3"
+    },
+    {
+      "file": "arxiv-abstract-0-03500.xml",
+      "bytes": 521070,
+      "sha256": "7235d7b7e35d9d8913b9274480c246fa949e3728c6935ae70857f03ece8a8f61"
+    },
+    {
+      "file": "arxiv-abstract-1-00000.xml",
+      "bytes": 1226657,
+      "sha256": "4af9329140bac33ad4e16368c4ebb1b89e9b64c89e629c0cd5943adb5e5d9d2d"
+    },
+    {
+      "file": "arxiv-abstract-1-00500.xml",
+      "bytes": 1265297,
+      "sha256": "dd1c5f5ffc258b90c58e8a9d340e3a28a99bc1fd109485df13a724f43a89b873"
+    },
+    {
+      "file": "arxiv-abstract-1-01000.xml",
+      "bytes": 1228685,
+      "sha256": "d4bcd942f951786ffd34fe855f10808f8fefc0c4d328f236df99dbc626ed6e51"
+    },
+    {
+      "file": "arxiv-abstract-1-01500.xml",
+      "bytes": 1229068,
+      "sha256": "1776d98b13090692eb14a8cb364273c77d8ed267288b6c2e1e09d069b9657f9d"
+    },
+    {
+      "file": "arxiv-abstract-1-02000.xml",
+      "bytes": 1264322,
+      "sha256": "e8033f556d99e1b7d1cb640593dda19ca2272ad96f7b72c1adc985289028233e"
+    },
+    {
+      "file": "arxiv-abstract-1-02500.xml",
+      "bytes": 1267296,
+      "sha256": "47587defe026be949838a92fcd5256d0bbbcc65153dbe36069bfee32dfb8ffda"
+    },
+    {
+      "file": "arxiv-abstract-1-03000.xml",
+      "bytes": 1264140,
+      "sha256": "e65db32335b02fc06a5682f1a2c5cb769a80219cd631ba60bcc6d34fed71b047"
+    },
+    {
+      "file": "arxiv-abstract-1-03500.xml",
+      "bytes": 521074,
+      "sha256": "31f12d1fb18f189403ada67b2ecc66fd82ed087f9439f5cddf5d5fdef311c5eb"
+    },
+    {
+      "file": "arxiv-abstract-2-00000.xml",
+      "bytes": 1321223,
+      "sha256": "74fe91a2d7c63084aa77798fd1288633942b723a3466c5c314f43d3a594f6c0e"
+    },
+    {
+      "file": "arxiv-abstract-2-00500.xml",
+      "bytes": 1338498,
+      "sha256": "37fbda946baa17dd444e644f6fa5001f598df0a1bbc596a36016d1ece089ea34"
+    },
+    {
+      "file": "arxiv-abstract-2-01000.xml",
+      "bytes": 129877,
+      "sha256": "1e39a6ae1d2be4c3bdfb58112f9de7125b176d92b071954c286c5010186f986a"
+    },
+    {
+      "file": "arxiv-abstract-3-00000.xml",
+      "bytes": 1307441,
+      "sha256": "5f244d0cd4c39f0fd719889ecc6a15165f0447d1bfe87a165270f2a0fc66944e"
+    },
+    {
+      "file": "arxiv-abstract-3-00500.xml",
+      "bytes": 472271,
+      "sha256": "5a6620417facde7afcefa89fba7f23446258e7e0e43988b8a3046979e5e75a97"
+    },
+    {
+      "file": "arxiv-abstract-4-00000.xml",
+      "bytes": 723248,
+      "sha256": "23266a31d1ed135b5c693c164111962d2967a1659f3e86804b491818086e426a"
+    },
+    {
+      "file": "arxiv-abstract-5-00000.xml",
+      "bytes": 1095423,
+      "sha256": "72ab3e13a35729ae4f3d007afc43be16697ef0d95e2358d32c5506dcaba5d8e2"
+    },
+    {
+      "file": "arxiv-cross-00000.xml",
+      "bytes": 1260509,
+      "sha256": "cdf793781c88916f80891262ecb972337ab207b5f9be668683cf7929a20e999d"
+    },
+    {
+      "file": "arxiv-cross-00500.xml",
+      "bytes": 1267357,
+      "sha256": "782615cf1f6874a8b632a0f5dda09d7a6adb4cd0dbb73b117856baa456f995cf"
+    },
+    {
+      "file": "arxiv-cross-01000.xml",
+      "bytes": 1255942,
+      "sha256": "61d21408ab0c930714da1ca8d85b9485ab32c2940a6872cf724021865de5ee93"
+    },
+    {
+      "file": "arxiv-cross-01500.xml",
+      "bytes": 1263219,
+      "sha256": "513acf2e5cc50e0d46dd004d982653b7076c5e110aa7405e83dc8e6d8a4ed063"
+    },
+    {
+      "file": "arxiv-cross-02000.xml",
+      "bytes": 1255757,
+      "sha256": "b1b73ed5c08ea54b5be7c11b11d9931bf238309443137f921f50b663d0c0e138"
+    },
+    {
+      "file": "arxiv-cross-02500.xml",
+      "bytes": 1248435,
+      "sha256": "4df4e8c76f41d150ee1f5a8f90f8023f3db4d7d947df83d6a6d7e3ce1e7a5ab1"
+    },
+    {
+      "file": "arxiv-cross-03000.xml",
+      "bytes": 1224595,
+      "sha256": "4aa1c7d0b077cc6c17f484a48c3a51c6f8354f0038e313cea92c803e54637001"
+    },
+    {
+      "file": "arxiv-cross-03500.xml",
+      "bytes": 1234693,
+      "sha256": "3d458507a2f886f2f52e212f928f863b6765328c41264915438bb896add89de0"
+    },
+    {
+      "file": "arxiv-cross-04000.xml",
+      "bytes": 1210377,
+      "sha256": "36e28ac14314f676bc1f41a97e25cad896256bb61935c820ac3cf80e08c7cbc8"
+    },
+    {
+      "file": "arxiv-cross-04500.xml",
+      "bytes": 1224708,
+      "sha256": "bbc2b5e309a1ea06081e092934d171cf0c19bff71193048d5f1bfc9ac2e189c9"
+    },
+    {
+      "file": "arxiv-venues-00000.xml",
+      "bytes": 1220274,
+      "sha256": "60dc1aeab34f9532294afbe998eff790b59fcf19e6826a54188a46fa1dec9c27"
+    },
+    {
+      "file": "arxiv-venues-00500.xml",
+      "bytes": 257514,
+      "sha256": "2a72f2d431f1e9b27d92f66c1e957e1320572657ccecf31bbcdc25eb74ef363b"
+    },
+    {
+      "file": "corl_program.html",
+      "bytes": 152240,
+      "sha256": "876a9d7b8b90804d8436e0fcc3bd2e92bd1ef72dd217dee317197baae859127d"
+    },
+    {
+      "file": "eccv_papers.html",
+      "bytes": 403122,
+      "sha256": "32e81087d5c788075d290cfffa6afb854d7760bb360da76fc22d32475c0b8316"
+    },
+    {
+      "file": "eccv_program.json",
+      "bytes": 8001251,
+      "sha256": "644a2aef85d819eb87e51df16d21b0745f4f5ac5128a3cc4dc4ea41a47e5df3a"
+    },
+    {
+      "file": "iros_mirror.html",
+      "bytes": 1880005,
+      "sha256": "fd4332aa9f4d4ba44173ba198809fc997c491d619148958660889f9c9da7a573"
+    },
+    {
+      "file": "iros_mirror_records.json",
+      "bytes": 2056652,
+      "sha256": "aeff85d5e3ed7b567a29ca2a19a1c6a5e3b8423fdc1ee2b21a204ec3348cd943"
+    },
+    {
+      "file": "neurips_abstracts.json",
+      "bytes": 9012600,
+      "sha256": "601cdf47cb43eaadbd8908aa791964776611dc2b8a7cc58e6c9df32c56a71dae"
+    },
+    {
+      "file": "neurips_papers.html",
+      "bytes": 1229006,
+      "sha256": "d02e26ae087875f1d22bc97a96160a26595e56efb63b986265c9c13ca166ee26"
+    },
+    {
+      "file": "neurips_program.json",
+      "bytes": 19476534,
+      "sha256": "173e07d719f9f1e191de3c98fe4792458239a120507c10454660bcdaf702dd3c"
+    },
+    {
+      "file": "rss.html",
+      "bytes": 261790,
+      "sha256": "9f7f3a7e6183a7ed4e3ee7d89026d40a3144d6da806d7b3722d2031357dbb044"
+    },
+    {
+      "file": "rss_records.json",
+      "bytes": 104833,
+      "sha256": "5b906cc7a6c9bd8da3346ef87300506f744710535a02055d006bed9be84bf8fc"
+    }
+  ],
+  "topic_rules": [
+    [
+      "vla",
+      "VLA、基础模型与适配",
+      "vision.language.action|\\bvla\\b|\\bvlm\\b|foundation model|generalist|general.purpose robot"
+    ],
+    [
+      "data",
+      "数据、示教、遥操作与数据效率",
+      "dataset|demonstration|teleoperat|human video|human.to.robot|data.efficien|few.shot|one.shot|single.demo|data.collect|data.curat|data.scal"
+    ],
+    [
+      "policy",
+      "模仿学习、扩散策略与动作表示",
+      "imitation|diffusion polic|flow.match|action.chunk|action.token|behavior.clon|behaviour.clon|generative polic"
+    ],
+    [
+      "rl",
+      "强化学习、在线适配与自主改进",
+      "reinforcement|\\brl\\b|self.improv|online.adapt|reward.learn|reward.model|trial.and.error"
+    ],
+    [
+      "world",
+      "世界模型、仿真与 Sim-to-Real",
+      "world.model|world.action|sim.to.real|sim2real|simulation|simulator|digital.twin|synthetic.data"
+    ],
+    [
+      "manipulation",
+      "操作、灵巧手、抓取与触觉",
+      "manipulat|dexter|grasp|tactile|bimanual|in.hand|insertion|assembly|deformable"
+    ],
+    [
+      "locomotion",
+      "人形、运动技能与足式运动",
+      "humanoid|locomotion|quadruped|legged|whole.body|biped|gait"
+    ],
+    [
+      "navigation",
+      "导航、移动机器人与自动驾驶",
+      "navigat|autonomous.driv|mobile.robot|mobile.manipulat|self.driv|autonomous.vehicle"
+    ],
+    [
+      "perception",
+      "感知、SLAM、三维与状态估计",
+      "\\bslam\\b|odometry|localization|localisation|perception|pose.estimat|3d.reconstruct|scene.reconstruct|lidar|point.cloud|sensor.fusion"
+    ],
+    [
+      "planning",
+      "规划、控制、接触动力学与安全",
+      "planning|control|dynamics|safety|safe.robot|barrier.function|trajectory.optimi|model.predictive"
+    ],
+    [
+      "evaluation",
+      "评测、泛化、鲁棒性与失败检测",
+      "benchmark|evaluat|generaliz|generalis|robust|failure|out.of.distribution|uncertainty"
+    ],
+    [
+      "systems",
+      "系统、部署、硬件与计算效率",
+      "\\bedge\\b|real.time|latency|efficient|hardware|onboard|deploy|quantiz|distill|accelerat"
+    ],
+    [
+      "interaction",
+      "多机器人、人机交互与协作",
+      "multi.robot|swarm|human.robot|collaborat|cooperat|social.robot|assistive"
+    ],
+    [
+      "other",
+      "其他机器人方向",
+      "(?!)"
+    ]
+  ],
+  "conference_candidate_regex": "\\brobot(?:s|ic|ics)?\\b|\\bembodied\\b|vision.language.action|\\bVLA\\b|\\bSLAM\\b|locomotion|dexterous|grasp(?:ing)?|autonomous.driv|autonomous.vehicle|\\bhumanoid|\\bquadruped|teleoperat|tactile|visual.odometry|motion.planning|mobile.manipulat",
+  "validation": {
+    "arxiv_ids_unique": true,
+    "arxiv_date_window_checked": true,
+    "csro_page_count_and_order_checked": true,
+    "abstract_query_totals_matched": true,
+    "metadata_ids_unique": true,
+    "catalog_row_counts_matched": true,
+    "local_markdown_links_resolved": true,
+    "md_trailing_whitespace_absent": true,
+    "live_title_spot_checks": [
+      "2607.18580",
+      "2608.15437",
+      "2609.22888",
+      "2610.07621"
+    ]
+  }
+}

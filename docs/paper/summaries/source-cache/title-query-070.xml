@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/f5c7eDX4emlqsoay+MEbO8f5obM</id>
+  <title>arXiv Query: search_query=ti:"RCSPose: Revisiting Category Semantics in Category-Level 6D Object Pose Estimation" OR ti:"AquaPoint: Self-Supervised Cross-Domain Framework for Robust Underwater Local Features" OR ti:"4DRadar-GS: Self-Supervised Dynamic Driving Scene Reconstruction with 4D Radar" OR ti:"DASF: Distance-Aware Spectral Fusion for Multi-Modal 3D Object Detection" OR ti:"SAIP-Former: Scene-Aware Interaction Priors for Robust 3D Multi-Object Tracking" OR ti:"BEVMAPMATCH: Multimodal BEV Neural Map Matching for Robust Re-Localization of Autonomous Vehicles" OR ti:"Consistency-Guided Multi-Sensor Fusion for Robust UAV Localization" OR ti:"Frequency-Aware Inertial Odometry Via Function Space Decomposition" OR ti:"LAG-IO: Multi-IMU State Estimation for Legged Robots Using Factor Graphs" OR ti:"Geometrically-Constrained Radar-Inertial Odometry Via Continuous Point-Pose Uncertainty Modeling"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:34Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22RCSPose:+Revisiting+Category+Semantics+in+Category-Level+6D+Object+Pose+Estimation%22+OR+(ti:%22AquaPoint:+Self-Supervised+Cross-Domain+Framework+for+Robust+Underwater+Local+Features%22+OR+(ti:%224DRadar-GS:+Self-Supervised+Dynamic+Driving+Scene+Reconstruction+with+4D+Radar%22+OR+(ti:%22DASF:+Distance-Aware+Spectral+Fusion+for+Multi-Modal+3D+Object+Detection%22+OR+(ti:%22SAIP-Former:+Scene-Aware+Interaction+Priors+for+Robust+3D+Multi-Object+Tracking%22+OR+(ti:%22BEVMAPMATCH:+Multimodal+BEV+Neural+Map+Matching+for+Robust+Re-Localization+of+Autonomous+Vehicles%22+OR+(ti:%22Consistency-Guided+Multi-Sensor+Fusion+for+Robust+UAV+Localization%22+OR+(ti:%22Frequency-Aware+Inertial+Odometry+Via+Function+Space+Decomposition%22+OR+(ti:%22LAG-IO:+Multi-IMU+State+Estimation+for+Legged+Robots+Using+Factor+Graphs%22+OR+ti:%22Geometrically-Constrained+Radar-Inertial+Odometry+Via+Continuous+Point-Pose+Uncertainty+Modeling%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.25963v1</id>
+    <title>BEVMAPMATCH: Multimodal BEV Neural Map Matching for Robust Re-Localization of Autonomous Vehicles</title>
+    <updated>2026-03-26T23:08:31Z</updated>
+    <link href="https://arxiv.org/abs/2603.25963v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.25963v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Localization in GNSS-denied and GNSS-degraded environments is a challenge for the safe widespread deployment of autonomous vehicles. Such GNSS-challenged environments require alternative methods for robust localization. In this work, we propose BEVMapMatch, a framework for robust vehicle re-localization on a known map without the need for GNSS priors. BEVMapMatch uses a context-aware lidar+camera fusion method to generate multimodal Bird's Eye View (BEV) segmentations around the ego vehicle in both good and adverse weather conditions. Leveraging a search mechanism based on cross-attention, the generated BEV segmentation maps are then used for the retrieval of candidate map patches for map-matching purposes. Finally, BEVMapMatch uses the top retrieved candidate for finer alignment against the generated BEV segmentation, achieving accurate global localization without the need for GNSS. Multiple frames of generated BEV segmentation further improve localization accuracy. Extensive evaluations show that BEVMapMatch outperforms existing methods for re-localization in GNSS-denied and adverse environments, with a Recall@1m of 39.8%, being nearly twice as much as the best performing re-localization baseline. Our code and data will be made available at https://github.com/ssuralcmu/BEVMapMatch.git.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-26T23:08:31Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Shounak Sural</name>
+    </author>
+    <author>
+      <name>Ragunathan Rajkumar</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.12931v1</id>
+    <title>4DRadar-GS: Self-Supervised Dynamic Driving Scene Reconstruction with 4D Radar</title>
+    <updated>2025-09-16T10:29:43Z</updated>
+    <link href="https://arxiv.org/abs/2509.12931v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.12931v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>3D reconstruction and novel view synthesis are critical for validating autonomous driving systems and training advanced perception models. Recent self-supervised methods have gained significant attention due to their cost-effectiveness and enhanced generalization in scenarios where annotated bounding boxes are unavailable. However, existing approaches, which often rely on frequency-domain decoupling or optical flow, struggle to accurately reconstruct dynamic objects due to imprecise motion estimation and weak temporal consistency, resulting in incomplete or distorted representations of dynamic scene elements. To address these challenges, we propose 4DRadar-GS, a 4D Radar-augmented self-supervised 3D reconstruction framework tailored for dynamic driving scenes. Specifically, we first present a 4D Radar-assisted Gaussian initialization scheme that leverages 4D Radar's velocity and spatial information to segment dynamic objects and recover monocular depth scale, generating accurate Gaussian point representations. In addition, we propose a Velocity-guided PointTrack (VGPT) model, which is jointly trained with the reconstruction pipeline under scene flow supervision, to track fine-grained dynamic trajectories and construct temporally consistent representations. Evaluated on the OmniHD-Scenes dataset, 4DRadar-GS achieves state-of-the-art performance in dynamic driving scene 3D reconstruction.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-16T10:29:43Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xiao Tang</name>
+    </author>
+    <author>
+      <name>Guirong Zhuo</name>
+    </author>
+    <author>
+      <name>Cong Wang</name>
+    </author>
+    <author>
+      <name>Boyuan Zheng</name>
+    </author>
+    <author>
+      <name>Minqing Huang</name>
+    </author>
+    <author>
+      <name>Lianqing Zheng</name>
+    </author>
+    <author>
+      <name>Long Chen</name>
+    </author>
+    <author>
+      <name>Shouyi Lu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.02745v2</id>
+    <title>Geometrically-Constrained Radar-Inertial Odometry via Continuous Point-Pose Uncertainty Modeling</title>
+    <updated>2026-09-17T03:47:58Z</updated>
+    <link href="https://arxiv.org/abs/2604.02745v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.02745v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Radar odometry is crucial for robust localization in challenging environments; however, the sparsity of reliable returns and distinctive noise characteristics impede its performance. This paper introduces geometrically-constrained radar-inertial odometry and mapping that jointly consolidates point and pose uncertainty. We employ the continuous trajectory model to estimate the pose uncertainty at any arbitrary timestamp by propagating uncertainties of the control points. These pose uncertainties are continuously integrated with heteroscedastic measurement uncertainty during point projection, thereby enabling dynamic evaluation of observation confidence and adaptive down-weighting of uninformative radar points. By leveraging quantified uncertainties in radar mapping, we construct a high-fidelity map that improves odometry accuracy under imprecise radar measurements. Moreover, we reveal the effectiveness of explicit geometrical constraints in radar-inertial odometry when incorporated with the proposed uncertainty-aware mapping framework. Extensive experiments on diverse real-world datasets demonstrate the superiority of our method, yielding substantial performance improvements in both accuracy and efficiency compared to existing baselines. We release our open-source implementation at https://github.com/wooseongY/GeoRIO.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-03T05:37:56Z</published>
+    <arxiv:comment>8 pages, 8 figures, 6 tables, accepted to RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Wooseong Yang</name>
+    </author>
+    <author>
+      <name>Dongjae Lee</name>
+    </author>
+    <author>
+      <name>Minwoo Jung</name>
+    </author>
+    <author>
+      <name>Ayoung Kim</name>
+    </author>
+  </entry>
+</feed>

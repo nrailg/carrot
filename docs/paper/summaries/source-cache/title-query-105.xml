@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bpkfEP5ashDc0m5mo3tgmN9gQx4</id>
+  <title>arXiv Query: search_query=ti:"A Hybrid Rigid-Flexible Tendon-Driven Heterogeneous Robot: Design, Kinematics Modeling, and Motion Control" OR ti:"D4C-TM: Dexterous Drive-Displaced Differential Coupling Tendon-Driven Manipulator" OR ti:"Dual Variable-Radius Drum for Transmission Ratio Linearization and Stroke Enhancement in Twisted String Actuators" OR ti:"Endpoint Compliance in Coupled Tendon-Driven Long-Reach Articulated Arm ”Super Dragon”" OR ti:"Singularity Lock Mechanism Based on Rolling Spool Dynamics" OR ti:"NAMO-LLM: Efficient Navigation among Movable Obstacles with Large Language Model Guidance" OR ti:"Fly As I Say: A Language-Guided Gradient-Based Local Planner for Quadrotors with Vision Language Models" OR ti:"Mosaic: An Extensible Framework for Composing Rule-Based and Learned Motion Planners" OR ti:"NL2SpaTiaL: Generating Geometric Spatio-Temporal Logic Specifications from Natural Language for Manipulation Tasks" OR ti:"GRAPPA: Generalizing and Adapting Robot Policies Via Online Agentic Guidance"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:53Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22A+Hybrid+Rigid-Flexible+Tendon-Driven+Heterogeneous+Robot:+Design,+Kinematics+Modeling,+and+Motion+Control%22+OR+(ti:%22D4C-TM:+Dexterous+Drive-Displaced+Differential+Coupling+Tendon-Driven+Manipulator%22+OR+(ti:%22Dual+Variable-Radius+Drum+for+Transmission+Ratio+Linearization+and+Stroke+Enhancement+in+Twisted+String+Actuators%22+OR+(ti:%22Endpoint+Compliance+in+Coupled+Tendon-Driven+Long-Reach+Articulated+Arm+%E2%80%9DSuper+Dragon%E2%80%9D%22+OR+(ti:%22Singularity+Lock+Mechanism+Based+on+Rolling+Spool+Dynamics%22+OR+(ti:%22NAMO-LLM:+Efficient+Navigation+among+Movable+Obstacles+with+Large+Language+Model+Guidance%22+OR+(ti:%22Fly+As+I+Say:+A+Language-Guided+Gradient-Based+Local+Planner+for+Quadrotors+with+Vision+Language+Models%22+OR+(ti:%22Mosaic:+An+Extensible+Framework+for+Composing+Rule-Based+and+Learned+Motion+Planners%22+OR+(ti:%22NL2SpaTiaL:+Generating+Geometric+Spatio-Temporal+Logic+Specifications+from+Natural+Language+for+Manipulation+Tasks%22+OR+ti:%22GRAPPA:+Generalizing+and+Adapting+Robot+Policies+Via+Online+Agentic+Guidance%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.13670v2</id>
+    <title>NL2SpaTiaL: Generating Geometric Spatio-Temporal Logic Specifications from Natural Language for Manipulation Tasks</title>
+    <updated>2026-03-24T05:39:54Z</updated>
+    <link href="https://arxiv.org/abs/2512.13670v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.13670v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While Temporal Logic provides a rigorous verification framework for robotics, it typically operates on trajectory-level signals and does not natively represent the object-centric geometric relations that are central to manipulation. Spatio-Temporal Logic (SpaTiaL) overcomes this by explicitly capturing geometric spatial requirements, making it a natural formalism for manipulation-task verification. Consequently, translating natural language (NL) into verifiable SpaTiaL specifications is a critical objective. Yet, existing NL-to-Logic methods treat specifications as flat sequences, entangling nested temporal scopes with spatial relations and causing performance to degrade sharply under deep nesting. We propose NL2SpaTiaL, a framework modeling specifications as Hierarchical Logical Trees (HLT). By generating formulas as structured HLTs in a single shot, our approach decouples semantic parsing from syntactic rendering, aligning with human compositional spatial reasoning. To support this, we construct, to the best of our knowledge, the first NL-to-SpaTiaL dataset with explicit hierarchical supervision via a logic-first synthesis pipeline. Experiments with open-weight LLMs demonstrate that our HLT formulation significantly outperforms flat-generation baselines across various logical depths. These results show that explicit HLT structure is critical for scalable NL-to-SpaTiaL translation, ultimately enabling a rigorous ``generate-and-test'' paradigm for verifying candidate trajectories in language-conditioned robotics. Project website: https://sites.google.com/view/nl2spatial</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-15T18:56:34Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Licheng Luo</name>
+    </author>
+    <author>
+      <name>Kaier Liang</name>
+    </author>
+    <author>
+      <name>Yu Xia</name>
+    </author>
+    <author>
+      <name>Mingyu Cai</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.04141v2</id>
+    <title>NAMO-LLM: Efficient Navigation Among Movable Obstacles with Large Language Model Guidance</title>
+    <updated>2025-10-16T08:13:38Z</updated>
+    <link href="https://arxiv.org/abs/2505.04141v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.04141v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Several planners have been proposed to compute robot paths that reach desired goal regions while avoiding obstacles. However, these methods fail when all pathways to the goal are blocked. In such cases, the robot must reason about how to reconfigure the environment to access task-relevant regions - a problem known as Navigation Among Movable Objects (NAMO). While various solutions to this problem have been developed, they often struggle to scale to highly cluttered environments. To address this, we propose NAMO-LLM, a sampling-based planner that searches over robot and obstacle configurations to compute feasible plans specifying which obstacles to move, where, and in what order. Its key novelty is a non-uniform sampling strategy guided by Large Language Models (LLMs) biasing the tree construction toward directions more likely to yield a solution. We show that NAMO-LLM is probabilistically complete and demonstrate through experiments that it efficiently scales to cluttered environments, outperforming related works in both runtime and plan quality.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-07T05:45:33Z</published>
+    <arxiv:comment>9 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yuqing Zhang</name>
+    </author>
+    <author>
+      <name>Yiannis Kantaros</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2410.06473v3</id>
+    <title>GRAPPA: Generalizing and Adapting Robot Policies via Online Agentic Guidance</title>
+    <updated>2025-04-08T16:32:04Z</updated>
+    <link href="https://arxiv.org/abs/2410.06473v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2410.06473v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robot learning approaches such as behavior cloning and reinforcement learning have shown great promise in synthesizing robot skills from human demonstrations in specific environments. However, these approaches often require task-specific demonstrations or designing complex simulation environments, which limits the development of generalizable and robust policies for unseen real-world settings. Recent advances in the use of foundation models for robotics (e.g., LLMs, VLMs) have shown great potential in enabling systems to understand the semantics in the world from large-scale internet data. However, it remains an open challenge to use this knowledge to enable robotic systems to understand the underlying dynamics of the world, to generalize policies across different tasks, and to adapt policies to new environments. To alleviate these limitations, we propose an agentic framework for robot self-guidance and self-improvement, which consists of a set of role-specialized conversational agents, such as a high-level advisor, a grounding agent, a monitoring agent, and a robotic agent. Our framework iteratively grounds a base robot policy to relevant objects in the environment and uses visuomotor cues to shift the action distribution of the policy to more desirable states, online, while remaining agnostic to the subjective configuration of a given robot hardware platform. We demonstrate that our approach can effectively guide manipulation policies to achieve significantly higher success rates, both in simulation and in real-world experiments, without the need for additional human demonstrations or extensive exploration. Code and videos available at: https://agenticrobots.github.io</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-10-09T02:00:37Z</published>
+    <arxiv:comment>21 pages, 12 figures, 4 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Arthur Bucker</name>
+    </author>
+    <author>
+      <name>Pablo Ortega-Kral</name>
+    </author>
+    <author>
+      <name>Jonathan Francis</name>
+    </author>
+    <author>
+      <name>Jean Oh</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.13853v2</id>
+    <title>Mosaic: An Extensible Framework for Composing Rule-Based and Learned Motion Planners</title>
+    <updated>2026-07-14T12:09:03Z</updated>
+    <link href="https://arxiv.org/abs/2604.13853v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.13853v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Safe and explainable motion planning remains a central challenge in autonomous driving. While rule-based planners offer predictable and explainable behavior, they often fail to grasp the complexity and uncertainty of real-world traffic. Conversely, learned planners exhibit strong adaptability but suffer from reduced transparency and occasional safety violations. We introduce Mosaic, a framework for structured decision-making that integrates both paradigms through arbitration graphs. By decoupling trajectory verification and selection from the generation of trajectories by individual planners, every decision becomes transparent and traceable. This separation lets verification and trajectory selection contribute independently: centralized verification acts as a safety floor, reducing at-fault collisions from 25 for each standalone planner to 16. In contrast, per-step trajectory selection acts as a performance ceiling, combining the complementary strengths of a rule-based and a learned planner. In experimental evaluation on nuPlan, Mosaic achieves 95.56 CLS-NR and 94.18 CLS-R on the Val14 closed-loop benchmark, setting a new state of the art. On the interPlan benchmark, focused on highly interactive and out-of-distribution scenarios, Mosaic scores 54.10 CLS-R, outperforming its best constituent planner by 22.8% -- all without retraining or requiring additional data. The code is available at github.com/KIT-MRT/mosaic.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-15T13:23:47Z</published>
+    <arxiv:comment>accepted for presentation at 2026 IEEE/RSJ International Conference on Intelligent Robots &amp; Systems, 8 pages, 7 figures, 5 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nick Le Large</name>
+    </author>
+    <author>
+      <name>Marlon Steiner</name>
+    </author>
+    <author>
+      <name>Lingguang Wang</name>
+    </author>
+    <author>
+      <name>Willi Poh</name>
+    </author>
+    <author>
+      <name>Jan-Hendrik Pauls</name>
+    </author>
+    <author>
+      <name>Ömer Şahin Taş</name>
+    </author>
+    <author>
+      <name>Christoph Stiller</name>
+    </author>
+  </entry>
+</feed>

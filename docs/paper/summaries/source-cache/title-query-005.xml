@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/fpSbnLYJJY4FQRT1RILIP8RVA40</id>
+  <title>arXiv Query: search_query=ti:"Grasping As Anchoring: Expanding Urban Perching with a Hybrid Gripper for Aerial Robots" OR ti:"Monte Carlo Localization in Repetitive Indoor Environments with Neural Implicit Map" OR ti:"KILO-EKF: Koopman-Inspired Learned Observations Extended Kalman Filter" OR ti:"Anchor Points for Monocular Depth Estimation under Severe Rolling Shutter Ego-Motion" OR ti:"LiDAR-Based Crowd Navigation with Visible Edge Group Representation" OR ti:"Elliptic Repulsive Field for Haptic Navigation on a Load Transport Robot with a Dual-Adaptive Response Matching Layer" OR ti:"Closed-Loop Diffusion Planning Over Multi-Modal Distributions for Robot Follow-Ahead" OR ti:"Pre-Execution Safety Gate for LLM-Controlled Robot Systems" OR ti:"A Micromanipulation System for Spatial Single-Cell Isolation Using a 5-DoF Configuration-Adaptive Remote-Center-Of-Motion Mechanism" OR ti:"Design and Development of an AI-Enhanced Dual-Needle Robotic System for Automated Microinjection"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:01Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Grasping+As+Anchoring:+Expanding+Urban+Perching+with+a+Hybrid+Gripper+for+Aerial+Robots%22+OR+(ti:%22Monte+Carlo+Localization+in+Repetitive+Indoor+Environments+with+Neural+Implicit+Map%22+OR+(ti:%22KILO-EKF:+Koopman-Inspired+Learned+Observations+Extended+Kalman+Filter%22+OR+(ti:%22Anchor+Points+for+Monocular+Depth+Estimation+under+Severe+Rolling+Shutter+Ego-Motion%22+OR+(ti:%22LiDAR-Based+Crowd+Navigation+with+Visible+Edge+Group+Representation%22+OR+(ti:%22Elliptic+Repulsive+Field+for+Haptic+Navigation+on+a+Load+Transport+Robot+with+a+Dual-Adaptive+Response+Matching+Layer%22+OR+(ti:%22Closed-Loop+Diffusion+Planning+Over+Multi-Modal+Distributions+for+Robot+Follow-Ahead%22+OR+(ti:%22Pre-Execution+Safety+Gate+for+LLM-Controlled+Robot+Systems%22+OR+(ti:%22A+Micromanipulation+System+for+Spatial+Single-Cell+Isolation+Using+a+5-DoF+Configuration-Adaptive+Remote-Center-Of-Motion+Mechanism%22+OR+ti:%22Design+and+Development+of+an+AI-Enhanced+Dual-Needle+Robotic+System+for+Automated+Microinjection%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.12463v2</id>
+    <title>KILO-EKF: Koopman-Inspired Learned Observations Extended Kalman Filter</title>
+    <updated>2026-03-03T00:00:07Z</updated>
+    <link href="https://arxiv.org/abs/2601.12463v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.12463v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present the Koopman-Inspired Learned Observations Extended Kalman Filter (KILO-EKF), which combines a standard EKF prediction step with a correction step based on a Koopman-inspired measurement model learned from data. By lifting measurements into a feature space where they are linear in the state, KILO-EKF enables flexible modeling of complex or poorly calibrated sensors while retaining the structure and efficiency of recursive filtering. The resulting linear-Gaussian measurement model is learned in closed form from groundtruth training data, without iterative optimization or reliance on an explicit parametric sensor model. At inference, KILO-EKF performs a standard EKF update using Jacobians obtained via the learned lifting. We validate the approach on a real-world quadrotor localization task using an IMU, ultra-wideband (UWB) sensors, and a downward-facing laser. We compare against multiple EKF baselines with varying levels of sensor calibration. KILO-EKF achieves better accuracy and consistency compared to data-calibrated baselines, and significantly outperforms EKFs that rely on imperfect geometric models, while maintaining real-time inference and fast training. These results demonstrate the effectiveness of Koopman-inspired measurement learning as a scalable alternative to traditional model-based calibration.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-18T16:09:23Z</published>
+    <arxiv:comment>Submitted to IEEE/RSJ IROS. 8 pages, 9 figures, 1 table</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zi Cong Guo</name>
+    </author>
+    <author>
+      <name>James R. Forbes</name>
+    </author>
+    <author>
+      <name>Timothy D. Barfoot</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.16741v1</id>
+    <title>LiDAR-based Crowd Navigation with Visible Edge Group Representation</title>
+    <updated>2026-04-17T23:13:18Z</updated>
+    <link href="https://arxiv.org/abs/2604.16741v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.16741v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robot navigation in crowded pedestrian environments is a well-known challenge and we explore the practical deployment of group-based representations in this setting. Pedestrian groups have been empirically shown to enable a mobile robot's navigation behavior to be safer and more social. However, existing approaches either explored groups only in limited scenarios with no high-density crowds or depended on external detection modules to track individuals, which are prone to noise and errors due to occlusions in crowds. We show that group prediction accuracy affects navigation performance only marginally in crowded environments. Based on this observation, we propose the visible edge-based group representation. We additionally demonstrate via simulation experiments that our navigation framework, integrated with the simplified group representation, performs comparatively in terms of safety and socialness in dense crowds, while achieving faster computation speed. Finally, we deploy our navigation framework on a real robot to explore the benefits of practically deploying group-based representations in the real world.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-17T23:13:18Z</published>
+    <arxiv:comment>Under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Allan Wang</name>
+    </author>
+    <author>
+      <name>Aaron Steinfeld</name>
+    </author>
+  </entry>
+</feed>

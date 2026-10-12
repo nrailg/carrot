@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/fOHzk0uQJksuzCVjtPBLE9RKrx4</id>
+  <title>arXiv Query: search_query=ti:"NPPC: Neural Parametric Planning Cost for End-To-End Autonomous Driving" OR ti:"LAD-Drive: Bridging Language and Trajectory with Action-Aware Diffusion Transformers" OR ti:"Frontier-as-Token: Structured Spatial Reasoning for Zero-shot Object Navigation" OR ti:"SparseNav: Efficient Zero-Shot Object-Goal Navigation with Multi-Layer Sparse Semantic Mapping" OR ti:"BEACON: Language-Conditioned Navigation Affordance Prediction under Occlusion" OR ti:"Stairway to Success: An Online Floor-Aware Zero-Shot Object-Goal Navigation Framework Via LLM-Driven Coarse-To-Fine Exploration" OR ti:"Where Did I Leave My Glasses? Open-Vocabulary Semantic Exploration in Real-World Semi-Static Environments" OR ti:"How VLAs (Really) Work in Open-World Environments"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:43Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22NPPC:+Neural+Parametric+Planning+Cost+for+End-To-End+Autonomous+Driving%22+OR+(ti:%22LAD-Drive:+Bridging+Language+and+Trajectory+with+Action-Aware+Diffusion+Transformers%22+OR+(ti:%22Frontier-as-Token:+Structured+Spatial+Reasoning+for+Zero-shot+Object+Navigation%22+OR+(ti:%22SparseNav:+Efficient+Zero-Shot+Object-Goal+Navigation+with+Multi-Layer+Sparse+Semantic+Mapping%22+OR+(ti:%22BEACON:+Language-Conditioned+Navigation+Affordance+Prediction+under+Occlusion%22+OR+(ti:%22Stairway+to+Success:+An+Online+Floor-Aware+Zero-Shot+Object-Goal+Navigation+Framework+Via+LLM-Driven+Coarse-To-Fine+Exploration%22+OR+(ti:%22Where+Did+I+Leave+My+Glasses?+Open-Vocabulary+Semantic+Exploration+in+Real-World+Semi-Static+Environments%22+OR+ti:%22How+VLAs+(Really)+Work+in+Open-World+Environments%22))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.19851v2</id>
+    <title>Where Did I Leave My Glasses? Open-Vocabulary Semantic Exploration in Real-World Semi-Static Environments</title>
+    <updated>2026-01-14T10:58:40Z</updated>
+    <link href="https://arxiv.org/abs/2509.19851v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.19851v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robots deployed in real-world environments, such as homes, must not only navigate safely but also understand their surroundings and adapt to changes in the environment. To perform tasks efficiently, they must build and maintain a semantic map that accurately reflects the current state of the environment. Existing research on semantic exploration largely focuses on static scenes without persistent object-level instance tracking. In this work, we propose an open-vocabulary, semantic exploration system for semi-static environments. Our system maintains a consistent map by building a probabilistic model of object instance stationarity, systematically tracking semi-static changes, and actively exploring areas that have not been visited for an extended period. In addition to active map maintenance, our approach leverages the map's semantic richness with large language model (LLM)-based reasoning for open-vocabulary object-goal navigation. This enables the robot to search more efficiently by prioritizing contextually relevant areas. We compare our approach against state-of-the-art baselines using publicly available object navigation and mapping datasets, and we further demonstrate real-world transferability in three real-world environments. Our approach outperforms the compared baselines in both success rate and search efficiency for object-navigation tasks and can more reliably handle changes in mapping semi-static environments. In real-world experiments, our system detects 95% of map changes on average, improving efficiency by more than 29% as compared to random and patrol strategies.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-24T07:47:35Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE RA-L, 2026</arxiv:journal_ref>
+    <author>
+      <name>Benjamin Bogenberger</name>
+    </author>
+    <author>
+      <name>Oliver Harrison</name>
+    </author>
+    <author>
+      <name>Orrin Dahanaggamaarachchi</name>
+    </author>
+    <author>
+      <name>Lukas Brunke</name>
+    </author>
+    <author>
+      <name>Jingxing Qian</name>
+    </author>
+    <author>
+      <name>Siqi Zhou</name>
+    </author>
+    <author>
+      <name>Angela P. Schoellig</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3656790</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3656790" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.23019v4</id>
+    <title>Stairway to Success: An Online Floor-Aware Zero-Shot Object-Goal Navigation Framework via LLM-Driven Coarse-to-Fine Exploration</title>
+    <updated>2026-01-03T13:11:59Z</updated>
+    <link href="https://arxiv.org/abs/2505.23019v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.23019v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deployable service and delivery robots struggle to navigate multi-floor buildings to reach object goals, as existing systems fail due to single-floor assumptions and requirements for offline, globally consistent maps. Multi-floor environments pose unique challenges including cross-floor transitions and vertical spatial reasoning, especially navigating unknown buildings. Object-Goal Navigation benchmarks like HM3D and MP3D also capture this multi-floor reality, yet current methods lack support for online, floor-aware navigation. To bridge this gap, we propose \textbf{\textit{ASCENT}}, an online framework for Zero-Shot Object-Goal Navigation that enables robots to operate without pre-built maps or retraining on new object categories. It introduces: (1) a \textbf{Multi-Floor Abstraction} module that dynamically constructs hierarchical representations with stair-aware obstacle mapping and cross-floor topology modeling, and (2) a \textbf{Coarse-to-Fine Reasoning} module that combines frontier ranking with LLM-driven contextual analysis for multi-floor navigation decisions. We evaluate on HM3D and MP3D benchmarks, outperforming state-of-the-art zero-shot approaches, and demonstrate real-world deployment on a quadruped robot.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-29T03:00:03Z</published>
+    <arxiv:comment>Accepted to IEEE Robotics and Automation Letters (RAL). Project Page at https://zeying-gong.github.io/projects/ascent</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zeying Gong</name>
+    </author>
+    <author>
+      <name>Rong Li</name>
+    </author>
+    <author>
+      <name>Tianshuai Hu</name>
+    </author>
+    <author>
+      <name>Ronghe Qiu</name>
+    </author>
+    <author>
+      <name>Lingdong Kong</name>
+    </author>
+    <author>
+      <name>Lingfeng Zhang</name>
+    </author>
+    <author>
+      <name>Guoyang Zhao</name>
+    </author>
+    <author>
+      <name>Yiyi Ding</name>
+    </author>
+    <author>
+      <name>Junwei Liang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.09961v1</id>
+    <title>BEACON: Language-Conditioned Navigation Affordance Prediction under Occlusion</title>
+    <updated>2026-03-10T17:56:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.09961v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.09961v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Language-conditioned local navigation requires a robot to infer a nearby traversable target location from its current observation and an open-vocabulary, relational instruction. Existing vision-language spatial grounding methods usually rely on vision-language models (VLMs) to reason in image space, producing 2D predictions tied to visible pixels. As a result, they struggle to infer target locations in occluded regions, typically caused by furniture or moving humans. To address this issue, we propose BEACON, which predicts an ego-centric Bird's-Eye View (BEV) affordance heatmap over a bounded local region including occluded areas. Given an instruction and surround-view RGB-D observations from four directions around the robot, BEACON predicts the BEV heatmap by injecting spatial cues into a VLM and fusing the VLM's output with depth-derived BEV features. Using an occlusion-aware dataset built in the Habitat simulator, we conduct detailed experimental analysis to validate both our BEV space formulation and the design choices of each module. Our method improves the accuracy averaged across geodesic thresholds by 22.74 percentage points over the state-of-the-art image-space baseline on the validation subset with occluded target locations. Our project page is: https://xin-yu-gao.github.io/beacon.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-10T17:56:16Z</published>
+    <arxiv:comment>8 pages. Project page: https://xin-yu-gao.github.io/beacon</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Xinyu Gao</name>
+    </author>
+    <author>
+      <name>Gang Chen</name>
+    </author>
+    <author>
+      <name>Javier Alonso-Mora</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.02035v1</id>
+    <title>LAD-Drive: Bridging Language and Trajectory with Action-Aware Diffusion Transformers</title>
+    <updated>2026-03-02T16:21:42Z</updated>
+    <link href="https://arxiv.org/abs/2603.02035v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.02035v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While multimodal large language models (MLLMs) provide advanced reasoning for autonomous driving, translating their discrete semantic knowledge into continuous trajectories remains a fundamental challenge. Existing methods often rely on unimodal planning heads that inherently limit their ability to represent multimodal driving behavior. Furthermore, most generative approaches frequently condition on one-hot encoded actions, discarding the nuanced navigational uncertainty critical for complex scenarios. To resolve these limitations, we introduce LAD-Drive, a generative framework that structurally disentangles high-level intention from low-level spatial planning. LAD-Drive employs an action decoder to infer a probabilistic meta-action distribution, establishing an explicit belief state that preserves the nuanced intent typically lost by one-hot encodings. This distribution, fused with the vehicle's kinematic state, conditions an action-aware diffusion decoder that utilizes a truncated denoising process to refine learned motion anchors into safe, kinematically feasible trajectories. Extensive evaluations on the LangAuto benchmark demonstrate that LAD-Drive achieves state-of-the-art results, outperforming competitive baselines by up to 59% in Driving Score while significantly reducing route deviations and collisions. We will publicly release the code and models on https://github.com/iis-esslingen/lad-drive.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-02T16:21:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Fabian Schmidt</name>
+    </author>
+    <author>
+      <name>Karol Fedurko</name>
+    </author>
+    <author>
+      <name>Markus Enzweiler</name>
+    </author>
+    <author>
+      <name>Abhinav Valada</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.21192v1</id>
+    <title>How VLAs (Really) Work In Open-World Environments</title>
+    <updated>2026-04-23T01:32:51Z</updated>
+    <link href="https://arxiv.org/abs/2604.21192v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.21192v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-language-action models (VLAs) have been extensively used in robotics applications, achieving great success in various manipulation problems. More recently, VLAs have been used in long-horizon tasks and evaluated on benchmarks, such as BEHAVIOR1K (B1K), for solving complex household chores. The common metric for measuring progress in such benchmarks is success rate or partial score based on satisfaction of progress-agnostic criteria, meaning only the final states of the objects are considered, regardless of the events that lead to such states. In this paper, we argue that using such evaluation protocols say little about safety aspects of operation and can potentially exaggerate reported performance, undermining core challenges for future real-world deployment. To this end, we conduct a thorough analysis of state-of-the-art models on the B1K Challenge and evaluate policies in terms of robustness via reproducibility and consistency of performance, safety aspects of policies operations, task awareness, and key elements leading to the incompletion of tasks. We then propose evaluation protocols to capture safety violations to better measure the true performance of the policies in more complex and interactive scenarios. At the end, we discuss the limitations of the existing VLAs and motivate future research.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-23T01:32:51Z</published>
+    <arxiv:comment>8 pages, 7 figures, 2 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Amir Rasouli</name>
+    </author>
+    <author>
+      <name>Yangzheng Wu</name>
+    </author>
+    <author>
+      <name>Zhiyuan Li</name>
+    </author>
+    <author>
+      <name>Rui Heng Yang</name>
+    </author>
+    <author>
+      <name>Xuan Zhao</name>
+    </author>
+    <author>
+      <name>Charles Eret</name>
+    </author>
+    <author>
+      <name>Sajjad Pakdamansavoji</name>
+    </author>
+  </entry>
+</feed>

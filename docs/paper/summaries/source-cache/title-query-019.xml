@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/CQR20ElcvPaD8kcG+HKeND1vyWQ</id>
+  <title>arXiv Query: search_query=ti:"PGFlowNav: Prior-Guided Conditional Flow Matching for Real-Time Visual Navigation of Bionic Robotic Fish" OR ti:"PianoFingering-1.5K: A Large-Scale Expert Piano Fingering Dataset for Dexterous Robot Learning" OR ti:"Learning Athletic Humanoid Tennis Skills from Imperfect Human Motion Data" OR ti:"SSL-Semantic-NBV: A Self-Supervised Learning-Based NBV for Target-Aware 3D Reconstruction in Agricultural Robotics" OR ti:"VL-Nav: A Neuro-Symbolic Approach for Reasoning-Based Vision-Language Navigation" OR ti:"GeoVLA: Empowering 3D Representations in Vision-Language-Action Models" OR ti:"GelSphere: An Omnidirectional Rolling Vision-Based Tactile Sensor for Online 3D Reconstruction and Normal Force Estimation" OR ti:"Design, Modeling, and Performance of a Robotic Zipper for Self-Donning Clothing" OR ti:"PDS Joint: A Parametric Double-Spiral Joint Tailored for Dexterous Hands" OR ti:"AUG: Perception-Aware UAV Graph-Based Planning for GNSS-Denied Navigation in Feature-Sparse Environments"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:07Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22PGFlowNav:+Prior-Guided+Conditional+Flow+Matching+for+Real-Time+Visual+Navigation+of+Bionic+Robotic+Fish%22+OR+(ti:%22PianoFingering-1.5K:+A+Large-Scale+Expert+Piano+Fingering+Dataset+for+Dexterous+Robot+Learning%22+OR+(ti:%22Learning+Athletic+Humanoid+Tennis+Skills+from+Imperfect+Human+Motion+Data%22+OR+(ti:%22SSL-Semantic-NBV:+A+Self-Supervised+Learning-Based+NBV+for+Target-Aware+3D+Reconstruction+in+Agricultural+Robotics%22+OR+(ti:%22VL-Nav:+A+Neuro-Symbolic+Approach+for+Reasoning-Based+Vision-Language+Navigation%22+OR+(ti:%22GeoVLA:+Empowering+3D+Representations+in+Vision-Language-Action+Models%22+OR+(ti:%22GelSphere:+An+Omnidirectional+Rolling+Vision-Based+Tactile+Sensor+for+Online+3D+Reconstruction+and+Normal+Force+Estimation%22+OR+(ti:%22Design,+Modeling,+and+Performance+of+a+Robotic+Zipper+for+Self-Donning+Clothing%22+OR+(ti:%22PDS+Joint:+A+Parametric+Double-Spiral+Joint+Tailored+for+Dexterous+Hands%22+OR+ti:%22AUG:+Perception-Aware+UAV+Graph-Based+Planning+for+GNSS-Denied+Navigation+in+Feature-Sparse+Environments%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.14104v1</id>
+    <title>GelSphere: An Omnidirectional Rolling Vision-Based Tactile Sensor for Online 3D Reconstruction and Normal Force Estimation</title>
+    <updated>2026-03-14T20:22:52Z</updated>
+    <link href="https://arxiv.org/abs/2603.14104v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.14104v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present GelSphere, a spherical vision-based tactile sensor designed for real-time continuous surface scanning. Unlike traditional vision-based tactile sensors that can only sense locally and are damaged when slid across surfaces, and cylindrical tactile sensors that can only roll along a fixed direction, our design enables omnidirectional rolling on surfaces. We accomplish this through our novel sensing system design, which has steel balls inside the sensor, forming a bearing layer between the gel and the rigid housing that allows rolling motion in all axes. The sensor streams tactile images through Wi-Fi, with online large-surface reconstruction capabilities. We present quantitative results for both reconstruction accuracy and image fusion performance. The results show that our sensor maintains geometric fidelity and high reconstruction accuracy even under multi-directional rolling, enabling uninterrupted surface scanning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-14T20:22:52Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Seoyeon Lee</name>
+    </author>
+    <author>
+      <name>Mohammad Amin Mirzaee</name>
+    </author>
+    <author>
+      <name>Wenzhen Yuan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.12686v1</id>
+    <title>Learning Athletic Humanoid Tennis Skills from Imperfect Human Motion Data</title>
+    <updated>2026-03-13T06:02:30Z</updated>
+    <link href="https://arxiv.org/abs/2603.12686v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.12686v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Human athletes demonstrate versatile and highly-dynamic tennis skills to successfully conduct competitive rallies with a high-speed tennis ball. However, reproducing such behaviors on humanoid robots is difficult, partially due to the lack of perfect humanoid action data or human kinematic motion data in tennis scenarios as reference. In this work, we propose LATENT, a system that Learns Athletic humanoid TEnnis skills from imperfect human motioN daTa. The imperfect human motion data consist only of motion fragments that capture the primitive skills used when playing tennis rather than precise and complete human-tennis motion sequences from real-world tennis matches, thereby significantly reducing the difficulty of data collection. Our key insight is that, despite being imperfect, such quasi-realistic data still provide priors about human primitive skills in tennis scenarios. With further correction and composition, we learn a humanoid policy that can consistently strike incoming balls under a wide range of conditions and return them to target locations, while preserving natural motion styles. We also propose a series of designs for robust sim-to-real transfer and deploy our policy on the Unitree G1 humanoid robot. Our method achieves surprising results in the real world and can stably sustain multi-shot rallies with human players. Project page: https://zzk273.github.io/LATENT/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-13T06:02:30Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhikai Zhang</name>
+    </author>
+    <author>
+      <name>Haofei Lu</name>
+    </author>
+    <author>
+      <name>Yunrui Lian</name>
+    </author>
+    <author>
+      <name>Ziqing Chen</name>
+    </author>
+    <author>
+      <name>Yun Liu</name>
+    </author>
+    <author>
+      <name>Chenghuai Lin</name>
+    </author>
+    <author>
+      <name>Han Xue</name>
+    </author>
+    <author>
+      <name>Zicheng Zeng</name>
+    </author>
+    <author>
+      <name>Zekun Qi</name>
+    </author>
+    <author>
+      <name>Shaolin Zheng</name>
+    </author>
+    <author>
+      <name>Qing Luan</name>
+    </author>
+    <author>
+      <name>Jingbo Wang</name>
+    </author>
+    <author>
+      <name>Junliang Xing</name>
+    </author>
+    <author>
+      <name>He Wang</name>
+    </author>
+    <author>
+      <name>Li Yi</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.24377v1</id>
+    <title>PDS Joint: A Parametric Double-Spiral Joint Tailored for Dexterous Hands</title>
+    <updated>2026-06-23T10:09:02Z</updated>
+    <link href="https://arxiv.org/abs/2606.24377v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.24377v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Compliant joints can embed safety and adaptability into dexterous hands, but achieving large-stroke anthropomorphic motion while maintaining joint-specific, directiondependent stiffness and reliable proprioception remains challenging. This paper presents the PDS joint, a parametric doublespiral (PDS) compliant joint that enables systematic shaping of directional stiffness across multiple deformation modes, including flexion/extension, abduction/adduction, and pronation/supination. We instantiate the joint using Archimedean and logarithmic spiral templates for different hand joints and introduce an asymmetry ratio to tailor stiffness distributions for both grasp stability and hyperextension resistance. To make the joint practically usable under large deformation, we co-design embedded inductive proprioception and propose a learningbased calibration pipeline that maps raw inductive signals to joint states using ArUco-marker tracking. Experiments characterize the stiffness landscapes across geometric parameters and demonstrate a non-monotonic dependence of lateral support on asymmetry, indicating the importance of principled parameter tuning. For joint-state estimation in the most challenging abduction/adduction motion, a learned multilayer-perceptron (MLP) mapping reduces the error compared with conventional curve fitting by 41.6%. Finally, we integrate the proposed joints into an open-source dexterous hand as a demonstration platform, on which the hand grasps a set of nine everyday objects and performs safe, contact-rich human-involved interactions.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AR" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-23T10:09:02Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haoyang Li</name>
+    </author>
+    <author>
+      <name>Yibo Wen</name>
+    </author>
+    <author>
+      <name>Yixiang Fan</name>
+    </author>
+    <author>
+      <name>Yiheng Xu</name>
+    </author>
+    <author>
+      <name>Yufeng Yue</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.09071v2</id>
+    <title>GeoVLA: Empowering 3D Representations in Vision-Language-Action Models</title>
+    <updated>2025-08-13T16:47:50Z</updated>
+    <link href="https://arxiv.org/abs/2508.09071v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.09071v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language-Action (VLA) models have emerged as a promising approach for enabling robots to follow language instructions and predict corresponding actions. However, current VLA models mainly rely on 2D visual inputs, neglecting the rich geometric information in the 3D physical world, which limits their spatial awareness and adaptability. In this paper, we present GeoVLA, a novel VLA framework that effectively integrates 3D information to advance robotic manipulation. It uses a vision-language model (VLM) to process images and language instructions,extracting fused vision-language embeddings. In parallel, it converts depth maps into point clouds and employs a customized point encoder, called Point Embedding Network, to generate 3D geometric embeddings independently. These produced embeddings are then concatenated and processed by our proposed spatial-aware action expert, called 3D-enhanced Action Expert, which combines information from different sensor modalities to produce precise action sequences. Through extensive experiments in both simulation and real-world environments, GeoVLA demonstrates superior performance and robustness. It achieves state-of-the-art results in the LIBERO and ManiSkill2 simulation benchmarks and shows remarkable robustness in real-world tasks requiring height adaptability, scale awareness and viewpoint invariance.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-12T16:46:05Z</published>
+    <arxiv:comment>The project is visible at https://linsun449.github.io/GeoVLA/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lin Sun</name>
+    </author>
+    <author>
+      <name>Bin Xie</name>
+    </author>
+    <author>
+      <name>Yingfei Liu</name>
+    </author>
+    <author>
+      <name>Hao Shi</name>
+    </author>
+    <author>
+      <name>Tiancai Wang</name>
+    </author>
+    <author>
+      <name>Jiale Cao</name>
+    </author>
+  </entry>
+</feed>

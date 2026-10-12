@@ -1,0 +1,199 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/aEWlNsx38b1YRDjJ2h2Q1yOjB9M</id>
+  <title>arXiv Query: search_query=ti:"Demonstration-Free Robotic Control Via LLM Agents" OR ti:"DreamControl-V2: Simpler and Scalable Autonomous Humanoid Skills Via Trainable Guided Diffusion Priors" OR ti:"HM2O: Humanoid Motion Retargeting Via Monolithic Optimization" OR ti:"GMT: General Motion Tracking for Humanoid Whole-Body Control" OR ti:"Chasing Autonomy: Dynamic Retargeting and Control Guided RL for Performant and Controllable Humanoid Running" OR ti:"HARL-A: An Extensible Benchmark Framework for Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab" OR ti:"Discovering Optimal Natural Gaits of Dissipative Systems via Virtual Energy Injection" OR ti:"Reinforcement Learning for Robust Climbing Locomotion with Rope-Driven Legged Robot" OR ti:"Inject, Encode, Navigate: Feature-Wise Time Injection for Rectified Flow with Bidirectional Feature Encoding" OR ti:"Experimental Investigation of Pose Informed Reinforcement Learning for Skid-Steered Visual Navigation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:14Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Demonstration-Free+Robotic+Control+Via+LLM+Agents%22+OR+(ti:%22DreamControl-V2:+Simpler+and+Scalable+Autonomous+Humanoid+Skills+Via+Trainable+Guided+Diffusion+Priors%22+OR+(ti:%22HM2O:+Humanoid+Motion+Retargeting+Via+Monolithic+Optimization%22+OR+(ti:%22GMT:+General+Motion+Tracking+for+Humanoid+Whole-Body+Control%22+OR+(ti:%22Chasing+Autonomy:+Dynamic+Retargeting+and+Control+Guided+RL+for+Performant+and+Controllable+Humanoid+Running%22+OR+(ti:%22HARL-A:+An+Extensible+Benchmark+Framework+for+Heterogeneous+Multi-Agent+Adversarial+Reinforcement+Learning+in+IsaacLab%22+OR+(ti:%22Discovering+Optimal+Natural+Gaits+of+Dissipative+Systems+via+Virtual+Energy+Injection%22+OR+(ti:%22Reinforcement+Learning+for+Robust+Climbing+Locomotion+with+Rope-Driven+Legged+Robot%22+OR+(ti:%22Inject,+Encode,+Navigate:+Feature-Wise+Time+Injection+for+Rectified+Flow+with+Bidirectional+Feature+Encoding%22+OR+ti:%22Experimental+Investigation+of+Pose+Informed+Reinforcement+Learning+for+Skid-Steered+Visual+Navigation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>7</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.00202v1</id>
+    <title>DreamControl-v2: Simpler and Scalable Autonomous Humanoid Skills via Trainable Guided Diffusion Priors</title>
+    <updated>2026-03-31T20:11:49Z</updated>
+    <link href="https://arxiv.org/abs/2604.00202v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.00202v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Developing robust autonomous loco-manipulation skills for humanoids remains an open problem in robotics. While RL has been applied successfully to legged locomotion, applying it to complex, interaction-rich manipulation tasks is harder given long-horizon planning challenges for manipulation. A recent approach along these lines is DreamControl, which addresses these issues by leveraging off-the-shelf human motion diffusion models as a generative prior to guide RL policies during training. In this paper, we investigate the impact of DreamControl's motion prior and propose an improved framework that trains a guided diffusion model directly in the humanoid robot's motion space, aggregating diverse human and robot datasets into a unified embodiment space. We demonstrate that our approach captures a wider range of skills due to the larger training data mixture and establishes a more automated pipeline by removing the need for manual filtering interventions. Furthermore, we show that scaling the generation of reference trajectories is important for achieving robust downstream RL policies. We validate our approach through extensive experiments in simulation and on a real Unitree-G1.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-31T20:11:49Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sudarshan Harithas</name>
+    </author>
+    <author>
+      <name>Sangkyung Kwak</name>
+    </author>
+    <author>
+      <name>Pushkal Katara</name>
+    </author>
+    <author>
+      <name>Srujan Deolasee</name>
+    </author>
+    <author>
+      <name>Dvij Kalaria</name>
+    </author>
+    <author>
+      <name>Srinath Sridhar</name>
+    </author>
+    <author>
+      <name>Sai Vemprala</name>
+    </author>
+    <author>
+      <name>Ashish Kapoor</name>
+    </author>
+    <author>
+      <name>Jonathan Chung-Kuan Huang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.25902v1</id>
+    <title>Chasing Autonomy: Dynamic Retargeting and Control Guided RL for Performant and Controllable Humanoid Running</title>
+    <updated>2026-03-26T20:48:33Z</updated>
+    <link href="https://arxiv.org/abs/2603.25902v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.25902v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humanoid robots have the promise of locomoting like humans, including fast and dynamic running. Recently, reinforcement learning (RL) controllers that can mimic human motions have become popular as they can generate very dynamic behaviors, but they are often restricted to single motion play-back which hinders their deployment in long duration and autonomous locomotion. In this paper, we present a pipeline to dynamically retarget human motions through an optimization routine with hard constraints to generate improved periodic reference libraries from a single human demonstration. We then study the effect of both the reference motion and the reward structure on the reference and commanded velocity tracking, concluding that a goal-conditioned and control-guided reward which tracks dynamically optimized human data results in the best performance. We deploy the policy on hardware, demonstrating its speed and endurance by achieving running speeds of up to 3.3 m/s on a Unitree G1 robot and traversing hundreds of meters in real-world environments. Additionally, to demonstrate the controllability of the locomotion, we use the controller in a full perception and planning autonomy stack for obstacle avoidance while running outdoors.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-26T20:48:33Z</published>
+    <arxiv:comment>This work has been submitted to the IEEE for possible publication</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zachary Olkin</name>
+    </author>
+    <author>
+      <name>William D. Compton</name>
+    </author>
+    <author>
+      <name>Ryan M. Bena</name>
+    </author>
+    <author>
+      <name>Aaron D. Ames</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.01264v2</id>
+    <title>HARL-A: An Extensible Benchmark Framework for Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab</title>
+    <updated>2026-10-05T18:10:49Z</updated>
+    <link href="https://arxiv.org/abs/2510.01264v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.01264v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Progress in adversarial multi-agent reinforcement learning (MARL) for robotics has been hampered by a lack of shared, extensible infrastructure that supports heterogeneous agent morphologies in high-fidelity physics simulation. Existing frameworks either focus on cooperative tasks, rely on simplified physics engines, or provide isolated implementations that are difficult to extend. We present HARL-A, an open-source, actively maintained framework built on IsaacLab that enables scalable training and benchmarking of adversarial policies across morphologically diverse robot teams with any number of teams and any mix of robot morphologies per team. HARL-A extends the HARL algorithm library and IsaacLab with adversarial multi-agent support and contributes three components: (1) a modular software architecture that reduces the engineering overhead of defining new heterogeneous adversarial environments, (2) a suite of three benchmark environments---Sumo, Soccer, and 3D Galaga---spanning contact-rich pushing, ball-skill competition, and pursuit/evasion, (3) over ten pretrained policies spanning homogeneous and heterogeneous team configurations, released publicly on Hugging Face to enable immediate exploration of adversarial learning dynamics without retraining from scratch. We demonstrate the framework across multiple competitive scenarios, showing that it reliably produces learned adversarial policies and emergent role specialization. All code environments, trained policies, and documentation are openly available at https://github.com/DIRECTLab/IsaacLab-HARL.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-26T03:16:48Z</published>
+    <arxiv:comment>8 page, 9 figures, code https://github.com/DIRECTLab/IsaacLab-HARL</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Isaac Peterson</name>
+    </author>
+    <author>
+      <name>Christopher Allred</name>
+    </author>
+    <author>
+      <name>Jacob Morrey</name>
+    </author>
+    <author>
+      <name>Mario Harper</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.21732v1</id>
+    <title>Experimental investigation of pose informed reinforcement learning for skid-steered visual navigation</title>
+    <updated>2025-06-26T19:36:49Z</updated>
+    <link href="https://arxiv.org/abs/2506.21732v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.21732v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-based lane keeping is a topic of significant interest in the robotics and autonomous ground vehicles communities in various on-road and off-road applications. The skid-steered vehicle architecture has served as a useful vehicle platform for human controlled operations. However, systematic modeling, especially of the skid-slip wheel terrain interactions (primarily in off-road settings) has created bottlenecks for automation deployment. End-to-end learning based methods such as imitation learning and deep reinforcement learning, have gained prominence as a viable deployment option to counter the lack of accurate analytical models. However, the systematic formulation and subsequent verification/validation in dynamic operation regimes (particularly for skid-steered vehicles) remains a work in progress. To this end, a novel approach for structured formulation for learning visual navigation is proposed and investigated in this work. Extensive software simulations, hardware evaluations and ablation studies now highlight the significantly improved performance of the proposed approach against contemporary literature.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-26T19:36:49Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ameya Salvi</name>
+    </author>
+    <author>
+      <name>Venkat Krovi</name>
+    </author>
+    <arxiv:doi>10.1109/TFR.2025.3599118</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TFR.2025.3599118" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.15513v1</id>
+    <title>Discovering Optimal Natural Gaits of Dissipative Systems via Virtual Energy Injection</title>
+    <updated>2025-11-19T15:06:30Z</updated>
+    <link href="https://arxiv.org/abs/2511.15513v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.15513v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Legged robots offer several advantages when navigating unstructured environments, but they often fall short of the efficiency achieved by wheeled robots. One promising strategy to improve their energy economy is to leverage their natural (unactuated) dynamics using elastic elements. This work explores that concept by designing energy-optimal control inputs through a unified, multi-stage framework. It starts with a novel energy injection technique to identify passive motion patterns by harnessing the system's natural dynamics. This enables the discovery of passive solutions even in systems with energy dissipation caused by factors such as friction or plastic collisions. Building on these passive solutions, we then employ a continuation approach to derive energy-optimal control inputs for the fully actuated, dissipative robotic system. The method is tested on simulated models to demonstrate its applicability in both single- and multi-legged robotic systems. This analysis provides valuable insights into the design and operation of elastic legged robots, offering pathways to improve their efficiency and adaptability by exploiting the natural system dynamics.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-19T15:06:30Z</published>
+    <arxiv:comment>Preprint Version, IEEE Robotics and Automation Letters (RA-L), accepted November 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Korbinian Griesbauer</name>
+    </author>
+    <author>
+      <name>Davide Calzolari</name>
+    </author>
+    <author>
+      <name>Maximilian Raff</name>
+    </author>
+    <author>
+      <name>C. David Remy</name>
+    </author>
+    <author>
+      <name>Alin Albu-Schäffer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.14770v2</id>
+    <title>GMT: General Motion Tracking for Humanoid Whole-Body Control</title>
+    <updated>2025-09-04T02:48:07Z</updated>
+    <link href="https://arxiv.org/abs/2506.14770v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.14770v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The ability to track general whole-body motions in the real world is a useful way to build general-purpose humanoid robots. However, achieving this can be challenging due to the temporal and kinematic diversity of the motions, the policy's capability, and the difficulty of coordination of the upper and lower bodies. To address these issues, we propose GMT, a general and scalable motion-tracking framework that trains a single unified policy to enable humanoid robots to track diverse motions in the real world. GMT is built upon two core components: an Adaptive Sampling strategy and a Motion Mixture-of-Experts (MoE) architecture. The Adaptive Sampling automatically balances easy and difficult motions during training. The MoE ensures better specialization of different regions of the motion manifold. We show through extensive experiments in both simulation and the real world the effectiveness of GMT, achieving state-of-the-art performance across a broad spectrum of motions using a unified general policy. Videos and additional information can be found at https://gmt-humanoid.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-17T17:59:33Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zixuan Chen</name>
+    </author>
+    <author>
+      <name>Mazeyu Ji</name>
+    </author>
+    <author>
+      <name>Xuxin Cheng</name>
+    </author>
+    <author>
+      <name>Xuanbin Peng</name>
+    </author>
+    <author>
+      <name>Xue Bin Peng</name>
+    </author>
+    <author>
+      <name>Xiaolong Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.20334v2</id>
+    <title>Demonstration-Free Robotic Control via LLM Agents</title>
+    <updated>2026-06-28T07:42:25Z</updated>
+    <link href="https://arxiv.org/abs/2601.20334v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.20334v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic manipulation has increasingly adopted vision-language-action (VLA) models, which achieve strong performance but typically require task-specific demonstrations and fine-tuning, and often generalize poorly under domain shift. We investigate whether general-purpose large language model (LLM) agent frameworks, originally developed for software engineering, can serve as an alternative control paradigm for embodied manipulation. We introduce FAEA (Frontier Agent as Embodied Agent), which applies an LLM agent framework directly to embodied manipulation without modification. Using the same iterative reasoning that enables software agents to debug code, FAEA enables embodied agents to reason through manipulation strategies. We evaluate an unmodified frontier agent, Claude Agent SDK, across the LIBERO, ManiSkill3, and MetaWorld benchmarks. With privileged environment state access, FAEA achieves success rates of 84.9%, 85.7%, and 96%, respectively. This level of task success approaches that of VLA models trained with less than 100 demonstrations per task, without requiring demonstrations or fine-tuning. With one round of human feedback as an optional optimization, performance increases to 88.2% on LIBERO. This demonstration-free capability has immediate practical value: FAEA can autonomously explore novel scenarios in simulation and generate successful trajectories for training data augmentation in embodied learning. Our results indicate that general-purpose agents are sufficient for a class of manipulation tasks dominated by deliberative, task-level planning. This opens a path for robotics systems to leverage actively maintained agent infrastructure and benefit directly from ongoing advances in frontier models. Code is available at https://github.com/robiemusketeer/faea-sim</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-28T07:49:35Z</published>
+    <arxiv:comment>Accepted to IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Brian Y. Tsui</name>
+    </author>
+    <author>
+      <name>Alan Y. Fang</name>
+    </author>
+    <author>
+      <name>Tiffany J. Hwu</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Zw93l56yqgyo7971AJTi2OWuBNY</id>
+  <title>arXiv Query: search_query=ti:"Asynchronous Distributed Trajectory Estimation of Multi-Robot Systems" OR ti:"A Hierarchical Navigation Framework for Microrobot Swarms in Unknown Vascular Networks Via Local Perception" OR ti:"ESPADA: Execution Speedup Via Semantics Aware Demonstration Data Downsampling for Imitation Learning" OR ti:"What Can Robot Foundation Models Learn from Limited Human Demonstrations? Fine-Tuning with Human Task Videos" OR ti:"Differentiable Weights-Varying Nonlinear MPC Via Gradient-Based Policy Learning: An Autonomous Vehicle Guidance Example" OR ti:"Learning Causal Structure Distributions for Robust Planning" OR ti:"Exploiting LiDAR Symmetries to Enhance Value Estimation Policies" OR ti:"Disturbance-Observer-Like Reinforcement Learning Control for Stable Bipedal Locomotion on Moving Platforms" OR ti:"Safe Navigation of Bipedal Robots Via Koopman Operator-Based Model Predictive Control" OR ti:"Predicting Human Locomotion in Reduced Gravity Via Deep Learning-Driven Musculoskeletal Simulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:22Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Asynchronous+Distributed+Trajectory+Estimation+of+Multi-Robot+Systems%22+OR+(ti:%22A+Hierarchical+Navigation+Framework+for+Microrobot+Swarms+in+Unknown+Vascular+Networks+Via+Local+Perception%22+OR+(ti:%22ESPADA:+Execution+Speedup+Via+Semantics+Aware+Demonstration+Data+Downsampling+for+Imitation+Learning%22+OR+(ti:%22What+Can+Robot+Foundation+Models+Learn+from+Limited+Human+Demonstrations?+Fine-Tuning+with+Human+Task+Videos%22+OR+(ti:%22Differentiable+Weights-Varying+Nonlinear+MPC+Via+Gradient-Based+Policy+Learning:+An+Autonomous+Vehicle+Guidance+Example%22+OR+(ti:%22Learning+Causal+Structure+Distributions+for+Robust+Planning%22+OR+(ti:%22Exploiting+LiDAR+Symmetries+to+Enhance+Value+Estimation+Policies%22+OR+(ti:%22Disturbance-Observer-Like+Reinforcement+Learning+Control+for+Stable+Bipedal+Locomotion+on+Moving+Platforms%22+OR+(ti:%22Safe+Navigation+of+Bipedal+Robots+Via+Koopman+Operator-Based+Model+Predictive+Control%22+OR+ti:%22Predicting+Human+Locomotion+in+Reduced+Gravity+Via+Deep+Learning-Driven+Musculoskeletal+Simulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.07371v3</id>
+    <title>ESPADA: Execution Speedup via Semantics Aware Demonstration Data Downsampling for Imitation Learning</title>
+    <updated>2026-04-26T08:11:21Z</updated>
+    <link href="https://arxiv.org/abs/2512.07371v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.07371v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Behavior-cloning based visuomotor policies enable precise manipulation but often inherit the slow, cautious tempo of human demonstrations, limiting practical deployment. However, prior studies on acceleration methods mainly rely on statistical or heuristic cues that ignore task semantics and can fail across diverse manipulation settings. We present ESPADA, a semantic and spatially aware framework that segments demonstrations using a VLM-LLM pipeline with 3D gripper-object relations, enabling aggressive downsampling only in non-critical segments while preserving precision-critical phases, without requiring extra data or architectural modifications, or any form of retraining. To scale from a single annotated episode to the full dataset, ESPADA propagates segment labels via Dynamic Time Warping (DTW) on dynamics-only features. Across both simulation and real-world experiments with ACT and DP baselines, ESPADA achieves approximately a 2x speed-up while maintaining success rates, narrowing the gap between human demonstrations and efficient robot control.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-08T10:08:33Z</published>
+    <arxiv:comment>project page: https://project-espada.github.io/espada/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Byung-ju Kim</name>
+    </author>
+    <author>
+      <name>Jinu Pahk</name>
+    </author>
+    <author>
+      <name>Chungwoo Lee</name>
+    </author>
+    <author>
+      <name>Jaejoon Kim</name>
+    </author>
+    <author>
+      <name>Jangha Lee</name>
+    </author>
+    <author>
+      <name>Theo Taeyeong Kim</name>
+    </author>
+    <author>
+      <name>Kyuhwan Shim</name>
+    </author>
+    <author>
+      <name>Jun Ki Lee</name>
+    </author>
+    <author>
+      <name>Byoung-Tak Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.14736v3</id>
+    <title>Safe Navigation of Bipedal Robots via Koopman Operator-Based Model Predictive Control</title>
+    <updated>2026-03-07T21:25:22Z</updated>
+    <link href="https://arxiv.org/abs/2409.14736v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.14736v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Nonlinearity in dynamics has long been a major challenge in robotics, often causing significant performance degradation in existing control algorithms. For example, the navigation of bipedal robots can exhibit nonlinear behaviors even under simple velocity commands, as their actual dynamics are governed by complex whole-body movements and discrete contacts. In this work, we propose a safe navigation framework inspired by Koopman operator theory. We first train a low-level locomotion policy using deep reinforcement learning, and then capture its low-frequency, base-level dynamics by learning linearized dynamics in a high-dimensional lifted space. Then, our model-predictive controller (MPC) efficiently optimizes control signals via a standard quadratic objective and the linear dynamics constraint in the lifted space. We demonstrate that the Koopman model more accurately predicts bipedal robot trajectories than baseline approaches. We also show that the proposed navigation framework achieves improved safety with better success rates in dense environments with narrow passages.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-23T06:31:03Z</published>
+    <arxiv:comment>9 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jeonghwan Kim</name>
+    </author>
+    <author>
+      <name>Yunhai Han</name>
+    </author>
+    <author>
+      <name>Harish Ravichandar</name>
+    </author>
+    <author>
+      <name>Sehoon Ha</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.01106v2</id>
+    <title>Technical Report: Asynchronous Distributed Trajectory Estimation of Multi-Robot Systems</title>
+    <updated>2026-07-15T21:29:43Z</updated>
+    <link href="https://arxiv.org/abs/2607.01106v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.01106v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Distributed trajectory estimation arises in many applications across robotics, but existing implementations typically do not consider asynchrony in agents' communications and computations. Therefore, we propose an asynchronous block coordinate descent algorithm for distributed trajectory estimation. We consider a team of agents that observes a team of robots and estimates the robots' states over a sliding window. The agents solve an approximation of the maximum a posteriori estimation problem, which we derive. We show this approximation introduces negligible errors and eliminates up to 96.9% of communications among agents. Next, we prove that agents' iterates converge exponentially fast to the optimal estimate of the robots' states. Simulations show that this approach has up to 64% less error than a comparable state-of-the-art algorithm. Experiments on mobile robots show this approach is robust to delays whose lengths span three orders of magnitude.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-01T15:57:28Z</published>
+    <arxiv:comment>13 pages, 3 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Adam Pooley</name>
+    </author>
+    <author>
+      <name>Matthew Hale</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.06742v1</id>
+    <title>Learning Causal Structure Distributions for Robust Planning</title>
+    <updated>2025-08-08T22:43:17Z</updated>
+    <link href="https://arxiv.org/abs/2508.06742v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.06742v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Structural causal models describe how the components of a robotic system interact. They provide both structural and functional information about the relationships that are present in the system. The structural information outlines the variables among which there is interaction. The functional information describes how such interactions work, via equations or learned models. In this paper we find that learning the functional relationships while accounting for the uncertainty about the structural information leads to more robust dynamics models which improves downstream planning, while using significantly lower computational resources. This in contrast with common model-learning methods that ignore the causal structure and fail to leverage the sparsity of interactions in robotic systems. We achieve this by estimating a causal structure distribution that is used to sample causal graphs that inform the latent-space representations in an encoder-multidecoder probabilistic model. We show that our model can be used to learn the dynamics of a robot, which together with a sampling-based planner can be used to perform new tasks in novel environments, provided an objective function for the new requirement is available. We validate our method using manipulators and mobile robots in both simulation and the real-world. Additionally, we validate the learned dynamics' adaptability and increased robustness to corrupted inputs and changes in the environment, which is highly desirable in challenging real-world robotics scenarios. Video: https://youtu.be/X6k5t7OOnNc.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-08T22:43:17Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE ROBOTICS AND AUTOMATION LETTERS (RA-L) 2025</arxiv:journal_ref>
+    <author>
+      <name>Alejandro Murillo-Gonzalez</name>
+    </author>
+    <author>
+      <name>Junhong Xu</name>
+    </author>
+    <author>
+      <name>Lantao Liu</name>
+    </author>
+  </entry>
+</feed>

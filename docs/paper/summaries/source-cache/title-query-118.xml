@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/AYdFNzIlPcASKnJjK/XPRaI8oLw</id>
+  <title>arXiv Query: search_query=ti:"Unsupervised Motion Primitive Identification under Translational Physical Constraints in Contact-Rich Tasks" OR ti:"Bi-AQUA: Bilateral Control-Based Imitation Learning for Underwater Robot Arms Via Lighting-Aware Action Chunking with Transformers" OR ti:"A Physics-Embedded Human Motion Predictor Fusing Articulated Pose and Scene Geometry" OR ti:"Real-Time Phase-Conditioned Human Motion Forecasting for Wearable Robot Control" OR ti:"Inflatable Whole-Body Robotic Skin with Internal Time-Of-Flight (ToF) Depth Sensing and Kinematics-Based Point-Cloud Prediction" OR ti:"Low-Latency Blimp Takeoff and Landing with a Reformulated Vision-Based Controller" OR ti:"Proprioceptive Shape Sensing for Tendon-Driven Multi-Segment Continuum Robotic Bronchoscope" OR ti:"Tendon-Actuated Galvanometer Robot (TAGR) towards Minimally Invasive Hybrid Surgical Laser Steering" OR ti:"Urinary Catheter Insertion Assist Mechanism Using a Low-Pressure Water-Hydraulic Soft Growing Actuator for Smooth Navigation through a Urethral Stenosis" OR ti:"Bio-Inspired Self-Oscillating Needle Transducer with Unified In-Keyhole Sensing and Actuation Capability"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:43Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Unsupervised+Motion+Primitive+Identification+under+Translational+Physical+Constraints+in+Contact-Rich+Tasks%22+OR+(ti:%22Bi-AQUA:+Bilateral+Control-Based+Imitation+Learning+for+Underwater+Robot+Arms+Via+Lighting-Aware+Action+Chunking+with+Transformers%22+OR+(ti:%22A+Physics-Embedded+Human+Motion+Predictor+Fusing+Articulated+Pose+and+Scene+Geometry%22+OR+(ti:%22Real-Time+Phase-Conditioned+Human+Motion+Forecasting+for+Wearable+Robot+Control%22+OR+(ti:%22Inflatable+Whole-Body+Robotic+Skin+with+Internal+Time-Of-Flight+(ToF)+Depth+Sensing+and+Kinematics-Based+Point-Cloud+Prediction%22+OR+(ti:%22Low-Latency+Blimp+Takeoff+and+Landing+with+a+Reformulated+Vision-Based+Controller%22+OR+(ti:%22Proprioceptive+Shape+Sensing+for+Tendon-Driven+Multi-Segment+Continuum+Robotic+Bronchoscope%22+OR+(ti:%22Tendon-Actuated+Galvanometer+Robot+(TAGR)+towards+Minimally+Invasive+Hybrid+Surgical+Laser+Steering%22+OR+(ti:%22Urinary+Catheter+Insertion+Assist+Mechanism+Using+a+Low-Pressure+Water-Hydraulic+Soft+Growing+Actuator+for+Smooth+Navigation+through+a+Urethral+Stenosis%22+OR+ti:%22Bio-Inspired+Self-Oscillating+Needle+Transducer+with+Unified+In-Keyhole+Sensing+and+Actuation+Capability%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.16050v2</id>
+    <title>Bi-AQUA: Bilateral Control-Based Imitation Learning for Underwater Robot Arms via Lighting-Aware Action Chunking with Transformers</title>
+    <updated>2026-03-06T04:18:19Z</updated>
+    <link href="https://arxiv.org/abs/2511.16050v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.16050v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Underwater robotic manipulation remains challenging because lighting variation, color attenuation, scattering, and reduced visibility can severely degrade visuomotor policies. We present Bi-AQUA, the first underwater bilateral control-based imitation learning framework for robot arms that explicitly models lighting within the policy. Bi-AQUA integrates transformer-based bilateral action chunking with a hierarchical lighting-aware design composed of a label-free Lighting Encoder, FiLM-based visual feature modulation, and a lighting token for action conditioning. This design enables adaptation to static and dynamically changing underwater illumination while preserving the force-sensitive advantages of bilateral control, which are particularly important in long-horizon and contact-rich manipulation. Real-world experiments on underwater pick-and-place, drawer closing, and peg extraction tasks show that Bi-AQUA outperforms a bilateral baseline without lighting modeling and achieves robust performance under seen, unseen, and changing lighting conditions. These results highlight the importance of combining explicit lighting modeling with force-aware bilateral imitation learning for reliable underwater manipulation. For additional material, please check: https://mertcookimg.github.io/bi-aqua</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-20T05:11:26Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Takeru Tsunoori</name>
+    </author>
+    <author>
+      <name>Masato Kobayashi</name>
+    </author>
+    <author>
+      <name>Yuki Uranishi</name>
+    </author>
+  </entry>
+</feed>

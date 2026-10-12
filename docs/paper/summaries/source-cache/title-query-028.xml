@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/F7mkmUx11uoO6ExiCS8IVIN65cc</id>
+  <title>arXiv Query: search_query=ti:"Vision-Guided MPPI for Agile Drone Racing: Navigating Arbitrary Gate Poses Via Neural Signed Distance Fields" OR ti:"Clustering-Embedded MPPI: Avoiding Averaging-Induced Failure and Enabling Efficient Cluster Selection for Dynamic Obstacles" OR ti:"DATR: Diffusion-Based 3D Apple Tree Reconstruction Framework with Sparse-View" OR ti:"SG-DOR: Learning Scene Graphs with Direction-Conditioned Occlusion Reasoning for Pepper Plants" OR ti:"MPLog: A Multimodal Panoptic Dataset for Intralogistics" OR ti:"ScanDP: Generalizable 3D Scanning with Diffusion Policy" OR ti:"A Robot Precision Positioning Method Based on Complementary Visual Servoing with a Mid-Joint Configured Camera" OR ti:"Vision-Aided Dynamic In-Hand Localization under Rolling Contact Via Constrained Kalman Filtering" OR ti:"A Preliminary Study of the Effects of a Mechanically Adaptive Foot on a Powered Knee–Ankle Prosthesis Joint Mechanics on Uneven Terrain" OR ti:"SMAT: Staged Multi-Agent Training for Co-Adaptive Exoskeleton Control"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:41Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Vision-Guided+MPPI+for+Agile+Drone+Racing:+Navigating+Arbitrary+Gate+Poses+Via+Neural+Signed+Distance+Fields%22+OR+(ti:%22Clustering-Embedded+MPPI:+Avoiding+Averaging-Induced+Failure+and+Enabling+Efficient+Cluster+Selection+for+Dynamic+Obstacles%22+OR+(ti:%22DATR:+Diffusion-Based+3D+Apple+Tree+Reconstruction+Framework+with+Sparse-View%22+OR+(ti:%22SG-DOR:+Learning+Scene+Graphs+with+Direction-Conditioned+Occlusion+Reasoning+for+Pepper+Plants%22+OR+(ti:%22MPLog:+A+Multimodal+Panoptic+Dataset+for+Intralogistics%22+OR+(ti:%22ScanDP:+Generalizable+3D+Scanning+with+Diffusion+Policy%22+OR+(ti:%22A+Robot+Precision+Positioning+Method+Based+on+Complementary+Visual+Servoing+with+a+Mid-Joint+Configured+Camera%22+OR+(ti:%22Vision-Aided+Dynamic+In-Hand+Localization+under+Rolling+Contact+Via+Constrained+Kalman+Filtering%22+OR+(ti:%22A+Preliminary+Study+of+the+Effects+of+a+Mechanically+Adaptive+Foot+on+a+Powered+Knee%E2%80%93Ankle+Prosthesis+Joint+Mechanics+on+Uneven+Terrain%22+OR+ti:%22SMAT:+Staged+Multi-Agent+Training+for+Co-Adaptive+Exoskeleton+Control%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.07199v1</id>
+    <title>Vision-Guided MPPI for Agile Drone Racing: Navigating Arbitrary Gate Poses via Neural Signed Distance Fields</title>
+    <updated>2026-03-07T13:18:07Z</updated>
+    <link href="https://arxiv.org/abs/2603.07199v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.07199v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous drone racing requires the tight coupling of perception, planning, and control under extreme agility. However, recent approaches typically rely on precomputed spatial reference trajectories or explicit 6-DoF gate pose estimation, rendering them brittle to spatial perturbations, unmodeled track changes, and sensor noise. Conversely, end-to-end learning policies frequently overfit to specific track layouts and struggle with zero-shot generalization. To address these fundamental limitations, we propose a fully onboard, vision guided optimal control framework that enables reference-free agile flight through arbitrarily placed and oriented gates. Central to our approach is Gate-SDF, a novel, implicitly learned neural signed distance field. Gate-SDF directly processes raw, noisy depth images to predict a continuous spatial field that provides both collision repulsion and active geometric guidance toward the valid traversal area. We seamlessly integrate this representation into a sampling-based Model Predictive Path Integral (MPPI) controller. By fully exploiting GPU parallelism, the framework evaluates these continuous spatial constraints across thousands of simulated trajectory rollouts simultaneously in real time. Furthermore, our formulation inherently maintains spatial consistency, ensuring robust navigation even under severe visual occlusion during aggressive maneuvers. Extensive simulations and real-world experiments demonstrate that the proposed system achieves high-speed agile flight and successfully navigates unseen tracks subject to severe unmodeled gate displacements and orientation perturbations. Videos are available at https://zhaofangguo.github.io/vision_guided_mppi/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-07T13:18:07Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Fangguo Zhao</name>
+    </author>
+    <author>
+      <name>Hanbing Zhang</name>
+    </author>
+    <author>
+      <name>Zhouheng Li</name>
+    </author>
+    <author>
+      <name>Xin Guan</name>
+    </author>
+    <author>
+      <name>Shuo Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.06512v1</id>
+    <title>SG-DOR: Learning Scene Graphs with Direction-Conditioned Occlusion Reasoning for Pepper Plants</title>
+    <updated>2026-03-06T17:52:51Z</updated>
+    <link href="https://arxiv.org/abs/2603.06512v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.06512v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic harvesting in dense crop canopies requires effective interventions that depend not only on geometry, but also on explicit, direction-conditioned relations identifying which organs obstruct a target fruit. We present SG-DOR (Scene Graphs with Direction-Conditioned Occlusion Reasoning), a relational framework that, given instance-segmented organ point clouds, infers a scene graph encoding physical attachments and direction-conditioned occlusion. We introduce an occlusion ranking task for retrieving and ranking candidate leaves for a target fruit and approach direction, and propose a direction-aware graph neural architecture with per-fruit leaf-set attention and union-level aggregation. Experiments on a multi-plant synthetic pepper dataset show improved occlusion prediction (F1=0.73, NDCG@3=0.85) and attachment inference (edge F1=0.83) over strong ablations, yielding a structured relational signal for downstream intervention planning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T17:52:51Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Rohit Menon</name>
+    </author>
+    <author>
+      <name>Niklas Mueller-Goldingen</name>
+    </author>
+    <author>
+      <name>Sicong Pan</name>
+    </author>
+    <author>
+      <name>Gokul Krishna Chenchani</name>
+    </author>
+    <author>
+      <name>Maren Bennewitz</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.07618v1</id>
+    <title>SMAT: Staged Multi-Agent Training for Co-Adaptive Exoskeleton Control</title>
+    <updated>2026-03-08T13:06:36Z</updated>
+    <link href="https://arxiv.org/abs/2603.07618v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.07618v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Effective exoskeleton assistance requires co-adaptation: as the device alters joint dynamics, the user reorganizes neuromuscular coordination, creating a non-stationary learning problem. Most learning-based approaches do not explicitly account for the sequential nature of human motor adaptation, leading to training instability and poorly timed assistance. We propose Staged Multi-Agent Training (SMAT), a four-stage curriculum designed to mirror how users naturally acclimate to a wearable device. In SMAT, a musculoskeletal human actor and a bilateral hip exoskeleton actor are trained progressively: the human first learns unassisted gait, then adapts to the added device mass; the exoskeleton subsequently learns a positive assistance pattern against a stabilized human policy, and finally both agents co-adapt with full torque capacity and bidirectional feedback. We implement SMAT in the MyoAssist simulation environment using a 26-muscle lower-limb model and an attached hip exoskeleton. Our musculoskeletal simulations demonstrate that the learned exoskeleton control policy produces an average 10.1% reduction in hip muscle activation relative to the no-assist condition. We validated the learned controller in an offline setting using open-source gait data, then deployed it to a physical hip exoskeleton for treadmill experiments with five subjects. The resulting policy delivers consistent assistance and predominantly positive mechanical power without the need for any explicitly imposed timing shift (mean positive power: 13.6 W at 6 Nm RMS torque to 23.8 W at 9.3 Nm RMS torque, with minimal negative power) consistently across all subjects without subject-specific retraining.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-08T13:06:36Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yifei Yuan</name>
+    </author>
+    <author>
+      <name>Ghaith Androwis</name>
+    </author>
+    <author>
+      <name>Xianlian Zhou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.19508v1</id>
+    <title>DATR: Diffusion-based 3D Apple Tree Reconstruction Framework with Sparse-View</title>
+    <updated>2025-08-27T01:45:54Z</updated>
+    <link href="https://arxiv.org/abs/2508.19508v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.19508v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Digital twin applications offered transformative potential by enabling real-time monitoring and robotic simulation through accurate virtual replicas of physical assets. The key to these systems is 3D reconstruction with high geometrical fidelity. However, existing methods struggled under field conditions, especially with sparse and occluded views. This study developed a two-stage framework (DATR) for the reconstruction of apple trees from sparse views. The first stage leverages onboard sensors and foundation models to semi-automatically generate tree masks from complex field images. Tree masks are used to filter out background information in multi-modal data for the single-image-to-3D reconstruction at the second stage. This stage consists of a diffusion model and a large reconstruction model for respective multi view and implicit neural field generation. The training of the diffusion model and LRM was achieved by using realistic synthetic apple trees generated by a Real2Sim data generator. The framework was evaluated on both field and synthetic datasets. The field dataset includes six apple trees with field-measured ground truth, while the synthetic dataset featured structurally diverse trees. Evaluation results showed that our DATR framework outperformed existing 3D reconstruction methods across both datasets and achieved domain-trait estimation comparable to industrial-grade stationary laser scanners while improving the throughput by $\sim$360 times, demonstrating strong potential for scalable agricultural digital twin systems.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-27T01:45:54Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tian Qiu</name>
+    </author>
+    <author>
+      <name>Alan Zoubi</name>
+    </author>
+    <author>
+      <name>Yiyuan Lin</name>
+    </author>
+    <author>
+      <name>Ruiming Du</name>
+    </author>
+    <author>
+      <name>Lailiang Cheng</name>
+    </author>
+    <author>
+      <name>Yu Jiang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10390v1</id>
+    <title>ScanDP: Generalizable 3D Scanning with Diffusion Policy</title>
+    <updated>2026-03-11T04:13:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.10390v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10390v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning-based 3D Scanning plays a crucial role in enabling efficient and accurate scanning of target objects. However, recent reinforcement learning-based methods often require large-scale training data and still struggle to generalize to unseen object categories.In this work, we propose a data-efficient 3D scanning framework that uses Diffusion Policy to imitate human-like scanning strategies. To enhance robustness and generalization, we adopt the Occupancy Grid Mapping instead of direct point cloud processing, offering improved noise resilience and handling of diverse object geometries. We also introduce a hybrid approach combining a sphere-based space representation with a path optimization procedure that ensures path safety and scanning efficiency. This approach addresses limitations in conventional imitation learning, such as redundant or unpredictable behavior. We evaluate our method on diverse unseen objects in both shape and scale. Ours achieves higher coverage and shorter paths than baselines, while remaining robust to sensor noise. We further confirm practical feasibility and stable operation in real-world execution.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T04:13:16Z</published>
+    <arxiv:comment>8 pages, 7 figures, 5 tables. Project Page: https://treeitsuki.github.io/ScanDP/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Itsuki Hirako</name>
+    </author>
+    <author>
+      <name>Ryo Hakoda</name>
+    </author>
+    <author>
+      <name>Yubin Liu</name>
+    </author>
+    <author>
+      <name>Matthew Hwang</name>
+    </author>
+    <author>
+      <name>Yoshihiro Sato</name>
+    </author>
+    <author>
+      <name>Takeshi Oishi</name>
+    </author>
+  </entry>
+</feed>

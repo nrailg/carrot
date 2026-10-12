@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/LAaYyY5o2K0zLMWBFAVUz1QWmdo</id>
+  <title>arXiv Query: search_query=ti:"Symmetry-Driven Adaptive Torque Assistance Optimization for Active Knee Orthosis Via Non-Paretic Kinematic Priors" OR ti:"Blood Flow Enhancement for DVT Prevention through Active Ankle Exercises Using a Soft Robotic Wearable Device" OR ti:"Enabling Scalable Infrastructure-To-Vehicle Data Generation: A High-Fidelity Fusion Pipeline with a Scene Harmonizer for Visual and Logical Consistency" OR ti:"DiffAttn: Diffusion-Based Drivers' Visual Attention Prediction with LLM-Enhanced Semantic Reasoning" OR ti:"Spatial Balancing for RGB-Thermal Semantic Segmentation in Autonomous Driving: A Study from Analysis to Improvement" OR ti:"Automated Synthesis of Control-Aware Lyapunov Functions for Nonlinear Systems Via LLM-Guided Iterative Verification" OR ti:"FISRF: Flexible Instructional Scaffolding Reflection Framework for Robotics Task Planning with Large Language Model" OR ti:"Safety Guardrails for LLM-Enabled Robots" OR ti:"A Pragmatist Robot: Learning to Plan Tasks by Experiencing the Real World" OR ti:"AFSM-Nav: Training-Free Object Navigation Via Self-Repairing LLM-Synthesized Finite State Machines"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:31Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Symmetry-Driven+Adaptive+Torque+Assistance+Optimization+for+Active+Knee+Orthosis+Via+Non-Paretic+Kinematic+Priors%22+OR+(ti:%22Blood+Flow+Enhancement+for+DVT+Prevention+through+Active+Ankle+Exercises+Using+a+Soft+Robotic+Wearable+Device%22+OR+(ti:%22Enabling+Scalable+Infrastructure-To-Vehicle+Data+Generation:+A+High-Fidelity+Fusion+Pipeline+with+a+Scene+Harmonizer+for+Visual+and+Logical+Consistency%22+OR+(ti:%22DiffAttn:+Diffusion-Based+Drivers'+Visual+Attention+Prediction+with+LLM-Enhanced+Semantic+Reasoning%22+OR+(ti:%22Spatial+Balancing+for+RGB-Thermal+Semantic+Segmentation+in+Autonomous+Driving:+A+Study+from+Analysis+to+Improvement%22+OR+(ti:%22Automated+Synthesis+of+Control-Aware+Lyapunov+Functions+for+Nonlinear+Systems+Via+LLM-Guided+Iterative+Verification%22+OR+(ti:%22FISRF:+Flexible+Instructional+Scaffolding+Reflection+Framework+for+Robotics+Task+Planning+with+Large+Language+Model%22+OR+(ti:%22Safety+Guardrails+for+LLM-Enabled+Robots%22+OR+(ti:%22A+Pragmatist+Robot:+Learning+to+Plan+Tasks+by+Experiencing+the+Real+World%22+OR+ti:%22AFSM-Nav:+Training-Free+Object+Navigation+Via+Self-Repairing+LLM-Synthesized+Finite+State+Machines%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.28251v3</id>
+    <title>DiffAttn: Diffusion-Based Drivers' Visual Attention Prediction with LLM-Enhanced Semantic Reasoning</title>
+    <updated>2026-06-16T09:39:38Z</updated>
+    <link href="https://arxiv.org/abs/2603.28251v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.28251v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Drivers' visual attention provides critical cues for anticipating latent hazards and directly shapes decision-making and control maneuvers, where its absence can compromise traffic safety. To emulate drivers' perception patterns and advance visual attention prediction for intelligent vehicles, we propose DiffAttn, a diffusion-based framework that formulates this task as a conditional diffusion-denoising process, enabling more accurate modeling of drivers' attention. To capture both local and global scene features, we adopt Swin Transformer as encoder and design a decoder that combines a Feature Fusion Pyramid for cross-layer interaction with dense, multi-scale conditional diffusion to jointly enhance denoising learning and model fine-grained local and global scene contexts. Additionally, a large language model (LLM) layer is incorporated to enhance top-down semantic reasoning and improve sensitivity to safety-critical cues. Extensive experiments on four public datasets demonstrate that DiffAttn achieves state-of-the-art (SoTA) performance, surpassing most video-based, top-down-feature-driven, and LLM-enhanced baselines. Our framework further supports interpretable driver-centric scene understanding and has the potential to improve in-cabin human-machine interaction, risk perception, and drivers' state measurement in intelligent vehicles.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-30T10:24:20Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Weimin Liu</name>
+    </author>
+    <author>
+      <name>Qingkun Li</name>
+    </author>
+    <author>
+      <name>Jiyuan Qiu</name>
+    </author>
+    <author>
+      <name>Wenjun Wang</name>
+    </author>
+    <author>
+      <name>Joshua H. Meng</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.16713v2</id>
+    <title>A Pragmatist Robot: Learning to Plan Tasks by Experiencing the Real World</title>
+    <updated>2026-02-14T07:11:52Z</updated>
+    <link href="https://arxiv.org/abs/2507.16713v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.16713v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large language models (LLMs) have emerged as the dominant paradigm for robotic task planning using natural language instructions. However, trained on general internet data, LLMs are not inherently aligned with the embodiment, skill sets, and limitations of real-world robotic systems. Inspired by the emerging paradigm of verbal reinforcement learning-where LLM agents improve through self-reflection and few-shot learning without parameter updates-we introduce PragmaBot, a framework that enables robots to learn task planning through real-world experience. PragmaBot employs a vision-language model (VLM) as the robot's "brain" and "eye", allowing it to visually evaluate action outcomes and self-reflect on failures. These reflections are stored in a short-term memory (STM), enabling the robot to quickly adapt its behavior during ongoing tasks. Upon task completion, the robot summarizes the lessons learned into its long-term memory (LTM). When facing new tasks, it can leverage retrieval-augmented generation (RAG) to plan more grounded action sequences by drawing on relevant past experiences and knowledge. Experiments on four challenging robotic tasks show that STM-based self-reflection increases task success rates from 35% to 84%, with emergent intelligent object interactions. In 12 real-world scenarios (including eight previously unseen tasks), the robot effectively learns from the LTM and improves single-trial success rates from 22% to 80%, with RAG outperforming naive prompting. These results highlight the effectiveness and generalizability of PragmaBot. Project webpage: https://pragmabot.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-22T15:48:49Z</published>
+    <arxiv:comment>Accepted to RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kaixian Qu</name>
+    </author>
+    <author>
+      <name>Guowei Lan</name>
+    </author>
+    <author>
+      <name>René Zurbrügg</name>
+    </author>
+    <author>
+      <name>Changan Chen</name>
+    </author>
+    <author>
+      <name>Christopher E. Mower</name>
+    </author>
+    <author>
+      <name>Haitham Bou-Ammar</name>
+    </author>
+    <author>
+      <name>Marco Hutter</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.07885v2</id>
+    <title>Safety Guardrails for LLM-Enabled Robots</title>
+    <updated>2026-03-03T23:39:07Z</updated>
+    <link href="https://arxiv.org/abs/2503.07885v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.07885v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Although the integration of large language models (LLMs) into robotics has unlocked transformative capabilities, it has also introduced significant safety concerns, ranging from average-case LLM errors (e.g., hallucinations) to adversarial jailbreaking attacks, which can produce harmful robot behavior in real-world settings. Traditional robot safety approaches do not address the contextual vulnerabilities of LLMs, and current LLM safety approaches overlook the physical risks posed by robots operating in real-world environments. To ensure the safety of LLM-enabled robots, we propose RoboGuard, a two-stage guardrail architecture. RoboGuard first contextualizes pre-defined safety rules by grounding them in the robot's environment using a root-of-trust LLM. This LLM is shielded from malicious prompts and employs chain-of-thought (CoT) reasoning to generate context-dependent safety specifications, such as temporal logic constraints. RoboGuard then resolves conflicts between these contextual safety specifications and potentially unsafe plans using temporal logic control synthesis, ensuring compliance while minimally violating user preferences. In simulation and real-world experiments that consider worst-case jailbreaking attacks, RoboGuard reduces the execution of unsafe plans from over 92% to below 3% without compromising performance on safe plans. We also demonstrate that RoboGuard is resource-efficient, robust against adaptive attacks, and enhanced by its root-of-trust LLM's CoT reasoning. These results demonstrate the potential of RoboGuard to mitigate the safety risks and enhance the reliability of LLM-enabled robots. We provide additional resources at https://robo-guard.github.io/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-10T22:01:56Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zachary Ravichandran</name>
+    </author>
+    <author>
+      <name>Alexander Robey</name>
+    </author>
+    <author>
+      <name>Vijay Kumar</name>
+    </author>
+    <author>
+      <name>George J. Pappas</name>
+    </author>
+    <author>
+      <name>Hamed Hassani</name>
+    </author>
+  </entry>
+</feed>

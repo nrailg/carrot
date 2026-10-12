@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/67WJHzaoBW8UwVuVlenYc8uvXdQ</id>
+  <title>arXiv Query: search_query=ti:"Design and Control of a Multimodal Legged-Aerial Robot through Separate Control Contraction Metrics" OR ti:"Closed-Loop Control of Steerable Balloon Endoscopes for Robot-Assisted Transcatheter Intracardiac Procedures" OR ti:"A Fluidically Controlled, Self-Deploying and Self-Detaching Soft Capsule for Gastrointestinal Therapies" OR ti:"Helical and Planar Continuum Robot Shapes by Structural Tube Modifications and Backbone Length Control" OR ti:"Bilinear Model Predictive Control Framework of the OncoReach, a Tendon-Driven Steerable Stylet for Brachytherapy" OR ti:"Robust Optimal Reciprocal Collision Avoidance" OR ti:"Safe and Adaptive Multi‑Robot Formation Control Via Composed CBFs in the Presence of Dynamic and Uncertain Obstacles" OR ti:"AH-RRT: A Hierarchical RRT-Based Path Planning Framework for Cooperative Transport of Large Rigid Objects" OR ti:"Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty" OR ti:"IO-WBC: Interaction-Orientated Whole-Body Control for Compliant Object Transport"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:31Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Design+and+Control+of+a+Multimodal+Legged-Aerial+Robot+through+Separate+Control+Contraction+Metrics%22+OR+(ti:%22Closed-Loop+Control+of+Steerable+Balloon+Endoscopes+for+Robot-Assisted+Transcatheter+Intracardiac+Procedures%22+OR+(ti:%22A+Fluidically+Controlled,+Self-Deploying+and+Self-Detaching+Soft+Capsule+for+Gastrointestinal+Therapies%22+OR+(ti:%22Helical+and+Planar+Continuum+Robot+Shapes+by+Structural+Tube+Modifications+and+Backbone+Length+Control%22+OR+(ti:%22Bilinear+Model+Predictive+Control+Framework+of+the+OncoReach,+a+Tendon-Driven+Steerable+Stylet+for+Brachytherapy%22+OR+(ti:%22Robust+Optimal+Reciprocal+Collision+Avoidance%22+OR+(ti:%22Safe+and+Adaptive+Multi%E2%80%91Robot+Formation+Control+Via+Composed+CBFs+in+the+Presence+of+Dynamic+and+Uncertain+Obstacles%22+OR+(ti:%22AH-RRT:+A+Hierarchical+RRT-Based+Path+Planning+Framework+for+Cooperative+Transport+of+Large+Rigid+Objects%22+OR+(ti:%22Mutual+Adaptation+in+Human-Robot+Co-Transportation+with+Human+Preference+Uncertainty%22+OR+ti:%22IO-WBC:+Interaction-Orientated+Whole-Body+Control+for+Compliant+Object+Transport%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.01199v1</id>
+    <title>Closed-loop Control of Steerable Balloon Endoscopes for Robot-assisted Transcatheter Intracardiac Procedures</title>
+    <updated>2025-11-03T03:47:02Z</updated>
+    <link href="https://arxiv.org/abs/2511.01199v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.01199v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>To move away from open-heart surgery towards safer transcatheter procedures, there is a growing need for improved imaging techniques and robotic solutions to enable simple, accurate tool navigation. Common imaging modalities, such as fluoroscopy and ultrasound, have limitations that can be overcome using cardioscopy, i.e., direct optical visualization inside the beating heart. We present a cardioscope designed as a steerable balloon. As a balloon, it can be collapsed to pass through the vasculature and subsequently inflated inside the heart for visualization and tool delivery through an integrated working channel. Through careful design of balloon wall thickness, a single input, balloon inflation pressure, is used to independently control two outputs, balloon diameter (corresponding to field of view diameter) and balloon bending angle (enabling precise working channel positioning). This balloon technology can be tuned to produce cardioscopes designed for a range of intracardiac tasks. To illustrate this approach, a balloon design is presented for the specific task of aortic leaflet laceration. Image-based closed-loop control of bending angle is also demonstrated as a means of enabling stable orientation control during tool insertion and removal.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-03T03:47:02Z</published>
+    <arxiv:comment>8 pages, 11 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, Volume 11, Issue 4, Pages 4211-4218, 2026</arxiv:journal_ref>
+    <author>
+      <name>Max McCandless</name>
+    </author>
+    <author>
+      <name>Jonathan Hamid</name>
+    </author>
+    <author>
+      <name>Sammy Elmariah</name>
+    </author>
+    <author>
+      <name>Nathaniel Langer</name>
+    </author>
+    <author>
+      <name>Pierre E. Dupont</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3664592</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3664592" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.05111v1</id>
+    <title>Bilinear Model Predictive Control Framework of the OncoReach, a Tendon-Driven Steerable Stylet for Brachytherapy</title>
+    <updated>2026-04-06T19:17:43Z</updated>
+    <link href="https://arxiv.org/abs/2604.05111v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.05111v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Steerable needles have the potential to improve interstitial brachytherapy by enabling curved trajectories that avoid sensitive anatomical structures. However, existing modeling and control approaches are primarily developed for custom needle designs and are not directly applicable to stylets compatible with commercially available clinical needles. This paper presents a bilinear model predictive control (MPC) framework for a tendon-driven steerable stylet integrated with a standard brachytherapy needle. \textcolor{black}{A geometric bilinear model is formulated with three virtual inputs (an insertion speed and two bending rates) which are mapped to physically realizable inputs consisting of the insertion speed and the associated tendon tensions.} The approach is validated through simulations and physical insertion experiments in tissue-mimicking phantom material using image-based tip tracking. While open-loop model validation yielded estimation errors below $2$~mm, corresponding to $3\%$ of the inserted needle length, and closed-loop fixed-target tracking achieved an error as low as $1.45$~mm, corresponding to $1.7\%$ of the inserted length, experiments showed larger position errors in certain bending directions, reaching $8.3$~mm, or $7.8\%$ of the inserted length. Overall, the results demonstrate the feasibility of fixed-target positioning and moving-target trajectory tracking for clinically compatible steerable brachytherapy systems, while highlighting necessary areas for future improvements in calibration and sensing.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-06T19:17:43Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Pejman Kheradmand</name>
+    </author>
+    <author>
+      <name>Behnam Moradkhani</name>
+    </author>
+    <author>
+      <name>Mir Masoud Ale Ali</name>
+    </author>
+    <author>
+      <name>Keith Sowards</name>
+    </author>
+    <author>
+      <name>Scott R. Silva</name>
+    </author>
+    <author>
+      <name>Yash Chitalia</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.08895v2</id>
+    <title>Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty</title>
+    <updated>2026-06-17T04:01:07Z</updated>
+    <link href="https://arxiv.org/abs/2503.08895v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.08895v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Mutual adaptation can enhance overall task performance in human-robot co-transportation by integrating both the robot's and the human's understanding of the environment. While human modeling helps capture humans' subjective preferences, two challenges persist: (i) the uncertainty of human preference parameters and (ii) the need to balance adaptation strategies that benefit both humans and robots. In this paper, we propose a unified framework to address these challenges and improve task performance through mutual adaptation. First, instead of relying on fixed parameters, we model a probability distribution of human choices by incorporating a range of uncertain human preference parameters. Building on this, we introduce a time-varying stubbornness measure and a coordinated planning model, which allows either the robot to lead the team's trajectory or, if a human's preferred path conflicts with the robot's plan and their stubbornness exceeds a threshold, the robot to transition to following the human. Finally, we introduce a pose optimization strategy for low-level control to mitigate the uncertain human behaviors when they are leading. To validate the framework, we design and perform a study with human feedback from twenty human participants. We then demonstrate, through simulations, the effectiveness of our models in enhancing task performance with mutual adaptation and pose optimization.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-11T21:16:38Z</published>
+    <arxiv:comment>9 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Al Jaber Mahmud</name>
+    </author>
+    <author>
+      <name>Weizi Li</name>
+    </author>
+    <author>
+      <name>Xuan Wang</name>
+    </author>
+  </entry>
+</feed>

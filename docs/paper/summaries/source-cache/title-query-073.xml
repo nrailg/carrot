@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/v9BPTJ8AmWWPJ0ftGQ3XAJ6hl1M</id>
+  <title>arXiv Query: search_query=ti:"Self-Augmented Robot Trajectory: Efficient Imitation Learning Via Safe Self-Augmentation with Demonstrator-Annotated Precision" OR ti:"Ask Professor G. How to Grasp: Training-Free Cross-Gripper Grasping from an RGB-D Observation and a Gripper URDF" OR ti:"OSR-Grasp: One-Shot 3D Grasp Pose Estimation Via Reordering for Robotic Manipulation" OR ti:"Disentangling Noisy 6-DoF Grasps: A Synergistic Strategy of Manifold Rectification and Orientation Arbitration" OR ti:"Bin-Picking with Category-Agnostic Segmentation for Unreliable Depth Scenarios" OR ti:"MASt3RGrasper: A Real-Time Language-Guided Robotic Grasping Approach with Minimal RGB Images" OR ti:"Pose Estimation of Transparent Objects Via Depth Completion and Confidence-Guided Registration" OR ti:"Spatially Grounded Long-Horizon Task Planning in the Wild" OR ti:"SCOPE: Scene-graph Construction Optimized by Plan Error-correction for Robot Long-term Planning Datasets" OR ti:"KEJP-CL: Keypoint-Enhanced Joint Prompting with Closed-Loop Segmentation and Recovery for Articulated Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:46Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Self-Augmented+Robot+Trajectory:+Efficient+Imitation+Learning+Via+Safe+Self-Augmentation+with+Demonstrator-Annotated+Precision%22+OR+(ti:%22Ask+Professor+G.+How+to+Grasp:+Training-Free+Cross-Gripper+Grasping+from+an+RGB-D+Observation+and+a+Gripper+URDF%22+OR+(ti:%22OSR-Grasp:+One-Shot+3D+Grasp+Pose+Estimation+Via+Reordering+for+Robotic+Manipulation%22+OR+(ti:%22Disentangling+Noisy+6-DoF+Grasps:+A+Synergistic+Strategy+of+Manifold+Rectification+and+Orientation+Arbitration%22+OR+(ti:%22Bin-Picking+with+Category-Agnostic+Segmentation+for+Unreliable+Depth+Scenarios%22+OR+(ti:%22MASt3RGrasper:+A+Real-Time+Language-Guided+Robotic+Grasping+Approach+with+Minimal+RGB+Images%22+OR+(ti:%22Pose+Estimation+of+Transparent+Objects+Via+Depth+Completion+and+Confidence-Guided+Registration%22+OR+(ti:%22Spatially+Grounded+Long-Horizon+Task+Planning+in+the+Wild%22+OR+(ti:%22SCOPE:+Scene-graph+Construction+Optimized+by+Plan+Error-correction+for+Robot+Long-term+Planning+Datasets%22+OR+ti:%22KEJP-CL:+Keypoint-Enhanced+Joint+Prompting+with+Closed-Loop+Segmentation+and+Recovery+for+Articulated+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.09893v2</id>
+    <title>Self-Augmented Robot Trajectory: Efficient Imitation Learning via Safe Self-augmentation with Demonstrator-annotated Precision</title>
+    <updated>2026-02-11T07:12:19Z</updated>
+    <link href="https://arxiv.org/abs/2509.09893v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.09893v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Imitation learning is a promising paradigm for training robot agents; however, standard approaches typically require substantial data acquisition -- via numerous demonstrations or random exploration -- to ensure reliable performance. Although exploration reduces human effort, it lacks safety guarantees and often results in frequent collisions -- particularly in clearance-limited tasks (e.g., peg-in-hole) -- thereby, necessitating manual environmental resets and imposing additional human burden. This study proposes Self-Augmented Robot Trajectory (SART), a framework that enables policy learning from a single human demonstration, while safely expanding the dataset through autonomous augmentation. SART consists of two stages: (1) human teaching only once, where a single demonstration is provided and precision boundaries -- represented as spheres around key waypoints -- are annotated, followed by one environment reset; (2) robot self-augmentation, where the robot generates diverse, collision-free trajectories within these boundaries and reconnects to the original demonstration. This design improves the data collection efficiency by minimizing human effort while ensuring safety. Extensive evaluations in simulation and real-world manipulation tasks show that SART achieves substantially higher success rates than policies trained solely on human-collected demonstrations. Video results available at https://sites.google.com/view/sart-il .</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-11T23:10:56Z</published>
+    <arxiv:comment>21 pages, 10 figures, Advanced Robotics accepted 2026.02.03</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hanbit Oh</name>
+    </author>
+    <author>
+      <name>Masaki Murooka</name>
+    </author>
+    <author>
+      <name>Tomohiro Motoda</name>
+    </author>
+    <author>
+      <name>Ryoichi Nakajo</name>
+    </author>
+    <author>
+      <name>Yukiyasu Domae</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.13433v1</id>
+    <title>Spatially Grounded Long-Horizon Task Planning in the Wild</title>
+    <updated>2026-03-13T05:42:18Z</updated>
+    <link href="https://arxiv.org/abs/2603.13433v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.13433v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in robot manipulation increasingly leverage Vision-Language Models (VLMs) for high-level reasoning, such as decomposing task instructions into sequential action plans expressed in natural language that guide downstream low-level motor execution. However, current benchmarks do not assess whether these plans are spatially executable, particularly in specifying the exact spatial locations where the robot should interact to execute the plan, limiting evaluation of real-world manipulation capability. To bridge this gap, we define a novel task of grounded planning and introduce GroundedPlanBench, a newly curated benchmark for spatially grounded long-horizon action planning in the wild. GroundedPlanBench jointly evaluates hierarchical sub-action planning and spatial action grounding (where to act), enabling systematic assessment of whether generated sub-actions are spatially executable for robot manipulation. We further introduce Video-to-Spatially Grounded Planning (V2GP), an automated data generation framework that leverages real-world robot video demonstrations to improve spatially grounded long-horizon planning. Our evaluations reveal that spatially grounded long-horizon planning remains a major bottleneck for current VLMs. Our results demonstrate that V2GP provides a promising approach for improving both action planning and spatial grounding performance, validated on our benchmark as well as through real-world robot manipulation experiments, advancing progress toward spatially actionable planning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-13T05:42:18Z</published>
+    <arxiv:comment>9 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:journal_ref>
+    <author>
+      <name>Sehun Jung</name>
+    </author>
+    <author>
+      <name>HyunJee Song</name>
+    </author>
+    <author>
+      <name>Dong-Hee Kim</name>
+    </author>
+    <author>
+      <name>Reuben Tan</name>
+    </author>
+    <author>
+      <name>Jianfeng Gao</name>
+    </author>
+    <author>
+      <name>Yong Jae Lee</name>
+    </author>
+    <author>
+      <name>Donghyun Kim</name>
+    </author>
+  </entry>
+</feed>

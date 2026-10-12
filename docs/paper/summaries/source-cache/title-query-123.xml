@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bUnBRlB0n+Kl0ov3zYPVVSdKPEU</id>
+  <title>arXiv Query: search_query=ti:"Dynamic Tactile Sensor (DTS) with Data-driven Super-resolution for Edge Applications" OR ti:"Touch2Know: Dexterous In-Hand Liquid Sensing Via Mutual-Capacitance Fingerprints" OR ti:"HaptiLink: One Glove, Two Roles — Low-Cost Shared Tactile Sensing for Contact-Rich Robot Learning" OR ti:"FruitTouch: A Perceptive Gripper for Gentle and Scalable Fruit Harvesting" OR ti:"Spatially Variant Point Spread Function for Taxel-Based Tactile Super-Resolution on Multi-Curvature Surfaces" OR ti:"TeamWeaver: Hybrid LLM and Optimization-Based Planning with Transparent Constraints in Heterogeneous Multi-Robot Teams" OR ti:"Hierarchical LTL Planning for Heterogeneous Robots with Latent Tasks in Unknown Environments" OR ti:"Few-Shot Demonstration-Driven Task Coordination and Trajectory Execution for Multi-Robot Systems" OR ti:"HI-MAPF - Towards Resource-Efficient Multi-Agent Deployment" OR ti:"Task-Oriented Dexterous Grasping with Diverse Grasp Type"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:03Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Dynamic+Tactile+Sensor+(DTS)+with+Data-driven+Super-resolution+for+Edge+Applications%22+OR+(ti:%22Touch2Know:+Dexterous+In-Hand+Liquid+Sensing+Via+Mutual-Capacitance+Fingerprints%22+OR+(ti:%22HaptiLink:+One+Glove,+Two+Roles+%E2%80%94+Low-Cost+Shared+Tactile+Sensing+for+Contact-Rich+Robot+Learning%22+OR+(ti:%22FruitTouch:+A+Perceptive+Gripper+for+Gentle+and+Scalable+Fruit+Harvesting%22+OR+(ti:%22Spatially+Variant+Point+Spread+Function+for+Taxel-Based+Tactile+Super-Resolution+on+Multi-Curvature+Surfaces%22+OR+(ti:%22TeamWeaver:+Hybrid+LLM+and+Optimization-Based+Planning+with+Transparent+Constraints+in+Heterogeneous+Multi-Robot+Teams%22+OR+(ti:%22Hierarchical+LTL+Planning+for+Heterogeneous+Robots+with+Latent+Tasks+in+Unknown+Environments%22+OR+(ti:%22Few-Shot+Demonstration-Driven+Task+Coordination+and+Trajectory+Execution+for+Multi-Robot+Systems%22+OR+(ti:%22HI-MAPF+-+Towards+Resource-Efficient+Multi-Agent+Deployment%22+OR+ti:%22Task-Oriented+Dexterous+Grasping+with+Diverse+Grasp+Type%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2602.18991v1</id>
+    <title>FruitTouch: A Perceptive Gripper for Gentle and Scalable Fruit Harvesting</title>
+    <updated>2026-02-22T00:38:33Z</updated>
+    <link href="https://arxiv.org/abs/2602.18991v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.18991v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The automation of fruit harvesting has gained increasing significance in response to rising labor shortages. A sensorized gripper is a key component of this process, which must be compact enough for confined spaces, able to stably grasp diverse fruits, and provide reliable feedback on fruit conditions for efficient harvesting. To address this need, we propose FruitTouch, a compact gripper that integrates high-resolution, vision-based tactile sensing through an optimized optical design. This configuration accommodates a wide range of fruit sizes while maintaining low cost and mechanical simplicity. Tactile images captured by an embedded camera provide rich information for real-time force estimation, slip detection, and softness prediction. We validate the gripper in real-world fruit harvesting experiments, demonstrating robust grasp stability and effective damage prevention.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-22T00:38:33Z</published>
+    <arxiv:comment>8 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ruohan Zhang</name>
+    </author>
+    <author>
+      <name>Mohammad Amin Mirzaee</name>
+    </author>
+    <author>
+      <name>Wenzhen Yuan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.15686v2</id>
+    <title>Few-Shot Demonstration-Driven Task Coordination and Trajectory Execution for Multi-Robot Systems</title>
+    <updated>2026-07-03T00:12:43Z</updated>
+    <link href="https://arxiv.org/abs/2510.15686v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.15686v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning coordinated behaviors for multi-robot systems from only a few demonstrations is difficult because temporal task dependencies and spatial trajectory generation are tightly coupled, which increases the hypothesis space and often yields unstable generalization in data-scarce regimes. We present DDACE, a structured few-shot learning framework that introduces a structural inductive bias by explicitly decoupling temporal coordination from spatial trajectory synthesis. Demonstrations are first processed via spectral clustering to extract coordination structure and form interaction graphs. A Temporal Graph Network predicts action dependencies and sequences, while Gaussian Process models generate progress-parameterized geometric trajectories that adapt to new start/goal configurations. This factorized design reduces hypothesis coupling and improves data efficiency for few-shot multi-robot coordination. Extensive simulation studies and real-robot experiments show that DDACE produces stable coordinated executions from a small number of demonstrations and improves trajectory consistency compared to end-to-end imitation baselines under limited data. Additional materials are available at https://sites.google.com/view/ddace.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-17T14:30:29Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Taehyeon Kim</name>
+    </author>
+    <author>
+      <name>Vishnunandan L. N. Venkatesh</name>
+    </author>
+    <author>
+      <name>Byung-Cheol Min</name>
+    </author>
+  </entry>
+</feed>

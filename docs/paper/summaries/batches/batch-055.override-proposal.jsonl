@@ -1,0 +1,1 @@
+{"paper_id": "arxiv:2608.11221", "evidence_url": "https://arxiv.org/html/2608.11221v1", "evidence_type": "arxiv_abstract_and_body", "body_note": "官方第4.2–4.4节：Morris敏感性分析按随机不确定性阈值增删影响因素；敏感性指导加权LHS；以分段单调查表抽象影响函数。第3节为TurtleBot3 Simulink/Gazebo共仿真。", "reason": "摘要只概述概念框架，正文补足具体精化机制。"}

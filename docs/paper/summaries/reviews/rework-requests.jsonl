@@ -1,0 +1,52 @@
+{"batch_id": "batch-009", "paper_id": "arxiv:2603.22118", "reason": "optimization guidance 被收窄为原摘要未明确的优化约束；要求整批40条重核，避免补写机制。", "state": "requested"}
+{"batch_id": "batch-009", "state": "resolved", "basis": "worker重核全部40条；parent复验7条修改及原抽查项。"}
+{"batch_id": "batch-018", "paper_id": "arxiv:2607.13654", "state": "requested", "reason": "无机器人或仿真关联的虚拟服装编辑不能仅因3D几何纳入机器人支撑；要求重核整批范围分类。"}
+{"batch_id": "batch-018", "state": "resolved", "basis": "worker重核40条范围分类；parent复验唯一变更2607.13654，并核读所有已标记边界条目。"}
+{"batch_id": "batch-015", "state": "requested", "reason": "父审范围再次校准：纯视频与消费级3D内容生成，未建立机器人或策略学习关联；回核整批范围，重点11673、11836。"}
+{"batch_id": "batch-015", "state": "resolved", "basis": "worker全40条范围重核，parent复验2条变更，其余抽查及边界记录保持有效。"}
+{"batch_id": "batch-029", "state": "requested", "reason": "Cosserat杆动力学仿真主类误为perception_state；要求全批主类重核。"}
+{"batch_id": "batch-029", "state": "resolved", "basis": "worker全批复核，parent核读两条变更及全部边界与抽样项。"}
+{"batch_id": "batch-044", "state": "requested", "reason": "GraspMeanFlow备注疑似错位；Tired Actor物理角色模仿策略范围需校正。要求全批字段对应及范围复核。"}
+{"batch_id": "batch-044", "state": "resolved", "basis": "worker全40条字段和范围重核；parent核读3变更及全部不确定项、样本，修正可接受。"}
+{"batch_id": "batch-047", "state": "requested", "reason": "SkillZip备注与物理贴片攻击错位；机器人仅作生理效应测量工具的05635范围误判。要求全批字段和范围返工、以后按ID构造备注。"}
+{"batch_id": "batch-047", "state": "resolved", "basis": "worker全批按ID核对备注及范围并改3条；parent核读变更、全部不确定项与抽样，结果可接受。"}
+{"batch_id": "batch-048", "state": "requested", "reason": "06770手术纯视频生成与06535通用CPS软件测试缺机器人具体关联，要求全批范围重核。"}
+{"batch_id": "batch-048", "state": "resolved", "basis": "worker全40条范围重核改2条；parent复验两条及全部不确定项、抽样，结果可接受。"}
+{"batch_id": "batch-049", "state": "requested", "reason": "MemWM含ALFWorld具身任务，不能因文本接口排除；要求整批范围复核保持与FedWorld等一致。"}
+{"batch_id": "batch-051", "state": "requested", "reason": "08301一般铁路超声分类无机器人或自动化具体关联，要求全批范围重核。"}
+{"batch_id": "batch-049", "state": "resolved", "basis": "worker全40范围核查改MemWM，parent核读变更与全部不确定项和样本，接受。"}
+{"batch_id": "batch-051", "state": "resolved", "basis": "worker整批范围复核仅改08301；parent核读该变更及全部不确定项与抽样，接受。"}
+{"batch_id": "batch-053", "state": "requested", "reason": "CEAA明确虚拟具身三维实时执行架构，应按虚拟具身交互范围纳入；整批重核。"}
+{"batch_id": "batch-053", "state": "resolved", "basis": "worker全40范围复核，仅改CEAA；parent核读变更与全部不确定项、抽样，接受。"}
+{"batch_id": "batch-052", "state": "requested", "reason": "09388含物理接触状态预测，应依几何/接触状态估计支撑范围保留；整批范围重核。"}
+{"batch_id": "batch-052", "state": "resolved", "basis": "worker整批范围重核改09388，parent核读变更与全部不确定项及样本，接受。"}
+{"batch_id": "batch-062", "state": "requested", "reason": "16710将codebook下恒定预测写成固定控制代码，CARLA状态表示对齐可能误读为部署。要求整批复查证据层级和机制表述。"}
+{"batch_id": "batch-062", "state": "resolved", "basis": "worker整批40条核对验证层级；16710更正恒定预测与CARLA表示对齐，17095交通参与者译名更正。主代理核读变更及全体必审项后接受。"}
+{"batch_id": "batch-078", "state": "requested", "reason": "29728连接振动机器人形成自推进重构与机械捕获，具有实体本体操控机制，误作纯测量工具排除；要求整批范围复核。"}
+{"batch_id": "batch-072", "state": "requested", "reason": "24383机器人通过可变形基底记忆自组织运输路径，属集体物理交互机制，不宜当纯测量工具排除。"}
+{"batch_id": "batch-077", "state": "requested", "reason": "28541为采样认证世界模型的规划可达性与错误利用机制研究，应与已纳入的17956控制模型理论保持范围一致，要求整批核对。"}
+{"batch_id": "batch-077", "state": "resolved", "basis": "worker整批范围复核，仅28541纳入规划认证理论；parent独立核读修改及全部必审项，已接受。"}
+{"batch_id": "batch-072", "state": "resolved", "basis": "worker整批范围复核，24383与29728分别纳入集体物理交互和本体自主捕获机制；parent独立核读变更及所有必审项后接受。"}
+{"batch_id": "batch-078", "state": "resolved", "basis": "worker整批范围复核，24383与29728分别纳入集体物理交互和本体自主捕获机制；parent独立核读变更及所有必审项后接受。"}
+{"batch_id": "batch-067", "state": "requested", "reason": "20433提出可重复声学与交互变量操控的机器人实验接口，有平台方法学贡献，宽范围纳入评测/协作；要求整批同类范围再核。"}
+{"batch_id": "batch-067", "state": "resolved", "basis": "worker整批复核20433平台方法学范围，parent核读完整摘要与更新记录，接受评测/协作及立场论文限制。"}
+{"batch_id": "batch-082", "state": "open", "basis": "02046前向动力学误分状态估计；修正主类physical_action并整批检查。"}
+{"batch_id": "batch-082", "state": "resolved", "basis": "worker整批核查分类边界，parent核读02046完整摘要及修正physical_action，其他状态估计记录适当。"}
+{"batch_id": "batch-099", "state": "open", "basis": "14198手术测力平台无机器人或新机器人传感机制，改排除并整批复核测量工具边界。"}
+{"batch_id": "batch-099", "state": "resolved", "basis": "worker整批复核测量平台边界，parent独立重读14198完整摘要确认既有传感器手术测量，无机器人任务；已修正排除。"}
+{"batch_id": "batch-094", "state": "open", "basis": "10714通用通信综述具身仅应用方向，改排除并整批复核范围。"}
+{"batch_id": "batch-094", "state": "resolved", "basis": "整批范围回核10714和10986改排除；parent完整核读修正摘要，HuRo正文已核验同步。"}
+{"batch_id": "batch-099", "state": "open", "basis": "14833纯多模态生成物理一致性审计无控制任务，按EgoGenEval同范围排除并整批复核。"}
+{"batch_id": "batch-099", "state": "resolved", "basis": "worker再次整批范围复核无其余纯生成评测；parent完整核读14833修正为不相关，机制保留且不纳入研究数量。"}
+{"batch_id": "batch-108", "state": "open", "basis": "19577备注串入剪枝论文，要求修正并全批核对字段与论文对应关系。"}
+{"batch_id": "batch-108", "state": "resolved", "basis": "worker逐ID全批核对；parent重读19577与19579完整摘要及修正备注，概念遥操作与剪枝权衡各归本篇。"}
+{"batch_id": "batch-103", "state": "open", "basis": "17414 SlotDiT任务完成率未明确是生成视频评分或策略执行，要求查正文确定范围并全批复核同类。"}
+{"batch_id": "batch-111", "state": "open", "basis": "21024假设方向反写，21026源定位错写成地图估计，21045单图错写视频；全批重核输入输出与机制。"}
+{"batch_id": "batch-103", "state": "resolved", "basis": "parent核读官方SlotDiT4.2.2确认逆动力学映射及仿真动作控制，重读修正总结通过；worker全批同类重核无其余纯生成项。"}
+{"batch_id": "batch-111", "state": "resolved", "basis": "worker全40重读修正，parent重读全部变更及Noctif3R分辨率与位姿修正，全部通过。"}
+{"batch_id": "batch-114", "state": "open", "basis": "EditWM前向未来动力学预测并用于规划应physical_action，要求全批核对动力学与状态估计边界。"}
+{"batch_id": "batch-114", "state": "resolved", "basis": "22317修正为前向动力学physical_action后parent重读通过；worker全40复核同类分类无其余问题。"}
+{"batch_id": "batch-116", "state": "open", "basis": "23184仅动作条件视频预测，要求正文核查机器人规划控制证据并全批重核范围边界。"}
+{"batch_id": "batch-115", "state": "open", "basis": "22606骨干专用权重误译本体专用，要求全批检查机制主体及输入输出。"}
+{"batch_id": "batch-116", "state": "resolved", "basis": "parent核读CausalWM官方正文确认纯视频评测，排除并同步证据；worker全批范围复核无其他同类。"}
+{"batch_id": "batch-115", "state": "resolved", "basis": "22606改为VLA骨干专用，parent已核读；worker全批输入输出与机制主体检查无其余问题。"}

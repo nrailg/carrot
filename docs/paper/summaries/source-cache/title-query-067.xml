@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bGaCM/7rD3tiiOveANMGxTKXkco</id>
+  <title>arXiv Query: search_query=ti:"GPU Accelerated Soft Robot Simulation and Control" OR ti:"Data-Efficient Real-Time Control of an Artificial-Muscle-Driven Continuum Robot with Physics-Informed Koopman Operator" OR ti:"Learning-Based Visual Model Predictive Control for Pneumatic Soft Robots" OR ti:"VLASH: Real-Time VLAs Via Future-State-Aware Asynchronous Inference" OR ti:"Syner-VLA: A Training-Free Synergistic Acceleration Framework for Vision-Language-Action Models" OR ti:"CognitiveDrone: A VLA Model and Evaluation Benchmark for Real-Time Cognitive Task Solving and Reasoning in UAVs" OR ti:"Incentivizing Multimodal Reasoning in Large Models for Direct Robot Manipulation" OR ti:"MS-AIS: Multi-Sensor Autonomous Inspection System" OR ti:"WAIBO: A Prototype of Water-Pipeline Inspection Robot in Murky Water, Fast Flow, and Small Obstacles" OR ti:"A Robot-Arm-Shaped Modularized Rail Platform for Deploying Maintenance Robots Continuously to Inaccessible Areas of Bridges"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:22Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22GPU+Accelerated+Soft+Robot+Simulation+and+Control%22+OR+(ti:%22Data-Efficient+Real-Time+Control+of+an+Artificial-Muscle-Driven+Continuum+Robot+with+Physics-Informed+Koopman+Operator%22+OR+(ti:%22Learning-Based+Visual+Model+Predictive+Control+for+Pneumatic+Soft+Robots%22+OR+(ti:%22VLASH:+Real-Time+VLAs+Via+Future-State-Aware+Asynchronous+Inference%22+OR+(ti:%22Syner-VLA:+A+Training-Free+Synergistic+Acceleration+Framework+for+Vision-Language-Action+Models%22+OR+(ti:%22CognitiveDrone:+A+VLA+Model+and+Evaluation+Benchmark+for+Real-Time+Cognitive+Task+Solving+and+Reasoning+in+UAVs%22+OR+(ti:%22Incentivizing+Multimodal+Reasoning+in+Large+Models+for+Direct+Robot+Manipulation%22+OR+(ti:%22MS-AIS:+Multi-Sensor+Autonomous+Inspection+System%22+OR+(ti:%22WAIBO:+A+Prototype+of+Water-Pipeline+Inspection+Robot+in+Murky+Water,+Fast+Flow,+and+Small+Obstacles%22+OR+ti:%22A+Robot-Arm-Shaped+Modularized+Rail+Platform+for+Deploying+Maintenance+Robots+Continuously+to+Inaccessible+Areas+of+Bridges%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.01031v2</id>
+    <title>VLASH: Real-Time VLAs via Future-State-Aware Asynchronous Inference</title>
+    <updated>2026-07-26T23:00:24Z</updated>
+    <link href="https://arxiv.org/abs/2512.01031v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.01031v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language-Action models (VLAs) are becoming increasingly capable across diverse robotic tasks. However, these models are typically deployed under synchronous inference, where the robot waits for model inference to complete before acting, and cannot perceive or respond to environmental changes during action execution. This not only introduces noticeable action stalls, but also significantly increases reaction latency, fundamentally limiting the applicability of VLAs to dynamic, real-time tasks. Asynchronous inference offers a promising solution to achieve continuous and low-latency control by enabling robots to execute actions and perform inference simultaneously. However, because the robot and environment continue to evolve during inference, a temporal misalignment arises between the prediction and execution intervals. This leads to significant action instability, while existing asynchronous methods either degrade accuracy or introduce runtime overhead to mitigate it. We propose VLASH, a simple yet effective method for asynchronous VLA inference that delivers smooth, accurate, and fast reaction control without architectural changes or additional runtime overhead. VLASH leverages the future execution-time state by rolling the robot state forward with the previous action chunk, thereby bridging the gap between prediction and execution. Experiments show that VLASH reduces reaction latency by up to 11.8x compared to synchronous inference and consistently outperforms all asynchronous baselines in accuracy. With action quantization, it further achieves 1.5-2.0x task completion speedup with minimal accuracy loss. Moreover, it empowers state-of-the-art VLAs such as $π_{0.5}$ to handle fast-reaction, high-precision tasks including playing ping-pong and playing whack-a-mole, where traditional synchronous inference fails. Code is available at https://github.com/mit-han-lab/vlash</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-30T18:59:24Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jiaming Tang</name>
+    </author>
+    <author>
+      <name>Yufei Sun</name>
+    </author>
+    <author>
+      <name>Yilong Zhao</name>
+    </author>
+    <author>
+      <name>Shang Yang</name>
+    </author>
+    <author>
+      <name>Yujun Lin</name>
+    </author>
+    <author>
+      <name>Zhuoyang Zhang</name>
+    </author>
+    <author>
+      <name>James Hou</name>
+    </author>
+    <author>
+      <name>Yao Lu</name>
+    </author>
+    <author>
+      <name>Zhijian Liu</name>
+    </author>
+    <author>
+      <name>Song Han</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.01378v1</id>
+    <title>CognitiveDrone: A VLA Model and Evaluation Benchmark for Real-Time Cognitive Task Solving and Reasoning in UAVs</title>
+    <updated>2025-03-03T10:21:36Z</updated>
+    <link href="https://arxiv.org/abs/2503.01378v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.01378v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper introduces CognitiveDrone, a novel Vision-Language-Action (VLA) model tailored for complex Unmanned Aerial Vehicles (UAVs) tasks that demand advanced cognitive abilities. Trained on a dataset comprising over 8,000 simulated flight trajectories across three key categories-Human Recognition, Symbol Understanding, and Reasoning-the model generates real-time 4D action commands based on first-person visual inputs and textual instructions. To further enhance performance in intricate scenarios, we propose CognitiveDrone-R1, which integrates an additional Vision-Language Model (VLM) reasoning module to simplify task directives prior to high-frequency control. Experimental evaluations using our open-source benchmark, CognitiveDroneBench, reveal that while a racing-oriented model (RaceVLA) achieves an overall success rate of 31.3%, the base CognitiveDrone model reaches 59.6%, and CognitiveDrone-R1 attains a success rate of 77.2%. These results demonstrate improvements of up to 30% in critical cognitive tasks, underscoring the effectiveness of incorporating advanced reasoning capabilities into UAV control systems. Our contributions include the development of a state-of-the-art VLA model for UAV control and the introduction of the first dedicated benchmark for assessing cognitive tasks in drone operations. The complete repository is available at cognitivedrone.github.io</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-03T10:21:36Z</published>
+    <arxiv:comment>Paper submitted to the IEEE conference</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Artem Lykov</name>
+    </author>
+    <author>
+      <name>Valerii Serpiva</name>
+    </author>
+    <author>
+      <name>Muhammad Haris Khan</name>
+    </author>
+    <author>
+      <name>Oleg Sautenkov</name>
+    </author>
+    <author>
+      <name>Artyom Myshlyaev</name>
+    </author>
+    <author>
+      <name>Grik Tadevosyan</name>
+    </author>
+    <author>
+      <name>Yasheerah Yaqoot</name>
+    </author>
+    <author>
+      <name>Dzmitry Tsetserukou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.12744v1</id>
+    <title>Incentivizing Multimodal Reasoning in Large Models for Direct Robot Manipulation</title>
+    <updated>2025-05-19T06:00:14Z</updated>
+    <link href="https://arxiv.org/abs/2505.12744v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.12744v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent Large Multimodal Models have demonstrated remarkable reasoning capabilities, especially in solving complex mathematical problems and realizing accurate spatial perception. Our key insight is that these emerging abilities can naturally extend to robotic manipulation by enabling LMMs to directly infer the next goal in language via reasoning, rather than relying on a separate action head. However, this paradigm meets two main challenges: i) How to make LMMs understand the spatial action space, and ii) How to fully exploit the reasoning capacity of LMMs in solving these tasks. To tackle the former challenge, we propose a novel task formulation, which inputs the current states of object parts and the gripper, and reformulates rotation by a new axis representation instead of traditional Euler angles. This representation is more compatible with spatial reasoning and easier to interpret within a unified language space. For the latter challenge, we design a pipeline to utilize cutting-edge LMMs to generate a small but high-quality reasoning dataset of multi-round dialogues that successfully solve manipulation tasks for supervised fine-tuning. Then, we perform reinforcement learning by trial-and-error interactions in simulation to further enhance the model's reasoning abilities for robotic manipulation. Our resulting reasoning model built upon a 7B backbone, named ReasonManip, demonstrates three notable advantages driven by its system-2 level reasoning capabilities: i) exceptional generalizability to out-of-distribution environments, objects, and tasks; ii) inherent sim-to-real transfer ability enabled by the unified language representation shared across domains; iii) transparent interpretability connecting high-level reasoning and low-level control. Extensive experiments demonstrate the effectiveness of the proposed paradigm and its potential to advance LMM-driven robotic manipulation.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-19T06:00:14Z</published>
+    <arxiv:comment>17 pages, 16 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Weiliang Tang</name>
+    </author>
+    <author>
+      <name>Dong Jing</name>
+    </author>
+    <author>
+      <name>Jia-Hui Pan</name>
+    </author>
+    <author>
+      <name>Zhiwu Lu</name>
+    </author>
+    <author>
+      <name>Yun-Hui Liu</name>
+    </author>
+    <author>
+      <name>Li Erran Li</name>
+    </author>
+    <author>
+      <name>Mingyu Ding</name>
+    </author>
+    <author>
+      <name>Chi-Wing Fu</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/MwFPxEeGLlAUjr88pSp+CwOSItQ</id>
+  <title>arXiv Query: search_query=ti:"DV-SLAM: Uncalibrated Monocular 4D VGGT SLAM in Dynamic Environments without External Models" OR ti:"HybridSplat: Underwater Dense SLAM Via Visual-Acoustic Fusion and Physics-Informed 3D Gaussian Splatting" OR ti:"EventGS: Event-Based 3D Gaussian Splatting SLAM with Diffusion Model" OR ti:"PI-EAT-SLAM: Physics-Informed Edge-Aware Thermal Gaussian Splatting SLAM" OR ti:"SLAM Adversarial Lab: An Extensible Framework for Visual SLAM Robustness Evaluation under Adverse Conditions" OR ti:"OG-VLA: Orthographic Image Generation for 3D-Aware Vision-Language Action Model" OR ti:"From Code to Action: Hierarchical Learning of Diffusion-VLM Policies" OR ti:"Hybrid Chain-Of-Thought Reasoning for Vision–Language–Action Models" OR ti:"Topology-Guided Cable Routing for Collision-Free Large Rotational Workspace in Fully Constrained 8-CDPRs" OR ti:"An Ultra-Compact Cable-Driven Three-Degree-Of-Freedom Wristed Surgical Instrument with Integrated Jaw Normal Force Sensing"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:49Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22DV-SLAM:+Uncalibrated+Monocular+4D+VGGT+SLAM+in+Dynamic+Environments+without+External+Models%22+OR+(ti:%22HybridSplat:+Underwater+Dense+SLAM+Via+Visual-Acoustic+Fusion+and+Physics-Informed+3D+Gaussian+Splatting%22+OR+(ti:%22EventGS:+Event-Based+3D+Gaussian+Splatting+SLAM+with+Diffusion+Model%22+OR+(ti:%22PI-EAT-SLAM:+Physics-Informed+Edge-Aware+Thermal+Gaussian+Splatting+SLAM%22+OR+(ti:%22SLAM+Adversarial+Lab:+An+Extensible+Framework+for+Visual+SLAM+Robustness+Evaluation+under+Adverse+Conditions%22+OR+(ti:%22OG-VLA:+Orthographic+Image+Generation+for+3D-Aware+Vision-Language+Action+Model%22+OR+(ti:%22From+Code+to+Action:+Hierarchical+Learning+of+Diffusion-VLM+Policies%22+OR+(ti:%22Hybrid+Chain-Of-Thought+Reasoning+for+Vision%E2%80%93Language%E2%80%93Action+Models%22+OR+(ti:%22Topology-Guided+Cable+Routing+for+Collision-Free+Large+Rotational+Workspace+in+Fully+Constrained+8-CDPRs%22+OR+ti:%22An+Ultra-Compact+Cable-Driven+Three-Degree-Of-Freedom+Wristed+Surgical+Instrument+with+Integrated+Jaw+Normal+Force+Sensing%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.17165v2</id>
+    <title>SLAM Adversarial Lab: An Extensible Framework for Visual SLAM Robustness Evaluation under Adverse Conditions</title>
+    <updated>2026-09-12T18:39:10Z</updated>
+    <link href="https://arxiv.org/abs/2603.17165v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.17165v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present SAL (SLAM Adversarial Lab), a modular framework for evaluating visual SLAM systems under adversarial conditions such as fog and rain. SAL represents each adversarial condition as a perturbation that transforms an existing dataset into an adversarial dataset. When transforming a dataset, SAL supports severity levels using easily-interpretable real-world units such as meters for fog visibility. SAL's extensible architecture decouples datasets, perturbations, and SLAM algorithms through common interfaces, so users can add new components without rewriting integration code. Moreover, SAL includes a search procedure that finds the severity level of a perturbation at which a SLAM system fails. To showcase the capabilities of SAL, our evaluation integrates seven SLAM algorithms and evaluates them across three datasets under weather, camera, and video transport perturbations.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-17T21:50:58Z</published>
+    <arxiv:comment>Accepted for publication at the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). Code: https://github.com/sfu-rsl/SLAMAdversarialLab</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mohamed Hefny</name>
+    </author>
+    <author>
+      <name>Karthik Dantu</name>
+    </author>
+    <author>
+      <name>Steven Y. Ko</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.01196v2</id>
+    <title>OG-VLA: Orthographic Image Generation for 3D-Aware Vision-Language Action Model</title>
+    <updated>2025-11-18T18:49:00Z</updated>
+    <link href="https://arxiv.org/abs/2506.01196v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.01196v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce OG-VLA, a novel architecture and learning framework that combines the generalization strengths of Vision Language Action models (VLAs) with the robustness of 3D-aware policies. We address the challenge of mapping natural language instructions and one or more RGBD observations to quasi-static robot actions. 3D-aware robot policies achieve state-of-the-art performance on precise robot manipulation tasks, but struggle with generalization to unseen instructions, scenes, and objects. On the other hand, VLAs excel at generalizing across instructions and scenes, but can be sensitive to camera and robot pose variations. We leverage prior knowledge embedded in language and vision foundation models to improve generalization of 3D-aware keyframe policies. OG-VLA unprojects input observations from diverse views into a point cloud which is then rendered from canonical orthographic views, ensuring input view invariance and consistency between input and output spaces. These canonical views are processed with a vision backbone, a Large Language Model (LLM), and an image diffusion model to generate images that encode the next position and orientation of the end-effector on the input scene. Evaluations on the Arnold and Colosseum benchmarks demonstrate state-of-the-art generalization to unseen environments, with over 40% relative improvements while maintaining robust performance in seen settings. We also show real-world adaption in 3 to 5 demonstrations along with strong generalization. Videos and resources at https://og-vla.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-01T22:15:45Z</published>
+    <arxiv:comment>13 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ishika Singh</name>
+    </author>
+    <author>
+      <name>Ankit Goyal</name>
+    </author>
+    <author>
+      <name>Stan Birchfield</name>
+    </author>
+    <author>
+      <name>Dieter Fox</name>
+    </author>
+    <author>
+      <name>Animesh Garg</name>
+    </author>
+    <author>
+      <name>Valts Blukis</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.24917v1</id>
+    <title>From Code to Action: Hierarchical Learning of Diffusion-VLM Policies</title>
+    <updated>2025-09-29T15:22:18Z</updated>
+    <link href="https://arxiv.org/abs/2509.24917v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.24917v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Imitation learning for robotic manipulation often suffers from limited generalization and data scarcity, especially in complex, long-horizon tasks. In this work, we introduce a hierarchical framework that leverages code-generating vision-language models (VLMs) in combination with low-level diffusion policies to effectively imitate and generalize robotic behavior. Our key insight is to treat open-source robotic APIs not only as execution interfaces but also as sources of structured supervision: the associated subtask functions - when exposed - can serve as modular, semantically meaningful labels. We train a VLM to decompose task descriptions into executable subroutines, which are then grounded through a diffusion policy trained to imitate the corresponding robot behavior. To handle the non-Markovian nature of both code execution and certain real-world tasks, such as object swapping, our architecture incorporates a memory mechanism that maintains subtask context across time. We find that this design enables interpretable policy decomposition, improves generalization when compared to flat policies and enables separate evaluation of high-level planning and low-level control.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-29T15:22:18Z</published>
+    <arxiv:comment>19 pages including references, 6 figures. Accepted to CoRL LEAP 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Markus Peschl</name>
+    </author>
+    <author>
+      <name>Pietro Mazzaglia</name>
+    </author>
+    <author>
+      <name>Daniel Dijkman</name>
+    </author>
+  </entry>
+</feed>

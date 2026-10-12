@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Jx06Ux7We1Xt3TD3/jLPmCOuBWs</id>
+  <title>arXiv Query: search_query=ti:"From Pixels to Touch: Direct Tactile Servoing with Learned Photometric Normalization" OR ti:"3D Cal: An Open-Source Software Library for Depth Reconstruction on Vision-Based Tactile Sensors" OR ti:"A Neuromorphic Incipient Slip Detection System Using Papillae Morphology" OR ti:"A Honeycomb-Inspired Soft Robotic Gripper with Intrinsic Adaptive Control" OR ti:"Untethered Soft Adhesion: Electroosmotic-Driven Suction Cups for Enhanced Manipulation and Attachment" OR ti:"SPS Gripper: a Two-Finger Underactuated Design with Sarrus–Parallelogram Coupling for Pinching and Scooping" OR ti:"Two-Finger Soft Gripper with a Scaled-Pad Contact Interface for Dual-Mode Grasping and Surface Cleaning" OR ti:"Replaceable Bit-Based Gripper for Picking Cluttered Food Items" OR ti:"Design of an Integrated 3D-Printed Hand with Variable Cross-Section Tendon Transmission for Dexterous Manipulation" OR ti:"Physics-Informed Fusion Nets: Synergizing Motion Priors with Deep Learning for Enhanced Human Activity Recognition"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:22Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22From+Pixels+to+Touch:+Direct+Tactile+Servoing+with+Learned+Photometric+Normalization%22+OR+(ti:%223D+Cal:+An+Open-Source+Software+Library+for+Depth+Reconstruction+on+Vision-Based+Tactile+Sensors%22+OR+(ti:%22A+Neuromorphic+Incipient+Slip+Detection+System+Using+Papillae+Morphology%22+OR+(ti:%22A+Honeycomb-Inspired+Soft+Robotic+Gripper+with+Intrinsic+Adaptive+Control%22+OR+(ti:%22Untethered+Soft+Adhesion:+Electroosmotic-Driven+Suction+Cups+for+Enhanced+Manipulation+and+Attachment%22+OR+(ti:%22SPS+Gripper:+a+Two-Finger+Underactuated+Design+with+Sarrus%E2%80%93Parallelogram+Coupling+for+Pinching+and+Scooping%22+OR+(ti:%22Two-Finger+Soft+Gripper+with+a+Scaled-Pad+Contact+Interface+for+Dual-Mode+Grasping+and+Surface+Cleaning%22+OR+(ti:%22Replaceable+Bit-Based+Gripper+for+Picking+Cluttered+Food+Items%22+OR+(ti:%22Design+of+an+Integrated+3D-Printed+Hand+with+Variable+Cross-Section+Tendon+Transmission+for+Dexterous+Manipulation%22+OR+ti:%22Physics-Informed+Fusion+Nets:+Synergizing+Motion+Priors+with+Deep+Learning+for+Enhanced+Human+Activity+Recognition%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.00305v1</id>
+    <title>Replaceable Bit-based Gripper for Picking Cluttered Food Items</title>
+    <updated>2026-01-01T10:54:41Z</updated>
+    <link href="https://arxiv.org/abs/2601.00305v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.00305v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The food packaging industry goes through changes in food items and their weights quite rapidly. These items range from easy-to-pick, single-piece food items to flexible, long and cluttered ones. We propose a replaceable bit-based gripper system to tackle the challenge of weight-based handling of cluttered food items. The gripper features specialized food attachments(bits) that enhance its grasping capabilities, and a belt replacement system allows switching between different food items during packaging operations. It offers a wide range of control options, enabling it to grasp and drop specific weights of granular, cluttered, and entangled foods. We specifically designed bits for two flexible food items that differ in shape: ikura(salmon roe) and spaghetti. They represent the challenging categories of sticky, granular food and long, sticky, cluttered food, respectively. The gripper successfully picked up both spaghetti and ikura and demonstrated weight-specific dropping of these items with an accuracy over 80% and 95% respectively. The gripper system also exhibited quick switching between different bits, leading to the handling of a large range of food items.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-01T10:54:41Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Prashant Kumar</name>
+    </author>
+    <author>
+      <name>Yukiyasu Domae</name>
+    </author>
+    <author>
+      <name>Weiwei Wan</name>
+    </author>
+    <author>
+      <name>Kensuke Harada</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.09546v1</id>
+    <title>A Neuromorphic Incipient Slip Detection System using Papillae Morphology</title>
+    <updated>2025-09-11T15:38:31Z</updated>
+    <link href="https://arxiv.org/abs/2509.09546v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.09546v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Detecting incipient slip enables early intervention to prevent object slippage and enhance robotic manipulation safety. However, deploying such systems on edge platforms remains challenging, particularly due to energy constraints. This work presents a neuromorphic tactile sensing system based on the NeuroTac sensor with an extruding papillae-based skin and a spiking convolutional neural network (SCNN) for slip-state classification. The SCNN model achieves 94.33% classification accuracy across three classes (no slip, incipient slip, and gross slip) in slip conditions induced by sensor motion. Under the dynamic gravity-induced slip validation conditions, after temporal smoothing of the SCNN's final-layer spike counts, the system detects incipient slip at least 360 ms prior to gross slip across all trials, consistently identifying incipient slip before gross slip occurs. These results demonstrate that this neuromorphic system has stable and responsive incipient slip detection capability.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-11T15:38:31Z</published>
+    <arxiv:comment>7 pages, 12 figures. Submitted to IEEE Robotics and Automation Letters (RAL), under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yanhui Lu</name>
+    </author>
+    <author>
+      <name>Zeyu Deng</name>
+    </author>
+    <author>
+      <name>Stephen J. Redmond</name>
+    </author>
+    <author>
+      <name>Efi Psomopoulou</name>
+    </author>
+    <author>
+      <name>Benjamin Ward-Cherrier</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.03078v3</id>
+    <title>3D Cal: An Open-Source Software Library for Depth Reconstruction on Vision-Based Tactile Sensors</title>
+    <updated>2026-07-02T18:53:08Z</updated>
+    <link href="https://arxiv.org/abs/2511.03078v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.03078v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tactile sensing plays a key role in enabling dexterous and reliable robotic manipulation, but realizing this capability requires substantial calibration to convert raw sensor readings into physically meaningful quantities. Despite its near-universal necessity, the calibration process remains ad hoc and labor-intensive. Here, we introduce 3D Cal, an open-source library that transforms a low-cost 3D printer into an automated probing device capable of generating large volumes of labeled training data for calibrating vision-based tactile sensors. 3D Cal also provides an end-to-end, user-friendly pipeline for training custom convolutional networks to produce high-quality depth reconstructions. Using 3D Cal, we systematically explore the relationship between training data volume and spatial reconstruction performance on two commercially available sensors, DIGIT and GelSight Mini, and derive practical, empirically-grounded guidelines for calibrating these sensors. Finally, we demonstrate depth reconstruction performance on the DIGIT and GelSight Mini comparable to state-of-the-art methods, achieving average reconstruction errors of 156 $\mathrm{μm}$ and 205 $\mathrm{μm}$ on unseen objects, respectively. By automating tactile sensor calibration, 3D Cal can accelerate tactile sensing research, simplify sensor deployment, and facilitate the integration of tactile sensing in robotic platforms.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-04T23:59:30Z</published>
+    <arxiv:comment>Accepted for publication in IEEE Robotics and Automation Letters (RA-L). Project page: https://rohankotanu.github.io/3DCal/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Rohan Kota</name>
+    </author>
+    <author>
+      <name>Kaival Shah</name>
+    </author>
+    <author>
+      <name>J. Edward Colgate</name>
+    </author>
+    <author>
+      <name>Gregory Reardon</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/lUH6684XB9lTXnC+7PfbiankfJc</id>
+  <title>arXiv Query: search_query=ti:"EndoMD-SLAM: Endoscopic Gaussian Splatting SLAM under Optical Degradation with Memory and Static-Transient Decomposition" OR ti:"TDN-PPO: An Automatic Control Framework of a Surgical Robot for Posterior Segment Ophthalmic Surgery" OR ti:"EBUG: Elastic-Beam Buckling and Undulating Generation for Multi-Modal Robot Locomotion in Environmental Exploration" OR ti:"Design and Control of a Vibratory Motile Robot" OR ti:"Millimeter Wave Radar: From Synthetic Aperture to Probabilistic Mapping" OR ti:"SEED: Structure-Entropy and DCT Enhanced Descriptor for Robust 4D Radar Place Recognition" OR ti:"Self-Supervised Monitoring of Command–Behavior Consistency on a Teleoperated Robot Via Action-Conditioned Prediction" OR ti:"Human Robot Interaction Based on Efficient EEG-Image Decoding" OR ti:"MOSAICO: Multimodal Orchestration of Spatial and Action Inference for COntextual Assistance in HRI" OR ti:"E-TIDE: Fast, Structure-Preserving Motion Forecasting from Event Sequences"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:53Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22EndoMD-SLAM:+Endoscopic+Gaussian+Splatting+SLAM+under+Optical+Degradation+with+Memory+and+Static-Transient+Decomposition%22+OR+(ti:%22TDN-PPO:+An+Automatic+Control+Framework+of+a+Surgical+Robot+for+Posterior+Segment+Ophthalmic+Surgery%22+OR+(ti:%22EBUG:+Elastic-Beam+Buckling+and+Undulating+Generation+for+Multi-Modal+Robot+Locomotion+in+Environmental+Exploration%22+OR+(ti:%22Design+and+Control+of+a+Vibratory+Motile+Robot%22+OR+(ti:%22Millimeter+Wave+Radar:+From+Synthetic+Aperture+to+Probabilistic+Mapping%22+OR+(ti:%22SEED:+Structure-Entropy+and+DCT+Enhanced+Descriptor+for+Robust+4D+Radar+Place+Recognition%22+OR+(ti:%22Self-Supervised+Monitoring+of+Command%E2%80%93Behavior+Consistency+on+a+Teleoperated+Robot+Via+Action-Conditioned+Prediction%22+OR+(ti:%22Human+Robot+Interaction+Based+on+Efficient+EEG-Image+Decoding%22+OR+(ti:%22MOSAICO:+Multimodal+Orchestration+of+Spatial+and+Action+Inference+for+COntextual+Assistance+in+HRI%22+OR+ti:%22E-TIDE:+Fast,+Structure-Preserving+Motion+Forecasting+from+Event+Sequences%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.08949v1</id>
+    <title>EndoMD-SLAM: Endoscopic Gaussian Splatting SLAM under Optical Degradation with Memory and Static-Transient Decomposition</title>
+    <updated>2026-08-09T22:59:01Z</updated>
+    <link href="https://arxiv.org/abs/2608.08949v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.08949v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Dense 3D reconstruction is critical for clinical endoscopic navigation and documentation. While Gaussian Splatting SLAM systems show promise in this domain, they fundamentally rely on strict multi-view photometric consistency. In routine procedures, this assumption is severely violated by intermittent optical degradations like moving debris and water flushing. Standard systems erroneously fuse these cameraattached artifacts into the persistent 3D geometry, causing severe tracking drift and irreversible map corruption. To address this limitation, we propose EndoMD-SLAM, a framework designed to maintain stability under optical degradation through specialized tracking and mapping mechanisms. On the tracking side, a memory-driven gating mechanism detects unreliable observations to suspend map updates and utilizes historical keyframes for drift-aware relocalization. On the mapping side, a self-supervised static-transient decomposition isolates visual contaminants into a dedicated transient field. This explicit separation prevents artifacts from structurally entangling with the persistent anatomical map. We curate a degradationfocused benchmark from colonoscopy videos to systematically evaluate these failure modes. Extensive experiments show that while standard baselines fail under severe optical degradation, EndoMD-SLAM preserves geometric integrity, reducing absolute trajectory error by 91% and improving rendering fidelity by 9.9 dB PSNR.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-09T22:59:01Z</published>
+    <arxiv:comment>Project page: https://endomd-slam.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Nuo Chen</name>
+    </author>
+    <author>
+      <name>Kangqi Ni</name>
+    </author>
+    <author>
+      <name>Lulin Liu</name>
+    </author>
+    <author>
+      <name>Joga Ivatury</name>
+    </author>
+    <author>
+      <name>Ying Ding</name>
+    </author>
+    <author>
+      <name>Farshid Alambeigi</name>
+    </author>
+    <author>
+      <name>Tianlong Chen</name>
+    </author>
+    <author>
+      <name>Zhiwen Fan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.27757v2</id>
+    <title>E-TIDE: Fast, Structure-Preserving Motion Forecasting from Event Sequences</title>
+    <updated>2026-07-01T11:53:00Z</updated>
+    <link href="https://arxiv.org/abs/2603.27757v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.27757v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Event-based cameras capture visual information as asynchronous streams of per-pixel brightness changes, generating sparse, temporally precise data. Compared to conventional frame-based sensors, they offer significant advantages in capturing high-speed dynamics while consuming substantially less power. Predicting future event representations from past observations is an important problem, enabling downstream tasks such as future semantic segmentation or object tracking without requiring access to future sensor measurements. While recent state-of-the-art approaches achieve strong performance, they often rely on computationally heavy backbones and, in some cases, large-scale pretraining, limiting their applicability in resource-constrained scenarios. In this work, we introduce E-TIDE, a lightweight, end-to-end trainable architecture for event-tensor prediction that is designed to operate efficiently without large-scale pretraining. Our approach employs the TIDE module (Temporal Interaction for Dynamic Events), motivated by efficient spatiotemporal interaction design for sparse event tensors, to capture temporal dependencies via large-kernel mixing and activity-aware gating while maintaining low computational complexity. Experiments on standard event-based datasets demonstrate that our method achieves competitive performance with significantly reduced model size and training requirements, making it well-suited for real-time deployment under tight latency and memory budgets.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-29T16:34:12Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Biswadeep Sen</name>
+    </author>
+    <author>
+      <name>Benoit R. Cottereau</name>
+    </author>
+    <author>
+      <name>Nicolas Cuperlier</name>
+    </author>
+    <author>
+      <name>Terence Sim</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.10161v1</id>
+    <title>Millimeter Wave Radar: From Synthetic Aperture to Probabilistic Mapping</title>
+    <updated>2026-07-11T06:55:14Z</updated>
+    <link href="https://arxiv.org/abs/2607.10161v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.10161v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robust probabilistic mapping is essential for autonomous robotic systems operating in challenging environments. While traditional sensors fail in adverse conditions such as smoke and fog, millimeter wave (mmWave) radar sensors offer reliable sensing in such conditions. However, creating accurate probabilistic maps from radar data presents significant challenges due to the inherently sparse and noisy characteristics of radio wave measurements and signal processing steps. In an attempt to address these issues, we establish a complete pipeline from raw radar signals to probabilistic occupancy maps, incorporating Synthetic Aperture Radar processing followed by a probabilistic modeling step. We conduct extensive validation across indoor environments, comparing our approach against different signal processing and probabilistic modeling approaches. We also evaluate mapping quality through downstream path planning performance analysis. Furthermore, we investigate the impact of key parameters and antenna array configuration on mapping performance. The experimental results demonstrate both the effectiveness and limitations of SAR-based probabilistic mapping for real-world robotic deployment. To facilitate future research and broader adoption, we contribute an open-source cascaded mmWave radar dataset with an accompanying GPU-accelerated signal processing pipeline available at https://github.com/rpl-cmu/rpm.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-11T06:55:14Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jui-Te Huang</name>
+    </author>
+    <author>
+      <name>Ruoyang Xu</name>
+    </author>
+    <author>
+      <name>Michael Kaess</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/rDah6wLtDd3iStDK7jr1gPPsdWM</id>
+  <title>arXiv Query: search_query=ti:"PropHand: Open-Source, Cost-Effective Dexterous Hand with Joint Torque Sensing and Control for Force-Aware Robot Learning" OR ti:"A Coupled Tendon-Driven Modular Robotic Hand for Dexterous Manipulation" OR ti:"ToolFormer-Robo: Category-Level Tool Manipulation from Minimal Demonstrations" OR ti:"Learning Consistent Manipulation Via Joint Action–Object Diffusion" OR ti:"StateLinFormer: Stateful Training Enhancing Long-Term Memory in Navigation" OR ti:"DiffOG: Differentiable Policy Trajectory Optimization with Generalizability" OR ti:"Design and Teleoperation of a Five-Fingered Underactuated Hand with a Differential Gear-Based Carpometacarpal Joint" OR ti:"Fluidic Memory Element Based on Flow-Induced Switching and Magnetic Bistability" OR ti:"TESSER: A Palm-Sized Transformable Cube for Targeted Hardware Interfacing in Confined Environments" OR ti:"Continuum Arm with a Gear-Synchronized Backbone for Repeatable and Load-Bearing Grasp-And-Store Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:58Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22PropHand:+Open-Source,+Cost-Effective+Dexterous+Hand+with+Joint+Torque+Sensing+and+Control+for+Force-Aware+Robot+Learning%22+OR+(ti:%22A+Coupled+Tendon-Driven+Modular+Robotic+Hand+for+Dexterous+Manipulation%22+OR+(ti:%22ToolFormer-Robo:+Category-Level+Tool+Manipulation+from+Minimal+Demonstrations%22+OR+(ti:%22Learning+Consistent+Manipulation+Via+Joint+Action%E2%80%93Object+Diffusion%22+OR+(ti:%22StateLinFormer:+Stateful+Training+Enhancing+Long-Term+Memory+in+Navigation%22+OR+(ti:%22DiffOG:+Differentiable+Policy+Trajectory+Optimization+with+Generalizability%22+OR+(ti:%22Design+and+Teleoperation+of+a+Five-Fingered+Underactuated+Hand+with+a+Differential+Gear-Based+Carpometacarpal+Joint%22+OR+(ti:%22Fluidic+Memory+Element+Based+on+Flow-Induced+Switching+and+Magnetic+Bistability%22+OR+(ti:%22TESSER:+A+Palm-Sized+Transformable+Cube+for+Targeted+Hardware+Interfacing+in+Confined+Environments%22+OR+ti:%22Continuum+Arm+with+a+Gear-Synchronized+Backbone+for+Repeatable+and+Load-Bearing+Grasp-And-Store+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.23571v2</id>
+    <title>StateLinFormer: Stateful Training Enhancing Long-term Memory in Navigation</title>
+    <updated>2026-07-09T02:27:08Z</updated>
+    <link href="https://arxiv.org/abs/2603.23571v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.23571v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Effective navigation intelligence relies on long-term memory to support both immediate generalization and sustained adaptation. However, existing approaches face a dilemma: modular systems rely on explicit mapping but lack flexibility, while Transformer-based end-to-end models are constrained by fixed context windows, limiting persistent memory across extended interactions. We introduce StateLinFormer, a linear-attention navigation model trained with a stateful memory mechanism that preserves recurrent memory states across consecutive training segments instead of reinitializing them at each batch boundary. This training paradigm effectively approximates learning on infinitely long sequences, enabling the model to achieve long-horizon memory retention. Experiments across both MAZE and ProcTHOR environments demonstrate that StateLinFormer significantly outperforms its stateless linear-attention counterpart and standard Transformer baselines with fixed context windows. Notably, as interaction length increases, persistent stateful training substantially improves context-dependent adaptation, suggesting an enhancement in the model's In-Context Learning (ICL) capabilities for navigation tasks.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-24T11:04:50Z</published>
+    <arxiv:comment>9 pages, 4 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zhiyuan Chen</name>
+    </author>
+    <author>
+      <name>Yuxuan Zhong</name>
+    </author>
+    <author>
+      <name>Fan Wang</name>
+    </author>
+    <author>
+      <name>Bo Yu</name>
+    </author>
+    <author>
+      <name>Pengtao Shao</name>
+    </author>
+    <author>
+      <name>Shaoshan Liu</name>
+    </author>
+    <author>
+      <name>Ning Ding</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.13807v5</id>
+    <title>DiffOG: Differentiable Policy Trajectory Optimization with Generalizability</title>
+    <updated>2025-11-08T04:49:21Z</updated>
+    <link href="https://arxiv.org/abs/2504.13807v5" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.13807v5" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Imitation learning-based visuomotor policies excel at manipulation tasks but often produce suboptimal action trajectories compared to model-based methods. Directly mapping camera data to actions via neural networks can result in jerky motions and difficulties in meeting critical constraints, compromising safety and robustness in real-world deployment. For tasks that require high robustness or strict adherence to constraints, ensuring trajectory quality is crucial. However, the lack of interpretability in neural networks makes it challenging to generate constraint-compliant actions in a controlled manner. This paper introduces differentiable policy trajectory optimization with generalizability (DiffOG), a learning-based trajectory optimization framework designed to enhance visuomotor policies. By leveraging the proposed differentiable formulation of trajectory optimization with transformer, DiffOG seamlessly integrates policies with a generalizable optimization layer. DiffOG refines action trajectories to be smoother and more constraint-compliant while maintaining alignment with the original demonstration distribution, thus avoiding degradation in policy performance. We evaluated DiffOG across 11 simulated tasks and 2 real-world tasks. The results demonstrate that DiffOG significantly enhances the trajectory quality of visuomotor policies while having minimal impact on policy performance, outperforming trajectory processing baselines such as greedy constraint clipping and penalty-based trajectory optimization. Furthermore, DiffOG achieves superior performance compared to existing constrained visuomotor policy. For more details, please visit the project website: https://zhengtongxu.github.io/diffog-website/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-18T17:20:27Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhengtong Xu</name>
+    </author>
+    <author>
+      <name>Zichen Miao</name>
+    </author>
+    <author>
+      <name>Qiang Qiu</name>
+    </author>
+    <author>
+      <name>Zhe Zhang</name>
+    </author>
+    <author>
+      <name>Yu She</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Hk2Ap5UTUpRMAVKwjHiT1Df8eo8</id>
+  <title>arXiv Query: search_query=ti:"ICoPa: Infrastructure-Aware Communication Performance Analyzer and Configuration Profiling for Cloud/Edge Robotics" OR ti:"NL2HLTL2Plan: Scaling up Natural Language Understanding for Multi-Robots through Hierarchical Temporal Logic Task Specifications" OR ti:"Confidence-Aware Planning for Linear Temporal Logic Tasks for Heterogeneous Robots in Dynamic Environments" OR ti:"Mutual-Rendezvous Control and Feature-Compatible Landing Optimization for Heterogeneous UAV-USV Fleets" OR ti:"PL-LIT: A LiDAR-Inertial-Thermal SLAM Using Point-Line Features and Thermographic Mapping" OR ti:"Analysis of Optimization-Based Monocular Point–Plane VINS: Formulation, Information, and Marginalization" OR ti:"Visual-Inertial and Inertial-Object Tracking: Analysis and Algorithm" OR ti:"Observability and Consistency Analysis for Visual-Inertial Navigation with Anchored Feature Parameterizations" OR ti:"NemeSys: Toward Online Underwater Exploration with Remote Operator-In-The-Loop Adaptive Autonomy" OR ti:"π_water: Real-World VLA Framework for Underwater Manipulation with Hydrodynamics-Aware Enhancement"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:11Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22ICoPa:+Infrastructure-Aware+Communication+Performance+Analyzer+and+Configuration+Profiling+for+Cloud/Edge+Robotics%22+OR+(ti:%22NL2HLTL2Plan:+Scaling+up+Natural+Language+Understanding+for+Multi-Robots+through+Hierarchical+Temporal+Logic+Task+Specifications%22+OR+(ti:%22Confidence-Aware+Planning+for+Linear+Temporal+Logic+Tasks+for+Heterogeneous+Robots+in+Dynamic+Environments%22+OR+(ti:%22Mutual-Rendezvous+Control+and+Feature-Compatible+Landing+Optimization+for+Heterogeneous+UAV-USV+Fleets%22+OR+(ti:%22PL-LIT:+A+LiDAR-Inertial-Thermal+SLAM+Using+Point-Line+Features+and+Thermographic+Mapping%22+OR+(ti:%22Analysis+of+Optimization-Based+Monocular+Point%E2%80%93Plane+VINS:+Formulation,+Information,+and+Marginalization%22+OR+(ti:%22Visual-Inertial+and+Inertial-Object+Tracking:+Analysis+and+Algorithm%22+OR+(ti:%22Observability+and+Consistency+Analysis+for+Visual-Inertial+Navigation+with+Anchored+Feature+Parameterizations%22+OR+(ti:%22NemeSys:+Toward+Online+Underwater+Exploration+with+Remote+Operator-In-The-Loop+Adaptive+Autonomy%22+OR+ti:%22%CF%80_water:+Real-World+VLA+Framework+for+Underwater+Manipulation+with+Hydrodynamics-Aware+Enhancement%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.29259v1</id>
+    <title>PL-LIT: A LiDAR-Inertial-Thermal SLAM Using Point-Line Features and Thermographic Mapping</title>
+    <updated>2026-06-28T08:13:43Z</updated>
+    <link href="https://arxiv.org/abs/2606.29259v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.29259v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Thermal imaging is resilient to adverse conditions, such as intense illumination, low-light operation, and fog, and can therefore mitigate odometry degradation when visible-spectrum imagery becomes unreliable. Nevertheless, most thermal cameras employ automatic gain control (AGC), and thermal images often present low global contrast despite containing informative edge structures. These characteristics undermine brightness constancy and cause conventional optical flow tracking-based odometry pipelines that fundamentally rely on the brightness constancy assumption across consecutive frames. To address these issues, we propose a general LiDAR-Inertial-Thermal SLAM system that accommodates both visible-light and thermal cameras. PL-LIT combines an online photometric calibration module with a deep neural network for point-line feature extraction, enabling more stable and repeatable thermal tracking. For state estimation, we design a tightly coupled LiDAR-Inertial-Thermal formulation within an Error-State Iterated Kalman Filter (ESIKF). We further introduce a line-feature constraint scheme ensuring the reliability of geometric constraints across varying thermal appearances. In addition, PL-LIT builds a probabilistic thermal-intensity voxel map, which supports real-time thermal anomaly detection. Extensive experiments demonstrate that PL-LIT exhibits generality and robustness in visible-light environments, achieves state-of-the-art performance on long-range thermal infrared datasets, and provides practical safety inspection functionality based on thermographic mapping.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-28T08:13:43Z</published>
+    <arxiv:comment>8 pages,International Conference on Intelligent Robots and Systems 2026 (IROS)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jiawei Xia</name>
+    </author>
+    <author>
+      <name>Yixiao Feng</name>
+    </author>
+    <author>
+      <name>Yongliang Shi</name>
+    </author>
+    <author>
+      <name>Chao Gao</name>
+    </author>
+    <author>
+      <name>Renjing Xu</name>
+    </author>
+    <author>
+      <name>Weining Lu</name>
+    </author>
+    <author>
+      <name>Bin Liang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.11889v2</id>
+    <title>NemeSys: Toward Online Underwater Exploration with Remote Operator-in-the-loop Adaptive Autonomy</title>
+    <updated>2026-04-21T04:55:01Z</updated>
+    <link href="https://arxiv.org/abs/2507.11889v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.11889v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Adaptive mission control and dynamic parameter reconfiguration are essential for autonomous underwater vehicles (AUVs) operating in GPS-denied, communication-limited marine environments. However, AUV platforms generally execute static, pre-programmed missions or rely on tethered connections and high-latency acoustic channels for mid-mission updates, significantly limiting their adaptability and responsiveness. In this paper, we introduce NemeSys, a novel AUV system designed to support real-time mission reconfiguration through compact magnetoelectric (ME) signaling. We present the full system design, control architecture, and a mission encoding framework that enables interactive exploration and task adaptation via low-bandwidth communication. The proposed system is validated through analytical modeling, controlled simulation tests, and real-world trials. The mid-mission retasking scenarios, evaluated using the NemeSys digital twin, demonstrate behavior switching latency below 50 ms with only a 13.2 MB peak computational overhead, making the framework suitable for deployment on edge computing hardware. Laboratory tank tests and open-water field trials further confirm stable control and reliable mission execution in dynamic underwater environments. These results establish the feasibility of online mission reconfiguration and highlight NemeSys as a promising step toward responsive, goal-driven adaptive underwater autonomy.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-16T04:02:59Z</published>
+    <arxiv:comment>10 pages, V2</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Adnan Abdullah</name>
+    </author>
+    <author>
+      <name>Alankrit Gupta</name>
+    </author>
+    <author>
+      <name>Vaishnav Ramesh</name>
+    </author>
+    <author>
+      <name>Shivali Patel</name>
+    </author>
+    <author>
+      <name>Md Jahidul Islam</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.19307v1</id>
+    <title>Observability and Consistency Analysis for Visual-Inertial Navigation with Anchored Feature Parameterizations</title>
+    <updated>2026-06-17T17:30:52Z</updated>
+    <link href="https://arxiv.org/abs/2606.19307v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.19307v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents an analysis of the observability and consistency properties of filtering-based visual-inertial navigation systems (VINS) that utilize anchored feature representations. The unobservable subspace of VINS with anchored landmark parameterizations is shown to be independent of the estimated landmark state, which leads to improved estimator consistency properties without any additional modifications. However, the unobservable subspace is still found to depend on the estimated navigation state, necessitating additional consistency-enforcing techniques. Two methods to improve the consistency of VINS with anchored feature representations are presented. Simulation results showcase that all estimators employing anchored feature paramterizations exhibit improved consistency properties compared to algorithms that estimate features resolved in a global reference frame, especially in scenarios where feature initialization may be poor. Real-world experiments on the TUM-VI dataset showcase that the use of anchored feature representations alone can yield comparable performance to consistency-improved estimators employing a global feature representation, demonstrating the benefit of using anchored feature parameterizations for VINS.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-17T17:30:52Z</published>
+    <arxiv:comment>Accepted to IEEE/RSJ IROS. 8 pages, 3 figures, 4 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mitchell Cohen</name>
+    </author>
+    <author>
+      <name>Vassili Korotkine</name>
+    </author>
+    <author>
+      <name>James Richard Forbes</name>
+    </author>
+  </entry>
+</feed>

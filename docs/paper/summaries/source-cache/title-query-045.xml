@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/CeSKM7uN0wh5KmuH9CRMxoIk3BI</id>
+  <title>arXiv Query: search_query=ti:"IAST: Instance Augmentation and Self-Training for Domain Adaptation on 3D Object Detection" OR ti:"FreqKD: Distillation-Based Single Domain Generalization Via Frequency-Structured Knowledge Transfer" OR ti:"Foundation-Assisted Active Learning for Object Detection Annotation" OR ti:"Learning Continuous Obstacle-Rich Pursuit for Drone Swarms" OR ti:"Split-it: Efficient Multi-Swarm Navigation Via Context-Aware Hierarchical Formation Switching in Constrained Environments" OR ti:"Hybrid Topology Control: A Dynamic Leader-Based Distributed Edge-Addition and Deletion Mechanism" OR ti:"Topological Online Learning for Displacement-based Formation Control" OR ti:"Decentralized Multi-Robot Herding Via Partial Containment Strategy" OR ti:"Behaviorally Heterogeneous Multi-Agent Exploration Using Distributed Task Allocation" OR ti:"From Grid to Ring: A New Convolutional Paradigm for Arbitrary-Scale UAV Thermal Super-Resolution"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:48Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22IAST:+Instance+Augmentation+and+Self-Training+for+Domain+Adaptation+on+3D+Object+Detection%22+OR+(ti:%22FreqKD:+Distillation-Based+Single+Domain+Generalization+Via+Frequency-Structured+Knowledge+Transfer%22+OR+(ti:%22Foundation-Assisted+Active+Learning+for+Object+Detection+Annotation%22+OR+(ti:%22Learning+Continuous+Obstacle-Rich+Pursuit+for+Drone+Swarms%22+OR+(ti:%22Split-it:+Efficient+Multi-Swarm+Navigation+Via+Context-Aware+Hierarchical+Formation+Switching+in+Constrained+Environments%22+OR+(ti:%22Hybrid+Topology+Control:+A+Dynamic+Leader-Based+Distributed+Edge-Addition+and+Deletion+Mechanism%22+OR+(ti:%22Topological+Online+Learning+for+Displacement-based+Formation+Control%22+OR+(ti:%22Decentralized+Multi-Robot+Herding+Via+Partial+Containment+Strategy%22+OR+(ti:%22Behaviorally+Heterogeneous+Multi-Agent+Exploration+Using+Distributed+Task+Allocation%22+OR+ti:%22From+Grid+to+Ring:+A+New+Convolutional+Paradigm+for+Arbitrary-Scale+UAV+Thermal+Super-Resolution%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.13529v1</id>
+    <title>Hybrid topology control: a dynamic leader-based distributed edge-addition and deletion mechanism</title>
+    <updated>2026-03-13T19:06:51Z</updated>
+    <link href="https://arxiv.org/abs/2603.13529v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.13529v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Coordinated operations of multi-robot systems (MRS) require agents to maintain communication connections to accomplish team objectives. However, maintaining the connections imposes costs in terms of restricted robot mobility, resulting in suboptimal team performance. In this work, we consider a realistic MRS framework in which agents are subject to unknown dynamical disturbances and experience communication delays. Most existing works on connectivity maintenance use consensus-based frameworks for graph reconfiguration, where decision-making time scales with the number of nodes and requires multiple rounds of communication, making them ineffective under communication delays. To address this, we propose a novel leader-based decision-making algorithm that uses a central node for efficient real-time reconfiguration, reducing decision-making time to depend on the graph diameter rather than the number of nodes and requiring only one round of information transfer through the network. We propose a novel method for estimating robot locations within the MRS that actively accounts for unknown disturbances and the communication delays. Using these position estimates, the central node selects a set of edges to delete while allowing the formation of new edges, aiming to keep the diameter of the new graph within a threshold. We provide numerous simulation results to showcase the efficacy of the proposed method.</summary>
+    <category term="math.OC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-13T19:06:51Z</published>
+    <arxiv:comment>Under review</arxiv:comment>
+    <arxiv:primary_category term="math.OC"/>
+    <author>
+      <name>Kunal Garg</name>
+    </author>
+    <author>
+      <name>Xi Yu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.08242v1</id>
+    <title>Behaviorally Heterogeneous Multi-Agent Exploration Using Distributed Task Allocation</title>
+    <updated>2025-09-10T02:52:45Z</updated>
+    <link href="https://arxiv.org/abs/2509.08242v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.08242v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We study a problem of multi-agent exploration with behaviorally heterogeneous robots. Each robot maps its surroundings using SLAM and identifies a set of areas of interest (AoIs) or frontiers that are the most informative to explore next. The robots assess the utility of going to a frontier using Behavioral Entropy (BE) and then determine which frontier to go to via a distributed task assignment scheme. We convert the task assignment problem into a non-cooperative game and use a distributed algorithm (d-PBRAG) to converge to the Nash equilibrium (which we show is the optimal task allocation solution). For unknown utility cases, we provide robust bounds using approximate rewards. We test our algorithm (which has less communication cost and fast convergence) in simulation, where we explore the effect of sensing radii, sensing accuracy, and heterogeneity among robotic teams with respect to the time taken to complete exploration and path traveled. We observe that having a team of agents with heterogeneous behaviors is beneficial.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-10T02:52:45Z</published>
+    <arxiv:comment>10 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nirabhra Mandal</name>
+    </author>
+    <author>
+      <name>Aamodh Suresh</name>
+    </author>
+    <author>
+      <name>Carlos Nieto-Granda</name>
+    </author>
+    <author>
+      <name>Sonia Martínez</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.16671v1</id>
+    <title>Foundation-Assisted Active Learning for Object Detection Annotation</title>
+    <updated>2026-07-18T06:59:08Z</updated>
+    <link href="https://arxiv.org/abs/2607.16671v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.16671v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The annotation cost for remote sensing object detection is high, while existing active learning methods still face several challenges in object detection scenarios, including the coupling of localization and classification uncertainty, severe localization noise in the cold-start stage, and pseudo-diversity caused by high-recall candidate proposals. To address these issues, we propose a foundation-model-collaborative active learning and semi-automatic annotation framework for efficient construction of remote sensing object detection datasets. We build a dual-source mechanism consisting of a reference localization source (SA-source) based on UPN+SAM2 and a detector prediction source (OD-source), and further propose a Foundation-model-enhanced Dual-Source Uncertainty estimation to improve sample selection quality in the cold-start stage by jointly modeling localization consistency and classification confidence. Furthermore, we propose Object-Centric Diversity Sampling, which constructs object-level representations using DINOv2 features and SAM2 masks to improve sample coverage while suppressing pseudo-diversity. To address geometric noise in the semi-automatic annotation stage, we design Dual-Source Box Switching, which replaces noisy detector boxes with matched refined boxes from the SA-source, thereby reducing the manual burden of box refinement. Experiments on DIOR, HRSC2016, DOTAv2, and FAIR1M show that our method achieves superior or comparable results under most annotation budgets, with notably stronger cold-start sample efficiency in the low-budget regime.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-18T06:59:08Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jinchang Zhang</name>
+    </author>
+    <author>
+      <name>Arnold Zumbrun</name>
+    </author>
+    <author>
+      <name>Jing Lin</name>
+    </author>
+    <author>
+      <name>Guoyu Lu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.23901v1</id>
+    <title>Topological Online Learning for Displacement-based Formation Control</title>
+    <updated>2026-06-22T19:57:23Z</updated>
+    <link href="https://arxiv.org/abs/2606.23901v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.23901v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper addresses the problem of robust formation control by introducing Topological Online Learning for Displacement-based (TOLD) formation control, a real-time edge-level adaptation framework. Unlike conventional node-level robust controllers that regulate individual robot inputs without modifying the interaction topology, TOLD updates the interaction topology weights online to directly minimize formation distortion. Two strategies are proposed under the TOLD formation control framework: Online Gradient Flow (OGF) with unconstrained weights and Online Exponential Gradient Flow (OExpGF) with non-negative convex weights. Theoretical analysis establishes that, for single-integrator agents over directed graphs, OExpGF guarantees asymptotic consensus, while OGF ensures bounded formation distortion. Simulations with twelve robots under intermittent disturbances show 1.2%-33.14% median cumulative Root Mean Distortion Error reduction when augmenting TOLD with node-level controllers. Hardware experiments with Crazyflie 2.0 quadrotors demonstrate over 62% (OGF) and 31.4% (OExpGF) reduction in median formation distortion compared to fixed-weight consensus.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T19:57:23Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Saksham Sharma</name>
+    </author>
+    <author>
+      <name>Shubhankar Gupta</name>
+    </author>
+    <author>
+      <name>Sumant A Gunagi</name>
+    </author>
+    <author>
+      <name>Suresh Sundaram</name>
+    </author>
+  </entry>
+</feed>

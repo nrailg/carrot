@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/r9jAWG56OUq0OQbFjNyuUL+/fms</id>
+  <title>arXiv Query: search_query=ti:"Online Class-Aware Bayesian Terrain Parameter Estimation for Off-Road Vehicles" OR ti:"Proprioceptive Safe Active Navigation and Exploration for Planetary Environments" OR ti:"Unified Static–Dynamic Macro–Micro Robotic Palpation with Multi-Actuation for Viscoelastic Property Mapping" OR ti:"Keeping It Smooth: The Role of Haptic Feedback in Shaping Motor Performance" OR ti:"A Physics-Informed Neural Operator for Gas Source Localization in Turbulent Environments" OR ti:"Event-Aided Sharp Radiance Field Reconstruction for Fast-Flying Drones" OR ti:"Iterative Motion Compensation for Canonical 3D Reconstruction from UAV Plant Images Captured in Windy Conditions" OR ti:"PORTAL: Occlusion-Portal Guided UAV Exploration with Beyond-Frontier Utility and Viewpoint Consolidation" OR ti:"Online Explore–Then–Exploit UAV Scanning with Budgeted Return Re-Scanning" OR ti:"IA-TIGRIS: An Incremental and Adaptive Sampling-Based Planner for Online Informative Path Planning"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:18Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Online+Class-Aware+Bayesian+Terrain+Parameter+Estimation+for+Off-Road+Vehicles%22+OR+(ti:%22Proprioceptive+Safe+Active+Navigation+and+Exploration+for+Planetary+Environments%22+OR+(ti:%22Unified+Static%E2%80%93Dynamic+Macro%E2%80%93Micro+Robotic+Palpation+with+Multi-Actuation+for+Viscoelastic+Property+Mapping%22+OR+(ti:%22Keeping+It+Smooth:+The+Role+of+Haptic+Feedback+in+Shaping+Motor+Performance%22+OR+(ti:%22A+Physics-Informed+Neural+Operator+for+Gas+Source+Localization+in+Turbulent+Environments%22+OR+(ti:%22Event-Aided+Sharp+Radiance+Field+Reconstruction+for+Fast-Flying+Drones%22+OR+(ti:%22Iterative+Motion+Compensation+for+Canonical+3D+Reconstruction+from+UAV+Plant+Images+Captured+in+Windy+Conditions%22+OR+(ti:%22PORTAL:+Occlusion-Portal+Guided+UAV+Exploration+with+Beyond-Frontier+Utility+and+Viewpoint+Consolidation%22+OR+(ti:%22Online+Explore%E2%80%93Then%E2%80%93Exploit+UAV+Scanning+with+Budgeted+Return+Re-Scanning%22+OR+ti:%22IA-TIGRIS:+An+Incremental+and+Adaptive+Sampling-Based+Planner+for+Online+Informative+Path+Planning%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.15491v1</id>
+    <title>Iterative Motion Compensation for Canonical 3D Reconstruction from UAV Plant Images Captured in Windy Conditions</title>
+    <updated>2025-10-17T10:04:08Z</updated>
+    <link href="https://arxiv.org/abs/2510.15491v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.15491v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>3D phenotyping of plants plays a crucial role for understanding plant growth, yield prediction, and disease control. We present a pipeline capable of generating high-quality 3D reconstructions of individual agricultural plants. To acquire data, a small commercially available UAV captures images of a selected plant. Apart from placing ArUco markers, the entire image acquisition process is fully autonomous, controlled by a self-developed Android application running on the drone's controller. The reconstruction task is particularly challenging due to environmental wind and downwash of the UAV. Our proposed pipeline supports the integration of arbitrary state-of-the-art 3D reconstruction methods. To mitigate errors caused by leaf motion during image capture, we use an iterative method that gradually adjusts the input images through deformation. Motion is estimated using optical flow between the original input images and intermediate 3D reconstructions rendered from the corresponding viewpoints. This alignment gradually reduces scene motion, resulting in a canonical representation. After a few iterations, our pipeline improves the reconstruction of state-of-the-art methods and enables the extraction of high-resolution 3D meshes. We will publicly release the source code of our reconstruction pipeline. Additionally, we provide a dataset consisting of multiple plants from various crops, captured across different points in time.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-17T10:04:08Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Andre Rochow</name>
+    </author>
+    <author>
+      <name>Jonas Marcic</name>
+    </author>
+    <author>
+      <name>Svetlana Seliunina</name>
+    </author>
+    <author>
+      <name>Sven Behnke</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2502.15961v3</id>
+    <title>IA-TIGRIS: An Incremental and Adaptive Sampling-Based Planner for Online Informative Path Planning</title>
+    <updated>2026-04-01T23:28:14Z</updated>
+    <link href="https://arxiv.org/abs/2502.15961v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2502.15961v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Planning paths that maximize information gain for robotic platforms has wide-ranging applications and significant potential impact. To effectively adapt to real-time data collection, informative path planning must be computed online and be responsive to new observations. In this work, we present IA-TIGRIS (Incremental and Adaptive Tree-based Information Gathering Using Informed Sampling), which is an incremental and adaptive sampling-based informative path planner designed for real-time onboard execution. Our approach leverages past planning efforts through incremental refinement while continuously adapting to updated belief maps. We additionally present detailed implementation and optimization insights to facilitate real-world deployment, along with an array of reward functions tailored to specific missions and behaviors. Extensive simulation results demonstrate IA-TIGRIS generates higher-quality paths compared to baseline methods. We validate our planner on two distinct hardware platforms: a hexarotor unmanned aerial vehicle (UAV) and a fixed-wing UAV, each having different motion models and configuration spaces. Our results show up to a 38% improvement in information gain compared to baseline methods, highlighting the planner's potential for deployment in real-world applications. Project website: https://ia-tigris.github.io</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-02-21T21:46:56Z</published>
+    <arxiv:comment>Published in IEEE Transactions on Robotics, 19 pages, 19 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Brady Moon</name>
+    </author>
+    <author>
+      <name>Nayana Suvarna</name>
+    </author>
+    <author>
+      <name>Andrew Jong</name>
+    </author>
+    <author>
+      <name>Satrajit Chatterjee</name>
+    </author>
+    <author>
+      <name>Junbin Yuan</name>
+    </author>
+    <author>
+      <name>Muqing Cao</name>
+    </author>
+    <author>
+      <name>Sebastian Scherer</name>
+    </author>
+    <arxiv:doi>10.1109/TRO.2026.3672542</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TRO.2026.3672542" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2602.21101v2</id>
+    <title>Event-Aided Sharp Radiance Field Reconstruction for Fast-Flying Drones</title>
+    <updated>2026-02-26T16:35:02Z</updated>
+    <link href="https://arxiv.org/abs/2602.21101v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.21101v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Fast-flying aerial robots promise rapid inspection under limited battery constraints, with direct applications in infrastructure inspection, terrain exploration, and search and rescue. However, high speeds lead to severe motion blur in images and induce significant drift and noise in pose estimates, making dense 3D reconstruction with Neural Radiance Fields (NeRFs) particularly challenging due to their high sensitivity to such degradations. In this work, we present a unified framework that leverages asynchronous event streams alongside motion-blurred frames to reconstruct high-fidelity radiance fields from agile drone flights. By embedding event-image fusion into NeRF optimization and jointly refining event-based visual-inertial odometry priors using both event and frame modalities, our method recovers sharp radiance fields and accurate camera trajectories without ground-truth supervision. We validate our approach on both synthetic data and real-world sequences captured by a fast-flying drone. Despite highly dynamic drone flights, where RGB frames are severely degraded by motion blur and pose priors become unreliable, our method reconstructs high-fidelity radiance fields and preserves fine scene details, delivering a performance gain of over 50% on real-world data compared to state-of-the-art methods.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-24T17:02:56Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <arxiv:journal_ref>IEEE Transactions on Robotics, 2026</arxiv:journal_ref>
+    <author>
+      <name>Rong Zou</name>
+    </author>
+    <author>
+      <name>Marco Cannici</name>
+    </author>
+    <author>
+      <name>Davide Scaramuzza</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.08905v1</id>
+    <title>Proprioceptive Safe Active Navigation and Exploration for Planetary Environments</title>
+    <updated>2026-03-09T20:17:50Z</updated>
+    <link href="https://arxiv.org/abs/2603.08905v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.08905v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deformable granular terrains introduce significant locomotion and immobilization risks in planetary exploration and are difficult to detect via remote sensing (e.g., vision). Legged robots can sense terrain properties through leg-terrain interactions during locomotion, offering a direct means to assess traversability in deformable environments. How to systematically exploit this interaction-derived information for navigation planning, however, remains underexplored. We address this gap by presenting PSANE, a Proprioceptive Safe Active Navigation and Exploration framework that leverages leg-terrain interaction measurements for safe navigation and exploration in unknown deformable environments. PSANE learns a traversability model via Gaussian Process regression to estimate and certify safe regions and identify exploration frontiers online, and integrates these estimates with a reactive controller for real-time navigation. Frontier selection is formulated as a multi-objective optimization that balances safe-set expansion probability and goal-directed cost, with subgoals selected via scalarization over the Pareto-optimal frontier set. PSANE safely explores unknown granular terrain and reaches specified goals using only proprioceptively estimated traversability, while achieving performance improvements over baseline methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-09T20:17:50Z</published>
+    <arxiv:comment>9 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Matthew Y. Jiang</name>
+    </author>
+    <author>
+      <name>Feifei Qian</name>
+    </author>
+    <author>
+      <name>Shipeng Liu</name>
+    </author>
+  </entry>
+</feed>

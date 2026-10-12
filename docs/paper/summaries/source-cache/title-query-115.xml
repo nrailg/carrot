@@ -1,0 +1,145 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Vl1OiFuBArkuIcldvTf5Hh6SjuM</id>
+  <title>arXiv Query: search_query=ti:"The Constitutional Controller: Doubt-Calibrated Steering of Compliant Agents" OR ti:"Oracle-Guided Multi-Agent Reinforcement Learning for Cooperative Search and Capture in Obstacle-Rich Environments" OR ti:"Asynchronous Value Factorization for Multi-Robot Cooperative Reinforcement Learning" OR ti:"Robust Multi-UAV Cooperative Search for Dynamic Targets Via Heavy-Tail-Adapted Multi-Agent Reinforcement Learning" OR ti:"Reinforcement Learning for Game-Theoretic Resource Allocation on Graphs" OR ti:"HRC-BP: Intervention Time Aware Human-Robot Collaborative 3D Bin Packing" OR ti:"Abstract Sim2Real through Approximate Information States" OR ti:"ESP-SLAM: Efficient Submap Partitioning for Large-Scale 3D Gaussian Splatting-Based SLAM" OR ti:"DiskChunGS: Large-Scale 3D Gaussian SLAM through Chunk-Based Memory Management" OR ti:"Self-Organizing Edge Computing Distribution Framework for Visual SLAM"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:32Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22The+Constitutional+Controller:+Doubt-Calibrated+Steering+of+Compliant+Agents%22+OR+(ti:%22Oracle-Guided+Multi-Agent+Reinforcement+Learning+for+Cooperative+Search+and+Capture+in+Obstacle-Rich+Environments%22+OR+(ti:%22Asynchronous+Value+Factorization+for+Multi-Robot+Cooperative+Reinforcement+Learning%22+OR+(ti:%22Robust+Multi-UAV+Cooperative+Search+for+Dynamic+Targets+Via+Heavy-Tail-Adapted+Multi-Agent+Reinforcement+Learning%22+OR+(ti:%22Reinforcement+Learning+for+Game-Theoretic+Resource+Allocation+on+Graphs%22+OR+(ti:%22HRC-BP:+Intervention+Time+Aware+Human-Robot+Collaborative+3D+Bin+Packing%22+OR+(ti:%22Abstract+Sim2Real+through+Approximate+Information+States%22+OR+(ti:%22ESP-SLAM:+Efficient+Submap+Partitioning+for+Large-Scale+3D+Gaussian+Splatting-Based+SLAM%22+OR+(ti:%22DiskChunGS:+Large-Scale+3D+Gaussian+SLAM+through+Chunk-Based+Memory+Management%22+OR+ti:%22Self-Organizing+Edge+Computing+Distribution+Framework+for+Visual+SLAM%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.23030v2</id>
+    <title>DiskChunGS: Large-Scale 3D Gaussian SLAM Through Chunk-Based Memory Management</title>
+    <updated>2026-06-10T19:09:48Z</updated>
+    <link href="https://arxiv.org/abs/2511.23030v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.23030v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in 3D Gaussian Splatting (3DGS) have demonstrated impressive results for novel view synthesis with real-time rendering capabilities. However, integrating 3DGS with SLAM systems faces a fundamental scalability limitation: methods are constrained by GPU memory capacity, restricting reconstruction to small-scale environments. We present DiskChunGS, a scalable 3DGS SLAM system that overcomes this bottleneck through an out-of-core approach that partitions scenes into spatial chunks and maintains only active regions in GPU memory while storing inactive areas on disk. Our architecture integrates seamlessly with existing SLAM frameworks for pose estimation and loop closure, enabling globally consistent reconstruction at scale. We validate DiskChunGS on indoor scenes (Replica, TUM-RGBD), urban driving scenarios (KITTI), and resource-constrained Nvidia Jetson platforms. Our method uniquely completes all 11 KITTI sequences without memory failures while achieving superior visual quality, demonstrating that algorithmic innovation can overcome the memory constraints that have limited previous 3DGS SLAM methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-28T09:52:49Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, no. 4, 2026</arxiv:journal_ref>
+    <author>
+      <name>Casimir Feldmann</name>
+    </author>
+    <author>
+      <name>Maximum Wilder-Smith</name>
+    </author>
+    <author>
+      <name>Vaishakh Patil</name>
+    </author>
+    <author>
+      <name>Michael Oechsle</name>
+    </author>
+    <author>
+      <name>Michael Niemeyer</name>
+    </author>
+    <author>
+      <name>Keisuke Tateno</name>
+    </author>
+    <author>
+      <name>Marco Hutter</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3668704</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3668704" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.15478v1</id>
+    <title>The Constitutional Controller: Doubt-Calibrated Steering of Compliant Agents</title>
+    <updated>2025-07-21T10:33:31Z</updated>
+    <link href="https://arxiv.org/abs/2507.15478v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.15478v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Ensuring reliable and rule-compliant behavior of autonomous agents in uncertain environments remains a fundamental challenge in modern robotics. Our work shows how neuro-symbolic systems, which integrate probabilistic, symbolic white-box reasoning models with deep learning methods, offer a powerful solution to this challenge. This enables the simultaneous consideration of explicit rules and neural models trained on noisy data, combining the strength of structured reasoning with flexible representations. To this end, we introduce the Constitutional Controller (CoCo), a novel framework designed to enhance the safety and reliability of agents by reasoning over deep probabilistic logic programs representing constraints such as those found in shared traffic spaces. Furthermore, we propose the concept of self-doubt, implemented as a probability density conditioned on doubt features such as travel velocity, employed sensors, or health factors. In a real-world aerial mobility study, we demonstrate CoCo's advantages for intelligent autonomous systems to learn appropriate doubts and navigate complex and uncertain environments safely and compliantly.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-21T10:33:31Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Simon Kohaut</name>
+    </author>
+    <author>
+      <name>Felix Divo</name>
+    </author>
+    <author>
+      <name>Navid Hamid</name>
+    </author>
+    <author>
+      <name>Benedict Flade</name>
+    </author>
+    <author>
+      <name>Julian Eggert</name>
+    </author>
+    <author>
+      <name>Devendra Singh Dhami</name>
+    </author>
+    <author>
+      <name>Kristian Kersting</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2501.08629v1</id>
+    <title>Self-Organizing Edge Computing Distribution Framework for Visual SLAM</title>
+    <updated>2025-01-15T07:24:15Z</updated>
+    <link href="https://arxiv.org/abs/2501.08629v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.08629v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Localization within a known environment is a crucial capability for mobile robots. Simultaneous Localization and Mapping (SLAM) is a prominent solution to this problem. SLAM is a framework that consists of a diverse set of computational tasks ranging from real-time tracking to computation-intensive map optimization. This combination can present a challenge for resource-limited mobile robots. Previously, edge-assisted SLAM methods have demonstrated promising real-time execution capabilities by offloading heavy computations while performing real-time tracking onboard. However, the common approach of utilizing a client-server architecture for offloading is sensitive to server and network failures. In this article, we propose a novel edge-assisted SLAM framework capable of self-organizing fully distributed SLAM execution across a network of devices or functioning on a single device without connectivity. The architecture consists of three layers and is designed to be device-agnostic, resilient to network failures, and minimally invasive to the core SLAM system. We have implemented and demonstrated the framework for monocular ORB SLAM3 and evaluated it in both fully distributed and standalone SLAM configurations against the ORB SLAM3. The experiment results demonstrate that the proposed design matches the accuracy and resource utilization of the monolithic approach while enabling collaborative execution.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.DC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-01-15T07:24:15Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jussi Kalliola</name>
+    </author>
+    <author>
+      <name>Lauri Suomela</name>
+    </author>
+    <author>
+      <name>Sergio Moreschini</name>
+    </author>
+    <author>
+      <name>David Hästbacka</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.15289v1</id>
+    <title>Abstract Sim2Real through Approximate Information States</title>
+    <updated>2026-04-16T17:53:16Z</updated>
+    <link href="https://arxiv.org/abs/2604.15289v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.15289v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In recent years, reinforcement learning (RL) has shown remarkable success in robotics when a fast and accurate simulator is available for a given task. When using RL and simulation, more simulator realism is generally beneficial but becomes harder to obtain as robots are deployed in increasingly complex and widescale domains. In such settings, simulators will likely fail to model all relevant details of a given target task and this observation motivates the study of sim2real with simulators that leave out key task details. In this paper, we formalize and study the abstract sim2real problem: given an abstract simulator that models a target task at a coarse level of abstraction, how can we train a policy with RL in the abstract simulator and successfully transfer it to the real-world? Our first contribution is to formalize this problem using the language of state abstraction from the RL literature. This framing shows that an abstract simulator can be grounded to match the target task if the grounded abstract dynamics take the history of states into account. Based on the formalism, we then introduce a method that uses real-world task data to correct the dynamics of the abstract simulator. We then show that this method enables successful policy transfer both in sim2sim and sim2real evaluation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-16T17:53:16Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yunfu Deng</name>
+    </author>
+    <author>
+      <name>Yuhao Li</name>
+    </author>
+    <author>
+      <name>Josiah P. Hanna</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.06319v1</id>
+    <title>Reinforcement Learning for Game-Theoretic Resource Allocation on Graphs</title>
+    <updated>2025-05-08T21:12:34Z</updated>
+    <link href="https://arxiv.org/abs/2505.06319v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.06319v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Game-theoretic resource allocation on graphs (GRAG) involves two players competing over multiple steps to control nodes of interest on a graph, a problem modeled as a multi-step Colonel Blotto Game (MCBG). Finding optimal strategies is challenging due to the dynamic action space and structural constraints imposed by the graph. To address this, we formulate the MCBG as a Markov Decision Process (MDP) and apply Reinforcement Learning (RL) methods, specifically Deep Q-Network (DQN) and Proximal Policy Optimization (PPO). To enforce graph constraints, we introduce an action-displacement adjacency matrix that dynamically generates valid action sets at each step. We evaluate RL performance across a variety of graph structures and initial resource distributions, comparing against random, greedy, and learned RL policies. Experimental results show that both DQN and PPO consistently outperform baseline strategies and converge to a balanced $50\%$ win rate when competing against the learned RL policy. Particularly, on asymmetric graphs, RL agents successfully exploit structural advantages and adapt their allocation strategies, even under disadvantageous initial resource distributions.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.GT" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-08T21:12:34Z</published>
+    <arxiv:comment>12 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zijian An</name>
+    </author>
+    <author>
+      <name>Lifeng Zhou</name>
+    </author>
+  </entry>
+</feed>

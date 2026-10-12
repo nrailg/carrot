@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/lPfpWuDp9BfgW8Nn7SBYm8Kz4L8</id>
+  <title>arXiv Query: search_query=ti:"Distance–Direction Constrained Grey Wolf Optimization Method for Targetless Camera–LiDAR Extrinsic Calibration" OR ti:"GLoCal: Global-Local Flow Estimation for Robust LiDAR-Camera Calibration" OR ti:"Online Targetless Self-Calibration for Ultra-Wide FoV Multi-Camera Visual-Inertial Platforms" OR ti:"Configuration-Dependent Robot Kinematics Model and Calibration" OR ti:"G-EDF-Loc: 3D Continuous Gaussian Distance Field for Robust Gradient-Based 6DoF Localization" OR ti:"FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR" OR ti:"Efficient Construction of 3D-Gaussian Clusters and Elevation Maps for Autonomous Mobile Robot Navigation in Non-Planar Environments" OR ti:"Generation of Indoor Open Street Maps for Robot Navigation from CAD Files" OR ti:"Bundle Adjustment in the Eager Mode" OR ti:"Topology-Aware Decision Making for Multi-Session Localization and Mapping"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:30Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Distance%E2%80%93Direction+Constrained+Grey+Wolf+Optimization+Method+for+Targetless+Camera%E2%80%93LiDAR+Extrinsic+Calibration%22+OR+(ti:%22GLoCal:+Global-Local+Flow+Estimation+for+Robust+LiDAR-Camera+Calibration%22+OR+(ti:%22Online+Targetless+Self-Calibration+for+Ultra-Wide+FoV+Multi-Camera+Visual-Inertial+Platforms%22+OR+(ti:%22Configuration-Dependent+Robot+Kinematics+Model+and+Calibration%22+OR+(ti:%22G-EDF-Loc:+3D+Continuous+Gaussian+Distance+Field+for+Robust+Gradient-Based+6DoF+Localization%22+OR+(ti:%22FGGS-LiDAR:+Ultra-Fast,+GPU-Accelerated+Simulation+from+General+3DGS+Models+to+LiDAR%22+OR+(ti:%22Efficient+Construction+of+3D-Gaussian+Clusters+and+Elevation+Maps+for+Autonomous+Mobile+Robot+Navigation+in+Non-Planar+Environments%22+OR+(ti:%22Generation+of+Indoor+Open+Street+Maps+for+Robot+Navigation+from+CAD+Files%22+OR+(ti:%22Bundle+Adjustment+in+the+Eager+Mode%22+OR+ti:%22Topology-Aware+Decision+Making+for+Multi-Session+Localization+and+Mapping%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.04525v1</id>
+    <title>G-EDF-Loc: 3D Continuous Gaussian Distance Field for Robust Gradient-Based 6DoF Localization</title>
+    <updated>2026-04-06T08:40:18Z</updated>
+    <link href="https://arxiv.org/abs/2604.04525v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.04525v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents a robust 6-DoF localization framework based on a direct, CPU-based scan-to-map registration pipeline. The system leverages G-EDF, a novel continuous and memory-efficient 3D distance field representation. The approach models the Euclidean Distance Field (EDF) using a Block-Sparse Gaussian Mixture Model with adaptive spatial partitioning, ensuring $C^1$ continuity across block transitions and mitigating boundary artifacts. By leveraging the analytical gradients of this continuous map, which maintain Eikonal consistency, the proposed method achieves high-fidelity spatial reconstruction and real-time localization. Experimental results on large-scale datasets demonstrate that G-EDF-Loc performs competitively against state-of-the-art methods, exhibiting exceptional resilience even under severe odometry degradation or in the complete absence of IMU priors.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-06T08:40:18Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>José E. Maese</name>
+    </author>
+    <author>
+      <name>Lucía Coto-Elena</name>
+    </author>
+    <author>
+      <name>Luis Merino</name>
+    </author>
+    <author>
+      <name>Fernando Caballero</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.17390v3</id>
+    <title>FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR</title>
+    <updated>2026-08-04T10:39:29Z</updated>
+    <link href="https://arxiv.org/abs/2509.17390v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.17390v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While 3D Gaussian Splatting (3DGS) has emerged as a strong representation for photorealistic rendering, its vast ecosystem of assets remains difficult to use for high-performance LiDAR simulation, a critical tool for robotics and autonomous driving. We present \textbf{FGGS-LiDAR}, a geometry-first framework that bridges this gap in a plug-and-play manner. Our method converts pretrained 3DGS assets into watertight meshes directly from Gaussian parameters, without requiring LiDAR-specific supervision or architectural alterations, via volumetric discretization and Truncated Signed Distance Field (TSDF) extraction. We pair this with a GPU-accelerated ray-casting module that simulates LiDAR returns at over 500 FPS and supports batched multi-environment simulation with up to 4096 environments. In large-scale parallel settings, FGGS-LiDAR achieves an order-of-magnitude lower LiDAR simulation latency than Isaac Sim. We validate FGGS-LiDAR on both indoor and outdoor scenes, demonstrating high LiDAR-simulation fidelity. Furthermore, on COLMAP-posed indoor benchmarks, we compare against existing 3DGS-to-mesh baselines and report lower LiDAR-simulation error. Code is at https://github.com/discoverse-dev/FGGS-LiDAR.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-22T06:52:49Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Junzhe Wu</name>
+    </author>
+    <author>
+      <name>Yufei Jia</name>
+    </author>
+    <author>
+      <name>Yiyi Yan</name>
+    </author>
+    <author>
+      <name>Zhixing Chen</name>
+    </author>
+    <author>
+      <name>Tiao Tan</name>
+    </author>
+    <author>
+      <name>Zifan Wang</name>
+    </author>
+    <author>
+      <name>Guangyu Wang</name>
+    </author>
+    <author>
+      <name>BoKui Chen</name>
+    </author>
+    <author>
+      <name>Guyue Zhou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.00552v3</id>
+    <title>Generation of Indoor Open Street Maps for Robot Navigation from CAD Files</title>
+    <updated>2026-03-31T03:14:13Z</updated>
+    <link href="https://arxiv.org/abs/2507.00552v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.00552v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The deployment of autonomous mobile robots is predicated on the availability of environmental maps, yet conventional generation via SLAM (Simultaneous Localization and Mapping) suffers from significant limitations in time, labor, and robustness, particularly in dynamic, large-scale indoor environments where map obsolescence can lead to critical localization failures. To address these challenges, this paper presents a complete and automated system for converting architectural Computer-Aided Design (CAD) files into a hierarchical topometric OpenStreetMap (OSM) representation, tailored for robust life-long robot navigation. Our core methodology involves a multi-stage pipeline that first isolates key structural layers from the raw CAD data and then employs an AreaGraph-based topological segmentation to partition the building layout into a hierarchical graph of navigable spaces. This process yields a comprehensive and semantically rich map, further enhanced by automatically associating textual labels from the CAD source and cohesively merging multiple building floors into a unified, topologically-correct model. By leveraging the permanent structural information inherent in CAD files, our system circumvents the inefficiencies and fragility of SLAM, offering a practical and scalable solution for deploying robots in complex indoor spaces. The software is encapsulated within an intuitive Graphical User Interface (GUI) to facilitate practical use. The code and dataset are available at https://github.com/jiajiezhang7/osmAG-from-cad.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-01T08:18:43Z</published>
+    <arxiv:comment>8 pages, 8 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jiajie Zhang</name>
+    </author>
+    <author>
+      <name>Shenrui Wu</name>
+    </author>
+    <author>
+      <name>Xu Ma</name>
+    </author>
+    <author>
+      <name>Sören Schwertfeger</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2602.17226v2</id>
+    <title>Topology-Aware Decision Making for Multi-Session Localization and Mapping</title>
+    <updated>2026-08-25T07:44:27Z</updated>
+    <link href="https://arxiv.org/abs/2602.17226v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.17226v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Operating in previously visited environments is becoming increasingly crucial for autonomous systems, with direct applications in autonomous driving, surveying, and warehouse or household robotics. This repeated exposure to observing the same areas poses significant challenges for mapping and localization across sessions, particularly in deciding when a prior model is sufficient for reliable localization and when new mapping is required. In this work, we propose a novel multi-session framework that builds on map-based localization, in contrast to the common practice of greedily running full SLAM sessions and trying to find correspondences between the resulting maps. The core contribution is a principled, topology-driven mechanism to detect multi-session mapping needs from the pose-graph structure. Specifically, our approach uses spectral connectivity metrics on the joint pose-graph to identify disconnections and weakly constrained regions, and selectively triggers mapping and loop closing only when the pose-graph topology indicates insufficient structural support. The resulting map and pose-graph are seamlessly integrated into the existing model, reducing accumulated error and enhancing global consistency while avoiding redundant remapping. We validate our method on overlapping sequences from datasets and demonstrate its effectiveness in a real-world mine-like environment.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-19T10:17:46Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lorenzo Montano-Olivan</name>
+    </author>
+    <author>
+      <name>Julio A. Placed</name>
+    </author>
+    <author>
+      <name>Luis Montano</name>
+    </author>
+    <author>
+      <name>Maria T. Lazaro</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.12190v4</id>
+    <title>Bundle Adjustment in the Eager Mode</title>
+    <updated>2026-05-18T07:05:26Z</updated>
+    <link href="https://arxiv.org/abs/2409.12190v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.12190v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Bundle adjustment (BA) is a critical technique in various robotic applications such as simultaneous localization and mapping (SLAM), augmented reality (AR), and photogrammetry. BA optimizes parameters such as camera poses and 3D landmarks to align them with observations. With the growing importance of deep learning in perception systems, there is an increasing need to integrate BA with deep learning frameworks for enhanced reliability and performance. However, widely-used C++-based BA libraries, such as GTSAM, g$^2$o, and Ceres Solver, lack native integration with modern deep learning libraries like PyTorch. This limitation affects their flexibility, ease of debugging, and overall implementation efficiency. To address this gap, we introduce an eager-mode BA library seamlessly integrated with PyTorch with high efficiency. Our approach includes a sparsity-aware auto-differentiation design and GPU-accelerated sparse operations designed for 2nd-order optimization. Our eager-mode BA on GPU demonstrates substantial runtime efficiency, achieving an average speedup of 18.5$\times$, 22$\times$, and 23$\times$ across all benchmarks compared to GTSAM, g$^2$o, and Ceres, respectively.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-18T17:59:29Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Transactions on Robotics (T-RO), 2026</arxiv:journal_ref>
+    <author>
+      <name>Zitong Zhan</name>
+    </author>
+    <author>
+      <name>Huan Xu</name>
+    </author>
+    <author>
+      <name>Zihang Fang</name>
+    </author>
+    <author>
+      <name>Xinpeng Wei</name>
+    </author>
+    <author>
+      <name>Yaoyu Hu</name>
+    </author>
+    <author>
+      <name>Chen Wang</name>
+    </author>
+    <arxiv:doi>10.1109/TRO.2026.3706557</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TRO.2026.3706557" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.19962v1</id>
+    <title>Configuration-Dependent Robot Kinematics Model and Calibration</title>
+    <updated>2025-10-22T18:44:30Z</updated>
+    <link href="https://arxiv.org/abs/2510.19962v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.19962v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate robot kinematics is essential for precise tool placement in articulated robots, but non-geometric factors can introduce configuration-dependent model discrepancies. This paper presents a configuration-dependent kinematic calibration framework for improving accuracy across the entire workspace. Local Product-of-Exponential (POE) models, selected for their parameterization continuity, are identified at multiple configurations and interpolated into a global model. Inspired by joint gravity load expressions, we employ Fourier basis function interpolation parameterized by the shoulder and elbow joint angles, achieving accuracy comparable to neural network and autoencoder methods but with substantially higher training efficiency. Validation on two 6-DoF industrial robots shows that the proposed approach reduces the maximum positioning error by over 50%, meeting the sub-millimeter accuracy required for cold spray manufacturing. Robots with larger configuration-dependent discrepancies benefit even more. A dual-robot collaborative task demonstrates the framework's practical applicability and repeatability.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-22T18:44:30Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chen-Lung Lu</name>
+    </author>
+    <author>
+      <name>Honglu He</name>
+    </author>
+    <author>
+      <name>Agung Julius</name>
+    </author>
+    <author>
+      <name>John T. Wen</name>
+    </author>
+  </entry>
+</feed>

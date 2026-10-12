@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/GbrNfs9xu+0IvJLHi58rog27vIc</id>
+  <title>arXiv Query: search_query=ti:"RecoverBench: A Systematic Benchmark for Error Recovery in Robotic Manipulation" OR ti:"Learning a Trajectory-Geometric Condition from Reasoning for VLA Planning" OR ti:"LongScape: Advancing Long-Horizon Embodied World Models with Context-Aware MoE" OR ti:"The Road Ahead in Autonomous Driving: The KITScenes Multimodal Dataset" OR ti:"SynerVLA: Exploiting Embodied Execution Phases for On-Device Dual-System VLA Acceleration" OR ti:"ASH: Agents that Self-Hone via Embodied Learning" OR ti:"Spatial Representation Distillation and Knowledge Routing for Vision-Language-Action Models" OR ti:"CondenseVLA: Learnable History Condensation for Efficient Multi-Frame VLA" OR ti:"Auditing Instruction Robustness in Vision-Language-Action Models via Diversity-Aware Red Teaming" OR ti:"METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:34:41Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22RecoverBench:+A+Systematic+Benchmark+for+Error+Recovery+in+Robotic+Manipulation%22+OR+(ti:%22Learning+a+Trajectory-Geometric+Condition+from+Reasoning+for+VLA+Planning%22+OR+(ti:%22LongScape:+Advancing+Long-Horizon+Embodied+World+Models+with+Context-Aware+MoE%22+OR+(ti:%22The+Road+Ahead+in+Autonomous+Driving:+The+KITScenes+Multimodal+Dataset%22+OR+(ti:%22SynerVLA:+Exploiting+Embodied+Execution+Phases+for+On-Device+Dual-System+VLA+Acceleration%22+OR+(ti:%22ASH:+Agents+that+Self-Hone+via+Embodied+Learning%22+OR+(ti:%22Spatial+Representation+Distillation+and+Knowledge+Routing+for+Vision-Language-Action+Models%22+OR+(ti:%22CondenseVLA:+Learnable+History+Condensation+for+Efficient+Multi-Frame+VLA%22+OR+(ti:%22Auditing+Instruction+Robustness+in+Vision-Language-Action+Models+via+Diversity-Aware+Red+Teaming%22+OR+ti:%22METIS:+Multi-Source+Egocentric+Training+for+Integrated+Dexterous+Vision-Language-Action+Model%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.21790v1</id>
+    <title>LongScape: Advancing Long-Horizon Embodied World Models with Context-Aware MoE</title>
+    <updated>2025-09-26T02:47:05Z</updated>
+    <link href="https://arxiv.org/abs/2509.21790v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.21790v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Video-based world models hold significant potential for generating high-quality embodied manipulation data. However, current video generation methods struggle to achieve stable long-horizon generation: classical diffusion-based approaches often suffer from temporal inconsistency and visual drift over multiple rollouts, while autoregressive methods tend to compromise on visual detail. To solve this, we introduce LongScape, a hybrid framework that adaptively combines intra-chunk diffusion denoising with inter-chunk autoregressive causal generation. Our core innovation is an action-guided, variable-length chunking mechanism that partitions video based on the semantic context of robotic actions. This ensures each chunk represents a complete, coherent action, enabling the model to flexibly generate diverse dynamics. We further introduce a Context-aware Mixture-of-Experts (CMoE) framework that adaptively activates specialized experts for each chunk during generation, guaranteeing high visual quality and seamless chunk transitions. Extensive experimental results demonstrate that our method achieves stable and consistent long-horizon generation over extended rollouts. Our code is available at: https://github.com/tsinghua-fib-lab/Longscape.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-26T02:47:05Z</published>
+    <arxiv:comment>13 pages, 8 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yu Shang</name>
+    </author>
+    <author>
+      <name>Lei Jin</name>
+    </author>
+    <author>
+      <name>Yiding Ma</name>
+    </author>
+    <author>
+      <name>Xin Zhang</name>
+    </author>
+    <author>
+      <name>Chen Gao</name>
+    </author>
+    <author>
+      <name>Wei Wu</name>
+    </author>
+    <author>
+      <name>Yong Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.17366v1</id>
+    <title>METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model</title>
+    <updated>2025-11-21T16:32:36Z</updated>
+    <link href="https://arxiv.org/abs/2511.17366v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.17366v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Building a generalist robot that can perceive, reason, and act across diverse tasks remains an open challenge, especially for dexterous manipulation. A major bottleneck lies in the scarcity of large-scale, action-annotated data for dexterous skills, as teleoperation is difficult and costly. Human data, with its vast scale and diverse manipulation behaviors, provides rich priors for learning robotic actions. While prior works have explored leveraging human demonstrations, they are often constrained by limited scenarios and a large visual gap between human and robots. To eliminate these limitations, we propose METIS, a vision-language-action (VLA) model for dexterous manipulation pretrained on multi-source egocentric datasets. We first construct EgoAtlas, which integrates large-scale human and robotic data from multiple sources, all unified under a consistent action space. We further extract motion-aware dynamics, a compact and discretized motion representation, which provides efficient and expressive supervision for VLA training. Built upon them, METIS integrates reasoning and acting into a unified framework, enabling effective deployment to downstream dexterous manipulation tasks. Our method demonstrates exceptional dexterous manipulation capabilities, achieving highest average success rate in six real-world tasks. Experimental results also highlight the superior generalization and robustness to out-of-distribution scenarios. These findings emphasize METIS as a promising step toward a generalist model for dexterous manipulation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-21T16:32:36Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yankai Fu</name>
+    </author>
+    <author>
+      <name>Ning Chen</name>
+    </author>
+    <author>
+      <name>Junkai Zhao</name>
+    </author>
+    <author>
+      <name>Shaozhe Shan</name>
+    </author>
+    <author>
+      <name>Guocai Yao</name>
+    </author>
+    <author>
+      <name>Pengwei Wang</name>
+    </author>
+    <author>
+      <name>Zhongyuan Wang</name>
+    </author>
+    <author>
+      <name>Shanghang Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.02956v1</id>
+    <title>The Road Ahead in Autonomous Driving: The KITScenes Multimodal Dataset</title>
+    <updated>2026-06-01T23:23:14Z</updated>
+    <link href="https://arxiv.org/abs/2606.02956v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.02956v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Existing autonomous driving datasets have enabled major progress, but fall short in sensor fidelity, map completeness, or geographic diversity. We present KITScenes Multimodal, a European dataset built around high-fidelity sensors and maps. Our fully synchronized sensor suite combines high-resolution global-shutter cameras, long-range lidar beyond 400m, 4D imaging radar, and redundant GNSS/INS localization. Our HD maps are, to our knowledge, the most complete of any sensor dataset, validated through autonomous driving trials on open-source software. For the first time in a public dataset, all driving-relevant traffic elements, such as traffic lights, are mapped in 3D to a reprojection-accurate level with full topological connectivity. Recorded in cities with irregular street layouts and mixed traffic modes, our dataset complements existing datasets by broadening the available geographic diversity. We also introduce four benchmarks, each advancing spatial learning for embodied AI: online HD map construction, long-range depth estimation, novel view synthesis, and end-to-end driving. Project page: https://kitscenes.com/</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-01T23:23:14Z</published>
+    <arxiv:comment>28 pages, 21 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Richard Schwarzkopf</name>
+    </author>
+    <author>
+      <name>Fabian Immel</name>
+    </author>
+    <author>
+      <name>Alexander Blumberg</name>
+    </author>
+    <author>
+      <name>Jonas Merkert</name>
+    </author>
+    <author>
+      <name>Nils Rack</name>
+    </author>
+    <author>
+      <name>Kaiwen Wang</name>
+    </author>
+    <author>
+      <name>Fabian Konstantinidis</name>
+    </author>
+    <author>
+      <name>Julian Truetsch</name>
+    </author>
+    <author>
+      <name>Carlos Fernandez</name>
+    </author>
+    <author>
+      <name>Annika Bätz</name>
+    </author>
+    <author>
+      <name>Kevin Rösch</name>
+    </author>
+    <author>
+      <name>Marlon Steiner</name>
+    </author>
+    <author>
+      <name>Willi Poh</name>
+    </author>
+    <author>
+      <name>Yinzhe Shen</name>
+    </author>
+    <author>
+      <name>Royden Wagner</name>
+    </author>
+    <author>
+      <name>Felix Hauser</name>
+    </author>
+    <author>
+      <name>Dominik Strutz</name>
+    </author>
+    <author>
+      <name>Jaime Villa</name>
+    </author>
+    <author>
+      <name>Gleb Stepanov</name>
+    </author>
+    <author>
+      <name>Holger Caesar</name>
+    </author>
+    <author>
+      <name>Ömer Şahin Taş</name>
+    </author>
+    <author>
+      <name>Frank Bieder</name>
+    </author>
+    <author>
+      <name>Jan-Hendrik Pauls</name>
+    </author>
+    <author>
+      <name>Christoph Stiller</name>
+    </author>
+  </entry>
+</feed>

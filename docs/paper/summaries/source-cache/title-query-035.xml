@@ -1,0 +1,194 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/0k6MPaP6CR4dfh7HYG2LNbyQqGo</id>
+  <title>arXiv Query: search_query=ti:"Situationally-Aware Path Planning Exploiting 3D Scene Graphs" OR ti:"ViTL: Temporal Logic-Guided Zero-Shot Natural Language Navigation Via Vision-Language Models" OR ti:"Evolutionary Exploration of Forest Soundscapes Using Text-To-Audio LLM and Ecoacoustic Indices" OR ti:"SpaceSense-Bench: A Large-Scale Multi-Modal Benchmark for Spacecraft Perception and Pose Estimation" OR ti:"Precision Pointing of Dual-Module MagLev Space Observatories Via Hierarchical Fixed-Time-Synchronized Control" OR ti:"Dual-Horizon Hybrid Internal Model for Low-Gravity Quadrupedal Jumping with Hardware-In-The-Loop Validation" OR ti:"Multi-Agent Off-World Exploration for Sparse Evidence Discovery Via Gaussian Belief Mapping and Dual-Domain Coverage" OR ti:"AMBER: A Tether-Deployable Gripping Crawler with Compliant Microspines for Canopy Manipulation" OR ti:"Autonomous Berry-Level Grape Thinning Using a Single-Arm Bimanual-Equivalent End-Effector and Motion-Aware Perception" OR ti:"Radiological Site Inspection with Gamma-Bot: An Autonomous Suspended Cable-Driven Parallel Robot"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:09Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Situationally-Aware+Path+Planning+Exploiting+3D+Scene+Graphs%22+OR+(ti:%22ViTL:+Temporal+Logic-Guided+Zero-Shot+Natural+Language+Navigation+Via+Vision-Language+Models%22+OR+(ti:%22Evolutionary+Exploration+of+Forest+Soundscapes+Using+Text-To-Audio+LLM+and+Ecoacoustic+Indices%22+OR+(ti:%22SpaceSense-Bench:+A+Large-Scale+Multi-Modal+Benchmark+for+Spacecraft+Perception+and+Pose+Estimation%22+OR+(ti:%22Precision+Pointing+of+Dual-Module+MagLev+Space+Observatories+Via+Hierarchical+Fixed-Time-Synchronized+Control%22+OR+(ti:%22Dual-Horizon+Hybrid+Internal+Model+for+Low-Gravity+Quadrupedal+Jumping+with+Hardware-In-The-Loop+Validation%22+OR+(ti:%22Multi-Agent+Off-World+Exploration+for+Sparse+Evidence+Discovery+Via+Gaussian+Belief+Mapping+and+Dual-Domain+Coverage%22+OR+(ti:%22AMBER:+A+Tether-Deployable+Gripping+Crawler+with+Compliant+Microspines+for+Canopy+Manipulation%22+OR+(ti:%22Autonomous+Berry-Level+Grape+Thinning+Using+a+Single-Arm+Bimanual-Equivalent+End-Effector+and+Motion-Aware+Perception%22+OR+ti:%22Radiological+Site+Inspection+with+Gamma-Bot:+An+Autonomous+Suspended+Cable-Driven+Parallel+Robot%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.07680v3</id>
+    <title>AMBER: A tether-deployable gripping crawler with compliant microspines for canopy manipulation</title>
+    <updated>2026-02-18T11:42:55Z</updated>
+    <link href="https://arxiv.org/abs/2512.07680v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.07680v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents an aerially deployable crawler designed for adaptive locomotion and manipulation within tree canopies. The system combines compliant microspine-based tracks, a dual-track rotary gripper, and an elastic tail, enabling secure attachment and stable traversal across branches of varying curvature and inclination. Experiments demonstrate reliable gripping up to 90$^\circ$ body roll and inclination, while effective climbing on branches inclined up to 67.5$^\circ$, achieving a maximum speed of 0.55 body lengths per second on horizontal branches. The compliant tracks allow yaw steering of up to 10$^\circ$, enhancing maneuverability on irregular surfaces. Power measurements show efficient operation with a dimensionless cost of transport over an order of magnitude lower than typical hovering power consumption in aerial robots. The crawler provides a robust, low-power platform for environmental sampling and in-canopy sensing. The aerial deployment is demonstrated at a conceptual and feasibility level, while full drone-crawler integration is left as future work.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-08T16:17:56Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>P. A. Wigner</name>
+    </author>
+    <author>
+      <name>L. Romanello</name>
+    </author>
+    <author>
+      <name>A. Hammad</name>
+    </author>
+    <author>
+      <name>P. H. Nguyen</name>
+    </author>
+    <author>
+      <name>T. Lan</name>
+    </author>
+    <author>
+      <name>S. F. Armanini</name>
+    </author>
+    <author>
+      <name>B. B. Kocer</name>
+    </author>
+    <author>
+      <name>M. Kovac</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.07650v1</id>
+    <title>Multi-Agent Off-World Exploration for Sparse Evidence Discovery via Gaussian Belief Mapping and Dual-Domain Coverage</title>
+    <updated>2026-03-08T14:27:41Z</updated>
+    <link href="https://arxiv.org/abs/2603.07650v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.07650v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Off-world multi-robot exploration is challenged by sparse targets, limited sensing, hazardous terrain, and restricted communication. Many scientifically valuable clues are visually ambiguous and often require close-range observations, making efficient and safe informative path planning essential. Existing methods often rely on predefined areas of interest (AOIs), which may be incomplete or biased, and typically handle terrain risk only through soft penalties, which are insufficient for avoiding non-recoverable regions. To address these issues, we propose a multi-agent informative path planning framework for sparse evidence discovery based on Gaussian belief mapping and dual-domain coverage. The method maintains Gaussian-process-based interest and risk beliefs and combines them with trajectory-intent representations to support coordinated sequential decision-making among multiple agents. It further prioritizes search inside the AOI while preserving limited exploration outside it, thereby improving robustness to AOI bias. In addition, the risk-aware design helps agents balance information gain and operational safety in hazardous environments. Experimental results in simulated lunar environments show that the proposed method consistently outperforms sampling-based and greedy baselines under different budgets and communication ranges. In particular, it achieves lower final uncertainty in risk-aware settings and remains robust under limited communication, demonstrating its effectiveness for cooperative off-world robotic exploration.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-08T14:27:41Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhuoran Qiao</name>
+    </author>
+    <author>
+      <name>Tianxin Hu</name>
+    </author>
+    <author>
+      <name>Thien-Minh Nguyen</name>
+    </author>
+    <author>
+      <name>Shenghai Yuan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.30696v1</id>
+    <title>ViTL: Temporal Logic-Guided Zero-Shot Natural Language Navigation via Vision-Language Models</title>
+    <updated>2026-06-29T02:22:31Z</updated>
+    <link href="https://arxiv.org/abs/2606.30696v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.30696v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Enabling robots to follow natural language commands to complete zero-shot long-horizon tasks remains challenging. It requires extracting implicit temporal and logical constraints from natural language commands and executing multiple sub-tasks accordingly. Recent zero-shot object navigation methods use vision-language models (VLMs) to guide frontier-based exploration in unknown environments, but they are limited to single-target tasks. Real-world commands such as "Clean either the chair or the couch, then turn on the tv." require navigating to multiple targets in a temporally constrained order, which no existing zero-shot system can handle. We present ViTL, a framework that addresses this gap at two levels. At the task level, we use a large language model (LLM) to compile natural language commands into Linear Temporal Logic (LTL) formulas, which are then converted into Deterministic Finite Automata~(DFA) that coordinate multi-channel value maps and trigger dynamic replanning when new objects are detected. At the navigation level, we introduce directional score: rather than producing a direction-agnostic value across the entire field of view, we label frontier directions on the observation image and extract per-direction scores from the VLM. Experiments on Habitat-Matterport 3D (HM3D) show that the full framework enables zero-shot long-horizon completion of natural language navigation tasks with temporal constraints, and that directional score improves single-target navigation accuracy and efficiency over the baseline.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-29T02:22:31Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kaier Liang</name>
+    </author>
+    <author>
+      <name>Hengde Dai</name>
+    </author>
+    <author>
+      <name>Cristian-Ioan Vasile</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.09320v1</id>
+    <title>SpaceSense-Bench: A Large-Scale Multi-Modal Benchmark for Spacecraft Perception and Pose Estimation</title>
+    <updated>2026-03-10T07:52:28Z</updated>
+    <link href="https://arxiv.org/abs/2603.09320v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.09320v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous space operations such as on-orbit servicing and active debris removal demand robust part-level semantic understanding and precise relative navigation of target spacecraft, yet collecting large-scale real data in orbit remains impractical due to cost and access constraints. Existing synthetic datasets, moreover, suffer from limited target diversity, single-modality sensing, and incomplete ground-truth annotations. We present \textbf{SpaceSense-Bench}, a large-scale multi-modal benchmark for spacecraft perception encompassing 136~satellite models with approximately 70~GB of data. Each frame provides time-synchronized 1024$\times$1024 RGB images, millimeter-precision depth maps, and 256-beam LiDAR point clouds, together with dense 7-class part-level semantic labels at both the pixel and point level as well as accurate 6-DoF pose ground truth. The dataset is generated through a high-fidelity space simulation built in Unreal Engine~5 and a fully automated pipeline covering data acquisition, multi-stage quality control, and conversion to mainstream formats. We benchmark five representative tasks (object detection, 2D semantic segmentation, RGB--LiDAR fusion-based 3D point cloud segmentation, monocular depth estimation, and orientation estimation) and identify two key findings: (i)~perceiving small-scale components (\emph{e.g.}, thrusters and omni-antennas) and generalizing to entirely unseen spacecraft in a zero-shot setting remain critical bottlenecks for current methods, and (ii)~scaling up the number of training satellites yields substantial performance gains on novel targets, underscoring the value of large-scale, diverse datasets for space perception research. The dataset, code, and toolkit are publicly available at https://github.com/wuaodi/SpaceSense-Bench.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-10T07:52:28Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Aodi Wu</name>
+    </author>
+    <author>
+      <name>Jianhong Zuo</name>
+    </author>
+    <author>
+      <name>Zeyuan Zhao</name>
+    </author>
+    <author>
+      <name>Xubo Luo</name>
+    </author>
+    <author>
+      <name>Ruisuo Wang</name>
+    </author>
+    <author>
+      <name>Xue Wan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.07999v1</id>
+    <title>Dual-Horizon Hybrid Internal Model for Low-Gravity Quadrupedal Jumping with Hardware-in-the-Loop Validation</title>
+    <updated>2026-03-09T06:03:56Z</updated>
+    <link href="https://arxiv.org/abs/2603.07999v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.07999v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Locomotion under reduced gravity is commonly realized through jumping, yet continuous pronking in lunar gravity remains challenging due to prolonged flight phases and sparse ground contact. The extended aerial duration increases landing impact sensitivity and makes stable attitude regulation over rough planetary terrain difficult. Existing approaches primarily address single jumps on flat surfaces and lack both continuous-terrain solutions and realistic hardware validation. This work presents a Dual-Horizon Hybrid Internal Model for continuous quadrupedal jumping under lunar gravity using proprioceptive sensing only. Two temporal encoders capture complementary time scales: a short-horizon branch models rapid vertical dynamics with explicit vertical velocity estimation, while a long-horizon branch models horizontal motion trends and center-of-mass height evolution across the jump cycle. The fused representation enables stable and continuous jumping under extended aerial phases characteristic of lunar gravity. To provide hardware-in-the-loop validation, we develop the MATRIX (Mixed-reality Adaptive Testbed for Robotic Integrated eXploration) platform, a digital-twin-driven system that offloads gravity through a pulley-counterweight mechanism and maps Unreal Engine lunar terrain to a motion platform and treadmill in real time. Using MATRIX, we demonstrate continuous jumping of a quadruped robot under lunar-gravity emulation across cratered lunar-like terrain.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-09T06:03:56Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haozhe Xu</name>
+    </author>
+    <author>
+      <name>Yifei Zhao</name>
+    </author>
+    <author>
+      <name>Wenhao Feng</name>
+    </author>
+    <author>
+      <name>Zhipeng Wang</name>
+    </author>
+    <author>
+      <name>Hongrui Sang</name>
+    </author>
+    <author>
+      <name>Cheng Cheng</name>
+    </author>
+    <author>
+      <name>Xiuxian Li</name>
+    </author>
+    <author>
+      <name>Zhen Yin</name>
+    </author>
+    <author>
+      <name>Bin He</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.06283v2</id>
+    <title>Situationally-aware Path Planning Exploiting 3D Scene Graphs</title>
+    <updated>2026-04-23T09:38:41Z</updated>
+    <link href="https://arxiv.org/abs/2508.06283v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.06283v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>3D Scene Graphs integrate both metric and semantic information, yet their structure remains underutilized for improving path planning efficiency and interpretability. In this work, we present S-Path, a situationally-aware path planner that leverages the metric-semantic structure of indoor 3D Scene Graphs to significantly enhance planning efficiency. S-Path follows a two-stage process: it first performs a search over a semantic graph derived from the scene graph to yield a human-understandable high-level path. This also identifies relevant regions for planning, which later allows the decomposition of the problem into smaller, independent subproblems that can be solved in parallel. We also introduce a replanning mechanism that, in the event of an infeasible path, reuses information from previously solved subproblems to update semantic heuristics and prioritize reuse to further improve the efficiency of future planning attempts. Extensive experiments on both real-world and simulated environments show that S-Path achieves average reductions of 6x in planning time while maintaining comparable path optimality to classical sampling-based planners and surpassing them in complex scenarios, making it an efficient and interpretable path planner for environments represented by indoor 3D Scene Graphs. Code available at: https://github.com/snt-arg/spath_ros</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-08T13:03:44Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Saad Ejaz</name>
+    </author>
+    <author>
+      <name>Marco Giberna</name>
+    </author>
+    <author>
+      <name>Muhammad Shaheer</name>
+    </author>
+    <author>
+      <name>Jose Andres Millan-Romera</name>
+    </author>
+    <author>
+      <name>Ali Tourani</name>
+    </author>
+    <author>
+      <name>Paul Kremer</name>
+    </author>
+    <author>
+      <name>Holger Voos</name>
+    </author>
+    <author>
+      <name>Jose Luis Sanchez-Lopez</name>
+    </author>
+  </entry>
+</feed>

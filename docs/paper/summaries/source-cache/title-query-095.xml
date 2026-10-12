@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Opha9qX+G3lMZelgqLdW7Q3rNtA</id>
+  <title>arXiv Query: search_query=ti:"An EIT-Based Sensorized Universal Jamming Gripper for Intrinsic Localisation and Object Detection" OR ti:"DSTO: Dynamic Spatial Token Optimization for 3D-LMMs" OR ti:"Chamelion: Reliable Change Detection for Long-Term LiDAR Mapping in Transient Environments" OR ti:"Scene2Gym: Transforming Real-World Scenes into Interactive Training Environments for Robot Learning" OR ti:"Tightly Coupled LiDAR-IMU Odometry with Online Adaptation of a Learning-Based IMU Motion Model" OR ti:"Loop Closure from Two Views: Revisiting PGO for Scalable Trajectory Estimation through Monocular Priors" OR ti:"ROVER: Robust Loop Closure Verification with Trajectory Prior in Repetitive Environments" OR ti:"EgoVLA: Learning Vision-Language-Action Models from Egocentric Human Videos" OR ti:"MG-VTLA: A Vision-Tactile-Language-Action Framework for Contact-Robust Robotic Micro-Grasping" OR ti:"Joint-Angle Invariance of Jacobian-Based Performance Indices for Serial Robotic Manipulators"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:14Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22An+EIT-Based+Sensorized+Universal+Jamming+Gripper+for+Intrinsic+Localisation+and+Object+Detection%22+OR+(ti:%22DSTO:+Dynamic+Spatial+Token+Optimization+for+3D-LMMs%22+OR+(ti:%22Chamelion:+Reliable+Change+Detection+for+Long-Term+LiDAR+Mapping+in+Transient+Environments%22+OR+(ti:%22Scene2Gym:+Transforming+Real-World+Scenes+into+Interactive+Training+Environments+for+Robot+Learning%22+OR+(ti:%22Tightly+Coupled+LiDAR-IMU+Odometry+with+Online+Adaptation+of+a+Learning-Based+IMU+Motion+Model%22+OR+(ti:%22Loop+Closure+from+Two+Views:+Revisiting+PGO+for+Scalable+Trajectory+Estimation+through+Monocular+Priors%22+OR+(ti:%22ROVER:+Robust+Loop+Closure+Verification+with+Trajectory+Prior+in+Repetitive+Environments%22+OR+(ti:%22EgoVLA:+Learning+Vision-Language-Action+Models+from+Egocentric+Human+Videos%22+OR+(ti:%22MG-VTLA:+A+Vision-Tactile-Language-Action+Framework+for+Contact-Robust+Robotic+Micro-Grasping%22+OR+ti:%22Joint-Angle+Invariance+of+Jacobian-Based+Performance+Indices+for+Serial+Robotic+Manipulators%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2503.16275v2</id>
+    <title>Loop Closure from Two Views: Revisiting PGO for Scalable Trajectory Estimation through Monocular Priors</title>
+    <updated>2025-10-30T08:15:52Z</updated>
+    <link href="https://arxiv.org/abs/2503.16275v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.16275v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>(Visual) Simultaneous Localization and Mapping (SLAM) remains a fundamental challenge in enabling autonomous systems to navigate and understand large-scale environments. Traditional SLAM approaches struggle to balance efficiency and accuracy, particularly in large-scale settings where extensive computational resources are required for scene reconstruction and Bundle Adjustment (BA). However, this scene reconstruction, in the form of sparse pointclouds of visual landmarks, is often only used within the SLAM system because navigation and planning methods require different map representations. In this work, we therefore investigate a more scalable Visual SLAM (VSLAM) approach without reconstruction, mainly based on approaches for two-view loop closures. By restricting the map to a sparse keyframed pose graph without dense geometry representations, our `2GO' system achieves efficient optimization with competitive absolute trajectory accuracy. In particular, we find that recent advancements in image matching and monocular depth priors enable very accurate trajectory optimization without BA. We conduct extensive experiments on diverse datasets, including large-scale scenarios, and provide a detailed analysis of the trade-offs between runtime, accuracy, and map size. Our results demonstrate that this streamlined approach supports real-time performance, scales well in map size and trajectory duration, and effectively broadens the capabilities of VSLAM for long-duration deployments to large environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-20T16:05:35Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tian Yi Lim</name>
+    </author>
+    <author>
+      <name>Boyang Sun</name>
+    </author>
+    <author>
+      <name>Marc Pollefeys</name>
+    </author>
+    <author>
+      <name>Hermann Blum</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2602.08189v1</id>
+    <title>Chamelion: Reliable Change Detection for Long-Term LiDAR Mapping in Transient Environments</title>
+    <updated>2026-02-09T01:15:29Z</updated>
+    <link href="https://arxiv.org/abs/2602.08189v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.08189v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Online change detection is crucial for mobile robots to efficiently navigate through dynamic environments. Detecting changes in transient settings, such as active construction sites or frequently reconfigured indoor spaces, is particularly challenging due to frequent occlusions and spatiotemporal variations. Existing approaches often struggle to detect changes and fail to update the map across different observations. To address these limitations, we propose a dual-head network designed for online change detection and long-term map maintenance. A key difficulty in this task is the collection and alignment of real-world data, as manually registering structural differences over time is both labor-intensive and often impractical. To overcome this, we develop a data augmentation strategy that synthesizes structural changes by importing elements from different scenes, enabling effective model training without the need for extensive ground-truth annotations. Experiments conducted at real-world construction sites and in indoor office environments demonstrate that our approach generalizes well across diverse scenarios, achieving efficient and accurate map updates.\resubmit{Our source code and additional material are available at: https://chamelion-pages.github.io/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-09T01:15:29Z</published>
+    <arxiv:comment>8 pages, IEEE Robot. Automat. Lett. (RA-L) 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Seoyeon Jang</name>
+    </author>
+    <author>
+      <name>Alex Junho Lee</name>
+    </author>
+    <author>
+      <name>I Made Aswin Nahrendra</name>
+    </author>
+    <author>
+      <name>Hyun Myung</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.13488v2</id>
+    <title>ROVER: Robust Loop Closure Verification with Trajectory Prior in Repetitive Environments</title>
+    <updated>2026-09-13T16:57:27Z</updated>
+    <link href="https://arxiv.org/abs/2508.13488v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.13488v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Loop closure detection is important for simultaneous localization and mapping (SLAM), which associates current observations with historical keyframes, achieving drift correction and global relocalization. However, a falsely detected loop can be fatal, and this is especially difficult in repetitive environments where appearance-based features fail due to the high similarity. Therefore, verifying a loop closure is a critical step to avoid false-positive detections. Existing works in loop closure verification predominantly focus on learning invariant appearance features, neglecting the prior knowledge of the robot's spatial-temporal motion cue, i.e., trajectory. In this article, we propose ROVER, a loop closure verification method that leverages the historical trajectory as a prior constraint to reject false loops in challenging repetitive environments. For each loop candidate, it is first used to estimate the robot trajectory with pose-graph optimization. This trajectory is then submitted to a scoring scheme that assesses its compliance with the trajectory without the loop, which we refer to as the trajectory prior constraint (TPC), to determine if the loop candidate should be accepted. Benchmark comparisons and real-world experiments demonstrate the effectiveness of the proposed method. Furthermore, we integrate ROVER into state-of-the-art SLAM systems to verify its robustness and efficiency. Our source code and self-collected dataset will be made available online at https://rover-lcv.github.io/ upon publication of this article.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-19T03:34:08Z</published>
+    <arxiv:comment>Accepted to T-ASE 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jingwen Yu</name>
+    </author>
+    <author>
+      <name>Jiayi Yang</name>
+    </author>
+    <author>
+      <name>Jianhao Jiao</name>
+    </author>
+    <author>
+      <name>Anjun Hu</name>
+    </author>
+    <author>
+      <name>Zhonghang Liu</name>
+    </author>
+    <author>
+      <name>Jiankun Wang</name>
+    </author>
+    <author>
+      <name>Ping Tan</name>
+    </author>
+    <author>
+      <name>Hong Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.12440v3</id>
+    <title>EgoVLA: Learning Vision-Language-Action Models from Egocentric Human Videos</title>
+    <updated>2025-07-18T07:18:39Z</updated>
+    <link href="https://arxiv.org/abs/2507.12440v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.12440v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Real robot data collection for imitation learning has led to significant advancements in robotic manipulation. However, the requirement for robot hardware in the process fundamentally constrains the scale of the data. In this paper, we explore training Vision-Language-Action (VLA) models using egocentric human videos. The benefit of using human videos is not only for their scale but more importantly for the richness of scenes and tasks. With a VLA trained on human video that predicts human wrist and hand actions, we can perform Inverse Kinematics and retargeting to convert the human actions to robot actions. We fine-tune the model using a few robot manipulation demonstrations to obtain the robot policy, namely EgoVLA. We propose a simulation benchmark called Ego Humanoid Manipulation Benchmark, where we design diverse bimanual manipulation tasks with demonstrations. We fine-tune and evaluate EgoVLA with Ego Humanoid Manipulation Benchmark and show significant improvements over baselines and ablate the importance of human data. Videos can be found on our website: https://rchalyang.github.io/EgoVLA</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-16T17:27:44Z</published>
+    <arxiv:comment>More videos can be found on our website: https://rchalyang.github.io/EgoVLA</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ruihan Yang</name>
+    </author>
+    <author>
+      <name>Qinxi Yu</name>
+    </author>
+    <author>
+      <name>Yecheng Wu</name>
+    </author>
+    <author>
+      <name>Rui Yan</name>
+    </author>
+    <author>
+      <name>Borui Li</name>
+    </author>
+    <author>
+      <name>An-Chieh Cheng</name>
+    </author>
+    <author>
+      <name>Xueyan Zou</name>
+    </author>
+    <author>
+      <name>Yunhao Fang</name>
+    </author>
+    <author>
+      <name>Xuxin Cheng</name>
+    </author>
+    <author>
+      <name>Ri-Zhao Qiu</name>
+    </author>
+    <author>
+      <name>Hongxu Yin</name>
+    </author>
+    <author>
+      <name>Sifei Liu</name>
+    </author>
+    <author>
+      <name>Song Han</name>
+    </author>
+    <author>
+      <name>Yao Lu</name>
+    </author>
+    <author>
+      <name>Xiaolong Wang</name>
+    </author>
+  </entry>
+</feed>

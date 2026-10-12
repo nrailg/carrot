@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/itQclu3RdIMuf1VSFUJQruJ1ZEs</id>
+  <title>arXiv Query: search_query=ti:"SpacePolicy: Dynamics-Aware Imitation Learning for Free-Floating On-Orbit Capture" OR ti:"UniPrototype: Human-Robot Skill Learning with Uniform Prototypes" OR ti:"Stroke Planning with Hitting Position Optimizing in Robotic Table Tennis with a Collaborative Robot" OR ti:"Large-Scale Robotic Material Handling: Learning, Planning, and Control" OR ti:"OPESKF: Overdetermined Prediction Error-State Kalman Filter for Proprioceptive State Estimation in Legged Robots" OR ti:"A Mammal-Reptile Inspired Compliant Metamorphic Leg with Embedded Force Sensing" OR ti:"Head-On: Robust Tactile Force Sensing for Quadrupedal Interaction" OR ti:"KiVi: Kinesthetic-Visuospatial Integration for Dynamic and Safe Egocentric Legged Locomotion" OR ti:"A Soft Inchworm Robot Capable of Exploratory Locomotion Via Deformable Body Dynamics" OR ti:"An Earthworm-Inspired Adaptive Soft Pipeline Robot Actuated via a Single Pneumatic Tube"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:33Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22SpacePolicy:+Dynamics-Aware+Imitation+Learning+for+Free-Floating+On-Orbit+Capture%22+OR+(ti:%22UniPrototype:+Human-Robot+Skill+Learning+with+Uniform+Prototypes%22+OR+(ti:%22Stroke+Planning+with+Hitting+Position+Optimizing+in+Robotic+Table+Tennis+with+a+Collaborative+Robot%22+OR+(ti:%22Large-Scale+Robotic+Material+Handling:+Learning,+Planning,+and+Control%22+OR+(ti:%22OPESKF:+Overdetermined+Prediction+Error-State+Kalman+Filter+for+Proprioceptive+State+Estimation+in+Legged+Robots%22+OR+(ti:%22A+Mammal-Reptile+Inspired+Compliant+Metamorphic+Leg+with+Embedded+Force+Sensing%22+OR+(ti:%22Head-On:+Robust+Tactile+Force+Sensing+for+Quadrupedal+Interaction%22+OR+(ti:%22KiVi:+Kinesthetic-Visuospatial+Integration+for+Dynamic+and+Safe+Egocentric+Legged+Locomotion%22+OR+(ti:%22A+Soft+Inchworm+Robot+Capable+of+Exploratory+Locomotion+Via+Deformable+Body+Dynamics%22+OR+ti:%22An+Earthworm-Inspired+Adaptive+Soft+Pipeline+Robot+Actuated+via+a+Single+Pneumatic+Tube%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.23650v3</id>
+    <title>KiVi: Kinesthetic-Visuospatial Integration for Dynamic and Safe Egocentric Legged Locomotion</title>
+    <updated>2026-06-20T04:11:26Z</updated>
+    <link href="https://arxiv.org/abs/2509.23650v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.23650v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-based locomotion has shown great promise in enabling legged robots to perceive and adapt to complex environments. However, visual information is inherently fragile, being vulnerable to occlusions, reflections, and lighting changes, which often cause instability in locomotion. Inspired by animal sensorimotor integration, we propose KiVi, a Kinesthetic-Visuospatial integration framework, where kinesthetics encodes proprioceptive sensing of body motion and visuospatial reasoning captures visual perception of surrounding terrain. Specifically, KiVi separates these pathways, leveraging proprioception as a stable backbone while selectively incorporating vision for terrain awareness and obstacle avoidance. This modality-balanced, yet integrative design, combined with memory-enhanced attention, allows the robot to robustly interpret visual cues while maintaining fallback stability through proprioception. Extensive experiments show that our method enables quadruped robots to stably traverse diverse terrains and operate reliably in unstructured outdoor environments, remaining robust to out-of-distribution(OOD) visual noise and occlusion unseen during training, thereby highlighting its effectiveness and applicability to real-world legged locomotion. Project Page: https://marmotlab.github.io/kivi-quadruped/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-28T05:31:07Z</published>
+    <arxiv:comment>\c{opyright} 20XX IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Peizhuo Li</name>
+    </author>
+    <author>
+      <name>Hongyi Li</name>
+    </author>
+    <author>
+      <name>Yuxuan Ma</name>
+    </author>
+    <author>
+      <name>Linnan Chang</name>
+    </author>
+    <author>
+      <name>Xinrong Yang</name>
+    </author>
+    <author>
+      <name>Ruiqi Yu</name>
+    </author>
+    <author>
+      <name>Shuhao Liao</name>
+    </author>
+    <author>
+      <name>Yifeng Zhang</name>
+    </author>
+    <author>
+      <name>Yuhong Cao</name>
+    </author>
+    <author>
+      <name>Qiuguo Zhu</name>
+    </author>
+    <author>
+      <name>Guillaume Sartoretti</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.09003v2</id>
+    <title>Large Scale Robotic Material Handling: Learning, Planning, and Control</title>
+    <updated>2026-03-01T10:03:47Z</updated>
+    <link href="https://arxiv.org/abs/2508.09003v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.09003v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Bulk material handling involves the efficient and precise moving of large quantities of materials, a core operation in many industries, including cargo ship unloading, waste sorting, construction, and demolition. These repetitive, labor-intensive, and safety-critical operations are typically performed using large hydraulic material handlers equipped with underactuated grippers. In this work, we present a comprehensive framework for the autonomous execution of large-scale material handling tasks. The system integrates specialized modules for environment perception, pile attack point selection, path planning, and motion control. The main contributions of this work are two reinforcement learning-based modules: an attack point planner that selects optimal grasping locations on the material pile to maximize removal efficiency and minimize the number of scoops, and a robust trajectory following controller that addresses the precision and safety challenges associated with underactuated grippers in movement, while utilizing their free-swinging nature to release material through dynamic throwing. We validate our framework through real-world experiments on a 40 t material handler in a representative worksite, focusing on two key tasks: high-throughput bulk pile management and high-precision truck loading. Comparative evaluations against human operators demonstrate the system's effectiveness in terms of precision, repeatability, and operational safety. To the best of our knowledge, this is the first complete automation of material handling tasks on a full scale.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-12T15:13:52Z</published>
+    <arxiv:comment>Final version published in IEEE Transactions on Field Robotics. It includes additional experiments and comparisons with classical methods</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Filippo A. Spinelli</name>
+    </author>
+    <author>
+      <name>Yifan Zhai</name>
+    </author>
+    <author>
+      <name>Fang Nan</name>
+    </author>
+    <author>
+      <name>Pascal Egli</name>
+    </author>
+    <author>
+      <name>Julian Nubert</name>
+    </author>
+    <author>
+      <name>Thilo Bleumer</name>
+    </author>
+    <author>
+      <name>Lukas Miller</name>
+    </author>
+    <author>
+      <name>Ferdinand Hofmann</name>
+    </author>
+    <author>
+      <name>Marco Hutter</name>
+    </author>
+    <arxiv:doi>10.1109/TFR.2026.3662619</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TFR.2026.3662619" title="doi"/>
+  </entry>
+</feed>

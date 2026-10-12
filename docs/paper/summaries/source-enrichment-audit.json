@@ -1,0 +1,2376 @@
+[
+  {
+    "input_ids": [
+      "neurips:139223",
+      "neurips:153125",
+      "neurips:153086",
+      "neurips:139289",
+      "neurips:151851",
+      "neurips:152698",
+      "neurips:154721",
+      "neurips:149245",
+      "neurips:155145",
+      "neurips:154696"
+    ],
+    "query": "ti:\"RecoverBench: A Systematic Benchmark for Error Recovery in Robotic Manipulation\" OR ti:\"Learning a Trajectory-Geometric Condition from Reasoning for VLA Planning\" OR ti:\"LongScape: Advancing Long-Horizon Embodied World Models with Context-Aware MoE\" OR ti:\"The Road Ahead in Autonomous Driving: The KITScenes Multimodal Dataset\" OR ti:\"SynerVLA: Exploiting Embodied Execution Phases for On-Device Dual-System VLA Acceleration\" OR ti:\"ASH: Agents that Self-Hone via Embodied Learning\" OR ti:\"Spatial Representation Distillation and Knowledge Routing for Vision-Language-Action Models\" OR ti:\"CondenseVLA: Learnable History Condensation for Efficient Multi-Frame VLA\" OR ti:\"Auditing Instruction Robustness in Vision-Language-Action Models via Diversity-Aware Red Teaming\" OR ti:\"METIS: Multi-Source Egocentric Training for Integrated Dexterous Vision-Language-Action Model\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "neurips:150528",
+      "neurips:151294",
+      "neurips:153566",
+      "neurips:139796",
+      "neurips:152499",
+      "neurips:153659",
+      "neurips:155390",
+      "neurips:151867",
+      "neurips:139711",
+      "neurips:152120"
+    ],
+    "query": "ti:\"Q-Residual Physics: Hamiltonian-Structured Quantum Residual Learning for Embodied Dynamics\" OR ti:\"Dispatchable Coordination Envelopes for Embodied Collaboration Under Sequential Uncertainty\" OR ti:\"Q-CoMove: Differentiable Quantum Circuit Priors for Coordinated Motion in Multi-Component Embodied Systems\" OR ti:\"Tactile MNIST: Benchmarking Active Tactile Perception\" OR ti:\"Grounding Driving VLA via Inverse Kinematics\" OR ti:\"IDEAL: Interaction Dynamics and Force-Aware Learning for Dual-Humanoid Collaborative Manipulation\" OR ti:\"Endowing Your Vision-Language-Action Model with a Predictive Mind\" OR ti:\"OmniSpace: Efficient Geometry Awareness for Autonomous Vehicles MLLMs\" OR ti:\"DriveSpatial: A Benchmark for Spatiotemporal Intelligence in VLMs for Autonomous Driving\" OR ti:\"SimVLA: Attributing Gains in VLA Models Through Controlled Ablation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "neurips:150102",
+      "neurips:149455",
+      "neurips:154150",
+      "neurips:153302",
+      "neurips:149744",
+      "neurips:152503",
+      "neurips:151227",
+      "neurips:154988",
+      "neurips:138928",
+      "IROS26-4323"
+    ],
+    "query": "ti:\"Learning Agentic World Vision-Language-Action Models for Autonomous Driving\" OR ti:\"LessMimic: Versatile Humanoid-Object Interaction with Unified Distance Field Representations\" OR ti:\"Lift, See, Act: Hierarchical Robot Policy Pretraining with 3D Foundation Models\" OR ti:\"DexMirror: Real-to-Sim Scene Mirroring for Sim-to-Real Dexterous Manipulation\" OR ti:\"Beyond Thinking: Imagining in 360$^ circ$ for Humanoid Visual Search\" OR ti:\"UNIVERSE: Unified Video Action Models for Autonomous Driving with Flexible Mask-Modulated Modality Generation\" OR ti:\"Intend, Reflect, Refine: An Adaptive Multimodal Reflection Framework for Autonomous Driving\" OR ti:\"MapPolicy: Structure-Aware Imitation Learning for Robot Manipulation via Physically Constrained Scene Map\" OR ti:\"Reset Dependence Is Embodied: Training Protocol Changes Which Morphologies Appear Optimal\" OR ti:\"A Systematic Study of Large Language Models for Task and Motion Planning with PDDLStream\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4091",
+      "IROS26-5039",
+      "IROS26-4733",
+      "IROS26-3825",
+      "IROS26-5001",
+      "IROS26-3239",
+      "IROS26-836",
+      "IROS26-5007",
+      "IROS26-1620",
+      "IROS26-922"
+    ],
+    "query": "ti:\"Interleaved POMDP Planning for Multi-Object Search in Unknown Multi-Room Household Environments\" OR ti:\"Cross-Entropy Optimization of Physically Grounded Task and Motion Plans\" OR ti:\"An Ergodic Approach to Robotic Surface Finishing with Learned Motion Preferences\" OR ti:\"From Local Corrections to Generalized Skills: Improving Neuro-Symbolic Policies with MEMO\" OR ti:\"Prompt2Craft: Generating Functional Craft Assemblies with LLMs\" OR ti:\"Programming Manufacturing Robots with Imperfect AI: LLMs As Tuning Experts for FDM Print Configuration Selection\" OR ti:\"Execution-Level Trajectory Optimization for Repetitive Robotic Tasks Using Iterative Learning Control\" OR ti:\"WinkTPG: An Execution Framework for Multi-Agent Path Finding Using Temporal Reasoning\" OR ti:\"C²-Explorer: Contiguity-Driven Task Allocation with Connectivity-Aware Task Representation for Decentralized Multi-UAV Exploration\" OR ti:\"RobotFD: GPU-Accelerated Fréchet Distance for Robot Path Analysis\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5076",
+      "IROS26-4188",
+      "IROS26-5080",
+      "IROS26-3657",
+      "IROS26-19",
+      "IROS26-2131",
+      "IROS26-4072",
+      "IROS26-3599",
+      "IROS26-5049",
+      "IROS26-4442"
+    ],
+    "query": "ti:\"Temporal Re-Attention LSTM for Multivariate Prediction in Industrial Heating Process with Large Time Delays\" OR ti:\"Truncated Diffusion Process for Temporal Consistent Inference\" OR ti:\"Real-Time 3D Motion Prediction for Human-Robot Collaboration Via Bayesian-Optimized Diffusion Models\" OR ti:\"Leveraging Preferences for Adaptive Decision-Making in Human-Robot Interaction\" OR ti:\"I've Changed My Mind: Robots Adapting to Changing Human Goals During Collaboration\" OR ti:\"D3P: Dynamic Denoising Diffusion Policy Via Reinforcement Learning\" OR ti:\"Training Fast Robot Policies with Slow Foundation Models\" OR ti:\"AeroGrab: A Unified Framework for Aerial Grasping in Cluttered Environments\" OR ti:\"A Hybrid Perching Mechanism for Aerial Robots: Branch and Surface Perching Robust to Large Surface Orientation Misalignment\" OR ti:\"Energy-Based Swing-Up and Grasping Maneuver Using Suspended Aerial Manipulator\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-686",
+      "IROS26-831",
+      "IROS26-2693",
+      "IROS26-2437",
+      "IROS26-3520",
+      "IROS26-208",
+      "IROS26-4368",
+      "IROS26-3261",
+      "IROS26-5042",
+      "IROS26-860"
+    ],
+    "query": "ti:\"Grasping As Anchoring: Expanding Urban Perching with a Hybrid Gripper for Aerial Robots\" OR ti:\"Monte Carlo Localization in Repetitive Indoor Environments with Neural Implicit Map\" OR ti:\"KILO-EKF: Koopman-Inspired Learned Observations Extended Kalman Filter\" OR ti:\"Anchor Points for Monocular Depth Estimation under Severe Rolling Shutter Ego-Motion\" OR ti:\"LiDAR-Based Crowd Navigation with Visible Edge Group Representation\" OR ti:\"Elliptic Repulsive Field for Haptic Navigation on a Load Transport Robot with a Dual-Adaptive Response Matching Layer\" OR ti:\"Closed-Loop Diffusion Planning Over Multi-Modal Distributions for Robot Follow-Ahead\" OR ti:\"Pre-Execution Safety Gate for LLM-Controlled Robot Systems\" OR ti:\"A Micromanipulation System for Spatial Single-Cell Isolation Using a 5-DoF Configuration-Adaptive Remote-Center-Of-Motion Mechanism\" OR ti:\"Design and Development of an AI-Enhanced Dual-Needle Robotic System for Automated Microinjection\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4911",
+      "IROS26-3776",
+      "IROS26-716",
+      "IROS26-2398",
+      "IROS26-186",
+      "IROS26-85",
+      "IROS26-2015",
+      "IROS26-2214",
+      "IROS26-2038",
+      "IROS26-5029"
+    ],
+    "query": "ti:\"The Robotic Circulating Nurse: A World’s-First Prototype to Support Clinicians\" OR ti:\"Uncertainty-Aware Needle Handoff for Autonomous Endoscopic Suturing with Concentric Tube Robots\" OR ti:\"Human-Inspired Robotic Palpation Strategy for Muscle Nodule Localization and Segmentation\" OR ti:\"Feasible Wrench Set-Based Fault-Tolerant Model Predictive Control for Floating Satellite Emulation Platforms\" OR ti:\"Gravity Compensation Strategy of Space Robotic Arm for On-Ground Testing Using Gyroscope-Type Coupling Interface and Cable-Driven Parallel Robot\" OR ti:\"Shallow-π: Knowledge Distillation for Flow-Based VLAs\" OR ti:\"Gated EEG-EMG Fusion with Cross-Modal Consistency and Cross-Subject Alignment for Channel-Efficient Tone Decoding\" OR ti:\"Toward Autonomous Biofabricated Tissue Implantation: A Non-Contact Robotic Manipulation System for Soft and Fragile Modules\" OR ti:\"Autonomous Multimodal Locomotion Control of a Magnetic Strip Soft Robot\" OR ti:\"Elephant-Trunk-Inspired, Power Soft Robotic Arm\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3446",
+      "IROS26-4221",
+      "IROS26-2926",
+      "IROS26-566",
+      "IROS26-1866",
+      "IROS26-1815",
+      "IROS26-3440",
+      "IROS26-4168",
+      "IROS26-4944",
+      "IROS26-3237"
+    ],
+    "query": "ti:\"Need for Speed: Gait-Agnostic Tendon-Routing Optimization for Terrestrial Tendon-Actuated Soft Robots\" OR ti:\"Maneuverability of an SMA-Embedded Soft/Rigid (Hybrid) Flagellated Swimmer in a Viscous Environment\" OR ti:\"Gait Switching Enables Body Pitch Modulation in a Self-Burrowing Robot\" OR ti:\"Unsupervised Domain Adaptation for Sim-To-Real Object Pose Estimation with Contrastive Alignment and Pseudo-Label Refinement\" OR ti:\"UWformer-VIO: A Transformer-Based Framework for Robust Underwater Visual-Inertial Odometry\" OR ti:\"DexHiL: A Human-In-The-Loop Framework for Post-Training VLA Models in Dexterous Manipulation\" OR ti:\"AERMANI-VLM: Structured Prompting and Reasoning for Aerial Manipulation with Vision Language Models\" OR ti:\"FlowAgent: Agentic Video Generation Meets Flow-Constrained Diffusion\" OR ti:\"A Robot System for Indoor Environment Question Answering with Cognitive Map Leveraging Vision-Language Models\" OR ti:\"Improving Policy Learning from Delayed Interventions\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4604",
+      "IROS26-2881",
+      "IROS26-2226",
+      "IROS26-4964",
+      "IROS26-3054",
+      "IROS26-3942",
+      "IROS26-194",
+      "IROS26-286",
+      "IROS26-1166",
+      "IROS26-2671"
+    ],
+    "query": "ti:\"Online Normality Monitoring for Autonomous Robot Patrols via Sparse Gaussian Processes\" OR ti:\"Take It Personally: The Effect of Personality and Failure on Trust in Supervisory and Collaborative Human-Robot Interactions\" OR ti:\"Supervising Autonomous Ships: How Display Modality and Encounter Geometry Shape Trust and Situation Awareness\" OR ti:\"ContractionPPO: Certified Reinforcement Learning Via Differentiable Contraction Layers\" OR ti:\"AD-MPCC: Adaptive Differentiable Model Predictive Contouring Control for Autonomous Racing\" OR ti:\"Safety Filter for Underactuated Robotic Arms with Velocity Inputs\" OR ti:\"Touch-Based Interaction and Clutching Strategies in Collaborative Robotics across Task Types\" OR ti:\"Estimating Task Performance from Interaction Fluency in Gesture-Driven Teleoperation\" OR ti:\"Exploring Augmented Reality-Enabled Hand Gesture-Based Spatial Programming of Caged Delta Metrology Robot in Industrial Context\" OR ti:\"Scalable, Intuitive, Mixed Reality–Based Semi-Autonomous Robotic Telemanipulation for the Execution of a Fine-Grained Bimanual Task\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1576",
+      "IROS26-2201",
+      "IROS26-1393",
+      "IROS26-4021",
+      "IROS26-4694",
+      "IROS26-4097",
+      "IROS26-3723",
+      "IROS26-2656",
+      "IROS26-933",
+      "IROS26-89"
+    ],
+    "query": "ti:\"Stiffness- and Buoyancy-Tunable Underwater Object Manipulation with a Detachable End Effector\" OR ti:\"Bonded by Design: Magnetic Modules for Cooperative Tasks\" OR ti:\"An Adaptive Robotic Gripper with Breakable Chebyshev Linkages for Linear Parallel Pinching and Vertical Lifting\" OR ti:\"DexFIT: Force Informed Transfer for Dexterous Manipulation Using Kinematically Isomorphic Tactile Glove\" OR ti:\"A Kinematic Metric for Fine Manipulation Ability in Robotic Hands\" OR ti:\"A Multi-Level Multimodal Dialogue System for Humanoid Robots\" OR ti:\"Label-Aware Multimodal Intention Recognition for Human–Robot Interaction\" OR ti:\"That Is Not Appropriate! A Multimodal Architecture for Context-Aware Skill Execution in Social Robots\" OR ti:\"From Impact to Insight: Dynamics-Aware Proprioceptive Terrain Sensing on Granular Media\" OR ti:\"A Nonlinear MPC Framework for Loco-Manipulation of Quadrupedal Robots with Non-Negligible Manipulator Dynamics\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3976",
+      "IROS26-4887",
+      "IROS26-3100",
+      "IROS26-5032",
+      "IROS26-4048",
+      "IROS26-4411",
+      "IROS26-4317",
+      "IROS26-1852",
+      "IROS26-3597",
+      "IROS26-761"
+    ],
+    "query": "ti:\"Design and Control of a Multimodal Legged-Aerial Robot through Separate Control Contraction Metrics\" OR ti:\"Closed-Loop Control of Steerable Balloon Endoscopes for Robot-Assisted Transcatheter Intracardiac Procedures\" OR ti:\"A Fluidically Controlled, Self-Deploying and Self-Detaching Soft Capsule for Gastrointestinal Therapies\" OR ti:\"Helical and Planar Continuum Robot Shapes by Structural Tube Modifications and Backbone Length Control\" OR ti:\"Bilinear Model Predictive Control Framework of the OncoReach, a Tendon-Driven Steerable Stylet for Brachytherapy\" OR ti:\"Robust Optimal Reciprocal Collision Avoidance\" OR ti:\"Safe and Adaptive Multi‑Robot Formation Control Via Composed CBFs in the Presence of Dynamic and Uncertain Obstacles\" OR ti:\"AH-RRT: A Hierarchical RRT-Based Path Planning Framework for Cooperative Transport of Large Rigid Objects\" OR ti:\"Mutual Adaptation in Human-Robot Co-Transportation with Human Preference Uncertainty\" OR ti:\"IO-WBC: Interaction-Orientated Whole-Body Control for Compliant Object Transport\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4919",
+      "IROS26-1460",
+      "IROS26-4961",
+      "IROS26-1479",
+      "IROS26-3180",
+      "IROS26-1148",
+      "IROS26-3726",
+      "IROS26-739",
+      "IROS26-2116",
+      "IROS26-1187"
+    ],
+    "query": "ti:\"Human-In-The-Loop Pareto Optimization: Trade-Off Characterization for Assist-As-Needed Training and Performance Evaluation\" OR ti:\"Distributed Connectivity Restoration and Improvement in Networked Robots\" OR ti:\"Probabilistic Modeling and Control for Multi-UAV Search Over Uneven Terrain\" OR ti:\"Go with the Flow: Understanding Coexistence between Multi-Agent Teams in Shared Environments\" OR ti:\"Maritime Capture the Flag Challenge: A Benchmark Sim-To-Real Competition for Multi-Robot Tactical Games\" OR ti:\"DiCT: Disentangled Control for Safe and Generalizable Robotic Manipulation with Diffusion Policies\" OR ti:\"TOCL: Task-Oriented Curriculum Learning with Functional-Frame Alignment for Tool Manipulation\" OR ti:\"FLIP: Real-Time and Resilient Formation Planning for Large-Scale DIstributed Swarms Via Point Cloud Registration\" OR ti:\"Co-Adaptive Hybrid Neural Encoding with Neuromorphic-Inspired Decoding for Two-Way Brain-Computer Interface in Multi-Drone Swarm Formation Control\" OR ti:\"Ori-Interface: A 4-DOF Foldable Origami Interface with Asymmetric Branch Chains and Sensing System for Human-Machine Interaction\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1843",
+      "IROS26-473",
+      "IROS26-3863",
+      "IROS26-4210",
+      "IROS26-1825",
+      "IROS26-289",
+      "IROS26-1414",
+      "IROS26-2805",
+      "IROS26-4742",
+      "IROS26-2005"
+    ],
+    "query": "ti:\"Interacting with a Soft Continuum Manipulator Using Mixed Reality\" OR ti:\"A Micro-Macro Manipulation Framework for Human-Mobile Robot Co-Manipulation Tasks\" OR ti:\"A Discrete Variable Stiffness Actuator for Safe and Adaptive Human–Robot Interaction\" OR ti:\"ORBCam: Toward Ultra-Low-Power Quantized VIO Via In-Sensor ORB Feature Processing\" OR ti:\"MirrorDrift: Actuated Mirror-Based Attacks on LiDAR SLAM\" OR ti:\"Accelerating Transformer-Based Monocular SLAM Via Geometric Utility Scoring\" OR ti:\"PIP-CN: Prediction-Integrated Planning for Crowd Navigation\" OR ti:\"PC-Diffuser: Path-Consistent Capsule CBF Safety Filtering for Diffusion-Based Trajectory Planner\" OR ti:\"Quality-Focused Active Adversarial Policy for Safe Grasping in Human-Robot Interaction\" OR ti:\"From Rules to Optimization: ISO/TS 15066-Compliant Variable Admittance Control for Safe Human–Robot Interaction\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2915",
+      "IROS26-5044",
+      "IROS26-4066",
+      "IROS26-4962",
+      "IROS26-117",
+      "IROS26-40",
+      "IROS26-5031",
+      "IROS26-5019",
+      "IROS26-15",
+      "IROS26-24"
+    ],
+    "query": "ti:\"Effect of Velocity-Curvature Relation on Physical Human Interactions with a Compliant Robot\" OR ti:\"MAGIC: Mixed Reality-Enhanced Active Constraint Generation and Impedance Control for Human–Robot Co-Manipulation\" OR ti:\"Multi-Robot Temporal-Logic-Aware Exploration\" OR ti:\"Ergodic Exploration of Dynamic Distribution\" OR ti:\"Distributed Multi-Robot Ergodic Coverage Control for Estimating Time-Varying Spatial Processes\" OR ti:\"SPACE: 3D Spatial Co-Operation and Exploration Framework for Robust Mapping and Coverage with Multi-Robot Systems\" OR ti:\"Stochastic Adaptive Estimation in Polynomial Curvature Shape State Space for Continuum Robots\" OR ti:\"6D Tip Wrench Estimation for Continuum Robots: A Koopman-UKF-Wrench Decomposition Approach\" OR ti:\"AFT: Appearance-Based Feature Tracking for Markerless and Training-Free Shape Reconstruction of Soft Robots\" OR ti:\"Exact Fractional Order Impedance Rendering for Highly Flexible and Multi-Jointed Robots Using Time-Delay Estimation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-179",
+      "IROS26-5025",
+      "IROS26-160",
+      "IROS26-2570",
+      "IROS26-4674",
+      "IROS26-3394",
+      "IROS26-18",
+      "IROS26-696",
+      "IROS26-4715",
+      "IROS26-4326"
+    ],
+    "query": "ti:\"Autonomous UAV Pipeline Landing Via Depth-LiDAR Fusion in GNSS-Denied Refineries\" OR ti:\"A Mid-Air Autonomous Battery Exchange Aerial System\" OR ti:\"Model-Based Design Optimization of Variable-Tilt UAV for Agility: Analysis and Experimental Validation\" OR ti:\"Torque Responsive Metamaterials Enable High Payload Soft Robot Arms\" OR ti:\"Robotic Assisted Additive Manufacturing (RA2M) for Functional Polymers\" OR ti:\"Machine-Knittable, Magnetically-Plug-N-Play E-Textile Prototyping\" OR ti:\"Concrete Spray 3D Printing Simulator for Nozzle Trajectory Planning\" OR ti:\"Autonomous Robotic Inspection of Building Thermal Insulation via Subsurface mmWave Sensing\" OR ti:\"Demonstration Experiment of Automatic Crushed Stone Transportation Using Wheel Loader in Open-Pit Mine\" OR ti:\"Safety under Search: Finding Critical Scenarios in Automated Driving Systems Using Search-Based Testing\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3102",
+      "IROS26-1490",
+      "IROS26-5043",
+      "IROS26-252",
+      "IROS26-5051",
+      "IROS26-5079",
+      "IROS26-5064",
+      "IROS26-4951",
+      "IROS26-5003",
+      "IROS26-5078"
+    ],
+    "query": "ti:\"STADA: Specification-Based Testing for Autonomous Driving Agents\" OR ti:\"Operator Anonymity Via Bounded Metric Privacyfor Learning-Based Dexterous Telemanipulation\" OR ti:\"FLARE: Agile Flights for Quadrotor Cable-Suspended Payload System Via Reinforcement Learning\" OR ti:\"Perception-Aware Control for Cooperative Cable-Suspended Transportation under Sensing Constraints\" OR ti:\"From Hitch to Lift: Autonomous Cable Interlacing by Multi-UAV Teams for Aerial Grasping and Transportation\" OR ti:\"Food Samples with Built-In Sensors for Evaluating Robot Grippers That Can Estimate the Success or Failure of Pick-And-Place\" OR ti:\"Motion Generation for Food Topping Challenge 2024: Serving Salmon Roe Bowl and Picking Fried Chicken\" OR ti:\"Strain-Based Shape and 3D Force Estimation for Rod-Driven Continuum Robots with Stretch Sensors\" OR ti:\"Stiffness Map Generation for Soft Materials Using Axis-Aligning Non-Contact Measuring Device\" OR ti:\"Programmable Localized Surface Haptic Feedback Achieved through Seamless Transparent Panel\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5048",
+      "IROS26-2113",
+      "IROS26-1012",
+      "IROS26-2946",
+      "IROS26-4108",
+      "IROS26-312",
+      "IROS26-232",
+      "IROS26-2767",
+      "IROS26-3937",
+      "IROS26-180"
+    ],
+    "query": "ti:\"Reactive Motion Generation Via Phase-Varying Neural Potential Functions\" OR ti:\"Mitigating Perceptual Interference in Multi-Stage Visuomotor Imitation with Stage-Conditioned Spatial Gating\" OR ti:\"Inspectional Decoding for Hallucination Mitigation in Autonomous Driving\" OR ti:\"Probabilistic Joint Calibration of Camera, LiDAR, Radar, and GNSS-Based Navigation Systems for Georeferenced Sensor Extrinsics\" OR ti:\"AutoScale: Vision-Based Overweight Truck Detection Utilizing a Following Autonomous Vehicle\" OR ti:\"Efficient and Scalable Tuning of Continuous Impedance Control for Powered Knee Prostheses\" OR ti:\"Model-Agnostic Meta-Learning for Adaptive Gait Phase and Terrain Geometry Estimation with Wearable Soft Sensors\" OR ti:\"Biomechanically Constrained Real-Time Detection of Human Locomotion Transitions\" OR ti:\"TOM-GS: Robust Thermal Odometry and Mapping with Depth-Guided Gaussian Splatting\" OR ti:\"GSO-SLAM: Bidirectionally Coupled Gaussian Splatting and Direct Visual Odometry\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3783",
+      "IROS26-995",
+      "IROS26-2764",
+      "IROS26-2389",
+      "IROS26-3148",
+      "IROS26-176",
+      "IROS26-3907",
+      "IROS26-1379",
+      "IROS26-4184",
+      "IROS26-4931"
+    ],
+    "query": "ti:\"VLAD-Grasp: Zero-Shot Grasp Detection Via Vision-Language Models\" OR ti:\"DexTact: A Visuo-Tactile Foundation Model for Dexterous Hand Grasping\" OR ti:\"BIFROST: Bridging Invariant Feature Representation for Observation-Space Sim2Real Transfer\" OR ti:\"Energy-Score Stabilized Attentive Mixture-Density Policy: A Lightweight Approach to Multimodal Robot Motion\" OR ti:\"Vision-Conditioned Variational Bayesian Last Layer Dynamics Models\" OR ti:\"Lies We Can Trust: Quantifying Action Uncertainty with Inaccurate Stochastic Dynamics through Conformalized Nonholonomic Lie Groups\" OR ti:\"Efficient Continuous-Time Multisensor Calibration with Nonuniform B-Splines on Lie Groups\" OR ti:\"FSAG: Enhancing Human-To-Dexterous-Hand Finger-Specific Affordance Grounding Via Diffusion Models\" OR ti:\"Zero-Shot Affordance and Trajectory Extraction from Video Demonstrations for Articulated Object Manipulation\" OR ti:\"ManiVID-3D: Generalizable View-Invariant Reinforcement Learning for Robotic Manipulation Via Disentangled 3D Representations\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4206",
+      "IROS26-57",
+      "IROS26-3921",
+      "IROS26-1510",
+      "IROS26-1555",
+      "IROS26-59",
+      "IROS26-5036",
+      "IROS26-4124",
+      "IROS26-3259",
+      "IROS26-2016"
+    ],
+    "query": "ti:\"PRISM: Physics-Regularized Depth Completion under Partial-View Occlusions\" OR ti:\"Task-Aware Semantic Map++: Cost-Efficient Task Assignment with Advanced Benchmark\" OR ti:\"Iterative Convex Optimization with Control Barrier Functions for Obstacle Avoidance among Polytopes\" OR ti:\"Joint-ESDF-Based Arbitrary-Shaped Multi-Robot Trajectory Planning\" OR ti:\"RHINO: Learning Real-Time Humanoid-Human-Object Interaction from Human Demonstrations\" OR ti:\"Close-Fitting Dressing Assistance Based on State Estimation of Feet and Garments with Semantic-Based Visual Attention\" OR ti:\"Interactive Learning Via Physical Human Feedback Using Uncertainty-Aware Energy Tanks\" OR ti:\"Augmenting Robot Imitation Learning with Human Videos without Additional Robot Data\" OR ti:\"SteadyTray: Learning Object Balancing Tasks in Humanoid Tray Transport Via Residual Reinforcement Learning\" OR ti:\"Acoustic-Aware Texture Optimization for Ultrasound-Based Capsule Pose Estimation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3571",
+      "IROS26-748",
+      "IROS26-2187",
+      "IROS26-784",
+      "IROS26-3990",
+      "IROS26-888",
+      "IROS26-2863",
+      "IROS26-2878",
+      "IROS26-3543",
+      "IROS26-2122"
+    ],
+    "query": "ti:\"PGFlowNav: Prior-Guided Conditional Flow Matching for Real-Time Visual Navigation of Bionic Robotic Fish\" OR ti:\"PianoFingering-1.5K: A Large-Scale Expert Piano Fingering Dataset for Dexterous Robot Learning\" OR ti:\"Learning Athletic Humanoid Tennis Skills from Imperfect Human Motion Data\" OR ti:\"SSL-Semantic-NBV: A Self-Supervised Learning-Based NBV for Target-Aware 3D Reconstruction in Agricultural Robotics\" OR ti:\"VL-Nav: A Neuro-Symbolic Approach for Reasoning-Based Vision-Language Navigation\" OR ti:\"GeoVLA: Empowering 3D Representations in Vision-Language-Action Models\" OR ti:\"GelSphere: An Omnidirectional Rolling Vision-Based Tactile Sensor for Online 3D Reconstruction and Normal Force Estimation\" OR ti:\"Design, Modeling, and Performance of a Robotic Zipper for Self-Donning Clothing\" OR ti:\"PDS Joint: A Parametric Double-Spiral Joint Tailored for Dexterous Hands\" OR ti:\"AUG: Perception-Aware UAV Graph-Based Planning for GNSS-Denied Navigation in Feature-Sparse Environments\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2808",
+      "IROS26-2850",
+      "IROS26-2864",
+      "IROS26-5013",
+      "IROS26-4912",
+      "IROS26-4886",
+      "IROS26-4997",
+      "IROS26-4726",
+      "IROS26-2620",
+      "IROS26-2298"
+    ],
+    "query": "ti:\"Revisiting Direct Control: A Field Evaluation of Sensor Fusion Efficacy in Teleoperating Full-Scale Autonomous Vehicles Via Bird's Eye View\" OR ti:\"OOPS: Out-Of-Distribution Policy Summarization\" OR ti:\"Mediating Human-Swarm Interactions through a Robot Helper: A Shepherding-Inspired Approach\" OR ti:\"Failure-Aware Multi-Robot Coordination for Resilient and Adaptive Target Tracking\" OR ti:\"Robust Geospatial Coordination of Multi-Agent Communications Networks under Attrition\" OR ti:\"Stratified Topological Autonomy for Long-Range Coordination (STALC)\" OR ti:\"Incremental Generalized Hybrid A*\" OR ti:\"Planning and Control for Deformable Linear Object Manipulation\" OR ti:\"REFLEX: Metacognitive Reasoning for Reflective Zero-Shot Robotic Planning with Large Language Models\" OR ti:\"Constrained Neuro-Symbolic Framework for Knowledge-Driven Task and Motion Planning\"",
+    "total": 7,
+    "returned": 7,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1480",
+      "IROS26-1647",
+      "IROS26-1926",
+      "IROS26-2995",
+      "IROS26-4479",
+      "IROS26-3226",
+      "IROS26-116",
+      "IROS26-222",
+      "IROS26-1775",
+      "IROS26-272"
+    ],
+    "query": "ti:\"Demonstration-Free Robotic Control Via LLM Agents\" OR ti:\"DreamControl-V2: Simpler and Scalable Autonomous Humanoid Skills Via Trainable Guided Diffusion Priors\" OR ti:\"HM2O: Humanoid Motion Retargeting Via Monolithic Optimization\" OR ti:\"GMT: General Motion Tracking for Humanoid Whole-Body Control\" OR ti:\"Chasing Autonomy: Dynamic Retargeting and Control Guided RL for Performant and Controllable Humanoid Running\" OR ti:\"HARL-A: An Extensible Benchmark Framework for Heterogeneous Multi-Agent Adversarial Reinforcement Learning in IsaacLab\" OR ti:\"Discovering Optimal Natural Gaits of Dissipative Systems via Virtual Energy Injection\" OR ti:\"Reinforcement Learning for Robust Climbing Locomotion with Rope-Driven Legged Robot\" OR ti:\"Inject, Encode, Navigate: Feature-Wise Time Injection for Rectified Flow with Bidirectional Feature Encoding\" OR ti:\"Experimental Investigation of Pose Informed Reinforcement Learning for Skid-Steered Visual Navigation\"",
+    "total": 7,
+    "returned": 7,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-453",
+      "IROS26-1683",
+      "IROS26-5055",
+      "IROS26-1560",
+      "IROS26-3483",
+      "IROS26-3938",
+      "IROS26-4",
+      "IROS26-5054",
+      "IROS26-2672",
+      "IROS26-3172"
+    ],
+    "query": "ti:\"Learning by Demonstration and Executing Robotic Mechanical Cutting on Smooth Surfaces\" OR ti:\"A Temporally Aligned Multi-Modal Free-Length-Sequence Predictor for Robot Mental-Leap Imagination\" OR ti:\"Generating Drawing/Grinding Trajectories Based on Hierarchical CVAE\" OR ti:\"ELLIPSE: Evidential Learning for Robust Waypoints and Uncertainties\" OR ti:\"Bio-Inspired Thrust-Assisted Trotting on a Legged-Aerial Robot Via Real-Time QP-MPC\" OR ti:\"Inverse Resistive Force Theory (I-RFT): Estimating Granular Terrain Mechanics from Robot–Terrain Interactions\" OR ti:\"Probabilistic Approach to Feedback Control Enhances Multi-Legged Locomotion on Rugged Landscapes\" OR ti:\"Botany Meets Robotics in Alpine Scree Monitoring\" OR ti:\"DALEC: Efficient Distributed State Estimation for Swarm Robotics in Space and GPS-Denied Environments\" OR ti:\"Privacy-Preserving Decentralized Cooperative Localization with Range-Only Measurements: A Convex Optimization Based Approach\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3784",
+      "IROS26-828",
+      "IROS26-4999",
+      "IROS26-421",
+      "IROS26-387",
+      "IROS26-3",
+      "IROS26-4783",
+      "IROS26-1421",
+      "IROS26-3753",
+      "IROS26-1612"
+    ],
+    "query": "ti:\"Asynchronous Distributed Trajectory Estimation of Multi-Robot Systems\" OR ti:\"A Hierarchical Navigation Framework for Microrobot Swarms in Unknown Vascular Networks Via Local Perception\" OR ti:\"ESPADA: Execution Speedup Via Semantics Aware Demonstration Data Downsampling for Imitation Learning\" OR ti:\"What Can Robot Foundation Models Learn from Limited Human Demonstrations? Fine-Tuning with Human Task Videos\" OR ti:\"Differentiable Weights-Varying Nonlinear MPC Via Gradient-Based Policy Learning: An Autonomous Vehicle Guidance Example\" OR ti:\"Learning Causal Structure Distributions for Robust Planning\" OR ti:\"Exploiting LiDAR Symmetries to Enhance Value Estimation Policies\" OR ti:\"Disturbance-Observer-Like Reinforcement Learning Control for Stable Bipedal Locomotion on Moving Platforms\" OR ti:\"Safe Navigation of Bipedal Robots Via Koopman Operator-Based Model Predictive Control\" OR ti:\"Predicting Human Locomotion in Reduced Gravity Via Deep Learning-Driven Musculoskeletal Simulation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3573",
+      "IROS26-1135",
+      "IROS26-2595",
+      "IROS26-3004",
+      "IROS26-3113",
+      "IROS26-4675",
+      "IROS26-94",
+      "IROS26-1487",
+      "IROS26-554",
+      "IROS26-3120"
+    ],
+    "query": "ti:\"Sampling-Based MuJoCo MPC for Double-Pendulum Sway Suppression on a Shipboard Crane\" OR ti:\"Comparison of Adaptive Input Shaping for Payload Sway Suppression of 5-DoF Tower Cranes\" OR ti:\"Endpoint-Consistent Flow Matching for Forestry Crane Motion Planning\" OR ti:\"SpectraMine: Real-Time Aerial Landmine Detection Via Hyperspectral Imaging\" OR ti:\"Online Learning of Deceptive Policies under Intermittent Observation\" OR ti:\"Risk-Aware Navigation in Dynamic Smoke Environments via Probabilistic Fourier Neural Operators\" OR ti:\"Iterative Adversarial Learning with Chaser Agents for Time-Efficient Crowd-Aware Navigation\" OR ti:\"Interaction Centric Traffic Scenario Extraction Via MLLM-Based Analysis for Autonomous Vehicle Validation\" OR ti:\"A Hybrid Control Framework for Videocapsule Navigation: Magnetic-Field-Based Positioning with Clinician-Guided Orientation\" OR ti:\"MRI-Based Tracking of a Magnetically-Actuated Robotic Catheter Using Particle Filtering\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-56",
+      "IROS26-3386",
+      "IROS26-2971",
+      "IROS26-1",
+      "IROS26-470",
+      "IROS26-2998",
+      "IROS26-51",
+      "IROS26-37",
+      "IROS26-5034",
+      "IROS26-1909"
+    ],
+    "query": "ti:\"Contact-Aware Path Planning for Autonomous Neuroendovascular Navigation\" OR ti:\"Magnetic Microdrills for Navigation and Vascular Applications\" OR ti:\"Helical Tendon-Driven Continuum Robot with Programmable Follow-The-Leader Operation\" OR ti:\"Soft Bidirectional Shape Memory Alloy Actuators for Robotic Catheters\" OR ti:\"Towards a Tendon-Driven Robotically Steerable Guidewire with a Retractable Distal Balloon\" OR ti:\"A Concentric Multi-Backbone Robot for Transaortic Mitral Valve Access\" OR ti:\"Compact 3-DOF Flexible Milli-Manipulator Driven by Dielectric Elastomer Actuators\" OR ti:\"Disturbance-Aware Sliding Mode Control for Automated Optical Tweezers Using Nonlinear Observation\" OR ti:\"NanoCockpit: Performance-Optimized Application Framework for AI-Based Autonomous Nanorobotics\" OR ti:\"OnFly: Onboard Zero-Shot Aerial Vision-Language Navigation Toward Safety and Efficiency\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-122",
+      "IROS26-5056",
+      "IROS26-3064",
+      "IROS26-3271",
+      "IROS26-4669",
+      "IROS26-2178",
+      "IROS26-1061",
+      "IROS26-157",
+      "IROS26-4012",
+      "IROS26-1349"
+    ],
+    "query": "ti:\"SketchPlan: Diffusion Based Drone Planning from Human Sketches\" OR ti:\"Time-Optimized Safe Navigation in Unstructured Environments through Learning-Based Depth Estimation\" OR ti:\"Wirelessly Powered Artificial Pheromone Deposition for Untethered Miniature Robots in Confined Environments\" OR ti:\"DirectHop: A Direct-Drive Insect-Sized Robot That Can Control Jump Height and Self-Right\" OR ti:\"Design and Iterative Evaluation of a Sea Star-Inspired Robot with Autonomous Rays\" OR ti:\"Bidirectional Fuzzy Full Brain Emotional Learning Control for Flapping-Wing Micro Aerial Vehicle with Prescribed Performance\" OR ti:\"Workspace Analysis and Capacity Evaluation for Soft Surface End-Effector of Cable-Driven Parallel Robot\" OR ti:\"Design of a Motion Decoupled 1R1T Cable Driven Parallel Robot\" OR ti:\"Design and Simulation of a Heavy Payload Ballbot with Mirror Symmetrical Wheel Positioning\" OR ti:\"FalconTrack: Photorealistic Auto-Labeled Perception and Physics-Aware Vision-Based Aerial Tracking\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-510",
+      "IROS26-1650",
+      "IROS26-4176",
+      "IROS26-4303",
+      "IROS26-4671",
+      "IROS26-610",
+      "IROS26-2273",
+      "IROS26-5009",
+      "IROS26-3205",
+      "IROS26-3130"
+    ],
+    "query": "ti:\"Data-Driven Fault Detection and Isolation for Autonomous Recovery of Quadrotors\" OR ti:\"Learning Attractor Dynamics via Reservoir Computing for Efficient and Robust Path Integration\" OR ti:\"Real-Time On-Device Multi-Vessel Tracking for UAV with Trapezoid Convolution\" OR ti:\"Pareto Front Approximation for the Biobjective Steiner Traveling Salesman Problem\" OR ti:\"VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems\" OR ti:\"Energy-Aware Path Planning for Mobile Robots in Mechanically and Computationally Complex Environments\" OR ti:\"One-Size-Fits-All: Robust Solutions to Multi-Objective Planning Problems\" OR ti:\"Semi-Infinite Programming for Collision-Avoidance in Optimal and Model Predictive Control\" OR ti:\"Amortizing Trajectory Diffusion with Keyed Drift Fields\" OR ti:\"ADMM-Based Continuous Trajectory Optimization in Graphs of Convex Sets\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3837",
+      "IROS26-4316",
+      "IROS26-938",
+      "IROS26-2564",
+      "IROS26-3277",
+      "IROS26-2002",
+      "IROS26-5071",
+      "IROS26-4100",
+      "IROS26-3731",
+      "IROS26-4063"
+    ],
+    "query": "ti:\"Vision-Guided MPPI for Agile Drone Racing: Navigating Arbitrary Gate Poses Via Neural Signed Distance Fields\" OR ti:\"Clustering-Embedded MPPI: Avoiding Averaging-Induced Failure and Enabling Efficient Cluster Selection for Dynamic Obstacles\" OR ti:\"DATR: Diffusion-Based 3D Apple Tree Reconstruction Framework with Sparse-View\" OR ti:\"SG-DOR: Learning Scene Graphs with Direction-Conditioned Occlusion Reasoning for Pepper Plants\" OR ti:\"MPLog: A Multimodal Panoptic Dataset for Intralogistics\" OR ti:\"ScanDP: Generalizable 3D Scanning with Diffusion Policy\" OR ti:\"A Robot Precision Positioning Method Based on Complementary Visual Servoing with a Mid-Joint Configured Camera\" OR ti:\"Vision-Aided Dynamic In-Hand Localization under Rolling Contact Via Constrained Kalman Filtering\" OR ti:\"A Preliminary Study of the Effects of a Mechanically Adaptive Foot on a Powered Knee–Ankle Prosthesis Joint Mechanics on Uneven Terrain\" OR ti:\"SMAT: Staged Multi-Agent Training for Co-Adaptive Exoskeleton Control\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-7",
+      "IROS26-1810",
+      "IROS26-4613",
+      "IROS26-3903",
+      "IROS26-2523",
+      "IROS26-4641",
+      "IROS26-3775",
+      "IROS26-3125",
+      "IROS26-2929",
+      "IROS26-2142"
+    ],
+    "query": "ti:\"Addressing Human-Robot Symbiosis Via Bilevel Optimization of Robotic Knee Prosthesis Control\" OR ti:\"Virtualizing the Shoulder: Simultaneous Control of Prosthetic Elbow and Humeral Rotator Via Compensation Effect Amplification Control\" OR ti:\"Physics-Based Simulation of a Heterogeneous Over-Constrained Robot for Vitreoretinal Surgery Training\" OR ti:\"Proxy-Based Robust and Compliant Control of Functional Electrical Stimulation for Assisting Ankle Joint Movement\" OR ti:\"Design and Control of a Wearable Hydrofoil Robot for Underwater Gait Assistance\" OR ti:\"Cross-Subject Hand Gesture Recognition Via Inter-Modal Alignment of sEMG and A-Mode Ultrasound for Subject-Invariant Robotic Control\" OR ti:\"Virtues of Ordered Chaos: Planning with Topple Actions in Tabletop Stack Rearrangement\" OR ti:\"FAST: Action-Aware Feasibility in Assembly Sequence Planning Using Graph Transformer\" OR ti:\"Scalable Multi-Robot Informative Path Planning for Target Mapping Via Deep Reinforcement Learning\" OR ti:\"Potential Field-Based Continuous View Planning for Robotic Shape Reconstruction\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1542",
+      "IROS26-4938",
+      "IROS26-4389",
+      "IROS26-4311",
+      "IROS26-1406",
+      "IROS26-229",
+      "IROS26-3698",
+      "IROS26-5067",
+      "IROS26-2645",
+      "IROS26-4883"
+    ],
+    "query": "ti:\"Latent-Space Action Optimization under Implicit Constraints for Robotic Manipulation\" OR ti:\"Prompt-To-Product: Generative Assembly Via Bimanual Manipulation\" OR ti:\"Real-Time and Robust Tracking of Deformable Linear Objects by Using Self-Organizing Map\" OR ti:\"Vectorizing Projection in Manifold-Constrained Motion Planning for Real-Time Whole-Body Control\" OR ti:\"Computing Is Physical: Planning for Shared Resources in Robot Motion and Heterogeneous Computational Scheduling\" OR ti:\"Task Placement Optimization of Redundant Robots Using Reliability Maps under Locked Joint Failures\" OR ti:\"PLATO: Polynomial-Logarithmic Adaptive Trajectory for AUV Docking\" OR ti:\"Real-Time Energy Modeling for Underwater Gliders: A Gray-Box Approach Considering Inhomogeneous Bladder Mass\" OR ti:\"Event-Triggered Coverage Planning for Towable Sensing Systems\" OR ti:\"Ablation Study on Features in Learning-Based Joint Calibration of Cable-Driven Surgical Robots\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4025",
+      "IROS26-5082",
+      "IROS26-1028",
+      "IROS26-4899",
+      "IROS26-266",
+      "IROS26-5028",
+      "IROS26-801",
+      "IROS26-1664",
+      "IROS26-2515",
+      "IROS26-2686"
+    ],
+    "query": "ti:\"EndoMD-SLAM: Endoscopic Gaussian Splatting SLAM under Optical Degradation with Memory and Static-Transient Decomposition\" OR ti:\"TDN-PPO: An Automatic Control Framework of a Surgical Robot for Posterior Segment Ophthalmic Surgery\" OR ti:\"EBUG: Elastic-Beam Buckling and Undulating Generation for Multi-Modal Robot Locomotion in Environmental Exploration\" OR ti:\"Design and Control of a Vibratory Motile Robot\" OR ti:\"Millimeter Wave Radar: From Synthetic Aperture to Probabilistic Mapping\" OR ti:\"SEED: Structure-Entropy and DCT Enhanced Descriptor for Robust 4D Radar Place Recognition\" OR ti:\"Self-Supervised Monitoring of Command–Behavior Consistency on a Teleoperated Robot Via Action-Conditioned Prediction\" OR ti:\"Human Robot Interaction Based on Efficient EEG-Image Decoding\" OR ti:\"MOSAICO: Multimodal Orchestration of Spatial and Action Inference for COntextual Assistance in HRI\" OR ti:\"E-TIDE: Fast, Structure-Preserving Motion Forecasting from Event Sequences\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1353",
+      "IROS26-3315",
+      "IROS26-710",
+      "IROS26-721",
+      "IROS26-3955",
+      "IROS26-1525",
+      "IROS26-95",
+      "IROS26-2888",
+      "IROS26-4197",
+      "IROS26-2535"
+    ],
+    "query": "ti:\"Bypassing Cost Volumes with Ordinal Motion Priors for Efficient Optical Flow\" OR ti:\"RAFT-U: Extending RAFT for Joint Optical Flow and Uncertainty Estimation\" OR ti:\"Development of a Self-Reconfigurable Manipulator with a Spring-Loaded Screw Ring Docking Mechanism Enabling Tight Fitting Insertion\" OR ti:\"Design Method for Uniquely Reconstructable Bus-Connected Hierarchical Connectable Components\" OR ti:\"IMU-Based Joint Stiffness Identification for Reconfigurable Modular Robot Arms Via Differentiable Kinematics\" OR ti:\"Efficient Surgical Robotic Instrument Pose Reconstruction in Real World Conditions Using Unified Feature Detection\" OR ti:\"Real-Time Image-Based High Accuracy Tooth Measurement for Precision Orthodontics\" OR ti:\"When Self-Supervision Transfers: Quantifying the Laparoscopic–Robotic Domain Shift\" OR ti:\"Real-Time Deformable Surface Reconstruction with Patch-Wise Global Optimality Certificates for Robotic Minimally Invasive Surgery\" OR ti:\"Role-Based Reward Decomposition for Legged Locomotion Reinforcement Learning\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-445",
+      "IROS26-3843",
+      "IROS26-4955",
+      "IROS26-4929",
+      "IROS26-4930",
+      "IROS26-3414",
+      "IROS26-140",
+      "IROS26-2052",
+      "IROS26-35",
+      "IROS26-3693"
+    ],
+    "query": "ti:\"Gentle Robotic Goal-Oriented Non-Prehensile Manipulation Via Reinforcement Learning and Object-Centric Admittance Control\" OR ti:\"Leveraging Extrinsic Dexterity for Occluded Grasping on Grasp Constraining Walls\" OR ti:\"Climb with SHERPA: Heuristic-Guided Reinforcement Learning Via Segmented Experience Relay\" OR ti:\"Self-Supervised Multisensory Pretraining for Contact-Rich Robot Reinforcement Learning\" OR ti:\"A Hierarchical Bin Packing Framework with Dual Manipulators Via Heuristic Search and Deep Reinforcement Learning\" OR ti:\"HSD-MM: Hierarchical Shallow-Deep Multimodal Policy for Autonomous Bronchoscope Navigation and Control\" OR ti:\"Toward AI Autonomous Navigation for Mechanical Thrombectomy Using Hierarchical Modular Multi-Agent Reinforcement Learning (HM-MARL)\" OR ti:\"Physics-Guided Reinforcement Learning Via Massively Parallel Training for Gas Source Localization in Complex Indoor Environments\" OR ti:\"Clutchable Soft Actuators Produce Rapid, High-Power Movements in Robotic Artificial Musculoskeletal Systems\" OR ti:\"Multi-Mode Pneumatic Artificial Muscles Driven by Hybrid Positive-Negative Pressure\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5073",
+      "IROS26-4888",
+      "IROS26-1211",
+      "IROS26-3502",
+      "IROS26-5096",
+      "IROS26-4926",
+      "IROS26-1280",
+      "IROS26-4713",
+      "IROS26-4949",
+      "IROS26-4950"
+    ],
+    "query": "ti:\"Lateral Pleated Pneumatic Artificial Muscles: High-Contraction and Extended High-Force Range Actuators for Soft Robotics\" OR ti:\"LED Pouch Motor: Wavelength Selective Wireless Actuation of Dyed Liquid-To-Gas Phase Change Actuators Using LEDs\" OR ti:\"Bio-Inspired Event-Frame Dual-Modal Tactile Sensor for Texture and Stiffness Classification\" OR ti:\"A Multi-Modal Tactile Fingertip Design for Robotic Hands to Enhance Dexterous Manipulation\" OR ti:\"A Whisker-Like 2D Contact Sensor for Environmental Perception of Mobile Robots\" OR ti:\"Canonical Policy: Learning Canonical 3D Representation for SE(3)-Equivariant Policy\" OR ti:\"EasyInsert: A Data Efficient and Generalizable Insertion Policy\" OR ti:\"Sampling-Based Motion Planning with Scene Graphs under Perception Constraints\" OR ti:\"Edge Nearest Neighbor: Neighbor-Finding Revisited in Sampling-Based Motion Planning\" OR ti:\"Can We Get There Faster: Tuning Sample-Based Path Planners\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4903",
+      "IROS26-3835",
+      "IROS26-418",
+      "IROS26-2251",
+      "IROS26-3192",
+      "IROS26-3943",
+      "IROS26-4446",
+      "IROS26-1358",
+      "IROS26-2130",
+      "IROS26-4458"
+    ],
+    "query": "ti:\"Situationally-Aware Path Planning Exploiting 3D Scene Graphs\" OR ti:\"ViTL: Temporal Logic-Guided Zero-Shot Natural Language Navigation Via Vision-Language Models\" OR ti:\"Evolutionary Exploration of Forest Soundscapes Using Text-To-Audio LLM and Ecoacoustic Indices\" OR ti:\"SpaceSense-Bench: A Large-Scale Multi-Modal Benchmark for Spacecraft Perception and Pose Estimation\" OR ti:\"Precision Pointing of Dual-Module MagLev Space Observatories Via Hierarchical Fixed-Time-Synchronized Control\" OR ti:\"Dual-Horizon Hybrid Internal Model for Low-Gravity Quadrupedal Jumping with Hardware-In-The-Loop Validation\" OR ti:\"Multi-Agent Off-World Exploration for Sparse Evidence Discovery Via Gaussian Belief Mapping and Dual-Domain Coverage\" OR ti:\"AMBER: A Tether-Deployable Gripping Crawler with Compliant Microspines for Canopy Manipulation\" OR ti:\"Autonomous Berry-Level Grape Thinning Using a Single-Arm Bimanual-Equivalent End-Effector and Motion-Aware Perception\" OR ti:\"Radiological Site Inspection with Gamma-Bot: An Autonomous Suspended Cable-Driven Parallel Robot\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4941",
+      "IROS26-4720",
+      "IROS26-5016",
+      "IROS26-1497",
+      "IROS26-2816",
+      "IROS26-4462",
+      "IROS26-5068",
+      "IROS26-5023",
+      "IROS26-1465",
+      "IROS26-1598"
+    ],
+    "query": "ti:\"Encoding Material Safety Using Control Barrier Functions for Soft Actuator Control\" OR ti:\"An Open-Source, Reproducible Tensegrity Robot That Can Navigate among Obstacles\" OR ti:\"Morphology-Aware Graph Reinforcement Learning for Tensegrity Robot Locomotion\" OR ti:\"Proposal Unification and Radar-Guided Orientation Refinement for Annotation-Free 3D Object Detection\" OR ti:\"Intra-Class Geometric Variation Via 2D-To-3D Generative Models for Reducing the Synthetic-To-Real Gap\" OR ti:\"GLASS: A Global and Local Adaptive Segmentation System for Robust Transparent Object Perception\" OR ti:\"HD-Fusion: Hierarchical Dynamic Fusion of LiDAR-Camera for Robust 3-D Object Detection\" OR ti:\"Certifiable Alignment of GNSS and Local Frames Via Lagrangian Duality\" OR ti:\"Adaptive Multi-Modal Out-Of-Distribution Detection for Trajectory Prediction in Autonomous Vehicles\" OR ti:\"Moving Instance Segmentation on 4D Radar Point Cloud Via FlowNet3D with Global Attention\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3321",
+      "IROS26-1254",
+      "IROS26-4466",
+      "IROS26-4780",
+      "IROS26-1154",
+      "IROS26-4978",
+      "IROS26-183",
+      "IROS26-791",
+      "IROS26-1623",
+      "IROS26-674"
+    ],
+    "query": "ti:\"GeoReFormer: Geometry-Aware Refinement for Lane Segment Detection and Topology Reasoning\" OR ti:\"Sparse Recovery Bird’s-Eye View Model Soup for Robust Camera-Based 3d Object Detection\" OR ti:\"AMAC: Adaptive Maximal Clique for Cross-Density Point Cloud Registration\" OR ti:\"Dynamic-ICP: Doppler-Aware Iterative Closest Point Registration for Dynamic Scenes\" OR ti:\"D-SLAMSpoof: An Environment-Agnostic LiDAR Spoofing Attack Using Dynamic Point Cloud Injection\" OR ti:\"4D Radar-Inertial Odometry Based on Gaussian Modeling and Multi-Hypothesis Scan Matching\" OR ti:\"Proactive Local-Minima-Free Robot Navigation: Blending Motion Prediction with Safe Control\" OR ti:\"Safety-Critical Collision Avoidance Control for Elliptical Multi-Robot Systems Via Control Barrier Functions\" OR ti:\"Distance Field Driven Reinforcement Learning for Reactive and Robust Collision Avoidance\" OR ti:\"LiE-CBF: Lie Group Energy-Augmented Control Barrier Functions for Redundant Manipulators on SE(3)\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2516",
+      "IROS26-3645",
+      "IROS26-3059",
+      "IROS26-2294",
+      "IROS26-1534",
+      "IROS26-3743",
+      "IROS26-3009",
+      "IROS26-5074",
+      "IROS26-321",
+      "IROS26-1486"
+    ],
+    "query": "ti:\"Joint Optimization of Mechanical Energy, Computational Energy, and Time in Swarms of Collaborative Autonomous Electric Vehicles Routing\" OR ti:\"Diffusion-Based 4D Trajectory Prediction and Distributed Control for UAV Swarms\" OR ti:\"Skeleton-Guided Spectral Graph Reinforcement Learning for Autonomous Robot Exploration in Multi-Scale Environments\" OR ti:\"Physically Embodied Press-Based Haptic Interaction Via Structural Design of Pneumatic Soft Actuators\" OR ti:\"A-SLIP: Acoustic Sensing for Continuous In-Hand Slip Estimation\" OR ti:\"Synchronized Online Friction Estimation and Adaptive Grasp Control for Robust Gentle Grasp\" OR ti:\"Enhanced Haptic Search with the Smart Suction Cup Using Reverse Flow\" OR ti:\"Look-to-Touch: A Vision-Enhanced Proximity and Tactile Sensor for Distance and Geometry Perception in Robotic Manipulation\" OR ti:\"Anchoring Touch to Large-scale Vision Model: Dual-path Cross-modal Alignment of Directly Fusable Tactile and Visual Representations\" OR ti:\"TacLoc: Global Tactile Localization on Objects from a Registration Perspective\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1489",
+      "IROS26-2970",
+      "IROS26-2769",
+      "IROS26-2590",
+      "IROS26-3256",
+      "IROS26-523",
+      "IROS26-1653",
+      "IROS26-3458",
+      "IROS26-4992",
+      "IROS26-1543"
+    ],
+    "query": "ti:\"Dense Robotic Packing of Heterogeneous Deformable Objects\" OR ti:\"In-Situ Repair: A Reconfigurable Robotic System for Trenchless Natural Gas Pipeline Maintenance\" OR ti:\"Acoustic Slip Estimation for a Planetary Rover Wheel\" OR ti:\"ARCSnake V2: Mechanical Adaptions for an Amphibious Multi-Domain Screw-Propelled Snake-Like Robot\" OR ti:\"SonoRank: Towards Calibration-Free Real-Time Finger Flexion Detection from Forearm Ultrasound Sequences\" OR ti:\"Development and Validation of a Wearable Sensing System for Quantifying Skin Softness for Remote Edema Assessment\" OR ti:\"Effects of Temporal Overlap on the Perception of Sequential Vibrotactile Feedback at the Waist\" OR ti:\"Safe Offline Reinforcement Learning via Chance-Constrained Policy Filtering\" OR ti:\"MaskPlanner: A Framework for 3D Learning-Based Object-Centric Motion Generation and Applications to Robotic Spray Painting\" OR ti:\"Continuous Adhesive Tape Based Steering for Vine Robots Via Wrinkle Induction\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4927",
+      "IROS26-600",
+      "IROS26-3007",
+      "IROS26-3175",
+      "IROS26-3926",
+      "IROS26-3361",
+      "IROS26-3663",
+      "IROS26-3275",
+      "IROS26-3948",
+      "IROS26-4467"
+    ],
+    "query": "ti:\"Eel-Inspired Electrohydraulic Soft Swimmer with Programmable Undulatory Gaits\" OR ti:\"BiGraspAfford: Collision-Aware Bimanual Grasp Affordance Learning for Dual-Arm Manipulation\" OR ti:\"PhyPush: One Push Is All You Need for Sensorless Physical Property Estimation with Physics-Guided Transformers\" OR ti:\"Real-Time FEM Simulation and Force-Aware Local Planning of Soft Robots Via Model Order Reduction\" OR ti:\"Beyond Single-Shot Localization: Recursive Synthetic Aperture for Active Target Finding in Severe NLoS\" OR ti:\"m2C2: mmWave-Camera Calibration via Human Pose\" OR ti:\"Autonomous Whole-Body Loco-Manipulation Using a Snake Robot\" OR ti:\"Vertical Mobility and RL-Based Locomotion of a Snake-Like Robot for Building Foundation Inspection\" OR ti:\"Design and Kinematics of CHAMPS: A Configurable, Highly-Articulated, Multi-Purpose Snake\" OR ti:\"Topology and Coordination Govern Reconfigurable Multi-Module Robot Locomotion in Highly Viscous Environments\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1222",
+      "IROS26-2259",
+      "IROS26-4460",
+      "IROS26-4338",
+      "IROS26-5006",
+      "IROS26-4722",
+      "IROS26-2111",
+      "IROS26-4412",
+      "IROS26-2514",
+      "IROS26-3690"
+    ],
+    "query": "ti:\"Path-Conditioned Reinforcement Learning-Based Local Planning for Long-Range Navigation\" OR ti:\"Graph-Constrained Task Scheduling for Mobile Robots Via Reinforcement Learning\" OR ti:\"MULTI-ORFT: Stable Online Reinforcement Fine-Tuning on Diffusion-Based Multi-Agent Planning for Cooperative Driving\" OR ti:\"Robust Autonomous Control of a Magnetic Millirobot in in Vitro Cardiac Flow\" OR ti:\"Few-Shot Magnet Localization Using Sim-To-Real Transfer Learning\" OR ti:\"Magnetically Actuated Milli-Scale Voxel Robot for Navigation in Tubular and Anatomical Environments\" OR ti:\"StructGeo-Diff: Structurally-Consistent Weather Augmentation for Autonomous Navigation Via Geometric Fusion\" OR ti:\"LSAA: Latent Space-Aware Adversarial Attack on Semantic Segmentation\" OR ti:\"Synthesis of Control Barrier Functions from Spatial Safety Specifications\" OR ti:\"Real-Time Trajectory Planning for Active-Steering Tractor-Trailer Robots Based on Constraint Dimension Shifting\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1478",
+      "IROS26-1195",
+      "IROS26-1336",
+      "IROS26-3441",
+      "IROS26-2473",
+      "IROS26-1494",
+      "IROS26-3067",
+      "IROS26-3442",
+      "IROS26-4241",
+      "IROS26-9"
+    ],
+    "query": "ti:\"STL-SVPIO: Signal Temporal Logic Guided Stein Variational Path Integral Optimization\" OR ti:\"FDC-MPPI: Fast Disturbance-Compensated MPPI for Onboard Quadruped Navigation in Cluttered and Disturbed Environments\" OR ti:\"SPAR: Scalable LLM-Based PDDL Domain Generation for Aerial Robotics\" OR ti:\"Analyzing the Role of Spinal Joint Dynamics in the Movement of a Sprawling Robot\" OR ti:\"Walking with Slip: Model Insights for Underwater Walking\" OR ti:\"WPMoE: A Reinforcement Learning Method for Motion Control in a Musculoskeletal Robot Via Workspace Partitioning and Mixture of Experts\" OR ti:\"Priority Randomized Decentralized Online Multi-Robot Submodular Task Allocation -- PROA\" OR ti:\"Planning and Execution for Multi-Robot Cyclic Rendezvous Via Graphs of Convex Sets\" OR ti:\"Multi-Robot Consensus and Coordination with Localization Uncertainty\" OR ti:\"Learning Multi-Robot Coordination through Locality-Based Factorized Multi-Agent Actor-Critic Algorithm\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4312",
+      "IROS26-4262",
+      "IROS26-2664",
+      "IROS26-3174",
+      "IROS26-2667",
+      "IROS26-206",
+      "IROS26-3084",
+      "IROS26-4060",
+      "IROS26-4936",
+      "IROS26-2823"
+    ],
+    "query": "ti:\"Uncertainty-Aware Auto-Annotation for Multi-Domain 3D Semantic Segmentation\" OR ti:\"BCF-Map: Bidirectional Cross-Attention Fusion for Robust Multimodal Indoor Semantic Mapping\" OR ti:\"Prox-Nav: Constrained Reinforcement Learning for Safe Social Navigation with Proxemic Constraints\" OR ti:\"The SOSI Toolkit: Ontology, Synthetic Dataset, and Benchmark for Social Situation Understanding in Robotics\" OR ti:\"Trajectory-Aware Monocular Relative Pose Estimation for Cooperative UAVs: From Geometric Optimization to Hybrid Learning\" OR ti:\"Energy-Aware Morphing: Adaptive Curriculum-Based DRL for Obstacle Traversal in Transformable Wheeled-Legged Robots\" OR ti:\"Multi-legged Robot Gait based on Lie Theory and Gait Correlations\" OR ti:\"Tiny Legs or Tiny Wheels? Comparing Locomotion Morphologies for 100 Mg Quadrupeds Using Real-To-Sim System Identification\" OR ti:\"Olaf: Bringing an Animated Character to Life in the Physical World\" OR ti:\"Whole-Body Model Predictive Control for Spin-Aware Quadrupedal Table Tennis\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2249",
+      "IROS26-2109",
+      "IROS26-4980",
+      "IROS26-4889",
+      "IROS26-4967",
+      "IROS26-5035",
+      "IROS26-379",
+      "IROS26-371",
+      "IROS26-3923",
+      "IROS26-3112"
+    ],
+    "query": "ti:\"An Adaptive Reflected Velocity Decision Strategy towards Online Table Tennis Ball Bouncing Task\" OR ti:\"De-Ghosting Depth: Mitigating Spatio-Temporal Misalignment Via Drivable Area Constraints\" OR ti:\"PolarDepth: Polarization-Guided Monocular Depth for Visual Odometry\" OR ti:\"EDE-Distill: Boosting Event-based Monocular Depth Estimation Performance via Knowledge Distillation\" OR ti:\"SV-RCNN: Robust Structural-Encoded Voxel Features for 3D Object Detection on Sparse Point Clouds\" OR ti:\"Open-Vocabulary Semantic Segmentation for Dynamic 3D Scenes Using Scene Flow Estimation\" OR ti:\"TriLift: Interpolation-Free Tri-Plane Lifting for Efficient 3D Perception on Embedded Systems\" OR ti:\"A Simple Recipe for Leveraging Dual Foundation Models in Domain Generalised Semantic Segmentation\" OR ti:\"CoLoRA: Optimal Transport Meets LoRA for Multi-Domain Open-Vocabulary Segmentation\" OR ti:\"3D Open-Vocabulary Detection Via Visual Alignment and Generative Captions\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1057",
+      "IROS26-4295",
+      "IROS26-927",
+      "IROS26-1700",
+      "IROS26-2947",
+      "IROS26-3044",
+      "IROS26-4689",
+      "IROS26-5014",
+      "IROS26-53",
+      "IROS26-4179"
+    ],
+    "query": "ti:\"IAST: Instance Augmentation and Self-Training for Domain Adaptation on 3D Object Detection\" OR ti:\"FreqKD: Distillation-Based Single Domain Generalization Via Frequency-Structured Knowledge Transfer\" OR ti:\"Foundation-Assisted Active Learning for Object Detection Annotation\" OR ti:\"Learning Continuous Obstacle-Rich Pursuit for Drone Swarms\" OR ti:\"Split-it: Efficient Multi-Swarm Navigation Via Context-Aware Hierarchical Formation Switching in Constrained Environments\" OR ti:\"Hybrid Topology Control: A Dynamic Leader-Based Distributed Edge-Addition and Deletion Mechanism\" OR ti:\"Topological Online Learning for Displacement-based Formation Control\" OR ti:\"Decentralized Multi-Robot Herding Via Partial Containment Strategy\" OR ti:\"Behaviorally Heterogeneous Multi-Agent Exploration Using Distributed Task Allocation\" OR ti:\"From Grid to Ring: A New Convolutional Paradigm for Arbitrary-Scale UAV Thermal Super-Resolution\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4090",
+      "IROS26-3355",
+      "IROS26-2506",
+      "IROS26-959",
+      "IROS26-3011",
+      "IROS26-3773",
+      "IROS26-1397",
+      "IROS26-2955",
+      "IROS26-998",
+      "IROS26-3347"
+    ],
+    "query": "ti:\"AutoAresti: A Benchmark and Architecture for Real-Time Aerobatic Sequence Interpretation\" OR ti:\"FALCON: Future-Aware Learning with Contextual Object-Centric Pretraining for UAV Action Recognition\" OR ti:\"Featherlight Flyers: Mastering Cluttered Environments with Minimalistic Sensing and Reinforcement Learning\" OR ti:\"SoraNav: Adaptive UAV Task-Centric Navigation Via Zero-Shot VLM Reasoning\" OR ti:\"SynthLA: Synthetic Language–Action Multi–task Policies for Zero–shot Real–world Manipulation Via Structured Perception\" OR ti:\"Jointly Learning Predicates and Actions Enables Zero-Shot Skill Composition\" OR ti:\"RobustFuzz: A Semantic Disturbance Benchmark for Learned Policies in Embodied Control\" OR ti:\"Hybrid Dynamic Modeling and CBF–MPC for Safe Cargo Quadrotor Control\" OR ti:\"CAMFlow: Learning Coordination-Aware Aerial Manipulation Via Consistency Flow Matching\" OR ti:\"MAG-PG: Mathematical Modeling Guided Multi-Agent LLM for Push–Grasping Synergy in Cluttered Scenes\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-124",
+      "IROS26-1992",
+      "IROS26-2309",
+      "IROS26-4605",
+      "IROS26-1980",
+      "IROS26-4977",
+      "IROS26-1644",
+      "IROS26-3779",
+      "IROS26-2372",
+      "IROS26-968"
+    ],
+    "query": "ti:\"RoboRetriever: Single-Camera Robot Object Retrieval Via Active and Interactive Perception with Dynamic Scene Graph\" OR ti:\"Agentic Scene Policies: Unifying Space, Semantics, and Affordances for Robot Action\" OR ti:\"E³VT: An Effective and Efficient VLA Framework for Embodied Visual Tracking in the Wild\" OR ti:\"Long-Term Memory for VLA-Based Agents in Open-World Task Execution\" OR ti:\"Weakly-Supervised Multi-View X-Ray to CT Registration Via Differentiable Rendering with Cross-View Consistency Constraints\" OR ti:\"Simplifying Robotic Ultrasound Calibration Via Conic Sections Geometry\" OR ti:\"From Gaze to Action: A Hands-Free Robotic Ultrasound System Via Gaze-Embodied Perception\" OR ti:\"Force Safety by Geometry: Equivalent Displacement Manifolds for Autonomous Ultrasound Scanning\" OR ti:\"Kinematically Decoupled Dual-Stream Ego-Motion Estimation for Trackerless Endoscopic Ultrasound Tracking\" OR ti:\"ISF-VLA: An Implicit 3D Vision-Language-Action Model Capitalizing on 3D-Aware Vision Foundation Models through Implicit Spatial Fusion\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1635",
+      "IROS26-5069",
+      "IROS26-4642",
+      "IROS26-3764",
+      "IROS26-4712",
+      "IROS26-611",
+      "IROS26-662",
+      "IROS26-1244",
+      "IROS26-3688",
+      "IROS26-2238"
+    ],
+    "query": "ti:\"LLaDA-VLA: Vision Language Diffusion Action Models\" OR ti:\"D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer\" OR ti:\"Hand-Centric Interaction Representation for Vision-Language-Action Models\" OR ti:\"Value Function-Guided MPPI for Hierarchical Planning and Control in Off-Road Autonomous Navigation\" OR ti:\"Learning to Tune Pure Pursuit in Autonomous Racing: Joint Lookahead and Steering-Gain Control with PPO\" OR ti:\"Symmetry-Breaking in Multi-Agent Navigation: Winding Number-Aware MPC with a Learned Topological Strategy\" OR ti:\"A2RL V_max: The A2RL Autonomous Racing Dataset for Long-Range, High-Speed Perception and Multi-Vehicle Interaction\" OR ti:\"StageNav: A Diagnostic Benchmark and State-Aligned RL Framework for Long-Horizon Navigation\" OR ti:\"FALCoN : Failure Detection and Learning-Based Recovery Action Generation in Visual Navigation\" OR ti:\"REAL: Robust Extreme Agility Via Spatio-Temporal Policy Learning and Physics-Guided Filtering\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3954",
+      "IROS26-2327",
+      "IROS26-788",
+      "IROS26-3625",
+      "IROS26-974",
+      "IROS26-4900",
+      "IROS26-4729",
+      "IROS26-3260",
+      "IROS26-67",
+      "IROS26-4965"
+    ],
+    "query": "ti:\"RVN-Bench: A Benchmark for Reactive Visual Navigation\" OR ti:\"3D-CovDiffusion: 3D-Aware Diffusion Policy for Coverage Path Planning\" OR ti:\"TLC-Nav: Safe Trajectory Learning for Mapless Navigation with Trajectory-Level Constraints\" OR ti:\"Co-SDF: Learning Signed-Distance-Correlated Neural Fields in Configuration Space without Distance Supervision\" OR ti:\"DIRRT*-Connect: An Optimal Ellipsoidal Heuristic Sampling-Based Path Planning Algorithm Using Gradient Descent Optimization\" OR ti:\"MIGHTY: Hermite Spline-Based Efficient Trajectory Planning\" OR ti:\"Guaranteed Global Optimal Path Planning through Convex Segmentation and Homotopy Guidance\" OR ti:\"VR-DAgger: Immersive VR for Dexterous Data Collection and Uncertainty-Guided On-Policy Correction\" OR ti:\"Comparing Semi-Autonomous Strategies for Virtual Reality Based Remote Robotic Telemanipulation: On Peg-In-Hole Tasks\" OR ti:\"Toward Real-Time High-Fidelity Immersive Robotic Telepresence Via Online 3D Gaussian Splatting\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5057",
+      "IROS26-4982",
+      "IROS26-1660",
+      "IROS26-3696",
+      "IROS26-3967",
+      "IROS26-4267",
+      "IROS26-4943",
+      "IROS26-4989",
+      "IROS26-4744",
+      "IROS26-1588"
+    ],
+    "query": "ti:\"An Intuitive Avatar Operation Method with Low Cognitive Load for Telecommunication Using Finger and Wrist Movements\" OR ti:\"Hand-Gesture Based Robot Tracking and Teaching Framework: Demonstration in Surface Polishing Task\" OR ti:\"Deployable Chiral-Origami Modular Arms for High-Precision Manipulation in Confined Spaces\" OR ti:\"Implementation of a Bio-Inspired Double-Spiral Joint for Terrain-Adaptive Realignment in a Legged Robot\" OR ti:\"Hardware Reconfiguration for Enhancing the Control Bandwidth of Pneumatic Artificial Muscles through High-Bandwidth Pressure Control\" OR ti:\"New Families of Handed Shearing Auxetics Via Parameterization\" OR ti:\"Programmable Locking Cells (PLC) for Modular Robots with High Stiffness Tunability and Morphological Adaptability\" OR ti:\"SurgRAW: Multi-Agent Workflow with Chain of Thought Reasoning for Robotic Surgical Video Analysis\" OR ti:\"Cosmos-Surg-dVRK: World Foundation Model-Based Automated Online Evaluation of Surgical Robot Policy Learning\" OR ti:\"An Actively Steerable Continuum Robotic Instrument for Compliant Retinal Vessel Puncture\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2250",
+      "IROS26-2596",
+      "IROS26-440",
+      "IROS26-1630",
+      "IROS26-2978",
+      "IROS26-365",
+      "IROS26-491",
+      "IROS26-837",
+      "IROS26-4891",
+      "IROS26-5072"
+    ],
+    "query": "ti:\"Stream3DSplat: Progressive Gaussian Mapping with Multi-View Geometry for Long Sequences\" OR ti:\"ProDyGS: Dynamic Gaussian Splatting from a Single Static Monocular Camera\" OR ti:\"Efficient Detailing and Update of 3D Gaussian Splatting from Feed-Forward Models' Prediction\" OR ti:\"InstantSfM: Towards GPU-Native SfM for the Deep Learning Era\" OR ti:\"AnchorD: Metric Grounding of Monocular Depth Using Factor Graphs\" OR ti:\"AI-Driven Dispensing of Coral Reseeding Devices for Broad-Scale Restoration of the Great Barrier Reef\" OR ti:\"RobotDesign1M: A Large-Scale Dataset for Robot Design Understanding\" OR ti:\"LOGICWorld: Automated Deep Logic Generation for Interactive Reasoning in Embodied Agents\" OR ti:\"Constraint Learning in Multi-Agent Dynamic Games from Demonstrations of Local Nash Interactions\" OR ti:\"Total Response Time Estimation for On-Grid Protection Systems in Renewable Smart Grids Using Transient Kinetic Energy Waveform Analysis\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3480",
+      "IROS26-1892",
+      "IROS26-2032",
+      "IROS26-4556",
+      "IROS26-3689",
+      "IROS26-3338",
+      "IROS26-4059",
+      "IROS26-1430",
+      "IROS26-4998",
+      "IROS26-4975"
+    ],
+    "query": "ti:\"MSC: Multi-Stage Caster-Aware Control Framework with Uncertainty-Aware NMPC and RL-Based Execution Layer\" OR ti:\"DexEMG: Towards Dexterous Teleoperation System Via EMG2Pose Generalization\" OR ti:\"TransRetarget: A Human-Robot Hand Motion Retargeting Framework Based on Temporal-Spatial Transformer\" OR ti:\"TeleDex: Accessible Dexterous Teleoperation\" OR ti:\"A Hardware-Efficient Neuromorphic Interface for sEMG-Based Dexterous Hand Control\" OR ti:\"MIRROR: Visual Motion Imitation Via Real-Time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics\" OR ti:\"Unsupervised Discovery of Failure Taxonomies from Deployment Logs\" OR ti:\"GRACE: A Tunable Metric Unifying Accuracy and Efficiency for Robotics Evaluation\" OR ti:\"REALM: A Real-To-Sim Validated Benchmark for Generalization in Robotic Manipulation\" OR ti:\"Reproducibility of Legacy ROS-Based Research Code through Transparent Docker Integration\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3724",
+      "IROS26-789",
+      "IROS26-2428",
+      "IROS26-3487",
+      "IROS26-3780",
+      "IROS26-635",
+      "IROS26-754",
+      "IROS26-2124",
+      "IROS26-2197",
+      "IROS26-2021"
+    ],
+    "query": "ti:\"RIX: A Minimal POSIX-Compliant Robot Operating System for Portable Robotics Education\" OR ti:\"DR-LIO Degeneracy-Robust LiDAR-Inertial Odometry under Geometric Degeneracy\" OR ti:\"Consistent and Efficient MSCKF-Based LiDAR-Inertial Odometry with Inferred Cluster-To-Plane Constraints for UAVs\" OR ti:\"Evidential-LIO: Uncertainty-Aware Resource Allocation and Information-Theoretic Mapping for Dynamic Environments\" OR ti:\"LIO-Track: Tightly-Coupled LiDAR-Inertial Odometry with Multi-Object Tracking\" OR ti:\"LiDAR-Integrated Coarse-To-Fine Optimization for Geometrically Consistent Triangle Splatting from Mobile Robots\" OR ti:\"UnicGS: High-Fidelity Multimodal 3D Reconstruction Via Uncertainty-Integrated Constrained Gaussian Splatting\" OR ti:\"Lightweight Large-Scale 3D Reconstruction and Rendering Using LiDAR-Enhanced Gaussian Splatting\" OR ti:\"Hydra++: Real-Time Hierarchical 3D Scene Graph Construction With Object-Level Shape Estimation\" OR ti:\"Motion-Aware Agile Flight for Dynamic Obstacle Avoidance Via Privileged Supervision\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2507",
+      "IROS26-5084",
+      "IROS26-5033",
+      "IROS26-99",
+      "IROS26-4035",
+      "IROS26-4939",
+      "IROS26-5052",
+      "IROS26-2996",
+      "IROS26-3519",
+      "IROS26-4041"
+    ],
+    "query": "ti:\"Flying through Feasible Spatial Sectors with Reinforcement Learning\" OR ti:\"UAV-NAS: UAV Identification on FPGAs via Neural Architecture Search\" OR ti:\"MBD-Planner: A Real-Time Obstacle Avoidance Framework for UAVs via Feature-Domain Motion Blur Decoupling\" OR ti:\"Cooperative Aerial Robot Inspection Challenge: A Benchmark for Heterogeneous Multi-UAV Planning and Lessons Learned\" OR ti:\"HIL-ResRFT: Improving Imitation Learning Policy with Human in the Loop Residual RL for Robot Manipulation\" OR ti:\"Safety-Aware Imitation Learning Via MPC-Guided Disturbance Injection\" OR ti:\"Safe MPC Alignment with Human Directional Feedback\" OR ti:\"Unsupervised Vision-Action Misbehavior Detection for Iterative Cleaning of Training Data in Autonomous Driving\" OR ti:\"Anomaly-Informed Confidence Calibration for Vision-Based Safety Prediction\" OR ti:\"MapTCL: Temporal Consistency Learning Via Bidirectional Alignment for Vectorized HD Map Construction\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1142",
+      "IROS26-3396",
+      "IROS26-4561",
+      "IROS26-4932",
+      "IROS26-727",
+      "IROS26-3171",
+      "IROS26-858",
+      "IROS26-1951",
+      "IROS26-2387",
+      "IROS26-5024"
+    ],
+    "query": "ti:\"Automated Weld Seam Detection and 3D Map Integration for Industrial Vessel Inspection Using Depth Cameras and 3D LiDAR\" OR ti:\"3DCarGen: Scalable 3D Car Generation Via 3D-Consistent Multi-View Synthesis\" OR ti:\"EdgeRAD: Depth–Edge Regularized Neural Rendering for Autonomous Driving\" OR ti:\"REACT3D: Recovering Articulations for Interactive Physical 3D Scenes\" OR ti:\"USISU: Unsupervised Strong Image Stitching for Uneven Scenes\" OR ti:\"RoboCareSim: A Unity-Based Multimodal HRI Simulation Platform for Cognitive Impairment Support Scenarios\" OR ti:\"PHAST: Priority-Driven Hierarchical Scheduling for Real-Time ROS2 Executor on Heterogeneous Robotic Platforms\" OR ti:\"Traj2Scene: Generating Articulated Scenes from Robot Trajectories\" OR ti:\"Modular Behavior Tree Synthesis for Reactive Anomaly-Handling and Graceful Mission Reconfiguration\" OR ti:\"Benchmarking Full-Stack ROS 2 Simulation Platforms for Mobile Robots\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2079",
+      "IROS26-4149",
+      "IROS26-1570",
+      "IROS26-4396",
+      "IROS26-1753",
+      "IROS26-4905",
+      "IROS26-591",
+      "IROS26-226",
+      "IROS26-2682",
+      "IROS26-4082"
+    ],
+    "query": "ti:\"A Mixed-Criticality Implementation Framework for Intelligent Robots Based on Embedded Virtual Machines\" OR ti:\"Expanding Safe Sets with Learning-Based Barrier Functions and Reachability\" OR ti:\"PROTEA: Securing Robot Task Planning and Execution\" OR ti:\"Real-Time High-Precision Collision Detection Via Physics-Motivated Fusion\" OR ti:\"Disturbance-Aware Dynamical Trajectory Planning for Air-Land Bimodal Vehicles\" OR ti:\"A New Approach to Motion Planning in 3D for a Dubins Vehicle: Special Case on a Sphere\" OR ti:\"Disturbances-Aware Flight for Aerial Robots in Narrow Space\" OR ti:\"Geometric Model Predictive Path Integral for Agile UAV Control with Online Collision Avoidance\" OR ti:\"ASTER: Attitude-Aware Suspended-Payload Quadrotor Traversal Via Efficient Reinforcement Learning\" OR ti:\"Learning Agile Gate Traversal Via Analytical Optimal Policy Gradient\"",
+    "total": 7,
+    "returned": 7,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1174",
+      "IROS26-244",
+      "IROS26-4871",
+      "IROS26-4002",
+      "IROS26-219",
+      "IROS26-1136",
+      "IROS26-2754",
+      "IROS26-4391",
+      "IROS26-967",
+      "IROS26-1230"
+    ],
+    "query": "ti:\"Forecast-MAPF: Action Sequence Prediction for Cooperative Multi-Agent Communication and Path Planning\" OR ti:\"Alternating Partition Prioritized Planning for Scalable Multi-Robot Coordination in Congested Environments\" OR ti:\"Modular Formation Control for Multi-mobile Robots with Collision Avoidance and Communication Maintenance\" OR ti:\"Hybrid Framework for Multi-Robot Target Search in Unknown and Adversarial Environments\" OR ti:\"View Invariant Learning for Vision-Language Navigation in Continuous Environments\" OR ti:\"DINO-Nav: Unified Explicit Localization and Diffusion Planning for Robust Image-Goal Navigation\" OR ti:\"MSM-Nav: Integrating Multi-Modal Spatial Map for Zero-Shot Open-Vocabulary Object-Goal Navigation Via LLM-Driven Trap Avoidance\" OR ti:\"DyMemNav: Dynamic and Memory-Augmented Mixture-of-Experts for Cross-Scene Visual Navigation\" OR ti:\"FastMap: Real-Time Semantic Map Completion Via Bitwise Masked Modeling\" OR ti:\"JOP-VLN: Joint On-and-Off Policy Learning for Vision-and-Language Navigation\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4787",
+      "IROS26-344",
+      "IROS26-3574",
+      "IROS26-1389",
+      "IROS26-2982",
+      "IROS26-2469",
+      "IROS26-1067",
+      "IROS26-1137",
+      "IROS26-21",
+      "IROS26-1918"
+    ],
+    "query": "ti:\"Origami-Based Inner Channel Securing Mechanism for Soft Growing Robots\" OR ti:\"Cadence-Gated Hardware-In-The-Loop Optimization of a Single-DoF Helix-Driven Locomotion Robot\" OR ti:\"FishVLA: Binocular Vision-Language-Action Model for Biomimetic Robotic Fish\" OR ti:\"Spring-Brake! Handed Shearing Auxetics Improve Efficiency of Hopping and Standing\" OR ti:\"A Novel Methodology for Climbing in Diverse Pipes with a Soft Tensegrity Robot\" OR ti:\"Geometric Constraints As General Interfaces for Robot Manipulation\" OR ti:\"PhaseBot: A Phase-Gated Understanding-Generation-Action Model for Long-Horizon Contact Manipulation\" OR ti:\"AtomTree: A Hierarchical Framework for State-Aware Embodied Instruction Following with LLMs\" OR ti:\"Robotic Nonprehensile Manipulation of a Pinned Beam Using Impulsive Forces\" OR ti:\"Geometrically-Exact Model-Based Trajectory Optimisation for Robotic Manipulation of Highly Flexible Payloads\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1863",
+      "IROS26-1018",
+      "IROS26-4890",
+      "IROS26-2666",
+      "IROS26-3310",
+      "IROS26-4724",
+      "IROS26-1109",
+      "IROS26-1967",
+      "IROS26-3045",
+      "IROS26-5088"
+    ],
+    "query": "ti:\"Learning Contextual Motion Constraints for Object Rearrangement Exploration\" OR ti:\"A Flexible Manipulation Framework for Transmission-Line Robots Via Weakly-Textured Pose Estimation and Disturbance-Adaptive Control\" OR ti:\"Contact-Aware Morphology Optimization Via Physically Consistent Differentiable Simulation\" OR ti:\"Risk-Aware Receding-Horizon Planning for Underwater Vehicles under Model Uncertainty\" OR ti:\"Cross-Platform Control for Autonomous Surface Vehicles Via Adaptive Reinforcement Learning\" OR ti:\"Optimized Decoupling Control and Cross-Domain Validation of a V-Shaped Quadrant-Habitat Fan-Wing Vehicle — Optimized for Underwater Operations\" OR ti:\"Formation-Scalable Multi-USV Path Following in Rough Sea States Via Reinforcement Learning with Collective Graph\" OR ti:\"Toward Source Navigation: A Time-Series Enhanced Monte Carlo Tree Search Method with Coordination Graphs\" OR ti:\"Multi-Agent Coordination Through Stigmergy for Canal Network Formation on Real Terrain\" OR ti:\"Persistent Space-Level Path Segment Finding for Multiple Nonholonomic Agents\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-55",
+      "IROS26-799",
+      "IROS26-5027",
+      "IROS26-4881",
+      "IROS26-3410",
+      "IROS26-4976",
+      "IROS26-4914",
+      "IROS26-4957",
+      "IROS26-4963",
+      "IROS26-1913"
+    ],
+    "query": "ti:\"Efficient Multi-Robot Motion Planning for Manifold-Constrained Manipulators by Randomized Scheduling and Informed Path Generation\" OR ti:\"Safe and Efficient Motion Planning for an Aerial-Ground Marsupial System\" OR ti:\"Interactive Force-Impedance Control\" OR ti:\"Minimum Distance Calculation Using Approximate Convex Decomposition for Safe Human-Robot Interaction\" OR ti:\"Multimodal Intervention Prediction for Proactive AR-Assisted Human-Robot Collaboration\" OR ti:\"Fluidic Camming for Grasping\" OR ti:\"Single-Motor-Driven Robotic Hand with Multiple Grippers Using Gravity-Driven Torque-Path Switching Mechanism\" OR ti:\"Single-Actuator Gripper Using an Antagonistic Cable-Driven Differential Mechanism for Adaptive Fixed-Position Grasping\" OR ti:\"A Cross-Embodiment Gripper Benchmark for Rigid-Object Manipulation in Aerial and Industrial Robotics\" OR ti:\"Bridging the Embedded Gap: A TinyML Framework for Simultaneous and Proportional Control of Wrist Kinematics\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4038",
+      "IROS26-4359",
+      "IROS26-4293",
+      "IROS26-2202",
+      "IROS26-2701",
+      "IROS26-3252",
+      "IROS26-83",
+      "IROS26-4455",
+      "IROS26-5030",
+      "IROS26-4756"
+    ],
+    "query": "ti:\"EgoThumb: A Vision-Driven Supernumerary Robotic Thumb for Autonomous Grasp and Holding Assistance\" OR ti:\"Multi-Objective Human-In-The-Loop Optimization of Exoskeleton Assistance During Overground Walking\" OR ti:\"DexEXO: A Wearability-First Dexterous Exoskeleton for Operator-Agnostic Demonstration and Learning\" OR ti:\"A Shared Control Framework for Prosthetic Hand Control: Fusing sEMG Intent with Vision-Based Autonomous Motion Planning\" OR ti:\"Extending Robot-Assisted Feeding to Spoon-Based Foods with the Articutool: A Modular Active End-Effector\" OR ti:\"From Probabilistic sEMG Intent to Grasp Pose Generation: A GMM-Based Shared Control Framework for Prosthetic Hands\" OR ti:\"Robot Drummer: Learning Rhythmic Skills for Humanoid Drumming\" OR ti:\"Toward Continual Robot Imitation Learning with a Network Inspired by the Insect Learning Center\" OR ti:\"Dynamic Policy Learning for Legged Robot with Simplified Model Pretraining and Model-Homotopy-Inspired Transfer\" OR ti:\"EFGCL: Dynamic Motion Acquisition through Spotting-Inspired External Force Guided Curriculum Learning\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1231",
+      "IROS26-11",
+      "IROS26-1046",
+      "IROS26-4971",
+      "IROS26-4916",
+      "IROS26-3400",
+      "IROS26-3706",
+      "IROS26-301",
+      "IROS26-3218",
+      "IROS26-22"
+    ],
+    "query": "ti:\"EvoDPM: Nonparametric Knowledge Evolution Via Internal Semantic Bottlenecks in Continual Imitation Learning\" OR ti:\"CARoL: Context-Aware Adaptation for Robot Learning\" OR ti:\"PROMPT: PRObabilistic Memory Trees for Efficient Skill Reuse in Robotics\" OR ti:\"MyoDEA: A Self-Sensing Dielectric Elastomer Actuator for Real-Time Muscle Stiffness Monitoring\" OR ti:\"BiFlex: A Passive Bimodal Stiffness Flexible Wrist for Manipulation in Unstructured Environments\" OR ti:\"Designing Autonomous Behavioral Switching in Eight-Armed Octopus-Like Soft Robot: Physical Reservoir Computing Approach\" OR ti:\"Robot-To-Robot Tactile Communication in Resource-Limited, Small-Scale Robots\" OR ti:\"A Simple Three-Link Passive Suspension Mechanism for Enhancing Ground Contact and Stability in Omnidirectional Mobile Robots\" OR ti:\"Multi-Degree-Of-Freedom Planar Linkage Synthesis for Leg Designs\" OR ti:\"A Wheel-Gripper: Enabling Multifunctionality through Factorability\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4358",
+      "IROS26-115",
+      "IROS26-4993",
+      "IROS26-1345",
+      "IROS26-832",
+      "IROS26-1082",
+      "IROS26-2146",
+      "IROS26-1482",
+      "IROS26-406",
+      "IROS26-198"
+    ],
+    "query": "ti:\"Design and Control of D6SR: A Mechanically Decoupled Six-Axis Spherical Rolling Robot for Stable Propeller-Driven Rolling\" OR ti:\"Design and Control of a Novel Hybrid Typed Outdoor Mobile Robot Platform: MobED\" OR ti:\"An Orthogonal-Axis Spherical Parallel Mechanism with Large Workspace for Humanoid Hip Joints: Design, Optimization, and Experimental Validation\" OR ti:\"DeLM: A Decoupled Training Framework for Wheel-Legged Bipedal Robots to Perform Loco-Manipulation Tasks Stably\" OR ti:\"DGSA: Bridging Spectral Frequencies with Cross-Attention for Point Cloud Adaptation\" OR ti:\"StreamDiffMap: Efficient Vectorized Online HD Map Construction Via Streaming Truncated Diffusion\" OR ti:\"Robust Keypoint Detection and Description through Gated Frame-Event Fusion\" OR ti:\"Object-Centric State-Guided SAM for Temporally Coherent Multi-Object Segmentation in Complex Underwater Environments\" OR ti:\"Towards Practical Scene Change Detection: A Fast, Unaligned Video Framework Via Spatiotemporal Alignment\" OR ti:\"Force Feedback for Robust Excavator Teleoperation under Visual Uncertainty\"",
+    "total": 0,
+    "returned": 0,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3834",
+      "IROS26-3752",
+      "IROS26-1038",
+      "IROS26-4399",
+      "IROS26-5098",
+      "IROS26-2791",
+      "IROS26-25",
+      "IROS26-4623",
+      "IROS26-2538",
+      "IROS26-5070"
+    ],
+    "query": "ti:\"Sensorless Four-Channel Control Architecture Using Inverse Dynamics Modeling for Human-Scale Bilateral Teleoperation\" OR ti:\"Exploiting Passive Low-Level Control Dissipating Capabilities to Leverage TDPA Passivity Layer in Teleoperation\" OR ti:\"LoGo: A Low-Cost, General-Purpose Teleoperation Framework for Mobile Manipulation\" OR ti:\"Investigating the Effects of Form Factor on Mobile Device-Based Robot Teleoperation for Dexterous Tasks\" OR ti:\"An Adaptive Finite-Time Convergent Neural Network with Enhanced Joint Limit Constraints for 3-DoF Visual Servoing of Rigid-Flexible Coupling Robots\" OR ti:\"GAASP: Graph-Based Automated Assembly Sequencing and Planning\" OR ti:\"Rethink Repeatable Measures of Robot Performance with Statistical Query\" OR ti:\"Scheduling Robotic Cellular Manufacturing Systems with a Petri-Net-Based Monte Carlo Tree Search\" OR ti:\"Intra-Rollout Self-Supervised Adaptation of Inverse Dynamics Models for Sub-Centimeter Precision Placement\" OR ti:\"Hardware-Aware Scheduling Techniques and Model Reformulation for Real-Time AI Workloads on Heterogeneous Edge GPUs\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2",
+      "IROS26-189",
+      "IROS26-4928",
+      "IROS26-200",
+      "IROS26-345",
+      "IROS26-4651",
+      "IROS26-625",
+      "IROS26-2788",
+      "IROS26-4691",
+      "IROS26-5020"
+    ],
+    "query": "ti:\"Anytime Planning for End-Effector Trajectory Tracking\" OR ti:\"Manageable Convex Region Iteration without Half-Plane Optimization for Robot Navigation in 2D Cluttered Scenes\" OR ti:\"Online Trajectory Optimization for Arbitrary-Shaped Mobile Robots Via Polynomial Separating Hypersurfaces\" OR ti:\"Safe Multimodal Replanning Via Projection-Based Trajectory Clustering in Crowded Environments\" OR ti:\"Safe Planning in Unknown Environments Using Conformalized Semantic Maps\" OR ti:\"SRMP: Search-Based Robot Motion Planning Library\" OR ti:\"Collision Avoidance from Monocular Vision Trained with Novel View Synthesis\" OR ti:\"NeHMO: Neural Hamilton-Jacobi Reachability Learning for Decentralized Safe Multi-Arm Motion Planning\" OR ti:\"SAGE-CBF: A Scalar-Aware Graph Equivariant Control Barrier Function Framework for Decentralized Safe Multi-Agent Navigation\" OR ti:\"PolyMerge: Compressing 3D Gaussian Splats with Polytope Coverings for Provably Safe Resource-Constrained Navigation\"",
+    "total": 8,
+    "returned": 8,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-375",
+      "IROS26-3725",
+      "IROS26-3348",
+      "IROS26-5101",
+      "IROS26-2160",
+      "IROS26-260",
+      "IROS26-4985",
+      "IROS26-2106",
+      "IROS26-4259",
+      "IROS26-212"
+    ],
+    "query": "ti:\"Online Class-Aware Bayesian Terrain Parameter Estimation for Off-Road Vehicles\" OR ti:\"Proprioceptive Safe Active Navigation and Exploration for Planetary Environments\" OR ti:\"Unified Static–Dynamic Macro–Micro Robotic Palpation with Multi-Actuation for Viscoelastic Property Mapping\" OR ti:\"Keeping It Smooth: The Role of Haptic Feedback in Shaping Motor Performance\" OR ti:\"A Physics-Informed Neural Operator for Gas Source Localization in Turbulent Environments\" OR ti:\"Event-Aided Sharp Radiance Field Reconstruction for Fast-Flying Drones\" OR ti:\"Iterative Motion Compensation for Canonical 3D Reconstruction from UAV Plant Images Captured in Windy Conditions\" OR ti:\"PORTAL: Occlusion-Portal Guided UAV Exploration with Beyond-Frontier Utility and Viewpoint Consolidation\" OR ti:\"Online Explore–Then–Exploit UAV Scanning with Budgeted Return Re-Scanning\" OR ti:\"IA-TIGRIS: An Incremental and Adaptive Sampling-Based Planner for Online Informative Path Planning\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-517",
+      "IROS26-4906",
+      "IROS26-3317",
+      "IROS26-1611",
+      "IROS26-2642",
+      "IROS26-1413",
+      "IROS26-1208",
+      "IROS26-4177",
+      "IROS26-4979",
+      "IROS26-5046"
+    ],
+    "query": "ti:\"GPU Accelerated Soft Robot Simulation and Control\" OR ti:\"Data-Efficient Real-Time Control of an Artificial-Muscle-Driven Continuum Robot with Physics-Informed Koopman Operator\" OR ti:\"Learning-Based Visual Model Predictive Control for Pneumatic Soft Robots\" OR ti:\"VLASH: Real-Time VLAs Via Future-State-Aware Asynchronous Inference\" OR ti:\"Syner-VLA: A Training-Free Synergistic Acceleration Framework for Vision-Language-Action Models\" OR ti:\"CognitiveDrone: A VLA Model and Evaluation Benchmark for Real-Time Cognitive Task Solving and Reasoning in UAVs\" OR ti:\"Incentivizing Multimodal Reasoning in Large Models for Direct Robot Manipulation\" OR ti:\"MS-AIS: Multi-Sensor Autonomous Inspection System\" OR ti:\"WAIBO: A Prototype of Water-Pipeline Inspection Robot in Murky Water, Fast Flow, and Small Obstacles\" OR ti:\"A Robot-Arm-Shaped Modularized Rail Platform for Deploying Maintenance Robots Continuously to Inaccessible Areas of Bridges\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-6",
+      "IROS26-4192",
+      "IROS26-4714",
+      "IROS26-5081",
+      "IROS26-5093",
+      "IROS26-5094",
+      "IROS26-5077",
+      "IROS26-449",
+      "IROS26-5026",
+      "IROS26-1504"
+    ],
+    "query": "ti:\"Semantic Exploration and Dense Mapping of Complex Environments Using Ground Robot with Panoramic LiDAR-Camera Fusion\" OR ti:\"Learning Semantic Atomic Skills for Multi-Task Robotic Manipulation\" OR ti:\"Generalizable Hierarchical Skill Learning Via Object-Centric Representation\" OR ti:\"A Stationary Simulation Method for Dynamic Electromechanical Characteristic in Null-Flux Electrodynamic Suspension Systems\" OR ti:\"Nonlinear Dual Disturbance Observer with Acceleration Control for Dual-Stage Inertial Stabilization Platform\" OR ti:\"Efficient Current Sensorless Model Predictive Control for Matrix Converter-Fed PMSM Drives\" OR ti:\"Bidirectional Motion Modeling and Fuzzy PID Control of Piezoelectric Linear Actuators\" OR ti:\"Control-Oriented Local Second-Order Magnetic Force Equivalence for Cylindrical Permanent-Magnet-Driven Droplet Robots\" OR ti:\"STTRL-DVO: Transformer-Based Reinforcement Learning for Robust Dynamic Target Tracking in Cluttered Environments\" OR ti:\"Real-Time Hardware-In-The-Loop Multibody Dynamics Implementation on the Robotic Space Simulator\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-204",
+      "IROS26-2163",
+      "IROS26-3588",
+      "IROS26-10",
+      "IROS26-2269",
+      "IROS26-2727",
+      "IROS26-5011",
+      "IROS26-164",
+      "IROS26-4988",
+      "IROS26-2476"
+    ],
+    "query": "ti:\"Distance–Direction Constrained Grey Wolf Optimization Method for Targetless Camera–LiDAR Extrinsic Calibration\" OR ti:\"GLoCal: Global-Local Flow Estimation for Robust LiDAR-Camera Calibration\" OR ti:\"Online Targetless Self-Calibration for Ultra-Wide FoV Multi-Camera Visual-Inertial Platforms\" OR ti:\"Configuration-Dependent Robot Kinematics Model and Calibration\" OR ti:\"G-EDF-Loc: 3D Continuous Gaussian Distance Field for Robust Gradient-Based 6DoF Localization\" OR ti:\"FGGS-LiDAR: Ultra-Fast, GPU-Accelerated Simulation from General 3DGS Models to LiDAR\" OR ti:\"Efficient Construction of 3D-Gaussian Clusters and Elevation Maps for Autonomous Mobile Robot Navigation in Non-Planar Environments\" OR ti:\"Generation of Indoor Open Street Maps for Robot Navigation from CAD Files\" OR ti:\"Bundle Adjustment in the Eager Mode\" OR ti:\"Topology-Aware Decision Making for Multi-Session Localization and Mapping\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1221",
+      "IROS26-2291",
+      "IROS26-561",
+      "IROS26-597",
+      "IROS26-3142",
+      "IROS26-940",
+      "IROS26-369",
+      "IROS26-1891",
+      "IROS26-1072",
+      "IROS26-4716"
+    ],
+    "query": "ti:\"RCSPose: Revisiting Category Semantics in Category-Level 6D Object Pose Estimation\" OR ti:\"AquaPoint: Self-Supervised Cross-Domain Framework for Robust Underwater Local Features\" OR ti:\"4DRadar-GS: Self-Supervised Dynamic Driving Scene Reconstruction with 4D Radar\" OR ti:\"DASF: Distance-Aware Spectral Fusion for Multi-Modal 3D Object Detection\" OR ti:\"SAIP-Former: Scene-Aware Interaction Priors for Robust 3D Multi-Object Tracking\" OR ti:\"BEVMAPMATCH: Multimodal BEV Neural Map Matching for Robust Re-Localization of Autonomous Vehicles\" OR ti:\"Consistency-Guided Multi-Sensor Fusion for Robust UAV Localization\" OR ti:\"Frequency-Aware Inertial Odometry Via Function Space Decomposition\" OR ti:\"LAG-IO: Multi-IMU State Estimation for Legged Robots Using Factor Graphs\" OR ti:\"Geometrically-Constrained Radar-Inertial Odometry Via Continuous Point-Pose Uncertainty Modeling\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3422",
+      "IROS26-3593",
+      "IROS26-1883",
+      "IROS26-3793",
+      "IROS26-292",
+      "IROS26-742",
+      "IROS26-1942",
+      "IROS26-2161",
+      "IROS26-2814",
+      "IROS26-1011"
+    ],
+    "query": "ti:\"InstanceDrive: Advancing Autonomous Driving Video Generation with Enhanced Instance-Level Inputs and Similarity Rewards\" OR ti:\"World-Simulation As Pre-Training for Scalable Dense Perception in Autonomous Driving\" OR ti:\"I2V-FOCAL: Fusion of Consistent Appearance and Lighting for Infrastructure-To-Vehicle Synthesis\" OR ti:\"CARLA-GS: Decoupling Representation, Reasoning, and Physics Simulation for Autonomous Driving Corner-Case Synthesis\" OR ti:\"GraphMap: Scalable Crowd-Sourced Global Vectorized HD Map Construction Via Sparse Visual Graph Fusion\" OR ti:\"Degradation-Agnostic Diffusion with Asymmetric Cross-Interaction for Infrared and Visible Image Fusion\" OR ti:\"TIDAL: Temporally Interleaved Diffusion and Action Loop for Dynamic Manipulation\" OR ti:\"ReMAP-DP: Reprojected Multi-View Aligned PointMaps for Diffusion Policy\" OR ti:\"From Flow to One Step: Real-Time Multi-Modal Trajectory Policies Via Implicit Maximum Likelihood Estimation-Based Distribution Distillation\" OR ti:\"ExplicitDP: Generalized Multi-Task Manipulation with Explicit Diffusion Policies Via Phase-Aware Task Understanding\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-787",
+      "IROS26-1372",
+      "IROS26-262",
+      "IROS26-2356",
+      "IROS26-1850",
+      "IROS26-2482",
+      "IROS26-1377",
+      "IROS26-3577",
+      "IROS26-5066",
+      "IROS26-4319"
+    ],
+    "query": "ti:\"Optical Flow-Guided Manipulation: Learning to Act from Historical and Future Dynamics\" OR ti:\"SANE: Smooth Action Via Noise Envelope Conditioned on Gaussian Process for Denoising Policies\" OR ti:\"Variational Shape Inference for Grasp Diffusion on SE(3)\" OR ti:\"RoamFlow: Reinforcement-Aligned One-Step Action MeanFlow Policy for Image-Goal Navigation\" OR ti:\"Beyond Imitation: Reinforcement Learning Fine-Tuning for Adaptive Diffusion Navigation Policies\" OR ti:\"CoFiNav: Efficient Coarse-To-Fine Visual Navigation Via Uncertainty-Adaptive Diffusion\" OR ti:\"FastNav: An Efficient and Reliable Visual Navigation Approach Via Diffusion Distillation\" OR ti:\"RaFM-Nav: Risk-Aware Flow Matching Policy for Collision-Free Visual Navigation\" OR ti:\"Variable-Speed Teaching–playback As Real-World Data Augmentation for Imitation Learning\" OR ti:\"Learning from the Best: Smoothness-Driven Metrics for Data Quality in Imitation Learning\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5061",
+      "IROS26-630",
+      "IROS26-1896",
+      "IROS26-4407",
+      "IROS26-218",
+      "IROS26-3747",
+      "IROS26-47",
+      "IROS26-1133",
+      "IROS26-4545",
+      "IROS26-2272"
+    ],
+    "query": "ti:\"Self-Augmented Robot Trajectory: Efficient Imitation Learning Via Safe Self-Augmentation with Demonstrator-Annotated Precision\" OR ti:\"Ask Professor G. How to Grasp: Training-Free Cross-Gripper Grasping from an RGB-D Observation and a Gripper URDF\" OR ti:\"OSR-Grasp: One-Shot 3D Grasp Pose Estimation Via Reordering for Robotic Manipulation\" OR ti:\"Disentangling Noisy 6-DoF Grasps: A Synergistic Strategy of Manifold Rectification and Orientation Arbitration\" OR ti:\"Bin-Picking with Category-Agnostic Segmentation for Unreliable Depth Scenarios\" OR ti:\"MASt3RGrasper: A Real-Time Language-Guided Robotic Grasping Approach with Minimal RGB Images\" OR ti:\"Pose Estimation of Transparent Objects Via Depth Completion and Confidence-Guided Registration\" OR ti:\"Spatially Grounded Long-Horizon Task Planning in the Wild\" OR ti:\"SCOPE: Scene-graph Construction Optimized by Plan Error-correction for Robot Long-term Planning Datasets\" OR ti:\"KEJP-CL: Keypoint-Enhanced Joint Prompting with Closed-Loop Segmentation and Recovery for Articulated Manipulation\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-505",
+      "IROS26-4590",
+      "IROS26-5037",
+      "IROS26-1616",
+      "IROS26-2887",
+      "IROS26-104",
+      "IROS26-4996",
+      "IROS26-707",
+      "IROS26-1589",
+      "IROS26-4235"
+    ],
+    "query": "ti:\"Structure-Aware Signal Temporal Logic Synthesis with Run-Time Conflict Resolution Via LLMs\" OR ti:\"Differential Flatness and Geometric Tracking Control on SE(3) for the Spherical Robot\" OR ti:\"Christoffel-Consistent Coriolis Factorization and Its Effect on the Control of a Robot\" OR ti:\"Torque and Velocity Bounded Admittance Control for Safe Contact under Actuator Saturation\" OR ti:\"ToF-Based Adaptive Orientation for Robust Surface Following under Geometric Uncertainty\" OR ti:\"ZSG-MPPI: Robust Model-Predictive Path-Integral Method for Disturbance Handling\" OR ti:\"Safe Adaptive Control with Vanishing Conservativeness for Robotic Systems with Unknown Dynamics Via Barrier Functions\" OR ti:\"EdgeFlow-VLA: Efficient Flow Matching Policy for Real-Time Mobile Manipulation in Unstructured Environments\" OR ti:\"Phase-VLA: Efficient Long-Horizon Manipulation Via Proprioception-Guided Visual Attention\" OR ti:\"Granularity-Adaptive Embodied Agents for Long-Horizon Manipulation with Multimodal Planning and Hierarchical Perception\"",
+    "total": 0,
+    "returned": 0,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2436",
+      "IROS26-2434",
+      "IROS26-1076",
+      "IROS26-3322",
+      "IROS26-2333",
+      "IROS26-4073",
+      "IROS26-2243",
+      "IROS26-1763",
+      "IROS26-3176",
+      "IROS26-4095"
+    ],
+    "query": "ti:\"RigPI: Dynamic Parameter Identification of Rigid Body Via VLM-Seeded Differentiable Simulation\" OR ti:\"GP-TTAPose: Geometry-Proxy Guided Test-Time Adaptation for Category-Level Object Pose Estimation\" OR ti:\"Warming-Up and Shaping Robot Policy Learning with Large Language Model-Based Critic Feedback\" OR ti:\"CDE: Concept-Driven Exploration for Reinforcement Learning\" OR ti:\"Stage-Transition Dense Reward Modeling for Reinforcement Learning\" OR ti:\"IRL4IDM: Inverse Reinforcement Learning for Inverse Dynamics Model in Video Generative Robot Planner\" OR ti:\"HiL-ResRL: A Model-Agnostic Finetuning Adapter via Human-in-the-loop Residual Reinforcement Learning\" OR ti:\"SemantiGrasp: Fine-Grained Semantic Part Correspondence for Generalizable Dexterous Grasping\" OR ti:\"In-Hand Manipulation of Articulated Tools with Dexterous Robot Hands with Sim-To-Real Transfer\" OR ti:\"Function-Based Parametric Co-Design Optimization of Dexterous Hands\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3066",
+      "IROS26-527",
+      "IROS26-578",
+      "IROS26-2981",
+      "IROS26-4495",
+      "IROS26-221",
+      "IROS26-4413",
+      "IROS26-4599",
+      "IROS26-2280",
+      "IROS26-587"
+    ],
+    "query": "ti:\"PropHand: Open-Source, Cost-Effective Dexterous Hand with Joint Torque Sensing and Control for Force-Aware Robot Learning\" OR ti:\"A Coupled Tendon-Driven Modular Robotic Hand for Dexterous Manipulation\" OR ti:\"ToolFormer-Robo: Category-Level Tool Manipulation from Minimal Demonstrations\" OR ti:\"Learning Consistent Manipulation Via Joint Action–Object Diffusion\" OR ti:\"StateLinFormer: Stateful Training Enhancing Long-Term Memory in Navigation\" OR ti:\"DiffOG: Differentiable Policy Trajectory Optimization with Generalizability\" OR ti:\"Design and Teleoperation of a Five-Fingered Underactuated Hand with a Differential Gear-Based Carpometacarpal Joint\" OR ti:\"Fluidic Memory Element Based on Flow-Induced Switching and Magnetic Bistability\" OR ti:\"TESSER: A Palm-Sized Transformable Cube for Targeted Hardware Interfacing in Confined Environments\" OR ti:\"Continuum Arm with a Gear-Synchronized Backbone for Repeatable and Load-Bearing Grasp-And-Store Manipulation\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3464",
+      "IROS26-4948",
+      "IROS26-2171",
+      "IROS26-2234",
+      "IROS26-2253",
+      "IROS26-3918",
+      "IROS26-2371",
+      "IROS26-409",
+      "IROS26-5053",
+      "IROS26-1732"
+    ],
+    "query": "ti:\"Rollegs: Cyclorotor-Inspired Novel Rolling Leg Mechanism for Multi-Terrain Robots\" OR ti:\"A Simple Compliant Gripper That Reconfigures between Sensing and Grasping Modes\" OR ti:\"Large-Scale 3D Gaussian Splatting SLAM with GNSS-INS-Visual Fusion\" OR ti:\"WinTA-GIL: Windowed Trajectory Alignment for GNSS-IMU-LiDAR Heading Refinement in Intermittent Signal Environments\" OR ti:\"HGLoc: Hierarchical Graph-Based Cooperative Localization for Multi-Robot Systems under Communication Constraints and Perception Degradation in Outdoor Environments\" OR ti:\"LIT-GS: LiDAR-Inertial-Thermal 3D Gaussian Splatting for Illumination-Robust Mapping\" OR ti:\"Invariant Kalman Filtering for Extended Pose Estimation in Multi-IMU Articulated Rigid-Body Systems\" OR ti:\"A Dual-Mode Asynchronous ESKF Framework for Pose Estimation of Cable-Driven Parallel Robots\" OR ti:\"Real-Time Constraint-Aware Inverse Kinematics Via Passivity-Based Dynamics Simulation\" OR ti:\"CL-APNN: Concurrent Learning Adaptive Projection Neural Network for Redundant Manipulator Control under Kinematic Uncertainty\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4915",
+      "IROS26-1110",
+      "IROS26-147",
+      "IROS26-752",
+      "IROS26-1170",
+      "IROS26-1923",
+      "IROS26-2149",
+      "IROS26-3165",
+      "IROS26-2020",
+      "IROS26-430"
+    ],
+    "query": "ti:\"Hippo: High-Performance Interior-Point and Projection-Based Solver for Generic Constrained Trajectory Optimization\" OR ti:\"AISMPC: Adaptive Integral Sliding Mode Predictive Controller for Trajectory Tracking of Mobile Manipulator\" OR ti:\"Interactive Navigation with Adaptive Non-Prehensile Mobile Manipulation\" OR ti:\"DexKP-VLA: A Dexterous Keypoint Vision-Language-Action Framework for Zero-Shot Grasping\" OR ti:\"TempoFit: Plug-And-Play Layer-Wise Temporal KV Memory for Long-Horizon VLA Manipulation\" OR ti:\"VCoT-Grasp: Grasp Foundation Models with Visual Chain-Of-Thought Reasoning for Language-Driven Grasp Generation\" OR ti:\"MrGrasp: A Multi-Rate Vision–Tactile–Language–Action Framework for Gentle Grasping of Fragile Deformable Objects\" OR ti:\"Affordance-To-Contact Grounding for Intent Understanding in Language-Guided Dexterous Grasp Generation\" OR ti:\"QTac: Quantitative Robotic Grasping with Tactile Sensing\" OR ti:\"Physics-Informed Neural Controlled Differential Equations for Scalable Long Horizon Multi-Agent Motion Forecasting\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-925",
+      "IROS26-4156",
+      "IROS26-1724",
+      "IROS26-1937",
+      "IROS26-2502",
+      "IROS26-4498",
+      "IROS26-4933",
+      "IROS26-525",
+      "IROS26-1274",
+      "IROS26-2335"
+    ],
+    "query": "ti:\"PIP-LLM: Integrating PDDL-Integer Programming with LLMs for Coordinating Multi-Robot Teams Using Natural Language\" OR ti:\"ST-GRL: Spatiotemporal Cognitive Graph Reinforcement Learning for Scalable Multi-Robot Collaborative Exploration\" OR ti:\"Embodied Chain-Of-Thought Model Via Interleaved Reasoning\" OR ti:\"MoRE: Mixture of Residual Experts for Learning Multiple Vision-based Humanoid Gaits\" OR ti:\"HybridMimic: Hybrid RL-Centroidal Control for Humanoid Motion Mimicking\" OR ti:\"Learning Humanoid Loco-Manipulation with Responsibility-Induced Specialized Experts for Vision-Language-Action Models\" OR ti:\"Contact-Implicit Whole-Body Trajectory Optimization for Dynamic Humanoid Locomotion on Parameterizable Uneven Terrain\" OR ti:\"Dynamic Humanoid Arm-Swing Motion Via Trajectory Optimization Leveraging Speed–Torque Mode Switching of a Variable Chain Motor\" OR ti:\"Grey-Box Online Identification for Pushrod-Driven Dexterous Hands\" OR ti:\"CADRE: Dynamic Catching Via Implicit Contact Descriptors and Task-Appropriate Recovery Affordances\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-435",
+      "IROS26-1522",
+      "IROS26-1830",
+      "IROS26-1246",
+      "IROS26-2316",
+      "IROS26-1123",
+      "IROS26-308",
+      "IROS26-192",
+      "IROS26-36",
+      "IROS26-44"
+    ],
+    "query": "ti:\"Topological Strategy Discovery for Contact-Rich Manipulation Via HapticRRT\" OR ti:\"A Residual Curriculum Framework with Exponentially-Weighted Learning Trends for Wheel-Legged Robots\" OR ti:\"Physics-Informed Policy Learning for Floating-Base Robots\" OR ti:\"ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Framework for Aerial Vision-Language Navigation\" OR ti:\"Flying to Image-Specified Objects: 3D Quadrotor Navigation Via Cross-Graph Memory and Viewpoint Planning\" OR ti:\"Learning to Fly from Point Clouds Via Differentiable Simulation\" OR ti:\"Fly-JEPA: Learning Dynamics Via Joint Embedding Predictive Architectures for Aerial Robots\" OR ti:\"AntFlie: Frugal Visual Teach and Repeat on Narrow FoV Micro-Drones\" OR ti:\"FoldNet: Learning Generalizable Closed-Loop Policy for Garment Folding Via Keypoint-Driven Asset and Demonstration Synthesis\" OR ti:\"Precise Mobile Manipulation of Small Everyday Objects\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1216",
+      "IROS26-2696",
+      "IROS26-1260",
+      "IROS26-3269",
+      "IROS26-1868",
+      "IROS26-4146",
+      "IROS26-2405",
+      "IROS26-26",
+      "IROS26-2912",
+      "IROS26-363"
+    ],
+    "query": "ti:\"DreamManip: Holistic Visual Planning for Long-Horizon Robotic Manipulation via Video Foundation Models\" OR ti:\"ORIGAMI: Object Representation Inferred Geometrically for Articulated Manipulation\" OR ti:\"GOPLA: Generalizable Object Placement Learning Via Synthetic Augmentation of Human Arrangement\" OR ti:\"RTFF: Random-to-Target Fabric Flattening Policy using Dual-Arm Manipulator\" OR ti:\"Enforcing Human-Like Kinematics in Dexterous Piano Playing Via Adversarial Posture Regularization\" OR ti:\"DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation\" OR ti:\"Relational Dexterity: Transferring Human Dexterity Via Relational Geometric Prior\" OR ti:\"Learning Non-Prehensile Manipulation with Force and Vision Feedback Using Optimization-Based Demonstrations\" OR ti:\"Bridging Deep Learning and Gait Physiology: A Neuro-Symbolic Framework for Reliable Locomotion Classification\" OR ti:\"Pilot Study for Step-Linked Haptic Assistance Based on Mobile Manipulator Platform for Track-Based Overground Gait Symmetry Training of Stroke Patients\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2403",
+      "IROS26-3949",
+      "IROS26-1575",
+      "IROS26-1334",
+      "IROS26-3939",
+      "IROS26-4670",
+      "IROS26-5008",
+      "IROS26-1691",
+      "IROS26-3910",
+      "IROS26-16"
+    ],
+    "query": "ti:\"KoopGait: Koopman Operator Learning on Plantar Pressure for Parkinsonian Gait Perception\" OR ti:\"Hierarchical Long-Sequence Modeling for Weakly-Supervised Depression Assessment\" OR ti:\"Design of a Multimodal Companion Robot for Elderly Care: Enhancing Affective Intelligence with Context-Aware Enactments\" OR ti:\"Learning to Adapt: Reptile-D-Learning for Robust and Efficient Control under Parametric Uncertainty\" OR ti:\"Aleatoric-Epistemic Uncertainty Decomposition for Principled Corrective Control and Adaptive Model Selection\" OR ti:\"Homeostatic Learning: Gradient-Free Adaptation Via Degeneracy in Sensor-Motor Mappings\" OR ti:\"Online Learning-Enhanced High Order Adaptive Safety Control\" OR ti:\"A Sensor-Integrated Robotic Platform with Directionally Robust Gas-Wind Sensing and Measure-In-Motion Search forOdor Source Localization under Time-Varying Wind\" OR ti:\"H-IPP: Altitude-Adaptive Informative Path Planning with Multiple UAVs\" OR ti:\"Multi-Robot Collaborative SLAM (Multi-SLAM) with Distributed Lightweight Predictive Frontier Exploration (LPFE)\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4884",
+      "IROS26-744",
+      "IROS26-4723",
+      "IROS26-93",
+      "IROS26-227",
+      "IROS26-2410",
+      "IROS26-4131",
+      "IROS26-4738",
+      "IROS26-110",
+      "IROS26-2297"
+    ],
+    "query": "ti:\"Communication-Robust Asynchronous Distributed LiDAR Collaborative Smoothing and Mapping\" OR ti:\"Efficient Embodied Multi-Agent Collaboration via Modeling Comprehensive Awareness with Persistent Experience\" OR ti:\"Integrating Advantage Actor-Critic in Multi-Robot Collaboration\" OR ti:\"Double Oracle Algorithm for Game-Theoretic Robot Allocation on Graphs\" OR ti:\"Learning Intent‑Relevant Gaze and Time‑Aware Dynamics for Robust 3D Human Motion Forecasting\" OR ti:\"PhyGile: Physics-Prefix Guided Motion Generation for Agile General Humanoid Motion Tracking\" OR ti:\"Closing Sim-To-Real Gap for Heavy-Loaded Humanoid Agile Motion Skills Via Differentiable Simulation\" OR ti:\"MotionVL: Vision-Language Supervision for Reinforcement Learning of Humanoid Motion\" OR ti:\"RoMu4o: A Robotic Manipulation Unit for Orchard Operations Automating Proximal Hyperspectral Leaf Sensing\" OR ti:\"Virtual In-Hand View Synthesis for Robust Visuomotor Policies\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3514",
+      "IROS26-145",
+      "IROS26-5059",
+      "IROS26-4355",
+      "IROS26-5058",
+      "IROS26-4896",
+      "IROS26-3353",
+      "IROS26-1383",
+      "IROS26-1304",
+      "IROS26-1590"
+    ],
+    "query": "ti:\"Pecan-Agent: Closed-Loop Industrial Shelling with MLLM-Guided Morphological Priors\" OR ti:\"Mapping of Insect Pest Infestation with a Cable-Suspended Continuum Robot\" OR ti:\"Design and Integration of a Compact Mobile Outdoor Soil Sampling Agricultural Robot\" OR ti:\"The Representation Invariance Principle: A Robustness and Uncertainty Framework for Robotic Agents\" OR ti:\"Seeking Safety from Uncertainty: Probabilistic Vessel Trajectory Prediction with a Flow-Based Generative Model\" OR ti:\"Continual Reinforcement Learning Framework for Scalable Collision Avoidance and Mitigation System with Packing Strategy\" OR ti:\"SRDR: Smoothed Return-Guided Domain Randomization for Stable and Robust Policy Learning\" OR ti:\"Don't Fool Me Twice: Adapting to Adversity in the Wild with Experience-Driven Reasoning\" OR ti:\"Remember Your Driving Feel: Proprioception Based Online Learning for UGV Traversability across Complex Terrains\" OR ti:\"CubeDAgger: Interactive Imitation Learning for Dynamic Systems with Efficient yet Low-Risk Interaction\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1549",
+      "IROS26-1535",
+      "IROS26-2518",
+      "IROS26-5085",
+      "IROS26-1264",
+      "IROS26-3653",
+      "IROS26-2800",
+      "IROS26-1140",
+      "IROS26-1886",
+      "IROS26-746"
+    ],
+    "query": "ti:\"SpacePolicy: Dynamics-Aware Imitation Learning for Free-Floating On-Orbit Capture\" OR ti:\"UniPrototype: Human-Robot Skill Learning with Uniform Prototypes\" OR ti:\"Stroke Planning with Hitting Position Optimizing in Robotic Table Tennis with a Collaborative Robot\" OR ti:\"Large-Scale Robotic Material Handling: Learning, Planning, and Control\" OR ti:\"OPESKF: Overdetermined Prediction Error-State Kalman Filter for Proprioceptive State Estimation in Legged Robots\" OR ti:\"A Mammal-Reptile Inspired Compliant Metamorphic Leg with Embedded Force Sensing\" OR ti:\"Head-On: Robust Tactile Force Sensing for Quadrupedal Interaction\" OR ti:\"KiVi: Kinesthetic-Visuospatial Integration for Dynamic and Safe Egocentric Legged Locomotion\" OR ti:\"A Soft Inchworm Robot Capable of Exploratory Locomotion Via Deformable Body Dynamics\" OR ti:\"An Earthworm-Inspired Adaptive Soft Pipeline Robot Actuated via a Single Pneumatic Tube\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1894",
+      "IROS26-4898",
+      "IROS26-657",
+      "IROS26-3941",
+      "IROS26-88",
+      "IROS26-2029",
+      "IROS26-4934",
+      "IROS26-4494",
+      "IROS26-852",
+      "IROS26-4022"
+    ],
+    "query": "ti:\"A Mudskipper-Inspired Passive Articulated Robot for Studying Jumping Mechanism on Compliant Ground\" OR ti:\"Marking Underwater Infrastructure: A Crab-Like Robot for Traversing Pipes\" OR ti:\"Design, Modeling, and Validation of an Extendable Tendon-Driven Robot for Long-Term Deployment in Congested and Evolving Outdoor Environments\" OR ti:\"RadLoc: Radar-Based 3-DoF Global Localization Via Fast, Robust, and Lightweight Spatial Descriptor across Diverse Environmental Scenarios\" OR ti:\"Multi-Session Mapping and Long-Term Localization for Autonomous Vehicles Using Radar\" OR ti:\"mmResAttUNet: Radar Heatmap Denoising and Velocity-Aware Point Clouds Reconstruction for Low-Cost mmWave Radar\" OR ti:\"LODESTAR: Degeneracy-Aware LiDAR-Inertial Odometry with Adaptive Schmidt-Kalman Filter and Data Exploitation\" OR ti:\"MiniVIO: A Minimalist Visual-Inertial Odometry Algorithm with Implicit Motion Constraints\" OR ti:\"An Automated Viewpoint Planning Framework for Motor End Cover Screw Hole Group Inspection\" OR ti:\"Fire&Eyes: Real-Time Arc-Aware State Estimation Toward Alloying Automation\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4954",
+      "IROS26-5060",
+      "IROS26-1005",
+      "IROS26-3661",
+      "IROS26-3866",
+      "IROS26-4904",
+      "IROS26-1793",
+      "IROS26-3217",
+      "IROS26-1276",
+      "IROS26-4652"
+    ],
+    "query": "ti:\"You Only Orient Once (YOOO): Vision-Driven Robotic Cable Insertion for Automotive Wiring Harness Assembly\" OR ti:\"WeldLLM: A Multimodal Framework for Welding Defect Detection and Automated Diagnostic Reasoning\" OR ti:\"DynaLite-GS: Lightweight Dynamic 3DGS-SLAM in Resource-Constrained Scenarios Via Decoupled Masking and Stochastic Backtracking\" OR ti:\"GEM-SLAM: Geometry-Enhanced Monocular Gaussian Splatting SLAM with Scale Governance and Trust-Region Feedback\" OR ti:\"MonoEM-GS: Monocular Expectation-Maximization Gaussian Splatting SLAM\" OR ti:\"GaussianFlow SLAM: Monocular Gaussian Splatting SLAM Guided by GaussianFlow\" OR ti:\"SPEAR: Selective Preference Elicitation with Adaptive Rewards for VLM-Guided Robotic Manipulation\" OR ti:\"SLICK: Structure-Aware Learning for Recessed Object Retrieval Via Slide-Flick Interaction\" OR ti:\"Escaping the Greedy Trap: Robust Manipulation Via Spatial Beam Search in Coarse-To-Fine Reinforcement Learning\" OR ti:\"Human-In-The-Loop Online Rejection Sampling for Robotic Manipulation\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5002",
+      "IROS26-270",
+      "IROS26-141",
+      "IROS26-323",
+      "IROS26-2102",
+      "IROS26-2180",
+      "IROS26-4482",
+      "IROS26-46",
+      "IROS26-8",
+      "IROS26-5099"
+    ],
+    "query": "ti:\"E2HiL: Entropy-Guided Sample Selection for Efficient Real-World Human-In-The-Loop Reinforcement Learning\" OR ti:\"GS-CPE: Unified 6-DoF Camera Pose Estimation Via 3D Gaussian Splatting\" OR ti:\"HERE: Hierarchical Active Exploration of Radiance Field with Epistemic Uncertainty Minimization\" OR ti:\"Robust Visual Odometry using Rigidly-Bundled Arbitrarily-Arranged Multi-Cameras\" OR ti:\"GAT-Based Reinforcement Learning for NBV Selection in Semantic Visual Active SLAM under Dynamic Environments\" OR ti:\"Uni3R-SLAM: Unified Reliability-Guided Reconstruction-Driven Robust SLAM under Sensor Degradation\" OR ti:\"All-St3R SLAM: Real-time RGB Dynamic SLAM with Pixel-wise Motion Masking\" OR ti:\"Omni-LIVO: Robust RGB-Colored Multi-Camera Visual-Inertial-LiDAR Odometry Via Photometric Migration and ESIKF Fusion\" OR ti:\"Dynamically-Consistent Trajectory Optimization for Legged Robots Via Contact Point Decomposition\" OR ti:\"Contact-Implicit Optimal Planning and Iterative Learning Control for Quadrupedal Robots\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2338",
+      "IROS26-1912",
+      "IROS26-3620",
+      "IROS26-3433",
+      "IROS26-1010",
+      "IROS26-702",
+      "IROS26-973",
+      "IROS26-1439",
+      "IROS26-5040",
+      "IROS26-3700"
+    ],
+    "query": "ti:\"Revisiting Whole-Body NMPC for Legged Robots: Benchmarking Dynamics Formulations for Real-Time Locomotion\" OR ti:\"A Spatio-Temporal Hierarchical Framework for Legged Navigation Via Closed-Loop Dynamics Proxy Model\" OR ti:\"What Good Is a Good Robot Model? Differentiable Regression, Parameter Ablation, and Policy Performance of Quadrupedal Models\" OR ti:\"SAC-Loco: Safe and Adjustable Compliant Quadrupedal Locomotion\" OR ti:\"AnchorDepth: Fast Metric Depth Estimation with Anchors for Drones\" OR ti:\"DECAMP: Towards Scene-Consistent Multi-Agent Motion Prediction with Disentangled Context-Aware Pre-Training\" OR ti:\"MultiPark: Multimodal Parking Transformer with Next-Segment Prediction\" OR ti:\"SK: Semantic Kernel for Robotic Information Gathering\" OR ti:\"Learning Goal-Directed Rolling: Spherical Robot Point-To-Point Control through Reinforcement Learning\" OR ti:\"NavThinker: Action-Conditioned World Model for Coupled Prediction and Planning in Social Navigation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3807",
+      "IROS26-1083",
+      "IROS26-1973",
+      "IROS26-1869",
+      "IROS26-3561",
+      "IROS26-162",
+      "IROS26-4970",
+      "IROS26-1021",
+      "IROS26-1882",
+      "IROS26-49"
+    ],
+    "query": "ti:\"XR-DT: Extended Reality-Enhanced Digital Twin for Safe Motion Planning Via Human-Aware Model Predictive Path Integral Control\" OR ti:\"A Structured Framework for Physics-Guided Residual Kinematic Modeling and Hybrid IK–RL Control of Tendon-Driven Continuum Robots\" OR ti:\"Intuitive Tele-Manipulation of Objects with Continuum Robots Via Affordance Primitives\" OR ti:\"Active Tactile Pattern Reconstruction with Reinforcement Learning\" OR ti:\"Understanding Contact from Vision, Sound, and Touch with Trimodal Alignment\" OR ti:\"Robust Trajectory Planning for Multi-Drone Formation Target Tracking in Challenging Scenarios\" OR ti:\"Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)\" OR ti:\"PGRL-Nav: Prior-Guided Residual Reinforcement Learning for Decentralized Multi-Robot Navigation\" OR ti:\"PyRCH: Algorithms and Solvers for Min-Max Constrained Heterogeneous Multi-Robot Routing Problems\" OR ti:\"ResidualFlow: Single-Step Multimodal Trajectory Generation for Quadrotor UAVs via Flow Matching with Residual-Guided Truncation\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1925",
+      "IROS26-3027",
+      "IROS26-2438",
+      "IROS26-890",
+      "IROS26-3585",
+      "IROS26-4088",
+      "IROS26-4250",
+      "IROS26-1470",
+      "IROS26-4040",
+      "IROS26-441"
+    ],
+    "query": "ti:\"Joint Multi-Agent Motion Forecasting Via Progressive Multi-Scale Decoding Over Dynamic Graphs\" OR ti:\"NASAP: Hierarchical Non-Myopic Sensor Assignment and Active Sensing for Multi-Target Tracking\" OR ti:\"CHUTNI: Compensated Holonomic Uneven Terrain Isolator\" OR ti:\"Adaptive-Critical: Identifying Critical States for Risk-Sensitive Navigation Via Distributional Reinforcement Learning\" OR ti:\"Mode-Based Follow–Overtake Planning for Micro-Mobility in Mixed Traffic\" OR ti:\"TopoFreeNav: Overhead Map Guided Coordinated Exploration for Long Range Off-Road Navigation\" OR ti:\"Radiation-Aware Reinforcement Learning for Mobile Robot Navigation in Nuclear Environments Using World Models\" OR ti:\"Autonomous Navigation Method in Map-Less Environments Based on Planning-Guided Hierarchical Reinforcement Learning\" OR ti:\"ATLAS: Asynchronous Temporal Learning with Adaptive LLM-Guided Shaping for Autonomous Driving Decision-Making\" OR ti:\"SHIFT-RL: Sensor-Driven Hierarchical Information Fusion Transformer for BEV-Based Maneuvering in Dense Multi-Lane Environments\"",
+    "total": 0,
+    "returned": 0,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1199",
+      "IROS26-193",
+      "IROS26-3737",
+      "IROS26-469",
+      "IROS26-1031",
+      "IROS26-813",
+      "IROS26-2466",
+      "IROS26-3087",
+      "IROS26-4935",
+      "IROS26-151"
+    ],
+    "query": "ti:\"Trajectory-Enhanced Hierarchical Reinforcement Learning for Long-Range Mapless Navigation\" OR ti:\"Behaviour-Aware Adaptive Path Planning with Q-Learning Weight Adaptation\" OR ti:\"AsyncShield: A Plug-And-Play Edge Adapter for Asynchronous Cloud-Based VLA Navigation\" OR ti:\"A Multi-Layer Navigation System for Smart Wheelchairs with a Limited Input Interface\" OR ti:\"MicroVLA: A Vision-Language-Action Framework for Microrobotic Navigation Considering Inter-Particle Micro-Force Fields\" OR ti:\"LATCH: Language-Affordance Teleoperation with Conflict-Aware Haptic Guidance\" OR ti:\"Rapid Human-Robot Collaborative Tidying with Personal Space Aware Policy Adaptation\" OR ti:\"Context-Aware Adaptive Shared Control for Magnetically-Driven Bimanual Dexterous Micromanipulation\" OR ti:\"Human-Agent Shared-Control Based Training Scheme for Efficient Robotic Tadpole Navigation\" OR ti:\"VertiAdaptor: Online Kinodynamics Adaptation for Vertically Challenging Terrain\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3236",
+      "IROS26-3312",
+      "IROS26-775",
+      "IROS26-3404",
+      "IROS26-240",
+      "IROS26-1890",
+      "IROS26-5041",
+      "IROS26-4537",
+      "IROS26-3223",
+      "IROS26-1832"
+    ],
+    "query": "ti:\"An Accelerated Search for the Moving Target Traveling Salesman Problem with Obstacles Based on Polyanya\" OR ti:\"Observation-Conditioned Rollout Allocation for Sampling Model Predictive Control on Myopic Egocentric Elevation Maps\" OR ti:\"SDERI: Autonomous Navigation with Safe Subgoal Distributions and Exploration-Replanning Index in Dynamic Environments\" OR ti:\"Graph-Lite ReMEmbR: Minimal Structure for Scalable Retrieval in Embodied Robot Memory\" OR ti:\"FUSION: A Framework with Unified Scan-To-Scan and Map-To-Map Integration for Online Static Map Generation\" OR ti:\"Physical Process-Informed Mapping for Interpretable Robotic Exploration of Natural Phenomena\" OR ti:\"ShapeICP: Iterative Category-Level Object Pose and Shape Estimation from Depth\" OR ti:\"MirageMarker: A Black-Box Pose Estimation Attack for Autonomous UAV Landing\" OR ti:\"TrackDeform3D: Markerless and Autonomous 3D Keypoint Tracking and Dataset Collection for Deformable Objects\" OR ti:\"PhysQuantAgent: An Inference Pipeline of Mass Estimation for Vision-Language Models\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4739",
+      "IROS26-4991",
+      "IROS26-4907",
+      "IROS26-4113",
+      "IROS26-1314",
+      "IROS26-596",
+      "IROS26-1584",
+      "IROS26-2159",
+      "IROS26-3186",
+      "IROS26-4200"
+    ],
+    "query": "ti:\"Super LiDAR Intensity for Robotic Perception\" OR ti:\"A Reconfigured Wheel-Legged Robot for Enhanced Steering and Adaptability\" OR ti:\"VectorGlide: Realizing Continuum Drive Paradigm Via Integrated Contact Kino-Dynamic MPC for Wheeled Quadruped Robots\" OR ti:\"How Long Should a Robot’s Legs Be? Speed, Efficiency, and Transient Performance Trade-offs Under Leg-Length Scaling in Quadrupedal Robots\" OR ti:\"Learning Adaptive and Energy-Efficient Locomotion for a Novel Active-Steering Passive-Wheeled Quadruped\" OR ti:\"Steady-State Force Evaluation of High-Response Artificial Muscle HADEC Via Bio-Inspired Phase-Shifted Actuation\" OR ti:\"Pre-Programmable Multi-Stage Stiffness Modulation Using Gallium-Embedded Soft Structures\" OR ti:\"OREO: On-Demand Reversible Opening Mechanism for Mid-Body Tool Deployment in Soft Growing Robots\" OR ti:\"Proposal of a Soft Mobile Robot Integrating Topological Phase-Transition-Based Deformation and Active Geometric Deformation\" OR ti:\"Towards Autonomy from Within: Onboard Proprioception-Driven Gait Synthesis in Soft Robots\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4330",
+      "IROS26-972",
+      "IROS26-81",
+      "IROS26-2019",
+      "IROS26-1919",
+      "IROS26-4901",
+      "IROS26-5086",
+      "IROS26-1502",
+      "IROS26-1033",
+      "IROS26-129"
+    ],
+    "query": "ti:\"An EIT-Based Sensorized Universal Jamming Gripper for Intrinsic Localisation and Object Detection\" OR ti:\"DSTO: Dynamic Spatial Token Optimization for 3D-LMMs\" OR ti:\"Chamelion: Reliable Change Detection for Long-Term LiDAR Mapping in Transient Environments\" OR ti:\"Scene2Gym: Transforming Real-World Scenes into Interactive Training Environments for Robot Learning\" OR ti:\"Tightly Coupled LiDAR-IMU Odometry with Online Adaptation of a Learning-Based IMU Motion Model\" OR ti:\"Loop Closure from Two Views: Revisiting PGO for Scalable Trajectory Estimation through Monocular Priors\" OR ti:\"ROVER: Robust Loop Closure Verification with Trajectory Prior in Repetitive Environments\" OR ti:\"EgoVLA: Learning Vision-Language-Action Models from Egocentric Human Videos\" OR ti:\"MG-VTLA: A Vision-Tactile-Language-Action Framework for Contact-Robust Robotic Micro-Grasping\" OR ti:\"Joint-Angle Invariance of Jacobian-Based Performance Indices for Serial Robotic Manipulators\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-875",
+      "IROS26-1013",
+      "IROS26-52",
+      "IROS26-4902",
+      "IROS26-1315",
+      "IROS26-3096",
+      "IROS26-4917",
+      "IROS26-3390",
+      "IROS26-1805",
+      "IROS26-4302"
+    ],
+    "query": "ti:\"O-ConNet: Geometry-Aware End-To-End Inference of Over-Constrained Spatial Mechanisms\" OR ti:\"RHI-LR-IK: Fast High-Precision Two-Stage Neural Inverse Kinematics Solver\" OR ti:\"Global Polytope LPV Experimental Modeling and Analysis of Ball Screw Drive System Considering Position and Load Change\" OR ti:\"Winfree-Model-Type Synchronization Control for Swimming Modular Robot through Physical Interaction\" OR ti:\"Discrete Variational Physics-Informed Learning for Static Equilibrium of Continuum Robots\" OR ti:\"Investigation on Non-Uniform Conductivity Distribution in EIT-Based Tactile Skins for Enhanced Localized Sensitivity\" OR ti:\"Topology-Optimized, Dual-Phase Soft Gripper with Embedded Force Estimation for Damage-Aware Underwater Operation\" OR ti:\"Embodied Fiber-Optic Network with Braided Fibers for Multi-Dimensional Deformation Sensing in Soft Robots\" OR ti:\"A Vision-Based Stretchable Waveguide Array for Multi-Modal Sensing in Soft Robots\" OR ti:\"Sensing with Spikes: Neuromorphic Optical Tactile Sensor for Contact Force and Position Detection\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4947",
+      "IROS26-5038",
+      "IROS26-38",
+      "IROS26-1063",
+      "IROS26-2556",
+      "IROS26-3966",
+      "IROS26-4028",
+      "IROS26-277",
+      "IROS26-755",
+      "IROS26-2659"
+    ],
+    "query": "ti:\"From Pixels to Touch: Direct Tactile Servoing with Learned Photometric Normalization\" OR ti:\"3D Cal: An Open-Source Software Library for Depth Reconstruction on Vision-Based Tactile Sensors\" OR ti:\"A Neuromorphic Incipient Slip Detection System Using Papillae Morphology\" OR ti:\"A Honeycomb-Inspired Soft Robotic Gripper with Intrinsic Adaptive Control\" OR ti:\"Untethered Soft Adhesion: Electroosmotic-Driven Suction Cups for Enhanced Manipulation and Attachment\" OR ti:\"SPS Gripper: a Two-Finger Underactuated Design with Sarrus–Parallelogram Coupling for Pinching and Scooping\" OR ti:\"Two-Finger Soft Gripper with a Scaled-Pad Contact Interface for Dual-Mode Grasping and Surface Cleaning\" OR ti:\"Replaceable Bit-Based Gripper for Picking Cluttered Food Items\" OR ti:\"Design of an Integrated 3D-Printed Hand with Variable Cross-Section Tendon Transmission for Dexterous Manipulation\" OR ti:\"Physics-Informed Fusion Nets: Synergizing Motion Priors with Deep Learning for Enhanced Human Activity Recognition\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2326",
+      "IROS26-1606",
+      "IROS26-1939",
+      "IROS26-3633",
+      "IROS26-2891",
+      "IROS26-462",
+      "IROS26-3579",
+      "IROS26-1332",
+      "IROS26-1765",
+      "IROS26-1562"
+    ],
+    "query": "ti:\"A ROS 2-Based Framework for Automated Real-Time Affective Nonverbal Sound Generation in Robots\" OR ti:\"A Goal-Conditioned Deep Reinforcement Learning Approach to Gaze Modulation for Attention Regulation\" OR ti:\"VISA-HOI: A Video-Based Interaction-Aware Graph Semantic-Guided Attention Fusion Network for Human-Object Interaction Recognition\" OR ti:\"Mind the Shape Gap: A Benchmark and Baseline for Deformation-Aware 6D Pose Estimation of Agricultural Produce\" OR ti:\"FlowTouch: View-Invariant Visuo-Tactile Prediction\" OR ti:\"Attentive Feature Aggregation Or: How Policies Learn to Stop Worrying about Robustness and Attend to Task-Relevant Visual Cues\" OR ti:\"FCAR: Force-Conditioned Action Residual Policies for Contact-Rich Manipulation\" OR ti:\"HiFlow: Tokenization-Free Scale-Wise Autoregressive Policy Learning Via Flow Matching\" OR ti:\"TrajPred: Trajectory-Conditioned Joint Embedding Prediction for Surgical Instrument-Tissue Interaction Recognition in Vision-Language Models\" OR ti:\"Synergistic Perception–Action Decision Making Via Composite Utility for Long-Horizon Mobile Manipulation\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2003",
+      "IROS26-2655",
+      "IROS26-4981",
+      "IROS26-537",
+      "IROS26-3549",
+      "IROS26-2472",
+      "IROS26-2078",
+      "IROS26-1950",
+      "IROS26-1096",
+      "IROS26-508"
+    ],
+    "query": "ti:\"Global-Local Unified Encoding for Steering Visual Attention in Robotic Manipulation\" OR ti:\"AdaCropFollow: Self-Supervised Test-Time Adaptation for Visual Under-Canopy Navigation\" OR ti:\"AgriGS-SLAM: Orchard Mapping across Seasons Via Multi-View Gaussian Splatting SLAM\" OR ti:\"Cov-TV: 3D Gaussian Splatting with Covariance-Induced Tensor Voting for Grape Stem Reconstruction in Autonomous Harvesting\" OR ti:\"Leveraging Visual Foundation Models for 3-DoF End-Effector Pose Estimation of a Forestry Forwarder\" OR ti:\"Hierarchical Planning for the Cuboid Multi-Agent Collective Construction (Cuboid-MACC) Problem\" OR ti:\"Hierarchical Multi-Modal Planning for Fixed-Altitude Sparse Benthic Target Search and Sampling\" OR ti:\"SpatialNBV: Spatial Distribution and Occlusion Aware Next-Best-View Planning for RGB-Only 3D Reconstruction\" OR ti:\"Dual-Arm Cooperation for Tabletop Wiping with Temporal Object Removal\" OR ti:\"Traverse the Non-Traversable: Estimating Traversability for Wheeled Mobility on Vertically Challenging Terrain\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2669",
+      "IROS26-3116",
+      "IROS26-829",
+      "IROS26-2247",
+      "IROS26-4823",
+      "IROS26-3649",
+      "IROS26-2010",
+      "IROS26-486",
+      "IROS26-5063",
+      "IROS26-2837"
+    ],
+    "query": "ti:\"Beam-Sketch Roadmap: A Fast, Sparse, and Structure-Aware Roadmap for Motion Planning in Complex Environments\" OR ti:\"Navigating in Uncertain Environments with Heterogeneous Visibility\" OR ti:\"Semantic-Risk-Aware Interactive Navigation Via Context-Adaptive Spatiotemporal Planning\" OR ti:\"Decision-Driven Semantic Object Exploration for Legged Robots Via Confidence-Calibrated Perception and Topological Subgoal Selection\" OR ti:\"G-MAPP: GPU-Accelerated Multi-Agent Planning and Perception for Reactive Motion Generation\" OR ti:\"Hierarchical Safety-Critical Control for Quadrotors in Cluttered Environments\" OR ti:\"MIWA: Marionette-Inspired Wrench Assistance Method for Effective Motion Tracking of Humanoid Robots\" OR ti:\"Advancements in Control of a Biomimetic Quadruped Robot Using Spiking Neurons\" OR ti:\"Dual-Arm Robotic System with Hydraulically-Driven Soft Hand for Transportation of Large Cabbages\" OR ti:\"Thermoplastic Unidirectional-Tape Joint Winding: A Robotic Approach for Fabricating Individual Truss Structure Nodes\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4473",
+      "IROS26-1039",
+      "IROS26-245",
+      "IROS26-2057",
+      "IROS26-3201",
+      "IROS26-2179",
+      "IROS26-2033",
+      "IROS26-732",
+      "IROS26-398",
+      "IROS26-4030"
+    ],
+    "query": "ti:\"Hierarchical Behavior Tree Planning for Long-Horizon Robot Task Planning with Knowledge Graph-RAG\" OR ti:\"Scheduling Robotic Cellular Manufacturing Systems Via Graph-Attention-Based Reinforcement Learning on Petri Nets for Zero-Shot Generalization\" OR ti:\"Towards Efficient Robot Packing: A Hierarchical Double-Pick-And-Place Strategy with Integrated Reinforcement Learning\" OR ti:\"ELHPlan: Efficient Long-Horizon Task Planning for Multi-Agent Collaboration\" OR ti:\"Interpretable Collision Avoidance and Feasibility Guarantees through an Uncertainty Aware Pipeline\" OR ti:\"MTA-RL: Robust Urban Driving Via Multi-modal Transformer-Based 3D Affordances and Reinforcement Learning\" OR ti:\"Prescribed Performance Guided Safe Reinforcement Learning for Roundabout Navigation of Autonomous Vehicles\" OR ti:\"Polysona: Modular Driving Styles in Trajectory Prediction\" OR ti:\"Vector Quantization for Trajectory Prediction\" OR ti:\"3D FlowMatch Actor: Unified 3D Policy for Single and Dual-Arm Manipulation\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-351",
+      "IROS26-1857",
+      "IROS26-937",
+      "IROS26-5065",
+      "IROS26-64",
+      "IROS26-247",
+      "IROS26-237",
+      "IROS26-3897",
+      "IROS26-2143",
+      "IROS26-5089"
+    ],
+    "query": "ti:\"Task-Oriented Dual-Arm Manipulation Via Semantic-Physics Grasp Scoring and Kinematic Comfortability\" OR ti:\"ObjRetarget: An Object-Aware Motion Retargeting Framework with Anthropomorphic Arm Constraints and Polyhedral Hand Modeling\" OR ti:\"SPIDER: Scalable Physics-Informed Dexterous Retargeting\" OR ti:\"AR-HueCode: A Meta-Marker That Enables Wide-Range and Occlusion-Robust Pose Estimation by Overlaying Multiple AR Markers in Different Colored Layers\" OR ti:\"DLOSAC: Joint Spatial-Geometric Image Estimation Via Delaunay-Guided Local Optimization RANSAC\" OR ti:\"Self-Supervised Learning for Object Pose Estimation through Active Real Sample Capture\" OR ti:\"RoEL: Robust Event-Based 3D Line Reconstruction\" OR ti:\"Active Tracking of Marine Pollution Sources: An Uncertainty-Aware Categorical Bayesian Framework for Unmanned Surface Vehicles\" OR ti:\"A Collaborative Reasoning Framework for Anomaly Diagnostics in Underwater Robotics\" OR ti:\"A Closed-Loop On-Orbit Calibration Strategy of Space Robots based on Planar Constraints\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-293",
+      "IROS26-1112",
+      "IROS26-3703",
+      "IROS26-3868",
+      "IROS26-1278",
+      "IROS26-2064",
+      "IROS26-2304",
+      "IROS26-2343",
+      "IROS26-3167",
+      "IROS26-765"
+    ],
+    "query": "ti:\"DRAPE: Doppler-Robust Acoustic Pose Estimation of Rigid Bodies with Three Degrees of Freedom Using FMCW-TDoA\" OR ti:\"Underwater 3D Reconstruction Using Multiple Cross-Line Lasers with Self-Calibration and Pose Optimization\" OR ti:\"Spatiotemporal Calibration of Doppler Velocity Logs for Underwater Robots\" OR ti:\"VeleBot: A Bio-Inspired Wind-Driven Robot with Active Soft Grasping for Aquatic Sampling\" OR ti:\"ISIM: A Micro-Nano Scale Vision-Based Dataset for In-Situ SEM Intelligent Manipulation\" OR ti:\"Physics-Incorporated Sim-To-Real Image Synthesis for Pose and Depth Estimation of Microrobots\" OR ti:\"Aligning the Micropipette in Three-Dimensional Space for Robotic Cell Aspiration\" OR ti:\"Heterogeneous Acoustic Micro-Assembly Enabled by Ultrasonic Phased Transducer Array and Microscope\" OR ti:\"A Microwell-Enhanced Optoelectronic Tweezers Platform for Non-Volatile Particle Patterning and In-Situ Raman Detection\" OR ti:\"SuperX3D: Structural LiDAR Point Cloud Registration with Lines and Planes\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1325",
+      "IROS26-2030",
+      "IROS26-2349",
+      "IROS26-4285",
+      "IROS26-4564",
+      "IROS26-3972",
+      "IROS26-2158",
+      "IROS26-2265",
+      "IROS26-415",
+      "IROS26-1579"
+    ],
+    "query": "ti:\"DV-SLAM: Uncalibrated Monocular 4D VGGT SLAM in Dynamic Environments without External Models\" OR ti:\"HybridSplat: Underwater Dense SLAM Via Visual-Acoustic Fusion and Physics-Informed 3D Gaussian Splatting\" OR ti:\"EventGS: Event-Based 3D Gaussian Splatting SLAM with Diffusion Model\" OR ti:\"PI-EAT-SLAM: Physics-Informed Edge-Aware Thermal Gaussian Splatting SLAM\" OR ti:\"SLAM Adversarial Lab: An Extensible Framework for Visual SLAM Robustness Evaluation under Adverse Conditions\" OR ti:\"OG-VLA: Orthographic Image Generation for 3D-Aware Vision-Language Action Model\" OR ti:\"From Code to Action: Hierarchical Learning of Diffusion-VLM Policies\" OR ti:\"Hybrid Chain-Of-Thought Reasoning for Vision–Language–Action Models\" OR ti:\"Topology-Guided Cable Routing for Collision-Free Large Rotational Workspace in Fully Constrained 8-CDPRs\" OR ti:\"An Ultra-Compact Cable-Driven Three-Degree-Of-Freedom Wristed Surgical Instrument with Integrated Jaw Normal Force Sensing\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1984",
+      "IROS26-2417",
+      "IROS26-138",
+      "IROS26-4966",
+      "IROS26-5091",
+      "IROS26-58",
+      "IROS26-1132",
+      "IROS26-467",
+      "IROS26-3678",
+      "IROS26-4920"
+    ],
+    "query": "ti:\"A Hybrid Rigid-Flexible Tendon-Driven Heterogeneous Robot: Design, Kinematics Modeling, and Motion Control\" OR ti:\"D4C-TM: Dexterous Drive-Displaced Differential Coupling Tendon-Driven Manipulator\" OR ti:\"Dual Variable-Radius Drum for Transmission Ratio Linearization and Stroke Enhancement in Twisted String Actuators\" OR ti:\"Endpoint Compliance in Coupled Tendon-Driven Long-Reach Articulated Arm ”Super Dragon”\" OR ti:\"Singularity Lock Mechanism Based on Rolling Spool Dynamics\" OR ti:\"NAMO-LLM: Efficient Navigation among Movable Obstacles with Large Language Model Guidance\" OR ti:\"Fly As I Say: A Language-Guided Gradient-Based Local Planner for Quadrotors with Vision Language Models\" OR ti:\"Mosaic: An Extensible Framework for Composing Rule-Based and Learned Motion Planners\" OR ti:\"NL2SpaTiaL: Generating Geometric Spatio-Temporal Logic Specifications from Natural Language for Manipulation Tasks\" OR ti:\"GRAPPA: Generalizing and Adapting Robot Policies Via Online Agentic Guidance\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3452",
+      "IROS26-521",
+      "IROS26-4282",
+      "IROS26-396",
+      "IROS26-645",
+      "IROS26-1375",
+      "IROS26-2691",
+      "IROS26-2236",
+      "IROS26-17",
+      "IROS26-96"
+    ],
+    "query": "ti:\"AURORA: Attention-Intended Dual Verification with Adaptive Rollback for Large Language Model Agents\" OR ti:\"TacMagPie: A Fast, High-Fidelity Soft Magnetic Tactile Sensor Simulator for Sim-To-Real Robotic Manipulation\" OR ti:\"SymDrive: Realistic and Controllable Driving Simulator Via Symmetric Auto-Regressive Online Restoration\" OR ti:\"ACEsplat: Accelerated 3D Gaussian Scene Regression Via RGB and Poses Only\" OR ti:\"GaussianFusionOcc: A Seamless Sensor Fusion Approach for 3D Occupancy Prediction Using 3D Gaussians\" OR ti:\"PPReg: Prior-Guided Photometric Registration of 3D Gaussian Splats in Low-Overlap Scenes\" OR ti:\"Splatting As Attention: Reasoning in 3D Gaussian Fields for Occupancy Prediction in Autonomous Driving\" OR ti:\"SeaSIG: Underwater 3D Gaussian Splatting Via Medium–Radiance Decomposition and Structure-Invariant Guidance\" OR ti:\"Push-Grasp Policy Learning Using Equivariant Models and Grasp Score Optimization\" OR ti:\"Learning Synergistic Multi-Skill Manipulation for a Real-World Dual-Arm Robot in Dense Clutter\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4452",
+      "IROS26-978",
+      "IROS26-1044",
+      "IROS26-3638",
+      "IROS26-1811",
+      "IROS26-4451",
+      "IROS26-1704",
+      "IROS26-3810",
+      "IROS26-4123",
+      "IROS26-4945"
+    ],
+    "query": "ti:\"QuaMa: Extending Skill Learning with Delta Dynamics Modeling for Precise and Generalizable Quantitative Manipulation\" OR ti:\"Enhancing Generalization in Vision–Language–Action Models by Preserving Pretrained Representations\" OR ti:\"Orthogonal Composite Tokens: Geometric Noise Isolation for Robust Multimodal Robot Manipulation\" OR ti:\"BeliefVLA: Implicit Belief-State Driven Vision-Language-Action Models for Robust Manipulation\" OR ti:\"DialogVLA: Bridging Reasoning Action in Bimanual Manipulation Via Parallel Mixture-Of-Experts\" OR ti:\"Point What You Mean: Visually Grounded Instruction Policy\" OR ti:\"Preference-Conditioned Multi-Objective RL for Integrated Command Tracking and Force Compliance in Humanoid Locomotion\" OR ti:\"Learning Humanoid Agile and Contact-Rich Control from Latent Predictive Motion Priors\" OR ti:\"TD-GRPC: Temporal Difference Learning with Group Relative Policy Constraint for Humanoid Locomotion\" OR ti:\"CAROLLINE : A Caged Rolling Drone with Omnidirectional Ground Mobility and Simple Implementation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-736",
+      "IROS26-5097",
+      "IROS26-1091",
+      "IROS26-5095",
+      "IROS26-1476",
+      "IROS26-2209",
+      "IROS26-455",
+      "IROS26-1006",
+      "IROS26-2448",
+      "IROS26-553"
+    ],
+    "query": "ti:\"CRUX: A Clutch-Enabled Aerial-Ground Robot with Propeller Disengagement and Unified Control\" OR ti:\"Agile Flight through Tilted Spaces Using a Single-Servo Tilt-Rotor Quadrotor\" OR ti:\"Efficient Thrust Vector Allocation for Tilt-Rotor Aerial-Aquatic Vehicle Using Null-Space Parameterized Optimization\" OR ti:\"MorphoCopter: Design, Modeling, and Control of a New Transformable Quad–Bi Copter\" OR ti:\"Task-Conditioned Multi-Layer Feature Fusion from Frozen Vision Backbones for Multi-Task Robot Manipulation\" OR ti:\"Categorical Equivariant Deep Learning for Legged-Robot Proprioception\" OR ti:\"TRACE: Trajectory Action Chunking Enhancement for Robust Imitation Learning in Robotic Manipulation\" OR ti:\"HyProSG: A Hyperbolic Prototype Network for Hierarchical 3D Scene Graph Generation\" OR ti:\"TerraAlign: Language-Supervised Alignment of Vision and Proprioception for Multi-Grained Terrain Classification\" OR ti:\"3D UAV Trajectory Estimation and Classification from Internet Videos Via Language Model\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2133",
+      "IROS26-803",
+      "IROS26-3448",
+      "IROS26-2847",
+      "IROS26-569",
+      "IROS26-984",
+      "IROS26-663",
+      "IROS26-1227",
+      "IROS26-3105",
+      "IROS26-2533"
+    ],
+    "query": "ti:\"DeNoise2Completion: Diffusion-Based Unified Model for Point Cloud Denoising and Completion\" OR ti:\"Air-Ground Robotic Collaborative Reconstruction by Cross-View Depth Completion in Large-Scale Environment\" OR ti:\"AsyncMDE: Real-Time Monocular Depth Estimation Via Asynchronous Spatial Memory\" OR ti:\"Visual Autoregressive Modeling through Online Multi-Scale Preference Optimization for Low-Level Image Perception\" OR ti:\"CLEAR-IR: Clarity-Enhanced Active Reconstruction of Infrared Imagery for Low-Light Enhancement\" OR ti:\"Real-Time Diffusion Relighting As a Neural Sensor: Closing the Low-Light Domain Gap for Robotic Perception\" OR ti:\"Physics-Aware Diffusion for LiDAR Point Cloud Densification\" OR ti:\"LagMemo: Language 3D Gaussian Splatting Memory for Multi-Modal Open-Vocabulary Multi-Goal Visual Navigation\" OR ti:\"Memory Over Maps: 3D Object Localization Without Reconstruction\" OR ti:\"Gen-NAV: Generative Simulation with Gaussian Photorealistic Rendering for Evolving Environments\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4894",
+      "IROS26-90",
+      "IROS26-1517",
+      "IROS26-1550",
+      "IROS26-1893",
+      "IROS26-2128",
+      "IROS26-4150",
+      "IROS26-3150",
+      "IROS26-495",
+      "IROS26-3143"
+    ],
+    "query": "ti:\"GRaD-Nav++: Vision-Language Model Enabled Visual Drone Navigation with Gaussian Radiance Fields and Differentiable Dynamics\" OR ti:\"EED: Embodied Environment Description through Robotic Visual Exploration\" OR ti:\"Accelerating Sampling-Based Control Via Learned Linear Koopman Dynamics\" OR ti:\"MR-MPCC: Model Predictive Contouring Control for Robotic Manipulator Tracking under Moving Reference Frames\" OR ti:\"Parallel-In-Time Nonlinear Optimal Control Via GPU-Native Sequential Convex Programming\" OR ti:\"Phasing through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints\" OR ti:\"Selective Electromagnetic Control of Multiple Millimeter-Sized Magnetic Motors with Limited Number of Coils\" OR ti:\"A Soft Magnetic Walking Robot for Wire Grasping towards Minimally Invasive Biomedical Applications\" OR ti:\"A Robotic Framework for Multi-Layer Multi-Material Bioprinting towards In-Vivo Treatment of Volumetric Muscle Loss\" OR ti:\"Surgi-HDTMR: Closing the Sensorimotor Loop in Bimanual Microsurgery Via Haptics, Digital Twin, and Mixed Reality\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2172",
+      "IROS26-2370",
+      "IROS26-3300",
+      "IROS26-2798",
+      "IROS26-2603",
+      "IROS26-1820",
+      "IROS26-68",
+      "IROS26-2034",
+      "IROS26-4215",
+      "IROS26-4972"
+    ],
+    "query": "ti:\"Cognitive Tele-Palpation: Context-Based Haptic Event Detection\" OR ti:\"Closed-Loop Stroke Rehabilitation Robot Control Via Semi-Supervised Gait Quality Estimation with Spatio-Temporal Graph Attention VAE\" OR ti:\"Interaction-Force-Aware Leader-Follower Safe Reinforcement Learning for Human-Walker Rehabilitation\" OR ti:\"Automatic Assessment of Motor Performance with Disturbance Forces by a Force-Controlled Robotic Walker Using Machine Learning\" OR ti:\"Assist–Resist-as-Needed Robotic Control for Cable-Driven Bedside Training\" OR ti:\"Estimating Three-Dimensional Human Poses through Multimodal Latent Representations from Limited Observations During Humanoid Sit-To-Stand Assistance\" OR ti:\"PA-MPPI: Perception-Aware Model Predictive Path Integral Control for Quadrotor Navigation in Unknown Environments\" OR ti:\"Learning Acrobatic Flight from Preferences\" OR ti:\"Multi-Scale Nonlinear Wrench Allocation for Jet-Powered VTOL\" OR ti:\"A Novel Model for 3D Motion Planning for a Generalized Dubins Vehicle with Pitch and Yaw Rate Constraints\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3595",
+      "IROS26-199",
+      "IROS26-1284",
+      "IROS26-4454",
+      "IROS26-2700",
+      "IROS26-372",
+      "IROS26-1429",
+      "IROS26-3399",
+      "IROS26-3617",
+      "IROS26-4514"
+    ],
+    "query": "ti:\"Towards Autonomous Dynamic Soaring for Real-World VTOL / Fixed-Wing Small-UAS\" OR ti:\"Large Language Model Guided Teacher-Student Reinforcement Learning for Terrain-Aware Bipedal Locomotion\" OR ti:\"Humanoid Walking Stabilization Via Full Stepping Strategy Based on Three Dimensional Divergent Component of Motion\" OR ti:\"Walk the PLANC: Physics-Guided RL for Agile Humanoid Locomotion on Constrained Footholds\" OR ti:\"Leveraging Previous-Traversal Point Cloud Map Priors for Camera-Based 3D Object Detection and Tracking\" OR ti:\"MacFormer: Semantic Segmentation with Fine Object Boundaries\" OR ti:\"Robust Dynamic Object Detection in Cluttered Indoor Scenes Via Learned Spatiotemporal Cues\" OR ti:\"When One Frame Slips, the Others Have Its Back: A Latency-First Multi-Frame Video Object Masking\" OR ti:\"Learning Real-Time Glass Segmentation Using Radar-Depth Fusion\" OR ti:\"On-Device Underwater Fish Detection: A New Benchmark and Distillation Framework Baseline\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-1916",
+      "IROS26-2931",
+      "IROS26-4219",
+      "IROS26-136",
+      "IROS26-1865",
+      "IROS26-1113",
+      "IROS26-1697",
+      "IROS26-1670",
+      "IROS26-1860",
+      "IROS26-1699"
+    ],
+    "query": "ti:\"SPLiT: Spatially Generalizable Phase-Partitioned Motion Generation for Adaptive Liquid Transfer\" OR ti:\"Self-Adaptive Counterfactual Open-Loop Planning without Human Prior Knowledge\" OR ti:\"Efficient Timing-Aware Planning via Detachable Task Modeling\" OR ti:\"Fast Task Planning with Neuro-Symbolic Relaxation\" OR ti:\"GRACE: Grounded Recovery Via Action-Based Conflict-Directed Execution for Long-Horizon Robotic Manipulation\" OR ti:\"MAP-Seg: Offboard LiDAR Semantic Segmentation Via Full-Sequence Fusion and Motion-Aware Priors\" OR ti:\"TerraEDL: Uncertainty-Aware Multi-Modal Terrain Classification Via Evidential Deep Learning\" OR ti:\"Towards Automatic Open-Vocabulary 3D Semantic Mapping via Vocabulary-Expanded Query Generation\" OR ti:\"Multi-Modal Complementary Fusion for RGB-Thermal Semantic Segmentation\" OR ti:\"VDS-LIO: Vertical Drift Suppression LiDAR-Inertial Odometry for Autonomous USV Localization in Inland Waterways\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3734",
+      "IROS26-4983",
+      "IROS26-5075",
+      "IROS26-5090",
+      "IROS26-4958",
+      "IROS26-1553",
+      "IROS26-4366",
+      "IROS26-2351",
+      "IROS26-1423",
+      "IROS26-4237"
+    ],
+    "query": "ti:\"SVIn+: Multi-Modal Framework for Robust Underwater State Estimation Using 3D Sonar, Visual-Inertial, Water-Pressure, and DVL\" OR ti:\"Side-Scan Sonar SLAM Using Ping-Level Landmark Detection in Feature-Poor Seabed Environments\" OR ti:\"LiDAR-Inertial SLAM with Voxel-Information Filter for Autonomous Surface Vehicles\" OR ti:\"SIO-UV: Rapid and Robust Sonar Intertial Odometry for Underwater Vehicles\" OR ti:\"WaterSplat-SLAM: Photorealistic Monocular SLAM in Underwater Environment\" OR ti:\"MuTRAP: Multi-Trigger Trojans Attacking Robot Task Planning Systems\" OR ti:\"Distributionally Robust Safe Control of Robotic Manipulators in Dynamic Environments\" OR ti:\"WRASTLE: Worst-Case Recurrent Adversarial Signal Temporal Learning Equilibrium\" OR ti:\"Rethinking Gaussian Trajectory Predictors: Calibrated Uncertainty for Safe Planning\" OR ti:\"Residual-Calibrated Nonconvex Distributionally Robust Uncertainty Modeling for Safe Robot Navigation in Crowds\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-50",
+      "IROS26-1844",
+      "IROS26-1119",
+      "IROS26-2568",
+      "IROS26-5010",
+      "IROS26-2692",
+      "IROS26-4942",
+      "IROS26-4908",
+      "IROS26-769",
+      "IROS26-5045"
+    ],
+    "query": "ti:\"The Constitutional Controller: Doubt-Calibrated Steering of Compliant Agents\" OR ti:\"Oracle-Guided Multi-Agent Reinforcement Learning for Cooperative Search and Capture in Obstacle-Rich Environments\" OR ti:\"Asynchronous Value Factorization for Multi-Robot Cooperative Reinforcement Learning\" OR ti:\"Robust Multi-UAV Cooperative Search for Dynamic Targets Via Heavy-Tail-Adapted Multi-Agent Reinforcement Learning\" OR ti:\"Reinforcement Learning for Game-Theoretic Resource Allocation on Graphs\" OR ti:\"HRC-BP: Intervention Time Aware Human-Robot Collaborative 3D Bin Packing\" OR ti:\"Abstract Sim2Real through Approximate Information States\" OR ti:\"ESP-SLAM: Efficient Submap Partitioning for Large-Scale 3D Gaussian Splatting-Based SLAM\" OR ti:\"DiskChunGS: Large-Scale 3D Gaussian SLAM through Chunk-Based Memory Management\" OR ti:\"Self-Organizing Edge Computing Distribution Framework for Visual SLAM\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-28",
+      "IROS26-4046",
+      "IROS26-4500",
+      "IROS26-1431",
+      "IROS26-4707",
+      "IROS26-3885",
+      "IROS26-3959",
+      "IROS26-2083",
+      "IROS26-2842",
+      "IROS26-163"
+    ],
+    "query": "ti:\"LiteFT-PR: Lightweight and Fault-Tolerant LiDAR-Camera Fusion Network for Robust Place Recognition Via Model Distillation\" OR ti:\"How Are Cells Lately? Persistent Monitoring of the Honeybee Comb under Stochastic Observability\" OR ti:\"Compositional Average Velocity Modeling for Efficient Diffusion Offline Reinforcement Learning\" OR ti:\"CRISP: Context-Robust Skill Inference for Long-Horizon Offline Robotic Control\" OR ti:\"VLA-RL: Towards Masterful and General Robotic Manipulation with Scalable Reinforcement Learning\" OR ti:\"Automatic Terrain Curriculum Generation Via Optimal Transport for Multi-DoF Rover Robot Locomotion\" OR ti:\"Trajectory-Consistent Flow Matching for Robust Visuomotor Policy Learning\" OR ti:\"MC²GS-SLAM: Monocular Confidence-Aware Gaussian Splatting SLAM with Continuous Photorealistic Mapping\" OR ti:\"SGC-Nav: Scene Graph Conditioned Multi-LLM Consensus for Mapless Zero-Shot Object Navigation\" OR ti:\"CuriousBot: Interactive Mobile Exploration Via Actionable 3D Relational Object Graph\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-336",
+      "IROS26-1492",
+      "IROS26-1632",
+      "IROS26-5021",
+      "IROS26-5",
+      "IROS26-4910",
+      "IROS26-1262",
+      "IROS26-2204",
+      "IROS26-1885",
+      "IROS26-4973"
+    ],
+    "query": "ti:\"Event-Grounding Graph: Unified Spatio-Temporal Scene Graph from Robotic Observations\" OR ti:\"Uncertainty-Aware Zero-Shot Object Navigation Via Semantic Bayesian Belief\" OR ti:\"µA-VLA: A Multi-Agent Online Self-Healing Framework for Long-Horizon Robotic Manipulation\" OR ti:\"Anomaly Detection for Generic Failure Monitoring in Robotic Assembly, Screwing and Manipulation\" OR ti:\"Failure Detection and Recovery for Quadrotors in the Presence of Severe Rotor Failures with Multiple Model L1 Adaptive Controller\" OR ti:\"Visual-Tactile Peg-In-Hole Assembly Learning from Peg-Out-Of-Hole Disassembly\" OR ti:\"Hierarchical Reactive Grasping for Contact-Rich Manipulation Via Topological Visuo-Tactile Learning\" OR ti:\"Signal-To-Syntax: A Language-Based Framework for Few-Shot Classification Using Robot Manipulator with Haptic Perception\" OR ti:\"FILIC: Dual-Loop Force-Guided Imitation Learning with Impedance Torque Control for Contact-Rich Manipulation Tasks\" OR ti:\"ForceMapping: Learning Visual-Force Features from Vision for Soft Objects Manipulation\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5083",
+      "IROS26-4216",
+      "IROS26-557",
+      "IROS26-3074",
+      "IROS26-811",
+      "IROS26-1300",
+      "IROS26-1684",
+      "IROS26-197",
+      "IROS26-2105",
+      "IROS26-2041"
+    ],
+    "query": "ti:\"Unsupervised Motion Primitive Identification under Translational Physical Constraints in Contact-Rich Tasks\" OR ti:\"Bi-AQUA: Bilateral Control-Based Imitation Learning for Underwater Robot Arms Via Lighting-Aware Action Chunking with Transformers\" OR ti:\"A Physics-Embedded Human Motion Predictor Fusing Articulated Pose and Scene Geometry\" OR ti:\"Real-Time Phase-Conditioned Human Motion Forecasting for Wearable Robot Control\" OR ti:\"Inflatable Whole-Body Robotic Skin with Internal Time-Of-Flight (ToF) Depth Sensing and Kinematics-Based Point-Cloud Prediction\" OR ti:\"Low-Latency Blimp Takeoff and Landing with a Reformulated Vision-Based Controller\" OR ti:\"Proprioceptive Shape Sensing for Tendon-Driven Multi-Segment Continuum Robotic Bronchoscope\" OR ti:\"Tendon-Actuated Galvanometer Robot (TAGR) towards Minimally Invasive Hybrid Surgical Laser Steering\" OR ti:\"Urinary Catheter Insertion Assist Mechanism Using a Low-Pressure Water-Hydraulic Soft Growing Actuator for Smooth Navigation through a Urethral Stenosis\" OR ti:\"Bio-Inspired Self-Oscillating Needle Transducer with Unified In-Keyhole Sensing and Actuation Capability\"",
+    "total": 1,
+    "returned": 1,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-545",
+      "IROS26-4453",
+      "IROS26-4937",
+      "IROS26-5015",
+      "IROS26-824",
+      "IROS26-4280",
+      "IROS26-1690",
+      "IROS26-107",
+      "IROS26-1881",
+      "IROS26-2009"
+    ],
+    "query": "ti:\"SemanticFlow: A Self-Supervised Framework for Joint Scene Flow Prediction and Instance Segmentation in Dynamic Environments\" OR ti:\"Perception-Aware Multimodal Spatial Reasoning from Monocular Images\" OR ti:\"Off-Road Navigation Via Implicit Neural Representation of Terrain Traversability\" OR ti:\"QuasittudeNet: Self-Supervised Network for Vehicle Attitude Estimation\" OR ti:\"TIDY: Thermal Infrared Image Denoising Via Wavelet Domain Entropy and Directional Stripe Index\" OR ti:\"ViDi-Nav: Fast and Robust Obstacle-Aware Vision-Based Navigation on Uneven Terrain Via Differentiable Physics\" OR ti:\"LoRANav: Structurally-Constrained Low-Rank Adaptation for Open-Vocabulary Object Goal Navigation\" OR ti:\"SenseExpo: Spatial Exploration and Navigation Via Scene Estimation from Expeditious Predictive Operators\" OR ti:\"REST: Receding Horizon Explorative Steiner Tree for Zero-Shot Object-Goal Navigation\" OR ti:\"EPANav: An Exploration-Progress-Aware Object Navigation Framework\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-73",
+      "IROS26-2080",
+      "IROS26-126",
+      "IROS26-4169",
+      "IROS26-4925",
+      "IROS26-540",
+      "IROS26-634",
+      "IROS26-1770",
+      "IROS26-4994",
+      "IROS26-4265"
+    ],
+    "query": "ti:\"Capturability-Supervised Training-Time Teacher for Deployment-Ready PPO Point-Foot Biped Locomotion\" OR ti:\"APEX: Action Priors Enable Efficient Exploration for Robust Motion Tracking on Legged Robots\" OR ti:\"Expert-Guided Policy Optimization for Hexapod Locomotion\" OR ti:\"CAMoE: Context-Aware MoE Policy for Adaptive and Scalable Quadruped Locomotion\" OR ti:\"Deep Reinforcement Learning of Quadrupedal Gaits Without Motion References: Emergence of Pace and Other Locomotion Patterns\" OR ti:\"Communication-Aware Adaptive Formation Control for Cooperative Transport under Latency and Channel Uncertainty\" OR ti:\"Distributed Centroid and Formation Control Using Max-Consensus Synchronization of Dynamical Movement Primitives\" OR ti:\"Memoryless Curriculum Reinforcement Learning for Trajectory-Consistent Formation under Local Relative Sensing\" OR ti:\"Distributed Lloyd-Based Algorithm for Uncertainty-Aware Multi-Robot Under-Canopy Flocking\" OR ti:\"Distributed Control and Communication Framework for Connectivity Preservation in Flow-Driven Robot Fleets\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4182",
+      "IROS26-4566",
+      "IROS26-4308",
+      "IROS26-3139",
+      "IROS26-2282",
+      "IROS26-82",
+      "IROS26-1241",
+      "IROS26-2353",
+      "IROS26-2027",
+      "IROS26-2368"
+    ],
+    "query": "ti:\"Encoder-Only Online Relative Posture Estimation for Linked Omni-Directional Mobile Robots Via Velocity Error Minimization\" OR ti:\"RCG: Safety-Critical Scenario Generation for Robust Autonomous Driving Via Real-World Crash Grounding\" OR ti:\"DriveVer: Lightweight Trajectory Evaluator As Test-Time Verifier for Autonomous Driving\" OR ti:\"Fail2Drive: Benchmarking Closed-Loop Driving Generalization\" OR ti:\"Scaling Learning-Based AEB with Massive Unlabeled Data\" OR ti:\"Learning a Unified Risk Map for Autonomous Driving in Partially Observable Environments\" OR ti:\"GraspADMM: Improving Dexterous Grasp Synthesis Via ADMM Optimization\" OR ti:\"Prior-Guided Residual Learning for Direction-Free Dexterous Grasping\" OR ti:\"A Multi-Modal Framework with Offset-Driven Local Feature Aggregation for 6-DoF Grasp Pose Estimation\" OR ti:\"UniGraspNet: Robust 6-DoF Grasp Detection via Maximal Coding Rate Reduction and Differentiable QP Optimization\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-3816",
+      "IROS26-1409",
+      "IROS26-450",
+      "IROS26-1420",
+      "IROS26-3528",
+      "IROS26-2464",
+      "IROS26-1249",
+      "IROS26-638",
+      "IROS26-3864",
+      "IROS26-670"
+    ],
+    "query": "ti:\"Web2Grasp: Learning Functional Grasps from Web Images of Hand-Object Interactions\" OR ti:\"Inverse Physics-Informed Neural Network for Material-Aware Soft Grasping\" OR ti:\"Closing the Navigation Compliance Gap in End-To-End Autonomous Driving\" OR ti:\"Driver-State-Aware Risk Assessment and Driving Assistance Based on an End-To-End Model\" OR ti:\"HiD2: A Trajectory Generator for High-Density Traffic and Diverse Agent-Interaction Scenarios\" OR ti:\"Super Agents and Confounders: Influence of Surrounding Agents on Vehicle Trajectory Prediction\" OR ti:\"Unified Early Traffic Conflict Detection for Autonomous Vehicles Via Future Trajectory Prediction\" OR ti:\"PEDRA: PErsonalized Driving Representation for Autonomy\" OR ti:\"Tailorable Force-Sensing Skins for Manipulators Using Textile and Additive Manufacturing\" OR ti:\"A High Load Density Miniature Force Sensor for Probing with Robot Feet\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-5092",
+      "IROS26-1171",
+      "IROS26-1232",
+      "IROS26-4921",
+      "IROS26-1989",
+      "IROS26-733",
+      "IROS26-2059",
+      "IROS26-3962",
+      "IROS26-3811",
+      "IROS26-2018"
+    ],
+    "query": "ti:\"Dynamic Tactile Sensor (DTS) with Data-driven Super-resolution for Edge Applications\" OR ti:\"Touch2Know: Dexterous In-Hand Liquid Sensing Via Mutual-Capacitance Fingerprints\" OR ti:\"HaptiLink: One Glove, Two Roles — Low-Cost Shared Tactile Sensing for Contact-Rich Robot Learning\" OR ti:\"FruitTouch: A Perceptive Gripper for Gentle and Scalable Fruit Harvesting\" OR ti:\"Spatially Variant Point Spread Function for Taxel-Based Tactile Super-Resolution on Multi-Curvature Surfaces\" OR ti:\"TeamWeaver: Hybrid LLM and Optimization-Based Planning with Transparent Constraints in Heterogeneous Multi-Robot Teams\" OR ti:\"Hierarchical LTL Planning for Heterogeneous Robots with Latent Tasks in Unknown Environments\" OR ti:\"Few-Shot Demonstration-Driven Task Coordination and Trajectory Execution for Multi-Robot Systems\" OR ti:\"HI-MAPF - Towards Resource-Efficient Multi-Agent Deployment\" OR ti:\"Task-Oriented Dexterous Grasping with Diverse Grasp Type\"",
+    "total": 2,
+    "returned": 2,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-348",
+      "IROS26-2753",
+      "IROS26-2373",
+      "IROS26-4476",
+      "IROS26-3999",
+      "IROS26-4953",
+      "IROS26-4956",
+      "IROS26-2364",
+      "IROS26-3253",
+      "IROS26-97"
+    ],
+    "query": "ti:\"Structure-Preserving Diffusion for Point-Wise 3D Goal State Prediction in Robotic Manipulation\" OR ti:\"Physics-Conditioned Grasping for Stable Tool Use\" OR ti:\"BiBoost: Adaptive Bidirectional Boosting for Multi-Task Dexterous Hand Manipulation\" OR ti:\"DRFM-1: An Imitation Learning Framework for Image-Guided Orthopedic Robotic Drilling Via Human Expertise\" OR ti:\"Physics-Based Haptic Rendering for Cataract Surgery Simulation with Multi-Material Tissue Dynamics\" OR ti:\"On the Systematic Design Framework for Intuitive Interfaces in Telerobotic Operations: A Case Study in Surgical Robotics\" OR ti:\"Complete Autonomous Robotic Nasopharyngeal Swab System with Evaluation on a Stochastically Moving Phantom Head\" OR ti:\"CausalGuard: Causal Temporal Convolution for Pre-Impact Fall Prediction and Emergency Braking in Wearable Robotic Systems\" OR ti:\"Ask, Reason, Assist: Robot Collaboration Via Natural Language and Temporal Logic\" OR ti:\"Neuro-Symbolic Generation of Explanations for Robot Policies with Weighted Signal Temporal Logic\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2501",
+      "IROS26-4763",
+      "IROS26-2994",
+      "IROS26-5087",
+      "IROS26-63",
+      "IROS26-4346",
+      "IROS26-571",
+      "IROS26-2520",
+      "IROS26-3286",
+      "IROS26-2404"
+    ],
+    "query": "ti:\"ICoPa: Infrastructure-Aware Communication Performance Analyzer and Configuration Profiling for Cloud/Edge Robotics\" OR ti:\"NL2HLTL2Plan: Scaling up Natural Language Understanding for Multi-Robots through Hierarchical Temporal Logic Task Specifications\" OR ti:\"Confidence-Aware Planning for Linear Temporal Logic Tasks for Heterogeneous Robots in Dynamic Environments\" OR ti:\"Mutual-Rendezvous Control and Feature-Compatible Landing Optimization for Heterogeneous UAV-USV Fleets\" OR ti:\"PL-LIT: A LiDAR-Inertial-Thermal SLAM Using Point-Line Features and Thermographic Mapping\" OR ti:\"Analysis of Optimization-Based Monocular Point–Plane VINS: Formulation, Information, and Marginalization\" OR ti:\"Visual-Inertial and Inertial-Object Tracking: Analysis and Algorithm\" OR ti:\"Observability and Consistency Analysis for Visual-Inertial Navigation with Anchored Feature Parameterizations\" OR ti:\"NemeSys: Toward Online Underwater Exploration with Remote Operator-In-The-Loop Adaptive Autonomy\" OR ti:\"π_water: Real-World VLA Framework for Underwater Manipulation with Hydrodynamics-Aware Enhancement\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2100",
+      "IROS26-144",
+      "IROS26-4984",
+      "IROS26-4524",
+      "IROS26-623",
+      "IROS26-3245",
+      "IROS26-1267",
+      "IROS26-3904",
+      "IROS26-4918",
+      "IROS26-839"
+    ],
+    "query": "ti:\"Synthetic Enclosed Echoes: A New Dataset to Mitigate the Gap between Simulated and Real-World Sonar Data\" OR ti:\"SeePerSea: Multi-Modal Perception Dataset of In-Water Objects for Autonomous Surface Vehicles\" OR ti:\"Field Validation of Prior-Based Image Compression for Tetherless Operation of Underwater Remotely Operated Vehicles\" OR ti:\"HeteroTac-Lift: Empirical Lift Admission Via Heterogeneous Bilateral Tactile Servoing and Risk-Budgeted Compliance\" OR ti:\"Data-Driven Optimization of Tactile Sensor Configurations for Dexterous Manipulation\" OR ti:\"Physics-Guided Residual Learning for Real-Time Stiffness Estimation in Soft-On-Soft Contacts\" OR ti:\"Trajectory-Based Diffusion from One‑shot Human Video for Generalizable Manipulation\" OR ti:\"CLAM: Continuous Latent Action Models for Robot Learning from Unlabeled Demonstrations\" OR ti:\"Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation\" OR ti:\"Collective Learning for Unified Robotic Manipulation Via Predictive Dynamics Adaption\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4882",
+      "IROS26-2446",
+      "IROS26-4568",
+      "IROS26-3750",
+      "IROS26-2594",
+      "IROS26-281",
+      "IROS26-866",
+      "IROS26-4425",
+      "IROS26-2551",
+      "IROS26-60"
+    ],
+    "query": "ti:\"CEI: A Unified Interface for Cross-Embodiment Visuomotor Policy Learning in 3D Space\" OR ti:\"Fusion-Poly: A Polyhedral Framework Based on Spatial-Temporal Fusion for 3D Multi-Object Tracking\" OR ti:\"FleetAgent: Teleoperation Assistant for Autonomous Fleets Via Vectorized V2N Messages\" OR ti:\"VehAnchor: Metadata-Free Metric Scale Recovery from Vehicle Cues in Aerial Imagery\" OR ti:\"DinoLink: A Token-Centric Representation Compression Framework for Bandwidth-Constrained Collaborative V2X Perception\" OR ti:\"Optimal Load Distribution Strategy Via Knee-Hip Coordinated Control for Heavy Load Lifting Assistance in Wearable Robots\" OR ti:\"A Lightweight and Portable Soft Exoskeleton for Reducing Tibialis Anterior Eccentric Load During Downhill Walking\" OR ti:\"Multimodal Error-Augmented Gait Adaptation Using a Wearable Hip Exoskeleton and Visual Feedback Distortion\" OR ti:\"Continuous Volitional Control for Underwater Exoskeletons Using Surface EMG and Phase Signals\" OR ti:\"Human-Exoskeleton Kinematic Calibration to Improve Hand Tracking for Dexterous Teleoperation\"",
+    "total": 6,
+    "returned": 6,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-2104",
+      "IROS26-4897",
+      "IROS26-766",
+      "IROS26-317",
+      "IROS26-4728",
+      "IROS26-4220",
+      "IROS26-1848",
+      "IROS26-174",
+      "IROS26-4885",
+      "IROS26-3840"
+    ],
+    "query": "ti:\"Symmetry-Driven Adaptive Torque Assistance Optimization for Active Knee Orthosis Via Non-Paretic Kinematic Priors\" OR ti:\"Blood Flow Enhancement for DVT Prevention through Active Ankle Exercises Using a Soft Robotic Wearable Device\" OR ti:\"Enabling Scalable Infrastructure-To-Vehicle Data Generation: A High-Fidelity Fusion Pipeline with a Scene Harmonizer for Visual and Logical Consistency\" OR ti:\"DiffAttn: Diffusion-Based Drivers' Visual Attention Prediction with LLM-Enhanced Semantic Reasoning\" OR ti:\"Spatial Balancing for RGB-Thermal Semantic Segmentation in Autonomous Driving: A Study from Analysis to Improvement\" OR ti:\"Automated Synthesis of Control-Aware Lyapunov Functions for Nonlinear Systems Via LLM-Guided Iterative Verification\" OR ti:\"FISRF: Flexible Instructional Scaffolding Reflection Framework for Robotics Task Planning with Large Language Model\" OR ti:\"Safety Guardrails for LLM-Enabled Robots\" OR ti:\"A Pragmatist Robot: Learning to Plan Tasks by Experiencing the Real World\" OR ti:\"AFSM-Nav: Training-Free Object Navigation Via Self-Repairing LLM-Synthesized Finite State Machines\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-428",
+      "IROS26-1158",
+      "IROS26-3437",
+      "IROS26-5062",
+      "IROS26-474",
+      "IROS26-2369",
+      "IROS26-679",
+      "IROS26-1897",
+      "IROS26-3349",
+      "IROS26-4995"
+    ],
+    "query": "ti:\"PARKOUR: Semantic-Native Navigation for Underground Parking Via Lightweight OSM and Uncertainty-Aware EKF\" OR ti:\"PlaceRecover: Layout-Invariant Point Cloud Recovery for Robust 3D Perception under LiDAR Placement Shifts\" OR ti:\"A Lightweight Modular Framework for Onboard Monocular Multi-View Satellite Imagery Analysis\" OR ti:\"Efficient and Robust Watermarking for Copyright Protection in High-Resolution Industrial Images\" OR ti:\"Preference-Driven Active 3D Scene Representation for Robotic Inspection in Nuclear Decommissioning\" OR ti:\"HaltNav: Reactive Visual Halting Over Lightweight Topological Priors for Robust Vision-Language Navigation\" OR ti:\"LibrayNav: Vision-Language Navigation for Quadruped Robots in Library Environments\" OR ti:\"DTNav: Dual-Target Vision–Language Navigation with Decoupled Topological Memory for Indoor UAVs\" OR ti:\"Spiking-Driven Global Retrieval and Graph Guided Re-Ranking for Hierarchical Place Recognition\" OR ti:\"Spike-EVPR: Deep Spiking Residual Networks with SNN-Tailored Representations for Event-Based Visual Place Recognition\"",
+    "total": 3,
+    "returned": 3,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-350",
+      "IROS26-438",
+      "IROS26-1191",
+      "IROS26-4128",
+      "IROS26-4019",
+      "IROS26-2471",
+      "IROS26-4261",
+      "IROS26-1806",
+      "IROS26-1716",
+      "IROS26-952"
+    ],
+    "query": "ti:\"Event-Based Visual Teach-And-Repeat Via Fast Fourier-Domain Cross-Correlation\" OR ti:\"High-Speed Low-Latency Visual Positioning with Event-Based Visible Light Communication\" OR ti:\"HSEM-Geo: Hierarchical Semantic Expansion with Multi-Vector Retrieval for UAV-View Geo-Localization\" OR ti:\"Localization for High-Speed Athletic Wheelchairs Using Line Semantics\" OR ti:\"GrndCtrl: Grounding World Models Via Self-Supervised Reward Alignment\" OR ti:\"Slot-Level Robotic Placement Via Visual Imitation of One Human Video\" OR ti:\"Factor Graph Guided Deep Reinforcement Learning for Uncertainty Aware SLAM Exploration\" OR ti:\"RoDyn: Taming Interactive Robot-Dynamic 2.5D World Model for Robotic Manipulation\" OR ti:\"HyTraj: A Closed-Loop End-to-End Autonomous Driving Framework Unifying Autoregressive and Non-Autoregressive Planning\" OR ti:\"ViLaD: A Large Vision Language Diffusion Framework for End-To-End Autonomous Driving\"",
+    "total": 4,
+    "returned": 4,
+    "status": "ok"
+  },
+  {
+    "input_ids": [
+      "IROS26-4895",
+      "IROS26-1196",
+      "IROS26-1835",
+      "IROS26-2553",
+      "IROS26-3266",
+      "IROS26-23",
+      "IROS26-86",
+      "IROS26-909"
+    ],
+    "query": "ti:\"NPPC: Neural Parametric Planning Cost for End-To-End Autonomous Driving\" OR ti:\"LAD-Drive: Bridging Language and Trajectory with Action-Aware Diffusion Transformers\" OR ti:\"Frontier-as-Token: Structured Spatial Reasoning for Zero-shot Object Navigation\" OR ti:\"SparseNav: Efficient Zero-Shot Object-Goal Navigation with Multi-Layer Sparse Semantic Mapping\" OR ti:\"BEACON: Language-Conditioned Navigation Affordance Prediction under Occlusion\" OR ti:\"Stairway to Success: An Online Floor-Aware Zero-Shot Object-Goal Navigation Framework Via LLM-Driven Coarse-To-Fine Exploration\" OR ti:\"Where Did I Leave My Glasses? Open-Vocabulary Semantic Exploration in Real-World Semi-Static Environments\" OR ti:\"How VLAs (Really) Work in Open-World Environments\"",
+    "total": 5,
+    "returned": 5,
+    "status": "ok"
+  }
+]

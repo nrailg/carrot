@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/mw7NgJlB28BMVtVmy8mw7aOQe2E</id>
+  <title>arXiv Query: search_query=ti:"CEI: A Unified Interface for Cross-Embodiment Visuomotor Policy Learning in 3D Space" OR ti:"Fusion-Poly: A Polyhedral Framework Based on Spatial-Temporal Fusion for 3D Multi-Object Tracking" OR ti:"FleetAgent: Teleoperation Assistant for Autonomous Fleets Via Vectorized V2N Messages" OR ti:"VehAnchor: Metadata-Free Metric Scale Recovery from Vehicle Cues in Aerial Imagery" OR ti:"DinoLink: A Token-Centric Representation Compression Framework for Bandwidth-Constrained Collaborative V2X Perception" OR ti:"Optimal Load Distribution Strategy Via Knee-Hip Coordinated Control for Heavy Load Lifting Assistance in Wearable Robots" OR ti:"A Lightweight and Portable Soft Exoskeleton for Reducing Tibialis Anterior Eccentric Load During Downhill Walking" OR ti:"Multimodal Error-Augmented Gait Adaptation Using a Wearable Hip Exoskeleton and Visual Feedback Distortion" OR ti:"Continuous Volitional Control for Underwater Exoskeletons Using Surface EMG and Phase Signals" OR ti:"Human-Exoskeleton Kinematic Calibration to Improve Hand Tracking for Dexterous Teleoperation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:19Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22CEI:+A+Unified+Interface+for+Cross-Embodiment+Visuomotor+Policy+Learning+in+3D+Space%22+OR+(ti:%22Fusion-Poly:+A+Polyhedral+Framework+Based+on+Spatial-Temporal+Fusion+for+3D+Multi-Object+Tracking%22+OR+(ti:%22FleetAgent:+Teleoperation+Assistant+for+Autonomous+Fleets+Via+Vectorized+V2N+Messages%22+OR+(ti:%22VehAnchor:+Metadata-Free+Metric+Scale+Recovery+from+Vehicle+Cues+in+Aerial+Imagery%22+OR+(ti:%22DinoLink:+A+Token-Centric+Representation+Compression+Framework+for+Bandwidth-Constrained+Collaborative+V2X+Perception%22+OR+(ti:%22Optimal+Load+Distribution+Strategy+Via+Knee-Hip+Coordinated+Control+for+Heavy+Load+Lifting+Assistance+in+Wearable+Robots%22+OR+(ti:%22A+Lightweight+and+Portable+Soft+Exoskeleton+for+Reducing+Tibialis+Anterior+Eccentric+Load+During+Downhill+Walking%22+OR+(ti:%22Multimodal+Error-Augmented+Gait+Adaptation+Using+a+Wearable+Hip+Exoskeleton+and+Visual+Feedback+Distortion%22+OR+(ti:%22Continuous+Volitional+Control+for+Underwater+Exoskeletons+Using+Surface+EMG+and+Phase+Signals%22+OR+ti:%22Human-Exoskeleton+Kinematic+Calibration+to+Improve+Hand+Tracking+for+Dexterous+Teleoperation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.21222v1</id>
+    <title>FleetAgent: Teleoperation Assistant for Autonomous Fleets via Vectorized V2N Messages</title>
+    <updated>2026-06-19T08:39:46Z</updated>
+    <link href="https://arxiv.org/abs/2606.21222v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.21222v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large-scale autonomous fleets rely on teleoperation to resolve rare failures, yet streaming raw sensor data from many vehicles is costly, and remote operators can only monitor a limited number of vehicles at a time. We introduce FleetAgent, a cloud-hosted multimodal large language model (MLLM) assistant that consumes compact vectorized vehicle-to-network (V2N) messages, such as map elements, detected objects, and the ego planned path. It provides a structured natural-language response (including narration, explanation, and evaluation of the plan and scene), along with an intervention urgency score for operator prioritization. To make structured messages compatible with token-based MLLMs, we propose VecFormer, a vector-to-embedding interface with differentiable top-K context selection that bounds context length and GPU KV-cache growth, enabling more efficient batch processing, which is important under the context of cloud-hosted large-scale fleet management. We also construct VecEval, a nuScenes-derived dataset with paired human and synthetic imperfect plans and human-verified language labels, to facilitate the training and evaluation of our proposed system. Our proposed system can reduce uplink payload by up to 625 times compared with raw images and reduce KV-cache memory by 16.54 times compared with original text descriptions. On VecEval, FleetAgent improves Lingo-Judge score by 16.8% and reduces intervention failure rate by 19.9%, compared with Qwen2.5-VL-7B using language descriptions. These results demonstrate that FleetAgent can utilize compact structured V2N messaging to enable efficient, explainable teleoperation monitoring for autonomous fleets.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-19T08:39:46Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Juntong Peng</name>
+    </author>
+    <author>
+      <name>Qi Chen</name>
+    </author>
+    <author>
+      <name>Deyuan Qu</name>
+    </author>
+    <author>
+      <name>Takayuki Shimizu</name>
+    </author>
+    <author>
+      <name>Yaobin Chen</name>
+    </author>
+    <author>
+      <name>Ziran Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.04277v2</id>
+    <title>VehAnchor: Metadata-Free Metric Scale Recovery from Vehicle Cues in Aerial Imagery</title>
+    <updated>2026-07-10T22:04:51Z</updated>
+    <link href="https://arxiv.org/abs/2603.04277v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.04277v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous aerial robots operating in GPS-denied or communication-degraded environments frequently lose access to camera metadata and telemetry, leaving onboard perception systems unable to recover the absolute metric scale of the scene. As LLM/VLM-based planners are increasingly adopted as high-level agents for embodied systems, their ability to reason about physical dimensions becomes safety-critical -- yet our experiments show that five state-of-the-art VLMs suffer from \emph{spatial scale hallucinations}, with median area estimation errors exceeding 50\%. We propose VehAnchor, a lightweight, deterministic \emph{Geometric Perception Skill} designed as a callable tool that any LLM-based agent can invoke to recover Ground Sample Distance (GSD) from ubiquitous environmental anchors: small vehicles detected via oriented bounding boxes, whose modal pixel length is robustly estimated through kernel density estimation and converted to GSD using a pre-calibrated reference length. The tool returns both a GSD estimate and a composite confidence score, enabling the calling agent to autonomously decide whether to trust the measurement or fall back to alternative strategies. On the DOTA~v1.5 benchmark, VehAnchor achieves 6.87\% median GSD error on 306~images. Integrated with SAM-based segmentation for downstream area measurement, the pipeline yields 19.7\% median error on a 100-entry benchmark -- with 2.6$\times$ lower category dependence and 4$\times$ fewer catastrophic failures than the best VLM baseline -- demonstrating that equipping agents with deterministic geometric tools is essential for safe autonomous spatial reasoning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-04T16:59:08Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yifei Chen</name>
+    </author>
+    <author>
+      <name>Chenqian Le</name>
+    </author>
+    <author>
+      <name>Jiayi Cheng</name>
+    </author>
+    <author>
+      <name>Xupeng Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.26398v2</id>
+    <title>DinoLink: A Token-Centric Representation Compression Framework for Bandwidth-Constrained Collaborative V2X Perception</title>
+    <updated>2026-06-30T17:31:21Z</updated>
+    <link href="https://arxiv.org/abs/2606.26398v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.26398v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>High-precision remote perception is often hindered by the severe bandwidth constraints of Vehicle-to-Everything (V2X) networks. We propose \textit{DinoLink}, a token-centric compression framework that replaces raw pixel streaming with discrete semantic communication for vehicle-cloud collaborative inference. DinoLink employs a dual-sparsity architecture: a saliency-aware selector prunes redundant background tokens, while a Residual Vector Quantization (RVQ) module collapses features into compact codebook indices. By transmitting only lightweight indices and positional priors, DinoLink achieves a $139\times$ bitrate reduction compared to uncompressed transmission while maintaining a competitive 32.8\% mAP on the nuScenes dataset. Deployment simulations further demonstrate a $34.5\times$ acceleration in narrow-band environments, such as LoRa. Our results substantiate DinoLink as a robust, bandwidth-efficient frontend for high-fidelity remote perception in constrained V2X scenarios. The code is publicly available at https://github.com/UGA-MOBILITY-LAB/dino_link.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-24T21:31:13Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Tianle Zhu</name>
+    </author>
+    <author>
+      <name>Haohua Que</name>
+    </author>
+    <author>
+      <name>Handong Yao</name>
+    </author>
+    <author>
+      <name>Hongyi Xu</name>
+    </author>
+    <author>
+      <name>Zhipeng Bao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.23592v3</id>
+    <title>Human-Exoskeleton Kinematic Calibration to Improve Hand Tracking for Dexterous Teleoperation</title>
+    <updated>2026-02-23T21:05:46Z</updated>
+    <link href="https://arxiv.org/abs/2507.23592v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.23592v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Hand exoskeletons are critical tools for dexterous teleoperation and immersive manipulation interfaces, but achieving accurate hand tracking remains a challenge due to user-specific anatomical variability and donning inconsistencies. These issues lead to kinematic misalignments that degrade tracking performance and limit applicability in precision tasks. We propose a subject-specific calibration framework for exoskeleton-based hand tracking that estimates virtual link parameters through residual-weighted optimization. A data-driven approach is introduced to empirically tune cost function weights using motion capture ground truth, enabling accurate and consistent calibration across users. Implemented on the Maestro hand exoskeleton with seven healthy participants, the method achieved substantial reductions in joint and fingertip tracking errors across diverse hand geometries. Qualitative visualizations using a Unity-based virtual hand further demonstrate improved motion fidelity. The proposed framework generalizes to exoskeletons with closed-loop kinematics and minimal sensing, laying the foundation for high-fidelity teleoperation and robot learning applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-31T14:29:38Z</published>
+    <arxiv:comment>8 pages, 10 figures, 1 supplementary video, submitted to RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haiyun Zhang</name>
+    </author>
+    <author>
+      <name>Stefano Dalla Gasperina</name>
+    </author>
+    <author>
+      <name>Saad N. Yousaf</name>
+    </author>
+    <author>
+      <name>Toshimitsu Tsuboi</name>
+    </author>
+    <author>
+      <name>Tetsuya Narita</name>
+    </author>
+    <author>
+      <name>Ashish D. Deshpande</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3668666</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3668666" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.09163v1</id>
+    <title>CEI: A Unified Interface for Cross-Embodiment Visuomotor Policy Learning in 3D Space</title>
+    <updated>2026-01-14T05:07:11Z</updated>
+    <link href="https://arxiv.org/abs/2601.09163v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.09163v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic foundation models trained on large-scale manipulation datasets have shown promise in learning generalist policies, but they often overfit to specific viewpoints, robot arms, and especially parallel-jaw grippers due to dataset biases. To address this limitation, we propose Cross-Embodiment Interface (\CEI), a framework for cross-embodiment learning that enables the transfer of demonstrations across different robot arm and end-effector morphologies. \CEI introduces the concept of \textit{functional similarity}, which is quantified using Directional Chamfer Distance. Then it aligns robot trajectories through gradient-based optimization, followed by synthesizing observations and actions for unseen robot arms and end-effectors. In experiments, \CEI transfers data and policies from a Franka Panda robot to \textbf{16} different embodiments across \textbf{3} tasks in simulation, and supports bidirectional transfer between a UR5+AG95 gripper robot and a UR5+Xhand robot across \textbf{6} real-world tasks, achieving an average transfer ratio of 82.4\%. Finally, we demonstrate that \CEI can also be extended with spatial generalization and multimodal motion generation capabilities using our proposed techniques. Project website: https://cross-embodiment-interface.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-14T05:07:11Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tong Wu</name>
+    </author>
+    <author>
+      <name>Shoujie Li</name>
+    </author>
+    <author>
+      <name>Junhao Gong</name>
+    </author>
+    <author>
+      <name>Changqing Guo</name>
+    </author>
+    <author>
+      <name>Xingting Li</name>
+    </author>
+    <author>
+      <name>Shilong Mu</name>
+    </author>
+    <author>
+      <name>Wenbo Ding</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.08199v2</id>
+    <title>Fusion-Poly: A Polyhedral Framework Based on Spatial-Temporal Fusion for 3D Multi-Object Tracking</title>
+    <updated>2026-08-04T05:26:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.08199v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.08199v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LiDAR-camera 3D multi-object tracking (MOT) combines rich visual semantics with accurate depth cues to improve trajectory consistency and tracking reliability. In practice, however, LiDAR and cameras operate at different sampling rates. To maintain temporal alignment, existing data pipelines usually synchronize heterogeneous sensor streams and annotate them at a reduced shared frequency, forcing most prior methods to perform spatial fusion only at synchronized timestamps through projection-based or learnable cross-sensor association. As a result, abundant asynchronous observations remain underexploited, despite their potential to support more frequent association and more robust trajectory estimation over short temporal intervals.
+  To address this limitation, we propose Fusion-Poly, a spatial-temporal fusion framework for 3D MOT that integrates asynchronous LiDAR and camera data. Fusion-Poly associates trajectories with multi-modal observations at synchronized timestamps and with single-modal observations at asynchronous timestamps, enabling higher-frequency updates of motion and existence states. The framework contains three key components: a frequency-aware cascade matching module that adapts to synchronized and asynchronous frames according to available detection modalities; a frequency-aware trajectory estimation module that maintains trajectories through high-frequency motion prediction, differential updates, and confidence-calibrated lifecycle management; and a full-state observation alignment module that improves cross-modal consistency at synchronized timestamps by optimizing image-projection errors.
+  On the nuScenes test set, Fusion-Poly achieves 76.5% AMOTA, establishing a new state of the art among tracking-by-detection 3D MOT methods. Extensive ablation studies further validate the effectiveness of each component. Code will be released.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-09T10:26:44Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xian Wu</name>
+    </author>
+    <author>
+      <name>Yitao Wu</name>
+    </author>
+    <author>
+      <name>Xiaoyu Li</name>
+    </author>
+    <author>
+      <name>Zijia Li</name>
+    </author>
+    <author>
+      <name>Lijun Zhao</name>
+    </author>
+    <author>
+      <name>Lining Sun</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/pk4RABLwGytO8Uf88U7a1H5GgnY</id>
+  <title>arXiv Query: search_query=ti:"Human-In-The-Loop Pareto Optimization: Trade-Off Characterization for Assist-As-Needed Training and Performance Evaluation" OR ti:"Distributed Connectivity Restoration and Improvement in Networked Robots" OR ti:"Probabilistic Modeling and Control for Multi-UAV Search Over Uneven Terrain" OR ti:"Go with the Flow: Understanding Coexistence between Multi-Agent Teams in Shared Environments" OR ti:"Maritime Capture the Flag Challenge: A Benchmark Sim-To-Real Competition for Multi-Robot Tactical Games" OR ti:"DiCT: Disentangled Control for Safe and Generalizable Robotic Manipulation with Diffusion Policies" OR ti:"TOCL: Task-Oriented Curriculum Learning with Functional-Frame Alignment for Tool Manipulation" OR ti:"FLIP: Real-Time and Resilient Formation Planning for Large-Scale DIstributed Swarms Via Point Cloud Registration" OR ti:"Co-Adaptive Hybrid Neural Encoding with Neuromorphic-Inspired Decoding for Two-Way Brain-Computer Interface in Multi-Drone Swarm Formation Control" OR ti:"Ori-Interface: A 4-DOF Foldable Origami Interface with Asymmetric Branch Chains and Sensing System for Human-Machine Interaction"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:35Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Human-In-The-Loop+Pareto+Optimization:+Trade-Off+Characterization+for+Assist-As-Needed+Training+and+Performance+Evaluation%22+OR+(ti:%22Distributed+Connectivity+Restoration+and+Improvement+in+Networked+Robots%22+OR+(ti:%22Probabilistic+Modeling+and+Control+for+Multi-UAV+Search+Over+Uneven+Terrain%22+OR+(ti:%22Go+with+the+Flow:+Understanding+Coexistence+between+Multi-Agent+Teams+in+Shared+Environments%22+OR+(ti:%22Maritime+Capture+the+Flag+Challenge:+A+Benchmark+Sim-To-Real+Competition+for+Multi-Robot+Tactical+Games%22+OR+(ti:%22DiCT:+Disentangled+Control+for+Safe+and+Generalizable+Robotic+Manipulation+with+Diffusion+Policies%22+OR+(ti:%22TOCL:+Task-Oriented+Curriculum+Learning+with+Functional-Frame+Alignment+for+Tool+Manipulation%22+OR+(ti:%22FLIP:+Real-Time+and+Resilient+Formation+Planning+for+Large-Scale+DIstributed+Swarms+Via+Point+Cloud+Registration%22+OR+(ti:%22Co-Adaptive+Hybrid+Neural+Encoding+with+Neuromorphic-Inspired+Decoding+for+Two-Way+Brain-Computer+Interface+in+Multi-Drone+Swarm+Formation+Control%22+OR+ti:%22Ori-Interface:+A+4-DOF+Foldable+Origami+Interface+with+Asymmetric+Branch+Chains+and+Sensing+System+for+Human-Machine+Interaction%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.29704v1</id>
+    <title>FLIP: Real-Time and Resilient Formation Planning for Large-Scale DIstributed Swarms via Point Cloud Registration</title>
+    <updated>2026-05-28T10:02:50Z</updated>
+    <link href="https://arxiv.org/abs/2605.29704v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.29704v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Traditional large-scale formation planning either oversimplify the formation representation which leads to poor performance, or they employ complete collaborative relationships, which results in excessive computational load. To achieve high-performance and large-scale formation planning, we transform the Optimal Formation Position Sequence \cite{c1} (OFPS) calculation problem into a spatiotemporal Point Cloud Registration (PCR) problem. Each agent derives its OFPS by distributively computing the matching result between current positions and the desired formation positions of all other agents. Then each agent optimizes the cooperative formation trajectory by using OFPS. We leverage the PCR method with outlier rejection to rapidly perform large-scale formation position registration. This prevents suboptimal trajectories and failed agents from propagating through the cooperative network and affecting more agents. Consequently, we uniformly achieve resilient, efficient, and distributed trajectory planning for large-scale swarms. The effectiveness and the superiority of the proposed method are demonstrated through large-scale simulations of 120-drone formation, and rigorous benchmarking against state-of-the-art (SOTA) methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-28T10:02:50Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yuan Zhou</name>
+    </author>
+    <author>
+      <name>Guangtong Xu</name>
+    </author>
+    <author>
+      <name>Zhenyu Hou</name>
+    </author>
+    <author>
+      <name>Jialiang Hou</name>
+    </author>
+    <author>
+      <name>Fei Gao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.23777v1</id>
+    <title>Human-in-the-Loop Pareto Optimization: Trade-off Characterization for Assist-as-Needed Training and Performance Evaluation</title>
+    <updated>2026-03-24T23:19:35Z</updated>
+    <link href="https://arxiv.org/abs/2603.23777v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.23777v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>During human motor skill training and physical rehabilitation, there is an inherent trade-off between task difficulty and user performance. Characterizing this trade-off is crucial for evaluating user performance, designing assist-as-needed (AAN) protocols, and assessing the efficacy of training protocols. In this study, we propose a novel human-in-the-loop (HiL) Pareto optimization approach to characterize the trade-off between task performance and the perceived challenge level of motor learning or rehabilitation tasks. We adapt Bayesian multi-criteria optimization to systematically and efficiently perform HiL Pareto characterizations. Our HiL optimization employs a hybrid model that measures performance with a quantitative metric, while the perceived challenge level is captured with a qualitative metric. We demonstrate the feasibility of the proposed HiL Pareto characterization through a user study. Furthermore, we present the utility of the framework through three use cases in the context of a manual skill training task with haptic feedback. First, we demonstrate how the characterized trade-off can be used to design a sample AAN training protocol for a motor learning task and to evaluate the group-level efficacy of the proposed AAN protocol relative to a baseline adaptive assistance protocol. Second, we demonstrate that individual-level comparisons of the trade-offs characterized before and after the training session enable fair evaluation of training progress under different assistance levels. This evaluation method is more general than standard performance evaluations, as it can provide insights even when users cannot perform the task without assistance. Third, we show that the characterized trade-offs also enable fair performance comparisons among different users, as they capture the best possible performance of each user under all feasible assistance levels.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-24T23:19:35Z</published>
+    <arxiv:comment>Under review for publication in IEEE Transactions on Haptics</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Harun Tolasa</name>
+    </author>
+    <author>
+      <name>Volkan Patoglu</name>
+    </author>
+    <arxiv:doi>10.1109/TOH.2026.3679965</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TOH.2026.3679965" title="doi"/>
+  </entry>
+</feed>

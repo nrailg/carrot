@@ -1,0 +1,1 @@
+{"paper_id": "arxiv:2608.05221", "evidence_url": "https://arxiv.org/html/2608.05221v1", "evidence_type": "arxiv_abstract_and_body", "body_note": "官方HTML第III节描述压电加速度和应变传感器，有限元辅助布置；V-A节将加速度CFC1000滤波，对峰峰值、RMS、频带加速度及速度特征训练阈值，五分类器多数投票检测撞击。", "reason": "原摘要仅称结构传感和AI，正文补充具体方法。"}

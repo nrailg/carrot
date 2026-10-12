@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/A9eg0MnOIRsx0T75BVn1K0M/Rpw</id>
+  <title>arXiv Query: search_query=ti:"An Accelerated Search for the Moving Target Traveling Salesman Problem with Obstacles Based on Polyanya" OR ti:"Observation-Conditioned Rollout Allocation for Sampling Model Predictive Control on Myopic Egocentric Elevation Maps" OR ti:"SDERI: Autonomous Navigation with Safe Subgoal Distributions and Exploration-Replanning Index in Dynamic Environments" OR ti:"Graph-Lite ReMEmbR: Minimal Structure for Scalable Retrieval in Embodied Robot Memory" OR ti:"FUSION: A Framework with Unified Scan-To-Scan and Map-To-Map Integration for Online Static Map Generation" OR ti:"Physical Process-Informed Mapping for Interpretable Robotic Exploration of Natural Phenomena" OR ti:"ShapeICP: Iterative Category-Level Object Pose and Shape Estimation from Depth" OR ti:"MirageMarker: A Black-Box Pose Estimation Attack for Autonomous UAV Landing" OR ti:"TrackDeform3D: Markerless and Autonomous 3D Keypoint Tracking and Dataset Collection for Deformable Objects" OR ti:"PhysQuantAgent: An Inference Pipeline of Mass Estimation for Vision-Language Models"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:07Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22An+Accelerated+Search+for+the+Moving+Target+Traveling+Salesman+Problem+with+Obstacles+Based+on+Polyanya%22+OR+(ti:%22Observation-Conditioned+Rollout+Allocation+for+Sampling+Model+Predictive+Control+on+Myopic+Egocentric+Elevation+Maps%22+OR+(ti:%22SDERI:+Autonomous+Navigation+with+Safe+Subgoal+Distributions+and+Exploration-Replanning+Index+in+Dynamic+Environments%22+OR+(ti:%22Graph-Lite+ReMEmbR:+Minimal+Structure+for+Scalable+Retrieval+in+Embodied+Robot+Memory%22+OR+(ti:%22FUSION:+A+Framework+with+Unified+Scan-To-Scan+and+Map-To-Map+Integration+for+Online+Static+Map+Generation%22+OR+(ti:%22Physical+Process-Informed+Mapping+for+Interpretable+Robotic+Exploration+of+Natural+Phenomena%22+OR+(ti:%22ShapeICP:+Iterative+Category-Level+Object+Pose+and+Shape+Estimation+from+Depth%22+OR+(ti:%22MirageMarker:+A+Black-Box+Pose+Estimation+Attack+for+Autonomous+UAV+Landing%22+OR+(ti:%22TrackDeform3D:+Markerless+and+Autonomous+3D+Keypoint+Tracking+and+Dataset+Collection+for+Deformable+Objects%22+OR+ti:%22PhysQuantAgent:+An+Inference+Pipeline+of+Mass+Estimation+for+Vision-Language+Models%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.17068v2</id>
+    <title>TrackDeform3D: Markerless and Autonomous 3D Keypoint Tracking and Dataset Collection for Deformable Objects</title>
+    <updated>2026-07-20T14:27:50Z</updated>
+    <link href="https://arxiv.org/abs/2603.17068v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.17068v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Structured 3D representations such as keypoints and meshes offer compact, expressive descriptions of deformable objects, jointly capturing geometric and topological information useful for downstream tasks such as dynamics modeling and motion planning. However, robustly extracting such representations remains challenging, as current perception methods struggle to handle complex deformations. Moreover, large-scale 3D data collection remains a bottleneck: existing approaches either require prohibitive data collection efforts, such as labor-intensive annotation or expensive motion capture setups, or rely on simplifying assumptions that break down in unstructured environments. As a result, large-scale 3D datasets and benchmarks for deformable objects remain scarce. To address these challenges, this paper presents an affordable and autonomous framework for collecting 3D datasets of deformable objects using only RGB-D cameras. The proposed method identifies 3D keypoints and robustly tracks their trajectories, incorporating motion consistency constraints to produce temporally smooth and geometrically coherent data. TrackDeform3D is evaluated against several state-of-the-art tracking methods across diverse object categories and demonstrates consistent improvements in both geometric and tracking accuracy. Using this framework, this paper presents a high-quality, large-scale dataset consisting of 6 deformable objects, totaling 110 minutes of trajectory data. Project page: https://roahmlab.github.io/trackDeform3D-core-tracking/</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-17T18:53:04Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yeheng Zong</name>
+    </author>
+    <author>
+      <name>Yizhou Chen</name>
+    </author>
+    <author>
+      <name>Alexander Bowler</name>
+    </author>
+    <author>
+      <name>Chia-Tung Yang</name>
+    </author>
+    <author>
+      <name>Ram Vasudevan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2408.13147v3</id>
+    <title>ShapeICP: Iterative Category-level Object Pose and Shape Estimation from Depth</title>
+    <updated>2025-10-05T04:13:57Z</updated>
+    <link href="https://arxiv.org/abs/2408.13147v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.13147v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Category-level object pose and shape estimation from a single depth image has recently drawn research attention due to its potential utility for tasks such as robotics manipulation. The task is particularly challenging because the three unknowns, object pose, object shape, and model-to-measurement correspondences, are compounded together, but only a single view of depth measurements is provided. Most of the prior work heavily relies on data-driven approaches to obtain solutions to at least one of the unknowns, and typically two, risking generalization failures if not designed and trained carefully. The shape representations used in the prior work also mainly focus on point clouds and signed distance fields (SDFs). In stark contrast to the prior work, we approach the problem using an iterative estimation method that does not require learning from pose-annotated data. Moreover, we construct and adopt a novel mesh-based object active shape model (ASM), which additionally maintains vertex connectivity compared to the commonly used point-based object ASM. Our algorithm, ShapeICP, is based on the iterative closest point (ICP) algorithm but is equipped with additional features for the category-level pose and shape estimation task. Although not using pose-annotated data, ShapeICP surpasses many data-driven approaches that rely on pose data for training, opening up a new solution space for researchers to consider.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-23T15:12:55Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yihao Zhang</name>
+    </author>
+    <author>
+      <name>Harpreet S. Sawhney</name>
+    </author>
+    <author>
+      <name>John J. Leonard</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.16958v1</id>
+    <title>PhysQuantAgent: An Inference Pipeline of Mass Estimation for Vision-Language Models</title>
+    <updated>2026-03-17T02:35:36Z</updated>
+    <link href="https://arxiv.org/abs/2603.16958v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.16958v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language Models (VLMs) are increasingly applied to robotic perception and manipulation, yet their ability to infer physical properties required for manipulation remains limited. In particular, estimating the mass of real-world objects is essential for determining appropriate grasp force and ensuring safe interaction. However, current VLMs lack reliable mass reasoning capabilities, and most existing benchmarks do not explicitly evaluate physical quantity estimation under realistic sensing conditions. In this work, we propose PhysQuantAgent, a framework for real-world object mass estimation using VLMs, together with VisPhysQuant, a new benchmark dataset for evaluation. VisPhysQuant consists of RGB-D videos of real objects captured from multiple viewpoints, annotated with precise mass measurements. To improve estimation accuracy, we introduce three visual prompting methods that enhance the input image with object detection, scale estimation, and cross-sectional image generation to help the model comprehend the size and internal structure of the target object. Experiments show that visual prompting significantly improves mass estimation accuracy on real-world data, suggesting the efficacy of integrating spatial reasoning with VLM knowledge for physical inference.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-17T02:35:36Z</published>
+    <arxiv:comment>Code and dataset will be available at https://github.com/hisasnow/PhysQuantAgent</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hisayuki Yokomizo</name>
+    </author>
+    <author>
+      <name>Taiki Miyanishi</name>
+    </author>
+    <author>
+      <name>Yan Gang</name>
+    </author>
+    <author>
+      <name>Shuhei Kurita</name>
+    </author>
+    <author>
+      <name>Nakamasa Inoue</name>
+    </author>
+    <author>
+      <name>Yusuke Iwasawa</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/cN0vbtYAu3jBCQXxFeBcei/B3Yw</id>
+  <title>arXiv Query: search_query=ti:"RoboRetriever: Single-Camera Robot Object Retrieval Via Active and Interactive Perception with Dynamic Scene Graph" OR ti:"Agentic Scene Policies: Unifying Space, Semantics, and Affordances for Robot Action" OR ti:"E³VT: An Effective and Efficient VLA Framework for Embodied Visual Tracking in the Wild" OR ti:"Long-Term Memory for VLA-Based Agents in Open-World Task Execution" OR ti:"Weakly-Supervised Multi-View X-Ray to CT Registration Via Differentiable Rendering with Cross-View Consistency Constraints" OR ti:"Simplifying Robotic Ultrasound Calibration Via Conic Sections Geometry" OR ti:"From Gaze to Action: A Hands-Free Robotic Ultrasound System Via Gaze-Embodied Perception" OR ti:"Force Safety by Geometry: Equivalent Displacement Manifolds for Autonomous Ultrasound Scanning" OR ti:"Kinematically Decoupled Dual-Stream Ego-Motion Estimation for Trackerless Endoscopic Ultrasound Tracking" OR ti:"ISF-VLA: An Implicit 3D Vision-Language-Action Model Capitalizing on 3D-Aware Vision Foundation Models through Implicit Spatial Fusion"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:56Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22RoboRetriever:+Single-Camera+Robot+Object+Retrieval+Via+Active+and+Interactive+Perception+with+Dynamic+Scene+Graph%22+OR+(ti:%22Agentic+Scene+Policies:+Unifying+Space,+Semantics,+and+Affordances+for+Robot+Action%22+OR+(ti:%22E%C2%B3VT:+An+Effective+and+Efficient+VLA+Framework+for+Embodied+Visual+Tracking+in+the+Wild%22+OR+(ti:%22Long-Term+Memory+for+VLA-Based+Agents+in+Open-World+Task+Execution%22+OR+(ti:%22Weakly-Supervised+Multi-View+X-Ray+to+CT+Registration+Via+Differentiable+Rendering+with+Cross-View+Consistency+Constraints%22+OR+(ti:%22Simplifying+Robotic+Ultrasound+Calibration+Via+Conic+Sections+Geometry%22+OR+(ti:%22From+Gaze+to+Action:+A+Hands-Free+Robotic+Ultrasound+System+Via+Gaze-Embodied+Perception%22+OR+(ti:%22Force+Safety+by+Geometry:+Equivalent+Displacement+Manifolds+for+Autonomous+Ultrasound+Scanning%22+OR+(ti:%22Kinematically+Decoupled+Dual-Stream+Ego-Motion+Estimation+for+Trackerless+Endoscopic+Ultrasound+Tracking%22+OR+ti:%22ISF-VLA:+An+Implicit+3D+Vision-Language-Action+Model+Capitalizing+on+3D-Aware+Vision+Foundation+Models+through+Implicit+Spatial+Fusion%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2508.12916v1</id>
+    <title>RoboRetriever: Single-Camera Robot Object Retrieval via Active and Interactive Perception with Dynamic Scene Graph</title>
+    <updated>2025-08-18T13:31:23Z</updated>
+    <link href="https://arxiv.org/abs/2508.12916v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.12916v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humans effortlessly retrieve objects in cluttered, partially observable environments by combining visual reasoning, active viewpoint adjustment, and physical interaction-with only a single pair of eyes. In contrast, most existing robotic systems rely on carefully positioned fixed or multi-camera setups with complete scene visibility, which limits adaptability and incurs high hardware costs. We present \textbf{RoboRetriever}, a novel framework for real-world object retrieval that operates using only a \textbf{single} wrist-mounted RGB-D camera and free-form natural language instructions. RoboRetriever grounds visual observations to build and update a \textbf{dynamic hierarchical scene graph} that encodes object semantics, geometry, and inter-object relations over time. The supervisor module reasons over this memory and task instruction to infer the target object and coordinate an integrated action module combining \textbf{active perception}, \textbf{interactive perception}, and \textbf{manipulation}. To enable task-aware scene-grounded active perception, we introduce a novel visual prompting scheme that leverages large reasoning vision-language models to determine 6-DoF camera poses aligned with the semantic task goal and geometry scene context. We evaluate RoboRetriever on diverse real-world object retrieval tasks, including scenarios with human intervention, demonstrating strong adaptability and robustness in cluttered scenes with only one RGB-D camera.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-18T13:31:23Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hecheng Wang</name>
+    </author>
+    <author>
+      <name>Jiankun Ren</name>
+    </author>
+    <author>
+      <name>Jia Yu</name>
+    </author>
+    <author>
+      <name>Lizhe Qi</name>
+    </author>
+    <author>
+      <name>Yunquan Sun</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.15671v2</id>
+    <title>Long-Term Memory for VLA-based Agents in Open-World Task Execution</title>
+    <updated>2026-08-03T03:27:10Z</updated>
+    <link href="https://arxiv.org/abs/2604.15671v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.15671v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language-Action (VLA) models have demonstrated significant potential for embodied decision-making; however, their application in complex chemical laboratory automation remains restricted by limited long-horizon reasoning and the absence of persistent experience accumulation. Existing frameworks typically treat planning and execution as decoupled processes, often failing to consolidate successful strategies, which results in inefficient trial-and-error in multi-stage protocols. In this paper, we propose ChemBot, a dual-layer, closed-loop framework that integrates an autonomous AI agent with a progress-aware VLA model (Skill-VLA) for hierarchical task decomposition and execution. ChemBot utilizes a dual-layer memory architecture to consolidate successful trajectories into retrievable assets, while a Model Context Protocol (MCP) server facilitates efficient sub-agent and tool orchestration. To address the inherent limitations of VLA models, we further implement a future-state-based asynchronous inference mechanism to mitigate trajectory discontinuities. Extensive experiments on collaborative robots demonstrate that ChemBot achieves superior operational safety, precision, and task success rates compared to existing VLA baselines in complex, long-horizon chemical experimentation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-17T03:49:41Z</published>
+    <arxiv:comment>Added references</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Xu Huang</name>
+    </author>
+    <author>
+      <name>Weixin Mao</name>
+    </author>
+    <author>
+      <name>Yinhao Li</name>
+    </author>
+    <author>
+      <name>Hua Chen</name>
+    </author>
+    <author>
+      <name>Jiabao Zhao</name>
+    </author>
+  </entry>
+</feed>

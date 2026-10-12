@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/6w8jzoabvnAuHGBumBnVHFCwD+w</id>
+  <title>arXiv Query: search_query=ti:"Learning Contextual Motion Constraints for Object Rearrangement Exploration" OR ti:"A Flexible Manipulation Framework for Transmission-Line Robots Via Weakly-Textured Pose Estimation and Disturbance-Adaptive Control" OR ti:"Contact-Aware Morphology Optimization Via Physically Consistent Differentiable Simulation" OR ti:"Risk-Aware Receding-Horizon Planning for Underwater Vehicles under Model Uncertainty" OR ti:"Cross-Platform Control for Autonomous Surface Vehicles Via Adaptive Reinforcement Learning" OR ti:"Optimized Decoupling Control and Cross-Domain Validation of a V-Shaped Quadrant-Habitat Fan-Wing Vehicle — Optimized for Underwater Operations" OR ti:"Formation-Scalable Multi-USV Path Following in Rough Sea States Via Reinforcement Learning with Collective Graph" OR ti:"Toward Source Navigation: A Time-Series Enhanced Monte Carlo Tree Search Method with Coordination Graphs" OR ti:"Multi-Agent Coordination Through Stigmergy for Canal Network Formation on Real Terrain" OR ti:"Persistent Space-Level Path Segment Finding for Multiple Nonholonomic Agents"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:48Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Learning+Contextual+Motion+Constraints+for+Object+Rearrangement+Exploration%22+OR+(ti:%22A+Flexible+Manipulation+Framework+for+Transmission-Line+Robots+Via+Weakly-Textured+Pose+Estimation+and+Disturbance-Adaptive+Control%22+OR+(ti:%22Contact-Aware+Morphology+Optimization+Via+Physically+Consistent+Differentiable+Simulation%22+OR+(ti:%22Risk-Aware+Receding-Horizon+Planning+for+Underwater+Vehicles+under+Model+Uncertainty%22+OR+(ti:%22Cross-Platform+Control+for+Autonomous+Surface+Vehicles+Via+Adaptive+Reinforcement+Learning%22+OR+(ti:%22Optimized+Decoupling+Control+and+Cross-Domain+Validation+of+a+V-Shaped+Quadrant-Habitat+Fan-Wing+Vehicle+%E2%80%94+Optimized+for+Underwater+Operations%22+OR+(ti:%22Formation-Scalable+Multi-USV+Path+Following+in+Rough+Sea+States+Via+Reinforcement+Learning+with+Collective+Graph%22+OR+(ti:%22Toward+Source+Navigation:+A+Time-Series+Enhanced+Monte+Carlo+Tree+Search+Method+with+Coordination+Graphs%22+OR+(ti:%22Multi-Agent+Coordination+Through+Stigmergy+for+Canal+Network+Formation+on+Real+Terrain%22+OR+ti:%22Persistent+Space-Level+Path+Segment+Finding+for+Multiple+Nonholonomic+Agents%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.02037v1</id>
+    <title>Cross-Platform Control for Autonomous Surface Vehicles via Adaptive Reinforcement Learning</title>
+    <updated>2026-07-02T11:04:21Z</updated>
+    <link href="https://arxiv.org/abs/2607.02037v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.02037v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous surface vehicles vary widely in hydrodynamic and actuation characteristics, yet most controllers are designed for single-platform deployment. We present an adaptive reinforcement learning approach for trajectory tracking that enables zero-shot cross-platform deployment using a single policy. Since the deployment platform's dynamics are unknown to the policy, we address cross-platform generalization with the standard partial-observability approach of conditioning on interaction history, employing a teacher-student architecture in which a learned module infers a latent representation of the platform dynamics. The policy is trained in simulation under randomized vessel dynamics and is deployed zero-shot to two real-world platforms without any fine-tuning, despite relying on a simple analytical dynamics model rather than a high-fidelity hydrodynamic simulator. In real-world experiments on two different platforms, the adaptive policy outperforms non-adaptive learning-based baselines by up to 58% in position mean absolute error while approaching the tracking accuracy of a platform-specific tuned controller.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-02T11:04:21Z</published>
+    <arxiv:comment>Video: https://youtu.be/dnxb0W-GLK8</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ruiheng Jiang</name>
+    </author>
+    <author>
+      <name>Thomas Bi</name>
+    </author>
+    <author>
+      <name>Raffaello D'Andrea</name>
+    </author>
+    <author>
+      <name>Aswin Ramachandran</name>
+    </author>
+  </entry>
+</feed>

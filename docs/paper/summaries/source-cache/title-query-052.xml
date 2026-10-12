@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/BGjbMuA+VWjamiokMVoD2tseylw</id>
+  <title>arXiv Query: search_query=ti:"MSC: Multi-Stage Caster-Aware Control Framework with Uncertainty-Aware NMPC and RL-Based Execution Layer" OR ti:"DexEMG: Towards Dexterous Teleoperation System Via EMG2Pose Generalization" OR ti:"TransRetarget: A Human-Robot Hand Motion Retargeting Framework Based on Temporal-Spatial Transformer" OR ti:"TeleDex: Accessible Dexterous Teleoperation" OR ti:"A Hardware-Efficient Neuromorphic Interface for sEMG-Based Dexterous Hand Control" OR ti:"MIRROR: Visual Motion Imitation Via Real-Time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics" OR ti:"Unsupervised Discovery of Failure Taxonomies from Deployment Logs" OR ti:"GRACE: A Tunable Metric Unifying Accuracy and Efficiency for Robotics Evaluation" OR ti:"REALM: A Real-To-Sim Validated Benchmark for Generalization in Robotic Manipulation" OR ti:"Reproducibility of Legacy ROS-Based Research Code through Transparent Docker Integration"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:16Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22MSC:+Multi-Stage+Caster-Aware+Control+Framework+with+Uncertainty-Aware+NMPC+and+RL-Based+Execution+Layer%22+OR+(ti:%22DexEMG:+Towards+Dexterous+Teleoperation+System+Via+EMG2Pose+Generalization%22+OR+(ti:%22TransRetarget:+A+Human-Robot+Hand+Motion+Retargeting+Framework+Based+on+Temporal-Spatial+Transformer%22+OR+(ti:%22TeleDex:+Accessible+Dexterous+Teleoperation%22+OR+(ti:%22A+Hardware-Efficient+Neuromorphic+Interface+for+sEMG-Based+Dexterous+Hand+Control%22+OR+(ti:%22MIRROR:+Visual+Motion+Imitation+Via+Real-Time+Retargeting+and+Teleoperation+with+Parallel+Differential+Inverse+Kinematics%22+OR+(ti:%22Unsupervised+Discovery+of+Failure+Taxonomies+from+Deployment+Logs%22+OR+(ti:%22GRACE:+A+Tunable+Metric+Unifying+Accuracy+and+Efficiency+for+Robotics+Evaluation%22+OR+(ti:%22REALM:+A+Real-To-Sim+Validated+Benchmark+for+Generalization+in+Robotic+Manipulation%22+OR+ti:%22Reproducibility+of+Legacy+ROS-Based+Research+Code+through+Transparent+Docker+Integration%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.05861v1</id>
+    <title>DexEMG: Towards Dexterous Teleoperation System via EMG2Pose Generalization</title>
+    <updated>2026-03-06T03:36:33Z</updated>
+    <link href="https://arxiv.org/abs/2603.05861v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.05861v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>High-fidelity teleoperation of dexterous robotic hands is essential for bringing robots into unstructured domestic environments. However, existing teleoperation systems often face a trade-off between performance and portability: vision-based capture systems are constrained by costs and line-of-sight requirements, while mechanical exoskeletons are bulky and physically restrictive. In this paper, we present DexEMG, a lightweight and cost-effective teleoperation system leveraging surface electromyography (sEMG) to bridge the gap between human intent and robotic execution. We first collect a synchronized dataset of sEMG signals and hand poses via a MoCap glove to train EMG2Pose, a neural network capable of continuously predicting hand kinematics directly from muscle activity. To ensure seamless control, we develop a robust hand retargeting algorithm that maps the predicted poses onto a multi-fingered dexterous hand in real-time. Experimental results demonstrate that DexEMG achieves high precision in diverse teleoperation tasks. Notably, our system exhibits strong generalization capabilities across novel objects and complex environments without the need for intensive individual-specific recalibration. This work offers a scalable and intuitive interface for both general-purpose robotic manipulation and assistive technologies.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T03:36:33Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Qianyou Zhao</name>
+    </author>
+    <author>
+      <name>Wenqiao Li</name>
+    </author>
+    <author>
+      <name>Chiyu Wang</name>
+    </author>
+    <author>
+      <name>Kaifeng Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.23995v1</id>
+    <title>MIRROR: Visual Motion Imitation via Real-time Retargeting and Teleoperation with Parallel Differential Inverse Kinematics</title>
+    <updated>2026-03-25T06:49:58Z</updated>
+    <link href="https://arxiv.org/abs/2603.23995v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.23995v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Real-time humanoid teleoperation requires inverse kinematics (IK) solvers that are both responsive and constraint-safe under kinematic redundancy and self-collision constraints. While differential IK enables efficient online retargeting, its locally linearized updates are inherently basin-dependent and often become trapped near joint limits, singularities, or active collision boundaries, leading to unsafe or stagnant behavior. We propose a GPU-parallelized, continuation-based differential IK that improves escape from such constraint-induced local minima while preserving real-time performance, promoting safety and stability. Multiple constrained IK quadratic programs are evaluated in parallel, together with a self-collision avoidance control barrier function (CBF), and a Lyapunov-based progression criterion selects updates that reduce the final global task-space error. The method is paired with a visual skeletal pose estimation pipeline that enables robust, real-time upper-body teleoperation on the THEMIS humanoid robot hardware in real-world tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-25T06:49:58Z</published>
+    <arxiv:comment>8 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Junheng Li</name>
+    </author>
+    <author>
+      <name>Lizhi Yang</name>
+    </author>
+    <author>
+      <name>Aaron D. Ames</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.06570v4</id>
+    <title>Unsupervised Discovery of Failure Taxonomies from Deployment Logs</title>
+    <updated>2026-07-18T21:30:42Z</updated>
+    <link href="https://arxiv.org/abs/2506.06570v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.06570v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As robotic systems become increasingly integrated into real-world environments, ranging from autonomous vehicles to household assistants, they inevitably encounter diverse and unstructured scenarios that lead to failures. While such failures pose safety and reliability challenges, they also provide rich perceptual data for improving system robustness. However, manually analyzing large-scale failure datasets is impractical and does not scale. In this work, we introduce the problem of unsupervised discovery of failure taxonomies from large volumes of raw failure logs, aiming to obtain semantically coherent and actionable failure modes directly from perceptual trajectories. Our approach first infers structured failure explanations from multimodal inputs using vision language reasoning, then clusters them in the resulting semantic reasoning space, discovering recurring failure modes rather than isolated episode-level descriptions. We evaluate our method across robotic manipulation, indoor navigation, and autonomous driving domains, demonstrating that the discovered taxonomies are consistent, interpretable, and useful in practice. In particular, we show that structured failure taxonomies guide targeted data collection for offline policy refinement and enhance runtime failure monitoring systems. Website: https://mllm-failure-clustering.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-06T22:50:39Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Aryaman Gupta</name>
+    </author>
+    <author>
+      <name>Yusuf Umut Ciftci</name>
+    </author>
+    <author>
+      <name>Somil Bansal</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.19562v1</id>
+    <title>REALM: A Real-to-Sim Validated Benchmark for Generalization in Robotic Manipulation</title>
+    <updated>2025-12-22T16:44:23Z</updated>
+    <link href="https://arxiv.org/abs/2512.19562v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.19562v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language-Action (VLA) models empower robots to understand and execute tasks described by natural language instructions. However, a key challenge lies in their ability to generalize beyond the specific environments and conditions they were trained on, which is presently difficult and expensive to evaluate in the real-world. To address this gap, we present REALM, a new simulation environment and benchmark designed to evaluate the generalization capabilities of VLA models, with a specific emphasis on establishing a strong correlation between simulated and real-world performance through high-fidelity visuals and aligned robot control. Our environment offers a suite of 15 perturbation factors, 7 manipulation skills, and more than 3,500 objects. Finally, we establish two task sets that form our benchmark and evaluate the π_{0}, π_{0}-FAST, and GR00T N1.5 VLA models, showing that generalization and robustness remain an open challenge. More broadly, we also show that simulation gives us a valuable proxy for the real-world and allows us to systematically probe for and quantify the weaknesses and failure modes of VLAs. Project page: https://martin-sedlacek.com/realm</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-22T16:44:23Z</published>
+    <arxiv:comment>9 pages, 10 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Martin Sedlacek</name>
+    </author>
+    <author>
+      <name>Pavlo Yefanov</name>
+    </author>
+    <author>
+      <name>Georgy Ponimatkin</name>
+    </author>
+    <author>
+      <name>Jai Bardhan</name>
+    </author>
+    <author>
+      <name>Simon Pilc</name>
+    </author>
+    <author>
+      <name>Mederic Fourmy</name>
+    </author>
+    <author>
+      <name>Evangelos Kazakos</name>
+    </author>
+    <author>
+      <name>Cees G. M. Snoek</name>
+    </author>
+    <author>
+      <name>Josef Sivic</name>
+    </author>
+    <author>
+      <name>Vladimir Petrik</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.17065v2</id>
+    <title>TeleDex: Accessible Dexterous Teleoperation</title>
+    <updated>2026-03-20T14:00:30Z</updated>
+    <link href="https://arxiv.org/abs/2603.17065v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.17065v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Despite increasing dataset scale and model capacity, robot manipulation policies still struggle to generalize beyond their training distributions. As a result, deploying state-of-the-art policies in new environments, tasks, or robot embodiments often requires collecting additional demonstrations. Enabling this in real-world deployment settings requires tools that allow users to collect demonstrations quickly, affordably, and with minimal setup. We present TeleDex, an open-source system for intuitive teleoperation of dexterous hands and robotic manipulators using any readily available phone. The system streams low-latency 6-DoF wrist poses and articulated 21-DoF hand state estimates from the phone, which are retargeted to robot arms and multi-fingered hands without requiring external tracking infrastructure. TeleDex supports both a handheld phone-only mode and an optional 3D-printable hand-mounted interface for finger-level teleoperation. By lowering the hardware and setup barriers to dexterous teleoperation, TeleDex enables users to quickly collect demonstrations during deployment to support policy fine-tuning. We evaluate the system across simulation and real-world manipulation tasks, demonstrating its effectiveness as a unified scalable interface for robot teleoperation. All software and hardware designs, along with demonstration videos, are open-source and available at orayyan.com/teledex.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-17T18:50:15Z</published>
+    <arxiv:comment>For project website and videos, see https://www.orayyan.com/teledex</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Omar Rayyan</name>
+    </author>
+    <author>
+      <name>Maximilian Gilles</name>
+    </author>
+    <author>
+      <name>Yuchen Cui</name>
+    </author>
+  </entry>
+</feed>

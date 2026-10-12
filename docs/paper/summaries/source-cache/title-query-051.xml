@@ -1,0 +1,152 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/cwGYAzhbj73qbGH3V5/mkSezRVc</id>
+  <title>arXiv Query: search_query=ti:"Stream3DSplat: Progressive Gaussian Mapping with Multi-View Geometry for Long Sequences" OR ti:"ProDyGS: Dynamic Gaussian Splatting from a Single Static Monocular Camera" OR ti:"Efficient Detailing and Update of 3D Gaussian Splatting from Feed-Forward Models' Prediction" OR ti:"InstantSfM: Towards GPU-Native SfM for the Deep Learning Era" OR ti:"AnchorD: Metric Grounding of Monocular Depth Using Factor Graphs" OR ti:"AI-Driven Dispensing of Coral Reseeding Devices for Broad-Scale Restoration of the Great Barrier Reef" OR ti:"RobotDesign1M: A Large-Scale Dataset for Robot Design Understanding" OR ti:"LOGICWorld: Automated Deep Logic Generation for Interactive Reasoning in Embodied Agents" OR ti:"Constraint Learning in Multi-Agent Dynamic Games from Demonstrations of Local Nash Interactions" OR ti:"Total Response Time Estimation for On-Grid Protection Systems in Renewable Smart Grids Using Transient Kinetic Energy Waveform Analysis"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:12Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Stream3DSplat:+Progressive+Gaussian+Mapping+with+Multi-View+Geometry+for+Long+Sequences%22+OR+(ti:%22ProDyGS:+Dynamic+Gaussian+Splatting+from+a+Single+Static+Monocular+Camera%22+OR+(ti:%22Efficient+Detailing+and+Update+of+3D+Gaussian+Splatting+from+Feed-Forward+Models'+Prediction%22+OR+(ti:%22InstantSfM:+Towards+GPU-Native+SfM+for+the+Deep+Learning+Era%22+OR+(ti:%22AnchorD:+Metric+Grounding+of+Monocular+Depth+Using+Factor+Graphs%22+OR+(ti:%22AI-Driven+Dispensing+of+Coral+Reseeding+Devices+for+Broad-Scale+Restoration+of+the+Great+Barrier+Reef%22+OR+(ti:%22RobotDesign1M:+A+Large-Scale+Dataset+for+Robot+Design+Understanding%22+OR+(ti:%22LOGICWorld:+Automated+Deep+Logic+Generation+for+Interactive+Reasoning+in+Embodied+Agents%22+OR+(ti:%22Constraint+Learning+in+Multi-Agent+Dynamic+Games+from+Demonstrations+of+Local+Nash+Interactions%22+OR+ti:%22Total+Response+Time+Estimation+for+On-Grid+Protection+Systems+in+Renewable+Smart+Grids+Using+Transient+Kinetic+Energy+Waveform+Analysis%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.01019v3</id>
+    <title>AI-driven Dispensing of Coral Reseeding Devices for Broad-scale Restoration of the Great Barrier Reef</title>
+    <updated>2026-09-28T06:43:00Z</updated>
+    <link href="https://arxiv.org/abs/2509.01019v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.01019v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Coral reefs are on the brink of collapse, with climate change, ocean acidification, and pollution leading to a projected 70-90% loss of coral species within the next decade. Reef restoration is crucial, but its success hinges on introducing automation to upscale efforts. In this work, we present a highly configurable AI pipeline for the real-time deployment of coral reseeding devices. The pipeline consists of three core components: (i) the image labeling scheme, designed to address data availability and reduce the cost of expert labeling; (ii) the classifier which performs automated analysis of underwater imagery, at the image or patch-level, while also enabling quantitative coral coverage estimation; and (iii) the decision-making module that determines whether deployment should occur based on the classifier's analysis. By reducing reliance on manual experts, our proposed pipeline increases operational range and efficiency of reef restoration. We validate the proposed pipeline at five sites across the Great Barrier Reef, benchmarking its performance against annotations from expert marine scientists. The pipeline achieves 77.8% deployment accuracy, 89.1% accuracy for sub-image patch classification, and real-time model inference at 5.5 frames per second on a Jetson Orin. To address the limited availability of labeled data in this domain and encourage further research, we publicly release a comprehensive, annotated dataset of substrate imagery from the surveyed sites.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-31T23:09:51Z</published>
+    <arxiv:comment>Published in the Proceedings of the IEEE/RSJ International Conference on Intelligent Robots and Systems, 2026. 8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Scarlett Raine</name>
+    </author>
+    <author>
+      <name>Emilio Olivastri</name>
+    </author>
+    <author>
+      <name>Benjamin Moshirian</name>
+    </author>
+    <author>
+      <name>Tobias Fischer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.13310v3</id>
+    <title>InstantSfM: Towards GPU-Native SfM for the Deep Learning Era</title>
+    <updated>2026-07-21T19:26:24Z</updated>
+    <link href="https://arxiv.org/abs/2510.13310v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.13310v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Structure-from-Motion (SfM) is a fundamental technique for recovering camera poses and scene structure from multi-view imagery, serving as a critical upstream component for applications ranging from 3D reconstruction to modern neural scene representations such as 3D Gaussian Splatting. However, most mature SfM systems remain CPU-centric and built upon traditional optimization toolchains, creating a growing mismatch with modern GPU-based, learning-driven pipelines and limiting scalability in large-scale scenes. While recent advances in GPU-accelerated bundle adjustment (BA) have demonstrated the potential of parallel sparse optimization, extending these techniques to build a complete global SfM system remains challenging due to unresolved issues in metric scale recovery and numerical robustness. In this paper, we implement a fully GPU-based and PyTorch-compatible global SfM system, named InstantSfM, to integrate seamlessly with modern learning pipelines. InstantSfM embeds metric depth priors directly into both global positioning and BA through a depth-constrained Jacobian structure, thereby resolving scale ambiguity within the optimization framework. To ensure numerical stability, we employ explicit filtering of under-constrained variables for the Jacobian matrix in an optimized GPU-friendly manner. Extensive experiments on diverse datasets demonstrate that InstantSfM achieves state-of-the-art efficiency while maintaining reconstruction accuracy comparable to both established classical pipelines and recent learning-based methods, showing up to ${\sim40\times}$ speedup over COLMAP on large-scale scenes.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-15T08:58:05Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jiankun Zhong</name>
+    </author>
+    <author>
+      <name>Zitong Zhan</name>
+    </author>
+    <author>
+      <name>Quankai Gao</name>
+    </author>
+    <author>
+      <name>Ziyu Chen</name>
+    </author>
+    <author>
+      <name>Haozhe Lou</name>
+    </author>
+    <author>
+      <name>Jiageng Mao</name>
+    </author>
+    <author>
+      <name>Ulrich Neumann</name>
+    </author>
+    <author>
+      <name>Chen Wang</name>
+    </author>
+    <author>
+      <name>Yue Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2609.32711v1</id>
+    <title>ProDyGS: Dynamic Gaussian Splatting from a Single Static Monocular Camera</title>
+    <updated>2026-09-26T15:20:54Z</updated>
+    <link href="https://arxiv.org/abs/2609.32711v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2609.32711v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present ProDyGS, a novel dynamic 3D Gaussian Splatting framework for high-quality novel view synthesis from videos captured by a single static camera. While existing methods rely on multi-view setups or significant camera motion for geometric constraints, our approach addresses the challenging scenario where multi-view supervision is completely absent. We overcome this limitation by generating synthetic multi-view supervision through depth-guided proxy image synthesis. Specifically, we estimate temporally consistent depth maps using foundational monocular depth networks, then construct 3D Gaussian representations that generate proxy images from arbitrary viewpoints. A deformation network learns temporal dynamics by warping canonical Gaussians using this augmented supervision. Experiments on the DyNeRF dataset demonstrate that our method achieves state-of-the-art performance while requiring only monocular depth estimation as external supervision, outperforming approaches that rely on stronger priors such as scene flow.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-09-26T15:20:54Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Ugo Leone Cavalcanti</name>
+    </author>
+    <author>
+      <name>Fabio Tosi</name>
+    </author>
+    <author>
+      <name>Matteo Poggi</name>
+    </author>
+    <author>
+      <name>Andrea Conti</name>
+    </author>
+    <author>
+      <name>Vladimir Zlokolica</name>
+    </author>
+    <author>
+      <name>Valerio Cambareri</name>
+    </author>
+    <author>
+      <name>Stefano Mattoccia</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.02667v1</id>
+    <title>AnchorD: Metric Grounding of Monocular Depth Using Factor Graphs</title>
+    <updated>2026-05-04T14:48:52Z</updated>
+    <link href="https://arxiv.org/abs/2605.02667v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.02667v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Dense and accurate depth estimation is essential for robotic manipulation, grasping, and navigation, yet currently available depth sensors are prone to errors on transparent, specular, and general non-Lambertian surfaces. To mitigate these errors, large-scale monocular depth estimation approaches provide strong structural priors, but their predictions can be potentially skewed or mis-scaled in metric units, limiting their direct use in robotics. Thus, in this work, we propose a training-free depth grounding framework that anchors monocular depth estimation priors from a depth foundation model in raw sensor depth through factor graph optimization. Our method performs a patch-wise affine alignment, locally grounding monocular predictions in metric real-world depth while preserving fine-grained geometric structure and discontinuities. To facilitate evaluation in challenging real-world conditions, we introduce a benchmark dataset with dense scene-wide ground truth depth in the presence of non-Lambertian objects. Ground truth is obtained via matte reflection spray and multi-camera fusion, overcoming the reliance on object-only CAD-based annotations used in prior datasets. Extensive evaluations across diverse sensors and domains demonstrate consistent improvements in depth performance without any (re-)training. We make our implementation publicly available at https://anchord.cs.uni-freiburg.de.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-04T14:48:52Z</published>
+    <arxiv:comment>8 pages, 9 Figures, 3 Tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Simon Dorer</name>
+    </author>
+    <author>
+      <name>Martin Büchner</name>
+    </author>
+    <author>
+      <name>Nick Heppert</name>
+    </author>
+    <author>
+      <name>Abhinav Valada</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.19945v5</id>
+    <title>Constraint Learning in Multi-Agent Dynamic Games from Demonstrations of Local Nash Interactions</title>
+    <updated>2026-03-18T14:56:02Z</updated>
+    <link href="https://arxiv.org/abs/2508.19945v5" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.19945v5" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present an inverse dynamic game-based algorithm to learn parametric constraints from a given dataset of local Nash equilibrium interactions between multiple agents. Specifically, we introduce mixed-integer linear programs (MILP) encoding the Karush-Kuhn-Tucker (KKT) conditions of the interacting agents, which recover constraints consistent with the local Nash stationarity of the interaction demonstrations. We establish theoretical guarantees that our method learns inner approximations of the true safe and unsafe sets. We also use the interaction constraints recovered by our method to design motion plans that robustly satisfy the underlying constraints. Across simulations and hardware experiments, our methods accurately inferred constraints and designed safe interactive motion plans for various classes of constraints, both convex and non-convex, from interaction demonstrations of agents with nonlinear dynamics.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-27T15:01:09Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Zhouyu Zhang</name>
+    </author>
+    <author>
+      <name>Chih-Yuan Chiu</name>
+    </author>
+    <author>
+      <name>Glen Chou</name>
+    </author>
+  </entry>
+</feed>

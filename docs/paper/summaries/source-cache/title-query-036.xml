@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/YYlTVegoTIDDHf7RPigbkxdyApM</id>
+  <title>arXiv Query: search_query=ti:"Encoding Material Safety Using Control Barrier Functions for Soft Actuator Control" OR ti:"An Open-Source, Reproducible Tensegrity Robot That Can Navigate among Obstacles" OR ti:"Morphology-Aware Graph Reinforcement Learning for Tensegrity Robot Locomotion" OR ti:"Proposal Unification and Radar-Guided Orientation Refinement for Annotation-Free 3D Object Detection" OR ti:"Intra-Class Geometric Variation Via 2D-To-3D Generative Models for Reducing the Synthetic-To-Real Gap" OR ti:"GLASS: A Global and Local Adaptive Segmentation System for Robust Transparent Object Perception" OR ti:"HD-Fusion: Hierarchical Dynamic Fusion of LiDAR-Camera for Robust 3-D Object Detection" OR ti:"Certifiable Alignment of GNSS and Local Frames Via Lagrangian Duality" OR ti:"Adaptive Multi-Modal Out-Of-Distribution Detection for Trajectory Prediction in Autonomous Vehicles" OR ti:"Moving Instance Segmentation on 4D Radar Point Cloud Via FlowNet3D with Global Attention"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:13Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Encoding+Material+Safety+Using+Control+Barrier+Functions+for+Soft+Actuator+Control%22+OR+(ti:%22An+Open-Source,+Reproducible+Tensegrity+Robot+That+Can+Navigate+among+Obstacles%22+OR+(ti:%22Morphology-Aware+Graph+Reinforcement+Learning+for+Tensegrity+Robot+Locomotion%22+OR+(ti:%22Proposal+Unification+and+Radar-Guided+Orientation+Refinement+for+Annotation-Free+3D+Object+Detection%22+OR+(ti:%22Intra-Class+Geometric+Variation+Via+2D-To-3D+Generative+Models+for+Reducing+the+Synthetic-To-Real+Gap%22+OR+(ti:%22GLASS:+A+Global+and+Local+Adaptive+Segmentation+System+for+Robust+Transparent+Object+Perception%22+OR+(ti:%22HD-Fusion:+Hierarchical+Dynamic+Fusion+of+LiDAR-Camera+for+Robust+3-D+Object+Detection%22+OR+(ti:%22Certifiable+Alignment+of+GNSS+and+Local+Frames+Via+Lagrangian+Duality%22+OR+(ti:%22Adaptive+Multi-Modal+Out-Of-Distribution+Detection+for+Trajectory+Prediction+in+Autonomous+Vehicles%22+OR+ti:%22Moving+Instance+Segmentation+on+4D+Radar+Point+Cloud+Via+FlowNet3D+with+Global+Attention%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.05798v1</id>
+    <title>An Open-Source, Reproducible Tensegrity Robot that can Navigate Among Obstacles</title>
+    <updated>2025-11-08T02:07:07Z</updated>
+    <link href="https://arxiv.org/abs/2511.05798v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.05798v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tensegrity robots, composed of rigid struts and elastic tendons, provide impact resistance, low mass, and adaptability to unstructured terrain. Their compliance and complex, coupled dynamics, however, present modeling and control challenges, hindering path planning and obstacle avoidance. This paper presents a complete, open-source, and reproducible system that enables navigation for a 3-bar tensegrity robot. The system comprises: (i) an inexpensive, open-source hardware design, and (ii) an integrated, open-source software stack for physics-based modeling, system identification, state estimation, path planning, and control. All hardware and software are publicly available at https://sites.google.com/view/tensegrity-navigation/. The proposed system tracks the robot's pose and executes collision-free paths to a specified goal among known obstacle locations. System robustness is demonstrated through experiments involving unmodeled environmental challenges, including a vertical drop, an incline, and granular media, culminating in an outdoor field demonstration. To validate reproducibility, experiments were conducted using robot instances at two different laboratories. This work provides the robotics community with a complete navigation system for a compliant, impact-resistant, and shape-morphing robot. This system is intended to serve as a springboard for advancing the navigation capabilities of other unconventional robotic platforms.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-08T02:07:07Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>William R. Johnson</name>
+    </author>
+    <author>
+      <name>Patrick Meng</name>
+    </author>
+    <author>
+      <name>Nelson Chen</name>
+    </author>
+    <author>
+      <name>Luca Cimatti</name>
+    </author>
+    <author>
+      <name>Augustin Vercoutere</name>
+    </author>
+    <author>
+      <name>Mridul Aanjaneya</name>
+    </author>
+    <author>
+      <name>Rebecca Kramer-Bottiglio</name>
+    </author>
+    <author>
+      <name>Kostas E. Bekris</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.23623v1</id>
+    <title>Encoding Material Safety using Control Barrier Functions for Soft Actuator Control</title>
+    <updated>2025-09-28T03:57:51Z</updated>
+    <link href="https://arxiv.org/abs/2509.23623v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.23623v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Until recently, the concept of soft robot safety was an informal notion, often attributed solely to the fact that soft robots are less likely to damage their operating environment than rigid robots. As the field moves toward feedback control for practical applications, it becomes increasingly important to define what safety means and to characterize how soft robots can become unsafe. The unifying theme of soft robotics is to achieve useful functionality through deformation. Consequently, limitations in constitutive model accuracy and risks of material failure are inherent to all soft robots and pose a key challenge in designing provably safe controllers. This work introduces a formal definition of material safety based on strain energy functions and provides a controller that enforces it. We characterize safe and unsafe sets of an incompressible hyperelastic material and demonstrate that safety can be enforced using a high-order control barrier function (HOCBF) with quadratic program-based feedback control. As a case study, we consider a pressurized hyperelastic tube with inertial effects, first-order viscous effects, and full-state feedback. Simulation results verify that the proposed methodology can enforce the material safety specification.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-28T03:57:51Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nicholas Pagliocca</name>
+    </author>
+    <author>
+      <name>Behrad Koohbor</name>
+    </author>
+    <author>
+      <name>Mitja Trkov</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.20931v2</id>
+    <title>Certifiable Alignment of GNSS and Local Frames via Lagrangian Duality</title>
+    <updated>2026-05-19T13:36:51Z</updated>
+    <link href="https://arxiv.org/abs/2512.20931v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.20931v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Estimating the absolute orientation of a local system relative to a global navigation satellite system (GNSS) reference often suffers from local minima and high dependency on satellite availability. Existing methods for this alignment task rely on abundant satellites unavailable in GNSS-degraded environments, or use local optimization methods which cannot guarantee the optimality of a solution. This work introduces a globally optimal solver that transforms raw pseudo-range or Doppler measurements into a convexly relaxed problem. The proposed method is certifiable, meaning it can numerically verify the correctness of the result, filling a gap where existing local optimizers fail. We first formulate the original frame alignment problem as a nonconvex quadratically constrained quadratic program (QCQP) problem and relax the QCQP problem to a concave Lagrangian dual problem that provides a lower cost bound for the original problem. Then we perform relaxation tightness and observability analysis to derive criteria for certifiable optimality of the solution. Finally, simulation and real world experiments are conducted to evaluate the proposed method. The experiments show that our method provides certifiably optimal solutions even with only 2 satellites with Doppler measurements and 2D vehicle motion, while the traditional velocity-based VOBA method and the advanced GVINS alignment technique may fail or converge to local optima without notice. To support the development of GNSS-based navigation techniques in robotics, all code and data are open-sourced at https://github.com/Baoshan-Song/Certifiable-Doppler-alignment.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-24T04:24:33Z</published>
+    <arxiv:comment>Final version in RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Baoshan Song</name>
+    </author>
+    <author>
+      <name>Matthew Giamou</name>
+    </author>
+    <author>
+      <name>Penggao Yan</name>
+    </author>
+    <author>
+      <name>Chunxi Xia</name>
+    </author>
+    <author>
+      <name>Li-Ta Hsu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.26067v2</id>
+    <title>Morphology-Aware Graph Reinforcement Learning for Tensegrity Robot Locomotion</title>
+    <updated>2026-05-11T00:16:15Z</updated>
+    <link href="https://arxiv.org/abs/2510.26067v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.26067v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tensegrity robots combine rigid rods and elastic cables, offering high resilience and deployability but at the same time posing major challenges for locomotion control due to their underactuated and highly coupled dynamics. This paper introduces a morphology-aware reinforcement learning framework that integrates a graph neural network (GNN) into the Soft Actor-Critic (SAC) algorithm. By representing the robot's physical topology as a graph, the proposed GNN-based policy captures coupling among components, enabling faster and more stable learning than conventional multilayer perceptron (MLP) policies. The method is validated on a physical 3-bar tensegrity robot across three locomotion primitives, including straight-line tracking and bidirectional turning. It shows superior sample efficiency, robustness to noise and stiffness variations, and improved trajectory accuracy. Additionally, the learned policies transfer directly from simulation to hardware without fine-tuning, achieving stable real-world locomotion. These results demonstrate the advantages of incorporating structural priors into reinforcement learning for tensegrity robot control.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-30T01:53:32Z</published>
+    <arxiv:comment>8 pages, 10 figures. Project page: https://tensegrity-graph-rl.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chi Zhang</name>
+    </author>
+    <author>
+      <name>Mingrui Li</name>
+    </author>
+    <author>
+      <name>Wenzhe Tong</name>
+    </author>
+    <author>
+      <name>Xiaonan Huang</name>
+    </author>
+  </entry>
+</feed>

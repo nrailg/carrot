@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/LcRCBgaMakUlGFRfVpoQa0Tr9Bg</id>
+  <title>arXiv Query: search_query=ti:"An Adaptive Reflected Velocity Decision Strategy towards Online Table Tennis Ball Bouncing Task" OR ti:"De-Ghosting Depth: Mitigating Spatio-Temporal Misalignment Via Drivable Area Constraints" OR ti:"PolarDepth: Polarization-Guided Monocular Depth for Visual Odometry" OR ti:"EDE-Distill: Boosting Event-based Monocular Depth Estimation Performance via Knowledge Distillation" OR ti:"SV-RCNN: Robust Structural-Encoded Voxel Features for 3D Object Detection on Sparse Point Clouds" OR ti:"Open-Vocabulary Semantic Segmentation for Dynamic 3D Scenes Using Scene Flow Estimation" OR ti:"TriLift: Interpolation-Free Tri-Plane Lifting for Efficient 3D Perception on Embedded Systems" OR ti:"A Simple Recipe for Leveraging Dual Foundation Models in Domain Generalised Semantic Segmentation" OR ti:"CoLoRA: Optimal Transport Meets LoRA for Multi-Domain Open-Vocabulary Segmentation" OR ti:"3D Open-Vocabulary Detection Via Visual Alignment and Generative Captions"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:44Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22An+Adaptive+Reflected+Velocity+Decision+Strategy+towards+Online+Table+Tennis+Ball+Bouncing+Task%22+OR+(ti:%22De-Ghosting+Depth:+Mitigating+Spatio-Temporal+Misalignment+Via+Drivable+Area+Constraints%22+OR+(ti:%22PolarDepth:+Polarization-Guided+Monocular+Depth+for+Visual+Odometry%22+OR+(ti:%22EDE-Distill:+Boosting+Event-based+Monocular+Depth+Estimation+Performance+via+Knowledge+Distillation%22+OR+(ti:%22SV-RCNN:+Robust+Structural-Encoded+Voxel+Features+for+3D+Object+Detection+on+Sparse+Point+Clouds%22+OR+(ti:%22Open-Vocabulary+Semantic+Segmentation+for+Dynamic+3D+Scenes+Using+Scene+Flow+Estimation%22+OR+(ti:%22TriLift:+Interpolation-Free+Tri-Plane+Lifting+for+Efficient+3D+Perception+on+Embedded+Systems%22+OR+(ti:%22A+Simple+Recipe+for+Leveraging+Dual+Foundation+Models+in+Domain+Generalised+Semantic+Segmentation%22+OR+(ti:%22CoLoRA:+Optimal+Transport+Meets+LoRA+for+Multi-Domain+Open-Vocabulary+Segmentation%22+OR+ti:%223D+Open-Vocabulary+Detection+Via+Visual+Alignment+and+Generative+Captions%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.14641v2</id>
+    <title>TriLift: Interpolation-Free Tri-Plane Lifting for Efficient 3D Perception on Embedded Systems</title>
+    <updated>2026-06-19T13:54:35Z</updated>
+    <link href="https://arxiv.org/abs/2509.14641v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.14641v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Dense 3D convolutions provide high accuracy for perception but are too computationally expensive for real-time robotic systems. Existing tri-plane methods rely on 2D image features with interpolation, point-wise queries, and implicit MLPs, which makes them computationally heavy and unsuitable for embedded 3D inference. As an alternative, we propose TriLift, a novel interpolation-free tri-plane lifting and volumetric fusion framework that directly projects 3D voxels into plane features and reconstructs a feature volume through broadcast and summation. This shifts nonlinearity to 2D convolutions, reducing complexity while remaining fully parallelizable. To mitigate spatial information loss inherent in projections, we incorporate a lightweight adaptive positional encoding module that helps bridge the spatial information gap, dynamically recovering fine geometric details with negligible overhead. To capture global context, we add a low-resolution volumetric branch fused with the lifted features through a lightweight integration layer, yielding a design that is both efficient and end-to-end GPU-accelerated. To validate the effectiveness of the proposed method, we conduct experiments on classification, completion, segmentation, and detection, and we map the trade-off between efficiency and accuracy across tasks. Results show that classification and completion retain or improve accuracy, while segmentation and detection show a trade-off, significantly reducing computational demand with only a slight decrease in accuracy. On-device benchmarks on an NVIDIA Jetson Orin Nano confirm robust real-time throughput, demonstrating the suitability of the approach for embedded robotic perception.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-18T05:43:24Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sibaek Lee</name>
+    </author>
+    <author>
+      <name>Jiung Yeon</name>
+    </author>
+    <author>
+      <name>Hyeonwoo Yu</name>
+    </author>
+  </entry>
+</feed>

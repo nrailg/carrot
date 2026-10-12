@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/VWFcXsEzqdDWl4q7pTJ2Gizupe4</id>
+  <title>arXiv Query: search_query=ti:"KoopGait: Koopman Operator Learning on Plantar Pressure for Parkinsonian Gait Perception" OR ti:"Hierarchical Long-Sequence Modeling for Weakly-Supervised Depression Assessment" OR ti:"Design of a Multimodal Companion Robot for Elderly Care: Enhancing Affective Intelligence with Context-Aware Enactments" OR ti:"Learning to Adapt: Reptile-D-Learning for Robust and Efficient Control under Parametric Uncertainty" OR ti:"Aleatoric-Epistemic Uncertainty Decomposition for Principled Corrective Control and Adaptive Model Selection" OR ti:"Homeostatic Learning: Gradient-Free Adaptation Via Degeneracy in Sensor-Motor Mappings" OR ti:"Online Learning-Enhanced High Order Adaptive Safety Control" OR ti:"A Sensor-Integrated Robotic Platform with Directionally Robust Gas-Wind Sensing and Measure-In-Motion Search forOdor Source Localization under Time-Varying Wind" OR ti:"H-IPP: Altitude-Adaptive Informative Path Planning with Multiple UAVs" OR ti:"Multi-Robot Collaborative SLAM (Multi-SLAM) with Distributed Lightweight Predictive Frontier Exploration (LPFE)"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:21Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22KoopGait:+Koopman+Operator+Learning+on+Plantar+Pressure+for+Parkinsonian+Gait+Perception%22+OR+(ti:%22Hierarchical+Long-Sequence+Modeling+for+Weakly-Supervised+Depression+Assessment%22+OR+(ti:%22Design+of+a+Multimodal+Companion+Robot+for+Elderly+Care:+Enhancing+Affective+Intelligence+with+Context-Aware+Enactments%22+OR+(ti:%22Learning+to+Adapt:+Reptile-D-Learning+for+Robust+and+Efficient+Control+under+Parametric+Uncertainty%22+OR+(ti:%22Aleatoric-Epistemic+Uncertainty+Decomposition+for+Principled+Corrective+Control+and+Adaptive+Model+Selection%22+OR+(ti:%22Homeostatic+Learning:+Gradient-Free+Adaptation+Via+Degeneracy+in+Sensor-Motor+Mappings%22+OR+(ti:%22Online+Learning-Enhanced+High+Order+Adaptive+Safety+Control%22+OR+(ti:%22A+Sensor-Integrated+Robotic+Platform+with+Directionally+Robust+Gas-Wind+Sensing+and+Measure-In-Motion+Search+forOdor+Source+Localization+under+Time-Varying+Wind%22+OR+(ti:%22H-IPP:+Altitude-Adaptive+Informative+Path+Planning+with+Multiple+UAVs%22+OR+ti:%22Multi-Robot+Collaborative+SLAM+(Multi-SLAM)+with+Distributed+Lightweight+Predictive+Frontier+Exploration+(LPFE)%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.25659v1</id>
+    <title>Learning to Adapt: Reptile-D-Learning for Robust and Efficient Control Under Parametric Uncertainty</title>
+    <updated>2026-06-24T10:11:29Z</updated>
+    <link href="https://arxiv.org/abs/2606.25659v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.25659v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning-based Lyapunov Control (LLC) provides formal stability guarantees for nonlinear systems, but its validity relies heavily on accurate system models. Parameter variations and uncertainties may invalidate stability constraints, leading to costly retraining. Although D-learning can estimate Lyapunov derivatives without relying on explicit dynamics models, it remains limited by single-task dynamics and degrades under large parameter shifts. We propose Reptile-D-learning, a framework that leverages the Reptile meta-learning algorithm to capture shared dynamical structures across systems with different parameters, thereby learning a generalizable Lyapunov network initialization and a high-performance controller. Experiments on multiple nonlinear control systems demonstrate that Reptile-D-learning significantly improves both generalization and rapid adaptation to unseen parameter configurations.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-24T10:11:29Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haipeng Cao</name>
+    </author>
+    <author>
+      <name>Zhaolong Shen</name>
+    </author>
+    <author>
+      <name>Quan Quan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.19651v2</id>
+    <title>Online Learning-Enhanced High Order Adaptive Safety Control</title>
+    <updated>2026-04-12T19:02:00Z</updated>
+    <link href="https://arxiv.org/abs/2511.19651v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.19651v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Control barrier functions (CBFs) are an effective model-based tool to formally certify the safety of a system. With the growing complexity of modern control problems, CBFs have received increasing attention in both optimization-based and learning-based control communities as a safety filter, owing to their provable guarantees. However, success in transferring these guarantees to real-world systems is critically tied to model accuracy. For example, payloads or wind disturbances can significantly influence the dynamics of an aerial vehicle and invalidate the safety guarantee. In this work, we propose an efficient yet flexible online learning-enhanced high-order adaptive control barrier function using Neural ODEs. Our approach improves the safety of a CBF controller on the fly, even under complex time-varying model perturbations. In particular, we deploy our hybrid adaptive CBF controller on a 38g nano quadrotor, keeping a safe distance from the obstacle, against 18km/h wind.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-24T19:32:02Z</published>
+    <arxiv:comment>8 pages, 8 figures, accepted by RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lishuo Pan</name>
+    </author>
+    <author>
+      <name>Mattia Catellani</name>
+    </author>
+    <author>
+      <name>Thales C. Silva</name>
+    </author>
+    <author>
+      <name>Lorenzo Sabattini</name>
+    </author>
+    <author>
+      <name>Nora Ayanian</name>
+    </author>
+  </entry>
+</feed>

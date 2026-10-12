@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/x9+dY6crGYkAsvAe4hBSF3GyA7M</id>
+  <title>arXiv Query: search_query=ti:"Synthetic Enclosed Echoes: A New Dataset to Mitigate the Gap between Simulated and Real-World Sonar Data" OR ti:"SeePerSea: Multi-Modal Perception Dataset of In-Water Objects for Autonomous Surface Vehicles" OR ti:"Field Validation of Prior-Based Image Compression for Tetherless Operation of Underwater Remotely Operated Vehicles" OR ti:"HeteroTac-Lift: Empirical Lift Admission Via Heterogeneous Bilateral Tactile Servoing and Risk-Budgeted Compliance" OR ti:"Data-Driven Optimization of Tactile Sensor Configurations for Dexterous Manipulation" OR ti:"Physics-Guided Residual Learning for Real-Time Stiffness Estimation in Soft-On-Soft Contacts" OR ti:"Trajectory-Based Diffusion from One‑shot Human Video for Generalizable Manipulation" OR ti:"CLAM: Continuous Latent Action Models for Robot Learning from Unlabeled Demonstrations" OR ti:"Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation" OR ti:"Collective Learning for Unified Robotic Manipulation Via Predictive Dynamics Adaption"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:15Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Synthetic+Enclosed+Echoes:+A+New+Dataset+to+Mitigate+the+Gap+between+Simulated+and+Real-World+Sonar+Data%22+OR+(ti:%22SeePerSea:+Multi-Modal+Perception+Dataset+of+In-Water+Objects+for+Autonomous+Surface+Vehicles%22+OR+(ti:%22Field+Validation+of+Prior-Based+Image+Compression+for+Tetherless+Operation+of+Underwater+Remotely+Operated+Vehicles%22+OR+(ti:%22HeteroTac-Lift:+Empirical+Lift+Admission+Via+Heterogeneous+Bilateral+Tactile+Servoing+and+Risk-Budgeted+Compliance%22+OR+(ti:%22Data-Driven+Optimization+of+Tactile+Sensor+Configurations+for+Dexterous+Manipulation%22+OR+(ti:%22Physics-Guided+Residual+Learning+for+Real-Time+Stiffness+Estimation+in+Soft-On-Soft+Contacts%22+OR+(ti:%22Trajectory-Based+Diffusion+from+One%E2%80%91shot+Human+Video+for+Generalizable+Manipulation%22+OR+(ti:%22CLAM:+Continuous+Latent+Action+Models+for+Robot+Learning+from+Unlabeled+Demonstrations%22+OR+(ti:%22Kinematics-Aware+Diffusion+Policy+with+Consistent+3D+Observation+and+Action+Space+for+Whole-Arm+Robotic+Manipulation%22+OR+ti:%22Collective+Learning+for+Unified+Robotic+Manipulation+Via+Predictive+Dynamics+Adaption%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.15465v2</id>
+    <title>Synthetic Enclosed Echoes: A New Dataset to Mitigate the Gap Between Simulated and Real-World Sonar Data</title>
+    <updated>2026-09-23T18:24:49Z</updated>
+    <link href="https://arxiv.org/abs/2505.15465v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.15465v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper introduces Synthetic Enclosed Echoes (SEE), a novel dataset designed to enhance robot perception and 3D reconstruction capabilities in underwater environments. SEE comprises high-fidelity synthetic sonar data, complemented by a smaller subset of real-world sonar data. To facilitate flexible data acquisition, a simulated environment has been developed, enabling the generation of additional data through modifications such as the inclusion of new structures or imaging sonar configurations. This hybrid approach leverages the advantages of synthetic data, including readily available ground truth and the ability to generate diverse datasets, while bridging the simulation-to-reality gap with real-world data acquired in a similar environment. The SEE dataset comprehensively evaluates acoustic data-based methods, including mathematics-based sonar approaches and deep learning algorithms. These techniques were employed to validate the dataset, confirming its suitability for underwater 3D reconstruction. Furthermore, this paper proposes a novel modification to a state-of-the-art algorithm, demonstrating improved performance compared to existing methods. The SEE dataset enables the evaluation of acoustic data-based methods in realistic scenarios, thereby improving their feasibility for real-world underwater applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-21T12:44:14Z</published>
+    <arxiv:comment>This paper has been accepted for publication in the Proceedings of the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2026)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guilherme de Oliveira</name>
+    </author>
+    <author>
+      <name>Matheus M. dos Santos</name>
+    </author>
+    <author>
+      <name>Paulo L. J. Drews-Jr</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.17568v1</id>
+    <title>Kinematics-Aware Diffusion Policy with Consistent 3D Observation and Action Space for Whole-Arm Robotic Manipulation</title>
+    <updated>2025-12-19T13:34:29Z</updated>
+    <link href="https://arxiv.org/abs/2512.17568v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.17568v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Whole-body control of robotic manipulators with awareness of full-arm kinematics is crucial for many manipulation scenarios involving body collision avoidance or body-object interactions, which makes it insufficient to consider only the end-effector poses in policy learning. The typical approach for whole-arm manipulation is to learn actions in the robot's joint space. However, the unalignment between the joint space and actual task space (i.e., 3D space) increases the complexity of policy learning, as generalization in task space requires the policy to intrinsically understand the non-linear arm kinematics, which is difficult to learn from limited demonstrations. To address this issue, this letter proposes a kinematics-aware imitation learning framework with consistent task, observation, and action spaces, all represented in the same 3D space. Specifically, we represent both robot states and actions using a set of 3D points on the arm body, naturally aligned with the 3D point cloud observations. This spatially consistent representation improves the policy's sample efficiency and spatial generalizability while enabling full-body control. Built upon the diffusion policy, we further incorporate kinematics priors into the diffusion processes to guarantee the kinematic feasibility of output actions. The joint angle commands are finally calculated through an optimization-based whole-body inverse kinematics solver for execution. Simulation and real-world experimental results demonstrate higher success rates and stronger spatial generalizability of our approach compared to existing methods in body-aware manipulation policy learning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-19T13:34:29Z</published>
+    <arxiv:comment>The first two authors contributed equally. Project Website: https://kinematics-aware-diffusion-policy.github.io</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kangchen Lv</name>
+    </author>
+    <author>
+      <name>Mingrui Yu</name>
+    </author>
+    <author>
+      <name>Yongyi Jia</name>
+    </author>
+    <author>
+      <name>Chenyu Zhang</name>
+    </author>
+    <author>
+      <name>Xiang Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.04999v2</id>
+    <title>CLAM: Continuous Latent Action Models for Robot Learning from Unlabeled Demonstrations</title>
+    <updated>2026-07-30T01:04:01Z</updated>
+    <link href="https://arxiv.org/abs/2505.04999v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.04999v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning robot control policies from demonstrations typically requires action-labeled expert data, which is expensive to collect through teleoperation. We study a more practical setting in which expert demonstrations are available only as observation sequences without action labels, and only task-agnostic play data contains actions. We introduce continuous latent action models (CLAM), a framework that infers continuous latent actions between consecutive observations using self-supervised dynamics prediction. To ground these latent actions into executable motor commands, CLAM jointly trains an action decoder using a small amount of task-agnostic play data. We show that continuous latent actions combined with this joint training are essential for high-dimensional continuous control. Across DMControl locomotion, MetaWorld manipulation, and real-world WidowX robot tasks, CLAM improves average task success rates by 2-3x over prior latent-action baselines and approaches behavior cloning trained with privileged expert action labels. Our results demonstrate that effective robot policies can be learned from unlabeled demonstrations and deployed on real hardware without collecting expert action-labeled data. Videos and code are available at clamrobot.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-08T07:07:58Z</published>
+    <arxiv:comment>Latent Action Models, Self-supervised Pretraining, Learning from Videos</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE/RSJ International Conference on Intelligent Robots and Systems 2026</arxiv:journal_ref>
+    <author>
+      <name>Anthony Liang</name>
+    </author>
+    <author>
+      <name>Pavel Czempin</name>
+    </author>
+    <author>
+      <name>Matthew M. Hong</name>
+    </author>
+    <author>
+      <name>Yutai Zhou</name>
+    </author>
+    <author>
+      <name>Jingzhen Wang</name>
+    </author>
+    <author>
+      <name>Erdem Biyik</name>
+    </author>
+    <author>
+      <name>Stephen Tu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2404.18411v3</id>
+    <title>SeePerSea: Multi-modal Perception Dataset of In-water Objects for Autonomous Surface Vehicles</title>
+    <updated>2026-01-11T16:23:43Z</updated>
+    <link href="https://arxiv.org/abs/2404.18411v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2404.18411v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper introduces the first publicly accessible labeled multi-modal perception dataset for autonomous maritime navigation, focusing on in-water obstacles within the aquatic environment to enhance situational awareness for Autonomous Surface Vehicles (ASVs). This dataset, collected over 4 years and consisting of diverse objects encountered under varying environmental conditions, aims to bridge the research gap in ASVs by providing a multi-modal, annotated, and ego-centric perception dataset, for object detection and classification. We also show the applicability of the proposed dataset by training and testing current deep learning-based open-source perception algorithms that have shown success in the autonomous ground vehicle domain. With the training and testing results, we discuss open challenges for existing datasets and methods, identifying future research directions. We expect that our dataset will contribute to the development of future marine autonomy pipelines and marine (field) robotics. This dataset is open source and found at https://seepersea.github.io/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-04-29T04:00:19Z</published>
+    <arxiv:comment>Topic: Special Issue on ICRA 2024 Workshop on Field Robotics</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Transactions on Field Robotics 2 (2025) - 737-752</arxiv:journal_ref>
+    <author>
+      <name>Mingi Jeong</name>
+    </author>
+    <author>
+      <name>Arihant Chadda</name>
+    </author>
+    <author>
+      <name>Ziang Ren</name>
+    </author>
+    <author>
+      <name>Luyang Zhao</name>
+    </author>
+    <author>
+      <name>Haowen Liu</name>
+    </author>
+    <author>
+      <name>Monika Roznere</name>
+    </author>
+    <author>
+      <name>Aiwei Zhang</name>
+    </author>
+    <author>
+      <name>Yitao Jiang</name>
+    </author>
+    <author>
+      <name>Sabriel Achong</name>
+    </author>
+    <author>
+      <name>Samuel Lensgraf</name>
+    </author>
+    <author>
+      <name>Alberto Quattrini Li</name>
+    </author>
+    <arxiv:doi>10.1109/TFR.2025.3602937</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TFR.2025.3602937" title="doi"/>
+  </entry>
+</feed>

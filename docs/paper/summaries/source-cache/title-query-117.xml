@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/PoGAaYsOWn3JOW5379daNWkTthM</id>
+  <title>arXiv Query: search_query=ti:"Event-Grounding Graph: Unified Spatio-Temporal Scene Graph from Robotic Observations" OR ti:"Uncertainty-Aware Zero-Shot Object Navigation Via Semantic Bayesian Belief" OR ti:"µA-VLA: A Multi-Agent Online Self-Healing Framework for Long-Horizon Robotic Manipulation" OR ti:"Anomaly Detection for Generic Failure Monitoring in Robotic Assembly, Screwing and Manipulation" OR ti:"Failure Detection and Recovery for Quadrotors in the Presence of Severe Rotor Failures with Multiple Model L1 Adaptive Controller" OR ti:"Visual-Tactile Peg-In-Hole Assembly Learning from Peg-Out-Of-Hole Disassembly" OR ti:"Hierarchical Reactive Grasping for Contact-Rich Manipulation Via Topological Visuo-Tactile Learning" OR ti:"Signal-To-Syntax: A Language-Based Framework for Few-Shot Classification Using Robot Manipulator with Haptic Perception" OR ti:"FILIC: Dual-Loop Force-Guided Imitation Learning with Impedance Torque Control for Contact-Rich Manipulation Tasks" OR ti:"ForceMapping: Learning Visual-Force Features from Vision for Soft Objects Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:39Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Event-Grounding+Graph:+Unified+Spatio-Temporal+Scene+Graph+from+Robotic+Observations%22+OR+(ti:%22Uncertainty-Aware+Zero-Shot+Object+Navigation+Via+Semantic+Bayesian+Belief%22+OR+(ti:%22%C2%B5A-VLA:+A+Multi-Agent+Online+Self-Healing+Framework+for+Long-Horizon+Robotic+Manipulation%22+OR+(ti:%22Anomaly+Detection+for+Generic+Failure+Monitoring+in+Robotic+Assembly,+Screwing+and+Manipulation%22+OR+(ti:%22Failure+Detection+and+Recovery+for+Quadrotors+in+the+Presence+of+Severe+Rotor+Failures+with+Multiple+Model+L1+Adaptive+Controller%22+OR+(ti:%22Visual-Tactile+Peg-In-Hole+Assembly+Learning+from+Peg-Out-Of-Hole+Disassembly%22+OR+(ti:%22Hierarchical+Reactive+Grasping+for+Contact-Rich+Manipulation+Via+Topological+Visuo-Tactile+Learning%22+OR+(ti:%22Signal-To-Syntax:+A+Language-Based+Framework+for+Few-Shot+Classification+Using+Robot+Manipulator+with+Haptic+Perception%22+OR+(ti:%22FILIC:+Dual-Loop+Force-Guided+Imitation+Learning+with+Impedance+Torque+Control+for+Contact-Rich+Manipulation+Tasks%22+OR+ti:%22ForceMapping:+Learning+Visual-Force+Features+from+Vision+for+Soft+Objects+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.17053v2</id>
+    <title>FILIC: Dual-Loop Force-Guided Imitation Learning with Impedance Torque Control for Contact-Rich Manipulation Tasks</title>
+    <updated>2026-06-19T13:54:08Z</updated>
+    <link href="https://arxiv.org/abs/2509.17053v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.17053v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Many contact-rich manipulation tasks require precise force regulation. However, most imitation learning (IL) policies remain position-centric and lack explicit force awareness, and adding force/torque sensors to collaborative robot arms is often costly and requires additional hardware design. To overcome these issues, we propose FILIC, a Force-guided Imitation Learning framework with impedance torque control. FILIC integrates a Transformer-based IL policy with an impedance controller in a dual-loop structure, enabling compliant force-informed, force-executed manipulation. For robots without force/torque sensors, we introduce a cost-effective end-effector force estimator using joint torque measurements through analytical Jacobian-based inversion while compensating with model-predicted torques from a digital twin. Experiments show that FILIC significantly outperforms vision-only and joint-torque-based methods, achieving safer, more compliant, and adaptable contact-rich manipulation. The source code is available at https://github.com/OpenGHz/mujoco-wrench-estimator.git.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-21T12:17:20Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haizhou Ge</name>
+    </author>
+    <author>
+      <name>Yufei Jia</name>
+    </author>
+    <author>
+      <name>Zheng Li</name>
+    </author>
+    <author>
+      <name>Yue Li</name>
+    </author>
+    <author>
+      <name>Zhixing Chen</name>
+    </author>
+    <author>
+      <name>Lu Shi</name>
+    </author>
+    <author>
+      <name>Lei Han</name>
+    </author>
+    <author>
+      <name>Ruqi Huang</name>
+    </author>
+    <author>
+      <name>Guyue Zhou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.20712v1</id>
+    <title>Visual-Tactile Peg-in-Hole Assembly Learning from Peg-out-of-Hole Disassembly</title>
+    <updated>2026-04-22T15:56:58Z</updated>
+    <link href="https://arxiv.org/abs/2604.20712v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.20712v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Peg-in-hole (PiH) assembly is a fundamental yet challenging robotic manipulation task. While reinforcement learning (RL) has shown promise in tackling such tasks, it requires extensive exploration. In this paper, we propose a novel visual-tactile skill learning framework for the PiH task that leverages its inverse task, i.e., peg-out-of-hole (PooH) disassembly, to facilitate PiH learning. Compared to PiH, PooH is inherently easier as it only needs to overcome existing friction without precise alignment, making data collection more efficient. To this end, we formulate both PooH and PiH as Partially Observable Markov Decision Processes (POMDPs) in a unified environment with shared visual-tactile observation space. A visual-tactile PooH policy is first trained; its trajectories, containing kinematic, visual and tactile information, are temporally reversed and action-randomized to provide expert data for PiH. In the policy learning, visual sensing facilitates the peg-hole approach, while tactile measurements compensate for peg-hole misalignment. Experiments across diverse peg-hole geometries show that the visual-tactile policy attains 6.4% lower contact forces than its single-modality counterparts, and that our framework achieves average success rates of 87.5% on seen objects and 77.1% on unseen objects, outperforming direct RL methods that train PiH policies from scratch by 18.1% in success rate. Demos, code, and datasets are available at https://sites.google.com/view/pooh2pih.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-22T15:56:58Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, no. 6, pp. 6712-6719, June 2026</arxiv:journal_ref>
+    <author>
+      <name>Yongqiang Zhao</name>
+    </author>
+    <author>
+      <name>Xuyang Zhang</name>
+    </author>
+    <author>
+      <name>Zhuo Chen</name>
+    </author>
+    <author>
+      <name>Matteo Leonetti</name>
+    </author>
+    <author>
+      <name>Emmanouil Spyrakos-Papastavridis</name>
+    </author>
+    <author>
+      <name>Shan Luo</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3679227</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3679227" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.18697v3</id>
+    <title>Event-Grounding Graph: Unified Spatio-Temporal Scene Graph from Robotic Observations</title>
+    <updated>2026-02-16T17:56:52Z</updated>
+    <link href="https://arxiv.org/abs/2510.18697v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.18697v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>A fundamental aspect for building intelligent autonomous robots that can assist humans in their daily lives is the construction of rich environmental representations. While advances in semantic scene representations have enriched robotic scene understanding, current approaches lack a connection between spatial features and dynamic events; e.g., connecting the blue mug to the event washing a mug. In this work, we introduce the event-grounding graph (EGG), a framework grounding event interactions to spatial features of a scene. This representation allows robots to perceive, reason, and respond to complex spatio-temporal queries. Experiments using real robotic data demonstrate EGG's capability to retrieve relevant information and respond accurately to human inquiries concerning the environment and events within. Furthermore, the EGG framework's source code and evaluation dataset are released as open-source at: https://github.com/aalto-intelligent-robotics/EGG.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-21T14:53:42Z</published>
+    <arxiv:comment>Accepted to RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, no. 5, pp. 5286-5293, May 2026</arxiv:journal_ref>
+    <author>
+      <name>Phuoc Nguyen</name>
+    </author>
+    <author>
+      <name>Francesco Verdoja</name>
+    </author>
+    <author>
+      <name>Ville Kyrki</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3669042</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3669042" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.26308v3</id>
+    <title>Anomaly detection for generic failure monitoring in robotic assembly, screwing and manipulation</title>
+    <updated>2026-02-23T14:52:42Z</updated>
+    <link href="https://arxiv.org/abs/2509.26308v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.26308v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Out-of-distribution states in robot manipulation often lead to unpredictable robot behavior or task failure, limiting success rates and increasing risk of damage. Anomaly detection (AD) can identify deviations from expected patterns in data, which can be used to trigger failsafe behaviors and recovery strategies. Prior work has applied data-driven AD on time series data for specific robotic tasks, however the transferability of an AD approach between different robot control strategies and task types has not been shown. Leveraging time series data, such as force/torque signals, allows to directly capture robot-environment interactions, crucial for manipulation and online failure detection. As robotic tasks can have widely signal characteristics and requirements, AD methods which can be applied in the same way to a wide range of tasks is needed, ideally with good data efficiency. We examine three industrial robotic tasks, robotic cabling, screwing, and sanding, each with multi-modal time series data and several anomalies. Several autoencoderbased methods are compared, and we evaluate the generalization across different robotic tasks and control methods (diffusion policy-, position-, and impedance-controlled). This allows us to validate the integration of AD in complex tasks involving tighter tolerances and variation from both the robot and its environment. Additionally, we evaluate data efficiency, detection latency, and task characteristics which support robust detection. The results indicate reliable detection with AUROC exceeding 0.96 in failures in the cabling and screwing task, such as incorrect or misaligned parts and obstructed targets. In the polishing task, only severe failures were reliably detected, while more subtle failure types remained undetected.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-30T14:22:45Z</published>
+    <arxiv:comment>8 pages, 5 figures, 4 tables, the paper has been accepted for publication in the IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Niklas Grambow</name>
+    </author>
+    <author>
+      <name>Lisa-Marie Fenner</name>
+    </author>
+    <author>
+      <name>Felipe Kempkes</name>
+    </author>
+    <author>
+      <name>Philip Hotz</name>
+    </author>
+    <author>
+      <name>Dingyuan Wan</name>
+    </author>
+    <author>
+      <name>Jörg Krüger</name>
+    </author>
+    <author>
+      <name>Kevin Haninger</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3664647</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3664647" title="doi"/>
+  </entry>
+</feed>

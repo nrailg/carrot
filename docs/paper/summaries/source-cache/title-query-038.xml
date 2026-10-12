@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/+UbXXP5wqfRfJBOqTxRF8iKyPaU</id>
+  <title>arXiv Query: search_query=ti:"Joint Optimization of Mechanical Energy, Computational Energy, and Time in Swarms of Collaborative Autonomous Electric Vehicles Routing" OR ti:"Diffusion-Based 4D Trajectory Prediction and Distributed Control for UAV Swarms" OR ti:"Skeleton-Guided Spectral Graph Reinforcement Learning for Autonomous Robot Exploration in Multi-Scale Environments" OR ti:"Physically Embodied Press-Based Haptic Interaction Via Structural Design of Pneumatic Soft Actuators" OR ti:"A-SLIP: Acoustic Sensing for Continuous In-Hand Slip Estimation" OR ti:"Synchronized Online Friction Estimation and Adaptive Grasp Control for Robust Gentle Grasp" OR ti:"Enhanced Haptic Search with the Smart Suction Cup Using Reverse Flow" OR ti:"Look-to-Touch: A Vision-Enhanced Proximity and Tactile Sensor for Distance and Geometry Perception in Robotic Manipulation" OR ti:"Anchoring Touch to Large-scale Vision Model: Dual-path Cross-modal Alignment of Directly Fusable Tactile and Visual Representations" OR ti:"TacLoc: Global Tactile Localization on Objects from a Registration Perspective"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:20Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Joint+Optimization+of+Mechanical+Energy,+Computational+Energy,+and+Time+in+Swarms+of+Collaborative+Autonomous+Electric+Vehicles+Routing%22+OR+(ti:%22Diffusion-Based+4D+Trajectory+Prediction+and+Distributed+Control+for+UAV+Swarms%22+OR+(ti:%22Skeleton-Guided+Spectral+Graph+Reinforcement+Learning+for+Autonomous+Robot+Exploration+in+Multi-Scale+Environments%22+OR+(ti:%22Physically+Embodied+Press-Based+Haptic+Interaction+Via+Structural+Design+of+Pneumatic+Soft+Actuators%22+OR+(ti:%22A-SLIP:+Acoustic+Sensing+for+Continuous+In-Hand+Slip+Estimation%22+OR+(ti:%22Synchronized+Online+Friction+Estimation+and+Adaptive+Grasp+Control+for+Robust+Gentle+Grasp%22+OR+(ti:%22Enhanced+Haptic+Search+with+the+Smart+Suction+Cup+Using+Reverse+Flow%22+OR+(ti:%22Look-to-Touch:+A+Vision-Enhanced+Proximity+and+Tactile+Sensor+for+Distance+and+Geometry+Perception+in+Robotic+Manipulation%22+OR+(ti:%22Anchoring+Touch+to+Large-scale+Vision+Model:+Dual-path+Cross-modal+Alignment+of+Directly+Fusable+Tactile+and+Visual+Representations%22+OR+ti:%22TacLoc:+Global+Tactile+Localization+on+Objects+from+a+Registration+Perspective%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2602.02026v2</id>
+    <title>Synchronized Online Friction Estimation and Adaptive Grasp Control for Robust Gentle Grasp</title>
+    <updated>2026-03-09T12:06:42Z</updated>
+    <link href="https://arxiv.org/abs/2602.02026v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.02026v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce a unified framework for gentle robotic grasping that synergistically couples real-time friction estimation with adaptive grasp control. We propose a new particle filter-based method for real-time estimation of the friction coefficient using vision-based tactile sensors. This estimate is seamlessly integrated into a reactive controller that dynamically modulates grasp force to maintain a stable grip. The two processes operate synchronously in a closed-loop: the controller uses the current best estimate to adjust the force, while new tactile feedback from this action continuously refines the estimation. This creates a highly responsive and robust sensorimotor cycle. The reliability and efficiency of the complete framework are validated through extensive robotic experiments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-02T12:21:27Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhenwei Niu</name>
+    </author>
+    <author>
+      <name>Xiaoyi Chen</name>
+    </author>
+    <author>
+      <name>Jiayu Hu</name>
+    </author>
+    <author>
+      <name>Zhaoyang Liu</name>
+    </author>
+    <author>
+      <name>Tang Jian</name>
+    </author>
+    <author>
+      <name>Xiaozu Ju</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.10280v1</id>
+    <title>Look-to-Touch: A Vision-Enhanced Proximity and Tactile Sensor for Distance and Geometry Perception in Robotic Manipulation</title>
+    <updated>2025-04-14T14:49:09Z</updated>
+    <link href="https://arxiv.org/abs/2504.10280v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.10280v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Camera-based tactile sensors provide robots with a high-performance tactile sensing approach for environment perception and dexterous manipulation. However, achieving comprehensive environmental perception still requires cooperation with additional sensors, which makes the system bulky and limits its adaptability to unstructured environments. In this work, we present a vision-enhanced camera-based dual-modality sensor, which realizes full-scale distance sensing from 50 cm to -3 mm while simultaneously keeping ultra-high-resolution texture sensing and reconstruction capabilities. Unlike conventional designs with fixed opaque gel layers, our sensor features a partially transparent sliding window, enabling mechanical switching between tactile and visual modes. For each sensing mode, a dynamic distance sensing model and a contact geometry reconstruction model are proposed. Through integration with soft robotic fingers, we systematically evaluate the performance of each mode, as well as in their synergistic operation. Experimental results show robust distance tracking across various speeds, nanometer-scale roughness detection, and sub-millimeter 3D texture reconstruction. The combination of both modalities improves the robot's efficiency in executing grasping tasks. Furthermore, the embedded mechanical transmission in the sensor allows for fine-grained intra-hand adjustments and precise manipulation, unlocking new capabilities for soft robotic hands.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-14T14:49:09Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yueshi Dong</name>
+    </author>
+    <author>
+      <name>Jieji Ren</name>
+    </author>
+    <author>
+      <name>Zhenle Liu</name>
+    </author>
+    <author>
+      <name>Zhanxuan Peng</name>
+    </author>
+    <author>
+      <name>Zihao Yuan</name>
+    </author>
+    <author>
+      <name>Ningbin Zhang</name>
+    </author>
+    <author>
+      <name>Guoying Gu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10565v1</id>
+    <title>TacLoc: Global Tactile Localization on Objects from a Registration Perspective</title>
+    <updated>2026-03-11T09:15:07Z</updated>
+    <link href="https://arxiv.org/abs/2603.10565v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10565v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Pose estimation is essential for robotic manipulation, particularly when visual perception is occluded during gripper-object interactions. Existing tactile-based methods generally rely on tactile simulation or pre-trained models, which limits their generalizability and efficiency. In this study, we propose TacLoc, a novel tactile localization framework that formulates the problem as a one-shot point cloud registration task. TacLoc introduces a graph-theoretic partial-to-full registration method, leveraging dense point clouds and surface normals from tactile sensing for efficient and accurate pose estimation. Without requiring rendered data or pre-trained models, TacLoc achieves improved performance through normal-guided graph pruning and a hypothesis-and-verification pipeline. TacLoc is evaluated extensively on the YCB dataset. We further demonstrate TacLoc on real-world objects across two different visual-tactile sensors.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T09:15:07Z</published>
+    <arxiv:comment>8 pages, 12 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zirui Zhang</name>
+    </author>
+    <author>
+      <name>Boyang Zhang</name>
+    </author>
+    <author>
+      <name>Fumin Zhang</name>
+    </author>
+    <author>
+      <name>Huan Yin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.31197v1</id>
+    <title>Diffusion-based 4D Trajectory Prediction and Distributed Control for UAV Swarms</title>
+    <updated>2026-06-30T06:26:34Z</updated>
+    <link href="https://arxiv.org/abs/2606.31197v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.31197v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate 4D trajectory prediction and closed-loop tracking are essential for Unmanned Aerial Vehicle (UAV) swarms to achieve safe and efficient operations in complex low-altitude environments such as urban airspaces, industrial sites, and indoor facilities. However, this task remains challenging due to intrinsic nonlinearity of UAV swarm dynamics and strict real-time constraints of swarm formation control. To address these challenges, we propose a unified framework that couples coarse-to-fine trajectory forecasting with uncertainty-aware Distributed Nonlinear Model Predictive Control (DNMPC). Our approach features two key innovations: 1) a dimension-decoupled trajectory prediction module that reduces computational complexity by forecasting axis-wise motion, and 2) a diffusion-based residual dynamics refinement module that captures temporally correlated dynamic uncertainties. These refined predictions are then integrated into a DNMPC loop to ensure formation stability. We also introduce a synchronized multi-scenario 4D UAV swarm dataset spanning six representative airspace scenarios. The dataset contains over \textbf{7,900} frames of synchronized three-UAV trajectories with frame-level annotations of speed intention and target sector. Extensive experiments demonstrate that our approach outperforms state-of-the-art baselines, reducing trajectory tracking error by up to \textbf{10-15\%} and achieving sub-\textbf{0.07\,m} average tracking error in complex urban and industrial environments, while maintaining real-time inference speeds of 34 FPS (sub-30 ms latency) suitable for agile flight.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-30T06:26:34Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tianshun Li</name>
+    </author>
+    <author>
+      <name>Hongliang Lu</name>
+    </author>
+    <author>
+      <name>Haoang Li</name>
+    </author>
+    <author>
+      <name>Xinhu Zheng</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.08528v1</id>
+    <title>A-SLIP: Acoustic Sensing for Continuous In-hand Slip Estimation</title>
+    <updated>2026-04-09T17:58:27Z</updated>
+    <link href="https://arxiv.org/abs/2604.08528v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.08528v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reliable in-hand manipulation requires accurate real-time estimation of slip between a gripper and a grasped object. Existing tactile sensing approaches based on vision, capacitance, or force-torque measurements face fundamental trade-offs in form factor, durability, and their ability to jointly estimate slip direction and magnitude. We present A-SLIP, a multi-channel acoustic sensing system integrated into a parallel-jaw gripper for estimating continuous slip in the grasp plane. The A-SLIP sensor consists of piezoelectric microphones positioned behind a textured silicone contact pad to capture structured contact-induced vibrations. The A-SLIP model processes synchronized multi-channel audio as log-mel spectrograms using a lightweight convolutional network, jointly predicting the presence, direction, and magnitude of slip. Across experiments with robot- and externally induced slip conditions, the fine-tuned four-microphone configuration achieves a mean absolute directional error of 14.1 degrees, outperforms baselines by up to 12 percent in detection accuracy, and reduces directional error by 32 percent. Compared with single-microphone configurations, the multi-channel design reduces directional error by 64 percent and magnitude error by 68 percent, underscoring the importance of spatial acoustic sensing in resolving slip direction ambiguity. We further evaluate A-SLIP in closed-loop reactive control and find that it enables reliable, low-cost, real-time estimation of in-hand slip. Project videos and additional details are available at https://a-slip.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-09T17:58:27Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Uksang Yoo</name>
+    </author>
+    <author>
+      <name>Yuemin Mao</name>
+    </author>
+    <author>
+      <name>Jean Oh</name>
+    </author>
+    <author>
+      <name>Jeffrey Ichnowski</name>
+    </author>
+  </entry>
+</feed>

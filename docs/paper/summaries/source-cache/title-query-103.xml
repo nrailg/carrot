@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/pG8/23QfVNGE+cH3k2I6wuq/OR0</id>
+  <title>arXiv Query: search_query=ti:"DRAPE: Doppler-Robust Acoustic Pose Estimation of Rigid Bodies with Three Degrees of Freedom Using FMCW-TDoA" OR ti:"Underwater 3D Reconstruction Using Multiple Cross-Line Lasers with Self-Calibration and Pose Optimization" OR ti:"Spatiotemporal Calibration of Doppler Velocity Logs for Underwater Robots" OR ti:"VeleBot: A Bio-Inspired Wind-Driven Robot with Active Soft Grasping for Aquatic Sampling" OR ti:"ISIM: A Micro-Nano Scale Vision-Based Dataset for In-Situ SEM Intelligent Manipulation" OR ti:"Physics-Incorporated Sim-To-Real Image Synthesis for Pose and Depth Estimation of Microrobots" OR ti:"Aligning the Micropipette in Three-Dimensional Space for Robotic Cell Aspiration" OR ti:"Heterogeneous Acoustic Micro-Assembly Enabled by Ultrasonic Phased Transducer Array and Microscope" OR ti:"A Microwell-Enhanced Optoelectronic Tweezers Platform for Non-Volatile Particle Patterning and In-Situ Raman Detection" OR ti:"SuperX3D: Structural LiDAR Point Cloud Registration with Lines and Planes"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:45Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22DRAPE:+Doppler-Robust+Acoustic+Pose+Estimation+of+Rigid+Bodies+with+Three+Degrees+of+Freedom+Using+FMCW-TDoA%22+OR+(ti:%22Underwater+3D+Reconstruction+Using+Multiple+Cross-Line+Lasers+with+Self-Calibration+and+Pose+Optimization%22+OR+(ti:%22Spatiotemporal+Calibration+of+Doppler+Velocity+Logs+for+Underwater+Robots%22+OR+(ti:%22VeleBot:+A+Bio-Inspired+Wind-Driven+Robot+with+Active+Soft+Grasping+for+Aquatic+Sampling%22+OR+(ti:%22ISIM:+A+Micro-Nano+Scale+Vision-Based+Dataset+for+In-Situ+SEM+Intelligent+Manipulation%22+OR+(ti:%22Physics-Incorporated+Sim-To-Real+Image+Synthesis+for+Pose+and+Depth+Estimation+of+Microrobots%22+OR+(ti:%22Aligning+the+Micropipette+in+Three-Dimensional+Space+for+Robotic+Cell+Aspiration%22+OR+(ti:%22Heterogeneous+Acoustic+Micro-Assembly+Enabled+by+Ultrasonic+Phased+Transducer+Array+and+Microscope%22+OR+(ti:%22A+Microwell-Enhanced+Optoelectronic+Tweezers+Platform+for+Non-Volatile+Particle+Patterning+and+In-Situ+Raman+Detection%22+OR+ti:%22SuperX3D:+Structural+LiDAR+Point+Cloud+Registration+with+Lines+and+Planes%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.24571v2</id>
+    <title>Spatiotemporal Calibration of Doppler Velocity Logs for Underwater Robots</title>
+    <updated>2026-09-22T02:10:37Z</updated>
+    <link href="https://arxiv.org/abs/2510.24571v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.24571v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The calibration of extrinsic parameters and clock offsets between sensors for high-accuracy performance in underwater SLAM systems remains insufficiently explored. Existing methods for Doppler Velocity Log (DVL) calibration are either constrained to specific sensor configurations or rely on oversimplified assumptions, and none jointly estimate translational extrinsics and time offsets. We propose a Unified Iterative Calibration (UIC) framework for general DVL sensor setups, formulated as a Maximum A Posteriori (MAP) estimation with a Gaussian Process (GP) motion prior for high-fidelity motion interpolation. UIC alternates between efficient GP-based motion state updates and gradient-based calibration variable updates, supported by a provably statistically consistent sequential initialization scheme. The proposed UIC can be applied to IMU, cameras and other modalities as co-sensors. We release an open-source DVL-camera calibration toolbox. Beyond underwater applications, several aspects of UIC-such as the integration of GP priors for MAP-based calibration and the design of provably reliable initialization procedures-are broadly applicable to other multi-sensor calibration problems. Finally, simulations and real-world tests validate our approach.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-28T16:07:39Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hongxu Zhao</name>
+    </author>
+    <author>
+      <name>Guangyang Zeng</name>
+    </author>
+    <author>
+      <name>Yunling Shao</name>
+    </author>
+    <author>
+      <name>Tengfei Zhang</name>
+    </author>
+    <author>
+      <name>Junfeng Wu</name>
+    </author>
+  </entry>
+</feed>

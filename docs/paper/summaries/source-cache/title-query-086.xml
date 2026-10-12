@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/qgDQ6gaNeQOmvQKc/oTUdGO0Lo4</id>
+  <title>arXiv Query: search_query=ti:"A Mudskipper-Inspired Passive Articulated Robot for Studying Jumping Mechanism on Compliant Ground" OR ti:"Marking Underwater Infrastructure: A Crab-Like Robot for Traversing Pipes" OR ti:"Design, Modeling, and Validation of an Extendable Tendon-Driven Robot for Long-Term Deployment in Congested and Evolving Outdoor Environments" OR ti:"RadLoc: Radar-Based 3-DoF Global Localization Via Fast, Robust, and Lightweight Spatial Descriptor across Diverse Environmental Scenarios" OR ti:"Multi-Session Mapping and Long-Term Localization for Autonomous Vehicles Using Radar" OR ti:"mmResAttUNet: Radar Heatmap Denoising and Velocity-Aware Point Clouds Reconstruction for Low-Cost mmWave Radar" OR ti:"LODESTAR: Degeneracy-Aware LiDAR-Inertial Odometry with Adaptive Schmidt-Kalman Filter and Data Exploitation" OR ti:"MiniVIO: A Minimalist Visual-Inertial Odometry Algorithm with Implicit Motion Constraints" OR ti:"An Automated Viewpoint Planning Framework for Motor End Cover Screw Hole Group Inspection" OR ti:"Fire&amp;Eyes: Real-Time Arc-Aware State Estimation Toward Alloying Automation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:37Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22A+Mudskipper-Inspired+Passive+Articulated+Robot+for+Studying+Jumping+Mechanism+on+Compliant+Ground%22+OR+(ti:%22Marking+Underwater+Infrastructure:+A+Crab-Like+Robot+for+Traversing+Pipes%22+OR+(ti:%22Design,+Modeling,+and+Validation+of+an+Extendable+Tendon-Driven+Robot+for+Long-Term+Deployment+in+Congested+and+Evolving+Outdoor+Environments%22+OR+(ti:%22RadLoc:+Radar-Based+3-DoF+Global+Localization+Via+Fast,+Robust,+and+Lightweight+Spatial+Descriptor+across+Diverse+Environmental+Scenarios%22+OR+(ti:%22Multi-Session+Mapping+and+Long-Term+Localization+for+Autonomous+Vehicles+Using+Radar%22+OR+(ti:%22mmResAttUNet:+Radar+Heatmap+Denoising+and+Velocity-Aware+Point+Clouds+Reconstruction+for+Low-Cost+mmWave+Radar%22+OR+(ti:%22LODESTAR:+Degeneracy-Aware+LiDAR-Inertial+Odometry+with+Adaptive+Schmidt-Kalman+Filter+and+Data+Exploitation%22+OR+(ti:%22MiniVIO:+A+Minimalist+Visual-Inertial+Odometry+Algorithm+with+Implicit+Motion+Constraints%22+OR+(ti:%22An+Automated+Viewpoint+Planning+Framework+for+Motor+End+Cover+Screw+Hole+Group+Inspection%22+OR+ti:%22Fire%26Eyes:+Real-Time+Arc-Aware+State+Estimation+Toward+Alloying+Automation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.08115v1</id>
+    <title>RadLoc: Radar-based 3-DoF Global Localization via Fast, Robust, and Lightweight Spatial Descriptor Across Diverse Environmental Scenarios</title>
+    <updated>2026-07-09T05:21:44Z</updated>
+    <link href="https://arxiv.org/abs/2607.08115v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.08115v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While global localization using spinning radar has gained attention for its robustness to adverse weather and challenging environments, many studies have focused on individual components such as place recognition or pose estimation. In this paper, we take a holistic view of radar sensor-based global localization and present RadLoc, a fast, robust, and lightweight end-to-end pipeline from place recognition to 3-DoF pose estimation. RadLoc accelerates pre-processing using 1D CA-CFAR filtering and leverages the near-range dominance in spinning radar images to design a compact descriptor and an efficient hierarchical coarse-to-fine retrieval strategy. Moreover, coupled with phase correlation-based 3-DoF pose estimation, it forms a versatile global localization module applicable to SLAM and multi-session SLAM systems. Extensive experiments on 15 sequences across 5 datasets demonstrate that RadLoc achieves robust performance while maintaining the smallest descriptor size and fastest retrieval time among state-of-the-art approaches. The supplementary materials are available at https://sparolab.github.io/research/radloc/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-09T05:21:44Z</published>
+    <arxiv:comment>8pages, 12figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hogyun Kim</name>
+    </author>
+    <author>
+      <name>Jiwon Choi</name>
+    </author>
+    <author>
+      <name>Jungwoo Lee</name>
+    </author>
+    <author>
+      <name>Younggun Cho</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.09142v1</id>
+    <title>LODESTAR: Degeneracy-Aware LiDAR-Inertial Odometry with Adaptive Schmidt-Kalman Filter and Data Exploitation</title>
+    <updated>2025-11-12T09:29:37Z</updated>
+    <link href="https://arxiv.org/abs/2511.09142v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.09142v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LiDAR-inertial odometry (LIO) has been widely used in robotics due to its high accuracy. However, its performance degrades in degenerate environments, such as long corridors and high-altitude flights, where LiDAR measurements are imbalanced or sparse, leading to ill-posed state estimation. In this letter, we present LODESTAR, a novel LIO method that addresses these degeneracies through two key modules: degeneracy-aware adaptive Schmidt-Kalman filter (DA-ASKF) and degeneracy-aware data exploitation (DA-DE). DA-ASKF employs a sliding window to utilize past states and measurements as additional constraints. Specifically, it introduces degeneracy-aware sliding modes that adaptively classify states as active or fixed based on their degeneracy level. Using Schmidt-Kalman update, it partially optimizes active states while preserving fixed states. These fixed states influence the update of active states via their covariances, serving as reference anchors--akin to a lodestar. Additionally, DA-DE prunes less-informative measurements from active states and selectively exploits measurements from fixed states, based on their localizability contribution and the condition number of the Jacobian matrix. Consequently, DA-ASKF enables degeneracy-aware constrained optimization and mitigates measurement sparsity, while DA-DE addresses measurement imbalance. Experimental results show that LODESTAR outperforms existing LiDAR-based odometry methods and degeneracy-aware modules in terms of accuracy and robustness under various degenerate conditions.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-12T09:29:37Z</published>
+    <arxiv:comment>8 pages, 5 figures, 6 tables, accepted for the publication in IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Eungchang Mason Lee</name>
+    </author>
+    <author>
+      <name>Kevin Christiansen Marsim</name>
+    </author>
+    <author>
+      <name>Hyun Myung</name>
+    </author>
+  </entry>
+</feed>

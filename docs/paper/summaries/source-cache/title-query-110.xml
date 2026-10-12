@@ -1,0 +1,160 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/vNEz4YvwzPhzJkYmkb3qShee2d4</id>
+  <title>arXiv Query: search_query=ti:"GRaD-Nav++: Vision-Language Model Enabled Visual Drone Navigation with Gaussian Radiance Fields and Differentiable Dynamics" OR ti:"EED: Embodied Environment Description through Robotic Visual Exploration" OR ti:"Accelerating Sampling-Based Control Via Learned Linear Koopman Dynamics" OR ti:"MR-MPCC: Model Predictive Contouring Control for Robotic Manipulator Tracking under Moving Reference Frames" OR ti:"Parallel-In-Time Nonlinear Optimal Control Via GPU-Native Sequential Convex Programming" OR ti:"Phasing through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints" OR ti:"Selective Electromagnetic Control of Multiple Millimeter-Sized Magnetic Motors with Limited Number of Coils" OR ti:"A Soft Magnetic Walking Robot for Wire Grasping towards Minimally Invasive Biomedical Applications" OR ti:"A Robotic Framework for Multi-Layer Multi-Material Bioprinting towards In-Vivo Treatment of Volumetric Muscle Loss" OR ti:"Surgi-HDTMR: Closing the Sensorimotor Loop in Bimanual Microsurgery Via Haptics, Digital Twin, and Mixed Reality"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:12Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22GRaD-Nav%2B%2B:+Vision-Language+Model+Enabled+Visual+Drone+Navigation+with+Gaussian+Radiance+Fields+and+Differentiable+Dynamics%22+OR+(ti:%22EED:+Embodied+Environment+Description+through+Robotic+Visual+Exploration%22+OR+(ti:%22Accelerating+Sampling-Based+Control+Via+Learned+Linear+Koopman+Dynamics%22+OR+(ti:%22MR-MPCC:+Model+Predictive+Contouring+Control+for+Robotic+Manipulator+Tracking+under+Moving+Reference+Frames%22+OR+(ti:%22Parallel-In-Time+Nonlinear+Optimal+Control+Via+GPU-Native+Sequential+Convex+Programming%22+OR+(ti:%22Phasing+through+the+Flames:+Rapid+Motion+Planning+with+the+AGHF+PDE+for+Arbitrary+Objective+Functions+and+Constraints%22+OR+(ti:%22Selective+Electromagnetic+Control+of+Multiple+Millimeter-Sized+Magnetic+Motors+with+Limited+Number+of+Coils%22+OR+(ti:%22A+Soft+Magnetic+Walking+Robot+for+Wire+Grasping+towards+Minimally+Invasive+Biomedical+Applications%22+OR+(ti:%22A+Robotic+Framework+for+Multi-Layer+Multi-Material+Bioprinting+towards+In-Vivo+Treatment+of+Volumetric+Muscle+Loss%22+OR+ti:%22Surgi-HDTMR:+Closing+the+Sensorimotor+Loop+in+Bimanual+Microsurgery+Via+Haptics,+Digital+Twin,+and+Mixed+Reality%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.14450v1</id>
+    <title>Surgi-HDTMR: Closing the Sensorimotor Loop in Bimanual Microsurgery via Haptics, Digital Twin, and Mixed Reality</title>
+    <updated>2026-03-15T15:52:15Z</updated>
+    <link href="https://arxiv.org/abs/2603.14450v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.14450v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic microsurgery demands precise bimanual control, intuitive interaction, and informative force feedback. However, most training platforms for robotic microsurgery lack immersive 3D interaction and high-fidelity haptics. Here, we present Surgi-HDTMR, a mixed-reality (MR) and digital-twin (DT) training system that couples bimanual haptic teleoperation with a benchtop microsurgical robotic platform, and 3D-printed phantoms. A metrically co-registered, time-synchronized DT aligns in-situ MR guidance with the physical workspace and drives a depth-adaptive haptic model that renders contact, puncture, and tissue-retraction forces. In a within-subjects study of simulated cortical navigation and tumor resection, Surgi-HDTMR shortened task time, reduced harmful contacts and collisions, and improved perceptual accuracy relative to non-haptic and non-adaptive baselines. These results suggest that tightly coupling MR overlays with a synchronized DT, together with depth-adaptive haptics, can accelerate skill acquisition and improve safety in robot-assisted microsurgery, pointing toward next-generation surgical training.</summary>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-15T15:52:15Z</published>
+    <arxiv:primary_category term="eess.SY"/>
+    <author>
+      <name>Songming Ping</name>
+    </author>
+    <author>
+      <name>Shaoyue Wen</name>
+    </author>
+    <author>
+      <name>Junhong Chen</name>
+    </author>
+    <author>
+      <name>Wen Fan</name>
+    </author>
+    <author>
+      <name>Lan Wei</name>
+    </author>
+    <author>
+      <name>Dandan Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.14009v2</id>
+    <title>GRaD-Nav++: Vision-Language Model Enabled Visual Drone Navigation with Gaussian Radiance Fields and Differentiable Dynamics</title>
+    <updated>2026-05-15T20:28:32Z</updated>
+    <link href="https://arxiv.org/abs/2506.14009v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.14009v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous drones capable of interpreting and executing high-level language instructions in unstructured environments remain a long-standing goal. Yet existing approaches are constrained by their dependence on hand-crafted skills, extensive parameter tuning, or computationally intensive models unsuitable for onboard use. We introduce GRaD-Nav++, a lightweight Vision-Language-Action (VLA) framework that runs fully onboard and follows natural-language commands in real time. Our policy is trained in a photorealistic 3D Gaussian Splatting (3DGS) simulator via Differentiable Reinforcement Learning (DiffRL), enabling efficient learning of low-level control from visual and linguistic inputs. At its core is a Mixture-of-Experts (MoE) action head, which adaptively routes computation to improve generalization while mitigating forgetting. In multi-task generalization experiments, GRaD-Nav++ achieves a success rate of 83% on trained tasks and 75% on unseen tasks in simulation. When deployed on real hardware, it attains 67% success on trained tasks and 50% on unseen ones. In multi-environment adaptation experiments, GRaD-Nav++ achieves an average success rate of 81% across diverse simulated environments and 67% across varied real-world settings. These results establish a new benchmark for fully onboard Vision-Language-Action (VLA) flight and demonstrate that compact, efficient models can enable reliable, language-guided navigation without relying on external infrastructure.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-16T21:12:27Z</published>
+    <arxiv:comment>Published in: IEEE Robotics and Automation Letters ( Volume: 11, Issue: 2, February 2026)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>Chen, Qianzhong, et al. "Grad-nav++: Vision-language model enabled visual drone navigation with gaussian radiance fields and differentiable dynamics." IEEE Robotics and Automation Letters 11.2 (2025): 1418-1425</arxiv:journal_ref>
+    <author>
+      <name>Qianzhong Chen</name>
+    </author>
+    <author>
+      <name>Naixiang Gao</name>
+    </author>
+    <author>
+      <name>Suning Huang</name>
+    </author>
+    <author>
+      <name>JunEn Low</name>
+    </author>
+    <author>
+      <name>Timothy Chen</name>
+    </author>
+    <author>
+      <name>Jiankai Sun</name>
+    </author>
+    <author>
+      <name>Mac Schwager</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2025.3643290</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2025.3643290" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.01589v1</id>
+    <title>Phasing Through the Flames: Rapid Motion Planning with the AGHF PDE for Arbitrary Objective Functions and Constraints</title>
+    <updated>2025-05-02T21:18:47Z</updated>
+    <link href="https://arxiv.org/abs/2505.01589v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.01589v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The generation of optimal trajectories for high-dimensional robotic systems under constraints remains computationally challenging due to the need to simultaneously satisfy dynamic feasibility, input limits, and task-specific objectives while searching over high-dimensional spaces. Recent approaches using the Affine Geometric Heat Flow (AGHF) Partial Differential Equation (PDE) have demonstrated promising results, generating dynamically feasible trajectories for complex systems like the Digit V3 humanoid within seconds. These methods efficiently solve trajectory optimization problems over a two-dimensional domain by evolving an initial trajectory to minimize control effort. However, these AGHF approaches are limited to a single type of optimal control problem (i.e., minimizing the integral of squared control norms) and typically require initial guesses that satisfy constraints to ensure satisfactory convergence. These limitations restrict the potential utility of the AGHF PDE especially when trying to synthesize trajectories for robotic systems. This paper generalizes the AGHF formulation to accommodate arbitrary cost functions, significantly expanding the classes of trajectories that can be generated. This work also introduces a Phase1 - Phase 2 Algorithm that enables the use of constraint-violating initial guesses while guaranteeing satisfactory convergence. The effectiveness of the proposed method is demonstrated through comparative evaluations against state-of-the-art techniques across various dynamical systems and challenging trajectory generation problems. Project Page: https://roahmlab.github.io/BLAZE/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-02T21:18:47Z</published>
+    <arxiv:comment>15 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Challen Enninful Adu</name>
+    </author>
+    <author>
+      <name>César E. Ramos Chuquiure</name>
+    </author>
+    <author>
+      <name>Yutong Zhou</name>
+    </author>
+    <author>
+      <name>Pearl Lin</name>
+    </author>
+    <author>
+      <name>Ruikai Yang</name>
+    </author>
+    <author>
+      <name>Bohao Zhang</name>
+    </author>
+    <author>
+      <name>Shubham Singh</name>
+    </author>
+    <author>
+      <name>Ram Vasudevan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10711v3</id>
+    <title>Parallel-in-Time Nonlinear Optimal Control via GPU-native Sequential Convex Programming</title>
+    <updated>2026-08-06T06:43:34Z</updated>
+    <link href="https://arxiv.org/abs/2603.10711v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10711v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Real-time solution of nonlinear optimal control problems remains challenging on embedded robotic hardware, where conventional solvers often rely on global sparse linear algebra or sequential recursions that are difficult to map efficiently to massively parallel processors. This paper presents ucenter, a GPU-native Sequential Convex Programming (SCP) framework for nonlinear optimal control. At each SCP iteration, nonlinear dynamics are linearized around a nominal trajectory, and the resulting convexified subproblem is solved by a consensus Alternating Direction Method of Multipliers (ADMM) scheme. The temporal splitting replaces global sparse Karush-Kuhn-Tucker factorizations with independent per-node dense solves, closed-form dynamic consistency updates, and analytical projections onto convex constraint sets. Both the outer SCP loop and the inner ADMM subproblem are executed entirely on the GPU, enabling efficient optimization.
+  The proposed solver is evaluated on quadrotor obstacle avoidance and Mars powered descent problems using an NVIDIA Jetson AGX Orin edge platform. Benchmarking against a CPU-parallel iLQR baseline in randomized environments reveals that the GPU implementation achieves over 100 Hz batched planning throughput, a 4.1x speedup, and a 51% reduction in energy consumption, while consistently maintaining low nonlinear dynamics defects. The framework exposes reusable GPU-parallel optimization primitives that can be specialized to a wide variety of complex nonlinear optimal control settings, as demonstrated by the scenario-based robust MPC and batched Monte Carlo generation tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T12:39:14Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yilin Zou</name>
+    </author>
+    <author>
+      <name>Zhong Zhang</name>
+    </author>
+    <author>
+      <name>Maxime Robic</name>
+    </author>
+    <author>
+      <name>Fanghua Jiang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.05385v2</id>
+    <title>Accelerating Sampling-Based Control via Learned Linear Koopman Dynamics</title>
+    <updated>2026-07-13T17:30:23Z</updated>
+    <link href="https://arxiv.org/abs/2603.05385v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.05385v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents an efficient model predictive path integral (MPPI) control framework for systems with complex nonlinear dynamics. To improve the computational efficiency of classic MPPI while preserving control performance, we replace the nonlinear dynamics used for trajectory propagation with a learned linear deep Koopman operator (DKO) model, enabling faster rollout and more efficient trajectory sampling. The DKO dynamics are learned directly from interaction data, eliminating the need for analytical system models. The resulting controller, termed MPPI-DK, is evaluated in simulation on pendulum balancing and surface vehicle navigation tasks, and validated on hardware through reference-tracking experiments on a quadruped robot. Experimental results demonstrate that MPPI-DK achieves control performance close to MPPI with true dynamics while substantially reducing computational cost, enabling efficient real-time control on robotic platforms.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-05T17:15:52Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Wenjian Hao</name>
+    </author>
+    <author>
+      <name>Yuxuan Fang</name>
+    </author>
+    <author>
+      <name>Zehui Lu</name>
+    </author>
+    <author>
+      <name>Shaoshuai Mou</name>
+    </author>
+  </entry>
+</feed>

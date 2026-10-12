@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/0YDvXo9PPTb2gDOvWiUNdmqpra8</id>
+  <title>arXiv Query: search_query=ti:"Forecast-MAPF: Action Sequence Prediction for Cooperative Multi-Agent Communication and Path Planning" OR ti:"Alternating Partition Prioritized Planning for Scalable Multi-Robot Coordination in Congested Environments" OR ti:"Modular Formation Control for Multi-mobile Robots with Collision Avoidance and Communication Maintenance" OR ti:"Hybrid Framework for Multi-Robot Target Search in Unknown and Adversarial Environments" OR ti:"View Invariant Learning for Vision-Language Navigation in Continuous Environments" OR ti:"DINO-Nav: Unified Explicit Localization and Diffusion Planning for Robust Image-Goal Navigation" OR ti:"MSM-Nav: Integrating Multi-Modal Spatial Map for Zero-Shot Open-Vocabulary Object-Goal Navigation Via LLM-Driven Trap Avoidance" OR ti:"DyMemNav: Dynamic and Memory-Augmented Mixture-of-Experts for Cross-Scene Visual Navigation" OR ti:"FastMap: Real-Time Semantic Map Completion Via Bitwise Masked Modeling" OR ti:"JOP-VLN: Joint On-and-Off Policy Learning for Vision-and-Language Navigation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:36Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Forecast-MAPF:+Action+Sequence+Prediction+for+Cooperative+Multi-Agent+Communication+and+Path+Planning%22+OR+(ti:%22Alternating+Partition+Prioritized+Planning+for+Scalable+Multi-Robot+Coordination+in+Congested+Environments%22+OR+(ti:%22Modular+Formation+Control+for+Multi-mobile+Robots+with+Collision+Avoidance+and+Communication+Maintenance%22+OR+(ti:%22Hybrid+Framework+for+Multi-Robot+Target+Search+in+Unknown+and+Adversarial+Environments%22+OR+(ti:%22View+Invariant+Learning+for+Vision-Language+Navigation+in+Continuous+Environments%22+OR+(ti:%22DINO-Nav:+Unified+Explicit+Localization+and+Diffusion+Planning+for+Robust+Image-Goal+Navigation%22+OR+(ti:%22MSM-Nav:+Integrating+Multi-Modal+Spatial+Map+for+Zero-Shot+Open-Vocabulary+Object-Goal+Navigation+Via+LLM-Driven+Trap+Avoidance%22+OR+(ti:%22DyMemNav:+Dynamic+and+Memory-Augmented+Mixture-of-Experts+for+Cross-Scene+Visual+Navigation%22+OR+(ti:%22FastMap:+Real-Time+Semantic+Map+Completion+Via+Bitwise+Masked+Modeling%22+OR+ti:%22JOP-VLN:+Joint+On-and-Off+Policy+Learning+for+Vision-and-Language+Navigation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2506.07350v2</id>
+    <title>FastMap: Real-Time Semantic Map Completion via Bitwise Masked Modeling</title>
+    <updated>2026-09-10T11:15:54Z</updated>
+    <link href="https://arxiv.org/abs/2506.07350v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.07350v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Semantic map completion, which predicts the layout of unobserved regions from partial observations, is a critical capability for indoor robot navigation. Existing approaches either rely on high-dimensional discrete codebooks that inflate memory, or on iterative diffusion sampling that is too slow for real-time use. We present FastMap, a lightweight two-stage framework for completing top-down categorical semantic maps. First, a lookup-free BitVAE exploits the inherently binary (one-hot) structure of semantic maps to compress each map patch into compact bitwise tokens, yielding a 0.41GB model that is 3.7 times smaller than the prior masked-modeling baseline. Second, a Masked AutoEncoder (MAE)-style transformer reconstructs missing tokens in a single forward pass at 0.011s/map. To support object goal navigation, we additionally introduce an object-aware masking strategy that masks the target category during training and conditions generation on a learnable category embedding, without adding inference cost. On the Gibson benchmark, FastMap achieves 34.10% mIoU and 45.84% semantic Success Rate (sSR), more than doubling the previous best (21.88%), and reaches 83.8% Success Rate on downstream ObjectNav, the highest among the compared navigation methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-09T01:55:55Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yijie Deng</name>
+    </author>
+    <author>
+      <name>Shuaihang Yuan</name>
+    </author>
+    <author>
+      <name>Congcong Wen</name>
+    </author>
+    <author>
+      <name>Hao Huang</name>
+    </author>
+    <author>
+      <name>Anthony Tzes</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.08831v4</id>
+    <title>View Invariant Learning for Vision-Language Navigation in Continuous Environments</title>
+    <updated>2026-02-20T16:14:13Z</updated>
+    <link href="https://arxiv.org/abs/2507.08831v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.08831v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language Navigation in Continuous Environments (VLNCE), where an agent follows instructions and moves freely to reach a destination, is a key research problem in embodied AI. However, most existing approaches are sensitive to viewpoint changes, i.e. variations in camera height and viewing angle. Here we introduce a more general scenario, V$^2$-VLNCE (VLNCE with Varied Viewpoints) and propose a view-invariant post-training framework, called VIL (View Invariant Learning), that makes existing navigation policies more robust to changes in camera viewpoint. VIL employs a contrastive learning framework to learn sparse and view-invariant features. We also introduce a teacher-student framework for the Waypoint Predictor Module, a standard part of VLNCE baselines, where a view-dependent teacher model distills knowledge into a view-invariant student model. We employ an end-to-end training paradigm to jointly optimize these components. Empirical results show that our method outperforms state-of-the-art approaches on V$^2$-VLNCE by 8-15\% measured on Success Rate for two standard benchmark datasets R2R-CE and RxR-CE. Evaluation of VIL in standard VLNCE settings shows that despite being trained for varied viewpoints, VIL often still improves performance. On the harder RxR-CE dataset, our method also achieved state-of-the-art performance across all metrics. This suggests that adding VIL does not diminish the standard viewpoint performance and can serve as a plug-and-play post-training method. We further evaluate VIL for simulated camera placements derived from real robot configurations (e.g. Stretch RE-1, LoCoBot), showing consistent improvements of performance. Finally, we present a proof-of-concept real-robot evaluation in two physical environments using a panoramic RGB sensor combined with LiDAR. The code is available at https://github.com/realjoshqsun/V2-VLNCE.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-05T18:04:35Z</published>
+    <arxiv:comment>This paper is accepted to RA-L 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Josh Qixuan Sun</name>
+    </author>
+    <author>
+      <name>Huaiyuan Weng</name>
+    </author>
+    <author>
+      <name>Xiaoying Xing</name>
+    </author>
+    <author>
+      <name>Chul Min Yeum</name>
+    </author>
+    <author>
+      <name>Mark Crowley</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/OVS1WOV46UfSrmWzs+oJBetWtY8</id>
+  <title>arXiv Query: search_query=ti:"Interacting with a Soft Continuum Manipulator Using Mixed Reality" OR ti:"A Micro-Macro Manipulation Framework for Human-Mobile Robot Co-Manipulation Tasks" OR ti:"A Discrete Variable Stiffness Actuator for Safe and Adaptive Human–Robot Interaction" OR ti:"ORBCam: Toward Ultra-Low-Power Quantized VIO Via In-Sensor ORB Feature Processing" OR ti:"MirrorDrift: Actuated Mirror-Based Attacks on LiDAR SLAM" OR ti:"Accelerating Transformer-Based Monocular SLAM Via Geometric Utility Scoring" OR ti:"PIP-CN: Prediction-Integrated Planning for Crowd Navigation" OR ti:"PC-Diffuser: Path-Consistent Capsule CBF Safety Filtering for Diffusion-Based Trajectory Planner" OR ti:"Quality-Focused Active Adversarial Policy for Safe Grasping in Human-Robot Interaction" OR ti:"From Rules to Optimization: ISO/TS 15066-Compliant Variable Admittance Control for Safe Human–Robot Interaction"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:39Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Interacting+with+a+Soft+Continuum+Manipulator+Using+Mixed+Reality%22+OR+(ti:%22A+Micro-Macro+Manipulation+Framework+for+Human-Mobile+Robot+Co-Manipulation+Tasks%22+OR+(ti:%22A+Discrete+Variable+Stiffness+Actuator+for+Safe+and+Adaptive+Human%E2%80%93Robot+Interaction%22+OR+(ti:%22ORBCam:+Toward+Ultra-Low-Power+Quantized+VIO+Via+In-Sensor+ORB+Feature+Processing%22+OR+(ti:%22MirrorDrift:+Actuated+Mirror-Based+Attacks+on+LiDAR+SLAM%22+OR+(ti:%22Accelerating+Transformer-Based+Monocular+SLAM+Via+Geometric+Utility+Scoring%22+OR+(ti:%22PIP-CN:+Prediction-Integrated+Planning+for+Crowd+Navigation%22+OR+(ti:%22PC-Diffuser:+Path-Consistent+Capsule+CBF+Safety+Filtering+for+Diffusion-Based+Trajectory+Planner%22+OR+(ti:%22Quality-Focused+Active+Adversarial+Policy+for+Safe+Grasping+in+Human-Robot+Interaction%22+OR+ti:%22From+Rules+to+Optimization:+ISO/TS+15066-Compliant+Variable+Admittance+Control+for+Safe+Human%E2%80%93Robot+Interaction%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10330v3</id>
+    <title>PC-Diffuser: Path-Consistent Capsule CBF Safety Filtering for Diffusion-Based Trajectory Planner</title>
+    <updated>2026-10-05T20:58:40Z</updated>
+    <link href="https://arxiv.org/abs/2603.10330v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10330v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous driving in complex traffic requires planners that generalize beyond hand-crafted rules, motivating data-driven approaches that learn behavior from expert demonstrations. Diffusion-based trajectory planners have recently shown strong closed-loop performance by iteratively denoising a full-horizon plan, but they remain difficult to certify and can fail catastrophically in rare or out-of-distribution scenarios. To address this challenge, we present PC-Diffuser, a safety augmentation framework that embeds a certifiable, path-consistent barrier-function structure directly into the denoising loop of diffusion planning. The key idea is to make safety an intrinsic part of trajectory generation rather than a post-hoc fix: we enforce forward invariance along the rollout while preserving the diffusion model's intended path geometry. Specifically, PC-Diffuser (i) evaluates collision risk using a capsule-distance barrier function that better reflects vehicle geometry and reduces unnecessary conservativeness, (ii) converts denoised waypoints into dynamically feasible motion under a kinematic bicycle model, and (iii) applies a path-consistent safety filter that eliminates residual constraint violations without geometric distortion, so the corrected plan remains close to the learned distribution. By injecting these safety-consistent corrections at every denoising step and feeding the refined trajectory back into the diffusion process, PC-Diffuser enables iterative, context-aware safeguarding instead of post-hoc repair...</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T01:52:56Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Eugene Ku</name>
+    </author>
+    <author>
+      <name>Yiwei Lyu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.11364v1</id>
+    <title>MirrorDrift: Actuated Mirror-Based Attacks on LiDAR SLAM</title>
+    <updated>2026-03-11T23:03:05Z</updated>
+    <link href="https://arxiv.org/abs/2603.11364v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.11364v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LiDAR SLAM provides high-accuracy localization but is fragile to point-cloud corruption because scan matching assumes geometric consistency. Prior physical attacks on LiDAR SLAM largely rely on LiDAR spoofing via external signal injection, which requires sensor-specific timing knowledge and is increasingly mitigated by modern defense mechanisms such as timing obfuscation and injection rejection. In this work, we show that specular reflection offers an injection-free alternative and demonstrate an attack, MirrorDrift, that uses an actuated planar mirror to cause ghost points in LiDAR scans and systematically bias scan-matching correspondences. MirrorDrift optimizes mirror placement, alignment, and actuation. In simulation, it increases the average pose error (APE) by 6.1x over random placement, degrading three SLAM systems to 2.29-3.31 m mean APE. In real-world experiments on a modern LiDAR with state-of-the-art interference mitigation, it induces localization errors of up to 6.03 m. To the best of our knowledge, this is the first successful SLAM-targeted attack against production-grade secure LiDARs.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T23:03:05Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Rokuto Nagata</name>
+    </author>
+    <author>
+      <name>Kenji Koide</name>
+    </author>
+    <author>
+      <name>Kazuma Ikeda</name>
+    </author>
+    <author>
+      <name>Ozora Sako</name>
+    </author>
+    <author>
+      <name>Shion Horie</name>
+    </author>
+    <author>
+      <name>Kentaro Yoshioka</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.08718v2</id>
+    <title>Accelerating Transformer-Based Monocular SLAM via Geometric Utility Scoring</title>
+    <updated>2026-04-13T07:11:46Z</updated>
+    <link href="https://arxiv.org/abs/2604.08718v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.08718v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Geometric Foundation Models (GFMs) have recently advanced monocular SLAM by providing robust, calibration-free 3D priors. However, deploying these models on dense video streams introduces significant computational redundancy. Current GFM-based SLAM systems typically rely on post hoc keyframe selection. Because of this, they must perform expensive dense geometric decoding simply to determine whether a frame contains novel geometry, resulting in late rejection and wasted computation. To mitigate this inefficiency, we propose LeanGate, a lightweight feed-forward frame-gating network. LeanGate predicts a geometric utility score to assess a frame's mapping value prior to the heavy GFM feature extraction and matching stages. As a predictive plug-and-play module, our approach bypasses over 90% of redundant frames. Evaluations on standard SLAM benchmarks demonstrate that LeanGate reduces tracking FLOPs by more than 85% and achieves a 5x end-to-end throughput speedup. Furthermore, it maintains the tracking and mapping accuracy of dense baselines. Project page: https://lean-gate.github.io/</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-09T19:12:37Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Xinmiao Xiong</name>
+    </author>
+    <author>
+      <name>Bangya Liu</name>
+    </author>
+    <author>
+      <name>Hao Wang</name>
+    </author>
+    <author>
+      <name>Dayou Li</name>
+    </author>
+    <author>
+      <name>Nuo Chen</name>
+    </author>
+    <author>
+      <name>Andrew Feng</name>
+    </author>
+    <author>
+      <name>Mingyu Ding</name>
+    </author>
+    <author>
+      <name>Suman Banerjee</name>
+    </author>
+    <author>
+      <name>Yang Zhou</name>
+    </author>
+    <author>
+      <name>Zhiwen Fan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.19397v1</id>
+    <title>Quality-focused Active Adversarial Policy for Safe Grasping in Human-Robot Interaction</title>
+    <updated>2025-03-25T07:09:31Z</updated>
+    <link href="https://arxiv.org/abs/2503.19397v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.19397v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-guided robot grasping methods based on Deep Neural Networks (DNNs) have achieved remarkable success in handling unknown objects, attributable to their powerful generalizability. However, these methods with this generalizability tend to recognize the human hand and its adjacent objects as graspable targets, compromising safety during Human-Robot Interaction (HRI). In this work, we propose the Quality-focused Active Adversarial Policy (QFAAP) to solve this problem. Specifically, the first part is the Adversarial Quality Patch (AQP), wherein we design the adversarial quality patch loss and leverage the grasp dataset to optimize a patch with high quality scores. Next, we construct the Projected Quality Gradient Descent (PQGD) and integrate it with the AQP, which contains only the hand region within each real-time frame, endowing the AQP with fast adaptability to the human hand shape. Through AQP and PQGD, the hand can be actively adversarial with the surrounding objects, lowering their quality scores. Therefore, further setting the quality score of the hand to zero will reduce the grasping priority of both the hand and its adjacent objects, enabling the robot to grasp other objects away from the hand without emergency stops. We conduct extensive experiments on the benchmark datasets and a cobot, showing the effectiveness of QFAAP. Our code and demo videos are available here: https://github.com/clee-jaist/QFAAP.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-25T07:09:31Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chenghao Li</name>
+    </author>
+    <author>
+      <name>Razvan Beuran</name>
+    </author>
+    <author>
+      <name>Nak Young Chong</name>
+    </author>
+  </entry>
+</feed>

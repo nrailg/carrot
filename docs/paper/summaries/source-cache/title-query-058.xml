@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/wZv/xFD/FAnDdoX6U1Dr5F12VgM</id>
+  <title>arXiv Query: search_query=ti:"Origami-Based Inner Channel Securing Mechanism for Soft Growing Robots" OR ti:"Cadence-Gated Hardware-In-The-Loop Optimization of a Single-DoF Helix-Driven Locomotion Robot" OR ti:"FishVLA: Binocular Vision-Language-Action Model for Biomimetic Robotic Fish" OR ti:"Spring-Brake! Handed Shearing Auxetics Improve Efficiency of Hopping and Standing" OR ti:"A Novel Methodology for Climbing in Diverse Pipes with a Soft Tensegrity Robot" OR ti:"Geometric Constraints As General Interfaces for Robot Manipulation" OR ti:"PhaseBot: A Phase-Gated Understanding-Generation-Action Model for Long-Horizon Contact Manipulation" OR ti:"AtomTree: A Hierarchical Framework for State-Aware Embodied Instruction Following with LLMs" OR ti:"Robotic Nonprehensile Manipulation of a Pinned Beam Using Impulsive Forces" OR ti:"Geometrically-Exact Model-Based Trajectory Optimisation for Robotic Manipulation of Highly Flexible Payloads"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:42Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Origami-Based+Inner+Channel+Securing+Mechanism+for+Soft+Growing+Robots%22+OR+(ti:%22Cadence-Gated+Hardware-In-The-Loop+Optimization+of+a+Single-DoF+Helix-Driven+Locomotion+Robot%22+OR+(ti:%22FishVLA:+Binocular+Vision-Language-Action+Model+for+Biomimetic+Robotic+Fish%22+OR+(ti:%22Spring-Brake!+Handed+Shearing+Auxetics+Improve+Efficiency+of+Hopping+and+Standing%22+OR+(ti:%22A+Novel+Methodology+for+Climbing+in+Diverse+Pipes+with+a+Soft+Tensegrity+Robot%22+OR+(ti:%22Geometric+Constraints+As+General+Interfaces+for+Robot+Manipulation%22+OR+(ti:%22PhaseBot:+A+Phase-Gated+Understanding-Generation-Action+Model+for+Long-Horizon+Contact+Manipulation%22+OR+(ti:%22AtomTree:+A+Hierarchical+Framework+for+State-Aware+Embodied+Instruction+Following+with+LLMs%22+OR+(ti:%22Robotic+Nonprehensile+Manipulation+of+a+Pinned+Beam+Using+Impulsive+Forces%22+OR+ti:%22Geometrically-Exact+Model-Based+Trajectory+Optimisation+for+Robotic+Manipulation+of+Highly+Flexible+Payloads%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.22898v1</id>
+    <title>Spring-Brake! Handed Shearing Auxetics Improve Efficiency of Hopping and Standing</title>
+    <updated>2025-05-28T22:01:45Z</updated>
+    <link href="https://arxiv.org/abs/2505.22898v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.22898v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Energy efficiency is critical to the success of legged robotics. Efficiency is lost through wasted energy during locomotion and standing. Including elastic elements has been shown to reduce movement costs, while including breaks can reduce standing costs. However, adding separate elements for each increases the mass and complexity of a leg, reducing overall system performance. Here we present a novel compliant mechanism using a Handed Shearing Auxetic (HSA) that acts as a spring and break in a monopod hopping robot. The HSA acts as a parallel elastic actuator, reducing electrical power for dynamic hopping and matching the efficiency of state-of-the-art compliant hoppers. The HSA\u2019s auxetic behavior enables dual functionality. During static tasks, it locks under large forces with minimal input power by blocking deformation, creating high friction similar to a capstan mechanism. This allows the leg to support heavy loads without motor torque, addressing thermal inefficiency. The multi-functional design enhances both dynamic and static performance, offering a versatile solution for robotic applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-28T22:01:45Z</published>
+    <arxiv:comment>This work has been submitted to the IEEE for possible publication</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Joseph Sullivan</name>
+    </author>
+    <author>
+      <name>Ian Good</name>
+    </author>
+    <author>
+      <name>Samuel A. Burden</name>
+    </author>
+    <author>
+      <name>Jeffrey Ian Lipton</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2501.09783v1</id>
+    <title>GeoManip: Geometric Constraints as General Interfaces for Robot Manipulation</title>
+    <updated>2025-01-16T18:59:51Z</updated>
+    <link href="https://arxiv.org/abs/2501.09783v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.09783v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present GeoManip, a framework to enable generalist robots to leverage essential conditions derived from object and part relationships, as geometric constraints, for robot manipulation. For example, cutting the carrot requires adhering to a geometric constraint: the blade of the knife should be perpendicular to the carrot's direction. By interpreting these constraints through symbolic language representations and translating them into low-level actions, GeoManip bridges the gap between natural language and robotic execution, enabling greater generalizability across diverse even unseen tasks, objects, and scenarios. Unlike vision-language-action models that require extensive training, operates training-free by utilizing large foundational models: a constraint generation module that predicts stage-specific geometric constraints and a geometry parser that identifies object parts involved in these constraints. A solver then optimizes trajectories to satisfy inferred constraints from task descriptions and the scene. Furthermore, GeoManip learns in-context and provides five appealing human-robot interaction features: on-the-fly policy adaptation, learning from human demonstrations, learning from failure cases, long-horizon action planning, and efficient data collection for imitation learning. Extensive evaluations on both simulations and real-world scenarios demonstrate GeoManip's state-of-the-art performance, with superior out-of-distribution generalization while avoiding costly model training.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-01-16T18:59:51Z</published>
+    <arxiv:comment>32 pages, 13 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Weiliang Tang</name>
+    </author>
+    <author>
+      <name>Jia-Hui Pan</name>
+    </author>
+    <author>
+      <name>Yun-Hui Liu</name>
+    </author>
+    <author>
+      <name>Masayoshi Tomizuka</name>
+    </author>
+    <author>
+      <name>Li Erran Li</name>
+    </author>
+    <author>
+      <name>Chi-Wing Fu</name>
+    </author>
+    <author>
+      <name>Mingyu Ding</name>
+    </author>
+  </entry>
+</feed>

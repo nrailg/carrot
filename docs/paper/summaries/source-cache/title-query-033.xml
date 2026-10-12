@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Y3QaifhOgOh2yP2qFK63HcOOmXA</id>
+  <title>arXiv Query: search_query=ti:"Gentle Robotic Goal-Oriented Non-Prehensile Manipulation Via Reinforcement Learning and Object-Centric Admittance Control" OR ti:"Leveraging Extrinsic Dexterity for Occluded Grasping on Grasp Constraining Walls" OR ti:"Climb with SHERPA: Heuristic-Guided Reinforcement Learning Via Segmented Experience Relay" OR ti:"Self-Supervised Multisensory Pretraining for Contact-Rich Robot Reinforcement Learning" OR ti:"A Hierarchical Bin Packing Framework with Dual Manipulators Via Heuristic Search and Deep Reinforcement Learning" OR ti:"HSD-MM: Hierarchical Shallow-Deep Multimodal Policy for Autonomous Bronchoscope Navigation and Control" OR ti:"Toward AI Autonomous Navigation for Mechanical Thrombectomy Using Hierarchical Modular Multi-Agent Reinforcement Learning (HM-MARL)" OR ti:"Physics-Guided Reinforcement Learning Via Massively Parallel Training for Gas Source Localization in Complex Indoor Environments" OR ti:"Clutchable Soft Actuators Produce Rapid, High-Power Movements in Robotic Artificial Musculoskeletal Systems" OR ti:"Multi-Mode Pneumatic Artificial Muscles Driven by Hybrid Positive-Negative Pressure"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:01Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Gentle+Robotic+Goal-Oriented+Non-Prehensile+Manipulation+Via+Reinforcement+Learning+and+Object-Centric+Admittance+Control%22+OR+(ti:%22Leveraging+Extrinsic+Dexterity+for+Occluded+Grasping+on+Grasp+Constraining+Walls%22+OR+(ti:%22Climb+with+SHERPA:+Heuristic-Guided+Reinforcement+Learning+Via+Segmented+Experience+Relay%22+OR+(ti:%22Self-Supervised+Multisensory+Pretraining+for+Contact-Rich+Robot+Reinforcement+Learning%22+OR+(ti:%22A+Hierarchical+Bin+Packing+Framework+with+Dual+Manipulators+Via+Heuristic+Search+and+Deep+Reinforcement+Learning%22+OR+(ti:%22HSD-MM:+Hierarchical+Shallow-Deep+Multimodal+Policy+for+Autonomous+Bronchoscope+Navigation+and+Control%22+OR+(ti:%22Toward+AI+Autonomous+Navigation+for+Mechanical+Thrombectomy+Using+Hierarchical+Modular+Multi-Agent+Reinforcement+Learning+(HM-MARL)%22+OR+(ti:%22Physics-Guided+Reinforcement+Learning+Via+Massively+Parallel+Training+for+Gas+Source+Localization+in+Complex+Indoor+Environments%22+OR+(ti:%22Clutchable+Soft+Actuators+Produce+Rapid,+High-Power+Movements+in+Robotic+Artificial+Musculoskeletal+Systems%22+OR+ti:%22Multi-Mode+Pneumatic+Artificial+Muscles+Driven+by+Hybrid+Positive-Negative+Pressure%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2602.18663v1</id>
+    <title>Toward AI Autonomous Navigation for Mechanical Thrombectomy using Hierarchical Modular Multi-agent Reinforcement Learning (HM-MARL)</title>
+    <updated>2026-02-20T23:50:35Z</updated>
+    <link href="https://arxiv.org/abs/2602.18663v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.18663v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Mechanical thrombectomy (MT) is typically the optimal treatment for acute ischemic stroke involving large vessel occlusions, but access is limited due to geographic and logistical barriers. Reinforcement learning (RL) shows promise in autonomous endovascular navigation, but generalization across 'long' navigation tasks remains challenging. We propose a Hierarchical Modular Multi-Agent Reinforcement Learning (HM-MARL) framework for autonomous two-device navigation in vitro, enabling efficient and generalizable navigation. HM-MARL was developed to autonomously navigate a guide catheter and guidewire from the femoral artery to the internal carotid artery (ICA). A modular multi-agent approach was used to decompose the complex navigation task into specialized subtasks, each trained using Soft Actor-Critic RL. The framework was validated in both in silico and in vitro testbeds to assess generalization and real-world feasibility. In silico, a single-vasculature model achieved 92-100% success rates on individual anatomies, while a multi-vasculature model achieved 56-80% across multiple patient anatomies. In vitro, both HM-MARL models successfully navigated 100% of trials from the femoral artery to the right common carotid artery and 80% to the right ICA but failed on the left-side vessel superhuman challenge due to the anatomy and catheter type used in navigation. This study presents the first demonstration of in vitro autonomous navigation in MT vasculature. While HM-MARL enables generalization across anatomies, the simulation-to-real transition introduces challenges. Future work will refine RL strategies using world models and validate performance on unseen in vitro data, advancing autonomous MT towards clinical translation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-20T23:50:35Z</published>
+    <arxiv:comment>Published in IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters (2026)</arxiv:journal_ref>
+    <author>
+      <name>Harry Robertshaw</name>
+    </author>
+    <author>
+      <name>Nikola Fischer</name>
+    </author>
+    <author>
+      <name>Lennart Karstensen</name>
+    </author>
+    <author>
+      <name>Benjamin Jackson</name>
+    </author>
+    <author>
+      <name>Xingyu Chen</name>
+    </author>
+    <author>
+      <name>S. M. Hadi Sadati</name>
+    </author>
+    <author>
+      <name>Christos Bergeles</name>
+    </author>
+    <author>
+      <name>Alejandro Granados</name>
+    </author>
+    <author>
+      <name>Thomas C Booth</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3664661</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3664661" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.14721v1</id>
+    <title>Leveraging Extrinsic Dexterity for Occluded Grasping on Grasp Constraining Walls</title>
+    <updated>2025-07-19T18:49:47Z</updated>
+    <link href="https://arxiv.org/abs/2507.14721v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.14721v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This study addresses the problem of occluded grasping, where primary grasp configurations of an object are not available due to occlusion with environment. Simple parallel grippers often struggle with such tasks due to limited dexterity and actuation constraints. Prior works have explored object pose reorientation such as pivoting by utilizing extrinsic contacts between an object and an environment feature like a wall, to make the object graspable. However, such works often assume the presence of a short wall, and this assumption may not always hold in real-world scenarios. If the wall available for interaction is too large or too tall, the robot may still fail to grasp the object even after pivoting, and the robot must combine different types of actions to grasp. To address this, we propose a hierarchical reinforcement learning (RL) framework. We use Q-learning to train a high-level policy that selects the type of action expected to yield the highest reward. The selected low-level skill then samples a specific robot action in continuous space. To guide the robot to an appropriate location for executing the selected action, we adopt a Conditional Variational Autoencoder (CVAE). We condition the CVAE on the object point cloud and the skill ID, enabling it to infer a suitable location based on the object geometry and the selected skill. To promote generalization, we apply domain randomization during the training of low-level skills. The RL policy is trained entirely in simulation with a box-like object and deployed to six objects in real world. We conduct experiments to evaluate our method and demonstrate both its generalizability and robust sim-to-real transfer performance with promising success rates.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-19T18:49:47Z</published>
+    <arxiv:comment>7 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Keita Kobashi</name>
+    </author>
+    <author>
+      <name>Masayoshi Tomizuka</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.15066v1</id>
+    <title>Multi-Mode Pneumatic Artificial Muscles Driven by Hybrid Positive-Negative Pressure</title>
+    <updated>2026-03-16T10:20:58Z</updated>
+    <link href="https://arxiv.org/abs/2603.15066v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.15066v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Artificial muscles embody human aspirations for engineering lifelike robotic movements. This paper introduces an architecture for Inflatable Fluid-Driven Origami-Inspired Artificial Muscles (IN-FOAMs). A typical IN-FOAM consists of an inflatable skeleton enclosed within an outer skin, which can be driven using a combination of positive and negative pressures (e.g., compressed air and vacuum). IN-FOAMs are manufactured using low-cost heat-sealable sheet materials through heat-pressing and heat-sealing processes. Thus, they can be ultra-thin when not actuated, making them flexible, lightweight, and portable. The skeleton patterns are programmable, enabling a variety of motions, including contracting, bending, twisting, and rotating, based on specific skeleton designs. We conducted comprehensive experimental, theoretical, and numerical studies to investigate IN-FOAM's basic mechanical behavior and properties. The results show that IN-FOAM's output force and contraction can be tuned through multiple operation modes with the applied hybrid positive-negative pressure. Additionally, we propose multilayer skeleton structures to enhance the contraction ratio further, and we demonstrate a multi-channel skeleton approach that allows the integration of multiple motion modes into a single IN-FOAM. These findings indicate that IN-FOAMs hold great potential for future applications in flexible wearable devices and compact soft robotic systems.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-16T10:20:58Z</published>
+    <arxiv:comment>20 pages, 17 figures. Published in IEEE Transactions on Robotics</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Transactions on Robotics 42 (2026) 1351-1370</arxiv:journal_ref>
+    <author>
+      <name>Siyuan Feng</name>
+    </author>
+    <author>
+      <name>Ruoyu Feng</name>
+    </author>
+    <author>
+      <name>Shuguang Li</name>
+    </author>
+    <arxiv:doi>10.1109/TRO.2026.3666154</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TRO.2026.3666154" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.01628v2</id>
+    <title>A Hierarchical Bin Packing Framework with Dual Manipulators via Heuristic Search and Deep Reinforcement Learning</title>
+    <updated>2025-10-15T04:04:16Z</updated>
+    <link href="https://arxiv.org/abs/2506.01628v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.01628v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We address the bin packing problem (BPP), which aims to maximize bin utilization when packing a variety of items. The offline problem, where the complete information about the item set and their sizes is known in advance, is proven to be NP-hard. The semi-online and online variants are even more challenging, as full information about incoming items is unavailable. While existing methods have tackled both 2D and 3D BPPs, the 2D BPP remains underexplored in terms of fully maximizing utilization. We propose a hierarchical approach for solving the 2D online and semi-online BPP by combining deep reinforcement learning (RL) with heuristic search. The heuristic search selects which item to pack or unpack, determines the packing order, and chooses the orientation of each item, while the RL agent decides the precise position within the bin. Our method is capable of handling diverse scenarios, including repacking, varying levels of item information, differing numbers of accessible items, and coordination of dual manipulators. Experimental results demonstrate that our approach achieves near-optimal utilization across various practical scenarios, largely due to its repacking capability. In addition, the algorithm is evaluated in a physics-based simulation environment, where execution time is measured to assess its real-world performance.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-02T13:05:59Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Beomjoon Lee</name>
+    </author>
+    <author>
+      <name>Changjoo Nam</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.14427v4</id>
+    <title>Self-Supervised Multisensory Pretraining for Contact-Rich Robot Reinforcement Learning</title>
+    <updated>2026-06-10T11:22:17Z</updated>
+    <link href="https://arxiv.org/abs/2511.14427v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.14427v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Effective contact-rich manipulation requires robots to synergistically leverage vision, force, and proprioception. However, Reinforcement Learning agents struggle to learn in such multisensory settings, especially amidst sensory noise and dynamic changes. We propose MultiSensory Dynamic Pretraining (MSDP), a novel framework for learning expressive multisensory representations tailored for task-oriented policy learning. MSDP is based on masked autoencoding and trains a transformer-based encoder by reconstructing multisensory observations from only a subset of sensor embeddings, leading to cross-modal prediction and sensor fusion. For downstream policy learning, we introduce a novel asymmetric architecture, where a cross-attention mechanism allows the critic to extract dynamic, task-specific features from the frozen embeddings, while the actor receives a stable pooled representation to guide its actions. Our method demonstrates accelerated learning and robust performance under diverse perturbations, including sensor noise, and changes in object dynamics. Evaluations in multiple challenging, contact-rich robot manipulation tasks in simulation and the real world showcase the effectiveness of MSDP. Our approach exhibits strong robustness to perturbations and achieves high success rates on the real robot with as few as 6,000 online interactions, offering a simple yet powerful solution for complex multisensory robotic control. Website: https://msdp-pearl.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-18T12:32:23Z</published>
+    <arxiv:comment>8 pages, 11 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, 2026, Vol. 11, No. 6, pp. 6799-6806</arxiv:journal_ref>
+    <author>
+      <name>Rickmer Krohn</name>
+    </author>
+    <author>
+      <name>Vignesh Prasad</name>
+    </author>
+    <author>
+      <name>Gabriele Tiboni</name>
+    </author>
+    <author>
+      <name>Georgia Chalvatzaki</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3681156</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3681156" title="doi"/>
+  </entry>
+</feed>

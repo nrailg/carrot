@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/vb2p24OI7I4j6Xmyaam1wtPAn0w</id>
+  <title>arXiv Query: search_query=ti:"Event-Based Visual Teach-And-Repeat Via Fast Fourier-Domain Cross-Correlation" OR ti:"High-Speed Low-Latency Visual Positioning with Event-Based Visible Light Communication" OR ti:"HSEM-Geo: Hierarchical Semantic Expansion with Multi-Vector Retrieval for UAV-View Geo-Localization" OR ti:"Localization for High-Speed Athletic Wheelchairs Using Line Semantics" OR ti:"GrndCtrl: Grounding World Models Via Self-Supervised Reward Alignment" OR ti:"Slot-Level Robotic Placement Via Visual Imitation of One Human Video" OR ti:"Factor Graph Guided Deep Reinforcement Learning for Uncertainty Aware SLAM Exploration" OR ti:"RoDyn: Taming Interactive Robot-Dynamic 2.5D World Model for Robotic Manipulation" OR ti:"HyTraj: A Closed-Loop End-to-End Autonomous Driving Framework Unifying Autoregressive and Non-Autoregressive Planning" OR ti:"ViLaD: A Large Vision Language Diffusion Framework for End-To-End Autonomous Driving"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:39Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Event-Based+Visual+Teach-And-Repeat+Via+Fast+Fourier-Domain+Cross-Correlation%22+OR+(ti:%22High-Speed+Low-Latency+Visual+Positioning+with+Event-Based+Visible+Light+Communication%22+OR+(ti:%22HSEM-Geo:+Hierarchical+Semantic+Expansion+with+Multi-Vector+Retrieval+for+UAV-View+Geo-Localization%22+OR+(ti:%22Localization+for+High-Speed+Athletic+Wheelchairs+Using+Line+Semantics%22+OR+(ti:%22GrndCtrl:+Grounding+World+Models+Via+Self-Supervised+Reward+Alignment%22+OR+(ti:%22Slot-Level+Robotic+Placement+Via+Visual+Imitation+of+One+Human+Video%22+OR+(ti:%22Factor+Graph+Guided+Deep+Reinforcement+Learning+for+Uncertainty+Aware+SLAM+Exploration%22+OR+(ti:%22RoDyn:+Taming+Interactive+Robot-Dynamic+2.5D+World+Model+for+Robotic+Manipulation%22+OR+(ti:%22HyTraj:+A+Closed-Loop+End-to-End+Autonomous+Driving+Framework+Unifying+Autoregressive+and+Non-Autoregressive+Planning%22+OR+ti:%22ViLaD:+A+Large+Vision+Language+Diffusion+Framework+for+End-To-End+Autonomous+Driving%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.09036v2</id>
+    <title>RoDyn: Taming Interactive Robot-Dynamic 2.5D World Model for Robotic Manipulation</title>
+    <updated>2026-06-24T10:18:59Z</updated>
+    <link href="https://arxiv.org/abs/2510.09036v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.09036v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learned world models hold significant potential as neural simulators for robotic manipulation. However, prevalent 2D video-based models inherently lack the spatial and kinematic reasoning crucial for physical interactions. We introduce RoDyn, a novel Robot-Dynamic 2.5D World Model that formulates environmental dynamics within a highly efficient, geometry-aware latent space. Through the proposed Robot-Dynamic Tokenizer, we explicitly couple semantic visual appearances with spatial and agent-centric priors via an RGB-dominated cross-attention mechanism and dynamic mask guidance. Furthermore, by injecting these mask priors directly into sequence transitions, our Mask-guided Autoregressive architecture drives the model to focus on active robot-object interaction regions. Extensive experiments demonstrate that RoDyn establishes SOTA generation fidelity across large-scale datasets. Crucially, it translates these predictive capabilities into substantial downstream gains, accelerating model-based reinforcement learning and achieving a 42\% improvement in real-world imitation learning success rates over pure 2D baselines.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-10T06:15:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chuanrui Zhang</name>
+    </author>
+    <author>
+      <name>Zhengxian Wu</name>
+    </author>
+    <author>
+      <name>Guanxing Lu</name>
+    </author>
+    <author>
+      <name>Yansong Tang</name>
+    </author>
+    <author>
+      <name>Ziwei Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.01952v2</id>
+    <title>GrndCtrl: Grounding World Models via Self-Supervised Reward Alignment</title>
+    <updated>2026-02-07T19:55:07Z</updated>
+    <link href="https://arxiv.org/abs/2512.01952v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.01952v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advances in video world modeling have enabled large-scale generative models to simulate embodied environments with high visual fidelity, providing strong priors for prediction, planning, and control. Yet, despite their realism, these models often lack geometric grounding, limiting their use in navigation tasks that require spatial coherence and stability. We introduce Reinforcement Learning with World Grounding (RLWG), a self-supervised post-training framework that aligns pretrained world models with a physically verifiable structure through geometric and perceptual rewards. Analogous to reinforcement learning from verifiable feedback (RLVR) in language models, RLWG can use multiple rewards that measure pose cycle-consistency, depth reprojection, and temporal coherence. We instantiate this framework with GrndCtrl, a reward-aligned adaptation method based on Group Relative Policy Optimization (GRPO), yielding world models that maintain stable trajectories, consistent geometry, and reliable rollouts for embodied navigation. Like post-training alignment in large language models, GrndCtrl leverages verifiable rewards to bridge generative pretraining and grounded behavior, achieving superior spatial coherence and navigation stability over supervised fine-tuning in outdoor environments.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-01T18:03:29Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Haoyang He</name>
+    </author>
+    <author>
+      <name>Jay Patrikar</name>
+    </author>
+    <author>
+      <name>Dong-Ki Kim</name>
+    </author>
+    <author>
+      <name>Max Smith</name>
+    </author>
+    <author>
+      <name>Daniel McGann</name>
+    </author>
+    <author>
+      <name>Ali-akbar Agha-mohammadi</name>
+    </author>
+    <author>
+      <name>Shayegan Omidshafiei</name>
+    </author>
+    <author>
+      <name>Sebastian Scherer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.17287v2</id>
+    <title>Event-Based Visual Teach-and-Repeat via Fast Fourier-Domain Cross-Correlation</title>
+    <updated>2026-03-09T03:55:46Z</updated>
+    <link href="https://arxiv.org/abs/2509.17287v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.17287v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Visual teach-and-repeat (VT&amp;R) navigation enables robots to autonomously traverse previously demonstrated paths using visual feedback. We present a novel event-camera-based VT\&amp;R system. Our system formulates event-stream matching as frequency-domain cross-correlation, transforming spatial convolutions into efficient Fourier-space multiplications. By exploiting the binary structure of event frames and applying image compression techniques, we achieve a processing latency of just 2.88 ms, about 3.5 times faster than conventional camera-based baselines that are optimised for runtime efficiency. Experiments using a Prophesee EVK4 HD event camera mounted on an AgileX Scout Mini robot demonstrate successful autonomous navigation across 3000+ meters of indoor and outdoor trajectories in daytime and nighttime conditions. Our system maintains Cross-Track Errors (XTE) below 15 cm, demonstrating the practical viability of event-based perception for real-time VT\&amp;R navigation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-21T23:53:31Z</published>
+    <arxiv:comment>8 Pages, 5 Figures, Under Review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Gokul B. Nair</name>
+    </author>
+    <author>
+      <name>Alejandro Fontan</name>
+    </author>
+    <author>
+      <name>Michael Milford</name>
+    </author>
+    <author>
+      <name>Tobias Fischer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.12603v1</id>
+    <title>ViLaD: A Large Vision Language Diffusion Framework for End-to-End Autonomous Driving</title>
+    <updated>2025-08-18T04:01:56Z</updated>
+    <link href="https://arxiv.org/abs/2508.12603v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.12603v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>End-to-end autonomous driving systems built on Vision Language Models (VLMs) have shown significant promise, yet their reliance on autoregressive architectures introduces some limitations for real-world applications. The sequential, token-by-token generation process of these models results in high inference latency and cannot perform bidirectional reasoning, making them unsuitable for dynamic, safety-critical environments. To overcome these challenges, we introduce ViLaD, a novel Large Vision Language Diffusion (LVLD) framework for end-to-end autonomous driving that represents a paradigm shift. ViLaD leverages a masked diffusion model that enables parallel generation of entire driving decision sequences, significantly reducing computational latency. Moreover, its architecture supports bidirectional reasoning, allowing the model to consider both past and future simultaneously, and supports progressive easy-first generation to iteratively improve decision quality. We conduct comprehensive experiments on the nuScenes dataset, where ViLaD outperforms state-of-the-art autoregressive VLM baselines in both planning accuracy and inference speed, while achieving a near-zero failure rate. Furthermore, we demonstrate the framework's practical viability through a real-world deployment on an autonomous vehicle for an interactive parking task, confirming its effectiveness and soundness for practical applications.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-18T04:01:56Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Can Cui</name>
+    </author>
+    <author>
+      <name>Yupeng Zhou</name>
+    </author>
+    <author>
+      <name>Juntong Peng</name>
+    </author>
+    <author>
+      <name>Sung-Yeon Park</name>
+    </author>
+    <author>
+      <name>Zichong Yang</name>
+    </author>
+    <author>
+      <name>Prashanth Sankaranarayanan</name>
+    </author>
+    <author>
+      <name>Jiaru Zhang</name>
+    </author>
+    <author>
+      <name>Ruqi Zhang</name>
+    </author>
+    <author>
+      <name>Ziran Wang</name>
+    </author>
+  </entry>
+</feed>

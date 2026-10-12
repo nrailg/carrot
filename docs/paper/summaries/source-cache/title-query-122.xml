@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/AxNjyaScWEsusTIxXv9bobR1E08</id>
+  <title>arXiv Query: search_query=ti:"Web2Grasp: Learning Functional Grasps from Web Images of Hand-Object Interactions" OR ti:"Inverse Physics-Informed Neural Network for Material-Aware Soft Grasping" OR ti:"Closing the Navigation Compliance Gap in End-To-End Autonomous Driving" OR ti:"Driver-State-Aware Risk Assessment and Driving Assistance Based on an End-To-End Model" OR ti:"HiD2: A Trajectory Generator for High-Density Traffic and Diverse Agent-Interaction Scenarios" OR ti:"Super Agents and Confounders: Influence of Surrounding Agents on Vehicle Trajectory Prediction" OR ti:"Unified Early Traffic Conflict Detection for Autonomous Vehicles Via Future Trajectory Prediction" OR ti:"PEDRA: PErsonalized Driving Representation for Autonomy" OR ti:"Tailorable Force-Sensing Skins for Manipulators Using Textile and Additive Manufacturing" OR ti:"A High Load Density Miniature Force Sensor for Probing with Robot Feet"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:59Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Web2Grasp:+Learning+Functional+Grasps+from+Web+Images+of+Hand-Object+Interactions%22+OR+(ti:%22Inverse+Physics-Informed+Neural+Network+for+Material-Aware+Soft+Grasping%22+OR+(ti:%22Closing+the+Navigation+Compliance+Gap+in+End-To-End+Autonomous+Driving%22+OR+(ti:%22Driver-State-Aware+Risk+Assessment+and+Driving+Assistance+Based+on+an+End-To-End+Model%22+OR+(ti:%22HiD2:+A+Trajectory+Generator+for+High-Density+Traffic+and+Diverse+Agent-Interaction+Scenarios%22+OR+(ti:%22Super+Agents+and+Confounders:+Influence+of+Surrounding+Agents+on+Vehicle+Trajectory+Prediction%22+OR+(ti:%22Unified+Early+Traffic+Conflict+Detection+for+Autonomous+Vehicles+Via+Future+Trajectory+Prediction%22+OR+(ti:%22PEDRA:+PErsonalized+Driving+Representation+for+Autonomy%22+OR+(ti:%22Tailorable+Force-Sensing+Skins+for+Manipulators+Using+Textile+and+Additive+Manufacturing%22+OR+ti:%22A+High+Load+Density+Miniature+Force+Sensor+for+Probing+with+Robot+Feet%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.05517v3</id>
+    <title>Web2Grasp: Learning Functional Grasps from Web Images of Hand-Object Interactions</title>
+    <updated>2026-06-26T01:37:50Z</updated>
+    <link href="https://arxiv.org/abs/2505.05517v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.05517v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Functional grasping is essential for enabling dexterous multi-finger robot hands to manipulate objects effectively. Prior work largely focuses on power grasps, which only involve holding an object, or relies on in-domain demonstrations for specific objects. We propose leveraging human grasp information extracted from web images, which capture natural and functional hand-object interactions (HOI). Using a pretrained 3D reconstruction model, we recover 3D human HOI meshes from RGB images. To train on these noisy HOI data, we propose to use: (1) an interaction-centric model to learn the functional interaction pattern between hand and object, and (2) geometry-based filtering to remove the infeasible grasps and physical simulation to retain grasps who can resist disturbance. In IssacGym simulation, our model trained on reconstructed HOI grasps achieves a 75.8% success rate on objects from the web dataset and generalizes to unseen objects, outperforming baseline methods in both grasp success and functional quality. In real-world experiments with the LEAP hand and Inspire hand, it attains a 77.5% success rate across 12 objects, including challenging ones such as a syringe, spray bottle, knife, and tongs. Project website is at: https://web2grasp.github.io/.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-07T16:13:17Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hongyi Chen</name>
+    </author>
+    <author>
+      <name>Yunchao Yao</name>
+    </author>
+    <author>
+      <name>Yufei Ye</name>
+    </author>
+    <author>
+      <name>Zhixuan Xu</name>
+    </author>
+    <author>
+      <name>Homanga Bharadhwaj</name>
+    </author>
+    <author>
+      <name>Jiashun Wang</name>
+    </author>
+    <author>
+      <name>Arthur Jakobsson</name>
+    </author>
+    <author>
+      <name>Ruihan Zhao</name>
+    </author>
+    <author>
+      <name>Shubham Tulsiani</name>
+    </author>
+    <author>
+      <name>Zackory Erickson</name>
+    </author>
+    <author>
+      <name>Jeffrey Ichnowski</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.03463v1</id>
+    <title>Super Agents and Confounders: Influence of surrounding agents on vehicle trajectory prediction</title>
+    <updated>2026-04-03T21:15:06Z</updated>
+    <link href="https://arxiv.org/abs/2604.03463v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.03463v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In highly interactive driving scenes, trajectory prediction is conditioned on information from surrounding traffic participants such as cars and pedestrians. Our main contribution is a comprehensive analysis of state-of-the-art trajectory predictors, which reveals a surprising and critical flaw: many surrounding agents degrade prediction accuracy rather than improve it. Using Shapley-based attribution, we rigorously demonstrate that models learn unstable and non-causal decision-making schemes that vary significantly across training runs. Building on these insights, we propose to integrate a Conditional Information Bottleneck (CIB), which does not require additional supervision and is trained to effectively compress agent features as well as ignore those that are not beneficial for the prediction task. Comprehensive experiments using multiple datasets and model architectures demonstrate that this simple yet effective approach not only improves overall trajectory prediction performance in many cases but also increases robustness to different perturbations. Our results highlight the importance of selectively integrating contextual information, which can often contain spurious or misleading signals, in trajectory prediction. Moreover, we provide interpretable metrics for identifying non-robust behavior and present a promising avenue towards a solution.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-03T21:15:06Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Daniel Jost</name>
+    </author>
+    <author>
+      <name>Luca Paparusso</name>
+    </author>
+    <author>
+      <name>Martin Stoll</name>
+    </author>
+    <author>
+      <name>Jörg Wagner</name>
+    </author>
+    <author>
+      <name>Raghu Rajan</name>
+    </author>
+    <author>
+      <name>Joschka Bödecker</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.10660v2</id>
+    <title>Closing the Navigation Compliance Gap in End-to-end Autonomous Driving</title>
+    <updated>2026-03-26T15:34:44Z</updated>
+    <link href="https://arxiv.org/abs/2512.10660v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.10660v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Trajectory-scoring planners achieve high navigation compliance when following the expert's original command, yet they struggle at intersections when presented with alternative commands; over 30 percent of such commands are ignored. We attribute this navigation compliance gap to two root causes: (1) existing metrics like Ego Progress do not explicitly measure navigation adherence, diluting the gap between on-route and off-route trajectories; and (2) current datasets pair each scenario with a single command, preventing models from learning command-dependent behavior. We address the metric gap by introducing the binary Navigation Compliance metric (NAVI) and the derived Controllability Measure (CM), and the data gap with the NavControl dataset, 14,918 intersection scenarios augmented with all feasible alternative commands and routing annotations, yielding over 34,000 direction samples. Building on these, we propose NaviHydra, a trajectory-scoring planner incorporating NAVI distillation and Bird's Eye View (BEV)-based trajectory gathering for context-position-aware trajectory feature extraction. NaviHydra achieves 92.7 PDM score on NAVSIM navtest split and 77.5 CM on NavControl test split. Training with NavControl improves controllability across diverse architectures, confirming it as a broadly effective augmentation for navigation compliance.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-11T14:05:18Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hanfeng Wu</name>
+    </author>
+    <author>
+      <name>Marlon Steiner</name>
+    </author>
+    <author>
+      <name>Michael Schmidt</name>
+    </author>
+    <author>
+      <name>Alvaro Marcos-Ramiro</name>
+    </author>
+    <author>
+      <name>Christoph Stiller</name>
+    </author>
+  </entry>
+</feed>

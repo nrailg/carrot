@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/SvFbZdRXARvOHl5bGd+0SY8meG0</id>
+  <title>arXiv Query: search_query=ti:"STADA: Specification-Based Testing for Autonomous Driving Agents" OR ti:"Operator Anonymity Via Bounded Metric Privacyfor Learning-Based Dexterous Telemanipulation" OR ti:"FLARE: Agile Flights for Quadrotor Cable-Suspended Payload System Via Reinforcement Learning" OR ti:"Perception-Aware Control for Cooperative Cable-Suspended Transportation under Sensing Constraints" OR ti:"From Hitch to Lift: Autonomous Cable Interlacing by Multi-UAV Teams for Aerial Grasping and Transportation" OR ti:"Food Samples with Built-In Sensors for Evaluating Robot Grippers That Can Estimate the Success or Failure of Pick-And-Place" OR ti:"Motion Generation for Food Topping Challenge 2024: Serving Salmon Roe Bowl and Picking Fried Chicken" OR ti:"Strain-Based Shape and 3D Force Estimation for Rod-Driven Continuum Robots with Stretch Sensors" OR ti:"Stiffness Map Generation for Soft Materials Using Axis-Aligning Non-Contact Measuring Device" OR ti:"Programmable Localized Surface Haptic Feedback Achieved through Seamless Transparent Panel"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:50Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22STADA:+Specification-Based+Testing+for+Autonomous+Driving+Agents%22+OR+(ti:%22Operator+Anonymity+Via+Bounded+Metric+Privacyfor+Learning-Based+Dexterous+Telemanipulation%22+OR+(ti:%22FLARE:+Agile+Flights+for+Quadrotor+Cable-Suspended+Payload+System+Via+Reinforcement+Learning%22+OR+(ti:%22Perception-Aware+Control+for+Cooperative+Cable-Suspended+Transportation+under+Sensing+Constraints%22+OR+(ti:%22From+Hitch+to+Lift:+Autonomous+Cable+Interlacing+by+Multi-UAV+Teams+for+Aerial+Grasping+and+Transportation%22+OR+(ti:%22Food+Samples+with+Built-In+Sensors+for+Evaluating+Robot+Grippers+That+Can+Estimate+the+Success+or+Failure+of+Pick-And-Place%22+OR+(ti:%22Motion+Generation+for+Food+Topping+Challenge+2024:+Serving+Salmon+Roe+Bowl+and+Picking+Fried+Chicken%22+OR+(ti:%22Strain-Based+Shape+and+3D+Force+Estimation+for+Rod-Driven+Continuum+Robots+with+Stretch+Sensors%22+OR+(ti:%22Stiffness+Map+Generation+for+Soft+Materials+Using+Axis-Aligning+Non-Contact+Measuring+Device%22+OR+ti:%22Programmable+Localized+Surface+Haptic+Feedback+Achieved+through+Seamless+Transparent+Panel%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2504.19498v2</id>
+    <title>Motion Generation for Food Topping Challenge 2024: Serving Salmon Roe Bowl and Picking Fried Chicken</title>
+    <updated>2025-04-30T12:32:20Z</updated>
+    <link href="https://arxiv.org/abs/2504.19498v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.19498v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Although robots have been introduced in many industries, food production robots are yet to be widely employed because the food industry requires not only delicate movements to handle food but also complex movements that adapt to the environment. Force control is important for handling delicate objects such as food. In addition, achieving complex movements is possible by making robot motions based on human teachings. Four-channel bilateral control is proposed, which enables the simultaneous teaching of position and force information. Moreover, methods have been developed to reproduce motions obtained through human teachings and generate adaptive motions using learning. We demonstrated the effectiveness of these methods for food handling tasks in the Food Topping Challenge at the 2024 IEEE International Conference on Robotics and Automation (ICRA 2024). For the task of serving salmon roe on rice, we achieved the best performance because of the high reproducibility and quick motion of the proposed method. Further, for the task of picking fried chicken, we successfully picked the most pieces of fried chicken among all participating teams. This paper describes the implementation and performance of these methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-28T05:41:09Z</published>
+    <arxiv:comment>17 pages, 12 figures, This is a preprint of an article submitted for consideration in ADVANCED ROBOTICS, copyright Taylor &amp; Francis and Robotics Society of Japan; ADVANCED ROBOTICS is available online at http://www.tandfonline.com/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Koki Inami</name>
+    </author>
+    <author>
+      <name>Masashi Konosu</name>
+    </author>
+    <author>
+      <name>Koki Yamane</name>
+    </author>
+    <author>
+      <name>Nozomu Masuya</name>
+    </author>
+    <author>
+      <name>Yunhan Li</name>
+    </author>
+    <author>
+      <name>Yu-Han Shu</name>
+    </author>
+    <author>
+      <name>Hiroshi Sato</name>
+    </author>
+    <author>
+      <name>Shinnosuke Homma</name>
+    </author>
+    <author>
+      <name>Sho Sakaino</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.09797v2</id>
+    <title>FLARE: Agile Flights for Quadrotor Cable-Suspended Payload System via Reinforcement Learning</title>
+    <updated>2026-01-29T13:09:53Z</updated>
+    <link href="https://arxiv.org/abs/2508.09797v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.09797v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agile flight for the quadrotor cable-suspended payload system is a formidable challenge due to its underactuated, highly nonlinear, and hybrid dynamics. Traditional optimization-based methods often struggle with high computational costs and the complexities of cable mode transitions, limiting their real-time applicability and maneuverability exploitation. In this letter, we present FLARE, a reinforcement learning (RL) framework that directly learns agile navigation policy from high-fidelity simulation. Our method is validated across three designed challenging scenarios, notably outperforming a state-of-the-art optimization-based approach by a 3x speedup during gate traversal maneuvers. Furthermore, the learned policies achieve successful zero-shot sim-to-real transfer, demonstrating remarkable agility and safety in real-world experiments, running in real time on an onboard computer.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-13T13:27:32Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Dongcheng Cao</name>
+    </author>
+    <author>
+      <name>Jin Zhou</name>
+    </author>
+    <author>
+      <name>Xian Wang</name>
+    </author>
+    <author>
+      <name>Shuo Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10940v1</id>
+    <title>STADA: Specification-based Testing for Autonomous Driving Agents</title>
+    <updated>2026-03-11T16:26:20Z</updated>
+    <link href="https://arxiv.org/abs/2603.10940v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10940v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Simulation-based testing has become a standard approach to validating autonomous driving agents prior to real-world deployment. A high-quality validation campaign will exercise an agent in diverse contexts comprised of varying static environments, e.g., lanes, intersections, signage, and dynamic elements, e.g., vehicles and pedestrians. To achieve this, existing test generation techniques rely on template-based, manually constructed, or random scenario generation. When applied to validate formally specified safety requirements, such methods either require significant human effort or run the risk of missing important behavior related to the requirement.
+  To address this gap, we present STADA, a Specification-based Test generation framework for Autonomous Driving Agents that systematically generates the space of scenarios defined by a formal specification expressed in temporal logic (LTLf). Given a specification, STADA constructs all distinct initial scenes, a diverse space of continuations of those scenes, and simulations that reflect the behaviors of the specification.
+  Evaluation of STADA on a variety of LTLf specifications formalized in SCENEFLOW using three complementary coverage criteria demonstrates that STADA yields more than 2x higher coverage than the best baseline on the finest criteria and a 75% increase for the coarsest criteria. Moreover, it matches the coverage of the best baseline with 6 times fewer simulations. While set in the context of autonomous driving, the approach is applicable to other domains with rich simulation environments.</summary>
+    <category term="cs.SE" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T16:26:20Z</published>
+    <arxiv:primary_category term="cs.SE"/>
+    <author>
+      <name>Joy Saha</name>
+    </author>
+    <author>
+      <name>Trey Woodlief</name>
+    </author>
+    <author>
+      <name>Sebastian Elbaum</name>
+    </author>
+    <author>
+      <name>Matthew B. Dwyer</name>
+    </author>
+  </entry>
+</feed>

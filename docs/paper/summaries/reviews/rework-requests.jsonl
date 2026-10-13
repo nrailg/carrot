@@ -50,3 +50,19 @@
 {"batch_id": "batch-115", "state": "open", "basis": "22606骨干专用权重误译本体专用，要求全批检查机制主体及输入输出。"}
 {"batch_id": "batch-116", "state": "resolved", "basis": "parent核读CausalWM官方正文确认纯视频评测，排除并同步证据；worker全批范围复核无其他同类。"}
 {"batch_id": "batch-115", "state": "resolved", "basis": "22606改为VLA骨干专用，parent已核读；worker全批输入输出与机制主体检查无其余问题。"}
+{"batch_id": "batch-121", "state": "requested", "paper_id": "arxiv:2609.25652", "reason": "明确NPC战术控制/动作质量评测，需重核纯生成排除边界并整批复查。"}
+{"batch_id": "batch-121", "state": "resolved", "paper_id": "arxiv:2609.25652", "reason": "worker全40范围复查仅此变化；父核读官方闭环NPC机制并检查修订及证据。"}
+{"batch_id": "batch-131", "state": "resolved", "reason": "父核读官方附录发现30946机器人动作预测支撑，原排除改纳入；子代理全40再读自查并修正文献范围及术语，父重核改动摘要。"}
+{"batch_id": "batch-134", "state": "requested", "reason": "32368摘要无参考系论述且漏主论点；32336只验证不一致识别非修复；32375多GPU表述误导。请全批重核依据。"}
+{"batch_id": "batch-134", "state": "resolved", "reason": "子代理全40再次核读，父逐条核读四项修订，问题和机制均有摘要支持。"}
+{"batch_id": "batch-141", "state": "requested", "reason": "36172图像拓扑关系属于已纳入的空间关系感知支撑，应纳入评测/感知；请全批复查边界。"}
+{"batch_id": "batch-141", "state": "resolved", "reason": "子代理全40复核空间感知范围；父核读修订36172及36066并接受，其他边界抽查通过。"}
+{"batch_id": "batch-144", "state": "requested", "reason": "37167将图路径决定过渡长度误读成按目标时长搜索，需全批再次核读有无无据前提。"}
+{"batch_id": "batch-144", "state": "resolved", "reason": "全40再次核读并修37167无据目标时长前提及37070术语；父核读5项最终修订，接受。"}
+{"batch_id": "batch-140", "state": "requested", "reason": "34826心理旋转属于通用空间几何推理支撑，应纳入；请求全40复核同类范围边界。"}
+{"batch_id": "batch-140", "state": "resolved", "reason": "子代理全40再核无同类漏排，34826按空间推理支撑纳入；父核读最终修订接受。"}
+{"batch_id": "batch-153", "state": "requested", "reason": "01614明确虚拟具身行动状态交互，不应仅因无策略学习/真实机器人排除；要求正文核验并全批检查同类范围。"}
+{"batch_id": "batch-156", "state": "requested", "reason": "02957八疾病队列误写八客户且动机加入摘要未述按医院拆分；需纠正并整批核查无依据细节。"}
+{"batch_id": "batch-146", "state": "requested", "reason": "FORM未知材料辨识主问题调整perception_state；整批复核状态辨识与前向动力学边界。"}
+{"batch_id": "batch-148", "state": "requested", "reason": "38989对比学习对象误扩成指令线索、39006手部功能误扩成物体功能、39105地形拟合热启动误写规划热启动；整批核对机制对象。"}
+{"batch_id": "batch-146", "state": "resolved", "reason": "全40边界复核报告已存；父核读FORM和PneuTac最终分类及摘要接受。"}

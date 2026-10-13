@@ -2,7 +2,8 @@
 import json
 from collections import Counter
 
-from batch_io import R, CATS, readlines
+from batch_io import R, CATS, FIELDS, readlines
+from review_io import fingerprint
 
 
 def cell(value):
@@ -16,9 +17,11 @@ def main():
     index = {x['paper_id']: x for x in papers}
     editorial = json.loads((R / 'map-editorial.json').read_text())
     assert {x['id'] for x in editorial['categories']} == CATS
-    reviewed = {x['paper_id'] for x in readlines(R / 'reviews/representatives.jsonl') if x['decision'] == 'accept'}
+    reviewed = {x['paper_id']: x.get('summary_sha256') for x in readlines(R / 'reviews/representatives.jsonl') if x['decision'] == 'accept'}
     selected = [pid for section in editorial['categories'] for pid in section['representatives']]
-    assert set(selected) <= reviewed
+    assert set(selected) <= set(reviewed)
+    for pid in selected:
+        assert reviewed[pid] == fingerprint({k: index[pid][k] for k in FIELDS}), (pid, "representative review is stale")
     statuses = Counter(x['status'] for x in papers)
     supported = [x for x in papers if x['status'] == '摘要支持']
     primary = Counter(x['primary_problem'] for x in supported)

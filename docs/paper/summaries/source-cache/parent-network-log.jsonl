@@ -1,0 +1,23 @@
+{"time": "2026-10-13T05:20:05.982557+00:00", "url": "https://arxiv.org/html/2610.02162v1", "purpose": "scope verification", "attempt": 1, "status": 200, "bytes": 326954}
+{"time": "2026-10-13T05:21:04.440225+00:00", "url": "https://arxiv.org/html/2610.02521v1", "purpose": "scope verification", "attempt": 1, "status": 200, "bytes": 364077}
+{"time": "2026-10-13T05:21:38.106906+00:00", "url": "https://arxiv.org/html/2610.02660v1", "purpose": "scope verification", "attempt": 1, "status": 200, "bytes": 314763}
+{"time": "2026-10-13T05:25:48.490255+00:00", "time_basis": "cache_mtime", "url": "https://arxiv.org/html/2610.03664v1", "purpose": "scope verification", "status": 200, "bytes": 406097}
+{"time": "2026-10-13T05:27:48.526250+00:00", "time_basis": "cache_mtime", "url": "https://arxiv.org/html/2610.05409v1", "purpose": "scope verification", "status": 200, "bytes": 1109759}
+{"time": "2026-10-13T05:30:49.054331+00:00", "time_basis": "cache_mtime", "url": "https://arxiv.org/html/2610.06100v1", "purpose": "scope verification", "status": 200, "bytes": 650270}
+{"time": "2026-10-13T05:31:55.378831+00:00", "time_basis": "cache_mtime", "url": "https://arxiv.org/html/2610.07031v1", "purpose": "scope verification", "status": 200, "bytes": 194333}
+{"time": "2026-10-13T05:32:07.458772+00:00", "time_basis": "cache_mtime", "url": "https://arxiv.org/html/2610.07127v1", "purpose": "scope verification", "status": 200, "bytes": 430054}
+{"time": "2026-10-13T05:37:02.827266+00:00", "time_basis": "cache_mtime", "url": "https://eccv.ecva.net/virtual/2026/poster/3322", "purpose": "scope verification", "status": 200, "bytes": 69492}
+{"time": "2026-10-13T05:37:24.236062+00:00", "time_basis": "cache_mtime", "url": "https://media.eventhosts.cc/Conferences/ECCV2026/pdfs/952.pdf", "purpose": "scope verification", "status": 200, "bytes": 8057026}
+{"time": "2026-10-13T05:42:50.737011+00:00", "time_basis": "recorded_after_attempt", "url": "https://openreview.net/pdf?id=anDaczglpj", "status": 403, "purpose": "required mechanism for neurips:139268", "retry": false}
+{"url": "https://arxiv.org/html/2605.21133v1", "http_status": 200, "cache": "parent-arxiv-2605.21133.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:40:25.442488+00:00"}
+{"url": "https://neurips.cc/virtual/2026/poster/139268", "http_status": 200, "cache": "parent-neurips-139268.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:41:22.057450+00:00"}
+{"url": "https://openreview.net/forum?id=anDaczglpj", "http_status": 200, "cache": "parent-openreview-anDaczglpj.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:41:31.284435+00:00"}
+{"url": "https://microsoft.github.io/SkillOpt/docs/guide/first-experiment.html", "http_status": 200, "cache": "parent-skillopt-docs.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:45:50.395450+00:00"}
+{"url": "https://arxiv.org/html/2604.11811v1", "http_status": 200, "cache": "parent-arxiv-2604.11811.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:50:49.954250+00:00"}
+{"url": "https://arxiv.org/html/2610.13172v1", "http_status": 200, "cache": "parent-arxiv-2610.13172.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:53:26.752537+00:00"}
+{"url": "https://arxiv.org/html/2602.06868v1", "http_status": 200, "cache": "parent-arxiv-2602.06868.html", "time_basis": "cache mtime, retrospectively recorded", "timestamp": "2026-10-13T05:54:25.394475+00:00"}
+{"url": "https://arxiv.org/html/2603.03836v1", "http_status": 200, "cache": "parent-arxiv-2603.03836.html", "timestamp": "2026-10-13T05:57:22.397567+00:00", "time_basis": "cache mtime; retrospective"}
+{"url": "https://roboticsconference.org/2026/program/papers/90/", "http_status": 200, "cache": "parent-rss-90.html", "timestamp": "2026-10-13T05:59:12.297292+00:00", "time_basis": "cache mtime; retrospective"}
+{"url": "https://www.roboticsproceedings.org/rss22/p090.pdf", "http_status": 200, "cache": "parent-rss-90.pdf", "timestamp": "2026-10-13T05:59:22.936689+00:00", "time_basis": "cache mtime; retrospective"}
+{"time": "2026-10-13T06:05:23.848341+00:00", "url": "https://arxiv.org/html/2610.13479v1", "http_status": 200, "cache": "source-cache/parent-arxiv-2610.13479.html", "purpose": "核对autonomous systems具体物理任务以判相关性"}
+{"time": "2026-10-13T06:30:42.690060+00:00", "url": "https://arxiv.org/html/2505.08216v1", "http_status": 200, "cache": "source-cache/parent-arxiv-2505.08216.html", "purpose": "摘要仅称轻量自适应修改，补正文具体量化和停止机制"}

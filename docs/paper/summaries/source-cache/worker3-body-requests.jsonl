@@ -1,0 +1,21 @@
+{"paper_id": "arxiv:2610.07961", "url": "https://arxiv.org/html/2610.07961v1", "question": "动力学感知信息瓶颈具体分布/损失及如何保动作相关信息？", "batch": "batch-165", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.08043", "url": "https://arxiv.org/html/2610.08043v1", "question": "GOSPAM位置/存在/完整性的匹配与聚合公式是什么？", "batch": "batch-165", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.08120", "url": "https://arxiv.org/html/2610.08120v1", "question": "特权专家到感知学生的两项互补训练目标具体是什么？", "batch": "batch-165", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.08297", "url": "https://arxiv.org/html/2610.08297v1", "question": "历史数据如何检索或融合入QoS预测以缓解概念漂移？", "batch": "batch-165", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.09305", "url": "https://arxiv.org/html/2610.09305v1", "question": "SDK具体数据整理策略与造成可玩性落差的诊断机制是什么？有动作状态一致或具身能力指标吗？", "batch": "batch-168", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.09369", "url": "https://arxiv.org/html/2610.09369v1", "question": "动作噪声分配使用何种匹配代价、批内算法与条件？", "batch": "batch-168", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.10846", "url": "https://arxiv.org/html/2610.10846v1", "question": "共享跨形态潜动作如何学习，训练目标/输入接口及适配条件？", "batch": "batch-171", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.10912", "url": "https://arxiv.org/html/2610.10912v1", "question": "task scrubbing域对抗支路预测什么，如何阻断视觉任务捷径？", "batch": "batch-171", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.11175", "url": "https://arxiv.org/html/2610.11175v1", "question": "第一阶动作监督目标如何计算，适用随机/流策略的理论条件是什么？", "batch": "batch-171", "status": "optional_deferred"}
+{"paper_id": "arxiv:2610.12661", "url": "https://arxiv.org/html/2610.12661v1", "question": "具体机器人应用负载/内核是什么？是否直接支持机器人感知规划控制部署，基准与性能实证范围？", "batch": "batch-174", "status": "resolved_scope_abstract"}
+{"paper_id": "eccv:3322", "url": "https://eccv.ecva.net/virtual/2026/poster/3322", "question": "六任务九数据集是否含机器人或3D/深度/几何状态任务？用于范围判定。", "batch": "batch-177", "status": "resolved_parent_registered"}
+{"paper_id": "eccv:3509", "url": "https://eccv.ecva.net/virtual/2026/poster/3509", "question": "采用哪些codec侧信号，如何与视觉里程关联或融合？", "batch": "batch-177", "status": "optional_deferred"}
+{"paper_id": "eccv:4832", "url": "https://eccv.ecva.net/virtual/2026/poster/4832", "question": "hybrid Markov shadow engine具体如何提供专家流形引导及处理早期漂移？", "batch": "batch-180", "status": "optional_deferred"}
+{"paper_id": "eccv:6193", "url": "https://arxiv.org/abs/2605.21133", "question": "Active Spatial Brain如何选择主动空间观测，Action Cerebellum如何无任务真实数据生成机器人可执行动作？", "batch": "batch-183", "status": "resolved_parent_registered"}
+{"paper_id": "neurips:139268", "url": "https://neurips.cc/virtual/2026/poster/139268", "question": "怎样自动生成全面任务并判断场景可行性，自动提升代理的方法具体是什么？", "batch": "batch-183", "status": "resolved_unavailable"}
+{"paper_id": "neurips:151264", "url": "https://neurips.cc/virtual/2026/poster/151264", "question": "六任务中embodied decision making具体环境、是否有物理空间状态/动作执行与评测？用于范围判定。", "batch": "batch-186", "status": "resolved_parent_registered"}
+{"paper_id": "neurips:155414", "url": "https://neurips.cc/virtual/2026/poster/155414", "question": "embodied planning具体任务环境与动作评测，是否物理空间/具身模拟规划而非软件流程？", "batch": "batch-189", "status": "resolved_parent_registered"}
+{"paper_id": "rss:161", "url": "https://arxiv.org/abs/2602.06868", "question": "CBO具体粒子共识权重、更新和噪声规则，以及全局收敛适用条件？摘要只方法名与效果，需补核心求解机制。", "batch": "batch-192", "status": "resolved_parent_registered"}
+{"paper_id": "rss:82", "url": "https://arxiv.org/abs/2603.03836", "question": "SkillVLA如何解耦单臂技能并在左右新组合复用？需核心架构/训练机制。", "batch": "batch-195", "status": "resolved_parent_registered"}
+{"paper_id": "rss:90", "url": "https://roboticsconference.org/2026/program/papers/90/", "question": "下注变量怎样由模拟结果构造，真实性能估计器与近似下注/诊断规则核心形式？", "batch": "batch-195", "status": "resolved_parent_registered"}
+{"paper_id": "IROS26-25", "url": "https://arxiv.org/abs/2505.08216", "question": "SQ算法可证明重复输出的核心修改是什么？参数如何自适应、是否量化/舍入/随机化/停止规则，准确效率界在什么条件成立？摘要仅声明轻量修改未披露机制。", "batch": "batch-200", "status": "resolved_parent_registered", "resolution": "父已核官方arxiv2505.08216v1§III量化及Bernstein停止并登记override，已同步摘要证据机制。"}

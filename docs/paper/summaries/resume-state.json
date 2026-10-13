@@ -1,5 +1,5 @@
 {
-  "state": "running",
+  "state": "complete",
   "completed_batches": [
     "batch-001",
     "batch-002",
@@ -146,19 +146,17 @@
     "batch-143",
     "batch-144",
     "batch-145",
-    "batch-147",
-    "batch-150",
-    "batch-156"
-  ],
-  "incomplete_batches": [
     "batch-146",
+    "batch-147",
     "batch-148",
     "batch-149",
+    "batch-150",
     "batch-151",
     "batch-152",
     "batch-153",
     "batch-154",
     "batch-155",
+    "batch-156",
     "batch-157",
     "batch-158",
     "batch-159",
@@ -209,126 +207,14 @@
     "batch-204",
     "batch-205"
   ],
-  "pending_review": [
-    {
-      "batch_id": "batch-153",
-      "paper_id": "arxiv:2610.01559"
-    },
-    {
-      "batch_id": "batch-153",
-      "paper_id": "arxiv:2610.01614"
-    },
-    {
-      "batch_id": "batch-153",
-      "paper_id": "arxiv:2610.01744"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.02860"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.02957"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.02985"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.02991"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03015"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03079"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03119"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03137"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03187"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03196"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03248"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03249"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03273"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03278"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03283"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03356"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03374"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03498"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03506"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03530"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03537"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03538"
-    },
-    {
-      "batch_id": "batch-156",
-      "paper_id": "arxiv:2610.03587"
-    }
-  ],
-  "pending_body_evidence": [
-    "arxiv:2610.01614"
-  ],
-  "worker_queues": {
-    "1": "148 then every3 through205",
-    "2": "146 then every3 through203",
-    "3": "156 then every3 through204;153 Oneira scope recheck"
-  },
-  "resume_instructions": "Reuse active GPT-6.1 Sol high workers. Check live pending reviews and override proposals; preserve frozen input hashes. Review >=2 per batch and all uncertain entries; whole batch recheck on unsupported mechanism or major category error. Complete all205 before merge --publish and final map. Interim artifacts remain available.",
+  "incomplete_batches": [],
+  "pending_review": [],
+  "pending_body_evidence": [],
+  "worker_queues": {},
+  "resume_instructions": "本轮全量摘要与问题地图已完成。最终产物为 ../paper-summaries.jsonl 和 ../problem-map.md；覆盖与QA证据见 final-validation.json。880缺摘要候选及1方法信息不足项已显式保留；未来补查不属于未完成批次。",
   "worker_model": "gpt-6.1-sol",
   "worker_reasoning_effort": "high",
-  "active_workers": [
-    "summary_high_1",
-    "summary_high_2",
-    "summary_high_3"
-  ]
+  "active_workers": [],
+  "network_policy": "Workers offline/cache-only; missing body requests centralized by parent.",
+  "completed_on": "2026-10-13"
 }

@@ -25,3 +25,4 @@
 {"batch_id": "batch-153", "paper_id": "arxiv:2610.01742", "reviewer": "parent", "decision": "accept", "summary_sha256": "fafde504b2d2c207fd3c0f66e6b1a2e99b086ec27708733119f650f31e73e02a", "basis": "核读完整摘要与生成结果；问题、机制、分类及不确定标记可接受。"}
 {"batch_id": "batch-153", "paper_id": "arxiv:2610.01834", "reviewer": "parent", "decision": "accept", "summary_sha256": "6904eb8aea5339e3d486955c4c9de94baaec85cb0b5013f203dd5ccf8934e3fb", "basis": "核读完整摘要与生成结果；问题、机制、分类及不确定标记可接受。"}
 {"batch_id": "batch-153", "paper_id": "arxiv:2610.01863", "reviewer": "parent", "decision": "accept", "summary_sha256": "9cfcffed5d025f6ed8ae5a78178710d6b790ababca299b2f11cc9c466a5e66c0", "basis": "核读完整摘要与生成结果；问题、机制、分类及不确定标记可接受。"}
+{"batch_id": "batch-153", "paper_id": "arxiv:2610.01614", "reviewer": "parent", "decision": "accept", "summary_sha256": "4ba77a82aa35c23daba33be0f94bedf7b084870e02965c0dd39f1b8f5236430e", "basis": "核读完整摘要与生成结果；问题、机制、分类及不确定标记可接受。"}

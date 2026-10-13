@@ -1,8 +1,10 @@
 # 逐篇研究问题与方法摘要：执行目录
 
-任务：覆盖 new-paper-metadata.jsonl 的全部 9659 条来源记录，先去重、补摘要，再由 GPT-6.1 Sol（medium）逐篇提取中文 problem/solution，主代理负责校准、抽检与问题地图。
+任务：覆盖 new-paper-metadata.jsonl 的全部 9659 条来源记录，先去重、补摘要，再由 GPT-6.1 Sol（先 medium 校准，后依用户要求 high）逐篇提取中文 problem/solution，主代理负责校准、抽检与问题地图。
 
-当前为执行中。不能把已建立的输入清单视为已经完成摘要。
+已于 2026-10-13 完成本轮全部 205 批提取和质量检查。9659 条来源记录映射为 9073 个保守去重条目：7551 条摘要支持、641 条范围外候选、881 条信息不足。待提取、必审待复核和未解决返工均为 0。
+
+最终入口：[问题地图](../problem-map.md) · [逐篇结果](../paper-summaries.jsonl) · [验收记录](final-validation.json)。问题地图包含 12 大类、各类 3–5 篇代表论文，共 57 个代表条目。
 
 - `canonical-inputs.jsonl`：保守去重后的输入与摘要证据。
 - `source-ledger.jsonl`：每条原始来源记录到论文条目的映射。
@@ -18,8 +20,8 @@
 
 ## 续跑
 
-在仓库根目录执行 `python3 docs/paper/summaries/tools/batch_io.py status` 查看有效批次数；`queue 1`、`queue 2`、`queue 3` 查看各自待处理队列。`review_io.py pending` 显示主代理待核读样本，不自动确认未读内容。
+在仓库根目录执行 `python3 docs/paper/summaries/tools/batch_io.py status` 查看有效批次数；`queue 1`、`queue 2`、`queue 3` 显示初始分工；最新调度以 `resume-state.json` 的 `worker_queues` 为准（末段有负载重分配，冻结 manifest 不改）。`review_io.py pending` 显示主代理待核读样本，不自动确认未读内容。
 
-主代理最终完成质量检查后，生成上级目录的 `paper-summaries.jsonl` 和 `problem-map.md`。来源记录与保守去重条目数不同，摘要支持、信息不足、不相关分别统计。
+主代理已完成质量检查，生成上级目录的 `paper-summaries.jsonl` 和 `problem-map.md`。来源记录与保守去重条目数不同，摘要支持、信息不足、不相关分别统计。
 
 `python3 docs/paper/summaries/tools/merge.py` 只检查当前覆盖和复核进度；只有全部批次、必审条目及返工都完成，`--publish` 才会生成最终逐篇清单。抽检发现问题后的整批复核请求与处理依据保存在 `reviews/rework-requests.jsonl`。审核记录绑定结果哈希，修改后的必审摘要会重新进入待审队列。

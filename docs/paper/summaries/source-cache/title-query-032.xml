@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/c6al5ThE1b9qgnpbm9lJESYLEPc</id>
+  <title>arXiv Query: search_query=ti:"Bypassing Cost Volumes with Ordinal Motion Priors for Efficient Optical Flow" OR ti:"RAFT-U: Extending RAFT for Joint Optical Flow and Uncertainty Estimation" OR ti:"Development of a Self-Reconfigurable Manipulator with a Spring-Loaded Screw Ring Docking Mechanism Enabling Tight Fitting Insertion" OR ti:"Design Method for Uniquely Reconstructable Bus-Connected Hierarchical Connectable Components" OR ti:"IMU-Based Joint Stiffness Identification for Reconfigurable Modular Robot Arms Via Differentiable Kinematics" OR ti:"Efficient Surgical Robotic Instrument Pose Reconstruction in Real World Conditions Using Unified Feature Detection" OR ti:"Real-Time Image-Based High Accuracy Tooth Measurement for Precision Orthodontics" OR ti:"When Self-Supervision Transfers: Quantifying the Laparoscopic–Robotic Domain Shift" OR ti:"Real-Time Deformable Surface Reconstruction with Patch-Wise Global Optimality Certificates for Robotic Minimally Invasive Surgery" OR ti:"Role-Based Reward Decomposition for Legged Locomotion Reinforcement Learning"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:57Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Bypassing+Cost+Volumes+with+Ordinal+Motion+Priors+for+Efficient+Optical+Flow%22+OR+(ti:%22RAFT-U:+Extending+RAFT+for+Joint+Optical+Flow+and+Uncertainty+Estimation%22+OR+(ti:%22Development+of+a+Self-Reconfigurable+Manipulator+with+a+Spring-Loaded+Screw+Ring+Docking+Mechanism+Enabling+Tight+Fitting+Insertion%22+OR+(ti:%22Design+Method+for+Uniquely+Reconstructable+Bus-Connected+Hierarchical+Connectable+Components%22+OR+(ti:%22IMU-Based+Joint+Stiffness+Identification+for+Reconfigurable+Modular+Robot+Arms+Via+Differentiable+Kinematics%22+OR+(ti:%22Efficient+Surgical+Robotic+Instrument+Pose+Reconstruction+in+Real+World+Conditions+Using+Unified+Feature+Detection%22+OR+(ti:%22Real-Time+Image-Based+High+Accuracy+Tooth+Measurement+for+Precision+Orthodontics%22+OR+(ti:%22When+Self-Supervision+Transfers:+Quantifying+the+Laparoscopic%E2%80%93Robotic+Domain+Shift%22+OR+(ti:%22Real-Time+Deformable+Surface+Reconstruction+with+Patch-Wise+Global+Optimality+Certificates+for+Robotic+Minimally+Invasive+Surgery%22+OR+ti:%22Role-Based+Reward+Decomposition+for+Legged+Locomotion+Reinforcement+Learning%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.03532v1</id>
+    <title>Efficient Surgical Robotic Instrument Pose Reconstruction in Real World Conditions Using Unified Feature Detection</title>
+    <updated>2025-10-03T22:03:28Z</updated>
+    <link href="https://arxiv.org/abs/2510.03532v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.03532v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate camera-to-robot calibration is essential for any vision-based robotic control system and especially critical in minimally invasive surgical robots, where instruments conduct precise micro-manipulations. However, MIS robots have long kinematic chains and partial visibility of their degrees of freedom in the camera, which introduces challenges for conventional camera-to-robot calibration methods that assume stiff robots with good visibility. Previous works have investigated both keypoint-based and rendering-based approaches to address this challenge in real-world conditions; however, they often struggle with consistent feature detection or have long inference times, neither of which are ideal for online robot control. In this work, we propose a novel framework that unifies the detection of geometric primitives (keypoints and shaft edges) through a shared encoding, enabling efficient pose estimation via projection geometry. This architecture detects both keypoints and edges in a single inference and is trained on large-scale synthetic data with projective labeling. This method is evaluated across both feature detection and pose estimation, with qualitative and quantitative results demonstrating fast performance and state-of-the-art accuracy in challenging surgical environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-03T22:03:28Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zekai Liang</name>
+    </author>
+    <author>
+      <name>Kazuya Miyata</name>
+    </author>
+    <author>
+      <name>Xiao Liang</name>
+    </author>
+    <author>
+      <name>Florian Richter</name>
+    </author>
+    <author>
+      <name>Michael C. Yip</name>
+    </author>
+  </entry>
+</feed>

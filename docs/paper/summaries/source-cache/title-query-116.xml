@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/EuGUxCfScbMs0VU7axoq1KaLRoE</id>
+  <title>arXiv Query: search_query=ti:"LiteFT-PR: Lightweight and Fault-Tolerant LiDAR-Camera Fusion Network for Robust Place Recognition Via Model Distillation" OR ti:"How Are Cells Lately? Persistent Monitoring of the Honeybee Comb under Stochastic Observability" OR ti:"Compositional Average Velocity Modeling for Efficient Diffusion Offline Reinforcement Learning" OR ti:"CRISP: Context-Robust Skill Inference for Long-Horizon Offline Robotic Control" OR ti:"VLA-RL: Towards Masterful and General Robotic Manipulation with Scalable Reinforcement Learning" OR ti:"Automatic Terrain Curriculum Generation Via Optimal Transport for Multi-DoF Rover Robot Locomotion" OR ti:"Trajectory-Consistent Flow Matching for Robust Visuomotor Policy Learning" OR ti:"MC²GS-SLAM: Monocular Confidence-Aware Gaussian Splatting SLAM with Continuous Photorealistic Mapping" OR ti:"SGC-Nav: Scene Graph Conditioned Multi-LLM Consensus for Mapless Zero-Shot Object Navigation" OR ti:"CuriousBot: Interactive Mobile Exploration Via Actionable 3D Relational Object Graph"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:35Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22LiteFT-PR:+Lightweight+and+Fault-Tolerant+LiDAR-Camera+Fusion+Network+for+Robust+Place+Recognition+Via+Model+Distillation%22+OR+(ti:%22How+Are+Cells+Lately?+Persistent+Monitoring+of+the+Honeybee+Comb+under+Stochastic+Observability%22+OR+(ti:%22Compositional+Average+Velocity+Modeling+for+Efficient+Diffusion+Offline+Reinforcement+Learning%22+OR+(ti:%22CRISP:+Context-Robust+Skill+Inference+for+Long-Horizon+Offline+Robotic+Control%22+OR+(ti:%22VLA-RL:+Towards+Masterful+and+General+Robotic+Manipulation+with+Scalable+Reinforcement+Learning%22+OR+(ti:%22Automatic+Terrain+Curriculum+Generation+Via+Optimal+Transport+for+Multi-DoF+Rover+Robot+Locomotion%22+OR+(ti:%22Trajectory-Consistent+Flow+Matching+for+Robust+Visuomotor+Policy+Learning%22+OR+(ti:%22MC%C2%B2GS-SLAM:+Monocular+Confidence-Aware+Gaussian+Splatting+SLAM+with+Continuous+Photorealistic+Mapping%22+OR+(ti:%22SGC-Nav:+Scene+Graph+Conditioned+Multi-LLM+Consensus+for+Mapless+Zero-Shot+Object+Navigation%22+OR+ti:%22CuriousBot:+Interactive+Mobile+Exploration+Via+Actionable+3D+Relational+Object+Graph%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2501.13338v2</id>
+    <title>CuriousBot: Interactive Mobile Exploration via Actionable 3D Relational Object Graph</title>
+    <updated>2026-03-09T18:21:05Z</updated>
+    <link href="https://arxiv.org/abs/2501.13338v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.13338v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Mobile exploration is a longstanding challenge in robotics, yet current methods primarily focus on active perception instead of active interaction, limiting the robot's ability to interact with and fully explore its environment. Existing robotic exploration approaches via active interaction are often restricted to tabletop scenes, neglecting the unique challenges posed by mobile exploration, such as large exploration spaces, complex action spaces, and diverse object relations. In this work, we introduce a 3D relational object graph that encodes diverse object relations and enables exploration through active interaction. We develop a system based on this representation and evaluate it across diverse scenes. Our qualitative and quantitative results demonstrate the system's effectiveness and generalization across object instances, relations, and scenes, outperforming methods solely relying on vision-language models (VLMs).</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-01-23T02:39:04Z</published>
+    <arxiv:comment>Accepted to IEEE Robotics and Automation Letters (RA-L). Project Page: https://curiousbot.theaiinstitute.com/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yixuan Wang</name>
+    </author>
+    <author>
+      <name>Leonor Fermoselle</name>
+    </author>
+    <author>
+      <name>Tarik Kelestemur</name>
+    </author>
+    <author>
+      <name>Jiuguang Wang</name>
+    </author>
+    <author>
+      <name>Yunzhu Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.18719v1</id>
+    <title>VLA-RL: Towards Masterful and General Robotic Manipulation with Scalable Reinforcement Learning</title>
+    <updated>2025-05-24T14:42:51Z</updated>
+    <link href="https://arxiv.org/abs/2505.18719v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.18719v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent high-capacity vision-language-action (VLA) models have demonstrated impressive performance on a range of robotic manipulation tasks by imitating human demonstrations. However, exploiting offline data with limited visited states will cause execution failure in out-of-distribution scenarios. Intuitively, an exploration-based method that improves on online collected data at test time could address this limitation. We present VLA-RL, an algorithmic and systematic framework that leverages online reinforcement learning (RL) to improve pretrained auto-regressive VLAs in downstream tasks. Within a unified perspective, we first introduce a trajectory-level RL formulation for auto-regressive VLA training, which models general robotic manipulation trajectory as multi-modal multi-turn conversation. To address the challenge of sparse rewards, we fine-tune a pretrained vision-language model as a robotic process reward model, which is trained on pseudo reward labels annotated on automatically extracted task segments. To scale up, we identify several implementation findings that improve the stability and efficiency including curriculum selection strategy, GPU-balanced vectorized environments, batch decoding, and critic warmup. VLA-RL enables OpenVLA-7B to surpass the strongest finetuned baseline by 4.5% on 40 challenging robotic manipulation tasks in LIBERO, and even matches the performance of advanced commercial models such as $π_0$-FAST. Notably, we observe that VLA-RL benefits from increased test-time optimization, indicating an early spark of inference scaling laws in robotics.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-24T14:42:51Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guanxing Lu</name>
+    </author>
+    <author>
+      <name>Wenkai Guo</name>
+    </author>
+    <author>
+      <name>Chubin Zhang</name>
+    </author>
+    <author>
+      <name>Yuheng Zhou</name>
+    </author>
+    <author>
+      <name>Haonan Jiang</name>
+    </author>
+    <author>
+      <name>Zifeng Gao</name>
+    </author>
+    <author>
+      <name>Yansong Tang</name>
+    </author>
+    <author>
+      <name>Ziwei Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.08511v1</id>
+    <title>Trajectory-Consistent Flow Matching for Robust Visuomotor Policy Learning</title>
+    <updated>2026-05-08T21:44:10Z</updated>
+    <link href="https://arxiv.org/abs/2605.08511v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.08511v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Flow matching policies learn continuous velocity fields that transport noise to actions, enabling fast deterministic inference for robot manipulation. However, standard training optimizes a pointwise velocity objective while inference requires numerical integration of that field -- a mismatch that causes compounding trajectory errors. We propose four complementary remedies: (1) auxiliary rectified flow velocity regression that provides uniform temporal supervision across the full time interval; (2) multi-step trajectory consistency training that supervises the integrated displacement of the velocity field over trajectory segments, directly closing the train-inference gap; (3) velocity field regularization that enforces temporal smoothness, preventing oscillations that destabilize integration; and (4) fourth-order Runge-Kutta (RK4) inference that reduces global discretization error by orders of magnitude over Euler methods. Critically, these components are not independently sufficient -- RK4 without a smooth velocity field fails, and smoothness without trajectory-level supervision still drifts, as our ablation study confirms. We further pair these with a dual-view 3D point cloud encoder using two independent PointNet encoders for complementary spatial perception. On four real-robot tasks across a Franka arm and a Boston Dynamics Spot, our method achieves 70% and 60% overall success on two long-horizon multi-phase tasks where both baselines score 0%, and reaches 100% on precision tool placement. Three MetaWorld simulation tasks confirm consistent improvements, validating that trajectory-level supervision is essential for reliable policy execution.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-08T21:44:10Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Riad Ahmed</name>
+    </author>
+    <author>
+      <name>Sujosh Nag</name>
+    </author>
+    <author>
+      <name>Moniruzzaman Akash</name>
+    </author>
+    <author>
+      <name>Mostafa Hussein</name>
+    </author>
+    <author>
+      <name>Momotaz Begum</name>
+    </author>
+  </entry>
+</feed>

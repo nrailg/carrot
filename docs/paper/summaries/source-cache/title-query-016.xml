@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/z311w4YgQkvcwk6/hdez0BsNu3s</id>
+  <title>arXiv Query: search_query=ti:"Reactive Motion Generation Via Phase-Varying Neural Potential Functions" OR ti:"Mitigating Perceptual Interference in Multi-Stage Visuomotor Imitation with Stage-Conditioned Spatial Gating" OR ti:"Inspectional Decoding for Hallucination Mitigation in Autonomous Driving" OR ti:"Probabilistic Joint Calibration of Camera, LiDAR, Radar, and GNSS-Based Navigation Systems for Georeferenced Sensor Extrinsics" OR ti:"AutoScale: Vision-Based Overweight Truck Detection Utilizing a Following Autonomous Vehicle" OR ti:"Efficient and Scalable Tuning of Continuous Impedance Control for Powered Knee Prostheses" OR ti:"Model-Agnostic Meta-Learning for Adaptive Gait Phase and Terrain Geometry Estimation with Wearable Soft Sensors" OR ti:"Biomechanically Constrained Real-Time Detection of Human Locomotion Transitions" OR ti:"TOM-GS: Robust Thermal Odometry and Mapping with Depth-Guided Gaussian Splatting" OR ti:"GSO-SLAM: Bidirectionally Coupled Gaussian Splatting and Direct Visual Odometry"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:55Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Reactive+Motion+Generation+Via+Phase-Varying+Neural+Potential+Functions%22+OR+(ti:%22Mitigating+Perceptual+Interference+in+Multi-Stage+Visuomotor+Imitation+with+Stage-Conditioned+Spatial+Gating%22+OR+(ti:%22Inspectional+Decoding+for+Hallucination+Mitigation+in+Autonomous+Driving%22+OR+(ti:%22Probabilistic+Joint+Calibration+of+Camera,+LiDAR,+Radar,+and+GNSS-Based+Navigation+Systems+for+Georeferenced+Sensor+Extrinsics%22+OR+(ti:%22AutoScale:+Vision-Based+Overweight+Truck+Detection+Utilizing+a+Following+Autonomous+Vehicle%22+OR+(ti:%22Efficient+and+Scalable+Tuning+of+Continuous+Impedance+Control+for+Powered+Knee+Prostheses%22+OR+(ti:%22Model-Agnostic+Meta-Learning+for+Adaptive+Gait+Phase+and+Terrain+Geometry+Estimation+with+Wearable+Soft+Sensors%22+OR+(ti:%22Biomechanically+Constrained+Real-Time+Detection+of+Human+Locomotion+Transitions%22+OR+(ti:%22TOM-GS:+Robust+Thermal+Odometry+and+Mapping+with+Depth-Guided+Gaussian+Splatting%22+OR+ti:%22GSO-SLAM:+Bidirectionally+Coupled+Gaussian+Splatting+and+Direct+Visual+Odometry%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2602.11714v1</id>
+    <title>GSO-SLAM: Bidirectionally Coupled Gaussian Splatting and Direct Visual Odometry</title>
+    <updated>2026-02-12T08:44:32Z</updated>
+    <link href="https://arxiv.org/abs/2602.11714v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.11714v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose GSO-SLAM, a real-time monocular dense SLAM system that leverages Gaussian scene representation. Unlike existing methods that couple tracking and mapping with a unified scene, incurring computational costs, or loosely integrate them with well-structured tracking frameworks, introducing redundancies, our method bidirectionally couples Visual Odometry (VO) and Gaussian Splatting (GS). Specifically, our approach formulates joint optimization within an Expectation-Maximization (EM) framework, enabling the simultaneous refinement of VO-derived semi-dense depth estimates and the GS representation without additional computational overhead. Moreover, we present Gaussian Splat Initialization, which utilizes image information, keyframe poses, and pixel associations from VO to produce close approximations to the final Gaussian scene, thereby eliminating the need for heuristic methods. Through extensive experiments, we validate the effectiveness of our method, showing that it not only operates in real time but also achieves state-of-the-art geometric/photometric fidelity of the reconstructed scene and tracking accuracy.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-12T08:44:32Z</published>
+    <arxiv:comment>8 pages, 6 figures, RA-L accepted</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jiung Yeon</name>
+    </author>
+    <author>
+      <name>Seongbo Ha</name>
+    </author>
+    <author>
+      <name>Hyeonwoo Yu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.02930v1</id>
+    <title>Model-agnostic Meta-learning for Adaptive Gait Phase and Terrain Geometry Estimation with Wearable Soft Sensors</title>
+    <updated>2025-08-04T22:06:05Z</updated>
+    <link href="https://arxiv.org/abs/2508.02930v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.02930v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This letter presents a model-agnostic meta-learning (MAML) based framework for simultaneous and accurate estimation of human gait phase and terrain geometry using a small set of fabric-based wearable soft sensors, with efficient adaptation to unseen subjects and strong generalization across different subjects and terrains. Compared to rigid alternatives such as inertial measurement units, fabric-based soft sensors improve comfort but introduce nonlinearities due to hysteresis, placement error, and fabric deformation. Moreover, inter-subject and inter-terrain variability, coupled with limited calibration data in real-world deployments, further complicate accurate estimation. To address these challenges, the proposed framework integrates MAML into a deep learning architecture to learn a generalizable model initialization that captures subject- and terrain-invariant structure. This initialization enables efficient adaptation (i.e., adaptation with only a small amount of calibration data and a few fine-tuning steps) to new users, while maintaining strong generalization (i.e., high estimation accuracy across subjects and terrains). Experiments on nine participants walking at various speeds over five terrain conditions demonstrate that the proposed framework outperforms baseline approaches in estimating gait phase, locomotion mode, and incline angle, with superior accuracy, adaptation efficiency, and generalization.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-04T22:06:05Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zenan Zhu</name>
+    </author>
+    <author>
+      <name>Wenxi Chen</name>
+    </author>
+    <author>
+      <name>Pei-Chun Kao</name>
+    </author>
+    <author>
+      <name>Janelle Clark</name>
+    </author>
+    <author>
+      <name>Lily Behnke</name>
+    </author>
+    <author>
+      <name>Rebecca Kramer-Bottiglio</name>
+    </author>
+    <author>
+      <name>Holly Yanco</name>
+    </author>
+    <author>
+      <name>Yan Gu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.26450v1</id>
+    <title>Reactive Motion Generation via Phase-varying Neural Potential Functions</title>
+    <updated>2026-04-29T09:05:27Z</updated>
+    <link href="https://arxiv.org/abs/2604.26450v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.26450v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Dynamical systems (DS) methods for Learning-from-Demonstration (LfD) provide stable, continuous policies from few demonstrations. First-order dynamical systems (DS) are effective for many point-to-point and periodic tasks, as long as a unique velocity is defined for each state. For tasks with intersections (e.g., drawing an "8"), extensions such as second-order dynamics or phase variables are often used. However, by incorporating velocity, second-order models become sensitive to disturbances near intersections, as velocity is used to disambiguate motion direction. Moreover, this disambiguation may fail when nearly identical position-velocity pairs correspond to different onward motions. In contrast, phase-based methods rely on open-loop time or phase variables, which limit their ability to recover after perturbations. We introduce Phase-varying Neural Potential Functions (PNPF), an LfD framework that conditions a potential function on a phase variable which is estimated directly from state progression, rather than on open-loop temporal inputs. This phase variable allows the system to handle state revisits, while the learned potential function generates local vector fields for reactive and stable control. PNPF generalizes effectively across point-to-point, periodic, and full 6D motion tasks, outperforms existing baselines on trajectories with intersections, and demonstrates robust performance in real-time robotic manipulation under external disturbances.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-29T09:05:27Z</published>
+    <arxiv:comment>Accepted by IEEE Robotics and Automation Letters (RAL)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ahmet Tekden</name>
+    </author>
+    <author>
+      <name>Dimitrios Kanoulas</name>
+    </author>
+    <author>
+      <name>Aude Billard</name>
+    </author>
+    <author>
+      <name>Yasemin Bekiroglu</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3692035</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3692035" title="doi"/>
+  </entry>
+</feed>

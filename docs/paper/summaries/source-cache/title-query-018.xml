@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/NffySJcHYXYxiKWC+aHU2WlaMEY</id>
+  <title>arXiv Query: search_query=ti:"PRISM: Physics-Regularized Depth Completion under Partial-View Occlusions" OR ti:"Task-Aware Semantic Map++: Cost-Efficient Task Assignment with Advanced Benchmark" OR ti:"Iterative Convex Optimization with Control Barrier Functions for Obstacle Avoidance among Polytopes" OR ti:"Joint-ESDF-Based Arbitrary-Shaped Multi-Robot Trajectory Planning" OR ti:"RHINO: Learning Real-Time Humanoid-Human-Object Interaction from Human Demonstrations" OR ti:"Close-Fitting Dressing Assistance Based on State Estimation of Feet and Garments with Semantic-Based Visual Attention" OR ti:"Interactive Learning Via Physical Human Feedback Using Uncertainty-Aware Energy Tanks" OR ti:"Augmenting Robot Imitation Learning with Human Videos without Additional Robot Data" OR ti:"SteadyTray: Learning Object Balancing Tasks in Humanoid Tray Transport Via Residual Reinforcement Learning" OR ti:"Acoustic-Aware Texture Optimization for Ultrasound-Based Capsule Pose Estimation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:03Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22PRISM:+Physics-Regularized+Depth+Completion+under+Partial-View+Occlusions%22+OR+(ti:%22Task-Aware+Semantic+Map%2B%2B:+Cost-Efficient+Task+Assignment+with+Advanced+Benchmark%22+OR+(ti:%22Iterative+Convex+Optimization+with+Control+Barrier+Functions+for+Obstacle+Avoidance+among+Polytopes%22+OR+(ti:%22Joint-ESDF-Based+Arbitrary-Shaped+Multi-Robot+Trajectory+Planning%22+OR+(ti:%22RHINO:+Learning+Real-Time+Humanoid-Human-Object+Interaction+from+Human+Demonstrations%22+OR+(ti:%22Close-Fitting+Dressing+Assistance+Based+on+State+Estimation+of+Feet+and+Garments+with+Semantic-Based+Visual+Attention%22+OR+(ti:%22Interactive+Learning+Via+Physical+Human+Feedback+Using+Uncertainty-Aware+Energy+Tanks%22+OR+(ti:%22Augmenting+Robot+Imitation+Learning+with+Human+Videos+without+Additional+Robot+Data%22+OR+(ti:%22SteadyTray:+Learning+Object+Balancing+Tasks+in+Humanoid+Tray+Transport+Via+Residual+Reinforcement+Learning%22+OR+ti:%22Acoustic-Aware+Texture+Optimization+for+Ultrasound-Based+Capsule+Pose+Estimation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10306v1</id>
+    <title>SteadyTray: Learning Object Balancing Tasks in Humanoid Tray Transport via Residual Reinforcement Learning</title>
+    <updated>2026-03-11T01:05:46Z</updated>
+    <link href="https://arxiv.org/abs/2603.10306v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10306v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Stabilizing unsecured payloads against the inherent oscillations of dynamic bipedal locomotion remains a critical engineering bottleneck for humanoids in unstructured environments. To solve this, we introduce ReST-RL, a hierarchical reinforcement learning architecture that explicitly decouples locomotion from payload stabilization, evaluated via the SteadyTray benchmark. Rather than relying on monolithic end-to-end learning, our framework integrates a robust base locomotion policy with a dynamic residual module engineered to actively cancel gait-induced perturbations at the end-effector. This architectural separation ensures steady tray transport without degrading the underlying bipedal stability. In simulation, the residual design significantly outperforms end-to-end baselines in gait smoothness and orientation accuracy, achieving a 96.9% success rate in variable velocity tracking and 74.5% robustness against external force disturbances. Successfully deployed on the Unitree G1 humanoid hardware, this modular approach demonstrates highly reliable zero-shot sim-to-real generalization across various objects and external force disturbances.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T01:05:46Z</published>
+    <arxiv:comment>Project website: https://steadytray.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Anlun Huang</name>
+    </author>
+    <author>
+      <name>Zhenyu Wu</name>
+    </author>
+    <author>
+      <name>Soofiyan Atar</name>
+    </author>
+    <author>
+      <name>Yuheng Zhi</name>
+    </author>
+    <author>
+      <name>Michael Yip</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.03400v2</id>
+    <title>Close-Fitting Dressing Assistance Based on State Estimation of Feet and Garments with Semantic-based Visual Attention</title>
+    <updated>2026-01-26T11:10:17Z</updated>
+    <link href="https://arxiv.org/abs/2505.03400v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.03400v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As the population continues to age, a shortage of caregivers is expected in the future. Dressing assistance, in particular, is crucial for opportunities for social participation. Especially dressing close-fitting garments, such as socks, remains challenging due to the need for fine force adjustments to handle the friction or snagging against the skin, while considering the shape and position of the garment. This study introduces a method uses multi-modal information including not only robot's camera images, joint angles, joint torques, but also tactile forces for proper force interaction that can adapt to individual differences in humans. Furthermore, by introducing semantic information based on object concepts, rather than relying solely on RGB data, it can be generalized to unseen feet and background. In addition, incorporating depth data helps infer relative spatial relationship between the sock and the foot. To validate its capability for semantic object conceptualization and to ensure safety, training data were collected using a mannequin, and subsequent experiments were conducted with human subjects. In experiments, the robot successfully adapted to previously unseen human feet and was able to put socks on 10 participants, achieving a higher success rate than Action Chunking with Transformer and Diffusion Policy. These results demonstrate that the proposed model can estimate the state of both the garment and the foot, enabling precise dressing assistance for close-fitting garments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-06T10:28:39Z</published>
+    <arxiv:comment>Accepted at RA-L, 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Takuma Tsukakoshi</name>
+    </author>
+    <author>
+      <name>Tamon Miyake</name>
+    </author>
+    <author>
+      <name>Tetsuya Ogata</name>
+    </author>
+    <author>
+      <name>Yushi Wang</name>
+    </author>
+    <author>
+      <name>Takumi Akaishi</name>
+    </author>
+    <author>
+      <name>Shigeki Sugano</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2502.13134v1</id>
+    <title>RHINO: Learning Real-Time Humanoid-Human-Object Interaction from Human Demonstrations</title>
+    <updated>2025-02-18T18:56:41Z</updated>
+    <link href="https://arxiv.org/abs/2502.13134v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2502.13134v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humanoid robots have shown success in locomotion and manipulation. Despite these basic abilities, humanoids are still required to quickly understand human instructions and react based on human interaction signals to become valuable assistants in human daily life. Unfortunately, most existing works only focus on multi-stage interactions, treating each task separately, and neglecting real-time feedback. In this work, we aim to empower humanoid robots with real-time reaction abilities to achieve various tasks, allowing human to interrupt robots at any time, and making robots respond to humans immediately. To support such abilities, we propose a general humanoid-human-object interaction framework, named RHINO, i.e., Real-time Humanoid-human Interaction and Object manipulation. RHINO provides a unified view of reactive motion, instruction-based manipulation, and safety concerns, over multiple human signal modalities, such as languages, images, and motions. RHINO is a hierarchical learning framework, enabling humanoids to learn reaction skills from human-human-object demonstrations and teleoperation data. In particular, it decouples the interaction process into two levels: 1) a high-level planner inferring human intentions from real-time human behaviors; and 2) a low-level controller achieving reactive motion behaviors and object manipulation skills based on the predicted intentions. We evaluate the proposed framework on a real humanoid robot and demonstrate its effectiveness, flexibility, and safety in various scenarios.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-02-18T18:56:41Z</published>
+    <arxiv:comment>Project website: https://humanoid-interaction.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jingxiao Chen</name>
+    </author>
+    <author>
+      <name>Xinyao Li</name>
+    </author>
+    <author>
+      <name>Jiahang Cao</name>
+    </author>
+    <author>
+      <name>Zhengbang Zhu</name>
+    </author>
+    <author>
+      <name>Wentao Dong</name>
+    </author>
+    <author>
+      <name>Minghuan Liu</name>
+    </author>
+    <author>
+      <name>Ying Wen</name>
+    </author>
+    <author>
+      <name>Yong Yu</name>
+    </author>
+    <author>
+      <name>Liqing Zhang</name>
+    </author>
+    <author>
+      <name>Weinan Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.05916v2</id>
+    <title>Iterative Convex Optimization with Control Barrier Functions for Obstacle Avoidance among Polytopes</title>
+    <updated>2026-06-20T21:11:17Z</updated>
+    <link href="https://arxiv.org/abs/2603.05916v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.05916v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Obstacle avoidance of polytopic obstacles by polytopic robots is a challenging problem in optimization-based control and trajectory planning. Many existing methods rely on smooth geometric approximations, such as hyperspheres or ellipsoids, which allow differentiable distance expressions but distort the true geometry and restrict the feasible set. Other approaches integrate exact polytope distances into nonlinear model predictive control (MPC), resulting in nonconvex programs that limit real-time performance. In this paper, we construct linear discrete-time control barrier function (DCBF) constraints by deriving supporting hyperplanes from exact closest-point computations between convex polytopes. We then propose a novel iterative convex MPC-DCBF framework, where local linearization of system dynamics and robot geometry ensures convexity of the finite-horizon optimization at each iteration. The resulting formulation reduces computational complexity and enables fast online implementation for safety-critical control and trajectory planning of general nonlinear dynamics. The framework extends to multi-robot and three-dimensional environments. Numerical experiments demonstrate collision-free navigation in cluttered maze scenarios with millisecond-level solve times.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T05:10:44Z</published>
+    <arxiv:comment>8 pages, 4 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shuo Liu</name>
+    </author>
+    <author>
+      <name>Zhe Huang</name>
+    </author>
+    <author>
+      <name>Calin A. Belta</name>
+    </author>
+  </entry>
+</feed>

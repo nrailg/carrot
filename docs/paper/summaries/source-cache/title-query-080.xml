@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/eor2bptsiwC8viCy2xuq1ZtChXI</id>
+  <title>arXiv Query: search_query=ti:"Topological Strategy Discovery for Contact-Rich Manipulation Via HapticRRT" OR ti:"A Residual Curriculum Framework with Exponentially-Weighted Learning Trends for Wheel-Legged Robots" OR ti:"Physics-Informed Policy Learning for Floating-Base Robots" OR ti:"ViSA-Enhanced Aerial VLN: A Visual-Spatial Reasoning Framework for Aerial Vision-Language Navigation" OR ti:"Flying to Image-Specified Objects: 3D Quadrotor Navigation Via Cross-Graph Memory and Viewpoint Planning" OR ti:"Learning to Fly from Point Clouds Via Differentiable Simulation" OR ti:"Fly-JEPA: Learning Dynamics Via Joint Embedding Predictive Architectures for Aerial Robots" OR ti:"AntFlie: Frugal Visual Teach and Repeat on Narrow FoV Micro-Drones" OR ti:"FoldNet: Learning Generalizable Closed-Loop Policy for Garment Folding Via Keypoint-Driven Asset and Demonstration Synthesis" OR ti:"Precise Mobile Manipulation of Small Everyday Objects"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:14Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Topological+Strategy+Discovery+for+Contact-Rich+Manipulation+Via+HapticRRT%22+OR+(ti:%22A+Residual+Curriculum+Framework+with+Exponentially-Weighted+Learning+Trends+for+Wheel-Legged+Robots%22+OR+(ti:%22Physics-Informed+Policy+Learning+for+Floating-Base+Robots%22+OR+(ti:%22ViSA-Enhanced+Aerial+VLN:+A+Visual-Spatial+Reasoning+Framework+for+Aerial+Vision-Language+Navigation%22+OR+(ti:%22Flying+to+Image-Specified+Objects:+3D+Quadrotor+Navigation+Via+Cross-Graph+Memory+and+Viewpoint+Planning%22+OR+(ti:%22Learning+to+Fly+from+Point+Clouds+Via+Differentiable+Simulation%22+OR+(ti:%22Fly-JEPA:+Learning+Dynamics+Via+Joint+Embedding+Predictive+Architectures+for+Aerial+Robots%22+OR+(ti:%22AntFlie:+Frugal+Visual+Teach+and+Repeat+on+Narrow+FoV+Micro-Drones%22+OR+(ti:%22FoldNet:+Learning+Generalizable+Closed-Loop+Policy+for+Garment+Folding+Via+Keypoint-Driven+Asset+and+Demonstration+Synthesis%22+OR+ti:%22Precise+Mobile+Manipulation+of+Small+Everyday+Objects%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.09109v6</id>
+    <title>FoldNet: Learning Generalizable Closed-Loop Policy for Garment Folding via Keypoint-Driven Asset and Demonstration Synthesis</title>
+    <updated>2026-03-19T06:31:48Z</updated>
+    <link href="https://arxiv.org/abs/2505.09109v6" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.09109v6" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Due to the deformability of garments, generating a large amount of high-quality data for robotic garment manipulation tasks is highly challenging. In this paper, we present a synthetic garment dataset that can be used for robotic garment folding. We begin by constructing geometric garment templates based on keypoints and applying generative models to generate realistic texture patterns. Leveraging these keypoint annotations, we generate folding demonstrations in simulation and train folding policies via closed-loop imitation learning. To improve robustness, we propose KG-DAgger, which uses a keypoint-based strategy to generate demonstration data for recovering from failures. KG-DAgger significantly improves the model performance, boosting the real-world success rate by 25\%. After training with 15K trajectories (about 2M image-action pairs), the model achieves a 75\% success rate in the real world. Experiments in both simulation and real-world settings validate the effectiveness of our proposed framework.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-14T03:34:30Z</published>
+    <arxiv:comment>Project: https://pku-epic.github.io/FoldNet/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yuxing Chen</name>
+    </author>
+    <author>
+      <name>Bowen Xiao</name>
+    </author>
+    <author>
+      <name>He Wang</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3656770</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3656770" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.29917v1</id>
+    <title>Flying to Image-Specified Objects: 3D Quadrotor Navigation via Cross-Graph Memory and Viewpoint Planning</title>
+    <updated>2026-06-29T07:54:24Z</updated>
+    <link href="https://arxiv.org/abs/2606.29917v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.29917v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Instance-Specific Image-Goal Navigation (InstanceImageNav) requires a robot to navigate toward the exact object instance depicted in a query image. Extending this task to quadrotors is challenging due to continuous 3D control, limited field of view (FOV), and safety constraints, which make successful navigation highly dependent on selecting informative viewpoints. We propose a hierarchical navigation framework for quadrotor InstanceImageNav that separates high-level decision making from low-level motion execution. Instead of navigating directly to spatial locations, the system generates viewpoint-aware action nodes around frontier regions and potential target objects, enabling the robot to explore while maintaining informative viewpoints for detecting the target instance. A lightweight semantic memory maintains object-level and observation-level context, allowing semantic cues to propagate to candidate action nodes for decision making. A learning-based policy selects the most promising action node, and a trajectory planner generates dynamically feasible 3D flight paths for safe execution. Experiments in simulation demonstrate consistent improvements over strong baselines, and real-world quadrotor flights validate the practicality and robustness of the proposed framework.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-29T07:54:24Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Junjie Gao</name>
+    </author>
+    <author>
+      <name>Yuqi Chen</name>
+    </author>
+    <author>
+      <name>Yongzhou Pan</name>
+    </author>
+    <author>
+      <name>Yaosheng Deng</name>
+    </author>
+    <author>
+      <name>Jiaping Xiao</name>
+    </author>
+    <author>
+      <name>Mir Feroskhan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2502.13964v2</id>
+    <title>Precise Mobile Manipulation of Small Everyday Objects</title>
+    <updated>2025-10-13T00:08:12Z</updated>
+    <link href="https://arxiv.org/abs/2502.13964v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2502.13964v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Many everyday mobile manipulation tasks require precise interaction with small objects, such as grasping a knob to open a cabinet or pressing a light switch. In this paper, we develop Servoing with Vision Models (SVM), a closed-loop framework that enables a mobile manipulator to tackle such precise tasks involving the manipulation of small objects. SVM uses state-of-the-art vision foundation models to generate 3D targets for visual servoing to enable diverse tasks in novel environments. Naively doing so fails because of occlusion by the end-effector. SVM mitigates this using vision models that out-paint the end-effector, thereby significantly enhancing target localization. We demonstrate that aided by out-painting methods, open-vocabulary object detectors can serve as a drop-in module for SVM to seek semantic targets (e.g. knobs) and point tracking methods can help SVM reliably pursue interaction sites indicated by user clicks. We conduct a large-scale evaluation spanning experiments in 10 novel environments across 6 buildings including 72 different object instances. SVM obtains a 71% zero-shot success rate on manipulating unseen objects in novel environments in the real world, outperforming an open-loop control method by an absolute 42% and an imitation learning baseline trained on 1000+ demonstrations also by an absolute success rate of 50%.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-02-19T18:59:17Z</published>
+    <arxiv:comment>Project webpage: https://arjung128.github.io/svm</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Arjun Gupta</name>
+    </author>
+    <author>
+      <name>Rishik Sathua</name>
+    </author>
+    <author>
+      <name>Saurabh Gupta</name>
+    </author>
+  </entry>
+</feed>

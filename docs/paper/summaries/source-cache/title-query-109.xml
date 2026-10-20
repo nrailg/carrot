@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/yCf5UdSoToH9shTIfCLUzsT2xr8</id>
+  <title>arXiv Query: search_query=ti:"DeNoise2Completion: Diffusion-Based Unified Model for Point Cloud Denoising and Completion" OR ti:"Air-Ground Robotic Collaborative Reconstruction by Cross-View Depth Completion in Large-Scale Environment" OR ti:"AsyncMDE: Real-Time Monocular Depth Estimation Via Asynchronous Spatial Memory" OR ti:"Visual Autoregressive Modeling through Online Multi-Scale Preference Optimization for Low-Level Image Perception" OR ti:"CLEAR-IR: Clarity-Enhanced Active Reconstruction of Infrared Imagery for Low-Light Enhancement" OR ti:"Real-Time Diffusion Relighting As a Neural Sensor: Closing the Low-Light Domain Gap for Robotic Perception" OR ti:"Physics-Aware Diffusion for LiDAR Point Cloud Densification" OR ti:"LagMemo: Language 3D Gaussian Splatting Memory for Multi-Modal Open-Vocabulary Multi-Goal Visual Navigation" OR ti:"Memory Over Maps: 3D Object Localization Without Reconstruction" OR ti:"Gen-NAV: Generative Simulation with Gaussian Photorealistic Rendering for Evolving Environments"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:09Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22DeNoise2Completion:+Diffusion-Based+Unified+Model+for+Point+Cloud+Denoising+and+Completion%22+OR+(ti:%22Air-Ground+Robotic+Collaborative+Reconstruction+by+Cross-View+Depth+Completion+in+Large-Scale+Environment%22+OR+(ti:%22AsyncMDE:+Real-Time+Monocular+Depth+Estimation+Via+Asynchronous+Spatial+Memory%22+OR+(ti:%22Visual+Autoregressive+Modeling+through+Online+Multi-Scale+Preference+Optimization+for+Low-Level+Image+Perception%22+OR+(ti:%22CLEAR-IR:+Clarity-Enhanced+Active+Reconstruction+of+Infrared+Imagery+for+Low-Light+Enhancement%22+OR+(ti:%22Real-Time+Diffusion+Relighting+As+a+Neural+Sensor:+Closing+the+Low-Light+Domain+Gap+for+Robotic+Perception%22+OR+(ti:%22Physics-Aware+Diffusion+for+LiDAR+Point+Cloud+Densification%22+OR+(ti:%22LagMemo:+Language+3D+Gaussian+Splatting+Memory+for+Multi-Modal+Open-Vocabulary+Multi-Goal+Visual+Navigation%22+OR+(ti:%22Memory+Over+Maps:+3D+Object+Localization+Without+Reconstruction%22+OR+ti:%22Gen-NAV:+Generative+Simulation+with+Gaussian+Photorealistic+Rendering+for+Evolving+Environments%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.24118v2</id>
+    <title>LagMemo: Language 3D Gaussian Splatting Memory for Multi-modal Open-vocabulary Multi-goal Visual Navigation</title>
+    <updated>2026-03-08T06:47:09Z</updated>
+    <link href="https://arxiv.org/abs/2510.24118v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.24118v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Navigating to a designated goal using visual information is a fundamental capability for intelligent robots. To address the practical demands of multi-modal, open-vocabulary goal queries and multi-goal visual navigation, we propose LagMemo, a navigation system that leverages a language 3D Gaussian Splatting memory. During a one-time exploration, LagMemo constructs a unified 3D language memory with robust spatial-semantic correlations. With incoming task goals, the system efficiently queries the memory, predicts candidate goal locations, and integrates a local perception-based verification mechanism to dynamically match and validate goals. For fair and rigorous evaluation, we curate GOAT-Core, a high-quality core split distilled from GOAT-Bench. Experimental results show that LagMemo's memory module enables effective multi-modal open-vocabulary localization, and significantly outperforms state-of-the-art methods in multi-goal visual navigation. Project page: https://weekgoodday.github.io/lagmemo</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-28T06:42:21Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haotian Zhou</name>
+    </author>
+    <author>
+      <name>Xiaole Wang</name>
+    </author>
+    <author>
+      <name>He Li</name>
+    </author>
+    <author>
+      <name>Zhuo Qi</name>
+    </author>
+    <author>
+      <name>Jinrun Yin</name>
+    </author>
+    <author>
+      <name>Haiyu Kong</name>
+    </author>
+    <author>
+      <name>Jianghuan Xu</name>
+    </author>
+    <author>
+      <name>Huijing Zhao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10438v2</id>
+    <title>AsyncMDE: Real-Time Monocular Depth Estimation via Asynchronous Spatial Memory</title>
+    <updated>2026-06-28T09:58:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.10438v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10438v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Foundation-model-based monocular depth estimation offers a viable alternative to active sensors for robot perception, yet its computational cost often prohibits deployment on edge platforms. Existing methods perform independent per-frame inference, wasting the substantial computational redundancy between adjacent viewpoints in continuous robot operation. This paper presents AsyncMDE, an asynchronous depth perception system consisting of a frozen foundation model and a lightweight fast path that amortizes the foundation model's computational cost over time. The foundation model periodically produces high-quality spatial features in the background, while the lightweight fast path runs asynchronously in the foreground, fusing cached memory with current observations through complementary fusion, outputting depth estimates, and autoregressively updating memory. This enables cross-frame feature reuse with bounded accuracy degradation. With 3.83M trainable fast-path parameters and a 97.5M frozen slow path, AsyncMDE's fast path operates at 237 FPS on an RTX 4090, recovering 77% of the accuracy gap to the foundation model. Across indoor static, dynamic, and synthetic extreme-motion benchmarks, AsyncMDE degrades predictably and reaches 161 FPS fast-path inference on a TensorRT-optimized Jetson AGX Orin, supporting real-time edge deployment.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T05:40:25Z</published>
+    <arxiv:comment>8 pages, 5 figures, 5 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lianjie Ma</name>
+    </author>
+    <author>
+      <name>Yuquan Li</name>
+    </author>
+    <author>
+      <name>Bingzheng Jiang</name>
+    </author>
+    <author>
+      <name>Ziming Zhong</name>
+    </author>
+    <author>
+      <name>Han Ding</name>
+    </author>
+    <author>
+      <name>Lijun Zhu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.20530v2</id>
+    <title>Memory Over Maps: 3D Object Localization Without Reconstruction</title>
+    <updated>2026-04-20T18:41:00Z</updated>
+    <link href="https://arxiv.org/abs/2603.20530v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.20530v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Target localization is a prerequisite for embodied tasks such as navigation and manipulation. Conventional approaches rely on constructing explicit 3D scene representations to enable target localization, such as point clouds, voxel grids, or scene graphs. While effective, these pipelines incur substantial mapping time, storage overhead, and scalability limitations. Recent advances in vision-language models suggest that rich semantic reasoning can be performed directly on 2D observations, raising a fundamental question: is a complete 3D scene reconstruction necessary for object localization? In this work, we revisit object localization and propose a map-free pipeline that stores only posed RGB-D keyframes as a lightweight visual memory--without constructing any global 3D representation of the scene. At query time, our method retrieves candidate views, re-ranks them with a vision-language model, and constructs a sparse, on-demand 3D estimate of the queried target through depth backprojection and multi-view fusion. Compared to reconstruction-based pipelines, this design drastically reduces preprocessing cost, enabling scene indexing that is over two orders of magnitude faster to build while using substantially less storage. We further validate the localized targets on downstream object-goal navigation tasks. Despite requiring no task-specific training, our approach achieves strong performance across multiple benchmarks, demonstrating that direct reasoning over image-based scene memory can effectively replace dense 3D reconstruction for object-centric robot navigation. Project page: https://ruizhou-cn.github.io/memory-over-maps/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-20T21:57:51Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Rui Zhou</name>
+    </author>
+    <author>
+      <name>Xander Yap</name>
+    </author>
+    <author>
+      <name>Jianwen Cao</name>
+    </author>
+    <author>
+      <name>Allison Lau</name>
+    </author>
+    <author>
+      <name>Boyang Sun</name>
+    </author>
+    <author>
+      <name>Marc Pollefeys</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.26759v1</id>
+    <title>Physics-Aware Diffusion for LiDAR Point Cloud Densification</title>
+    <updated>2026-03-23T16:45:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.26759v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.26759v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>LiDAR perception is severely limited by the distance-dependent sparsity of distant objects. While diffusion models can recover dense geometry, they suffer from prohibitive latency and physical hallucinations manifesting as ghost points. We propose Scanline-Consistent Range-Aware Diffusion, a framework that treats densification as probabilistic refinement rather than generation. By leveraging Partial Diffusion (SDEdit) on a coarse prior, we achieve high-fidelity results in just 156ms. Our novel Ray-Consistency loss and Negative Ray Augmentation enforce sensor physics to suppress artifacts. Our method achieves state-of-the-art results on KITTI-360 and nuScenes, directly boosting off-the-shelf 3D detectors without retraining. Code will be made available.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-23T16:45:16Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Zeping Zhang</name>
+    </author>
+    <author>
+      <name>Robert Laganière</name>
+    </author>
+  </entry>
+</feed>

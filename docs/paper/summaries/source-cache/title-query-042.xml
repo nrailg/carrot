@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/dBN5g0OZqW3L4VblFNo7V8JgtCw</id>
+  <title>arXiv Query: search_query=ti:"STL-SVPIO: Signal Temporal Logic Guided Stein Variational Path Integral Optimization" OR ti:"FDC-MPPI: Fast Disturbance-Compensated MPPI for Onboard Quadruped Navigation in Cluttered and Disturbed Environments" OR ti:"SPAR: Scalable LLM-Based PDDL Domain Generation for Aerial Robotics" OR ti:"Analyzing the Role of Spinal Joint Dynamics in the Movement of a Sprawling Robot" OR ti:"Walking with Slip: Model Insights for Underwater Walking" OR ti:"WPMoE: A Reinforcement Learning Method for Motion Control in a Musculoskeletal Robot Via Workspace Partitioning and Mixture of Experts" OR ti:"Priority Randomized Decentralized Online Multi-Robot Submodular Task Allocation -- PROA" OR ti:"Planning and Execution for Multi-Robot Cyclic Rendezvous Via Graphs of Convex Sets" OR ti:"Multi-Robot Consensus and Coordination with Localization Uncertainty" OR ti:"Learning Multi-Robot Coordination through Locality-Based Factorized Multi-Agent Actor-Critic Algorithm"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:36Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22STL-SVPIO:+Signal+Temporal+Logic+Guided+Stein+Variational+Path+Integral+Optimization%22+OR+(ti:%22FDC-MPPI:+Fast+Disturbance-Compensated+MPPI+for+Onboard+Quadruped+Navigation+in+Cluttered+and+Disturbed+Environments%22+OR+(ti:%22SPAR:+Scalable+LLM-Based+PDDL+Domain+Generation+for+Aerial+Robotics%22+OR+(ti:%22Analyzing+the+Role+of+Spinal+Joint+Dynamics+in+the+Movement+of+a+Sprawling+Robot%22+OR+(ti:%22Walking+with+Slip:+Model+Insights+for+Underwater+Walking%22+OR+(ti:%22WPMoE:+A+Reinforcement+Learning+Method+for+Motion+Control+in+a+Musculoskeletal+Robot+Via+Workspace+Partitioning+and+Mixture+of+Experts%22+OR+(ti:%22Priority+Randomized+Decentralized+Online+Multi-Robot+Submodular+Task+Allocation+--+PROA%22+OR+(ti:%22Planning+and+Execution+for+Multi-Robot+Cyclic+Rendezvous+Via+Graphs+of+Convex+Sets%22+OR+(ti:%22Multi-Robot+Consensus+and+Coordination+with+Localization+Uncertainty%22+OR+ti:%22Learning+Multi-Robot+Coordination+through+Locality-Based+Factorized+Multi-Agent+Actor-Critic+Algorithm%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.13333v1</id>
+    <title>STL-SVPIO: Signal Temporal Logic guided Stein Variational Path Integral Optimization</title>
+    <updated>2026-03-06T00:53:38Z</updated>
+    <link href="https://arxiv.org/abs/2603.13333v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.13333v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Signal Temporal Logic (STL) enables formal specification of complex spatiotemporal constraints for robotic task planning. However, synthesizing long-horizon continuous control trajectories from complex STL specifications is fundamentally challenging due to the nested structure of STL robustness objectives. Existing solver-based methods, such as Mixed-Integer Linear Programming (MILP), suffer from exponential scaling, whereas sampling methods, such as Model-Predictive Path Integral control (MPPI), struggle with sparse, long-horizon costs. We introduce Signal Temporal Logic guided Stein Variational Path Integral Optimization (STL-SVPIO), which reframes STL as a globally informative, differentiable reward-shaping mechanism. By leveraging Stein Variational Gradient Descent and differentiable physics engines, STL-SVPIO transports a mutually repulsive swarm of control particles toward high robustness regions. Our method transforms sparse logical satisfaction into tractable variational inference, mitigating the severe local minima traps of standard gradient-based methods. We demonstrate that STL-SVPIO significantly outperforms existing methods in both robustness and efficiency for traditional STL tasks. Moreover, it solves complex long-horizon tasks, including multi-agent coordination with synchronization and queuing while baselines either fail to discover feasible solutions, or become computationally intractable. Finally, we use STL-SVPIO in agile robotic motion planning tasks with nonlinear dynamics, such as 7-DoF manipulation and half cheetah back flips to show the generalizability of our algorithm.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T00:53:38Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hongrui Zheng</name>
+    </author>
+    <author>
+      <name>Zirui Zang</name>
+    </author>
+    <author>
+      <name>Ahmad Amine</name>
+    </author>
+    <author>
+      <name>Cristian Ioan Vasile</name>
+    </author>
+    <author>
+      <name>Rahul Mangharam</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.18816v2</id>
+    <title>Learning Multi-Robot Coordination through Locality-Based Factorized Multi-Agent Actor-Critic Algorithm</title>
+    <updated>2025-03-28T16:19:45Z</updated>
+    <link href="https://arxiv.org/abs/2503.18816v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.18816v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this work, we present a novel cooperative multi-agent reinforcement learning method called \textbf{Loc}ality based \textbf{Fac}torized \textbf{M}ulti-Agent \textbf{A}ctor-\textbf{C}ritic (Loc-FACMAC). Existing state-of-the-art algorithms, such as FACMAC, rely on global reward information, which may not accurately reflect the quality of individual robots' actions in decentralized systems. We integrate the concept of locality into critic learning, where strongly related robots form partitions during training. Robots within the same partition have a greater impact on each other, leading to more precise policy evaluation. Additionally, we construct a dependency graph to capture the relationships between robots, facilitating the partitioning process. This approach mitigates the curse of dimensionality and prevents robots from using irrelevant information. Our method improves existing algorithms by focusing on local rewards and leveraging partition-based learning to enhance training efficiency and performance. We evaluate the performance of Loc-FACMAC in three environments: Hallway, Multi-cartpole, and Bounded-Cooperative-Navigation. We explore the impact of partition sizes on the performance and compare the result with baseline MARL algorithms such as LOMAQ, FACMAC, and QMIX. The experiments reveal that, if the locality structure is defined properly, Loc-FACMAC outperforms these baseline algorithms up to 108\%, indicating that exploiting the locality structure in the actor-critic framework improves the MARL performance.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-24T16:00:16Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chak Lam Shek</name>
+    </author>
+    <author>
+      <name>Amrit Singh Bedi</name>
+    </author>
+    <author>
+      <name>Anjon Basak</name>
+    </author>
+    <author>
+      <name>Ellen Novoseller</name>
+    </author>
+    <author>
+      <name>Nick Waytowich</name>
+    </author>
+    <author>
+      <name>Priya Narayanan</name>
+    </author>
+    <author>
+      <name>Dinesh Manocha</name>
+    </author>
+    <author>
+      <name>Pratap Tokekar</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.13691v1</id>
+    <title>SPAR: Scalable LLM-based PDDL Domain Generation for Aerial Robotics</title>
+    <updated>2025-09-17T04:38:44Z</updated>
+    <link href="https://arxiv.org/abs/2509.13691v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.13691v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We investigate the problem of automatic domain generation for the Planning Domain Definition Language (PDDL) using Large Language Models (LLMs), with a particular focus on unmanned aerial vehicle (UAV) tasks. Although PDDL is a widely adopted standard in robotic planning, manually designing domains for diverse applications such as surveillance, delivery, and inspection is labor-intensive and error-prone, which hinders adoption and real-world deployment. To address these challenges, we propose SPAR, a framework that leverages the generative capabilities of LLMs to automatically produce valid, diverse, and semantically accurate PDDL domains from natural language input. To this end, we first introduce a systematically formulated and validated UAV planning dataset, consisting of ground-truth PDDL domains and associated problems, each paired with detailed domain and action descriptions. Building on this dataset, we design a prompting framework that generates high-quality PDDL domains from language input. The generated domains are evaluated through syntax validation, executability, feasibility, and interpretability. Overall, this work demonstrates that LLMs can substantially accelerate the creation of complex planning domains, providing a reproducible dataset and evaluation pipeline that enables application experts without prior experience to leverage it for practical tasks and advance future research in aerial robotics and automated planning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-17T04:38:44Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Songhao Huang</name>
+    </author>
+    <author>
+      <name>Yuwei Wu</name>
+    </author>
+    <author>
+      <name>Guangyao Shi</name>
+    </author>
+    <author>
+      <name>Gaurav S. Sukhatme</name>
+    </author>
+    <author>
+      <name>Vijay Kumar</name>
+    </author>
+  </entry>
+</feed>

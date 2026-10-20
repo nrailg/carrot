@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/ryt1MyUfZ6+gn8T8HJ+hwQFEoSY</id>
+  <title>arXiv Query: search_query=ti:"Effect of Velocity-Curvature Relation on Physical Human Interactions with a Compliant Robot" OR ti:"MAGIC: Mixed Reality-Enhanced Active Constraint Generation and Impedance Control for Human–Robot Co-Manipulation" OR ti:"Multi-Robot Temporal-Logic-Aware Exploration" OR ti:"Ergodic Exploration of Dynamic Distribution" OR ti:"Distributed Multi-Robot Ergodic Coverage Control for Estimating Time-Varying Spatial Processes" OR ti:"SPACE: 3D Spatial Co-Operation and Exploration Framework for Robust Mapping and Coverage with Multi-Robot Systems" OR ti:"Stochastic Adaptive Estimation in Polynomial Curvature Shape State Space for Continuum Robots" OR ti:"6D Tip Wrench Estimation for Continuum Robots: A Koopman-UKF-Wrench Decomposition Approach" OR ti:"AFT: Appearance-Based Feature Tracking for Markerless and Training-Free Shape Reconstruction of Soft Robots" OR ti:"Exact Fractional Order Impedance Rendering for Highly Flexible and Multi-Jointed Robots Using Time-Delay Estimation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:43Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Effect+of+Velocity-Curvature+Relation+on+Physical+Human+Interactions+with+a+Compliant+Robot%22+OR+(ti:%22MAGIC:+Mixed+Reality-Enhanced+Active+Constraint+Generation+and+Impedance+Control+for+Human%E2%80%93Robot+Co-Manipulation%22+OR+(ti:%22Multi-Robot+Temporal-Logic-Aware+Exploration%22+OR+(ti:%22Ergodic+Exploration+of+Dynamic+Distribution%22+OR+(ti:%22Distributed+Multi-Robot+Ergodic+Coverage+Control+for+Estimating+Time-Varying+Spatial+Processes%22+OR+(ti:%22SPACE:+3D+Spatial+Co-Operation+and+Exploration+Framework+for+Robust+Mapping+and+Coverage+with+Multi-Robot+Systems%22+OR+(ti:%22Stochastic+Adaptive+Estimation+in+Polynomial+Curvature+Shape+State+Space+for+Continuum+Robots%22+OR+(ti:%226D+Tip+Wrench+Estimation+for+Continuum+Robots:+A+Koopman-UKF-Wrench+Decomposition+Approach%22+OR+(ti:%22AFT:+Appearance-Based+Feature+Tracking+for+Markerless+and+Training-Free+Shape+Reconstruction+of+Soft+Robots%22+OR+ti:%22Exact+Fractional+Order+Impedance+Rendering+for+Highly+Flexible+and+Multi-Jointed+Robots+Using+Time-Delay+Estimation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.18215v1</id>
+    <title>AFT: Appearance-Based Feature Tracking for Markerless and Training-Free Shape Reconstruction of Soft Robots</title>
+    <updated>2025-11-22T23:14:30Z</updated>
+    <link href="https://arxiv.org/abs/2511.18215v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.18215v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate shape reconstruction is essential for precise control and reliable operation of soft robots. Compared to sensor-based approaches, vision-based methods offer advantages in cost, simplicity, and ease of deployment. However, existing vision-based methods often rely on complex camera setups, specific backgrounds, or large-scale training datasets, limiting their practicality in real-world scenarios. In this work, we propose a vision-based, markerless, and training-free framework for soft robot shape reconstruction that directly leverages the robot's natural surface appearance. These surface features act as implicit visual markers, enabling a hierarchical matching strategy that decouples local partition alignment from global kinematic optimization. Requiring only an initial 3D reconstruction and kinematic alignment, our method achieves real-time shape tracking across diverse environments while maintaining robustness to occlusions and variations in camera viewpoints. Experimental validation on a continuum soft robot demonstrates an average tip error of 2.6% during real-time operation, as well as stable performance in practical closed-loop control tasks. These results highlight the potential of the proposed approach for reliable, low-cost deployment in dynamic real-world settings.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-22T23:14:30Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shangyuan Yuan</name>
+    </author>
+    <author>
+      <name>Preston Fairchild</name>
+    </author>
+    <author>
+      <name>Yu Mei</name>
+    </author>
+    <author>
+      <name>Xinyu Zhou</name>
+    </author>
+    <author>
+      <name>Xiaobo Tan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2411.02524v1</id>
+    <title>SPACE: 3D Spatial Co-operation and Exploration Framework for Robust Mapping and Coverage with Multi-Robot Systems</title>
+    <updated>2024-11-04T19:04:09Z</updated>
+    <link href="https://arxiv.org/abs/2411.02524v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2411.02524v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In indoor environments, multi-robot visual (RGB-D) mapping and exploration hold immense potential for application in domains such as domestic service and logistics, where deploying multiple robots in the same environment can significantly enhance efficiency. However, there are two primary challenges: (1) the "ghosting trail" effect, which occurs due to overlapping views of robots impacting the accuracy and quality of point cloud reconstruction, and (2) the oversight of visual reconstructions in selecting the most effective frontiers for exploration. Given these challenges are interrelated, we address them together by proposing a new semi-distributed framework (SPACE) for spatial cooperation in indoor environments that enables enhanced coverage and 3D mapping. SPACE leverages geometric techniques, including "mutual awareness" and a "dynamic robot filter," to overcome spatial mapping constraints. Additionally, we introduce a novel spatial frontier detection system and map merger, integrated with an adaptive frontier assigner for optimal coverage balancing the exploration and reconstruction objectives. In extensive ROS-Gazebo simulations, SPACE demonstrated superior performance over state-of-the-art approaches in both exploration and mapping metrics.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-11-04T19:04:09Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sai Krishna Ghanta</name>
+    </author>
+    <author>
+      <name>Ramviyas Parasuraman</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2210.08427v5</id>
+    <title>Stochastic Adaptive Estimation in Polynomial Curvature Shape State Space for Continuum Robots</title>
+    <updated>2025-11-12T21:56:46Z</updated>
+    <link href="https://arxiv.org/abs/2210.08427v5" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2210.08427v5" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In continuum robotics, real-time robust shape estimation is crucial for planning and control tasks that involve physical manipulation in complex environments. In this paper, we present a novel stochastic observer-based shape estimation framework designed specifically for continuum robots. The shape state space is uniquely represented by the modal coefficients of a polynomial, enabled by leveraging polynomial curvature kinematics (PCK) to describe the curvature distribution along the arclength. Our framework processes noisy measurements from limited discrete position, orientation, or pose sensors to estimate the shape state robustly. We derive a novel noise-weighted observability matrix, providing a detailed assessment of observability variations under diverse sensor configurations. To overcome the limitations of a single model, our observer employs the Interacting Multiple Model (IMM) method, coupled with Extended Kalman Filters (EKFs), to mix polynomial curvature models of different orders. The IMM approach, rooted in Markov processes, effectively manages multiple model scenarios by dynamically adapting to different polynomial orders based on real-time model probabilities. This adaptability is key to ensuring robust shape estimation of the robot's behaviors under various conditions. Our comprehensive analysis, supported by both simulation studies and experimental validations, confirms the robustness and accuracy of our methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2022-10-16T03:11:22Z</published>
+    <arxiv:comment>20 pages. IEEE Transactions on Robotics - Accepted; this arXiv version corresponds to the final revision. Supplementary appendix provided as an ancillary PDF</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guoqing Zhang</name>
+    </author>
+    <author>
+      <name>Long Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.11235v1</id>
+    <title>Ergodic exploration of dynamic distribution</title>
+    <updated>2025-03-14T09:33:54Z</updated>
+    <link href="https://arxiv.org/abs/2503.11235v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.11235v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This research addresses the challenge of performing search missions in dynamic environments, particularly for drifting targets whose movement is dictated by a flow field. This is accomplished through a dynamical system that integrates two partial differential equations: one governing the dynamics and uncertainty of the probability distribution, and the other regulating the potential field for ergodic multi-agent search. The target probability field evolves in response to the target dynamics imposed by the environment and accomplished sensing efforts, while being explored by multiple robot agents guided by the potential field gradient. The proposed methodology was tested on two simulated search scenarios, one of which features a synthetically generated domain and showcases better performance when compared to the baseline method with static target probability over a range of agent to flow field velocity ratios. The second search scenario represents a realistic sea search and rescue mission where the search start is delayed, the search is performed in multiple robot flight missions, and the procedure for target drift uncertainty compensation is demonstrated. Furthermore, the proposed method provides an accurate survey completion metric, based on the known detection/sensing parameters, that correlates with the actual number of targets found independently.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.DS" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.OC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-14T09:33:54Z</published>
+    <arxiv:comment>Initial version</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Luka Lanča</name>
+    </author>
+    <author>
+      <name>Karlo Jakac</name>
+    </author>
+    <author>
+      <name>Sylvain Calinon</name>
+    </author>
+    <author>
+      <name>Stefan Ivić</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2025.3625516</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2025.3625516" title="doi"/>
+  </entry>
+</feed>

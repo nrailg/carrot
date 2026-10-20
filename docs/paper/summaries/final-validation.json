@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "source_records": 9659,
+  "canonical_papers": 9073,
+  "completed_batches": 205,
+  "total_batches": 205,
+  "covered_papers": 9073,
+  "pending_papers": 0,
+  "pending_review_items": 0,
+  "unresolved_rework": [],
+  "status_counts_of_completed_records": {
+    "摘要支持": 7551,
+    "与机器人不相关": 641,
+    "信息不足": 881
+  },
+  "primary_problem_counts_of_completed_records": {
+    "long_horizon": 244,
+    "data_cost": 467,
+    "evaluation_understanding": 1096,
+    "safety_recovery": 797,
+    "efficiency": 832,
+    "physical_action": 1000,
+    "embodiment_sensing": 328,
+    "autonomous_learning": 357,
+    "generalization": 493,
+    "perception_state": 1165,
+    "collaboration": 510,
+    "instruction_reasoning": 262
+  }
+}

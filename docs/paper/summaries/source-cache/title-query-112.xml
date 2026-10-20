@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/hVVfBhtRcgOya/1PxBmRB2YbXN8</id>
+  <title>arXiv Query: search_query=ti:"Towards Autonomous Dynamic Soaring for Real-World VTOL / Fixed-Wing Small-UAS" OR ti:"Large Language Model Guided Teacher-Student Reinforcement Learning for Terrain-Aware Bipedal Locomotion" OR ti:"Humanoid Walking Stabilization Via Full Stepping Strategy Based on Three Dimensional Divergent Component of Motion" OR ti:"Walk the PLANC: Physics-Guided RL for Agile Humanoid Locomotion on Constrained Footholds" OR ti:"Leveraging Previous-Traversal Point Cloud Map Priors for Camera-Based 3D Object Detection and Tracking" OR ti:"MacFormer: Semantic Segmentation with Fine Object Boundaries" OR ti:"Robust Dynamic Object Detection in Cluttered Indoor Scenes Via Learned Spatiotemporal Cues" OR ti:"When One Frame Slips, the Others Have Its Back: A Latency-First Multi-Frame Video Object Masking" OR ti:"Learning Real-Time Glass Segmentation Using Radar-Depth Fusion" OR ti:"On-Device Underwater Fish Detection: A New Benchmark and Distillation Framework Baseline"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:20Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Towards+Autonomous+Dynamic+Soaring+for+Real-World+VTOL+/+Fixed-Wing+Small-UAS%22+OR+(ti:%22Large+Language+Model+Guided+Teacher-Student+Reinforcement+Learning+for+Terrain-Aware+Bipedal+Locomotion%22+OR+(ti:%22Humanoid+Walking+Stabilization+Via+Full+Stepping+Strategy+Based+on+Three+Dimensional+Divergent+Component+of+Motion%22+OR+(ti:%22Walk+the+PLANC:+Physics-Guided+RL+for+Agile+Humanoid+Locomotion+on+Constrained+Footholds%22+OR+(ti:%22Leveraging+Previous-Traversal+Point+Cloud+Map+Priors+for+Camera-Based+3D+Object+Detection+and+Tracking%22+OR+(ti:%22MacFormer:+Semantic+Segmentation+with+Fine+Object+Boundaries%22+OR+(ti:%22Robust+Dynamic+Object+Detection+in+Cluttered+Indoor+Scenes+Via+Learned+Spatiotemporal+Cues%22+OR+(ti:%22When+One+Frame+Slips,+the+Others+Have+Its+Back:+A+Latency-First+Multi-Frame+Video+Object+Masking%22+OR+(ti:%22Learning+Real-Time+Glass+Segmentation+Using+Radar-Depth+Fusion%22+OR+ti:%22On-Device+Underwater+Fish+Detection:+A+New+Benchmark+and+Distillation+Framework+Baseline%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.06286v1</id>
+    <title>Walk the PLANC: Physics-Guided RL for Agile Humanoid Locomotion on Constrained Footholds</title>
+    <updated>2026-01-09T19:56:42Z</updated>
+    <link href="https://arxiv.org/abs/2601.06286v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.06286v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Bipedal humanoid robots must precisely coordinate balance, timing, and contact decisions when locomoting on constrained footholds such as stepping stones, beams, and planks -- even minor errors can lead to catastrophic failure. Classical optimization and control pipelines handle these constraints well but depend on highly accurate mathematical representations of terrain geometry, making them prone to error when perception is noisy or incomplete. Meanwhile, reinforcement learning has shown strong resilience to disturbances and modeling errors, yet end-to-end policies rarely discover the precise foothold placement and step sequencing required for discontinuous terrain. These contrasting limitations motivate approaches that guide learning with physics-based structure rather than relying purely on reward shaping. In this work, we introduce a locomotion framework in which a reduced-order stepping planner supplies dynamically consistent motion targets that steer the RL training process via Control Lyapunov Function (CLF) rewards. This combination of structured footstep planning and data-driven adaptation produces accurate, agile, and hardware-validated stepping-stone locomotion on a humanoid robot, substantially improving reliability compared to conventional model-free reinforcement-learning baselines.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-09T19:56:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Min Dai</name>
+    </author>
+    <author>
+      <name>William D. Compton</name>
+    </author>
+    <author>
+      <name>Junheng Li</name>
+    </author>
+    <author>
+      <name>Lizhi Yang</name>
+    </author>
+    <author>
+      <name>Aaron D. Ames</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.25405v1</id>
+    <title>Leveraging Previous-Traversal Point Cloud Map Priors for Camera-Based 3D Object Detection and Tracking</title>
+    <updated>2026-04-28T09:16:44Z</updated>
+    <link href="https://arxiv.org/abs/2604.25405v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.25405v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Camera-based 3D object detection and tracking are central to autonomous driving, yet precise 3D object localization remains fundamentally constrained by depth ambiguity when no expensive, depth-rich online LiDAR is available at inference. In many deployments, however, vehicles repeatedly traverse the same environments, making static point cloud maps from prior traversals a practical source of geometric priors. We propose DualViewMapDet, a camera-only inference framework that retrieves such map priors online and leverages them to mitigate the absence of a LiDAR sensor during deployment. The key idea is a dual-space camera-map fusion strategy that avoids one-sided view conversion. Specifically, we (i) project the map into perspective view (PV) and encode multi-channel geometric cues to enrich image features and support BEV lifting, and (ii) encode the map directly in bird's-eye view (BEV) with a sparse voxel backbone and fuse it with lifted camera features in a shared metric space. Extensive evaluations on nuScenes and Argoverse 2 demonstrate consistent improvements over strong camera-only baselines, with particularly strong gains in object localization. Ablations further validate the contributions of PV/BEV fusion and prior-map coverage. We make the code and pre-trained models available at https://dualviewmapdet.cs.uni-freiburg.de .</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-28T09:16:44Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Markus Käppeler</name>
+    </author>
+    <author>
+      <name>Özgün Çiçek</name>
+    </author>
+    <author>
+      <name>Yakov Miron</name>
+    </author>
+    <author>
+      <name>Abhinav Valada</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.15826v1</id>
+    <title>Robust Dynamic Object Detection in Cluttered Indoor Scenes via Learned Spatiotemporal Cues</title>
+    <updated>2026-03-16T18:59:51Z</updated>
+    <link href="https://arxiv.org/abs/2603.15826v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.15826v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reliable dynamic object detection in cluttered environments remains a critical challenge for autonomous navigation. Purely geometric LiDAR pipelines that rely on clustering and heuristic filtering can miss dynamic obstacles when they move in close proximity to static structure or are only partially observed. Vision-augmented approaches can provide additional semantic cues, but are often limited by closed-set detectors and camera field-of-view constraints, reducing robustness to novel obstacles and out-of-frustum events. In this work, we present a LiDAR-only framework that fuses temporal occupancy-grid-based motion segmentation with a learned bird's-eye-view (BEV) dynamic prior. A fusion module prioritizes 3D detections when available, while using the learned dynamic grid to recover detections that would otherwise be lost due to proximity-induced false negatives. Experiments with motion-capture ground truth show our method achieves 28.67% higher recall and 18.50% higher F1 score than the state-of-the-art in substantially cluttered environments while maintaining comparable precision and position error.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-16T18:59:51Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Juan Rached</name>
+    </author>
+    <author>
+      <name>Yixuan Jia</name>
+    </author>
+    <author>
+      <name>Kota Kondo</name>
+    </author>
+    <author>
+      <name>Jonathan P. How</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2408.05699v1</id>
+    <title>MacFormer: Semantic Segmentation with Fine Object Boundaries</title>
+    <updated>2024-08-11T05:36:10Z</updated>
+    <link href="https://arxiv.org/abs/2408.05699v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.05699v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Semantic segmentation involves assigning a specific category to each pixel in an image. While Vision Transformer-based models have made significant progress, current semantic segmentation methods often struggle with precise predictions in localized areas like object boundaries. To tackle this challenge, we introduce a new semantic segmentation architecture, ``MacFormer'', which features two key components. Firstly, using learnable agent tokens, a Mutual Agent Cross-Attention (MACA) mechanism effectively facilitates the bidirectional integration of features across encoder and decoder layers. This enables better preservation of low-level features, such as elementary edges, during decoding. Secondly, a Frequency Enhancement Module (FEM) in the decoder leverages high-frequency and low-frequency components to boost features in the frequency domain, benefiting object boundaries with minimal computational complexity increase. MacFormer is demonstrated to be compatible with various network architectures and outperforms existing methods in both accuracy and efficiency on benchmark datasets ADE20K and Cityscapes under different computational constraints.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-11T05:36:10Z</published>
+    <arxiv:comment>13 pages, 7 figures, submitted to TIP</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Guoan Xu</name>
+    </author>
+    <author>
+      <name>Wenfeng Huang</name>
+    </author>
+    <author>
+      <name>Tao Wu</name>
+    </author>
+    <author>
+      <name>Ligeng Chen</name>
+    </author>
+    <author>
+      <name>Wenjing Jia</name>
+    </author>
+    <author>
+      <name>Guangwei Gao</name>
+    </author>
+    <author>
+      <name>Xiatian Zhu</name>
+    </author>
+    <author>
+      <name>Stuart Perry</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2609.36844v1</id>
+    <title>GlassFormer: Learning Real-time Glass Segmentation using Radar-Depth Fusion</title>
+    <updated>2026-09-29T06:56:42Z</updated>
+    <link href="https://arxiv.org/abs/2609.36844v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2609.36844v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Transparent surfaces are ubiquitous in built environments, yet they remain a persistent failure case for robotic perception. RGB cameras perceive the background behind glass rather than the surface itself, while depth sensors such as LiDAR, time-of-flight, and RGB-D often return invalid or background measurements in transparent regions. As a result, systems that rely solely on optical sensing may misinterpret glass walls, doors, or mirrors as free space, compromising safe and reliable navigation. Existing glass segmentation approaches address this by learning visual cues such as reflections, boundaries, and semantic context from RGB images. While effective under favourable lighting and viewing conditions, these cues degrade in low-light environments, under glare, or when glass surfaces are featureless or partially occluded. In this work, we propose a multimodal framework that fuses millimetre-wave radar with RGB-D sensing for real-time transparent surface segmentation. Radar reflects strongly off glass surfaces, providing a geometric cue that remains reliable precisely where vision and depth fail. We exploit this cross-modal inconsistency to generate a radar-guided spatial prior, which is integrated into a lightweight transformer-based segmentation network, GlassFormer, via cross-modal attention. We report results on a mixed-condition test split covering all scene types and a dedicated low-light split designed to stress vision-only methods. GlassFormer achieves 0.88 mIoU on the mixed split, and 0.59 mIoU on the low light split, demonstrating substantial robustness gains over vision-only baselines while maintaining real-time performance on resource-constrained platforms.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-09-29T06:56:42Z</published>
+    <arxiv:comment>Accepted for presentation at IEEE IROS 2026. Code available at https://github.com/Suhani92/GlassFormer</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Suhani Grover</name>
+    </author>
+    <author>
+      <name>Astik Srivastava</name>
+    </author>
+    <author>
+      <name>Viswas Dinesh</name>
+    </author>
+    <author>
+      <name>Avinash Sharma</name>
+    </author>
+    <author>
+      <name>K. Madhava Krishna</name>
+    </author>
+  </entry>
+</feed>

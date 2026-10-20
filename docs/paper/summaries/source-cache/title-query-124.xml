@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/fkbBe2XsPqppSf3RjXUqxMAdzAw</id>
+  <title>arXiv Query: search_query=ti:"Structure-Preserving Diffusion for Point-Wise 3D Goal State Prediction in Robotic Manipulation" OR ti:"Physics-Conditioned Grasping for Stable Tool Use" OR ti:"BiBoost: Adaptive Bidirectional Boosting for Multi-Task Dexterous Hand Manipulation" OR ti:"DRFM-1: An Imitation Learning Framework for Image-Guided Orthopedic Robotic Drilling Via Human Expertise" OR ti:"Physics-Based Haptic Rendering for Cataract Surgery Simulation with Multi-Material Tissue Dynamics" OR ti:"On the Systematic Design Framework for Intuitive Interfaces in Telerobotic Operations: A Case Study in Surgical Robotics" OR ti:"Complete Autonomous Robotic Nasopharyngeal Swab System with Evaluation on a Stochastically Moving Phantom Head" OR ti:"CausalGuard: Causal Temporal Convolution for Pre-Impact Fall Prediction and Emergency Braking in Wearable Robotic Systems" OR ti:"Ask, Reason, Assist: Robot Collaboration Via Natural Language and Temporal Logic" OR ti:"Neuro-Symbolic Generation of Explanations for Robot Policies with Weighted Signal Temporal Logic"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:07Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Structure-Preserving+Diffusion+for+Point-Wise+3D+Goal+State+Prediction+in+Robotic+Manipulation%22+OR+(ti:%22Physics-Conditioned+Grasping+for+Stable+Tool+Use%22+OR+(ti:%22BiBoost:+Adaptive+Bidirectional+Boosting+for+Multi-Task+Dexterous+Hand+Manipulation%22+OR+(ti:%22DRFM-1:+An+Imitation+Learning+Framework+for+Image-Guided+Orthopedic+Robotic+Drilling+Via+Human+Expertise%22+OR+(ti:%22Physics-Based+Haptic+Rendering+for+Cataract+Surgery+Simulation+with+Multi-Material+Tissue+Dynamics%22+OR+(ti:%22On+the+Systematic+Design+Framework+for+Intuitive+Interfaces+in+Telerobotic+Operations:+A+Case+Study+in+Surgical+Robotics%22+OR+(ti:%22Complete+Autonomous+Robotic+Nasopharyngeal+Swab+System+with+Evaluation+on+a+Stochastically+Moving+Phantom+Head%22+OR+(ti:%22CausalGuard:+Causal+Temporal+Convolution+for+Pre-Impact+Fall+Prediction+and+Emergency+Braking+in+Wearable+Robotic+Systems%22+OR+(ti:%22Ask,+Reason,+Assist:+Robot+Collaboration+Via+Natural+Language+and+Temporal+Logic%22+OR+ti:%22Neuro-Symbolic+Generation+of+Explanations+for+Robot+Policies+with+Weighted+Signal+Temporal+Logic%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2408.13100v1</id>
+    <title>Complete Autonomous Robotic Nasopharyngeal Swab System with Evaluation on a Stochastically Moving Phantom Head</title>
+    <updated>2024-08-23T14:22:42Z</updated>
+    <link href="https://arxiv.org/abs/2408.13100v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2408.13100v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The application of autonomous robotics to close-contact healthcare tasks has a clear role for the future due to its potential to reduce infection risks to staff and improve clinical efficiency. Nasopharyngeal (NP) swab sample collection for diagnosing upper-respiratory illnesses is one type of close contact task that is interesting for robotics due to the dexterity requirements and the unobservability of the nasal cavity. We propose a control system that performs the test using a collaborative manipulator arm with an instrumented end-effector to take visual and force measurements, under the scenario that the patient is unrestrained and the tools are general enough to be applied to other close contact tasks. The system employs a visual servo controller to align the swab with the nostrils. A compliant joint velocity controller inserts the swab along a trajectory optimized through a simulation environment, that also reacts to measured forces applied to the swab. Additional subsystems include a fuzzy logic system for detecting when the swab reaches the nasopharynx and a method for detaching the swab and aborting the procedure if safety criteria is violated. The system is evaluated using a second robotic arm that holds a nasal cavity phantom and simulates the natural head motions that could occur during the procedure. Through extensive experiments, we identify controller configurations capable of effectively performing the NP swab test even with significant head motion, which demonstrates the safety and reliability of the system.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-08-23T14:22:42Z</published>
+    <arxiv:comment>18 pages, 26 figures. Supplementary files may be found at https://uwaterloo.ca/scholar/pqjlee/supplementary-files-complete-autonomous-robotic-nasopharyngeal-swab-system-evaluation</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Peter Q. Lee</name>
+    </author>
+    <author>
+      <name>John S. Zelek</name>
+    </author>
+    <author>
+      <name>Katja Mombaur</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.23506v3</id>
+    <title>Ask, Reason, Assist: Robot Collaboration via Natural Language and Temporal Logic</title>
+    <updated>2026-03-05T16:47:49Z</updated>
+    <link href="https://arxiv.org/abs/2509.23506v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.23506v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Increased robot deployment, such as in warehousing, has revealed a need for collaboration among heterogeneous robot teams to resolve unforeseen conflicts. To this end, we propose a peer-to-peer coordination protocol that enables robots to request and provide help without a central task allocator. The process begins when a robot detects a conflict and uses a Large Language Model (LLM) to decide whether external assistance is required. If so, it crafts and broadcasts a natural language (NL) help request. Potential helper robots reason over the request and respond with offers of assistance, including information about the effect on their ongoing tasks. Helper reasoning is implemented via an LLM grounded in Signal Temporal Logic (STL) using a Backus-Naur Form (BNF) grammar, ensuring syntactically valid NL-to-STL translations, which are then solved as a Mixed Integer Linear Program (MILP). Finally, the requester robot selects a helper by reasoning over the expected increase in system-level total task completion time. We evaluated our framework through experiments comparing different helper-selection strategies and found that considering multiple offers allows the requester to minimize added makespan. Our approach significantly outperforms heuristics such as selecting the nearest available candidate helper robot, and achieves performance comparable to a centralized "Oracle" baseline but without heavy information demands.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-27T21:28:08Z</published>
+    <arxiv:comment>arXiv admin note: substantial text overlap with arXiv:2505.13376</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Dan BW Choe</name>
+    </author>
+    <author>
+      <name>Sundhar Vinodh Sangeetha</name>
+    </author>
+    <author>
+      <name>Steven Emanuel</name>
+    </author>
+    <author>
+      <name>Chih-Yuan Chiu</name>
+    </author>
+    <author>
+      <name>Samuel Coogan</name>
+    </author>
+    <author>
+      <name>Shreyas Kousik</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.21841v3</id>
+    <title>Neuro-Symbolic Generation of Explanations for Robot Policies with Weighted Signal Temporal Logic</title>
+    <updated>2026-02-24T22:29:57Z</updated>
+    <link href="https://arxiv.org/abs/2504.21841v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.21841v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Neural network-based policies have demonstrated success in many robotic applications, but often lack human-explanability, which poses challenges in safety-critical deployments. To address this, we propose a neuro-symbolic explanation framework that generates a weighted signal temporal logic (wSTL) specification to describe a robot policy in a interpretable form. Existing methods typically produce explanations that are verbose and inconsistent, which hinders explainability, and loose, which do not give meaningful insights into the underlying policy. We address these issues by introducing a simplification process consisting of predicate filtering, regularization, and iterative pruning. We also introduce three novel explainability evaluation metrics -- conciseness, consistency, and strictness -- to assess explanation quality beyond conventional classification metrics. Our method is validated in three simulated robotic environments, where it outperforms baselines in generating concise, consistent, and strict wSTL explanations without sacrificing classification accuracy. This work bridges policy learning with formal methods, contributing to safer and more transparent decision-making in robotics.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.FL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-30T17:51:20Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, pp. 3963-3970, 2026</arxiv:journal_ref>
+    <author>
+      <name>Mikihisa Yuasa</name>
+    </author>
+    <author>
+      <name>Ramavarapu S. Sreenivas</name>
+    </author>
+    <author>
+      <name>Huy T. Tran</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3662977</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3662977" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.01399v3</id>
+    <title>Physics-Conditioned Grasping for Stable Tool Use</title>
+    <updated>2026-03-10T17:09:56Z</updated>
+    <link href="https://arxiv.org/abs/2505.01399v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.01399v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tool use often fails not because robots misidentify tools, but because grasps cannot withstand task-induced wrench. Existing vision-language manipulation systems ground tools and contact regions from language yet select grasps under quasi-static or geometry-only assumptions. During interaction, inertial impulse and lever-arm amplification generate wrist torque and tangential loads that trigger slip and rotation. We introduce inverse Tool-use Planning (iTuP), which selects grasps by minimizing predicted interaction wrench along a task-conditioned trajectory. From rigid-body mechanics, we derive torque, slip, and alignment penalties, and train a Stable Dynamic Grasp Network (SDG-Net) to approximate these trajectory-conditioned costs for real-time scoring. Across hammering, sweeping, knocking, and reaching in simulation and on hardware, SDG-Net suppresses induced torque up to 17.6%, shifts grasps below empirically observed instability thresholds, and improves real-world success by 17.5% over a compositional baseline. Improvements concentrate where wrench amplification dominates, showing that robot tool use requires wrench-aware grasp selection, not perception alone.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-02T17:20:46Z</published>
+    <arxiv:comment>In submission and under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Noah Trupin</name>
+    </author>
+    <author>
+      <name>Zixing Wang</name>
+    </author>
+    <author>
+      <name>Ahmed H. Qureshi</name>
+    </author>
+  </entry>
+</feed>

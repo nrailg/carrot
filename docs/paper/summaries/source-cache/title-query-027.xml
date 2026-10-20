@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/zygnOT9Y9mtDnMg8XPUesomhQ8k</id>
+  <title>arXiv Query: search_query=ti:"Data-Driven Fault Detection and Isolation for Autonomous Recovery of Quadrotors" OR ti:"Learning Attractor Dynamics via Reservoir Computing for Efficient and Robust Path Integration" OR ti:"Real-Time On-Device Multi-Vessel Tracking for UAV with Trapezoid Convolution" OR ti:"Pareto Front Approximation for the Biobjective Steiner Traveling Salesman Problem" OR ti:"VECTOR: Decentralized Task Planning with Verification and Adaptive Execution for Multi-Robot Systems" OR ti:"Energy-Aware Path Planning for Mobile Robots in Mechanically and Computationally Complex Environments" OR ti:"One-Size-Fits-All: Robust Solutions to Multi-Objective Planning Problems" OR ti:"Semi-Infinite Programming for Collision-Avoidance in Optimal and Model Predictive Control" OR ti:"Amortizing Trajectory Diffusion with Keyed Drift Fields" OR ti:"ADMM-Based Continuous Trajectory Optimization in Graphs of Convex Sets"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:37Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Data-Driven+Fault+Detection+and+Isolation+for+Autonomous+Recovery+of+Quadrotors%22+OR+(ti:%22Learning+Attractor+Dynamics+via+Reservoir+Computing+for+Efficient+and+Robust+Path+Integration%22+OR+(ti:%22Real-Time+On-Device+Multi-Vessel+Tracking+for+UAV+with+Trapezoid+Convolution%22+OR+(ti:%22Pareto+Front+Approximation+for+the+Biobjective+Steiner+Traveling+Salesman+Problem%22+OR+(ti:%22VECTOR:+Decentralized+Task+Planning+with+Verification+and+Adaptive+Execution+for+Multi-Robot+Systems%22+OR+(ti:%22Energy-Aware+Path+Planning+for+Mobile+Robots+in+Mechanically+and+Computationally+Complex+Environments%22+OR+(ti:%22One-Size-Fits-All:+Robust+Solutions+to+Multi-Objective+Planning+Problems%22+OR+(ti:%22Semi-Infinite+Programming+for+Collision-Avoidance+in+Optimal+and+Model+Predictive+Control%22+OR+(ti:%22Amortizing+Trajectory+Diffusion+with+Keyed+Drift+Fields%22+OR+ti:%22ADMM-Based+Continuous+Trajectory+Optimization+in+Graphs+of+Convex+Sets%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.14056v1</id>
+    <title>Amortizing Trajectory Diffusion with Keyed Drift Fields</title>
+    <updated>2026-03-14T17:56:15Z</updated>
+    <link href="https://arxiv.org/abs/2603.14056v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.14056v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Diffusion-based trajectory planners can synthesize rich, multimodal action sequences for offline reinforcement learning, but their iterative denoising incurs substantial inference-time cost, making closed-loop planning slow under tight compute budgets. We study the problem of achieving diffusion-like trajectory planning behavior with one-step inference, while retaining the ability to sample diverse candidate plans and condition on the current state in a receding-horizon control loop. Our key observation is that conditional trajectory generation fails under naïve distribution-matching objectives when the similarity measure used to align generated trajectories with the dataset is dominated by unconstrained future dimensions. In practice, this causes attraction toward average trajectories, collapses action diversity, and yields near-static behavior. Our key insight is that conditional generative planning requires a conditioning-aware notion of neighborhood: trajectory updates should be computed using distances in a compact key space that reflects the condition, while still applying updates in the full trajectory space. Building on this, we introduce Keyed Drifting Policies (KDP), a one-step trajectory generator trained with a drift-field objective that attracts generated trajectories toward condition-matched dataset windows and repels them from nearby generated samples, using a stop-gradient drifted target to amortize iterative refinement into training. At inference, the resulting policy produces a full trajectory window in a single forward pass. Across standard RL benchmarks and real-time hardware deployments, KDP achieves strong performance with one-step inference and substantially lower planning latency than diffusion sampling. Project website, code and videos: https://keyed-drifting.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-14T17:56:15Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Gokul Puthumanaillam</name>
+    </author>
+    <author>
+      <name>Melkior Ornik</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.12335v2</id>
+    <title>Semi-Infinite Programming for Collision-Avoidance in Optimal and Model Predictive Control</title>
+    <updated>2026-03-23T17:18:53Z</updated>
+    <link href="https://arxiv.org/abs/2508.12335v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.12335v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents a novel approach for collision avoidance in optimal and model predictive control, in which the environment is represented by a large number of points and the robot as a union of padded polygons. The conditions that none of the points shall collide with the robot can be written in terms of an infinite number of constraints per obstacle point. We show that the resulting semi-infinite programming (SIP) optimal control problem (OCP) can be efficiently tackled through a combination of two methods: local reduction and an external active-set method. Specifically, this involves iteratively identifying the closest point obstacles, determining the lower-level distance minimizer among all feasible robot shape parameters, and solving the upper-level finitely-constrained subproblems.
+  In addition, this paper addresses robust collision avoidance in the presence of ellipsoidal state uncertainties. Enforcing constraint satisfaction over all possible uncertainty realizations extends the dimension of constraint infiniteness. The infinitely many constraints arising from translational uncertainty are handled by local reduction together with the robot shape parameterization, while rotational uncertainty is addressed via a backoff reformulation.
+  A controller implemented based on the proposed method is demonstrated on a real-world robot running at 20Hz, enabling fast and collision-free navigation in tight spaces. An application to 3D collision avoidance is also demonstrated in simulation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-17T11:43:24Z</published>
+    <arxiv:comment>20 pages, 17 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yunfan Gao</name>
+    </author>
+    <author>
+      <name>Florian Messerer</name>
+    </author>
+    <author>
+      <name>Niels van Duijkeren</name>
+    </author>
+    <author>
+      <name>Rashmi Dabir</name>
+    </author>
+    <author>
+      <name>Moritz Diehl</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.11335v2</id>
+    <title>ADMM-based Continuous Trajectory Optimization in Graphs of Convex Sets</title>
+    <updated>2026-09-29T02:15:45Z</updated>
+    <link href="https://arxiv.org/abs/2603.11335v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.11335v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents a numerical solver for computing continuous trajectories in non-convex environments. Our approach relies on a customized implementation of the Alternating Direction Method of Multipliers (ADMM) built upon two key components: First, we parameterize trajectories as polynomials, allowing the primal update to be computed in closed form as a minimum-control-effort problem. Second, we introduce the concept of a spatio-temporal allocation graph based on a mixed-integer formulation and pose the slack update as a shortest-path search. The combination of these ingredients results in a solver with several distinct advantages over the state of the art. By jointly optimizing over both discrete and continuous domains, our method accesses a larger search space than existing decoupled approaches, enabling the discovery of superior trajectories. Additionally, the solver's structural robustness ensures reliable convergence from naive initializations, removing the bottleneck of complex warm starting in non-convex environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T22:02:52Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lukas Pries</name>
+    </author>
+    <author>
+      <name>Jon Arrizabalaga</name>
+    </author>
+    <author>
+      <name>Zachary Manchester</name>
+    </author>
+    <author>
+      <name>Markus Ryll</name>
+    </author>
+  </entry>
+</feed>

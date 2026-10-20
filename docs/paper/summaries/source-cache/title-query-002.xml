@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/zmNnFTy1+DCD9Ju1RPo/njQQ9gs</id>
+  <title>arXiv Query: search_query=ti:"Learning Agentic World Vision-Language-Action Models for Autonomous Driving" OR ti:"LessMimic: Versatile Humanoid-Object Interaction with Unified Distance Field Representations" OR ti:"Lift, See, Act: Hierarchical Robot Policy Pretraining with 3D Foundation Models" OR ti:"DexMirror: Real-to-Sim Scene Mirroring for Sim-to-Real Dexterous Manipulation" OR ti:"Beyond Thinking: Imagining in 360$^ circ$ for Humanoid Visual Search" OR ti:"UNIVERSE: Unified Video Action Models for Autonomous Driving with Flexible Mask-Modulated Modality Generation" OR ti:"Intend, Reflect, Refine: An Adaptive Multimodal Reflection Framework for Autonomous Driving" OR ti:"MapPolicy: Structure-Aware Imitation Learning for Robot Manipulation via Physically Constrained Scene Map" OR ti:"Reset Dependence Is Embodied: Training Protocol Changes Which Morphologies Appear Optimal" OR ti:"A Systematic Study of Large Language Models for Task and Motion Planning with PDDLStream"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:34:49Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Learning+Agentic+World+Vision-Language-Action+Models+for+Autonomous+Driving%22+OR+(ti:%22LessMimic:+Versatile+Humanoid-Object+Interaction+with+Unified+Distance+Field+Representations%22+OR+(ti:%22Lift,+See,+Act:+Hierarchical+Robot+Policy+Pretraining+with+3D+Foundation+Models%22+OR+(ti:%22DexMirror:+Real-to-Sim+Scene+Mirroring+for+Sim-to-Real+Dexterous+Manipulation%22+OR+(ti:%22Beyond+Thinking:+Imagining+in+360$%5E+circ$+for+Humanoid+Visual+Search%22+OR+(ti:%22UNIVERSE:+Unified+Video+Action+Models+for+Autonomous+Driving+with+Flexible+Mask-Modulated+Modality+Generation%22+OR+(ti:%22Intend,+Reflect,+Refine:+An+Adaptive+Multimodal+Reflection+Framework+for+Autonomous+Driving%22+OR+(ti:%22MapPolicy:+Structure-Aware+Imitation+Learning+for+Robot+Manipulation+via+Physically+Constrained+Scene+Map%22+OR+(ti:%22Reset+Dependence+Is+Embodied:+Training+Protocol+Changes+Which+Morphologies+Appear+Optimal%22+OR+ti:%22A+Systematic+Study+of+Large+Language+Models+for+Task+and+Motion+Planning+with+PDDLStream%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.22913v1</id>
+    <title>Intend, Reflect, Refine: An Adaptive Multimodal Reflection Framework for Autonomous Driving</title>
+    <updated>2026-06-22T06:53:58Z</updated>
+    <link href="https://arxiv.org/abs/2606.22913v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.22913v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent Vision-Language-Action (VLA) models have advanced end-to-end autonomous driving by incorporating reasoning for better interpretability and planning quality. However, most existing approaches directly generate the final trajectory without explicitly examining its future consequences, which limits their reliability in complex and dynamic environments. To address this limitation, we propose IRR-Drive (Intend, Reflect, Refine), an adaptive multimodal reflection framework for autonomous driving. Specifically, to tightly couple high-level reasoning with physical constraints, IRR-Drive first generates a preliminary textual intention and anticipates potential interactions by predicting future semantic bird's-eye view (BEV) representations. This dual-modality (Text + BEV) reflection space explicitly models anticipated scene evolution, enabling the model to rigorously self-correct and refine its initial intent before generating the final trajectory. Furthermore, to balance planning performance and computational efficiency, we construct reflection-oriented training data and design an adaptive reflection reward, enabling the model to adaptively select its reasoning mode according to scene complexity. Instead of using reasoning primarily as an auxiliary interpretation, IRR-Drive directly integrates an adaptive reflection mechanism into the planning framework, enabling grounded, decision-aware trajectory correction that is driven by scene complexity. Our method achieves state-of-the-art performance on the NAVSIM benchmark in both PDMS and EPDMS. Extensive experiments demonstrate the effectiveness of our multimodal reflection framework and validate the efficacy of the proposed adaptive reflection strategy.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T06:53:58Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Zisheng Chen</name>
+    </author>
+    <author>
+      <name>Yuping Qiu</name>
+    </author>
+    <author>
+      <name>Jianhua Han</name>
+    </author>
+    <author>
+      <name>Tao Tang</name>
+    </author>
+    <author>
+      <name>Xiuwei Chen</name>
+    </author>
+    <author>
+      <name>Likui Zhang</name>
+    </author>
+    <author>
+      <name>Ying-Cong Chen</name>
+    </author>
+    <author>
+      <name>Hang Xu</name>
+    </author>
+    <author>
+      <name>Xiaodan Liang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.05133v1</id>
+    <title>UNIVERSE: Unified Video Action Models for Autonomous Driving with Flexible Mask-Modulated Modality Generation</title>
+    <updated>2026-07-06T14:18:18Z</updated>
+    <link href="https://arxiv.org/abs/2607.05133v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.05133v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>World Action Models (WAMs) have shown strong potential for improving action generalization in autonomous driving by using future video prediction as dense supervision for scene dynamics and temporal causality. However, it remains unclear which architecture better transfers video-modeling benefits to trajectory generation. Existing cascaded or dual-DiT designs separate video imagination from action prediction, weakening the transfer of video-learned world dynamics to the trajectory branch: the action model may still overfit dataset-specific driving priors, while the video model only indirectly regularizes planning. We propose UNIVERSE, a unified video-action model built upon a single mask-modulated Diffusion Transformer. By co-training future video latents and ego-trajectory tokens within shared generative parameters, UNIVERSE allows dense video supervision to directly shape trajectory denoising, leading to stronger cross-domain action generalization. To ensure causal validity and efficient deployment, we introduce a Modality-Decoupling Visibility Mask, which shares historical context across modalities while blocking mutual attention between future video and trajectory tokens. This prevents future-target leakage and enables trajectory-only inference by removing future-video denoising at test time, achieving a $4.3\times$ speedup over joint video-action rollout while maintaining comparable planning accuracy. The same model also supports video-only and joint video-action rollouts. Experiments show that UNIVERSE achieves 91.0 PDMS on NAVSIM (vs. 89.6 for the Two-DiT variant), and demonstrates strong zero-shot transfer to nuScenes and Bench2Drive without fine-tuning, while ablations confirm the importance of single-DiT unification, video co-training, and mask-based modality decoupling.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-06T14:18:18Z</published>
+    <arxiv:comment>18 pages, 7 figures, 8 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Mengmeng Liu</name>
+    </author>
+    <author>
+      <name>Diankun Zhang</name>
+    </author>
+    <author>
+      <name>Jiuming Liu</name>
+    </author>
+    <author>
+      <name>Jianfeng Cui</name>
+    </author>
+    <author>
+      <name>Hongwei Xie</name>
+    </author>
+    <author>
+      <name>Guang Chen</name>
+    </author>
+    <author>
+      <name>Hangjun Ye</name>
+    </author>
+    <author>
+      <name>Francesco Nex</name>
+    </author>
+    <author>
+      <name>Hao Cheng</name>
+    </author>
+    <author>
+      <name>Michael Ying Yang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.09146v1</id>
+    <title>Beyond Thinking: Imagining in 360$^\circ$ for Humanoid Visual Search</title>
+    <updated>2026-05-09T20:10:53Z</updated>
+    <link href="https://arxiv.org/abs/2605.09146v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.09146v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humanoid Visual Search (HVS) requires agents to actively explore immersive 360$^\circ$ environments. While prior methods treat this as a monolithic task relying on cumulative, multi-turn Chain-of-Thought (CoT) reasoning, they impose heavy cognitive burdens and require expensive trajectory-level annotations. In this paper, we propose Imagining in 360$^\circ$, a novel framework that decouples the exploration process into a specialized Imaginator and an Actor. The Imaginator functions as a probabilistic predictor of spatial priors; instead of maintaining a cumulative reasoning chain, it infers the semantic layout of both observed and unobserved regions in a single step. By sampling multiple hypotheses within this semantic space, we provide the Actor with a distribution of effective spatial information, offering robust guidance that hedges against uncertainty during active search. This decoupled architecture significantly lowers data engineering costs by eliminating the need for full-trajectory CoT annotations, enabling the generation of over 1.96 million curated training samples. Extensive experiments demonstrate that explicitly modeling semantic spatial priors drastically improves search efficiency and success rates in complex, in-the-wild environments.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-09T20:10:53Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jingdong Zhang</name>
+    </author>
+    <author>
+      <name>Yizhou Wang</name>
+    </author>
+    <author>
+      <name>Zhengzhong Tu</name>
+    </author>
+    <author>
+      <name>Xin Li</name>
+    </author>
+    <author>
+      <name>Wenping Wang</name>
+    </author>
+    <author>
+      <name>Xiaohang Zhan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.00182v2</id>
+    <title>A Systematic Study of Large Language Models for Task and Motion Planning With PDDLStream</title>
+    <updated>2026-07-17T15:18:48Z</updated>
+    <link href="https://arxiv.org/abs/2510.00182v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.00182v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While we know that large language models (LLMs) can solve some planning problems, we do not understand the extent of these capabilities for robotics. One promising direction is to integrate the semantic knowledge of LLMs with the formal reasoning of task and motion planning (TAMP). However, designing such systems is complicated by the myriad of choices for how to integrate LLMs within TAMP. We develop 16 algorithms that use LLMs to substitute key TAMP components. Our zero-shot experiments across 13750 evaluations and three domains reveal that LLM-based planners exhibit lower success rates and higher planning times than engineered systems. Providing geometric details increases the number of task-planning errors compared to pure PDDL descriptions, and (faster) direct LLM variants outperform (slower) reasoning variants in most cases. Code and results are available at https://github.com/jorge-a-mendez/llm-pddlstream.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-30T19:03:14Z</published>
+    <arxiv:comment>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). 8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jorge Mendez-Mendez</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/z6XLmMFdnVUccaW+fcf81B0RpL4</id>
+  <title>arXiv Query: search_query=ti:"Addressing Human-Robot Symbiosis Via Bilevel Optimization of Robotic Knee Prosthesis Control" OR ti:"Virtualizing the Shoulder: Simultaneous Control of Prosthetic Elbow and Humeral Rotator Via Compensation Effect Amplification Control" OR ti:"Physics-Based Simulation of a Heterogeneous Over-Constrained Robot for Vitreoretinal Surgery Training" OR ti:"Proxy-Based Robust and Compliant Control of Functional Electrical Stimulation for Assisting Ankle Joint Movement" OR ti:"Design and Control of a Wearable Hydrofoil Robot for Underwater Gait Assistance" OR ti:"Cross-Subject Hand Gesture Recognition Via Inter-Modal Alignment of sEMG and A-Mode Ultrasound for Subject-Invariant Robotic Control" OR ti:"Virtues of Ordered Chaos: Planning with Topple Actions in Tabletop Stack Rearrangement" OR ti:"FAST: Action-Aware Feasibility in Assembly Sequence Planning Using Graph Transformer" OR ti:"Scalable Multi-Robot Informative Path Planning for Target Mapping Via Deep Reinforcement Learning" OR ti:"Potential Field-Based Continuous View Planning for Robotic Shape Reconstruction"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:45Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Addressing+Human-Robot+Symbiosis+Via+Bilevel+Optimization+of+Robotic+Knee+Prosthesis+Control%22+OR+(ti:%22Virtualizing+the+Shoulder:+Simultaneous+Control+of+Prosthetic+Elbow+and+Humeral+Rotator+Via+Compensation+Effect+Amplification+Control%22+OR+(ti:%22Physics-Based+Simulation+of+a+Heterogeneous+Over-Constrained+Robot+for+Vitreoretinal+Surgery+Training%22+OR+(ti:%22Proxy-Based+Robust+and+Compliant+Control+of+Functional+Electrical+Stimulation+for+Assisting+Ankle+Joint+Movement%22+OR+(ti:%22Design+and+Control+of+a+Wearable+Hydrofoil+Robot+for+Underwater+Gait+Assistance%22+OR+(ti:%22Cross-Subject+Hand+Gesture+Recognition+Via+Inter-Modal+Alignment+of+sEMG+and+A-Mode+Ultrasound+for+Subject-Invariant+Robotic+Control%22+OR+(ti:%22Virtues+of+Ordered+Chaos:+Planning+with+Topple+Actions+in+Tabletop+Stack+Rearrangement%22+OR+(ti:%22FAST:+Action-Aware+Feasibility+in+Assembly+Sequence+Planning+Using+Graph+Transformer%22+OR+(ti:%22Scalable+Multi-Robot+Informative+Path+Planning+for+Target+Mapping+Via+Deep+Reinforcement+Learning%22+OR+ti:%22Potential+Field-Based+Continuous+View+Planning+for+Robotic+Shape+Reconstruction%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.17815v1</id>
+    <title>Virtues of Ordered Chaos: Planning with Topple Actions in Tabletop Stack Rearrangement</title>
+    <updated>2026-05-18T03:41:59Z</updated>
+    <link href="https://arxiv.org/abs/2605.17815v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.17815v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Efficient object manipulation strategies have significant impact in automation applications. In this work, the stack rearrangement in tabletop settings is studied, with a focus on augmenting the task planning domain with richer nonprehensile aggregating actions, in particular the toppling of objects from a stack to the table. Toppling can compress long sequences of intermediate relocations. Computed plans need to interleave pick-and-place actions with topple throughout its plan based on the problem. In order to generate the task plan and model an abstraction to compute solutions that include both pick-and-place and topple actions, a novel aggregating gadget for topple is introduced. Using this directed graphical abstraction, candidate task plan computation becomes a variant of the pebble motion problem, treating objects as pebbles. Benchmarks are then reported in a IsaacSim-based physics simulation. Results highlight clear benefits of achieving faster execution than solely using pick-and-place actions. Though this work primarily investigates the topple action, we demonstrate that similar abstractions can model other aggregating actions of interest, like scoop. The current work provides a preliminary, strong indication of the promising benefits of abstractions for rich object interactions in manipulation applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-18T03:41:59Z</published>
+    <arxiv:comment>8 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hao Lu</name>
+    </author>
+    <author>
+      <name>Rahul Shome</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.16967v3</id>
+    <title>Scalable Multi-Robot Informative Path Planning for Target Mapping via Deep Reinforcement Learning</title>
+    <updated>2025-06-02T19:56:43Z</updated>
+    <link href="https://arxiv.org/abs/2409.16967v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.16967v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous robots are widely utilized for mapping and exploration tasks due to their cost-effectiveness. Multi-robot systems offer scalability and efficiency, especially in terms of the number of robots deployed in more complex environments. These tasks belong to the set of Multi-Robot Informative Path Planning (MRIPP) problems. In this paper, we propose a deep reinforcement learning approach for the MRIPP problem. We aim to maximize the number of discovered stationary targets in an unknown 3D environment while operating under resource constraints (such as path length). Here, each robot aims to maximize discovered targets, avoid unknown static obstacles, and prevent inter-robot collisions while operating under communication and resource constraints. We utilize the centralized training and decentralized execution paradigm to train a single policy neural network. A key aspect of our approach is our coordination graph that prioritizes visiting regions not yet explored by other robots. Our learned policy can be copied onto any number of robots for deployment in more complex environments not seen during training. Our approach outperforms state-of-the-art approaches by at least 26.2% in terms of the number of discovered targets while requiring a planning time of less than 2 sec per step. We present results for more complex environments with up to 64 robots and compare success rates against baseline planners. Our code and trained model are available at - https://github.com/AccGen99/marl_ipp</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-25T14:27:37Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Apoorva Vashisth</name>
+    </author>
+    <author>
+      <name>Manav Kulshrestha</name>
+    </author>
+    <author>
+      <name>Damon Conover</name>
+    </author>
+    <author>
+      <name>Aniket Bera</name>
+    </author>
+  </entry>
+</feed>

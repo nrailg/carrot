@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/JDBPN750hwRheUc/Ydst/pIilro</id>
+  <title>arXiv Query: search_query=ti:"PIP-LLM: Integrating PDDL-Integer Programming with LLMs for Coordinating Multi-Robot Teams Using Natural Language" OR ti:"ST-GRL: Spatiotemporal Cognitive Graph Reinforcement Learning for Scalable Multi-Robot Collaborative Exploration" OR ti:"Embodied Chain-Of-Thought Model Via Interleaved Reasoning" OR ti:"MoRE: Mixture of Residual Experts for Learning Multiple Vision-based Humanoid Gaits" OR ti:"HybridMimic: Hybrid RL-Centroidal Control for Humanoid Motion Mimicking" OR ti:"Learning Humanoid Loco-Manipulation with Responsibility-Induced Specialized Experts for Vision-Language-Action Models" OR ti:"Contact-Implicit Whole-Body Trajectory Optimization for Dynamic Humanoid Locomotion on Parameterizable Uneven Terrain" OR ti:"Dynamic Humanoid Arm-Swing Motion Via Trajectory Optimization Leveraging Speed–Torque Mode Switching of a Variable Chain Motor" OR ti:"Grey-Box Online Identification for Pushrod-Driven Dexterous Hands" OR ti:"CADRE: Dynamic Catching Via Implicit Contact Descriptors and Task-Appropriate Recovery Affordances"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:10Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22PIP-LLM:+Integrating+PDDL-Integer+Programming+with+LLMs+for+Coordinating+Multi-Robot+Teams+Using+Natural+Language%22+OR+(ti:%22ST-GRL:+Spatiotemporal+Cognitive+Graph+Reinforcement+Learning+for+Scalable+Multi-Robot+Collaborative+Exploration%22+OR+(ti:%22Embodied+Chain-Of-Thought+Model+Via+Interleaved+Reasoning%22+OR+(ti:%22MoRE:+Mixture+of+Residual+Experts+for+Learning+Multiple+Vision-based+Humanoid+Gaits%22+OR+(ti:%22HybridMimic:+Hybrid+RL-Centroidal+Control+for+Humanoid+Motion+Mimicking%22+OR+(ti:%22Learning+Humanoid+Loco-Manipulation+with+Responsibility-Induced+Specialized+Experts+for+Vision-Language-Action+Models%22+OR+(ti:%22Contact-Implicit+Whole-Body+Trajectory+Optimization+for+Dynamic+Humanoid+Locomotion+on+Parameterizable+Uneven+Terrain%22+OR+(ti:%22Dynamic+Humanoid+Arm-Swing+Motion+Via+Trajectory+Optimization+Leveraging+Speed%E2%80%93Torque+Mode+Switching+of+a+Variable+Chain+Motor%22+OR+(ti:%22Grey-Box+Online+Identification+for+Pushrod-Driven+Dexterous+Hands%22+OR+ti:%22CADRE:+Dynamic+Catching+Via+Implicit+Contact+Descriptors+and+Task-Appropriate+Recovery+Affordances%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.14768v2</id>
+    <title>CADRE: Dynamic Catching via Implicit Contact Descriptors and Task-Appropriate Recovery Affordances</title>
+    <updated>2026-08-06T16:06:12Z</updated>
+    <link href="https://arxiv.org/abs/2510.14768v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.14768v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Real-world dexterous manipulation often encounters unexpected errors and disturbances, which can lead to catastrophic failures, such as dropping the manipulated object. To address this challenge, we focus on the problem of catching a falling object while it remains within grasping range and, importantly, resetting the system to a configuration favorable for resuming the primary manipulation task. We propose Contact-Aware Dynamic Recovery (CADRE), a reinforcement learning framework that incorporates a Neural Descriptor Field (NDF)-inspired module to extract implicit contact features. Building on these contact features, we introduce an Implicit Recovery Affordance function to encourage recovery to task-appropriate states. Compared to methods that rely solely on object pose or point cloud input, NDFs can directly reason about finger-object correspondence and better establish a recovery target for RL training. Our experiments show that incorporating contact features improves training efficiency, enhances convergence performance for RL training, and ultimately leads to more successful recoveries. Additionally, we demonstrate that CADRE can generalize zero-shot to unseen objects with different geometries.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-16T15:04:01Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Fan Yang</name>
+    </author>
+    <author>
+      <name>Zixuan Huang</name>
+    </author>
+    <author>
+      <name>Abhinav Kumar</name>
+    </author>
+    <author>
+      <name>Sergio Aguilera Marinovic</name>
+    </author>
+    <author>
+      <name>Soshi Iba</name>
+    </author>
+    <author>
+      <name>Rana Soltani Zarrin</name>
+    </author>
+    <author>
+      <name>Dmitry Berenson</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.22784v1</id>
+    <title>PIP-LLM: Integrating PDDL-Integer Programming with LLMs for Coordinating Multi-Robot Teams Using Natural Language</title>
+    <updated>2025-10-26T18:37:00Z</updated>
+    <link href="https://arxiv.org/abs/2510.22784v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.22784v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Enabling robot teams to execute natural language commands requires translating high-level instructions into feasible, efficient multi-robot plans. While Large Language Models (LLMs) combined with Planning Domain Description Language (PDDL) offer promise for single-robot scenarios, existing approaches struggle with multi-robot coordination due to brittle task decomposition, poor scalability, and low coordination efficiency.
+  We introduce PIP-LLM, a language-based coordination framework that consists of PDDL-based team-level planning and Integer Programming (IP) based robot-level planning. PIP-LLMs first decomposes the command by translating the command into a team-level PDDL problem and solves it to obtain a team-level plan, abstracting away robot assignment. Each team-level action represents a subtask to be finished by the team. Next, this plan is translated into a dependency graph representing the subtasks' dependency structure. Such a dependency graph is then used to guide the robot-level planning, in which each subtask node will be formulated as an IP-based task allocation problem, explicitly optimizing travel costs and workload while respecting robot capabilities and user-defined constraints. This separation of planning from assignment allows PIP-LLM to avoid the pitfalls of syntax-based decomposition and scale to larger teams. Experiments across diverse tasks show that PIP-LLM improves plan success rate, reduces maximum and average travel costs, and achieves better load balancing compared to state-of-the-art baselines.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-26T18:37:00Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guangyao Shi</name>
+    </author>
+    <author>
+      <name>Yuwei Wu</name>
+    </author>
+    <author>
+      <name>Vijay Kumar</name>
+    </author>
+    <author>
+      <name>Gaurav S. Sukhatme</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.06775v1</id>
+    <title>HybridMimic: Hybrid RL-Centroidal Control for Humanoid Motion Mimicking</title>
+    <updated>2026-03-06T17:58:02Z</updated>
+    <link href="https://arxiv.org/abs/2603.06775v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.06775v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Motion mimicking, i.e., encouraging the control policy to mimic human motion, facilitates the learning of complex tasks via reinforcement learning (RL) for humanoid robots. Although standard RL frameworks demonstrate impressive locomotion agility, they often bypass explicit reasoning about robot dynamics during deployment, which is a design choice that can lead to physically infeasible commands when the robot encounters out-of-distribution environments. By integrating model-based principles, hybrid approaches can improve performance; however, existing methods typically rely on predefined contact timing, limiting their versatility. This paper introduces HybridMimic, a framework in which a learned policy dynamically modulates a centroidal-model-based controller by predicting continuous contact states and desired centroidal velocities. This architecture exploits the physical grounding of centroidal dynamics to generate feedforward torques that remain feasible even under domain shift. Using physics-informed rewards, the policy is trained to efficiently utilize the centroidal controller's optimization by outputting precise control targets and reference torques. Through hardware experiments on the Booster T1 humanoid, HybridMimic reduces the average base position tracking error by 13\% compared to a state-of-the-art RL baseline, demonstrating the robustness of dynamics-aware deployment.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T17:58:02Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ludwig Chee-Ying Tay</name>
+    </author>
+    <author>
+      <name>I-Chia Chang</name>
+    </author>
+    <author>
+      <name>Yan Gu</name>
+    </author>
+  </entry>
+</feed>

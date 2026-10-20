@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Y4l5tzIwt3dl1QFo/QffFp/cDYk</id>
+  <title>arXiv Query: search_query=ti:"Global-Local Unified Encoding for Steering Visual Attention in Robotic Manipulation" OR ti:"AdaCropFollow: Self-Supervised Test-Time Adaptation for Visual Under-Canopy Navigation" OR ti:"AgriGS-SLAM: Orchard Mapping across Seasons Via Multi-View Gaussian Splatting SLAM" OR ti:"Cov-TV: 3D Gaussian Splatting with Covariance-Induced Tensor Voting for Grape Stem Reconstruction in Autonomous Harvesting" OR ti:"Leveraging Visual Foundation Models for 3-DoF End-Effector Pose Estimation of a Forestry Forwarder" OR ti:"Hierarchical Planning for the Cuboid Multi-Agent Collective Construction (Cuboid-MACC) Problem" OR ti:"Hierarchical Multi-Modal Planning for Fixed-Altitude Sparse Benthic Target Search and Sampling" OR ti:"SpatialNBV: Spatial Distribution and Occlusion Aware Next-Best-View Planning for RGB-Only 3D Reconstruction" OR ti:"Dual-Arm Cooperation for Tabletop Wiping with Temporal Object Removal" OR ti:"Traverse the Non-Traversable: Estimating Traversability for Wheeled Mobility on Vertically Challenging Terrain"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:30Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Global-Local+Unified+Encoding+for+Steering+Visual+Attention+in+Robotic+Manipulation%22+OR+(ti:%22AdaCropFollow:+Self-Supervised+Test-Time+Adaptation+for+Visual+Under-Canopy+Navigation%22+OR+(ti:%22AgriGS-SLAM:+Orchard+Mapping+across+Seasons+Via+Multi-View+Gaussian+Splatting+SLAM%22+OR+(ti:%22Cov-TV:+3D+Gaussian+Splatting+with+Covariance-Induced+Tensor+Voting+for+Grape+Stem+Reconstruction+in+Autonomous+Harvesting%22+OR+(ti:%22Leveraging+Visual+Foundation+Models+for+3-DoF+End-Effector+Pose+Estimation+of+a+Forestry+Forwarder%22+OR+(ti:%22Hierarchical+Planning+for+the+Cuboid+Multi-Agent+Collective+Construction+(Cuboid-MACC)+Problem%22+OR+(ti:%22Hierarchical+Multi-Modal+Planning+for+Fixed-Altitude+Sparse+Benthic+Target+Search+and+Sampling%22+OR+(ti:%22SpatialNBV:+Spatial+Distribution+and+Occlusion+Aware+Next-Best-View+Planning+for+RGB-Only+3D+Reconstruction%22+OR+(ti:%22Dual-Arm+Cooperation+for+Tabletop+Wiping+with+Temporal+Object+Removal%22+OR+ti:%22Traverse+the+Non-Traversable:+Estimating+Traversability+for+Wheeled+Mobility+on+Vertically+Challenging+Terrain%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.26358v1</id>
+    <title>AgriGS-SLAM: Orchard Mapping Across Seasons via Multi-View Gaussian Splatting SLAM</title>
+    <updated>2025-10-30T11:08:23Z</updated>
+    <link href="https://arxiv.org/abs/2510.26358v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.26358v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous robots in orchards require real-time 3D scene understanding despite repetitive row geometry, seasonal appearance changes, and wind-driven foliage motion. We present AgriGS-SLAM, a Visual--LiDAR SLAM framework that couples direct LiDAR odometry and loop closures with multi-camera 3D Gaussian Splatting (3DGS) rendering. Batch rasterization across complementary viewpoints recovers orchard structure under occlusions, while a unified gradient-driven map lifecycle executed between keyframes preserves fine details and bounds memory. Pose refinement is guided by a probabilistic LiDAR-based depth consistency term, back-propagated through the camera projection to tighten geometry-appearance coupling. We deploy the system on a field platform in apple and pear orchards across dormancy, flowering, and harvesting, using a standardized trajectory protocol that evaluates both training-view and novel-view synthesis to reduce 3DGS overfitting in evaluation. Across seasons and sites, AgriGS-SLAM delivers sharper, more stable reconstructions and steadier trajectories than recent state-of-the-art 3DGS-SLAM baselines while maintaining real-time performance on-tractor. While demonstrated in orchard monitoring, the approach can be applied to other outdoor domains requiring robust multimodal perception.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-30T11:08:23Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mirko Usuelli</name>
+    </author>
+    <author>
+      <name>David Rapado-Rincon</name>
+    </author>
+    <author>
+      <name>Gert Kootstra</name>
+    </author>
+    <author>
+      <name>Matteo Matteucci</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.17479v1</id>
+    <title>Traverse the Non-Traversable: Estimating Traversability for Wheeled Mobility on Vertically Challenging Terrain</title>
+    <updated>2024-09-26T02:30:17Z</updated>
+    <link href="https://arxiv.org/abs/2409.17479v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.17479v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Most traversability estimation techniques divide off-road terrain into traversable (e.g., pavement, gravel, and grass) and non-traversable (e.g., boulders, vegetation, and ditches) regions and then inform subsequent planners to produce trajectories on the traversable part. However, recent research demonstrated that wheeled robots can traverse vertically challenging terrain (e.g., extremely rugged boulders comparable in size to the vehicles themselves), which unfortunately would be deemed as non-traversable by existing techniques. Motivated by such limitations, this work aims at identifying the traversable from the seemingly non-traversable, vertically challenging terrain based on past kinodynamic vehicle-terrain interactions in a data-driven manner. Our new Traverse the Non-Traversable(TNT) traversability estimator can efficiently guide a down-stream sampling-based planner containing a high-precision 6-DoF kinodynamic model, which becomes deployable onboard a small-scale vehicle. Additionally, the estimated traversability can also be used as a costmap to plan global and local paths without sampling. Our experiment results show that TNT can improve planning performance, efficiency, and stability by 50%, 26.7%, and 9.2% respectively on a physical robot platform.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-26T02:30:17Z</published>
+    <arxiv:comment>for associated video file, see https://www.youtube.com/watch?v=Shcalb8sGcA</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chenhui Pan</name>
+    </author>
+    <author>
+      <name>Aniket Datar</name>
+    </author>
+    <author>
+      <name>Anuj Pokhrel</name>
+    </author>
+    <author>
+      <name>Matthew Choulas</name>
+    </author>
+    <author>
+      <name>Mohammad Nazeri</name>
+    </author>
+    <author>
+      <name>Xuesu Xiao</name>
+    </author>
+  </entry>
+</feed>

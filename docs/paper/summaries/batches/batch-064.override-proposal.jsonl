@@ -1,0 +1,2 @@
+{"paper_id": "arxiv:2608.18035", "evidence_url": "https://arxiv.org/html/2608.18035v1", "evidence_type": "arxiv_abstract_and_body", "body_note": "官方引言121行：轻量辅助3D交通元素监督以及可用时拓扑条件。附录0.F.2与主文消融：独立预测头、focal loss、max pooling及拼接规划特征；不是固定红灯停车规则。", "reason": "摘要只说通用即插即用设计，正文补足交通元素如何进入规划。"}
+{"paper_id": "arxiv:2608.18647", "evidence_url": "https://arxiv.org/html/2608.18647v1", "evidence_type": "arxiv_abstract_and_body", "body_note": "官方图1及II-E：先同一导航任务跨血管几何融合回放，再跨任务融合；每层用融合buffer初始化新TD-MPC2并继续收集更新经验。II-D4：按最终MPPI动作提案残余离散度调整时域，不是模型不确定性。", "reason": "摘要未解释PEF具体经验融合机制。"}

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/hODiiERij7pTM4wXComcvVvdVW8</id>
+  <title>arXiv Query: search_query=ti:"Semantic Exploration and Dense Mapping of Complex Environments Using Ground Robot with Panoramic LiDAR-Camera Fusion" OR ti:"Learning Semantic Atomic Skills for Multi-Task Robotic Manipulation" OR ti:"Generalizable Hierarchical Skill Learning Via Object-Centric Representation" OR ti:"A Stationary Simulation Method for Dynamic Electromechanical Characteristic in Null-Flux Electrodynamic Suspension Systems" OR ti:"Nonlinear Dual Disturbance Observer with Acceleration Control for Dual-Stage Inertial Stabilization Platform" OR ti:"Efficient Current Sensorless Model Predictive Control for Matrix Converter-Fed PMSM Drives" OR ti:"Bidirectional Motion Modeling and Fuzzy PID Control of Piezoelectric Linear Actuators" OR ti:"Control-Oriented Local Second-Order Magnetic Force Equivalence for Cylindrical Permanent-Magnet-Driven Droplet Robots" OR ti:"STTRL-DVO: Transformer-Based Reinforcement Learning for Robust Dynamic Target Tracking in Cluttered Environments" OR ti:"Real-Time Hardware-In-The-Loop Multibody Dynamics Implementation on the Robotic Space Simulator"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:26Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Semantic+Exploration+and+Dense+Mapping+of+Complex+Environments+Using+Ground+Robot+with+Panoramic+LiDAR-Camera+Fusion%22+OR+(ti:%22Learning+Semantic+Atomic+Skills+for+Multi-Task+Robotic+Manipulation%22+OR+(ti:%22Generalizable+Hierarchical+Skill+Learning+Via+Object-Centric+Representation%22+OR+(ti:%22A+Stationary+Simulation+Method+for+Dynamic+Electromechanical+Characteristic+in+Null-Flux+Electrodynamic+Suspension+Systems%22+OR+(ti:%22Nonlinear+Dual+Disturbance+Observer+with+Acceleration+Control+for+Dual-Stage+Inertial+Stabilization+Platform%22+OR+(ti:%22Efficient+Current+Sensorless+Model+Predictive+Control+for+Matrix+Converter-Fed+PMSM+Drives%22+OR+(ti:%22Bidirectional+Motion+Modeling+and+Fuzzy+PID+Control+of+Piezoelectric+Linear+Actuators%22+OR+(ti:%22Control-Oriented+Local+Second-Order+Magnetic+Force+Equivalence+for+Cylindrical+Permanent-Magnet-Driven+Droplet+Robots%22+OR+(ti:%22STTRL-DVO:+Transformer-Based+Reinforcement+Learning+for+Robust+Dynamic+Target+Tracking+in+Cluttered+Environments%22+OR+ti:%22Real-Time+Hardware-In-The-Loop+Multibody+Dynamics+Implementation+on+the+Robotic+Space+Simulator%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.22880v3</id>
+    <title>Semantic Exploration and Dense Mapping of Complex Environments using Ground Robot with Panoramic LiDAR-Camera Fusion</title>
+    <updated>2025-09-17T21:00:21Z</updated>
+    <link href="https://arxiv.org/abs/2505.22880v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.22880v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents a system for autonomous semantic exploration and dense semantic target mapping of a complex unknown environment using a ground robot equipped with a LiDAR-panoramic camera suite. Existing approaches often struggle to balance collecting high-quality observations from multiple view angles and avoiding unnecessary repetitive traversal. To fill this gap, we propose a complete system combining mapping and planning. We first redefine the task as completing both geometric coverage and semantic viewpoint observation. We then manage semantic and geometric viewpoints separately and propose a novel Priority-driven Decoupled Local Sampler to generate local viewpoint sets. This enables explicit multi-view semantic inspection and voxel coverage without unnecessary repetition. Building on this, we develop a hierarchical planner to ensure efficient global coverage. In addition, we propose a Safe Aggressive Exploration State Machine, which allows aggressive exploration behavior while ensuring the robot's safety. Our system includes a plug-and-play semantic target mapping module that integrates seamlessly with state-of-the-art SLAM algorithms for pointcloud-level dense semantic target mapping. We validate our approach through extensive experiments in both realistic simulations and complex real-world environments. Simulation results show that our planner achieves faster exploration and shorter travel distances while guaranteeing a specified number of multi-view inspections. Real-world experiments further confirm the system's effectiveness in achieving accurate dense semantic object mapping of unstructured environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-28T21:27:32Z</published>
+    <arxiv:comment>Accepted by IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Xiaoyang Zhan</name>
+    </author>
+    <author>
+      <name>Shixin Zhou</name>
+    </author>
+    <author>
+      <name>Qianqian Yang</name>
+    </author>
+    <author>
+      <name>Yixuan Zhao</name>
+    </author>
+    <author>
+      <name>Hao Liu</name>
+    </author>
+    <author>
+      <name>Srinivas Chowdary Ramineni</name>
+    </author>
+    <author>
+      <name>Kenji Shimada</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2025.3609216</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2025.3609216" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.21121v1</id>
+    <title>Generalizable Hierarchical Skill Learning via Object-Centric Representation</title>
+    <updated>2025-10-24T03:21:42Z</updated>
+    <link href="https://arxiv.org/abs/2510.21121v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.21121v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present Generalizable Hierarchical Skill Learning (GSL), a novel framework for hierarchical policy learning that significantly improves policy generalization and sample efficiency in robot manipulation. One core idea of GSL is to use object-centric skills as an interface that bridges the high-level vision-language model and the low-level visual-motor policy. Specifically, GSL decomposes demonstrations into transferable and object-canonicalized skill primitives using foundation models, ensuring efficient low-level skill learning in the object frame. At test time, the skill-object pairs predicted by the high-level agent are fed to the low-level module, where the inferred canonical actions are mapped back to the world frame for execution. This structured yet flexible design leads to substantial improvements in sample efficiency and generalization of our method across unseen spatial arrangements, object appearances, and task compositions. In simulation, GSL trained with only 3 demonstrations per task outperforms baselines trained with 30 times more data by 15.5 percent on unseen tasks. In real-world experiments, GSL also surpasses the baseline trained with 10 times more data.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-24T03:21:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haibo Zhao</name>
+    </author>
+    <author>
+      <name>Yu Qi</name>
+    </author>
+    <author>
+      <name>Boce Hu</name>
+    </author>
+    <author>
+      <name>Yizhe Zhu</name>
+    </author>
+    <author>
+      <name>Ziyan Chen</name>
+    </author>
+    <author>
+      <name>Heng Tian</name>
+    </author>
+    <author>
+      <name>Xupeng Zhu</name>
+    </author>
+    <author>
+      <name>Owen Howell</name>
+    </author>
+    <author>
+      <name>Haojie Huang</name>
+    </author>
+    <author>
+      <name>Robin Walters</name>
+    </author>
+    <author>
+      <name>Dian Wang</name>
+    </author>
+    <author>
+      <name>Robert Platt</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.18368v2</id>
+    <title>Learning Semantic Atomic Skills for Multi-Task Robotic Manipulation</title>
+    <updated>2026-07-02T04:31:01Z</updated>
+    <link href="https://arxiv.org/abs/2512.18368v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.18368v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Scaling imitation learning to diverse multi-task robot manipulation remains challenging due to suboptimal demonstrations, behavioral multi-modality, and destructive interference across tasks. While skill-based methods offer a promising direction by decomposing behaviors into reusable abstractions, existing approaches often learn skills that are either biased toward linguistic structure or lack semantic alignment across tasks, limiting generalization. In this work, we propose AtomSkill, a novel framework that learns a semantically aligned Atomic Skill Space from demonstrations and enables robust long-horizon execution through keypose imagination. Our method introduces: (1) semantic contrastive skill alignment, which partitions demonstrations into variable-length atomic skills and employs a contrastive objective to jointly enforce semantic consistency and temporal coherence, yielding a compact and reusable skill library; and (2) action decoding with keypose imagining, where the policy predicts both a skill's terminal keypose and immediate actions, thereby supporting progress-aware skill transitions. During inference, an atomic skill diffusion sampler generates plausible skill sequences, while predicted keyposes autonomously trigger smooth skill chaining. Extensive experiments in simulation and real-world settings show that AtomSkill consistently outperforms state-of-the-art imitation learning and skill-based baselines. Project page: https://atom-skill.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-20T13:46:08Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yihang Zhu</name>
+    </author>
+    <author>
+      <name>Weiqing Wang</name>
+    </author>
+    <author>
+      <name>Shijie Wu</name>
+    </author>
+    <author>
+      <name>Ye Shi</name>
+    </author>
+    <author>
+      <name>Jingya Wang</name>
+    </author>
+  </entry>
+</feed>

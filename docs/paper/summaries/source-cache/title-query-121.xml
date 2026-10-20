@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/qLm/dcXzIesN7nM2/enJ5Z2qCuk</id>
+  <title>arXiv Query: search_query=ti:"Encoder-Only Online Relative Posture Estimation for Linked Omni-Directional Mobile Robots Via Velocity Error Minimization" OR ti:"RCG: Safety-Critical Scenario Generation for Robust Autonomous Driving Via Real-World Crash Grounding" OR ti:"DriveVer: Lightweight Trajectory Evaluator As Test-Time Verifier for Autonomous Driving" OR ti:"Fail2Drive: Benchmarking Closed-Loop Driving Generalization" OR ti:"Scaling Learning-Based AEB with Massive Unlabeled Data" OR ti:"Learning a Unified Risk Map for Autonomous Driving in Partially Observable Environments" OR ti:"GraspADMM: Improving Dexterous Grasp Synthesis Via ADMM Optimization" OR ti:"Prior-Guided Residual Learning for Direction-Free Dexterous Grasping" OR ti:"A Multi-Modal Framework with Offset-Driven Local Feature Aggregation for 6-DoF Grasp Pose Estimation" OR ti:"UniGraspNet: Robust 6-DoF Grasp Detection via Maximal Coding Rate Reduction and Differentiable QP Optimization"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:55Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Encoder-Only+Online+Relative+Posture+Estimation+for+Linked+Omni-Directional+Mobile+Robots+Via+Velocity+Error+Minimization%22+OR+(ti:%22RCG:+Safety-Critical+Scenario+Generation+for+Robust+Autonomous+Driving+Via+Real-World+Crash+Grounding%22+OR+(ti:%22DriveVer:+Lightweight+Trajectory+Evaluator+As+Test-Time+Verifier+for+Autonomous+Driving%22+OR+(ti:%22Fail2Drive:+Benchmarking+Closed-Loop+Driving+Generalization%22+OR+(ti:%22Scaling+Learning-Based+AEB+with+Massive+Unlabeled+Data%22+OR+(ti:%22Learning+a+Unified+Risk+Map+for+Autonomous+Driving+in+Partially+Observable+Environments%22+OR+(ti:%22GraspADMM:+Improving+Dexterous+Grasp+Synthesis+Via+ADMM+Optimization%22+OR+(ti:%22Prior-Guided+Residual+Learning+for+Direction-Free+Dexterous+Grasping%22+OR+(ti:%22A+Multi-Modal+Framework+with+Offset-Driven+Local+Feature+Aggregation+for+6-DoF+Grasp+Pose+Estimation%22+OR+ti:%22UniGraspNet:+Robust+6-DoF+Grasp+Detection+via+Maximal+Coding+Rate+Reduction+and+Differentiable+QP+Optimization%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2507.10749v1</id>
+    <title>RCG: Safety-Critical Scenario Generation for Robust Autonomous Driving via Real-World Crash Grounding</title>
+    <updated>2025-07-14T19:16:13Z</updated>
+    <link href="https://arxiv.org/abs/2507.10749v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.10749v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Safety-critical scenarios are essential for training and evaluating autonomous driving (AD) systems, yet remain extremely rare in real-world driving datasets. To address this, we propose Real-world Crash Grounding (RCG), a scenario generation framework that integrates crash-informed semantics into adversarial perturbation pipelines. We construct a safety-aware behavior representation through contrastive pre-training on large-scale driving logs, followed by fine-tuning on a small, crash-rich dataset with approximate trajectory annotations extracted from video. This embedding captures semantic structure aligned with real-world accident behaviors and supports selection of adversary trajectories that are both high-risk and behaviorally realistic. We incorporate the resulting selection mechanism into two prior scenario generation pipelines, replacing their handcrafted scoring objectives with an embedding-based criterion. Experimental results show that ego agents trained against these generated scenarios achieve consistently higher downstream success rates, with an average improvement of 9.2% across seven evaluation settings. Qualitative and quantitative analyses further demonstrate that our approach produces more plausible and nuanced adversary behaviors, enabling more effective and realistic stress testing of AD systems. Code and tools will be released publicly.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-14T19:16:13Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Benjamin Stoler</name>
+    </author>
+    <author>
+      <name>Juliet Yang</name>
+    </author>
+    <author>
+      <name>Jonathan Francis</name>
+    </author>
+    <author>
+      <name>Jean Oh</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.00399v1</id>
+    <title>DriveVer: Lightweight Trajectory Evaluator as Test-Time Verifier for Autonomous Driving</title>
+    <updated>2026-07-01T03:50:45Z</updated>
+    <link href="https://arxiv.org/abs/2607.00399v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.00399v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>End-to-end autonomous driving models often encounter performance bottlenecks, as training-time scaling leads to high computational costs and diminishing marginal returns. Existing planners typically adopt a one-shot generation paradigm, lacking secondary validation and active correction mechanisms to detect and revise suboptimal or unsafe trajectories during inference. To address this issue, we propose DriveVer, a lightweight, plug-and-play Test-Time Verifier that leverages the test-time scaling paradigm to enable autonomous driving systems to validate and refine trajectories without costly and heavy training. We construct a dedicated trajectory dataset based on the NAVSIM benchmark through condition-driven clustering and balanced sampling according to ego-vehicle states and navigation commands. Employing a dual-head architecture, DriveVer efficiently fuses candidate trajectories with multi-view visual representations and ego-vehicle kinematic features to simultaneously predict a safety confidence score and an absolute geometric refinement vector. Extensive experiments on the NAVSIM benchmark show that DriveVer significantly improves the performance of base planning models. Notably, as an extremely compact model with only 34M parameters, DriveVer introduces minimal computational overhead, achieving competitive results while maintaining real-time inference efficiency.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-01T03:50:45Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Chong He</name>
+    </author>
+    <author>
+      <name>Yuechen Luo</name>
+    </author>
+    <author>
+      <name>Fang Li</name>
+    </author>
+    <author>
+      <name>Shaoqing Xu</name>
+    </author>
+    <author>
+      <name>Fuxi Wen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.13832v2</id>
+    <title>GraspADMM: Improving Dexterous Grasp Synthesis via ADMM Optimization</title>
+    <updated>2026-07-19T02:25:30Z</updated>
+    <link href="https://arxiv.org/abs/2603.13832v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.13832v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Synthesizing high-quality dexterous grasps is a fundamental challenge in robot manipulation, requiring adherence to diversity, kinematic feasibility (valid hand-object contact without penetration), and dynamic stability (secure multi-contact forces). The recent framework Dexonomy successfully ensures broad grasp diversity through dense sampling and improves kinematic feasibility via a simulator-based refinement method that excels at resolving exact collisions. However, its reliance on fixed contact points restricts the hand's reachability and prevents the optimization of grasp metrics for dynamic stability. Conversely, purely gradient-based optimizers can maximize dynamic stability but rely on simplified contact approximations that inevitably cause physical penetrations. To bridge this gap, we propose GraspADMM, a novel grasp synthesis framework that preserves sampling-based diversity while improving kinematic feasibility and dynamic stability. By formulating the refinement stage using the Alternating Direction Method of Multipliers (ADMM), we decouple the target contact points on the object from the actual contact locations on the hand. This decomposition allows the pipeline to alternate between updating the target object points to directly maximize dynamic grasp metrics, and adjusting the hand pose to physically reach these targets while strictly respecting collision boundaries. Extensive experiments demonstrate that GraspADMM significantly outperforms state-of-the-art baselines, achieving a nearly 15\% absolute improvement in grasp success rate for type-unaware synthesis and roughly a 100\% relative improvement in type-aware synthesis. Furthermore, our approach maintains robust, physically plausible grasp generation even under extreme low-friction conditions.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-14T08:32:13Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Liangwang Ruan</name>
+    </author>
+    <author>
+      <name>Jiayi Chen</name>
+    </author>
+    <author>
+      <name>He Wang</name>
+    </author>
+    <author>
+      <name>Baoquan Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.08535v1</id>
+    <title>Fail2Drive: Benchmarking Closed-Loop Driving Generalization</title>
+    <updated>2026-04-09T17:59:18Z</updated>
+    <link href="https://arxiv.org/abs/2604.08535v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.08535v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Generalization under distribution shift remains a central bottleneck for closed-loop autonomous driving. Although simulators like CARLA enable safe and scalable testing, existing benchmarks rarely measure true generalization: they typically reuse training scenarios at test time. Success can therefore reflect memorization rather than robust driving behavior. We introduce Fail2Drive, the first paired-route benchmark for closed-loop generalization in CARLA, with 200 routes and 17 new scenario classes spanning appearance, layout, behavioral, and robustness shifts. Each shifted route is matched with an in-distribution counterpart, isolating the effect of the shift and turning qualitative failures into quantitative diagnostics. Evaluating multiple state-of-the-art models reveals consistent degradation, with an average success-rate drop of 22.8\%. Our analysis uncovers unexpected failure modes, such as ignoring objects clearly visible in the LiDAR and failing to learn the fundamental concepts of free and occupied space. To accelerate follow-up work, Fail2Drive includes an open-source toolbox for creating new scenarios and validating solvability via a privileged expert policy. Together, these components establish a reproducible foundation for benchmarking and improving closed-loop driving generalization. We open-source all code, data, and tools at https://github.com/autonomousvision/fail2drive .</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-09T17:59:18Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Simon Gerstenecker</name>
+    </author>
+    <author>
+      <name>Andreas Geiger</name>
+    </author>
+    <author>
+      <name>Katrin Renz</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.22189v1</id>
+    <title>Learning A Unified Risk Map for Autonomous Driving in Partially Observable Environments</title>
+    <updated>2026-05-21T08:56:38Z</updated>
+    <link href="https://arxiv.org/abs/2605.22189v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.22189v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Occlusion-aware prediction remains a critical challenge in autonomous driving due to the inherent uncertainty of unobserved regions. Existing approaches either overestimate risk based on reachable states or struggle to predict accurate trajectories under high occlusion uncertainty. To address these limitations, we propose a unified risk map modeling and learning framework for partially observable environments. Our method integrates traffic flow risk and collision risk through spatiotemporal modeling, enabling fine-grained assessment of occlusion-induced hazards. To address the scarcity of scenarios involving occluded interactions, we introduce a diffusion-based scenario generation framework that produces realistic yet adversarial scenarios. We integrate the modeling and learning of a unified risk map into a framework that supports risk-aware planning under partial observability. Experiments on the Waymo Open Motion Dataset show that our method significantly outperforms the state-of-the-art occlusion-aware baseline, improving minimum time-to-collision by 0.78 times and average time-to-collision by 1.67 times. The proposed framework offers a comprehensive and practical solution for risk-aware planning in partially observable environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-21T08:56:38Z</published>
+    <arxiv:comment>Published in IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jie Jia</name>
+    </author>
+    <author>
+      <name>Yaofeng Su</name>
+    </author>
+    <author>
+      <name>Zeyu Bao</name>
+    </author>
+    <author>
+      <name>Yun Hong</name>
+    </author>
+    <author>
+      <name>Bingzhao Gao</name>
+    </author>
+    <author>
+      <name>Zhongxue Gan</name>
+    </author>
+    <author>
+      <name>Wenchao Ding</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3666393</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3666393" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.18864v1</id>
+    <title>Scaling Learning-based AEB with Massive Unlabeled Data</title>
+    <updated>2026-06-17T09:44:28Z</updated>
+    <link href="https://arxiv.org/abs/2606.18864v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.18864v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper studies how to scale learning-based automatic emergency braking (AEB) with massive unlabeled fleet data under production constraints. Our approach is based on meta-feedback semi-supervised learning (MF-SSL), where a teacher generates pseudo labels for unlabeled driving data and is updated using a small labeled anchor set as safety-critical feedback. In production, anchor ambiguity and labeled-unlabeled mismatch can amplify systematic pseudo-label errors, leading to spurious triggers. We propose a stabilized MF-SSL framework with (i) Noise-Aware Decoupling, which removes ambiguity-prone anchors from the teacher's supervised update path, and (ii) kinematics-gated pseudo-labeling with a teacher conflict penalty to suppress mismatch-induced risk hallucinations on unlabeled data while maintaining broad coverage. Extensive experiments show consistent gains as unlabeled data scale from 1M to 1B windows, improving safety while keeping comfort stable. The 1B-trained student model is deployed to hundreds of thousands of vehicles and validated over \$10^9$ km of driving, achieving a positive-to-false activation ratio exceeding 100:1 and a 35% improvement in accident-free driving mileage over a production rule-only baseline.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-17T09:44:28Z</published>
+    <arxiv:comment>Accepted for presentation at the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:comment>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Xiangyu Wang</name>
+    </author>
+    <author>
+      <name>Yang Zhan</name>
+    </author>
+    <author>
+      <name>Mengxiang Hao</name>
+    </author>
+    <author>
+      <name>Chuanchuan Zhong</name>
+    </author>
+    <author>
+      <name>Yansong Jia</name>
+    </author>
+    <author>
+      <name>Junjie Zhang</name>
+    </author>
+    <author>
+      <name>Yu Han</name>
+    </author>
+    <author>
+      <name>Xin Jiang</name>
+    </author>
+    <author>
+      <name>Zhen Cao</name>
+    </author>
+    <author>
+      <name>Ying Wang</name>
+    </author>
+    <author>
+      <name>Yulun Song</name>
+    </author>
+    <author>
+      <name>Zhitao Xu</name>
+    </author>
+  </entry>
+</feed>

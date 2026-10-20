@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/hErIFf2ZTphIDrhr6cHwuBc322w</id>
+  <title>arXiv Query: search_query=ti:"QuaMa: Extending Skill Learning with Delta Dynamics Modeling for Precise and Generalizable Quantitative Manipulation" OR ti:"Enhancing Generalization in Vision–Language–Action Models by Preserving Pretrained Representations" OR ti:"Orthogonal Composite Tokens: Geometric Noise Isolation for Robust Multimodal Robot Manipulation" OR ti:"BeliefVLA: Implicit Belief-State Driven Vision-Language-Action Models for Robust Manipulation" OR ti:"DialogVLA: Bridging Reasoning Action in Bimanual Manipulation Via Parallel Mixture-Of-Experts" OR ti:"Point What You Mean: Visually Grounded Instruction Policy" OR ti:"Preference-Conditioned Multi-Objective RL for Integrated Command Tracking and Force Compliance in Humanoid Locomotion" OR ti:"Learning Humanoid Agile and Contact-Rich Control from Latent Predictive Motion Priors" OR ti:"TD-GRPC: Temporal Difference Learning with Group Relative Policy Constraint for Humanoid Locomotion" OR ti:"CAROLLINE : A Caged Rolling Drone with Omnidirectional Ground Mobility and Simple Implementation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:01Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22QuaMa:+Extending+Skill+Learning+with+Delta+Dynamics+Modeling+for+Precise+and+Generalizable+Quantitative+Manipulation%22+OR+(ti:%22Enhancing+Generalization+in+Vision%E2%80%93Language%E2%80%93Action+Models+by+Preserving+Pretrained+Representations%22+OR+(ti:%22Orthogonal+Composite+Tokens:+Geometric+Noise+Isolation+for+Robust+Multimodal+Robot+Manipulation%22+OR+(ti:%22BeliefVLA:+Implicit+Belief-State+Driven+Vision-Language-Action+Models+for+Robust+Manipulation%22+OR+(ti:%22DialogVLA:+Bridging+Reasoning+Action+in+Bimanual+Manipulation+Via+Parallel+Mixture-Of-Experts%22+OR+(ti:%22Point+What+You+Mean:+Visually+Grounded+Instruction+Policy%22+OR+(ti:%22Preference-Conditioned+Multi-Objective+RL+for+Integrated+Command+Tracking+and+Force+Compliance+in+Humanoid+Locomotion%22+OR+(ti:%22Learning+Humanoid+Agile+and+Contact-Rich+Control+from+Latent+Predictive+Motion+Priors%22+OR+(ti:%22TD-GRPC:+Temporal+Difference+Learning+with+Group+Relative+Policy+Constraint+for+Humanoid+Locomotion%22+OR+ti:%22CAROLLINE+:+A+Caged+Rolling+Drone+with+Omnidirectional+Ground+Mobility+and+Simple+Implementation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.10851v2</id>
+    <title>Preference-Conditioned Multi-Objective RL for Integrated Command Tracking and Force Compliance in Humanoid Locomotion</title>
+    <updated>2026-03-06T22:48:29Z</updated>
+    <link href="https://arxiv.org/abs/2510.10851v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.10851v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Humanoid locomotion requires not only accurate command tracking for navigation but also compliant responses to external forces during human interaction. Despite significant progress, existing RL approaches mainly emphasize robustness, yielding policies that resist external forces but lack compliance particularly challenging for inherently unstable humanoids. In this work, we address this by formulating humanoid locomotion as a multi-objective optimization problem that balances command tracking and external force compliance. We introduce a preference-conditioned multi-objective RL (MORL) framework that enables a single omnidirectional locomotion policy to trade off between command following and force compliance via a user-specified preference input. External forces are modeled via velocity-resistance factor for consistent reward design, and training leverages an encoder-decoder structure that infers task-relevant privileged features from deployable observations. We validate our approach in both simulation and real-world experiments on a humanoid robot. Experimental results in simulation and on hardware show that the framework trains stably and enables deployable preference-conditioned humanoid locomotion.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-12T23:29:03Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tingxuan Leng</name>
+    </author>
+    <author>
+      <name>Yushi Wang</name>
+    </author>
+    <author>
+      <name>Tinglong Zheng</name>
+    </author>
+    <author>
+      <name>Changsheng Luo</name>
+    </author>
+    <author>
+      <name>Mingguo Zhao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.13549v1</id>
+    <title>TD-GRPC: Temporal Difference Learning with Group Relative Policy Constraint for Humanoid Locomotion</title>
+    <updated>2025-05-19T04:32:14Z</updated>
+    <link href="https://arxiv.org/abs/2505.13549v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.13549v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robot learning in high-dimensional control settings, such as humanoid locomotion, presents persistent challenges for reinforcement learning (RL) algorithms due to unstable dynamics, complex contact interactions, and sensitivity to distributional shifts during training. Model-based methods, \textit{e.g.}, Temporal-Difference Model Predictive Control (TD-MPC), have demonstrated promising results by combining short-horizon planning with value-based learning, enabling efficient solutions for basic locomotion tasks. However, these approaches remain ineffective in addressing policy mismatch and instability introduced by off-policy updates. Thus, in this work, we introduce Temporal-Difference Group Relative Policy Constraint (TD-GRPC), an extension of the TD-MPC framework that unifies Group Relative Policy Optimization (GRPO) with explicit Policy Constraints (PC). TD-GRPC applies a trust-region constraint in the latent policy space to maintain consistency between the planning priors and learned rollouts, while leveraging group-relative ranking to assess and preserve the physical feasibility of candidate trajectories. Unlike prior methods, TD-GRPC achieves robust motions without modifying the underlying planner, enabling flexible planning and policy learning. We validate our method across a locomotion task suite ranging from basic walking to highly dynamic movements on the 26-DoF Unitree H1-2 humanoid robot. Through simulation results, TD-GRPC demonstrates its improvements in stability and policy robustness with sampling efficiency while training for complex humanoid control tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-19T04:32:14Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Khang Nguyen</name>
+    </author>
+    <author>
+      <name>Khai Nguyen</name>
+    </author>
+    <author>
+      <name>An T. Le</name>
+    </author>
+    <author>
+      <name>Jan Peters</name>
+    </author>
+    <author>
+      <name>Manfred Huber</name>
+    </author>
+    <author>
+      <name>Ngo Anh Vien</name>
+    </author>
+    <author>
+      <name>Minh Nhat Vu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.18933v2</id>
+    <title>Point What You Mean: Visually Grounded Instruction Policy</title>
+    <updated>2026-03-24T02:45:26Z</updated>
+    <link href="https://arxiv.org/abs/2512.18933v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.18933v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-Language-Action (VLA) models align vision and language with embodied control, but their object referring ability remains limited when relying solely on text prompt, especially in cluttered or out-of-distribution (OOD) scenes. In this study, we introduce the Point-VLA, a plug-and-play policy that augments language instructions with explicit visual cues (e.g., bounding boxes) to resolve referential ambiguity and enable precise object-level grounding. To efficiently scale visually grounded datasets, we further develop an automatic data annotation pipeline requiring minimal human effort. We evaluate Point-VLA on diverse real-world referring tasks and observe consistently stronger performance than text-only instruction VLAs, particularly in cluttered or unseen-object scenarios, with robust generalization. These results demonstrate that Point-VLA effectively resolves object referring ambiguity through pixel-level visual grounding, achieving more generalizable embodied control.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-22T00:44:19Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hang Yu</name>
+    </author>
+    <author>
+      <name>Juntu Zhao</name>
+    </author>
+    <author>
+      <name>Yufeng Liu</name>
+    </author>
+    <author>
+      <name>Kaiyu Li</name>
+    </author>
+    <author>
+      <name>Cheng Ma</name>
+    </author>
+    <author>
+      <name>Di Zhang</name>
+    </author>
+    <author>
+      <name>Yingdong Hu</name>
+    </author>
+    <author>
+      <name>Guang Chen</name>
+    </author>
+    <author>
+      <name>Junyuan Xie</name>
+    </author>
+    <author>
+      <name>Junliang Guo</name>
+    </author>
+    <author>
+      <name>Junqiao Zhao</name>
+    </author>
+    <author>
+      <name>Yang Gao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.11417v2</id>
+    <title>Enhancing Generalization in Vision-Language-Action Models by Preserving Pretrained Representations</title>
+    <updated>2025-09-17T02:41:34Z</updated>
+    <link href="https://arxiv.org/abs/2509.11417v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.11417v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-language-action (VLA) models finetuned from vision-language models (VLMs) hold the promise of leveraging rich pretrained representations to build generalist robots across diverse tasks and environments. However, direct fine-tuning on robot data often disrupts these representations and limits generalization. We present a framework that better preserves pretrained features while adapting them for robot manipulation. Our approach introduces three components: (i) a dual-encoder design with one frozen vision encoder to retain pretrained features and another trainable for task adaptation, (ii) a string-based action tokenizer that casts continuous actions into character sequences aligned with the model's pretraining domain, and (iii) a co-training strategy that combines robot demonstrations with vision-language datasets emphasizing spatial reasoning and affordances. Evaluations in simulation and on real robots show that our method improves robustness to visual perturbations, generalization to novel instructions and environments, and overall task success compared to baselines.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-14T20:08:56Z</published>
+    <arxiv:comment>Project Page: https://gen-vla.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shresth Grover</name>
+    </author>
+    <author>
+      <name>Akshay Gopalkrishnan</name>
+    </author>
+    <author>
+      <name>Bo Ai</name>
+    </author>
+    <author>
+      <name>Henrik I. Christensen</name>
+    </author>
+    <author>
+      <name>Hao Su</name>
+    </author>
+    <author>
+      <name>Xuanlin Li</name>
+    </author>
+  </entry>
+</feed>

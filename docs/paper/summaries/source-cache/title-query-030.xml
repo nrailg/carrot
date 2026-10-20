@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/gODmEgUeSm0/L2uXk2hflRfl5lY</id>
+  <title>arXiv Query: search_query=ti:"Latent-Space Action Optimization under Implicit Constraints for Robotic Manipulation" OR ti:"Prompt-To-Product: Generative Assembly Via Bimanual Manipulation" OR ti:"Real-Time and Robust Tracking of Deformable Linear Objects by Using Self-Organizing Map" OR ti:"Vectorizing Projection in Manifold-Constrained Motion Planning for Real-Time Whole-Body Control" OR ti:"Computing Is Physical: Planning for Shared Resources in Robot Motion and Heterogeneous Computational Scheduling" OR ti:"Task Placement Optimization of Redundant Robots Using Reliability Maps under Locked Joint Failures" OR ti:"PLATO: Polynomial-Logarithmic Adaptive Trajectory for AUV Docking" OR ti:"Real-Time Energy Modeling for Underwater Gliders: A Gray-Box Approach Considering Inhomogeneous Bladder Mass" OR ti:"Event-Triggered Coverage Planning for Towable Sensing Systems" OR ti:"Ablation Study on Features in Learning-Based Joint Calibration of Cable-Driven Surgical Robots"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:49Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Latent-Space+Action+Optimization+under+Implicit+Constraints+for+Robotic+Manipulation%22+OR+(ti:%22Prompt-To-Product:+Generative+Assembly+Via+Bimanual+Manipulation%22+OR+(ti:%22Real-Time+and+Robust+Tracking+of+Deformable+Linear+Objects+by+Using+Self-Organizing+Map%22+OR+(ti:%22Vectorizing+Projection+in+Manifold-Constrained+Motion+Planning+for+Real-Time+Whole-Body+Control%22+OR+(ti:%22Computing+Is+Physical:+Planning+for+Shared+Resources+in+Robot+Motion+and+Heterogeneous+Computational+Scheduling%22+OR+(ti:%22Task+Placement+Optimization+of+Redundant+Robots+Using+Reliability+Maps+under+Locked+Joint+Failures%22+OR+(ti:%22PLATO:+Polynomial-Logarithmic+Adaptive+Trajectory+for+AUV+Docking%22+OR+(ti:%22Real-Time+Energy+Modeling+for+Underwater+Gliders:+A+Gray-Box+Approach+Considering+Inhomogeneous+Bladder+Mass%22+OR+(ti:%22Event-Triggered+Coverage+Planning+for+Towable+Sensing+Systems%22+OR+ti:%22Ablation+Study+on+Features+in+Learning-Based+Joint+Calibration+of+Cable-Driven+Surgical+Robots%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.13323v1</id>
+    <title>Vectorizing Projection in Manifold-Constrained Motion Planning for Real-Time Whole-Body Control</title>
+    <updated>2026-04-14T22:00:53Z</updated>
+    <link href="https://arxiv.org/abs/2604.13323v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.13323v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Many robot planning tasks require satisfaction of one or more constraints throughout the entire trajectory. For geometric constraints, manifold-constrained motion planning algorithms are capable of planning collision-free path between start and goal configurations on the constraint submanifolds specified by task. Current state-of-the-art methods can take tens of seconds to solve these tasks for complex systems such as humanoid robots, making real-world use impractical, especially in dynamic settings. Inspired by recent advances in hardware accelerated motion planning, we present a CPU SIMD-accelerated manifold-constrained motion planner that revisits projection-based constraint satisfaction through the lens of parallelization. By transforming relevant components into parallelizable structures, we use SIMD parallelism to plan constraint satisfying solutions. Our approach achieves up to 100-1000x speed-ups over the state-of-the-art, making real-time constrained motion planning feasible for the first time. We demonstrate our planner on a real humanoid robot and show real-time whole-body quasi-static plan generation. Our work is available at https://commalab.org/papers/mcvamp/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-14T22:00:53Z</published>
+    <arxiv:comment>8 pages, 8 figures, 3 tables. Under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shrutheesh R Iyer</name>
+    </author>
+    <author>
+      <name>I-Chia Chang</name>
+    </author>
+    <author>
+      <name>Andrew Z. Liu</name>
+    </author>
+    <author>
+      <name>Yan Gu</name>
+    </author>
+    <author>
+      <name>Zachary Kingston</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2302.04999v2</id>
+    <title>Ablation Study on Features in Learning-based Joints Calibration of Cable-driven Surgical Robots</title>
+    <updated>2023-02-14T19:48:30Z</updated>
+    <link href="https://arxiv.org/abs/2302.04999v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2302.04999v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>With worldwide implementation, millions of surgeries are assisted by surgical robots. The cable-drive mechanism on many surgical robots allows flexible, light, and compact arms and tools. However, the slack and stretch of the cables and the backlash of the gears introduce inevitable errors from motor poses to joint poses, and thus forwarded to the pose and orientation of the end-effector. In this paper, a learning-based calibration using a deep neural network is proposed, which reduces the unloaded pose RMSE of joints 1, 2, 3 to 0.3003 deg, 0.2888 deg, 0.1565 mm, and loaded pose RMSE of joints 1, 2, 3 to 0.4456 deg, 0.3052 deg, 0.1900 mm, respectively. Then, removal ablation and inaccurate ablation are performed to study which features of the DNN model contribute to the calibration accuracy. The results suggest that raw joint poses and motor torques are the most important features. For joint poses, the removal ablation shows that DNN model can derive this information from end-effector pose and orientation. For motor torques, the direction is much more important than amplitude.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2023-02-10T00:57:39Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haonan Peng</name>
+    </author>
+    <author>
+      <name>Andrew Lewis</name>
+    </author>
+    <author>
+      <name>Blake Hannaford</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.21063v1</id>
+    <title>Prompt-to-Product: Generative Assembly via Bimanual Manipulation</title>
+    <updated>2025-08-28T17:59:05Z</updated>
+    <link href="https://arxiv.org/abs/2508.21063v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.21063v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Creating assembly products demands significant manual effort and expert knowledge in 1) designing the assembly and 2) constructing the product. This paper introduces Prompt-to-Product, an automated pipeline that generates real-world assembly products from natural language prompts. Specifically, we leverage LEGO bricks as the assembly platform and automate the process of creating brick assembly structures. Given the user design requirements, Prompt-to-Product generates physically buildable brick designs, and then leverages a bimanual robotic system to construct the real assembly products, bringing user imaginations into the real world. We conduct a comprehensive user study, and the results demonstrate that Prompt-to-Product significantly lowers the barrier and reduces manual effort in creating assembly products from imaginative ideas.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-28T17:59:05Z</published>
+    <arxiv:comment>12 pages, 10 figures, 2 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ruixuan Liu</name>
+    </author>
+    <author>
+      <name>Philip Huang</name>
+    </author>
+    <author>
+      <name>Ava Pun</name>
+    </author>
+    <author>
+      <name>Kangle Deng</name>
+    </author>
+    <author>
+      <name>Shobhit Aggarwal</name>
+    </author>
+    <author>
+      <name>Kevin Tang</name>
+    </author>
+    <author>
+      <name>Michelle Liu</name>
+    </author>
+    <author>
+      <name>Deva Ramanan</name>
+    </author>
+    <author>
+      <name>Jun-Yan Zhu</name>
+    </author>
+    <author>
+      <name>Jiaoyang Li</name>
+    </author>
+    <author>
+      <name>Changliu Liu</name>
+    </author>
+  </entry>
+</feed>

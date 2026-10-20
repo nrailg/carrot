@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/OIwcTtzHmglfPdyIprmviu8QUZw</id>
+  <title>arXiv Query: search_query=ti:"The Robotic Circulating Nurse: A World’s-First Prototype to Support Clinicians" OR ti:"Uncertainty-Aware Needle Handoff for Autonomous Endoscopic Suturing with Concentric Tube Robots" OR ti:"Human-Inspired Robotic Palpation Strategy for Muscle Nodule Localization and Segmentation" OR ti:"Feasible Wrench Set-Based Fault-Tolerant Model Predictive Control for Floating Satellite Emulation Platforms" OR ti:"Gravity Compensation Strategy of Space Robotic Arm for On-Ground Testing Using Gyroscope-Type Coupling Interface and Cable-Driven Parallel Robot" OR ti:"Shallow-π: Knowledge Distillation for Flow-Based VLAs" OR ti:"Gated EEG-EMG Fusion with Cross-Modal Consistency and Cross-Subject Alignment for Channel-Efficient Tone Decoding" OR ti:"Toward Autonomous Biofabricated Tissue Implantation: A Non-Contact Robotic Manipulation System for Soft and Fragile Modules" OR ti:"Autonomous Multimodal Locomotion Control of a Magnetic Strip Soft Robot" OR ti:"Elephant-Trunk-Inspired, Power Soft Robotic Arm"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:04Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22The+Robotic+Circulating+Nurse:+A+World%E2%80%99s-First+Prototype+to+Support+Clinicians%22+OR+(ti:%22Uncertainty-Aware+Needle+Handoff+for+Autonomous+Endoscopic+Suturing+with+Concentric+Tube+Robots%22+OR+(ti:%22Human-Inspired+Robotic+Palpation+Strategy+for+Muscle+Nodule+Localization+and+Segmentation%22+OR+(ti:%22Feasible+Wrench+Set-Based+Fault-Tolerant+Model+Predictive+Control+for+Floating+Satellite+Emulation+Platforms%22+OR+(ti:%22Gravity+Compensation+Strategy+of+Space+Robotic+Arm+for+On-Ground+Testing+Using+Gyroscope-Type+Coupling+Interface+and+Cable-Driven+Parallel+Robot%22+OR+(ti:%22Shallow-%CF%80:+Knowledge+Distillation+for+Flow-Based+VLAs%22+OR+(ti:%22Gated+EEG-EMG+Fusion+with+Cross-Modal+Consistency+and+Cross-Subject+Alignment+for+Channel-Efficient+Tone+Decoding%22+OR+(ti:%22Toward+Autonomous+Biofabricated+Tissue+Implantation:+A+Non-Contact+Robotic+Manipulation+System+for+Soft+and+Fragile+Modules%22+OR+(ti:%22Autonomous+Multimodal+Locomotion+Control+of+a+Magnetic+Strip+Soft+Robot%22+OR+ti:%22Elephant-Trunk-Inspired,+Power+Soft+Robotic+Arm%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>1</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2601.20262v1</id>
+    <title>Shallow-π: Knowledge Distillation for Flow-based VLAs</title>
+    <updated>2026-01-28T05:16:26Z</updated>
+    <link href="https://arxiv.org/abs/2601.20262v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.20262v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The growing demand for real-time robotic deployment necessitates fast and on-device inference for vision-language-action (VLA) models. Within the VLA literature, efficiency has been extensively studied at the token level, such as visual token pruning. In contrast, systematic transformer layer reduction has received limited attention and, to the best of our knowledge, has not been explored for flow-based VLA models under knowledge distillation. In this work, we propose Shallow-pi, a principled knowledge distillation framework that aggressively reduces the transformer depth of both the VLM backbone and the flow-based action head, compressing the model from 18 to 6 layers. Shallow-pi achieves over two times faster inference with less than one percent absolute drop in success rate on standard manipulation benchmarks, establishing state-of-the-art performance among reduced VLA models. Crucially, we validate our approach through industrial-scale real-world experiments on Jetson Orin and Jetson Thor across multiple robot platforms, including humanoid systems, in complex and dynamic manipulation scenarios.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-28T05:16:26Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Boseong Jeon</name>
+    </author>
+    <author>
+      <name>Yunho Choi</name>
+    </author>
+    <author>
+      <name>Taehan Kim</name>
+    </author>
+  </entry>
+</feed>

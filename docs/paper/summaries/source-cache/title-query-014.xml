@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/sJ3zpIzLyYvvHsVpZuT7bzeBYXQ</id>
+  <title>arXiv Query: search_query=ti:"Autonomous UAV Pipeline Landing Via Depth-LiDAR Fusion in GNSS-Denied Refineries" OR ti:"A Mid-Air Autonomous Battery Exchange Aerial System" OR ti:"Model-Based Design Optimization of Variable-Tilt UAV for Agility: Analysis and Experimental Validation" OR ti:"Torque Responsive Metamaterials Enable High Payload Soft Robot Arms" OR ti:"Robotic Assisted Additive Manufacturing (RA2M) for Functional Polymers" OR ti:"Machine-Knittable, Magnetically-Plug-N-Play E-Textile Prototyping" OR ti:"Concrete Spray 3D Printing Simulator for Nozzle Trajectory Planning" OR ti:"Autonomous Robotic Inspection of Building Thermal Insulation via Subsurface mmWave Sensing" OR ti:"Demonstration Experiment of Automatic Crushed Stone Transportation Using Wheel Loader in Open-Pit Mine" OR ti:"Safety under Search: Finding Critical Scenarios in Automated Driving Systems Using Search-Based Testing"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:47Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Autonomous+UAV+Pipeline+Landing+Via+Depth-LiDAR+Fusion+in+GNSS-Denied+Refineries%22+OR+(ti:%22A+Mid-Air+Autonomous+Battery+Exchange+Aerial+System%22+OR+(ti:%22Model-Based+Design+Optimization+of+Variable-Tilt+UAV+for+Agility:+Analysis+and+Experimental+Validation%22+OR+(ti:%22Torque+Responsive+Metamaterials+Enable+High+Payload+Soft+Robot+Arms%22+OR+(ti:%22Robotic+Assisted+Additive+Manufacturing+(RA2M)+for+Functional+Polymers%22+OR+(ti:%22Machine-Knittable,+Magnetically-Plug-N-Play+E-Textile+Prototyping%22+OR+(ti:%22Concrete+Spray+3D+Printing+Simulator+for+Nozzle+Trajectory+Planning%22+OR+(ti:%22Autonomous+Robotic+Inspection+of+Building+Thermal+Insulation+via+Subsurface+mmWave+Sensing%22+OR+(ti:%22Demonstration+Experiment+of+Automatic+Crushed+Stone+Transportation+Using+Wheel+Loader+in+Open-Pit+Mine%22+OR+ti:%22Safety+under+Search:+Finding+Critical+Scenarios+in+Automated+Driving+Systems+Using+Search-Based+Testing%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.22800v1</id>
+    <title>Machine-knittable, Magnetically-Plug-n-Play E-Textile Prototyping</title>
+    <updated>2026-06-22T03:18:43Z</updated>
+    <link href="https://arxiv.org/abs/2606.22800v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.22800v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Electronic textiles (e-textiles) integrated with wearable sensors are essential for daily motion monitoring and long-term physiological sensing. For example, capturing optimal kinematic or bio-signals requires aligning sensors with specific anatomical parts, which vary significantly across individuals and application scenarios. This necessity for personalization makes e-textile prototyping inherently iterative, however current fabrication methods, such as manual conductive stitching, rely on permanent bonds that restrict rapid adjustment. This paper introduces Plug-n-play e-knit, a machine-knittable e-textile prototyping platform that enables repeatable, quick adjustment of sensor positions across garments. First, to cover the large area of the textile for prototyping, we use industrial digital knitting of conductive yarn to integrate power and communication buses directly into the large-scale textile. Then, to ensure plug-n-play attachment to the textile, we employ soft-magnetic connectors that enable sensors to be repeatedly plugged into the wiring without damaging the fabric. Furthermore, our LED-positioning system enables the automatic identification and localization of each sensor node. We demonstrate the platform's capabilities through forearm movement calibration and position-aware temperature mapping.</summary>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T03:18:43Z</published>
+    <arxiv:primary_category term="cs.HC"/>
+    <author>
+      <name>Yifan Li</name>
+    </author>
+    <author>
+      <name>Ryo Takahashi</name>
+    </author>
+    <author>
+      <name>Wakako Yukita</name>
+    </author>
+    <author>
+      <name>Irmandy Wicaksono</name>
+    </author>
+    <author>
+      <name>Kanata Matsutani</name>
+    </author>
+    <author>
+      <name>Yuhiro Iwamoto</name>
+    </author>
+    <author>
+      <name>Sunghoon Lee</name>
+    </author>
+    <author>
+      <name>Tomoyuki Yokota</name>
+    </author>
+    <author>
+      <name>Takao Someya</name>
+    </author>
+    <author>
+      <name>Yoshihiro Kawahara</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2501.09819v1</id>
+    <title>Torque Responsive Metamaterials Enable High Payload Soft Robot Arms</title>
+    <updated>2025-01-16T20:09:40Z</updated>
+    <link href="https://arxiv.org/abs/2501.09819v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.09819v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Soft robots have struggled to support large forces and moments while also supporting their own weight against gravity. This limits their ability to reach certain configurations necessary for tasks such as inspection and pushing objects up. We have overcome this limitation by creating an electrically driven metamaterial soft arm using handed shearing auxetics (HSA) and bendable extendable torque resistant (BETR) shafts. These use the large force and torque capacity of HSAs and the nestable torque transmission of BETRs to create a strong soft arm. We found that the HSA arm was able to push 2.3 kg vertically and lift more than 600 g when positioned horizontally, supporting 0.33 Nm of torque at the base. The arm is able to move between waypoints while carrying the large payload and demonstrates consistent movement with path variance below 5 mm. The HSA arm's ability to perform active grasping with HSA grippers was also demonstrated, requiring 20 N of pull force to dislodge the object. Finally, we test the arm in a pipe inspection task. The arm is able to locate all the defects while sliding against the inner surface of the pipe, demonstrating its compliance.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-01-16T20:09:40Z</published>
+    <arxiv:comment>9 pages, 8 figures, currently under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Ian Good</name>
+    </author>
+    <author>
+      <name>Srivatsan Balaji</name>
+    </author>
+    <author>
+      <name>David Oh</name>
+    </author>
+    <author>
+      <name>Sawyer Thomas</name>
+    </author>
+    <author>
+      <name>Jeffrey I. Lipton</name>
+    </author>
+  </entry>
+</feed>

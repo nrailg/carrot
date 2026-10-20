@@ -1,0 +1,95 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/YKKsJ63v8jydTC+LPEze+wTFvrc</id>
+  <title>arXiv Query: search_query=ti:"Hierarchical Behavior Tree Planning for Long-Horizon Robot Task Planning with Knowledge Graph-RAG" OR ti:"Scheduling Robotic Cellular Manufacturing Systems Via Graph-Attention-Based Reinforcement Learning on Petri Nets for Zero-Shot Generalization" OR ti:"Towards Efficient Robot Packing: A Hierarchical Double-Pick-And-Place Strategy with Integrated Reinforcement Learning" OR ti:"ELHPlan: Efficient Long-Horizon Task Planning for Multi-Agent Collaboration" OR ti:"Interpretable Collision Avoidance and Feasibility Guarantees through an Uncertainty Aware Pipeline" OR ti:"MTA-RL: Robust Urban Driving Via Multi-modal Transformer-Based 3D Affordances and Reinforcement Learning" OR ti:"Prescribed Performance Guided Safe Reinforcement Learning for Roundabout Navigation of Autonomous Vehicles" OR ti:"Polysona: Modular Driving Styles in Trajectory Prediction" OR ti:"Vector Quantization for Trajectory Prediction" OR ti:"3D FlowMatch Actor: Unified 3D Policy for Single and Dual-Arm Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:37Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Hierarchical+Behavior+Tree+Planning+for+Long-Horizon+Robot+Task+Planning+with+Knowledge+Graph-RAG%22+OR+(ti:%22Scheduling+Robotic+Cellular+Manufacturing+Systems+Via+Graph-Attention-Based+Reinforcement+Learning+on+Petri+Nets+for+Zero-Shot+Generalization%22+OR+(ti:%22Towards+Efficient+Robot+Packing:+A+Hierarchical+Double-Pick-And-Place+Strategy+with+Integrated+Reinforcement+Learning%22+OR+(ti:%22ELHPlan:+Efficient+Long-Horizon+Task+Planning+for+Multi-Agent+Collaboration%22+OR+(ti:%22Interpretable+Collision+Avoidance+and+Feasibility+Guarantees+through+an+Uncertainty+Aware+Pipeline%22+OR+(ti:%22MTA-RL:+Robust+Urban+Driving+Via+Multi-modal+Transformer-Based+3D+Affordances+and+Reinforcement+Learning%22+OR+(ti:%22Prescribed+Performance+Guided+Safe+Reinforcement+Learning+for+Roundabout+Navigation+of+Autonomous+Vehicles%22+OR+(ti:%22Polysona:+Modular+Driving+Styles+in+Trajectory+Prediction%22+OR+(ti:%22Vector+Quantization+for+Trajectory+Prediction%22+OR+ti:%223D+FlowMatch+Actor:+Unified+3D+Policy+for+Single+and+Dual-Arm+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.10177v1</id>
+    <title>MTA-RL: Robust Urban Driving via Multi-modal Transformer-based 3D Affordances and Reinforcement Learning</title>
+    <updated>2026-05-11T08:28:55Z</updated>
+    <link href="https://arxiv.org/abs/2605.10177v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.10177v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robust urban autonomous driving requires reliable 3D scene understanding and stable decision-making under dense interactions. However, existing end-to-end models lack interpretability, while modular pipelines suffer from error propagation across brittle interfaces. This paper proposes MTA-RL, the first framework that bridges perception and control through Multi-modal Transformer-based 3D Affordances and Reinforcement Learning (RL). Unlike previous fusion models that directly regress actions, RGB images and LiDAR point clouds are fused using a transformer architecture to predict explicit, geometry-aware affordance representations. These structured representations serve as a compact observation space, enabling the RL policy to operate purely on predicted driving semantics, which significantly improves sample efficiency and stability. Extensive evaluations in CARLA Town01-03 across varying densities (20-60 background vehicles) show that MTA-RL consistently outperforms state-of-the-art baselines. Trained solely on Town03, our method demonstrates superior zero-shot generalization in unseen towns, achieving up to a 9.0% increase in Route Completion, an 11.0% increase in Total Distance, and an 83.7% improvement in Distance Per Violation. Furthermore, ablation studies confirm that our multi-modal fusion and reward shaping are critical, significantly outperforming image-only and unshaped variants, demonstrating the effectiveness of MTA-RL for robust urban autonomous driving.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-11T08:28:55Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Guangli Chen</name>
+    </author>
+    <author>
+      <name>Dianzhao Li</name>
+    </author>
+    <author>
+      <name>Wenjian Zhong</name>
+    </author>
+    <author>
+      <name>Bangquan Xie</name>
+    </author>
+    <author>
+      <name>Ostap Okhrin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.11002v2</id>
+    <title>3D FlowMatch Actor: Unified 3D Policy for Single- and Dual-Arm Manipulation</title>
+    <updated>2025-08-20T00:47:05Z</updated>
+    <link href="https://arxiv.org/abs/2508.11002v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.11002v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present 3D FlowMatch Actor (3DFA), a 3D policy architecture for robot manipulation that combines flow matching for trajectory prediction with 3D pretrained visual scene representations for learning from demonstration. 3DFA leverages 3D relative attention between action and visual tokens during action denoising, building on prior work in 3D diffusion-based single-arm policy learning. Through a combination of flow matching and targeted system-level and architectural optimizations, 3DFA achieves over 30x faster training and inference than previous 3D diffusion-based policies, without sacrificing performance. On the bimanual PerAct2 benchmark, it establishes a new state of the art, outperforming the next-best method by an absolute margin of 41.4%. In extensive real-world evaluations, it surpasses strong baselines with up to 1000x more parameters and significantly more pretraining. In unimanual settings, it sets a new state of the art on 74 RLBench tasks by directly predicting dense end-effector trajectories, eliminating the need for motion planning. Comprehensive ablation studies underscore the importance of our design choices for both policy effectiveness and efficiency.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-14T18:07:40Z</published>
+    <arxiv:comment>Project page: https://3d-flowmatch-actor.github.io/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nikolaos Gkanatsios</name>
+    </author>
+    <author>
+      <name>Jiahe Xu</name>
+    </author>
+    <author>
+      <name>Matthew Bronars</name>
+    </author>
+    <author>
+      <name>Arsalan Mousavian</name>
+    </author>
+    <author>
+      <name>Tsung-Wei Ke</name>
+    </author>
+    <author>
+      <name>Katerina Fragkiadaki</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.24230v2</id>
+    <title>ELHPlan: Efficient Long-Horizon Task Planning for Multi-Agent Collaboration</title>
+    <updated>2026-03-07T10:36:24Z</updated>
+    <link href="https://arxiv.org/abs/2509.24230v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.24230v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Large Language Models (LLMs) enable intelligent multi-robot collaboration but face fundamental trade-offs: open-loop methods that compile tasks into formal representations for external executors produce sound plans but lack adaptability in partially observable environments, while iterative methods incur prohibitive computational costs that scale poorly with team size and task complexity. In this paper, we propose Efficient Long-Horizon Planning (ELHPlan), a novel framework that introduces Action Chains, sequences of actions explicitly bound to sub-goal intentions, as the fundamental planning primitive. ELHPlan operates via a cyclical process: 1) constructing intention-bound action sequences, 2) proactively validating for conflicts and feasibility, 3) refining issues through targeted mechanisms, and 4) executing validated actions. This design balances adaptability and efficiency by providing intention-bound action sequences with longer lookahead while avoiding expensive full re-planning. We further advocate comprehensive efficiency metrics, including token consumption and planning time, to more holistically evaluate multi-agent collaboration. Our experiments on benchmarks TDW-MAT and C-WAH demonstrate that ELHPlan achieves comparable task success rates while consuming only 30-40% of the tokens required by state-of-the-art methods. Our research establishes a new efficiency-effectiveness frontier for LLM-based multi-agent planning systems.</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-29T03:15:56Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <author>
+      <name>Shaobin Ling</name>
+    </author>
+    <author>
+      <name>Yun Wang</name>
+    </author>
+    <author>
+      <name>Chenyou Fan</name>
+    </author>
+    <author>
+      <name>Tin Lun Lam</name>
+    </author>
+    <author>
+      <name>Junjie Hu</name>
+    </author>
+  </entry>
+</feed>

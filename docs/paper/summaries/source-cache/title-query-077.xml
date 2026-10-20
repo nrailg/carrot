@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/kmkwXG+jRBDHi5Ahb2YYTt/gmQg</id>
+  <title>arXiv Query: search_query=ti:"Rollegs: Cyclorotor-Inspired Novel Rolling Leg Mechanism for Multi-Terrain Robots" OR ti:"A Simple Compliant Gripper That Reconfigures between Sensing and Grasping Modes" OR ti:"Large-Scale 3D Gaussian Splatting SLAM with GNSS-INS-Visual Fusion" OR ti:"WinTA-GIL: Windowed Trajectory Alignment for GNSS-IMU-LiDAR Heading Refinement in Intermittent Signal Environments" OR ti:"HGLoc: Hierarchical Graph-Based Cooperative Localization for Multi-Robot Systems under Communication Constraints and Perception Degradation in Outdoor Environments" OR ti:"LIT-GS: LiDAR-Inertial-Thermal 3D Gaussian Splatting for Illumination-Robust Mapping" OR ti:"Invariant Kalman Filtering for Extended Pose Estimation in Multi-IMU Articulated Rigid-Body Systems" OR ti:"A Dual-Mode Asynchronous ESKF Framework for Pose Estimation of Cable-Driven Parallel Robots" OR ti:"Real-Time Constraint-Aware Inverse Kinematics Via Passivity-Based Dynamics Simulation" OR ti:"CL-APNN: Concurrent Learning Adaptive Projection Neural Network for Redundant Manipulator Control under Kinematic Uncertainty"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:02Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Rollegs:+Cyclorotor-Inspired+Novel+Rolling+Leg+Mechanism+for+Multi-Terrain+Robots%22+OR+(ti:%22A+Simple+Compliant+Gripper+That+Reconfigures+between+Sensing+and+Grasping+Modes%22+OR+(ti:%22Large-Scale+3D+Gaussian+Splatting+SLAM+with+GNSS-INS-Visual+Fusion%22+OR+(ti:%22WinTA-GIL:+Windowed+Trajectory+Alignment+for+GNSS-IMU-LiDAR+Heading+Refinement+in+Intermittent+Signal+Environments%22+OR+(ti:%22HGLoc:+Hierarchical+Graph-Based+Cooperative+Localization+for+Multi-Robot+Systems+under+Communication+Constraints+and+Perception+Degradation+in+Outdoor+Environments%22+OR+(ti:%22LIT-GS:+LiDAR-Inertial-Thermal+3D+Gaussian+Splatting+for+Illumination-Robust+Mapping%22+OR+(ti:%22Invariant+Kalman+Filtering+for+Extended+Pose+Estimation+in+Multi-IMU+Articulated+Rigid-Body+Systems%22+OR+(ti:%22A+Dual-Mode+Asynchronous+ESKF+Framework+for+Pose+Estimation+of+Cable-Driven+Parallel+Robots%22+OR+(ti:%22Real-Time+Constraint-Aware+Inverse+Kinematics+Via+Passivity-Based+Dynamics+Simulation%22+OR+ti:%22CL-APNN:+Concurrent+Learning+Adaptive+Projection+Neural+Network+for+Redundant+Manipulator+Control+under+Kinematic+Uncertainty%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.04879v1</id>
+    <title>WinTA-GIL: Windowed Trajectory Alignment for GNSS-IMU-LiDAR Heading Refinement in Intermittent Signal Environments</title>
+    <updated>2026-07-06T09:59:33Z</updated>
+    <link href="https://arxiv.org/abs/2607.04879v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.04879v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Although multi-source fusion positioning systems have achieved significant progress, accurate and reliable heading estimation remains a critical challenge due to the lack of gravitational constraints and the inherent weak observability of heading in complex environments. Most existing methodologies are specifically tailored for the startup phase, relying on a singular initial alignment to establish the heading reference. Consequently, these approaches lack the adaptability required to refine heading estimates dynamically, which renders the system highly vulnerable to accumulated drift and observation noise during prolonged navigation or immediately following GNSS signal outages. To address these limitations, this paper proposes WinTA-GIL, a novel heading refinement framework that integrates information from Global Navigation Satellite System (GNSS), Inertial Measurement Unit (IMU), and Light Detection and Ranging (LiDAR) through a temporal window-based optimization strategy. Unlike conventional alignment methods restricted to the startup phase, WinTA-GIL leverages high-precision local trajectories from LiDAR-Inertial Odometry (LIO) to register against filtered GNSS observations. This approach transforms heading estimation into a repeatable, trajectory-based consistency optimization problem. In particular, an adaptive re-estimation mechanism based on state discrimination is incorporated to trigger heading corrections whenever necessary, thereby effectively suppressing the inertial drift accumulated during challenging conditions. Extensive experiments on both open-source and self-collected datasets demonstrate that WinTA-GIL significantly outperforms state-of-the-art approaches in both estimation accuracy and system robustness.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-06T09:59:33Z</published>
+    <arxiv:comment>Accepted to IROS 2026.8 pages,10 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kaixin Feng</name>
+    </author>
+    <author>
+      <name>Zhichao Wen</name>
+    </author>
+    <author>
+      <name>Zhaohong Liao</name>
+    </author>
+    <author>
+      <name>Xin Xia</name>
+    </author>
+    <author>
+      <name>You Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.25083v2</id>
+    <title>Invariant Kalman filtering for extended pose estimation in multi-IMU articulated rigid-body systems</title>
+    <updated>2026-07-28T23:03:52Z</updated>
+    <link href="https://arxiv.org/abs/2606.25083v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.25083v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate extended pose estimation (orientation, velocity, and position) for IMU-instrumented articulated rigid-body systems is a key challenge in robotics and human motion analysis. The invariant extended Kalman filter (IEKF) addresses this problem for a single rigid body with convergence guarantees and consistency under unobservability, but extending these properties to articulated systems is nontrivial: inter-body pose coupling prevents a direct application, and incorporating joint kinematic constraints within the invariant framework remains an open problem. To address this gap, we introduce the relative L-extended pose, a Lie group representation for kinematic-tree systems based on relative poses between bodies. With one IMU per body, it yields group-affine dynamics and allows joint constraints to be expressed in invariant form. We incorporate these constraints as noise-free pseudo-measurements within an iterated IEKF (IterIEKF), thereby preserving the convergence and consistency guarantees of invariant filtering. The absolute pose of each body is then recovered by chaining the relative blocks along the kinematic tree. Validated on both a UR5e robot and a human leg, the proposed IterIEKF outperforms all EKF, IterEKF, and absolute-pose IterIEKF baselines. It converges faster, exhibits lower run-to-run variability, and consistently achieves the lowest RMSE, with reductions of at least 50% compared to the second-best filter across all scenarios considered in this work.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-23T18:41:31Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sven Goffin</name>
+    </author>
+    <author>
+      <name>Cédric Schwartz</name>
+    </author>
+    <author>
+      <name>Silvère Bonnabel</name>
+    </author>
+    <author>
+      <name>Olivier Brüls</name>
+    </author>
+    <author>
+      <name>Pierre Sacré</name>
+    </author>
+  </entry>
+</feed>

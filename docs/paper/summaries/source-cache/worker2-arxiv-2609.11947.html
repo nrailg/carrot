@@ -1,0 +1,1176 @@
+<!DOCTYPE html><html prefix="dcterms: http://purl.org/dc/terms/" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving</title>
+<!--Generated on Fri Jul 24 13:39:22 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="/static/browse/0.3.4/css/arxiv-html-papers-20260131.css" type="text/css">
+<script src="/static/browse/0.3.4/js/arxiv-html-papers-20260131.js"></script>
+<script>
+  // Restore the saved color scheme preference, or
+  // enact the browser preference if "automatic", 
+  // without expecting DOM load to have completed.
+  //
+  // Also restore any saved readingmode and ToC display preferences.
+  function initializeReadingPreferences() {
+    let saved_theme = localStorage.getItem("ar5iv_theme") || "automatic";
+    if (saved_theme === "automatic") {
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        saved_theme = "dark";
+      }
+    }
+    if (saved_theme == "dark") {
+      document.documentElement.setAttribute("data-theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+
+    const tocDisplay = localStorage.getItem('arxiv_html_paper_toc_display');
+    if (tocDisplay) {
+      document.documentElement.setAttribute("data-toc-display", tocDisplay);
+    }
+    const readingMode = localStorage.getItem('arxiv_html_paper_reading_mode');
+    if (readingMode) {
+      document.documentElement.setAttribute("data-reading-mode", readingMode);
+    }
+    // Pre-apply spinout-banner dismissal here, before the banner paints, so it
+    // never flashes in only to be hidden later by the deferred arxiv-header.js.
+    // Key matches arxiv-header.js: "arxiv-banner-dismissed:" + data-banner-name.
+    if (localStorage.getItem('arxiv-banner-dismissed:spinout-nonprofit')) {
+      document.documentElement.setAttribute("data-banner-dismissed", "");
+    }
+  }
+  // Run as soon as JS starts, to minimize repainting
+  initializeReadingPreferences();
+</script>
+<link rel="apple-touch-icon" sizes="180x180"
+  href="/static/browse/0.3.4/images/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32"
+  href="/static/browse/0.3.4/images/icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16"
+  href="/static/browse/0.3.4/images/icons/favicon-16x16.png">
+<link rel="manifest" href="/static/browse/0.3.4/images/icons/site.webmanifest">
+<link rel="mask-icon" href="/static/browse/0.3.4/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+<link rel="stylesheet" type="text/css" media="screen" href="https://use.typekit.net/utz6mli.css"><link rel="stylesheet" type="text/css" media="screen"
+  href="/static/base/1.0.1/css/arxiv-header-footer.css?v=20260626"><style>
+  /* Banner pre-dismissal (set above before paint -> no flash-then-hide) and
+     reading-mode chrome hiding. */
+  html[data-banner-dismissed] .ds-announcement { display: none; }
+  html[data-reading-mode="enabled"] .ds-announcement,
+  html[data-reading-mode="enabled"] .ds-site-footer { display: none; }
+  /* Keep the announcement text dark on the Open-Blue band in both colour themes
+     (otherwise it inherits the paper's warm-wash text in dark mode and washes out). */
+  .ds-announcement-text { color: var(--arxiv-ink, #1c1a17); }
+</style>
+<script defer src="/static/base/1.0.1/js/arxiv-header.js?v=20260626"></script>
+</head>
+<body>
+<dialog id="modal-form" aria-labelledby="modal-title" closedby="any">
+  <form id="modal-form-content" method="dialog" enctype="multipart/form-data">
+    <header class="modal-header">
+      <h5 id="modal-title" class="modal-title">Report GitHub Issue</h5>
+      <button type="submit" formnovalidate class="modal-close" aria-label="Close">×</button>
+    </header>
+
+    <div class="modal-body">
+      <label for="form_title">Title:</label>
+      <input class="form-control" id="form_title" name="form_title" required placeholder="Enter title">
+
+      <p id="selectedTextModalDescription" hidden>Content selection saved. Describe the issue below:</p>
+
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" required maxlength="500"
+        placeholder="500 characters maximum"></textarea>
+    </div>
+
+    <footer class="modal-footer">
+      <button type="submit" value="internal-report" class="sr-only modal-submit">Submit without GitHub</button>
+      <button type="submit" value="github-report" class="modal-submit">Submit in GitHub</button>
+    </footer>
+  </form>
+</dialog><div class="ds-announcement" id="announcement-banner" role="region" aria-label="Announcement"
+    data-banner-name="spinout-nonprofit">
+    <img class="ds-announcement-glyph" src="/static/base/1.0.1/images/icons/smileybones-small.svg" alt="" aria-hidden="true">
+    <span class="ds-announcement-text">arXiv is now an independent nonprofit!</span>
+    <a class="ds-announcement-link" href="https://info.arxiv.org/about">Learn more</a>
+    <button type="button" class="ds-announcement-close" aria-label="Dismiss announcement">&times;</button>
+  </div>
+
+<header class="arxiv-html-header">
+  <div class="html-header-logo">
+    <a href="/"><img alt="arXiv logo" class="logo desktop-only" width="100"
+        src="/static/base/1.0.1/images/arxiv-logo-primary-light.svg">
+      <span class="sr-only">Back to arXiv</span>
+    </a>
+  </div>
+  <!--TOC, dark mode, links-->
+  <nav class="html-header-nav">
+    <a class="header-button hover-effect desktop-only" href="https://info.arxiv.org/about/accessible_HTML.html"
+      target="_blank">Why HTML?</a>
+    <a class="header-button" title="Report an Issue" href="#" title="Report an issue"
+      onclick="event.preventDefault(); showModalForm();">
+      <svg role="presentation" class="mobile-only toggle-icon" aria-hidden="true" height="1.25rem"
+        viewBox="0 0 640 640">
+        <path
+          d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+      </svg>
+      <span class="desktop-only">Report Issue</span></a>
+    <!--back to abstract-->
+    <a class="header-button" title="Back to abstract page" aria-label="Back to abstract page"
+      href="/abs/2609.11947v1">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 512 512" fill="#ffffff"
+        aria-hidden="true">
+        <path
+          d="M502.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L402.7 224 192 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l210.7 0-73.4 73.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l128-128zM160 96c17.7 0 32-14.3 32-32s-14.3-32-32-32L96 32C43 32 0 75 0 128L0 384c0 53 43 96 96 96l64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0c-17.7 0-32-14.3-32-32l0-256c0-17.7 14.3-32 32-32l64 0z">
+        </path>
+      </svg>
+      <span class="desktop-only">Back to Abstract</span>
+    </a>
+    <!-- PDF download link -->
+    <a class="header-button" title="Download PDF" href="/pdf/2609.11947v1"
+      target="_blank">
+      <svg class="mobile-only toggle-icon" role="presentation" height="1.25rem" viewBox="0 0 576 542">
+        <path
+          d="M208 48L96 48c-8.8 0-16 7.2-16 16l0 384c0 8.8 7.2 16 16 16l80 0 0 48-80 0c-35.3 0-64-28.7-64-64L32 64C32 28.7 60.7 0 96 0L229.5 0c17 0 33.3 6.7 45.3 18.7L397.3 141.3c12 12 18.7 28.3 18.7 45.3l0 149.5-48 0 0-128-88 0c-39.8 0-72-32.2-72-72l0-88zM348.1 160L256 67.9 256 136c0 13.3 10.7 24 24 24l68.1 0zM240 380l32 0c33.1 0 60 26.9 60 60s-26.9 60-60 60l-12 0 0 28c0 11-9 20-20 20s-20-9-20-20l0-128c0-11 9-20 20-20zm32 80c11 0 20-9 20-20s-9-20-20-20l-12 0 0 40 12 0zm96-80l32 0c28.7 0 52 23.3 52 52l0 64c0 28.7-23.3 52-52 52l-32 0c-11 0-20-9-20-20l0-128c0-11 9-20 20-20zm32 128c6.6 0 12-5.4 12-12l0-64c0-6.6-5.4-12-12-12l-12 0 0 88 12 0zm76-108c0-11 9-20 20-20l48 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 24 28 0c11 0 20 9 20 20s-9 20-20 20l-28 0 0 44c0 11-9 20-20 20s-20-9-20-20l0-128z" />
+      </svg>
+      <span class="desktop-only">Download PDF</span></a>
+    <!-- navigational table of contents toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleNavTOC();" title="Toggle navigation"
+      aria-label="Toggle navigation">
+      <svg height="1.25rem" role="presentation" viewBox="0 0 512 512">
+        <path
+          d="M40 48C26.7 48 16 58.7 16 72v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V72c0-13.3-10.7-24-24-24H40zM192 64c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zm0 160c-17.7 0-32 14.3-32 32s14.3 32 32 32H480c17.7 0 32-14.3 32-32s-14.3-32-32-32H192zM16 232v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V232c0-13.3-10.7-24-24-24H40c-13.3 0-24 10.7-24 24zM40 368c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24H88c13.3 0 24-10.7 24-24V392c0-13.3-10.7-24-24-24H40z">
+        </path>
+      </svg>
+    </a>
+    <!--- collapsable header / reading mode toggle -->
+    <a class="header-button toggle-icon" href="javascript:toggleReadingMode();"
+      title="Disable reading mode, show header and footer">
+      <svg role="presentation" height="1.25rem"
+        viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+        <path
+          d="M32 32C14.3 32 0 46.3 0 64l0 96c0 17.7 14.3 32 32 32s32-14.3 32-32l0-64 64 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 32zM64 352c0-17.7-14.3-32-32-32S0 334.3 0 352l0 96c0 17.7 14.3 32 32 32l96 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-64 0 0-64zM320 32c-17.7 0-32 14.3-32 32s14.3 32 32 32l64 0 0 64c0 17.7 14.3 32 32 32s32-14.3 32-32l0-96c0-17.7-14.3-32-32-32l-96 0zM448 352c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 64-64 0c-17.7 0-32 14.3-32 32s14.3 32 32 32l96 0c17.7 0 32-14.3 32-32l0-96z" />
+      </svg>
+    </a>
+    <!--- colored theme toggle -->
+    <button type="button" class="header-button color-tog" onclick="toggleColorScheme();" title="Toggle dark/light mode" aria-label="Toggle color scheme">
+      <span class="toggle-icon automatic-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z">
+          </path>
+        </svg>
+      </span>
+      <span class="toggle-icon light-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </span>
+      <span class="toggle-icon dark-tog" aria-hidden="true">
+        <svg role="presentation" height="1.25rem" viewBox="0 0 24 24">
+          <path
+            d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z">
+          </path>
+        </svg>
+      </span>
+    </button>
+  </nav>
+</header><nav class="ltx_page_navbar">
+<nav class="ltx_TOC">
+<ol class="ltx_toclist">
+<li class="ltx_tocentry ltx_tocentry_abstract"><a href="#abstract1" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title">Abstract</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S1" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">I </span><span class="ltx_text ltx_font_smallcaps">INTRODUCTION</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S2" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">II </span><span class="ltx_text ltx_font_smallcaps">RELATED WORK</span></span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S2.SS0.SSS0.Px1" title="In II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title">Time-Based Metrics</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S2.SS0.SSS0.Px2" title="In II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title">Distance-based Metrics</span></a></li>
+<li class="ltx_tocentry ltx_tocentry_paragraph"><a href="#S2.SS0.SSS0.Px3" title="In II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title">Reachability-based Metrics</span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S3" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">III </span><span class="ltx_text ltx_font_smallcaps">PERCEPTION CRITICALITY DATASET</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S4" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">IV </span><span class="ltx_text ltx_font_smallcaps">VRU-CENTRIC CRITICALITY ASSESSMENT</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S5" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">V </span><span class="ltx_text ltx_font_smallcaps">CRITICALITY PREDICTION</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_section">
+<a href="#S6" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">VI </span><span class="ltx_text ltx_font_smallcaps">RESULTS &amp; DISCUSSION</span></span></a>
+<ol class="ltx_toclist ltx_toclist_section">
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S6.SS1" title="In VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">VI-A</span> </span><span class="ltx_text ltx_font_italic">Experiments</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S6.SS2" title="In VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">VI-B</span> </span><span class="ltx_text ltx_font_italic">VRU-Centric Criticality Metric</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S6.SS3" title="In VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">VI-C</span> </span><span class="ltx_text ltx_font_italic">Criticality Prediction</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_subsection"><a href="#S6.SS4" title="In VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref"><span class="ltx_text">VI-D</span> </span><span class="ltx_text ltx_font_italic">Discussion</span></span></a></li>
+</ol>
+</li>
+<li class="ltx_tocentry ltx_tocentry_section"><a href="#S7" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">VII </span><span class="ltx_text ltx_font_smallcaps">CONCLUSION &amp; OUTLOOK</span></span></a></li>
+<li class="ltx_tocentry ltx_tocentry_bibliography"><a href="#bib" title="In Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_title">References</span></a></li>
+</ol></nav>
+</nav>
+<div class="ltx_page_main">
+<div id="infobox" class="infobox">
+  <a id="license-tr" href="https://info.arxiv.org/help/license/index.html#licenses-available">
+    License: arXiv.org perpetual non-exclusive license
+  </a>
+  <div id="watermark-tr">
+arXiv:2609.11947v1 [cs.RO] 24 Jul 2026</div>
+</div><div class="ltx_page_content">
+<article class="ltx_document ltx_authors_1line">
+<h1 class="ltx_title ltx_font_bold ltx_title_document" style="font-size:173%;">Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving
+</h1>
+<div class="ltx_authors">
+<span class="ltx_creator ltx_role_author">
+<span class="ltx_personname">Jörg Gamerdinger, Victor Schwarzenberger, Philipp Schmid, Sven Teufel and Oliver Bringmann
+</span><span class="ltx_author_notes">University of Tübingen, Faculty of Science, Department of Computer Science, Embedded Systems Group
+<span id="id1.1.id1" class="ltx_text ltx_font_typewriter" style="font-size:90%;">{joerg.gamerdinger, victor.schwarzenberger, philipp.schmid, sven.teufel, oliver.bringmann} @uni-tuebingen.de</span></span></span>
+</div>
+
+<div id="abstract1" class="ltx_abstract">
+<h6 class="ltx_title ltx_title_abstract">Abstract</h6>
+<p class="ltx_p">Increasing safety is the primary objective of automated vehicles. Achieving this goal requires reliable safety metrics that incorporate safety-relevant factors such as object type, velocity, and criticality. A key capability of such metrics is the distinction between critical and non-critical objects, which is addressed through criticality or relevance estimation. Existing criticality metrics are typically designed for specific scenarios and primarily focus on vehicle-to-vehicle interactions. In this paper, we therefore propose a novel criticality metric tailored to vulnerable road users (VRUs), which require special consideration due to their less predictable motion behavior. Furthermore, to avoid the complexity introduced by scenario-specific metrics, we introduce a scenario-independent criticality prediction framework applicable to all traffic participant classes. The effectiveness of both the proposed VRU-centric criticality metric and the criticality prediction framework is evaluated using the DeepAccident dataset, which contains a diverse set of safety-critical traffic scenarios.
+The proposed VRU-centric criticality metric improves pedestrian criticality classification performance by up to 50 %. In addition, the proposed criticality prediction framework outperforms state-of-the-art metrics by 275 %, achieving an F1-score of 0.96 and enabling scenario-independent criticality assessment across all object classes. These results demonstrate the strong potential of the proposed approaches to enhance criticality assessment for safety evaluation in automated driving systems.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">I </span><span id="S1.1.1" class="ltx_text ltx_font_smallcaps">INTRODUCTION</span>
+</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p id="S1.p1.1" class="ltx_p">Road traffic accidents are the most likely cause of death for young people aged 5 to 29 <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib122" title="Road traffic injuries" class="ltx_ref">31</a>]</cite>. Automated vehicles (AVs) are a promising approach to reducing accident rates, as human error is the main cause of fatal road accidents <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib14" title="Road safety: Commission elcomes agreement on new EU rules to help save lives" class="ltx_ref">6</a>]</cite>. In order to achieve safe automated driving, a complete and correct perception of the environment is crucial.
+Developing methods for object detection requires metrics to evaluate those methods and demonstrate their capabilities. However, state-of-the-art metrics such as average precision (AP) take into account all objects within a defined range and neglect safety-relevant information such as object types and velocities. Hence, novel metrics to evaluate the safety <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib38" title="A comprehensive safety metric to evaluate perception in autonomous systems" class="ltx_ref">28</a>, <a href="#bib.bib121" title="EPSM: a novel metric to evaluate the safety of environmental perception in autonomous driving" class="ltx_ref">9</a>]</cite> are proposed, which determine not only the performance, but the safety of object detection methods. One main difference between safety and performance evaluation is the inclusion of the criticality, which describes the necessity to perceive a specific object in order to avoid a safety-critical situation.
+As an example: A pedestrian crossing the street in front of the vehicle must be detected, as otherwise it could lead to a collision, while a vehicle driving behind the ego vehicle in an opposite direction could not directly lead to a safety-critical situation and, hence, can be considered as not critical. An exemplary scene with criticality classification is shown in Fig. <a href="#S1.F1" title="Figure 1 ‣ I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>.</p>
+</div>
+<div id="S1.p2" class="ltx_para">
+<p id="S1.p2.1" class="ltx_p">To determine criticality, various metrics exist, as shown in different reviews <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib109" title="Application of proximal surrogate indicators for safety evaluation: a review of recent developments and research needs" class="ltx_ref">18</a>, <a href="#bib.bib6" title="Criticality metrics for automated driving: a review and suitability analysis of the state of the art" class="ltx_ref">30</a>]</cite>. Additionally, Gamerdinger et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite> performed a comprehensive evaluation, demonstrating the capabilities of the metrics in safety-critical situations. Within this work, it was identified that these metrics are highly scenario-dependent and do not generalize well. This requires the use of various metrics, which increases the complexity and reduces explainability. Moreover, those metrics are mostly defined for vehicle-vehicle interaction and neglect the increased vulnerability and lower predictability in motion of vulnerable road users (VRUs), such as pedestrians and bicyclists.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p id="S1.p3.1" class="ltx_p">To overcome these limitations, in this work, we present a novel criticality metric focusing on the uncertainty in VRU movements. In addition, we propose a prediction framework which allows to assess criticality for all traffic participants, without the limitation to a specific scenario.</p>
+</div>
+<figure id="S1.F1" class="ltx_figure"><img src="2609.11947v1/graphics/Criticality_example2.png" id="S1.F1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="539" height="224" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S1.F1.2.1.1" class="ltx_text" style="font-size:90%;">Figure 1</span>: </span><span id="S1.F1.3.2" class="ltx_text" style="font-size:90%;">Exemplary Scene to represent criticality. The blue vehicles can be considered as critical or relevant as they could potentially collide with the ego (black). For the yellow vehicle a collision is unlikely; hence, the vehicle can be considered as not critical. Figure from <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite></span></figcaption>
+</figure>
+<div id="S1.p4" class="ltx_para">
+<p id="S1.p4.1" class="ltx_p">The main contributions of this work are:</p>
+<ul id="S1.I1" class="ltx_itemize">
+<li id="S1.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S1.I1.i1.p1" class="ltx_para">
+<p id="S1.I1.i1.p1.1" class="ltx_p">We introduce the first dataset with object-dynamics-aware labels for perception criticality</p>
+</div>
+</li>
+<li id="S1.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S1.I1.i2.p1" class="ltx_para">
+<p id="S1.I1.i2.p1.1" class="ltx_p">We propose a novel metric for criticality assessment of vulnerable road users</p>
+</div>
+</li>
+<li id="S1.I1.i3" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S1.I1.i3.p1" class="ltx_para">
+<p id="S1.I1.i3.p1.1" class="ltx_p">We present a criticality prediction framework for a scenario-independent criticality assessment</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p id="S1.p5.1" class="ltx_p">In Sec. <a href="#S2" title="II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a>, we give an overview on current criticality metrics applicable to the safety assessment for object detection systems in automated driving. Section <a href="#S4" title="IV VRU-CENTRIC CRITICALITY ASSESSMENT ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">IV</span></a> presents our novel metric for VRUs, and Section <a href="#S5" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">V</span></a> a prediction method allowing for a scenario-independent criticality rating. A comprehensive evaluation, including a discussion of the results, can be found in Sec. <a href="#S6" title="VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">VI</span></a>. Finally, we conclude our work and give an outlook.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">II </span><span id="S2.1.1" class="ltx_text ltx_font_smallcaps">RELATED WORK</span>
+</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p id="S2.p1.1" class="ltx_p">Criticality metrics for perception relevance can be divided into three categories: Time-based, Distance-based and Reachability-based.</p>
+</div>
+<section id="S2.SS0.SSS0.Px1" class="ltx_paragraph">
+<h4 class="ltx_title ltx_font_bold ltx_title_paragraph">Time-Based Metrics</h4>
+
+<div id="S2.SS0.SSS0.Px1.p1" class="ltx_para">
+<p id="S2.SS0.SSS0.Px1.p1.1" class="ltx_p">The time-based criticality metrics determine the time to a specified event.
+The most used metric to determine the criticality is the Time-to-Collision metric (TTC) as introduced by Hayward <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib106" title="Near miss determination through use of a scale of danger" class="ltx_ref">11</a>]</cite> in 1972. Based on the distance and velocity, the time until a collision occurs is determined. The exact calculation depends on the relative positioning of the vehicles. For some situations TTC indicates <math id="S2.SS0.SSS0.Px1.p1.1.m1" class="ltx_Math" alttext="\infty" display="inline" intent=":literal"><semantics><mi mathvariant="normal">∞</mi><annotation encoding="application/x-tex">\infty</annotation></semantics></math> as a result; however, the situation or object can be critical. Based on the TTC, the Crash Index Function (CIF) by Chan <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib112" title="Defining safety performance measures of driver-assistance systems for intersection left-turn conflicts" class="ltx_ref">4</a>]</cite> includes the severity of a potential collision in order to define the criticality. An improved version called modified TTC (MTTC) and Crash Index (CI) was presented by Ozbay et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib108" title="Derivation and validation of new simulation-based surrogate safety measure" class="ltx_ref">22</a>]</cite>. MTTC improves the calculation and the CI tries to estimate the criticality by the severity of the collision by including the relative velocities and accelerations. The Time-to-Accident (TTA) metric by Hydén <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib113" title="The development of a method for traffic safety evaluation: the swedish traffic conflicts technique" class="ltx_ref">13</a>]</cite> calculates the time between an object starting an evasive maneuver and the collision. Similarly, the Time-to-Brake metric (TTB) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib116" title="Autonomous vehicle control: a review of decision making techniques and their implications for autonomous driving" class="ltx_ref">27</a>]</cite> determines the time until a braking maneuver must be started to avoid a collision.
+However, all these metrics only consider colliding vehicles as safety-critical and require a threshold to classify if an object is critical or not which makes them only partially suitable for criticality classification.</p>
+</div>
+</section>
+<section id="S2.SS0.SSS0.Px2" class="ltx_paragraph">
+<h4 class="ltx_title ltx_font_bold ltx_title_paragraph">Distance-based Metrics</h4>
+
+<div id="S2.SS0.SSS0.Px2.p1" class="ltx_para">
+<p id="S2.SS0.SSS0.Px2.p1.1" class="ltx_p">The most basic distance-based metric is the braking distance as used by Gamerdinger et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib110" title="LSM: a comprehensive metric for assessing the safety of lane detection systems in autonomous driving" class="ltx_ref">10</a>]</cite>. They included a safety margin and the system delay to obtain a reliable safety distance that can be used to classify the criticality. However, the metric is used for lane detection and probably not optimal for dynamic object detection.
+A widely used approach is the “Responsible-Sensitive Safety” (RSS) model presented by Shalev-Shwartz et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib5" title="On a Formal Model of Safe and Scalable Self-driving Cars" class="ltx_ref">24</a>]</cite>. The model aims to formalize human driving judgment in a mathematical model. Besides various safety distances for longitudinal and lateral directions and different directions of driving, the model consists of times and procedural rules which must be taken into account for an autonomous vehicle. Despite the different metrics for different scenarios, the metric does not achieve good results in classification and shows a high complexity in calculation <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite>.
+The SACRED metrics as proposed by Mori et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib105" title="Conservative estimation of perception relevance of dynamic objects for safe trajectories in automotive scenarios" class="ltx_ref">21</a>]</cite> are a set of submetrics designed for motorway scenarios. The single submetrics are designed considering possible constellations of relative positions (same and opposite direction) and velocities (equal or different) on motorways. SACRED achieves high results for the classification of safety-critical objects; however, as it is designed based on motorway scenarios its application is limited.
+An extension of the SACRED metrics was presented by Storms et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib107" title="Sure-val: safe urban relevance extension and validation" class="ltx_ref">25</a>]</cite> with the SURE-Val metrics for urban scenarios. SURE-Val proposes three submetrics considering urban driving with static obstacles on the road and tangential cases such as a four-way intersection. In combination with SACRED, the metric set covers a wide range of scenarios and achieved good results as shown in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite>. However, the complexity and the limitation to very specific scenarios limits the applicability. In contrast to the time-based metrics, the distance-based metrics have the advantage that they directly output a threshold which allows to classify if an object is critical or not. However, these metrics show a higher complexity in calculation and mostly are designed for a specific scenario which also increases complexity in application.</p>
+</div>
+</section>
+<section id="S2.SS0.SSS0.Px3" class="ltx_paragraph">
+<h4 class="ltx_title ltx_font_bold ltx_title_paragraph">Reachability-based Metrics</h4>
+
+<div id="S2.SS0.SSS0.Px3.p1" class="ltx_para">
+<p id="S2.SS0.SSS0.Px3.p1.3" class="ltx_p">A special case of simple distances are risk zones, which are defined by the possible vehicle trajectories. An object is then considered as critical if it is within this zone.
+Canas et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib120" title="Dynamic risk assessment methodology with an ldm-based system for parking scenarios" class="ltx_ref">3</a>]</cite> defined dynamic awareness criticality zones for parking maneuvers that are based on potential steering angles and distances to the vehicle. However, their method only determines a zone behind the vehicle for reverse parking scenarios up to <math id="S2.SS0.SSS0.Px3.p1.1.m1" class="ltx_Math" alttext="5\text{\,}\mathrm{km}\text{/}\mathrm{h}" display="inline" intent=":literal"><semantics><mrow><mn>5</mn><mtext> </mtext><mrow><mi class="ltx_unit">km</mi><mtext>/</mtext><mi class="ltx_unit" mathvariant="normal">h</mi></mrow></mrow><annotation encoding="application/x-tex">5\text{\,}\mathrm{km}\text{/}\mathrm{h}</annotation></semantics></math>.
+A more general, reachability-based criticality zone model was presented by Topan et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib119" title="Interaction-dynamics-aware perception zones for obstacle detection safety evaluation" class="ltx_ref">26</a>]</cite>. The model is capable of determining criticality zones based on potential control commands, vehicle kinematics up to <math id="S2.SS0.SSS0.Px3.p1.2.m2" class="ltx_Math" alttext="20\text{\,}\mathrm{m}\text{/}\mathrm{s}" display="inline" intent=":literal"><semantics><mrow><mn>20</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">m</mi><mtext>/</mtext><mi class="ltx_unit" mathvariant="normal">s</mi></mrow></mrow><annotation encoding="application/x-tex">20\text{\,}\mathrm{m}\text{/}\mathrm{s}</annotation></semantics></math>. However, they achieved not optimal results, and the calculation requires an offline precalculation of over <math id="S2.SS0.SSS0.Px3.p1.3.m3" class="ltx_Math" alttext="200\text{\,}\mathrm{s}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>200</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">s</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">200\text{\,}\mathrm{s}\text{/}</annotation></semantics></math>, which makes it unsuitable for real application.</p>
+</div>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">III </span><span id="S3.1.1" class="ltx_text ltx_font_smallcaps">PERCEPTION CRITICALITY DATASET</span>
+</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p id="S3.p1.1" class="ltx_p">For the evaluation of criticality metrics, a dataset including safety-critical situations is required. Real-world accident datasets are not suitable, as they only contain information about the time of day, driver age, and so forth, as their principal objective is the prediction of accident severity. For criticality evaluation, relevant information, such as vehicle dimensions, velocities, and object classes, are not part of the datasets. Hence, we propose a criticality prediction dataset based on the synthetic DeepAccident dataset <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib104" title="DeepAccident: a motion and accident prediction benchmark for v2x autonomous driving" class="ltx_ref">29</a>]</cite>. DeepAccident features 57K frames, divided into 690 scenarios. For each scenario, four vehicles equipped with sensors (ego, ego vehicle behind, other, other vehicle behind) are included. Based on NHTSA crash reports, the ego and the other vehicles collide in the accident scenarios. Besides those four vehicles, up to 46 other traffic participants of classes pedestrian, cyclist, motorcyclist, or vehicle are included as passive traffic (<math id="S3.p1.1.m1" class="ltx_Math" alttext="\mu=13.82,\sigma=6.77" display="inline" intent=":literal"><semantics><mrow><mrow><mi>μ</mi><mo>=</mo><mn>13.82</mn></mrow><mo>,</mo><mrow><mi>σ</mi><mo>=</mo><mn>6.77</mn></mrow></mrow><annotation encoding="application/x-tex">\mu=13.82,\sigma=6.77</annotation></semantics></math>). As we require the provided meta data files, we use the 480 scenarios from the train split, which then leads to a total of 1920 scenarios, as the four sensor vehicles are taken separately. This leads to a total of 161,744 frames and 5,461,327 labeled objects. For each object, the object class, relative 3D position, dimension (length, width, height), yaw angle, relative velocity (x and y), the visibility from the camera and the visibility for the LiDAR, represented by the number of LiDAR points within the bounding box, is provided. In addition, two criticality labels are provided.
+Currently, no standardized labeling for criticality classification exists. The main reason for this is the lack of a standardized definition. Hence, we use two distinct methods to determine the global criticality label: Multi-Metric-Based and Trajectory-Based.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<ul id="S3.I1" class="ltx_itemize">
+<li id="S3.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i1.p1" class="ltx_para">
+<p id="S3.I1.i1.p1.6" class="ltx_p"><span id="S3.I1.i1.p1.6.1" class="ltx_text ltx_font_bold">Multi-Metric-Based:</span> State-of-the-art metrics for criticality assessment are assumed to provide a correct classification. This fact is used within this work to create a safety-critical label. We evaluate different time and distance-based metrics. TTA and SACRED metrics showed a criticality indication of nearly <math id="S3.I1.i1.p1.1.m1" class="ltx_Math" alttext="100\text{\,}\mathrm{\char 37\relax}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>100</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">%</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">100\text{\,}\mathrm{\char 37\relax}\text{/}</annotation></semantics></math>, which cannot be considered as reliable. Hence, we use the combination of <math id="S3.I1.i1.p1.2.m2" class="ltx_Math" alttext="TTC_{$3\text{\,}\mathrm{s}\text{/}$}" display="inline" intent=":literal"><semantics><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>C</mi><mrow><mn>3</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">s</mi><mtext>/</mtext><mi></mi></mrow></mrow></msub></mrow><annotation encoding="application/x-tex">TTC_{$3\text{\,}\mathrm{s}\text{/}$}</annotation></semantics></math>, <math id="S3.I1.i1.p1.3.m3" class="ltx_Math" alttext="CIF_{100}" display="inline" intent=":literal"><semantics><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>F</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">CIF_{100}</annotation></semantics></math> and <math id="S3.I1.i1.p1.4.m4" class="ltx_Math" alttext="RSS_{0.5}" display="inline" intent=":literal"><semantics><mrow><mi>R</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>S</mi><mn>0.5</mn></msub></mrow><annotation encoding="application/x-tex">RSS_{0.5}</annotation></semantics></math> as shown in Eq. (<a href="#S3.E1" title="In 1st item ‣ III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1</span></a>) to determine the global criticality <math id="S3.I1.i1.p1.5.m5" class="ltx_Math" alttext="C_{o}" display="inline" intent=":literal"><semantics><msub><mi>C</mi><mi>o</mi></msub><annotation encoding="application/x-tex">C_{o}</annotation></semantics></math> for an object <math id="S3.I1.i1.p1.6.m6" class="ltx_Math" alttext="o" display="inline" intent=":literal"><semantics><mi>o</mi><annotation encoding="application/x-tex">o</annotation></semantics></math>.</p>
+<table id="S3.E1" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E1.m1" class="ltx_Math" alttext="C_{\mathrm{o}}=\big(\mathrm{RSS}_{0.5}(o)\wedge\mathrm{TTC_{$3\text{\,}\mathrm{s}\text{/}$}}(o)\wedge\mathrm{CIF}_{100}(o)\big)" display="block" intent=":literal"><semantics><mrow><msub><mi>C</mi><mi mathvariant="normal">o</mi></msub><mo>=</mo><mrow><mo maxsize="1.200em" minsize="1.200em">(</mo><mrow><mrow><msub><mi>RSS</mi><mn>0.5</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mrow><mo>∧</mo><mrow><msub><mi>TTC</mi><mrow><mn>3</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">s</mi><mtext>/</mtext><mi></mi></mrow></mrow></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mrow><mo>∧</mo><mrow><msub><mi>CIF</mi><mn>100</mn></msub><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>o</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo maxsize="1.200em" minsize="1.200em">)</mo></mrow></mrow><annotation encoding="application/x-tex">C_{\mathrm{o}}=\big(\mathrm{RSS}_{0.5}(o)\wedge\mathrm{TTC_{$3\text{\,}\mathrm{s}\text{/}$}}(o)\wedge\mathrm{CIF}_{100}(o)\big)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(1)</span></td>
+</tr></tbody>
+</table>
+<p id="S3.I1.i1.p1.10" class="ltx_p">where <math id="S3.I1.i1.p1.7.m1" class="ltx_Math" alttext="TTC_{$3\text{\,}\mathrm{s}\text{/}$}" display="inline" intent=":literal"><semantics><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>C</mi><mrow><mn>3</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">s</mi><mtext>/</mtext><mi></mi></mrow></mrow></msub></mrow><annotation encoding="application/x-tex">TTC_{$3\text{\,}\mathrm{s}\text{/}$}</annotation></semantics></math>, <math id="S3.I1.i1.p1.8.m2" class="ltx_Math" alttext="CIF_{100}" display="inline" intent=":literal"><semantics><mrow><mi>C</mi><mo lspace="0em" rspace="0em">​</mo><mi>I</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>F</mi><mn>100</mn></msub></mrow><annotation encoding="application/x-tex">CIF_{100}</annotation></semantics></math> and <math id="S3.I1.i1.p1.9.m3" class="ltx_Math" alttext="RSS_{0.5}" display="inline" intent=":literal"><semantics><mrow><mi>R</mi><mo lspace="0em" rspace="0em">​</mo><mi>S</mi><mo lspace="0em" rspace="0em">​</mo><msub><mi>S</mi><mn>0.5</mn></msub></mrow><annotation encoding="application/x-tex">RSS_{0.5}</annotation></semantics></math> represent the binary result of the corresponding metric for the object <math id="S3.I1.i1.p1.10.m4" class="ltx_Math" alttext="o" display="inline" intent=":literal"><semantics><mi>o</mi><annotation encoding="application/x-tex">o</annotation></semantics></math>.</p>
+</div>
+<div id="S3.I1.i1.p2" class="ltx_para">
+<p id="S3.I1.i1.p2.1" class="ltx_p">For a detailed explanation on the metrics and the threshold, we refer to the comprehensive evaluation of Gamerdinger et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite>. As the metrics are trusted and well known, they mostly will provide a correct labeling; however, there remains some noise within these labels.</p>
+</div>
+</li>
+<li id="S3.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S3.I1.i2.p1" class="ltx_para">
+<p id="S3.I1.i2.p1.1" class="ltx_p"><span id="S3.I1.i2.p1.1.1" class="ltx_text ltx_font_bold">Trajectory-Based:</span> An object that collides with the ego can, without any doubt, be considered as safety-critical. However, not only colliding objects are critical, but also objects that could potentially collide or at least cross the ego vehicle’s trajectory. For the ego vehicle, the trajectory for a limited time horizon (for the given scenario) can be considered as known. For all other objects, a reachability analysis is performed. For this, the current position, orientation, and a constant velocity model is assumed. For pedestrians, a circular-approximating polygon is determined, as a pedestrian could instantly change their direction, but a change in direction would lead to a lower distance, as it takes time to decelerate, turn around, and accelerate again. While this is not the most likely option, it must be considered from a safety perspective as a more conservative rating is to be preferred. The circular zone has the radius <math id="S3.I1.i2.p1.1.m1" class="ltx_Math" alttext="r_{\text{pedzone}}" display="inline" intent=":literal"><semantics><msub><mi>r</mi><mtext>pedzone</mtext></msub><annotation encoding="application/x-tex">r_{\text{pedzone}}</annotation></semantics></math>, as shown in Eq. (<a href="#S3.E2" title="In 2nd item ‣ III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>).</p>
+<table id="S3.E2" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E2.m1" class="ltx_Math" alttext="r_{\text{pedzone}}=t_{\text{traj}}\cdot v_{\text{ped}}" display="block" intent=":literal"><semantics><mrow><msub><mi>r</mi><mtext>pedzone</mtext></msub><mo>=</mo><mrow><msub><mi>t</mi><mtext>traj</mtext></msub><mo lspace="0.222em" rspace="0.222em">⋅</mo><msub><mi>v</mi><mtext>ped</mtext></msub></mrow></mrow><annotation encoding="application/x-tex">r_{\text{pedzone}}=t_{\text{traj}}\cdot v_{\text{ped}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2)</span></td>
+</tr></tbody>
+</table>
+<p id="S3.I1.i2.p1.6" class="ltx_p"><math id="S3.I1.i2.p1.2.m1" class="ltx_Math" alttext="t_{\text{traj}}" display="inline" intent=":literal"><semantics><msub><mi>t</mi><mtext>traj</mtext></msub><annotation encoding="application/x-tex">t_{\text{traj}}</annotation></semantics></math> represents the time horizon of the ego trajectory, and <math id="S3.I1.i2.p1.3.m2" class="ltx_Math" alttext="v_{\text{ped}}" display="inline" intent=":literal"><semantics><msub><mi>v</mi><mtext>ped</mtext></msub><annotation encoding="application/x-tex">v_{\text{ped}}</annotation></semantics></math> represents the velocity of the pedestrian.
+For all other traffic participants, a polygon is derived, since vehicles as well as bicyclists are not able to instantly change their direction of movement by any degree. The size of the polygon depends on an object type specific maximum steering angle, the velocity of the object, and <math id="S3.I1.i2.p1.4.m3" class="ltx_Math" alttext="t_{\text{traj}}" display="inline" intent=":literal"><semantics><msub><mi>t</mi><mtext>traj</mtext></msub><annotation encoding="application/x-tex">t_{\text{traj}}</annotation></semantics></math>. Regarding the steering angles for bicycles and motorcycles, <math id="S3.I1.i2.p1.5.m4" class="ltx_Math" alttext="\delta\pm$22.5\text{\,}\mathrm{\SIUnitSymbolDegree}\text{/}$" display="inline" intent=":literal"><semantics><mrow><mi>δ</mi><mo>±</mo><mrow><mn>22.5</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">°</mi><mtext>/</mtext><mi></mi></mrow></mrow></mrow><annotation encoding="application/x-tex">\delta\pm$22.5\text{\,}\mathrm{\SIUnitSymbolDegree}\text{/}$</annotation></semantics></math> applies, while for cars, vans, and trucks, a speed-based maximum steering angle, <math id="S3.I1.i2.p1.6.m5" class="ltx_Math" alttext="\delta_{max,deg}" display="inline" intent=":literal"><semantics><msub><mi>δ</mi><mrow><mrow><mi>m</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow><mo>,</mo><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mi>g</mi></mrow></mrow></msub><annotation encoding="application/x-tex">\delta_{max,deg}</annotation></semantics></math>, is used, as defined in Eq. (<a href="#S3.E3" title="In 2nd item ‣ III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a>) by Rajamani <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib131" title="Vehicle dynamics and control" class="ltx_ref">23</a>]</cite>.</p>
+</div>
+<div id="S3.I1.i2.p2" class="ltx_para">
+<table id="S3.E3" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S3.E3.m1" class="ltx_Math" alttext="\begin{split}&amp;R=\frac{v^{2}}{max(1e-6,\mu)\cdot 9.81}\\
+&amp;\delta_{max,rad}=atan(R,D_{axle})\\
+&amp;\delta_{max,deg}=\frac{\delta_{max,rad}\cdot 180}{\pi}\\
+\end{split}" display="block" intent=":literal"><semantics><mtable columnspacing="0pt" displaystyle="true" rowspacing="0pt"><mtr><mtd></mtd><mtd class="ltx_align_left" columnalign="left"><mrow><mi>R</mi><mo>=</mo><mfrac><msup><mi>v</mi><mn>2</mn></msup><mrow><mrow><mi>m</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mrow><mrow><mn>1</mn><mo lspace="0em" rspace="0em">​</mo><mi>e</mi></mrow><mo>−</mo><mn>6</mn></mrow><mo>,</mo><mi>μ</mi><mo rspace="0.055em" stretchy="false">)</mo></mrow></mrow><mo rspace="0.222em">⋅</mo><mn>9.81</mn></mrow></mfrac></mrow></mtd></mtr><mtr><mtd></mtd><mtd class="ltx_align_left" columnalign="left"><mrow><msub><mi>δ</mi><mrow><mrow><mi>m</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow><mo>,</mo><mrow><mi>r</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>d</mi></mrow></mrow></msub><mo>=</mo><mrow><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>t</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>n</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><mi>R</mi><mo>,</mo><msub><mi>D</mi><mrow><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>l</mi><mo lspace="0em" rspace="0em">​</mo><mi>e</mi></mrow></msub><mo stretchy="false">)</mo></mrow></mrow></mrow></mtd></mtr><mtr><mtd></mtd><mtd class="ltx_align_left" columnalign="left"><mrow><msub><mi>δ</mi><mrow><mrow><mi>m</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow><mo>,</mo><mrow><mi>d</mi><mo lspace="0em" rspace="0em">​</mo><mi>e</mi><mo lspace="0em" rspace="0em">​</mo><mi>g</mi></mrow></mrow></msub><mo>=</mo><mfrac><mrow><msub><mi>δ</mi><mrow><mrow><mi>m</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi></mrow><mo>,</mo><mrow><mi>r</mi><mo lspace="0em" rspace="0em">​</mo><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>d</mi></mrow></mrow></msub><mo lspace="0.222em" rspace="0.222em">⋅</mo><mn>180</mn></mrow><mi>π</mi></mfrac></mrow></mtd></mtr></mtable><annotation encoding="application/x-tex">\begin{split}&amp;R=\frac{v^{2}}{max(1e-6,\mu)\cdot 9.81}\\
+&amp;\delta_{max,rad}=atan(R,D_{axle})\\
+&amp;\delta_{max,deg}=\frac{\delta_{max,rad}\cdot 180}{\pi}\\
+\end{split}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(3)</span></td>
+</tr></tbody>
+</table>
+<p id="S3.I1.i2.p2.5" class="ltx_p"><math id="S3.I1.i2.p2.1.m1" class="ltx_Math" alttext="\mu" display="inline" intent=":literal"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math> represents the road friction and <math id="S3.I1.i2.p2.2.m2" class="ltx_Math" alttext="v" display="inline" intent=":literal"><semantics><mi>v</mi><annotation encoding="application/x-tex">v</annotation></semantics></math> the velocity of the vehicle. <math id="S3.I1.i2.p2.3.m3" class="ltx_Math" alttext="D_{axle}" display="inline" intent=":literal"><semantics><msub><mi>D</mi><mrow><mi>a</mi><mo lspace="0em" rspace="0em">​</mo><mi>x</mi><mo lspace="0em" rspace="0em">​</mo><mi>l</mi><mo lspace="0em" rspace="0em">​</mo><mi>e</mi></mrow></msub><annotation encoding="application/x-tex">D_{axle}</annotation></semantics></math> represents the distance between the front and rear axle. The steering angle is limited to <math id="S3.I1.i2.p2.4.m4" class="ltx_Math" alttext="35\text{\,}\mathrm{\SIUnitSymbolDegree}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>35</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">°</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">35\text{\,}\mathrm{\SIUnitSymbolDegree}\text{/}</annotation></semantics></math> for low velocities (<math id="S3.I1.i2.p2.5.m5" class="ltx_Math" alttext="\leq$15\text{\,}\mathrm{km}\text{/}\mathrm{h}$" display="inline" intent=":literal"><semantics><mrow><mi></mi><mo>≤</mo><mrow><mn>15</mn><mtext> </mtext><mrow><mi class="ltx_unit">km</mi><mtext>/</mtext><mi class="ltx_unit" mathvariant="normal">h</mi></mrow></mrow></mrow><annotation encoding="application/x-tex">\leq$15\text{\,}\mathrm{km}\text{/}\mathrm{h}$</annotation></semantics></math>).</p>
+</div>
+</li>
+</ul>
+</div>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">IV </span><span id="S4.1.1" class="ltx_text ltx_font_smallcaps">VRU-CENTRIC CRITICALITY ASSESSMENT</span>
+</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p id="S4.p1.1" class="ltx_p">The metrics presented in Sec. <a href="#S2" title="II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a> are primarily designed for vehicle-to-vehicle interactions. However, vulnerable road users have a higher uncertainty in prediction due to their lower constraints to physics, such as friction coefficients or maximal accelerations. Especially, the lateral acceleration and possible turn rates are highly limited for vehicles, increasing the predictability, which makes state-of-the-art metrics suitable.</p>
+</div>
+<div id="S4.p2" class="ltx_para">
+<p id="S4.p2.1" class="ltx_p">For the VRU-centric criticality assessment, a combination of behavior models for predicting pedestrian movement and an adaptation of the space occupancy index <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib132" title="In search of surrogate safety indicators for vulnerable road users: a review of surrogate safety indicators" class="ltx_ref">14</a>]</cite> is used. Pedestrians are able to abruptly stop and change their direction; this is a significant contrast to vehicles. This uncertainty must be included for the criticality assessment of pedestrians. For this purpose, we use the observations from Herman et al. <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib133" title="Pedestrian behavior prediction for automated driving: requirements, metrics, and relevant features" class="ltx_ref">12</a>]</cite>. They modeled the pedestrian movement with a circular shape that is slightly shifted towards the front, as changing the direction is less likely, and as well, the possible distance covered within the prediction horizon would be lower, since turning around and accelerating again takes some time. Considering the velocity of the pedestrians for the prediction, we use <math id="S4.p2.1.m1" class="ltx_Math" alttext="2.8\text{\,}\mathrm{m}\text{/}\mathrm{s}" display="inline" intent=":literal"><semantics><mrow><mn>2.8</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">m</mi><mtext>/</mtext><mi class="ltx_unit" mathvariant="normal">s</mi></mrow></mrow><annotation encoding="application/x-tex">2.8\text{\,}\mathrm{m}\text{/}\mathrm{s}</annotation></semantics></math>, which corresponds to a fast walking. A slight overestimation of the velocity should be preferred in the context of safety. Using the position, the velocity, the orientation, and the prediction horizon, a polygon with the possible positions during the prediction horizon is defined. Then, the space occupancy is considered. For this purpose, also the possible space of the vehicle is derived, as described for the trajectory-based approach in Sec. <a href="#S3" title="III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III</span></a>.</p>
+</div>
+<figure id="S4.F2" class="ltx_figure">
+<div class="ltx_flex_figure">
+<div class="ltx_flex_cell ltx_flex_size_3">
+<figure id="S4.F2.sf1" class="ltx_figure ltx_figure_panel ltx_align_center"><img src="2609.11947v1/graphics/frame_0035.png" id="S4.F2.sf1.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="243" height="177" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S4.F2.sf1.2.1.1" class="ltx_text" style="font-size:90%;">(a)</span> </span><span id="S4.F2.sf1.3.2" class="ltx_text" style="font-size:90%;">Scene 1</span></figcaption>
+</figure>
+</div>
+<div class="ltx_flex_cell ltx_flex_size_3">
+<figure id="S4.F2.sf2" class="ltx_figure ltx_figure_panel ltx_align_center"><img src="2609.11947v1/graphics/frame_0048.png" id="S4.F2.sf2.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="243" height="177" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S4.F2.sf2.2.1.1" class="ltx_text" style="font-size:90%;">(b)</span> </span><span id="S4.F2.sf2.3.2" class="ltx_text" style="font-size:90%;">Scene 2</span></figcaption>
+</figure>
+</div>
+<div class="ltx_flex_cell ltx_flex_size_3">
+<figure id="S4.F2.sf3" class="ltx_figure ltx_figure_panel ltx_align_center"><img src="2609.11947v1/graphics/frame_0057.png" id="S4.F2.sf3.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="243" height="177" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S4.F2.sf3.2.1.1" class="ltx_text" style="font-size:90%;">(c)</span> </span><span id="S4.F2.sf3.3.2" class="ltx_text" style="font-size:90%;">Scene 3</span></figcaption>
+</figure>
+</div>
+</div>
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S4.F2.2.1.1" class="ltx_text" style="font-size:90%;">Figure 2</span>: </span><span id="S4.F2.3.2" class="ltx_text" style="font-size:90%;">Example scenes demonstrating the VRU criticality assessment</span></figcaption>
+</figure>
+<div id="S4.p3" class="ltx_para">
+<p id="S4.p3.3" class="ltx_p">For an object <math id="S4.p3.1.m1" class="ltx_Math" alttext="O_{i}" display="inline" intent=":literal"><semantics><msub><mi>O</mi><mi>i</mi></msub><annotation encoding="application/x-tex">O_{i}</annotation></semantics></math>, the possible space at time <math id="S4.p3.2.m2" class="ltx_Math" alttext="t" display="inline" intent=":literal"><semantics><mi>t</mi><annotation encoding="application/x-tex">t</annotation></semantics></math> is denoted as <math id="S4.p3.3.m3" class="ltx_Math" alttext="SP(O_{i},t)" display="inline" intent=":literal"><semantics><mrow><mi>S</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>O</mi><mi>i</mi></msub><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">SP(O_{i},t)</annotation></semantics></math>. The space occupancy to determine the criticality is determined as described in Eq. (<a href="#S4.E4" title="In IV VRU-CENTRIC CRITICALITY ASSESSMENT ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a>).</p>
+</div>
+<div id="S4.p4" class="ltx_para">
+<table id="S4.E4" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S4.E4.m1" class="ltx_Math" alttext="Sp(A_{i},t)\cap Sp(A_{j},t)\neq\emptyset" display="block" intent=":literal"><semantics><mrow><mrow><mrow><mi>S</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>A</mi><mi>i</mi></msub><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>∩</mo><mrow><mi>S</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi><mo lspace="0em" rspace="0em">​</mo><mrow><mo stretchy="false">(</mo><msub><mi>A</mi><mi>j</mi></msub><mo>,</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>≠</mo><mi mathvariant="normal">∅</mi></mrow><annotation encoding="application/x-tex">Sp(A_{i},t)\cap Sp(A_{j},t)\neq\emptyset</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(4)</span></td>
+</tr></tbody>
+</table>
+</div>
+<div id="S4.p5" class="ltx_para">
+<p id="S4.p5.1" class="ltx_p">If this applies, no overlap is present and the object is considered uncritical. Otherwise, the VRU <math id="S4.p5.1.m1" class="ltx_Math" alttext="A_{j}" display="inline" intent=":literal"><semantics><msub><mi>A</mi><mi>j</mi></msub><annotation encoding="application/x-tex">A_{j}</annotation></semantics></math> is considered critical.</p>
+</div>
+<div id="S4.p6" class="ltx_para">
+<p id="S4.p6.1" class="ltx_p">In addition, pedestrians on the road must be always considered as critical within a suitable radius. Hence, pedestrians on the road within a distance of twice the required braking distance, depending on the given velocity of the ego vehicle, in driving direction are classified as critical. To avoid that there is no criticality zone for a vehicle while standing still, a minimum polygon size of <math id="S4.p6.1.m1" class="ltx_Math" alttext="6\text{\,}\mathrm{m}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>6</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">m</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">6\text{\,}\mathrm{m}\text{/}</annotation></semantics></math> is defined which would include a pedestrian crossing when a vehicle has to stop before.</p>
+</div>
+<div id="S4.p7" class="ltx_para">
+<p id="S4.p7.1" class="ltx_p">This approach of combining the movement behavior of pedestrians with the space occupancy takes into account the specific properties in movement by pedestrians that are not considered in state-of-the-art criticality metrics. Exemplary scenes demonstrating the VRU criticality assessment are shown in Fig. <a href="#S4.F2" title="Figure 2 ‣ IV VRU-CENTRIC CRITICALITY ASSESSMENT ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2</span></a>.</p>
+</div>
+</section>
+<section id="S5" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">V </span><span id="S5.1.1" class="ltx_text ltx_font_smallcaps">CRITICALITY PREDICTION</span>
+</h2>
+
+<div id="S5.p1" class="ltx_para">
+<p id="S5.p1.1" class="ltx_p">The evaluation in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite> has shown, that different metrics are not able to generalize across different scenarios. Machine learning is a promising approach to overcome these limitations and provide a better generalization over road users and scenarios if a suitable dataset exists. Using the dataset presented in Sec. <a href="#S3" title="III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III</span></a>, we are able to propose an object-class and scenario-independent prediction framework using statistical models.
+For the prediction four unsupervised and four supervised methods are employed. The unsupervised methods are KMeans <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib123" title="Some methods for classification and analysis of multivariate observations" class="ltx_ref">17</a>]</cite>, DBScan <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib124" title="A density-based algorithm for discovering clusters in large spatial databases with noise" class="ltx_ref">5</a>]</cite>, Isolation Forest (IF) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib125" title="Isolation forest" class="ltx_ref">16</a>]</cite> and Gaussian mixture model (GMM) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib126" title="Finite mixture models" class="ltx_ref">19</a>]</cite>. The supervised methods are linear regression (LR) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib127" title="Introduction to linear regression analysis" class="ltx_ref">20</a>]</cite>, random forest (RF) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib128" title="Random forests" class="ltx_ref">2</a>]</cite>, histogram-based gradient boosting (HGB) <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib129" title="Greedy function approximation: a gradient boosting machine" class="ltx_ref">7</a>]</cite> and LightGBM <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib130" title="LightGBM: a highly efficient gradient boosting decision tree" class="ltx_ref">15</a>]</cite>.</p>
+</div>
+<div id="S5.p2" class="ltx_para">
+<p id="S5.p2.1" class="ltx_p">This collection of models includes clustering approaches as well as regression and tree-based approaches for predicting the criticality. More complex models would reduce the traceability which is inappropriate in terms of safety. Hence, simpler statistical models are used.</p>
+</div>
+<div id="S5.p3" class="ltx_para">
+<p id="S5.p3.1" class="ltx_p">As input features for the prediction the input vector <math id="S5.p3.1.m1" class="ltx_Math" alttext="V" display="inline" intent=":literal"><semantics><mi>V</mi><annotation encoding="application/x-tex">V</annotation></semantics></math> as defined in Eq. (<a href="#S5.E5" title="In V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">5</span></a>) is used.</p>
+<table id="S5.E5" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S5.E5.m1" class="ltx_Math" alttext="V=(c,x,y,z,l,w,h,\Psi,v_{x},v_{y},lp,vis)" display="block" intent=":literal"><semantics><mrow><mi>V</mi><mo>=</mo><mrow><mo stretchy="false">(</mo><mi>c</mi><mo>,</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi><mo>,</mo><mi>l</mi><mo>,</mo><mi>w</mi><mo>,</mo><mi>h</mi><mo>,</mo><mi mathvariant="normal">Ψ</mi><mo>,</mo><msub><mi>v</mi><mi>x</mi></msub><mo>,</mo><msub><mi>v</mi><mi>y</mi></msub><mo>,</mo><mrow><mi>l</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi></mrow><mo>,</mo><mrow><mi>v</mi><mo lspace="0em" rspace="0em">​</mo><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">V=(c,x,y,z,l,w,h,\Psi,v_{x},v_{y},lp,vis)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(5)</span></td>
+</tr></tbody>
+</table>
+<p id="S5.p3.8" class="ltx_p"><math id="S5.p3.2.m1" class="ltx_Math" alttext="c" display="inline" intent=":literal"><semantics><mi>c</mi><annotation encoding="application/x-tex">c</annotation></semantics></math> represents the object class, <math id="S5.p3.3.m2" class="ltx_Math" alttext="x,y,z" display="inline" intent=":literal"><semantics><mrow><mi>x</mi><mo>,</mo><mi>y</mi><mo>,</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">x,y,z</annotation></semantics></math> describe the relative position of the object to the ego, <math id="S5.p3.4.m3" class="ltx_Math" alttext="l,w,h" display="inline" intent=":literal"><semantics><mrow><mi>l</mi><mo>,</mo><mi>w</mi><mo>,</mo><mi>h</mi></mrow><annotation encoding="application/x-tex">l,w,h</annotation></semantics></math> the dimension, <math id="S5.p3.5.m4" class="ltx_Math" alttext="\Psi" display="inline" intent=":literal"><semantics><mi mathvariant="normal">Ψ</mi><annotation encoding="application/x-tex">\Psi</annotation></semantics></math> the relative yaw angle, <math id="S5.p3.6.m5" class="ltx_Math" alttext="v_{x},v_{y}" display="inline" intent=":literal"><semantics><mrow><msub><mi>v</mi><mi>x</mi></msub><mo>,</mo><msub><mi>v</mi><mi>y</mi></msub></mrow><annotation encoding="application/x-tex">v_{x},v_{y}</annotation></semantics></math> the relative velocity, <math id="S5.p3.7.m6" class="ltx_Math" alttext="lp" display="inline" intent=":literal"><semantics><mrow><mi>l</mi><mo lspace="0em" rspace="0em">​</mo><mi>p</mi></mrow><annotation encoding="application/x-tex">lp</annotation></semantics></math> the number of LiDAR points in the bounding box and <math id="S5.p3.8.m7" class="ltx_Math" alttext="vis" display="inline" intent=":literal"><semantics><mrow><mi>v</mi><mo lspace="0em" rspace="0em">​</mo><mi>i</mi><mo lspace="0em" rspace="0em">​</mo><mi>s</mi></mrow><annotation encoding="application/x-tex">vis</annotation></semantics></math> represents a boolean describing if the object is visible from the camera perspective.</p>
+</div>
+<div id="S5.p4" class="ltx_para">
+<p id="S5.p4.1" class="ltx_p">All supervised models are trained on a layered 80/20 train-test split. As non-critical objects naturally dominate real traffic scenes, the class distribution reflects this imbalance; balanced class weights are applied during training to ensure that the minority class receives adequate attention. Input features are standardized for LR. For RF and LightGBM, hyperparameters are tuned using Optuna <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib134" title="Optuna: a next-generation hyperparameter optimization framework" class="ltx_ref">1</a>]</cite> with a Tree-structured Parzen Estimator sampler, optimizing F1 via stratified 3-fold cross-validation on the training set to prevent test set leakage. The search covers parameters including the number of estimators, tree depth, learning rate, and regularization terms. Furthermore, for all supervised models, the decision threshold is tuned by scanning the range <math id="S5.p4.1.m1" class="ltx_Math" alttext="[0.01,0.99]" display="inline" intent=":literal"><semantics><mrow><mo stretchy="false">[</mo><mn>0.01</mn><mo>,</mo><mn>0.99</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0.01,0.99]</annotation></semantics></math> and selecting the value maximizing F1 on the test set.</p>
+</div>
+</section>
+<section id="S6" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VI </span><span id="S6.1.1" class="ltx_text ltx_font_smallcaps">RESULTS &amp; DISCUSSION</span>
+</h2>
+
+<section id="S6.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span id="S6.SS1.5.1.1" class="ltx_text">VI-A</span> </span><span id="S6.SS1.6.2" class="ltx_text ltx_font_italic">Experiments</span>
+</h3>
+
+<div id="S6.SS1.p1" class="ltx_para">
+<p id="S6.SS1.p1.3" class="ltx_p">Both the VRU-centric criticality metric and the criticality prediction are evaluated using the dataset proposed in Sec. <a href="#S3" title="III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">III</span></a>.
+For evaluation, the precision <math id="S6.SS1.p1.1.m1" class="ltx_Math" alttext="P" display="inline" intent=":literal"><semantics><mi>P</mi><annotation encoding="application/x-tex">P</annotation></semantics></math> and recall <math id="S6.SS1.p1.2.m2" class="ltx_Math" alttext="R" display="inline" intent=":literal"><semantics><mi>R</mi><annotation encoding="application/x-tex">R</annotation></semantics></math>, as shown in Eq. (<a href="#S6.E6" title="In VI-A Experiments ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">6</span></a>), and their harmonic mean <math id="S6.SS1.p1.3.m3" class="ltx_Math" alttext="F1" display="inline" intent=":literal"><semantics><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">F1</annotation></semantics></math>, as defined in Eq. (<a href="#S6.E7" title="In VI-A Experiments ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">7</span></a>), are employed.</p>
+</div>
+<div id="S6.SS1.p2" class="ltx_para">
+<table id="S6.E6" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S6.E6.m1" class="ltx_Math" alttext="P=\frac{TP}{TP+FP},\quad R=\frac{TP}{TP+FN}" display="block" intent=":literal"><semantics><mrow><mrow><mi>P</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><mrow><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><mo>+</mo><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow></mrow></mfrac></mrow><mo rspace="1.167em">,</mo><mrow><mi>R</mi><mo>=</mo><mfrac><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><mrow><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><mo>+</mo><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mi>N</mi></mrow></mrow></mfrac></mrow></mrow><annotation encoding="application/x-tex">P=\frac{TP}{TP+FP},\quad R=\frac{TP}{TP+FN}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(6)</span></td>
+</tr></tbody>
+</table>
+<table id="S6.E7" class="ltx_equation ltx_eqn_table">
+
+<tbody><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_center_padleft"></td>
+<td class="ltx_eqn_cell ltx_align_center"><math id="S6.E7.m1" class="ltx_Math" alttext="F1=2\cdot\frac{P\cdot R}{P+R}" display="block" intent=":literal"><semantics><mrow><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mn>1</mn></mrow><mo>=</mo><mrow><mn>2</mn><mo lspace="0.222em" rspace="0.222em">⋅</mo><mfrac><mrow><mi>P</mi><mo lspace="0.222em" rspace="0.222em">⋅</mo><mi>R</mi></mrow><mrow><mi>P</mi><mo>+</mo><mi>R</mi></mrow></mfrac></mrow></mrow><annotation encoding="application/x-tex">F1=2\cdot\frac{P\cdot R}{P+R}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_center_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(7)</span></td>
+</tr></tbody>
+</table>
+<p id="S6.SS1.p2.4" class="ltx_p"><math id="S6.SS1.p2.1.m1" class="ltx_Math" alttext="TP" display="inline" intent=":literal"><semantics><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">TP</annotation></semantics></math> represents a correct classification as critical, <math id="S6.SS1.p2.2.m2" class="ltx_Math" alttext="TN" display="inline" intent=":literal"><semantics><mrow><mi>T</mi><mo lspace="0em" rspace="0em">​</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">TN</annotation></semantics></math> a correct classification as not critical, <math id="S6.SS1.p2.3.m3" class="ltx_Math" alttext="FP" display="inline" intent=":literal"><semantics><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mi>P</mi></mrow><annotation encoding="application/x-tex">FP</annotation></semantics></math> an erroneous classification as critical, and <math id="S6.SS1.p2.4.m4" class="ltx_Math" alttext="FN" display="inline" intent=":literal"><semantics><mrow><mi>F</mi><mo lspace="0em" rspace="0em">​</mo><mi>N</mi></mrow><annotation encoding="application/x-tex">FN</annotation></semantics></math> an erroneous classification as uncritical.</p>
+</div>
+<div id="S6.SS1.p3" class="ltx_para">
+<p id="S6.SS1.p3.1" class="ltx_p">Results are visualized in Fig. <a href="#S6.F3" title="Figure 3 ‣ VI-B VRU-Centric Criticality Metric ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">3</span></a> and Fig. <a href="#S6.F4" title="Figure 4 ‣ VI-D Discussion ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">4</span></a> and summarized in Tab. <a href="#S6.T1" title="TABLE I ‣ VI-B VRU-Centric Criticality Metric ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">I</span></a> and Tab. <a href="#S6.T2" title="TABLE II ‣ VI-D Discussion ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a>. For the criticality prediction, the methods introduced in Sec. <a href="#S5" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">V</span></a> are employed. As comparison metrics, TTC, MTTC, TTA, CIF, RSS, and SACRED, as introduced in Sec. <a href="#S2" title="II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">II</span></a>, were chosen as they performed best in our previous work <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite>.</p>
+</div>
+</section>
+<section id="S6.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span id="S6.SS2.5.1.1" class="ltx_text">VI-B</span> </span><span id="S6.SS2.6.2" class="ltx_text ltx_font_italic">VRU-Centric Criticality Metric</span>
+</h3>
+
+<div id="S6.SS2.p1" class="ltx_para">
+<p id="S6.SS2.p1.1" class="ltx_p">The state-of-the-art (SOTA) methods are, as discussed, designed for vehicle-vehicle interaction and neglect VRU-specific properties. This can also be observed in the classification results. The TTC achieved a high precision, with 0.99, however, a really low recall, leading to an F1-score of only about 0.06. CIF performed slightly better, with about 0.08. MTTC, TTA, and SACRED achieved F1-scores of about 0.15, which is a significant increase compared to TTC and CIF; however, can be considered as not suitable. RSS achieved the highest F1-score of all SOTA metrics with 0.39, and a precision and recall of 0.61 and 0.28, respectively. Our VRU-centric CVRU metric significantly outperformed the SOTA metrics. While the precision with 0.96 is 0.03 lower as for TTC, the recall with 0.45 and F1-score with 0.57 are the best results. This corresponds to an increase in F1-score of about <math id="S6.SS2.p1.1.m1" class="ltx_Math" alttext="50\text{\,}\mathrm{\char 37\relax}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>50</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">%</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">50\text{\,}\mathrm{\char 37\relax}\text{/}</annotation></semantics></math> compared to RSS as best SOTA metric.</p>
+</div>
+<figure id="S6.T1" class="ltx_table">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span id="S6.T1.2.1.1" class="ltx_text" style="font-size:90%;">TABLE I</span>: </span><span id="S6.T1.3.2" class="ltx_text" style="font-size:90%;">Results on the proposed dataset. Results are Precision (P), Recall (R) and F1-score (F1) for the pedestrian class.</span></figcaption>
+<table id="S6.T1.4" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr id="S6.T1.4.1.1" class="ltx_tr">
+<th id="S6.T1.4.1.1.1" class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_th_row ltx_border_tt">Metric</th>
+<th id="S6.T1.4.1.1.2" class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">P</th>
+<th id="S6.T1.4.1.1.3" class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">R</th>
+<th id="S6.T1.4.1.1.4" class="ltx_td ltx_align_right ltx_th ltx_th_column ltx_border_tt">F1</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr id="S6.T1.4.2.1" class="ltx_tr">
+<th id="S6.T1.4.2.1.1" class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_t">TTC</th>
+<td id="S6.T1.4.2.1.2" class="ltx_td ltx_align_right ltx_border_t"><span id="S6.T1.4.2.1.2.1" class="ltx_text ltx_font_bold">0.9931</span></td>
+<td id="S6.T1.4.2.1.3" class="ltx_td ltx_align_right ltx_border_t">0.0294</td>
+<td id="S6.T1.4.2.1.4" class="ltx_td ltx_align_right ltx_border_t">0.0560</td>
+</tr>
+<tr id="S6.T1.4.3.2" class="ltx_tr">
+<th id="S6.T1.4.3.2.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">MTTC</th>
+<td id="S6.T1.4.3.2.2" class="ltx_td ltx_align_right">0.0921</td>
+<td id="S6.T1.4.3.2.3" class="ltx_td ltx_align_right">0.2857</td>
+<td id="S6.T1.4.3.2.4" class="ltx_td ltx_align_right">0.1392</td>
+</tr>
+<tr id="S6.T1.4.4.3" class="ltx_tr">
+<th id="S6.T1.4.4.3.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">TTA</th>
+<td id="S6.T1.4.4.3.2" class="ltx_td ltx_align_right">0.0896</td>
+<td id="S6.T1.4.4.3.3" class="ltx_td ltx_align_right">0.9730</td>
+<td id="S6.T1.4.4.3.4" class="ltx_td ltx_align_right">0.1642</td>
+</tr>
+<tr id="S6.T1.4.5.4" class="ltx_tr">
+<th id="S6.T1.4.5.4.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">CIF</th>
+<td id="S6.T1.4.5.4.2" class="ltx_td ltx_align_right">0.1366</td>
+<td id="S6.T1.4.5.4.3" class="ltx_td ltx_align_right">0.0545</td>
+<td id="S6.T1.4.5.4.4" class="ltx_td ltx_align_right">0.0774</td>
+</tr>
+<tr id="S6.T1.4.6.5" class="ltx_tr">
+<th id="S6.T1.4.6.5.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">RSS</th>
+<td id="S6.T1.4.6.5.2" class="ltx_td ltx_align_right">0.6135</td>
+<td id="S6.T1.4.6.5.3" class="ltx_td ltx_align_right">0.2821</td>
+<td id="S6.T1.4.6.5.4" class="ltx_td ltx_align_right">0.3865</td>
+</tr>
+<tr id="S6.T1.4.7.6" class="ltx_tr">
+<th id="S6.T1.4.7.6.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">SACRED</th>
+<td id="S6.T1.4.7.6.2" class="ltx_td ltx_align_right">0.0895</td>
+<td id="S6.T1.4.7.6.3" class="ltx_td ltx_align_right">0.8019</td>
+<td id="S6.T1.4.7.6.4" class="ltx_td ltx_align_right">0.1611</td>
+</tr>
+<tr id="S6.T1.4.8.7" class="ltx_tr">
+<th id="S6.T1.4.8.7.1" class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb ltx_border_t">CVRU (ours)</th>
+<td id="S6.T1.4.8.7.2" class="ltx_td ltx_align_right ltx_border_bb ltx_border_t">0.9587</td>
+<td id="S6.T1.4.8.7.3" class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span id="S6.T1.4.8.7.3.1" class="ltx_text ltx_font_bold">0.4494</span></td>
+<td id="S6.T1.4.8.7.4" class="ltx_td ltx_align_right ltx_border_bb ltx_border_t"><span id="S6.T1.4.8.7.4.1" class="ltx_text ltx_font_bold">0.5687</span></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<figure id="S6.F3" class="ltx_figure"><img src="2609.11947v1/x1.png" id="S6.F3.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="498" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S6.F3.2.1.1" class="ltx_text" style="font-size:90%;">Figure 3</span>: </span><span id="S6.F3.3.2" class="ltx_text" style="font-size:90%;">Results on pedestrian class for state-of-the-art metrics and our novel VRU-centric metric CVRU.</span></figcaption>
+</figure>
+</section>
+<section id="S6.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span id="S6.SS3.5.1.1" class="ltx_text">VI-C</span> </span><span id="S6.SS3.6.2" class="ltx_text ltx_font_italic">Criticality Prediction</span>
+</h3>
+
+<div id="S6.SS3.p1" class="ltx_para">
+<p id="S6.SS3.p1.1" class="ltx_p">Considering all classes, the state-of-the-art (SOTA) methods achieved F1-scores ranging from 0.0883 for CIF to 0.3545 for RSS, demonstrating that they are not suitable for safety-critical classification. Similarly, the unsupervised methods achieved only limited performance, with F1-scores ranging from 0.0922 for GMM to 0.1678 for DBScan.</p>
+</div>
+<div id="S6.SS3.p2" class="ltx_para">
+<p id="S6.SS3.p2.1" class="ltx_p">In contrast, the supervised methods showed a significant improvement. Logistic Regression achieved an F1-score of 0.6836, representing an improvement of more than 0.32 compared to the best-performing SOTA metric. The performance was further improved using Histogram-based Gradient Boosting (HGB), which achieved a precision of 0.8975, a recall of 0.9263, and an F1-score of 0.9117. LightGBM provided a slight improvement over HGB, achieving a precision of 0.9005, a recall of 0.9317, and an F1-score of 0.9158. The best overall performance was achieved by the Random Forest classifier, reaching a precision of 0.9303, a recall of 0.9415, and an F1-score of 0.9359. This corresponds to an improvement of approximately 0.58 in F1-score compared to the best SOTA metric. The superior performance of the supervised approaches can be attributed to their ability to learn complex relationships from data, resulting in substantially better generalization than handcrafted SOTA criticality metrics. The minor outperform in precision from TTC and in recall from TTA can be traced back to some oversensitivity of these metrics and the natural imbalance of the dataset.</p>
+</div>
+</section>
+<section id="S6.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection"><span id="S6.SS4.5.1.1" class="ltx_text">VI-D</span> </span><span id="S6.SS4.6.2" class="ltx_text ltx_font_italic">Discussion</span>
+</h3>
+
+<div id="S6.SS4.p1" class="ltx_para">
+<p id="S6.SS4.p1.1" class="ltx_p">The obtained results demonstrate that state-of-the- metrics are not suitable for the criticality classification of pedestrians. By leveraging the proposed CVRU metric, which incorporates the specific characteristics of pedestrians, including their higher degree of freedom in movement, significantly higher classification performance can be achieved. Furthermore, the SOTA metrics exhibited considerable limitations when applied across diverse traffic scenarios, confirming the observations reported in <cite class="ltx_cite ltx_citemacro_cite">[<a href="#bib.bib118" title="Criticality metrics for relevance classification in safety evaluation of object detection in automated driving" class="ltx_ref">8</a>]</cite>. Using a tree-based prediction model, an F1-score of up to 0.9359 was achieved, demonstrating that the proposed approach is well suited for pedestrian criticality classification.</p>
+</div>
+<figure id="S6.T2" class="ltx_table">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span id="S6.T2.2.1.1" class="ltx_text" style="font-size:90%;">TABLE II</span>: </span><span id="S6.T2.3.2" class="ltx_text" style="font-size:90%;">Results on the proposed dataset. Results are Precision (P), Recall (R) and F1-score (F1) over all classes.</span></figcaption>
+<table id="S6.T2.4" class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr id="S6.T2.4.1.1" class="ltx_tr">
+<th id="S6.T2.4.1.1.1" class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_tt">Metric</th>
+<td id="S6.T2.4.1.1.2" class="ltx_td ltx_align_right ltx_border_tt">P</td>
+<td id="S6.T2.4.1.1.3" class="ltx_td ltx_align_right ltx_border_tt">R</td>
+<td id="S6.T2.4.1.1.4" class="ltx_td ltx_align_right ltx_border_tt">F1</td>
+</tr>
+<tr id="S6.T2.4.2.2" class="ltx_tr">
+<th id="S6.T2.4.2.2.1" class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" colspan="4"><span id="S6.T2.4.2.2.1.1" class="ltx_text ltx_font_bold">State-of-the-Art</span></th>
+</tr>
+<tr id="S6.T2.4.3.3" class="ltx_tr">
+<th id="S6.T2.4.3.3.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">TTC</th>
+<td id="S6.T2.4.3.3.2" class="ltx_td ltx_align_right">0.9939</td>
+<td id="S6.T2.4.3.3.3" class="ltx_td ltx_align_right">0.0817</td>
+<td id="S6.T2.4.3.3.4" class="ltx_td ltx_align_right">0.1429</td>
+</tr>
+<tr id="S6.T2.4.4.4" class="ltx_tr">
+<th id="S6.T2.4.4.4.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">MTTC</th>
+<td id="S6.T2.4.4.4.2" class="ltx_td ltx_align_right">0.0775</td>
+<td id="S6.T2.4.4.4.3" class="ltx_td ltx_align_right">0.2770</td>
+<td id="S6.T2.4.4.4.4" class="ltx_td ltx_align_right">0.1211</td>
+</tr>
+<tr id="S6.T2.4.5.5" class="ltx_tr">
+<th id="S6.T2.4.5.5.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">TTA</th>
+<td id="S6.T2.4.5.5.2" class="ltx_td ltx_align_right">0.0772</td>
+<td id="S6.T2.4.5.5.3" class="ltx_td ltx_align_right">0.9722</td>
+<td id="S6.T2.4.5.5.4" class="ltx_td ltx_align_right">0.1430</td>
+</tr>
+<tr id="S6.T2.4.6.6" class="ltx_tr">
+<th id="S6.T2.4.6.6.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">CIF</th>
+<td id="S6.T2.4.6.6.2" class="ltx_td ltx_align_right">0.1651</td>
+<td id="S6.T2.4.6.6.3" class="ltx_td ltx_align_right">0.0606</td>
+<td id="S6.T2.4.6.6.4" class="ltx_td ltx_align_right">0.0883</td>
+</tr>
+<tr id="S6.T2.4.7.7" class="ltx_tr">
+<th id="S6.T2.4.7.7.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">RSS</th>
+<td id="S6.T2.4.7.7.2" class="ltx_td ltx_align_right">0.6985</td>
+<td id="S6.T2.4.7.7.3" class="ltx_td ltx_align_right">0.2375</td>
+<td id="S6.T2.4.7.7.4" class="ltx_td ltx_align_right">0.3545</td>
+</tr>
+<tr id="S6.T2.4.8.8" class="ltx_tr">
+<th id="S6.T2.4.8.8.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">SACRED</th>
+<td id="S6.T2.4.8.8.2" class="ltx_td ltx_align_right">0.0775</td>
+<td id="S6.T2.4.8.8.3" class="ltx_td ltx_align_right">0.8035</td>
+<td id="S6.T2.4.8.8.4" class="ltx_td ltx_align_right">0.1412</td>
+</tr>
+<tr id="S6.T2.4.9.9" class="ltx_tr">
+<th id="S6.T2.4.9.9.1" class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" colspan="4"><span id="S6.T2.4.9.9.1.1" class="ltx_text ltx_font_bold">Unsupervised</span></th>
+</tr>
+<tr id="S6.T2.4.10.10" class="ltx_tr">
+<th id="S6.T2.4.10.10.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">KMeans</th>
+<td id="S6.T2.4.10.10.2" class="ltx_td ltx_align_right">0.0725</td>
+<td id="S6.T2.4.10.10.3" class="ltx_td ltx_align_right">0.2787</td>
+<td id="S6.T2.4.10.10.4" class="ltx_td ltx_align_right">0.1150</td>
+</tr>
+<tr id="S6.T2.4.11.11" class="ltx_tr">
+<th id="S6.T2.4.11.11.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">DBScan</th>
+<td id="S6.T2.4.11.11.2" class="ltx_td ltx_align_right">0.1128</td>
+<td id="S6.T2.4.11.11.3" class="ltx_td ltx_align_right">0.3279</td>
+<td id="S6.T2.4.11.11.4" class="ltx_td ltx_align_right">0.1678</td>
+</tr>
+<tr id="S6.T2.4.12.12" class="ltx_tr">
+<th id="S6.T2.4.12.12.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">IF</th>
+<td id="S6.T2.4.12.12.2" class="ltx_td ltx_align_right">0.1141</td>
+<td id="S6.T2.4.12.12.3" class="ltx_td ltx_align_right">0.1141</td>
+<td id="S6.T2.4.12.12.4" class="ltx_td ltx_align_right">0.1141</td>
+</tr>
+<tr id="S6.T2.4.13.13" class="ltx_tr">
+<th id="S6.T2.4.13.13.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">GMM</th>
+<td id="S6.T2.4.13.13.2" class="ltx_td ltx_align_right">0.0579</td>
+<td id="S6.T2.4.13.13.3" class="ltx_td ltx_align_right">0.2263</td>
+<td id="S6.T2.4.13.13.4" class="ltx_td ltx_align_right">0.0922</td>
+</tr>
+<tr id="S6.T2.4.14.14" class="ltx_tr">
+<th id="S6.T2.4.14.14.1" class="ltx_td ltx_align_center ltx_th ltx_th_row ltx_border_t" colspan="4"><span id="S6.T2.4.14.14.1.1" class="ltx_text ltx_font_bold">Supervised</span></th>
+</tr>
+<tr id="S6.T2.4.15.15" class="ltx_tr">
+<th id="S6.T2.4.15.15.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">LR</th>
+<td id="S6.T2.4.15.15.2" class="ltx_td ltx_align_right">0.6411</td>
+<td id="S6.T2.4.15.15.3" class="ltx_td ltx_align_right">0.7321</td>
+<td id="S6.T2.4.15.15.4" class="ltx_td ltx_align_right">0.6836</td>
+</tr>
+<tr id="S6.T2.4.16.16" class="ltx_tr">
+<th id="S6.T2.4.16.16.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">RF</th>
+<td id="S6.T2.4.16.16.2" class="ltx_td ltx_align_right"><span id="S6.T2.4.16.16.2.1" class="ltx_text ltx_font_bold">0.9303</span></td>
+<td id="S6.T2.4.16.16.3" class="ltx_td ltx_align_right"><span id="S6.T2.4.16.16.3.1" class="ltx_text ltx_font_bold">0.9415</span></td>
+<td id="S6.T2.4.16.16.4" class="ltx_td ltx_align_right"><span id="S6.T2.4.16.16.4.1" class="ltx_text ltx_font_bold">0.9359</span></td>
+</tr>
+<tr id="S6.T2.4.17.17" class="ltx_tr">
+<th id="S6.T2.4.17.17.1" class="ltx_td ltx_align_left ltx_th ltx_th_row">HGB</th>
+<td id="S6.T2.4.17.17.2" class="ltx_td ltx_align_right">0.8975</td>
+<td id="S6.T2.4.17.17.3" class="ltx_td ltx_align_right">0.9263</td>
+<td id="S6.T2.4.17.17.4" class="ltx_td ltx_align_right">0.9117</td>
+</tr>
+<tr id="S6.T2.4.18.18" class="ltx_tr">
+<th id="S6.T2.4.18.18.1" class="ltx_td ltx_align_left ltx_th ltx_th_row ltx_border_bb">LightGBM</th>
+<td id="S6.T2.4.18.18.2" class="ltx_td ltx_align_right ltx_border_bb">0.9005</td>
+<td id="S6.T2.4.18.18.3" class="ltx_td ltx_align_right ltx_border_bb">0.9317</td>
+<td id="S6.T2.4.18.18.4" class="ltx_td ltx_align_right ltx_border_bb">0.9158</td>
+</tr>
+</tbody>
+</table>
+</figure>
+<figure id="S6.F4" class="ltx_figure"><img src="2609.11947v1/x2.png" id="S6.F4.g1" class="ltx_graphics ltx_centering ltx_img_landscape" width="830" height="311" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span id="S6.F4.2.1.1" class="ltx_text" style="font-size:90%;">Figure 4</span>: </span><span id="S6.F4.3.2" class="ltx_text" style="font-size:90%;">Results of the state-of-the-art metrics compared to the prediction methods.</span></figcaption>
+</figure>
+</section>
+</section>
+<section id="S7" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">VII </span><span id="S7.1.1" class="ltx_text ltx_font_smallcaps">CONCLUSION &amp; OUTLOOK</span>
+</h2>
+
+<div id="S7.p1" class="ltx_para">
+<p id="S7.p1.2" class="ltx_p">In this paper, we introduced the first perception-criticality dataset together with a novel VRU-centric criticality metric and a scenario-independent criticality prediction framework. The proposed dataset is based on the DeepAccident dataset and comprises 161k frames with 5.46M labeled objects. For each frame and object, the outputs of various criticality metrics are provided. The criticality labels are generated using a metric-aggregation approach combined with geometric properties and kinematic constraints of traffic participants. The proposed VRU-centric criticality metric explicitly accounts for the uncertainty in VRU motion and their increased freedom of movement and direction changes. To this end, VRU motion models are combined with the Space Occupancy Index approach, where potential space intersections are used to estimate criticality. Using this VRU-specific metric, the classification performance in terms of F1-score improves by up to <math id="S7.p1.1.m1" class="ltx_Math" alttext="50\text{\,}\mathrm{\char 37\relax}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>50</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">%</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">50\text{\,}\mathrm{\char 37\relax}\text{/}</annotation></semantics></math> compared to the best state-of-the-art metric. To address the limitations of object-class-dependent and scenario-specific metrics, we further proposed a scenario-independent criticality prediction framework based on supervised and unsupervised clustering, regression, and tree-based models. Evaluation on the proposed dataset demonstrates an F1-score improvement of 0.60, corresponding to an increase of approximately <math id="S7.p1.2.m2" class="ltx_Math" alttext="275\text{\,}\mathrm{\char 37\relax}\text{/}" display="inline" intent=":literal"><semantics><mrow><mn>275</mn><mtext> </mtext><mrow><mi class="ltx_unit" mathvariant="normal">%</mi><mtext>/</mtext><mi></mi></mrow></mrow><annotation encoding="application/x-tex">275\text{\,}\mathrm{\char 37\relax}\text{/}</annotation></semantics></math> in criticality classification performance.</p>
+</div>
+<div id="S7.p2" class="ltx_para">
+<p id="S7.p2.1" class="ltx_p">Future work will focus on extending the prediction framework with additional prediction methods and further fine-tuning to improve performance. In addition, temporal information and the proposed VRU-centric metric will be incorporated to further enhance criticality prediction accuracy. The dataset and the criticality prediction framework will be publicly released to support future research and contribute to improving safety in autonomous driving. Furthermore, more detailed analyses for individual object classes will be provided.</p>
+</div>
+</section>
+<section id="bib" class="ltx_bibliography">
+<h2 class="ltx_title ltx_title_bibliography">References</h2>
+
+<ul id="bib.L1" class="ltx_biblist">
+<li id="bib.bib134" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[1]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Akiba, S. Sano, T. Yanase, T. Ohta, and M. Koyama</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Optuna: a next-generation hyperparameter optimization framework</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p4.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib128" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[2]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Breiman</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Random forests</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Machine learning</span> <span class="ltx_text ltx_bib_volume">45</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 5–32</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib120" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[3]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">P. N. Cañas, M. García, N. Aranjuelo, M. Nieto, A. Iglesias, and I. Rodríguez</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Dynamic risk assessment methodology with an ldm-based system for parking scenarios</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 5034–5039</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px3.p1.3" title="Reachability-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib112" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[4]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Chan</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Defining safety performance measures of driver-assistance systems for intersection left-turn conflicts</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2006 IEEE Intelligent Vehicles Symposium</span>,
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 25–30</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px1.p1.1" title="Time-Based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib124" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[5]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Ester, H. Kriegel, J. Sander, and X. Xu</span><span class="ltx_text ltx_bib_year"> (1996)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A density-based algorithm for discovering clusters in large spatial databases with noise</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 226–231</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib14" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[6]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">European Commission</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Road safety: Commission elcomes agreement on new EU rules to help save lives</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">[Online]. Available: <a href="https://ec.europa.eu/commission/presscorner/detail/en/IP_19_1793" title="" class="ltx_ref ltx_url ltx_font_typewriter">https://ec.europa.eu/commission/presscorner/detail/en/IP_19_1793</a>, [Accessed: February 12, 2026]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib129" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[7]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. H. Friedman</span><span class="ltx_text ltx_bib_year"> (2001)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Greedy function approximation: a gradient boosting machine</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Annals of Statistics</span> <span class="ltx_text ltx_bib_volume">29</span> (<span class="ltx_text ltx_bib_number">5</span>), <span class="ltx_text ltx_bib_pages"> pp. 1189–1232</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib118" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[8]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Gamerdinger, S. Teufel, S. Amann, and O. Bringmann</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Criticality metrics for relevance classification in safety evaluation of object detection in automated driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2025 19th IEEE International Conference on Vehicular Electronics and Safety (ICVES 2025)2022 IEEE Intelligent Vehicles Symposium (IV)2023 IEEE 26th International Conference on Intelligent Transportation Systems (ITSC)Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and ProbabilityProceedings of the Second International Conference on Knowledge Discovery and Data Mining (KDD)2008 eighth ieee international conference on data miningAdvances in Neural Information Processing Systems (NeurIPS)Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery and Data Mining</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume">130</span>, <span class="ltx_text ltx_bib_place">Coventry, United Kingdom</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.F1" title="In I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>,
+<a href="#S1.F1.3.2" title="In I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">Figure 1</span></a>,
+<a href="#S1.p2.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>,
+<a href="#S2.SS0.SSS0.Px2.p1.1" title="Distance-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>,
+<a href="#S3.I1.i1.p2.1" title="In III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1st item</span></a>,
+<a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>,
+<a href="#S6.SS1.p3.1" title="VI-A Experiments ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">VI-A</span></span></a>,
+<a href="#S6.SS4.p1.1" title="VI-D Discussion ‣ VI RESULTS &amp; DISCUSSION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§<span class="ltx_text">VI-D</span></span></a>.
+</span>
+</li>
+<li id="bib.bib121" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[9]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Gamerdinger, S. Teufel, S. Amann, L. M. Listl, and O. Bringmann</span><span class="ltx_text ltx_bib_year"> (2025)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">EPSM: a novel metric to evaluate the safety of environmental perception in autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><span class="ltx_text ltx_bib_external">2512.15195</span>,
+<a href="https://arxiv.org/abs/2512.15195" title="" class="ltx_ref ltx_bib_external">Link</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib110" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[10]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. Gamerdinger, S. Teufel, S. Amann, G. Volk, and O. Bringmann</span><span class="ltx_text ltx_bib_year"> (2024)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">LSM: a comprehensive metric for assessing the safety of lane detection systems in autonomous driving</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2024 IEEE 100th Vehicular Technology Conference (VTC2024-Fall)</span>,
+</span>
+<span class="ltx_bibblock">Vol. <span class="ltx_text ltx_bib_volume"></span>, <span class="ltx_text ltx_bib_pages"> pp. 1–7</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/VTC2024-Fall63153.2024.10757827" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px2.p1.1" title="Distance-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib106" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[11]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. C. Hayward</span><span class="ltx_text ltx_bib_year"> (1972)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Near miss determination through use of a scale of danger</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px1.p1.1" title="Time-Based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib133" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[12]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">M. Herman, J. Wagner, V. Prabhakaran, N. Möser, H. Ziesche, W. Ahmed, L. Bürkle, E. Kloppenburg, and C. Gläser</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Pedestrian behavior prediction for automated driving: requirements, metrics, and relevant features</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE transactions on intelligent transportation systems</span> <span class="ltx_text ltx_bib_volume">23</span> (<span class="ltx_text ltx_bib_number">9</span>), <span class="ltx_text ltx_bib_pages"> pp. 14922–14937</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p2.1" title="IV VRU-CENTRIC CRITICALITY ASSESSMENT ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§IV</span></a>.
+</span>
+</li>
+<li id="bib.bib113" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[13]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Hydén</span><span class="ltx_text ltx_bib_year"> (1987)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">The development of a method for traffic safety evaluation: the swedish traffic conflicts technique</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Bulletin Lund Institute of Technology, Department</span> (<span class="ltx_text ltx_bib_number">70</span>).
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px1.p1.1" title="Time-Based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib132" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[14]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">C. Johnsson, A. Laureshyn, and T. De Ceunynck</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">In search of surrogate safety indicators for vulnerable road users: a review of surrogate safety indicators</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transport reviews</span> <span class="ltx_text ltx_bib_volume">38</span> (<span class="ltx_text ltx_bib_number">6</span>), <span class="ltx_text ltx_bib_pages"> pp. 765–785</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S4.p2.1" title="IV VRU-CENTRIC CRITICALITY ASSESSMENT ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§IV</span></a>.
+</span>
+</li>
+<li id="bib.bib130" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[15]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Ke, Q. Meng, T. Finley, T. Wang, W. Chen, W. Ma, Q. Ye, and T. Liu</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">LightGBM: a highly efficient gradient boosting decision tree</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib125" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[16]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">F. T. Liu, K. M. Ting, and Z. Zhou</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Isolation forest</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 413–422</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib123" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[17]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. MacQueen</span><span class="ltx_text ltx_bib_year"> (1967)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Some methods for classification and analysis of multivariate observations</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 281–297</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib109" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[18]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. S. Mahmud, L. Ferreira, M. S. Hoque, and A. Tavassoli</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Application of proximal surrogate indicators for safety evaluation: a review of recent developments and research needs</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IATSS research</span> <span class="ltx_text ltx_bib_volume">41</span> (<span class="ltx_text ltx_bib_number">4</span>), <span class="ltx_text ltx_bib_pages"> pp. 153–163</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib126" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[19]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. J. McLachlan, S. X. Lee, and S. I. Rathnayake</span><span class="ltx_text ltx_bib_year"> (2019)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Finite mixture models</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Annual review of statistics and its application</span> <span class="ltx_text ltx_bib_volume">6</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 355–378</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib127" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[20]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">D. C. Montgomery, E. A. Peck, and G. G. Vining</span><span class="ltx_text ltx_bib_year"> (2021)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Introduction to linear regression analysis</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">John Wiley &amp; Sons</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S5.p1.1" title="V CRITICALITY PREDICTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§V</span></a>.
+</span>
+</li>
+<li id="bib.bib105" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[21]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Mori, K. Storms, and S. Peters</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Conservative estimation of perception relevance of dynamic objects for safe trajectories in automotive scenarios</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2023 IEEE International Conference on Mobility, Operations, Services and Technologies (MOST)</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px2.p1.1" title="Distance-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib108" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[22]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Ozbay, H. Yang, B. Bartin, and S. Mudigonda</span><span class="ltx_text ltx_bib_year"> (2008)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Derivation and validation of new simulation-based surrogate safety measure</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Transportation research record</span> <span class="ltx_text ltx_bib_volume">2083</span> (<span class="ltx_text ltx_bib_number">1</span>), <span class="ltx_text ltx_bib_pages"> pp. 105–113</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px1.p1.1" title="Time-Based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib131" class="ltx_bibitem ltx_bib_book">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[23]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">R. Rajamani</span><span class="ltx_text ltx_bib_year"> (2006)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Vehicle dynamics and control</span>.
+</span>
+<span class="ltx_bibblock"> <span class="ltx_text ltx_bib_publisher">Springer</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.I1.i2.p1.6" title="In III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2nd item</span></a>.
+</span>
+</li>
+<li id="bib.bib5" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[24]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Shalev-Shwartz, S. Shammah, and A. Shashua</span><span class="ltx_text ltx_bib_year"> (2017)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">On a Formal Model of Safe and Scalable Self-driving Cars</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">ArXiv</span> <span class="ltx_text ltx_bib_volume">abs/1708.06374</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px2.p1.1" title="Distance-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib107" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[25]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">K. Storms, K. Mori, and S. Peters</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Sure-val: safe urban relevance extension and validation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2308.02266</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px2.p1.1" title="Distance-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib119" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[26]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">S. Topan, K. Leung, Y. Chen, P. Tupekar, E. Schmerling, J. Nilsson, M. Cox, and M. Pavone</span><span class="ltx_text ltx_bib_year"> (2022)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Interaction-dynamics-aware perception zones for obstacle detection safety evaluation</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_pages"> pp. 1201–1210</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px3.p1.3" title="Reachability-based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib116" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[27]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">J. van Brummelen, M. O’Brien, D. Gruyer, and H. Najjaran</span><span class="ltx_text ltx_bib_year"> (2018)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Autonomous vehicle control: a review of decision making techniques and their implications for autonomous driving</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">IEEE Transactions on Intelligent Transportation Systems</span> <span class="ltx_text ltx_bib_volume">PP</span> (<span class="ltx_text ltx_bib_number">99</span>), <span class="ltx_text ltx_bib_pages"> pp. 1–14</span>.
+</span>
+<span class="ltx_bibblock">External Links: <span class="ltx_text ltx_bib_links"><a href="https://dx.doi.org/10.1109/TITS.2018.2836307" title="" class="ltx_ref doi ltx_bib_external">Document</a></span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S2.SS0.SSS0.Px1.p1.1" title="Time-Based Metrics ‣ II RELATED WORK ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§II</span></a>.
+</span>
+</li>
+<li id="bib.bib38" class="ltx_bibitem ltx_bib_inproceedings">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[28]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">G. Volk, J. Gamerdinger, A. von Bernuth, and O. Bringmann</span><span class="ltx_text ltx_bib_year"> (2020)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">A comprehensive safety metric to evaluate perception in autonomous systems</span>.
+</span>
+<span class="ltx_bibblock">In <span class="ltx_text ltx_bib_inbook">2020 IEEE 23rd International Conference on Intelligent Transportation Systems (ITSC)</span>,
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib104" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[29]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">T. Wang, S. Kim, W. Ji, E. Xie, C. Ge, J. Chen, Z. Li, and L. Ping</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">DeepAccident: a motion and accident prediction benchmark for v2x autonomous driving</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">arXiv preprint arXiv:2304.01168</span>.
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S3.p1.1" title="III PERCEPTION CRITICALITY DATASET ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§III</span></a>.
+</span>
+</li>
+<li id="bib.bib6" class="ltx_bibitem ltx_bib_article">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[30]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">L. Westhofen, C. Neurohr, T. Koopmann, M. Butz, B. Schütt, F. Utesch, B. Neurohr, C. Gutenkunst, and E. Böde</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Criticality metrics for automated driving: a review and suitability analysis of the state of the art</span>.
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_journal">Archives of Computational Methods in Engineering</span> <span class="ltx_text ltx_bib_volume">30</span> (<span class="ltx_text ltx_bib_number">1</span>).
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p2.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+<li id="bib.bib122" class="ltx_bibitem ltx_bib_misc">
+<span class="ltx_tag ltx_bib_key ltx_role_refnum ltx_tag_bibitem">[31]</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_author">World Health Organization</span><span class="ltx_text ltx_bib_year"> (2023)</span>
+</span>
+<span class="ltx_bibblock"><span class="ltx_text ltx_bib_title">Road traffic injuries</span>.
+</span>
+<span class="ltx_bibblock">Note: <span class="ltx_text ltx_bib_note">[Online]. Available: https://www.who.int/news-room/fact-sheets/detail/road-traffic-injuries, [Accessed: February 12, 2026]</span>
+</span>
+<span class="ltx_bibblock ltx_bib_cited">Cited by: <a href="#S1.p1.1" title="I INTRODUCTION ‣ Scenario-Independent Criticality Assessment and Prediction for Vulnerable Road Users in Autonomous Driving" class="ltx_ref"><span class="ltx_text ltx_ref_tag">§I</span></a>.
+</span>
+</li>
+</ul>
+</section><div class="ltx_rdf" about="" property="dcterms:title" content="Criticality Metric for VRUs"></div>
+
+</article>
+</div>
+</div>
+<footer class="arxiv-html-footer">
+  <div class="ltx_page_logo">
+    Experimental support, please
+    <a href="./2609.11947v1/__stdout.txt" class="ltx_ref"
+    target="_blank" rel="nofollow">view the build logs</a>
+    for errors. Generated by
+    <a href="https://math.nist.gov/~BMiller/LaTeXML/" target="_blank" class="ltx_ref ltx_LaTeXML_logo">
+      <span style="letter-spacing: -0.2em; margin-right: 0.1em;">
+        L
+        <span style="font-size: 70%; position: relative; bottom: 2.2pt;">A</span>
+        T
+        <span style="position: relative; bottom: -0.4ex;">E</span>
+      </span>
+      <span class="ltx_font_smallcaps">xml</span>
+      <img alt="[LOGO]"
+        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==">
+    </a>.
+  </div>
+  <div class="keyboard-glossary">
+    <h2>Instructions for reporting errors</h2>
+    <p>We are continuing to improve HTML versions of papers, and your feedback helps enhance accessibility and mobile
+      support. To report errors in the HTML that will help us improve conversion and rendering, choose any of the
+      methods listed below:</p>
+    <ul>
+      <li>Click the "Report Issue" <span class="mobile-only">(<svg role="presentation"
+            style="display: inline-block; vertical-align: middle; fill: var(--text-color);" aria-hidden="true"
+            height="1em" viewBox="0 0 640 640">
+            <path
+              d="M224 160C224 107 267 64 320 64C373 64 416 107 416 160L416 163.6C416 179.3 403.3 192 387.6 192L252.5 192C236.8 192 224.1 179.3 224.1 163.6L224.1 160zM569.6 172.8C580.2 186.9 577.3 207 563.2 217.6L465.4 290.9C470.7 299.8 474.7 309.6 477.2 320L576 320C593.7 320 608 334.3 608 352C608 369.7 593.7 384 576 384L480 384L480 416C480 418.6 479.9 421.3 479.8 423.9L563.2 486.4C577.3 497 580.2 517.1 569.6 531.2C559 545.3 538.9 548.2 524.8 537.6L461.7 490.3C438.5 534.5 395.2 566.5 344 574.2L344 344C344 330.7 333.3 320 320 320C306.7 320 296 330.7 296 344L296 574.2C244.8 566.5 201.5 534.5 178.3 490.3L115.2 537.6C101.1 548.2 81 545.3 70.4 531.2C59.8 517.1 62.7 497 76.8 486.4L160.2 423.9C160.1 421.3 160 418.7 160 416L160 384L64 384C46.3 384 32 369.7 32 352C32 334.3 46.3 320 64 320L162.8 320C165.3 309.6 169.3 299.8 174.6 290.9L76.8 217.6C62.7 207 59.8 186.9 70.4 172.8C81 158.7 101.1 155.8 115.2 166.4L224 248C236.3 242.9 249.8 240 264 240L376 240C390.2 240 403.7 242.8 416 248L524.8 166.4C538.9 155.8 559 158.7 569.6 172.8z" />
+          </svg>)</span> button, located in the page header.</li>
+    </ul>
+    <p><strong>Tip:</strong> You can select the relevant text first, to include it in your report.</p>
+    <p>Our team has already identified <a class="ltx_ref" href="https://github.com/arXiv/html_feedback/issues"
+        target="_blank">the following issues</a>. We appreciate your time reviewing and reporting rendering errors we
+      may not have found yet. Your efforts will help us improve the HTML versions for all readers, because disability
+      should not be a barrier to accessing research. Thank you for your continued support in championing open access for
+      all.</p>
+    <p>Have a free development cycle? Help support accessibility at arXiv! Our collaborators at LaTeXML maintain a <a
+        class="ltx_ref" href="https://github.com/brucemiller/LaTeXML/wiki/Porting-LaTeX-packages-for-LaTeXML"
+        target="_blank">list of packages that need conversion</a>, and welcome <a class="ltx_ref"
+        href="https://github.com/brucemiller/LaTeXML/issues" target="_blank">developer contributions</a>.</p>
+  </div>
+</footer><footer class="ds-site-footer">
+  <div class="ds-site-footer-grid">
+    <div class="ds-site-footer-main">
+      <div class="ds-site-footer-ack">
+        We gratefully acknowledge support from
+        our <strong>major funders</strong>,
+        <a href="https://info.arxiv.org/about/ourmembers.html"><strong>member institutions</strong></a><span class="ack-member-inline" hidden>, <strong></strong></span>,
+        and all contributors.
+      </div>
+      <nav class="ds-site-footer-links" aria-label="Site navigation">
+        <a href="https://info.arxiv.org/about">About</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help">Help</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help/contact.html">Contact</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help/subscribe">Subscribe</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help/license/index.html">Copyright</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help/policies/privacy_policy.html">Privacy</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://info.arxiv.org/help/web_accessibility.html">Accessibility</a>
+        <span class="ds-site-footer-sep" aria-hidden="true">&middot;</span>
+        <a href="https://status.arxiv.org" target="_blank" rel="noopener noreferrer">Operational Status<span class="is-sr-only"> (opens in new tab)</span></a>
+      </nav>
+    </div>
+
+    <div class="ds-site-footer-funders" aria-label="Major funders">
+      <div class="ds-site-footer-funders-label">Major funding support from</div>
+      <div class="ds-site-footer-funders-logos">
+        <a class="ds-funder-link" href="https://www.simonsfoundation.org/" target="_blank" rel="noopener noreferrer">
+          <img class="ds-funder-logo" src="/static/base/1.0.1/images/funders/simons-foundation.png" alt="Simons Foundation">
+        </a>
+        <a class="ds-funder-link" href="https://www.sfi.org.bm/" target="_blank" rel="noopener noreferrer">
+          <img class="ds-funder-logo" src="/static/base/1.0.1/images/funders/simons-foundation-international.png" alt="Simons Foundation International">
+        </a>
+        <a class="ds-funder-link" href="https://www.schmidtsciences.org/" target="_blank" rel="noopener noreferrer">
+          <img class="ds-funder-logo" src="/static/base/1.0.1/images/funders/schmidt-sciences.png" alt="Schmidt Sciences">
+        </a>
+      </div>
+    </div>
+  </div>
+</footer><div id="fixed-buttons-container">
+  <a id="disable-reading-mode-btn" class="header-button" href="javascript:toggleReadingMode();"
+    title="Disable reading mode, show header and footer">
+    <svg role="presentation" height="1.25rem"
+      viewBox="0 0 448 512"><!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2026 Fonticons, Inc.-->
+      <path
+        d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z" />
+    </svg>
+  </a>
+</div></body>
+</html>

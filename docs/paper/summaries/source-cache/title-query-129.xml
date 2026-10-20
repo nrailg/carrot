@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Diw+GoC7GCOqXj8z2aYAITE2Q6o</id>
+  <title>arXiv Query: search_query=ti:"PARKOUR: Semantic-Native Navigation for Underground Parking Via Lightweight OSM and Uncertainty-Aware EKF" OR ti:"PlaceRecover: Layout-Invariant Point Cloud Recovery for Robust 3D Perception under LiDAR Placement Shifts" OR ti:"A Lightweight Modular Framework for Onboard Monocular Multi-View Satellite Imagery Analysis" OR ti:"Efficient and Robust Watermarking for Copyright Protection in High-Resolution Industrial Images" OR ti:"Preference-Driven Active 3D Scene Representation for Robotic Inspection in Nuclear Decommissioning" OR ti:"HaltNav: Reactive Visual Halting Over Lightweight Topological Priors for Robust Vision-Language Navigation" OR ti:"LibrayNav: Vision-Language Navigation for Quadruped Robots in Library Environments" OR ti:"DTNav: Dual-Target Vision–Language Navigation with Decoupled Topological Memory for Indoor UAVs" OR ti:"Spiking-Driven Global Retrieval and Graph Guided Re-Ranking for Hierarchical Place Recognition" OR ti:"Spike-EVPR: Deep Spiking Residual Networks with SNN-Tailored Representations for Event-Based Visual Place Recognition"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:43:35Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22PARKOUR:+Semantic-Native+Navigation+for+Underground+Parking+Via+Lightweight+OSM+and+Uncertainty-Aware+EKF%22+OR+(ti:%22PlaceRecover:+Layout-Invariant+Point+Cloud+Recovery+for+Robust+3D+Perception+under+LiDAR+Placement+Shifts%22+OR+(ti:%22A+Lightweight+Modular+Framework+for+Onboard+Monocular+Multi-View+Satellite+Imagery+Analysis%22+OR+(ti:%22Efficient+and+Robust+Watermarking+for+Copyright+Protection+in+High-Resolution+Industrial+Images%22+OR+(ti:%22Preference-Driven+Active+3D+Scene+Representation+for+Robotic+Inspection+in+Nuclear+Decommissioning%22+OR+(ti:%22HaltNav:+Reactive+Visual+Halting+Over+Lightweight+Topological+Priors+for+Robust+Vision-Language+Navigation%22+OR+(ti:%22LibrayNav:+Vision-Language+Navigation+for+Quadruped+Robots+in+Library+Environments%22+OR+(ti:%22DTNav:+Dual-Target+Vision%E2%80%93Language+Navigation+with+Decoupled+Topological+Memory+for+Indoor+UAVs%22+OR+(ti:%22Spiking-Driven+Global+Retrieval+and+Graph+Guided+Re-Ranking+for+Hierarchical+Place+Recognition%22+OR+ti:%22Spike-EVPR:+Deep+Spiking+Residual+Networks+with+SNN-Tailored+Representations+for+Event-Based+Visual+Place+Recognition%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2402.10476v2</id>
+    <title>Spike-EVPR: Deep Spiking Residual Networks with SNN-Tailored Representations for Event-Based Visual Place Recognition</title>
+    <updated>2025-12-09T13:57:38Z</updated>
+    <link href="https://arxiv.org/abs/2402.10476v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2402.10476v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Event cameras are ideal for visual place recognition (VPR) in challenging environments due to their high temporal resolution and high dynamic range. However, existing methods convert sparse events into dense frame-like representations for Artificial Neural Networks (ANNs), ignoring event sparsity and incurring high computational cost. Spiking Neural Networks (SNNs) complement event data through discrete spike signals to enable energy-efficient VPR, but their application is hindered by the lack of effective spike-compatible representations and deep architectures capable of learning discriminative global descriptors. To address these limitations, we propose Spike-EVPR, a directly trained, end-to-end SNN framework tailored for event-based VPR. First, we introduce two complementary event representations, MCS-Tensor and TSS-Tensor, designed to reduce temporal redundancy while preserving essential spatio-temporal cues. Furthermore, we propose a deep spiking residual architecture that effectively aggregates these features to generate robust place descriptors. Extensive experiments on the Brisbane-Event-VPR and DDD20 datasets demonstrate that Spike-EVPR achieves state-of-the-art performance, improving Recall@1 by 7.61% and 13.20%, respectively, while significantly reducing energy consumption.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-02-16T06:45:25Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Zuntao Liu</name>
+    </author>
+    <author>
+      <name>Yaohui Li</name>
+    </author>
+    <author>
+      <name>Chenming Hu</name>
+    </author>
+    <author>
+      <name>Delei Kong</name>
+    </author>
+    <author>
+      <name>Junjie Jiang</name>
+    </author>
+    <author>
+      <name>Zheng Fang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.12696v2</id>
+    <title>HaltNav: Reactive Visual Halting over Lightweight Topological Priors for Robust Vision-Language Navigation</title>
+    <updated>2026-03-19T01:12:15Z</updated>
+    <link href="https://arxiv.org/abs/2603.12696v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.12696v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Vision-and-Language Navigation (VLN) is shifting from rigid, step-by-step instruction following toward open-vocabulary, goal-oriented autonomy. Achieving this transition without exhaustive routing prompts requires agents to leverage structural priors. While prior work often assumes computationally heavy 2D/3D metric maps, we instead exploit a lightweight, text-based osmAG (OpenStreetMap Area Graph), a floorplan-level topological representation that is easy to obtain and maintain. However, global planning over a prior map alone is brittle in real-world deployments, where local connectivity can change (e.g., closed doors or crowded passages), leading to execution-time failures. To address this gap, we propose a hierarchical navigation framework HaltNav that couples the robust global planning of osmAG with the local exploration and instruction-grounding capability of VLN. Our approach features an MLLM-based brain module, which is capable of high-level task grounding and obstruction awareness. Conditioned on osmAG, the brain converts the global route into a sequence of localized execution snippets, providing the VLN executor with prior-grounded, goal-centric sub-instructions. Meanwhile, it detects local anomalies via a mechanism we term Reactive Visual Halting (RVH), which interrupts the local control loop, updates osmAG by invalidating the corresponding topology, and triggers replanning to orchestrate a viable detour. To train this halting capability efficiently, we introduce a data synthesis pipeline that leverages generative models to inject realistic obstacles into otherwise navigable scenes, substantially enriching hard negative samples. Extensive experiments demonstrate that our hierarchical framework outperforms several baseline methods without tedious language instructions, and significantly improves robustness for long-horizon vision-language navigation under environmental changes.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-13T06:22:35Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zihui Yu</name>
+    </author>
+    <author>
+      <name>Pingcong Li</name>
+    </author>
+    <author>
+      <name>Bichi Zhang</name>
+    </author>
+    <author>
+      <name>Sören Schwertfeger</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.02161v1</id>
+    <title>Preference-Driven Active 3D Scene Representation for Robotic Inspection in Nuclear Decommissioning</title>
+    <updated>2025-04-02T22:20:48Z</updated>
+    <link href="https://arxiv.org/abs/2504.02161v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.02161v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Active 3D scene representation is pivotal in modern robotics applications, including remote inspection, manipulation, and telepresence. Traditional methods primarily optimize geometric fidelity or rendering accuracy, but often overlook operator-specific objectives, such as safety-critical coverage or task-driven viewpoints. This limitation leads to suboptimal viewpoint selection, particularly in constrained environments such as nuclear decommissioning. To bridge this gap, we introduce a novel framework that integrates expert operator preferences into the active 3D scene representation pipeline. Specifically, we employ Reinforcement Learning from Human Feedback (RLHF) to guide robotic path planning, reshaping the reward function based on expert input. To capture operator-specific priorities, we conduct interactive choice experiments that evaluate user preferences in 3D scene representation. We validate our framework using a UR3e robotic arm for reactor tile inspection in a nuclear decommissioning scenario. Compared to baseline methods, our approach enhances scene representation while optimizing trajectory efficiency. The RLHF-based policy consistently outperforms random selection, prioritizing task-critical details. By unifying explicit 3D geometric modeling with implicit human-in-the-loop optimization, this work establishes a foundation for adaptive, safety-critical robotic perception systems, paving the way for enhanced automation in nuclear decommissioning, remote maintenance, and other high-risk environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-02T22:20:48Z</published>
+    <arxiv:comment>This work has been submitted to IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS) 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhen Meng</name>
+    </author>
+    <author>
+      <name>Kan Chen</name>
+    </author>
+    <author>
+      <name>Xiangmin Xu</name>
+    </author>
+    <author>
+      <name>Erwin Jose Lopez Pulgarin</name>
+    </author>
+    <author>
+      <name>Emma Li</name>
+    </author>
+    <author>
+      <name>Philip G. Zhao</name>
+    </author>
+    <author>
+      <name>David Flynn</name>
+    </author>
+  </entry>
+</feed>

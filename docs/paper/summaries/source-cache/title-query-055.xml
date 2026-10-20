@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/kc1RvTCwdiGqjf6k2vhFZZfRBkc</id>
+  <title>arXiv Query: search_query=ti:"Automated Weld Seam Detection and 3D Map Integration for Industrial Vessel Inspection Using Depth Cameras and 3D LiDAR" OR ti:"3DCarGen: Scalable 3D Car Generation Via 3D-Consistent Multi-View Synthesis" OR ti:"EdgeRAD: Depth–Edge Regularized Neural Rendering for Autonomous Driving" OR ti:"REACT3D: Recovering Articulations for Interactive Physical 3D Scenes" OR ti:"USISU: Unsupervised Strong Image Stitching for Uneven Scenes" OR ti:"RoboCareSim: A Unity-Based Multimodal HRI Simulation Platform for Cognitive Impairment Support Scenarios" OR ti:"PHAST: Priority-Driven Hierarchical Scheduling for Real-Time ROS2 Executor on Heterogeneous Robotic Platforms" OR ti:"Traj2Scene: Generating Articulated Scenes from Robot Trajectories" OR ti:"Modular Behavior Tree Synthesis for Reactive Anomaly-Handling and Graceful Mission Reconfiguration" OR ti:"Benchmarking Full-Stack ROS 2 Simulation Platforms for Mobile Robots"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:28Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Automated+Weld+Seam+Detection+and+3D+Map+Integration+for+Industrial+Vessel+Inspection+Using+Depth+Cameras+and+3D+LiDAR%22+OR+(ti:%223DCarGen:+Scalable+3D+Car+Generation+Via+3D-Consistent+Multi-View+Synthesis%22+OR+(ti:%22EdgeRAD:+Depth%E2%80%93Edge+Regularized+Neural+Rendering+for+Autonomous+Driving%22+OR+(ti:%22REACT3D:+Recovering+Articulations+for+Interactive+Physical+3D+Scenes%22+OR+(ti:%22USISU:+Unsupervised+Strong+Image+Stitching+for+Uneven+Scenes%22+OR+(ti:%22RoboCareSim:+A+Unity-Based+Multimodal+HRI+Simulation+Platform+for+Cognitive+Impairment+Support+Scenarios%22+OR+(ti:%22PHAST:+Priority-Driven+Hierarchical+Scheduling+for+Real-Time+ROS2+Executor+on+Heterogeneous+Robotic+Platforms%22+OR+(ti:%22Traj2Scene:+Generating+Articulated+Scenes+from+Robot+Trajectories%22+OR+(ti:%22Modular+Behavior+Tree+Synthesis+for+Reactive+Anomaly-Handling+and+Graceful+Mission+Reconfiguration%22+OR+ti:%22Benchmarking+Full-Stack+ROS+2+Simulation+Platforms+for+Mobile+Robots%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.11340v4</id>
+    <title>REACT3D: Recovering Articulations for Interactive Physical 3D Scenes</title>
+    <updated>2026-04-09T19:36:26Z</updated>
+    <link href="https://arxiv.org/abs/2510.11340v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.11340v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Interactive 3D scenes are increasingly vital for embodied intelligence, yet existing datasets remain limited due to the labor-intensive process of annotating part segmentation, kinematic types, and motion trajectories. We present REACT3D, a scalable zero-shot framework that converts static 3D scenes into simulation-ready interactive replicas with consistent geometry, enabling direct use in diverse downstream tasks. Our contributions include: (i) openable-object detection and segmentation to extract candidate movable parts from static scenes, (ii) articulation estimation that infers joint types and motion parameters, (iii) hidden-geometry completion followed by interactive object assembly, and (iv) interactive scene integration in widely supported formats to ensure compatibility with standard simulation platforms. We achieve state-of-the-art performance on detection/segmentation and articulation metrics across diverse indoor scenes, demonstrating the effectiveness of our framework and providing a practical foundation for scalable interactive scene generation, thereby lowering the barrier to large-scale research on articulated scene understanding. Our project page is https://react3d.github.io/</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-13T12:37:59Z</published>
+    <arxiv:comment>Accepted at IEEE Robotics and Automation Letters (RA-L)</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, no. 5, pp. 5954-5961, May 2026</arxiv:journal_ref>
+    <author>
+      <name>Zhao Huang</name>
+    </author>
+    <author>
+      <name>Boyang Sun</name>
+    </author>
+    <author>
+      <name>Alexandros Delitzas</name>
+    </author>
+    <author>
+      <name>Jiaqi Chen</name>
+    </author>
+    <author>
+      <name>Marc Pollefeys</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3674028</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3674028" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.24257v2</id>
+    <title>3DCarGen: Scalable 3D Car Generation via 3D-consistent Multi-view Synthesis</title>
+    <updated>2026-06-29T12:26:21Z</updated>
+    <link href="https://arxiv.org/abs/2606.24257v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.24257v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>High-quality 3D vehicle assets are essential for autonomous driving simulation. Although multi-view diffusion-based paradigms enable controllable single-image reconstruction, they typically produce limited viewpoints and exhibit cross-view geometric inconsistencies, thereby reducing reconstruction fidelity in real-world scenarios. In this work, we introduce 3DCarGen, a scalable single-view 3D car generation framework designed for real-world images by synthesizing an arbitrary number of 3D-consistent multi-view images. Specifically, given a single image as input, we first synthesize a set of images from fixed viewpoints. These images are then fed into a feed-forward reconstruction model, resulting in a coarse 3D representation based on 3D Gaussian Splatting. Conditioned on this explicit 3D prior, our multi-view diffusion model generates 3D-consistent images from arbitrary camera viewpoints. We further extend a fast mesh reconstruction algorithm by incorporating color-normal joint optimization to recover detailed and coherent 3D vehicle models from the synthesized dense views. Extensive experiments on synthetic and real-world datasets demonstrate that our approach achieves robust geometric consistency and reconstruction fidelity compared to existing methods. Project page: https://honglixiao.github.io/3dcargen.github.io/.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-23T07:44:14Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hongli Xiao</name>
+    </author>
+    <author>
+      <name>Youjian Zhang</name>
+    </author>
+    <author>
+      <name>Yaohui Jin</name>
+    </author>
+    <author>
+      <name>Xiaoguang Ren</name>
+    </author>
+    <author>
+      <name>Wenjing Yang</name>
+    </author>
+    <author>
+      <name>Long Lan</name>
+    </author>
+  </entry>
+</feed>

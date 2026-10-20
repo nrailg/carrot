@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/+E6K6zslYoi/C26CY3HZupCnm0U</id>
+  <title>arXiv Query: search_query=ti:"LLaDA-VLA: Vision Language Diffusion Action Models" OR ti:"D2TriPO-DETR: Dual-Decoder Triple-Parallel-Output Detection Transformer" OR ti:"Hand-Centric Interaction Representation for Vision-Language-Action Models" OR ti:"Value Function-Guided MPPI for Hierarchical Planning and Control in Off-Road Autonomous Navigation" OR ti:"Learning to Tune Pure Pursuit in Autonomous Racing: Joint Lookahead and Steering-Gain Control with PPO" OR ti:"Symmetry-Breaking in Multi-Agent Navigation: Winding Number-Aware MPC with a Learned Topological Strategy" OR ti:"A2RL V_max: The A2RL Autonomous Racing Dataset for Long-Range, High-Speed Perception and Multi-Vehicle Interaction" OR ti:"StageNav: A Diagnostic Benchmark and State-Aligned RL Framework for Long-Horizon Navigation" OR ti:"FALCoN : Failure Detection and Learning-Based Recovery Action Generation in Visual Navigation" OR ti:"REAL: Robust Extreme Agility Via Spatio-Temporal Policy Learning and Physics-Guided Filtering"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:00Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22LLaDA-VLA:+Vision+Language+Diffusion+Action+Models%22+OR+(ti:%22D2TriPO-DETR:+Dual-Decoder+Triple-Parallel-Output+Detection+Transformer%22+OR+(ti:%22Hand-Centric+Interaction+Representation+for+Vision-Language-Action+Models%22+OR+(ti:%22Value+Function-Guided+MPPI+for+Hierarchical+Planning+and+Control+in+Off-Road+Autonomous+Navigation%22+OR+(ti:%22Learning+to+Tune+Pure+Pursuit+in+Autonomous+Racing:+Joint+Lookahead+and+Steering-Gain+Control+with+PPO%22+OR+(ti:%22Symmetry-Breaking+in+Multi-Agent+Navigation:+Winding+Number-Aware+MPC+with+a+Learned+Topological+Strategy%22+OR+(ti:%22A2RL+V_max:+The+A2RL+Autonomous+Racing+Dataset+for+Long-Range,+High-Speed+Perception+and+Multi-Vehicle+Interaction%22+OR+(ti:%22StageNav:+A+Diagnostic+Benchmark+and+State-Aligned+RL+Framework+for+Long-Horizon+Navigation%22+OR+(ti:%22FALCoN+:+Failure+Detection+and+Learning-Based+Recovery+Action+Generation+in+Visual+Navigation%22+OR+ti:%22REAL:+Robust+Extreme+Agility+Via+Spatio-Temporal+Policy+Learning+and+Physics-Guided+Filtering%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2602.18386v1</id>
+    <title>Learning to Tune Pure Pursuit in Autonomous Racing: Joint Lookahead and Steering-Gain Control with PPO</title>
+    <updated>2026-02-20T17:48:21Z</updated>
+    <link href="https://arxiv.org/abs/2602.18386v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.18386v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Pure Pursuit (PP) is widely used in autonomous racing for real-time path tracking due to its efficiency and geometric clarity, yet performance is highly sensitive to how key parameters-lookahead distance and steering gain-are chosen. Standard velocity-based schedules adjust these only approximately and often fail to transfer across tracks and speed profiles. We propose a reinforcement-learning (RL) approach that jointly chooses the lookahead Ld and a steering gain g online using Proximal Policy Optimization (PPO). The policy observes compact state features (speed and curvature taps) and outputs (Ld, g) at each control step. Trained in F1TENTH Gym and deployed in a ROS 2 stack, the policy drives PP directly (with light smoothing) and requires no per-map retuning. Across simulation and real-car tests, the proposed RL-PP controller that jointly selects (Ld, g) consistently outperforms fixed-lookahead PP, velocity-scheduled adaptive PP, and an RL lookahead-only variant, and it also exceeds a kinematic MPC raceline tracker under our evaluated settings in lap time, path-tracking accuracy, and steering smoothness, demonstrating that policy-guided parameter tuning can reliably improve classical geometry-based control.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-20T17:48:21Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mohamed Elgouhary</name>
+    </author>
+    <author>
+      <name>Amr S. El-Wakeel</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.17653v1</id>
+    <title>REAL: Robust Extreme Agility via Spatio-Temporal Policy Learning and Physics-Guided Filtering</title>
+    <updated>2026-03-18T12:18:16Z</updated>
+    <link href="https://arxiv.org/abs/2603.17653v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.17653v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Extreme legged parkour demands rapid terrain assessment and precise foot placement under highly dynamic conditions. While recent learning-based systems achieve impressive agility, they remain fundamentally fragile to perceptual degradation, where even brief visual noise or latency can cause catastrophic failure. To overcome this, we propose Robust Extreme Agility Learning (REAL), an end-to-end framework for reliable parkour under sensory corruption. Instead of relying on perfectly clean perception, REAL tightly couples vision, proprioceptive history, and temporal memory. We distill a cross-modal teacher policy into a deployable student equipped with a FiLM-modulated Mamba backbone to actively filter visual noise and build short-term terrain memory actively. Furthermore, a physics-guided Bayesian state estimator enforces rigid-body consistency during high-impact maneuvers. Validated on a Unitree Go2 quadruped, REAL successfully traverses extreme obstacles even with a 1-meter visual blind zone, while strictly satisfying real-time control constraints with a bounded 13.1 ms inference time.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-18T12:18:16Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jialong Liu</name>
+    </author>
+    <author>
+      <name>Dehan Shen</name>
+    </author>
+    <author>
+      <name>Yanbo Wen</name>
+    </author>
+    <author>
+      <name>Zeyu Jiang</name>
+    </author>
+    <author>
+      <name>Changhao Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.15239v3</id>
+    <title>Symmetry-Breaking in Multi-Agent Navigation: Winding Number-Aware MPC with a Learned Topological Strategy</title>
+    <updated>2026-08-18T06:59:48Z</updated>
+    <link href="https://arxiv.org/abs/2511.15239v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.15239v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In decentralized multi-agent navigation, agents that independently compute their controls without communicating goals or intentions can fall into symmetry-induced deadlocks because each agent must decide how to pass others. We study this problem under the assumption that each agent has access to the current observable states of other agents, including their positions, velocities, and radii, while their goals, intentions, and future trajectories remain unobserved. To address this problem, we propose WNumMPC, a hierarchical navigation method that quantifies cooperative symmetry-breaking strategies via a topological invariant, the winding number, and learns such strategies through reinforcement learning. The learning-based Planner outputs continuous-valued signed target winding numbers and dynamic importance weights to prioritize critical interactions in dense crossings. Then, the model-based Controller generates collision-free and efficient motions based on the strategy and weights provided by the Planner. Simulation and real-world robot experiments indicate that WNumMPC effectively avoids deadlocks and collisions and achieves better performance than the baselines, particularly in dense and symmetry-prone scenarios. These experiments also suggest that explicitly leveraging winding numbers yields robust sim-to-real transfer with minimal performance degradation. The code for the experiments is available at https://github.com/omron-sinicx/WNumMPC.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-19T08:47:03Z</published>
+    <arxiv:comment>13 pages, 7 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tomoki Nakao</name>
+    </author>
+    <author>
+      <name>Kazumi Kasaura</name>
+    </author>
+    <author>
+      <name>Tadashi Kozuno</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.06932v2</id>
+    <title>LLaDA-VLA: Vision Language Diffusion Action Models</title>
+    <updated>2025-09-10T14:34:25Z</updated>
+    <link href="https://arxiv.org/abs/2509.06932v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.06932v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The rapid progress of auto-regressive vision-language models (VLMs) has inspired growing interest in vision-language-action models (VLA) for robotic manipulation. Recently, masked diffusion models, a paradigm distinct from autoregressive models, have begun to demonstrate competitive performance in text generation and multimodal applications, leading to the development of a series of diffusion-based VLMs (d-VLMs). However, leveraging such models for robot policy learning remains largely unexplored. In this work, we present LLaDA-VLA, the first Vision-Language-Diffusion-Action model built upon pretrained d-VLMs for robotic manipulation. To effectively adapt d-VLMs to robotic domain, we introduce two key designs: (1) a localized special-token classification strategy that replaces full-vocabulary classification with special action token classification, reducing adaptation difficulty; (2) a hierarchical action-structured decoding strategy that decodes action sequences hierarchically considering the dependencies within and across actions. Extensive experiments demonstrate that LLaDA-VLA significantly outperforms state-of-the-art VLAs on both simulation and real-world robots.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-08T17:45:40Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yuqing Wen</name>
+    </author>
+    <author>
+      <name>Hebei Li</name>
+    </author>
+    <author>
+      <name>Kefan Gu</name>
+    </author>
+    <author>
+      <name>Yucheng Zhao</name>
+    </author>
+    <author>
+      <name>Tiancai Wang</name>
+    </author>
+    <author>
+      <name>Xiaoyan Sun</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/D71dMc399m74zQG5XuyukDAo6J4</id>
+  <title>arXiv Query: search_query=ti:"Need for Speed: Gait-Agnostic Tendon-Routing Optimization for Terrestrial Tendon-Actuated Soft Robots" OR ti:"Maneuverability of an SMA-Embedded Soft/Rigid (Hybrid) Flagellated Swimmer in a Viscous Environment" OR ti:"Gait Switching Enables Body Pitch Modulation in a Self-Burrowing Robot" OR ti:"Unsupervised Domain Adaptation for Sim-To-Real Object Pose Estimation with Contrastive Alignment and Pseudo-Label Refinement" OR ti:"UWformer-VIO: A Transformer-Based Framework for Robust Underwater Visual-Inertial Odometry" OR ti:"DexHiL: A Human-In-The-Loop Framework for Post-Training VLA Models in Dexterous Manipulation" OR ti:"AERMANI-VLM: Structured Prompting and Reasoning for Aerial Manipulation with Vision Language Models" OR ti:"FlowAgent: Agentic Video Generation Meets Flow-Constrained Diffusion" OR ti:"A Robot System for Indoor Environment Question Answering with Cognitive Map Leveraging Vision-Language Models" OR ti:"Improving Policy Learning from Delayed Interventions"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:08Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Need+for+Speed:+Gait-Agnostic+Tendon-Routing+Optimization+for+Terrestrial+Tendon-Actuated+Soft+Robots%22+OR+(ti:%22Maneuverability+of+an+SMA-Embedded+Soft/Rigid+(Hybrid)+Flagellated+Swimmer+in+a+Viscous+Environment%22+OR+(ti:%22Gait+Switching+Enables+Body+Pitch+Modulation+in+a+Self-Burrowing+Robot%22+OR+(ti:%22Unsupervised+Domain+Adaptation+for+Sim-To-Real+Object+Pose+Estimation+with+Contrastive+Alignment+and+Pseudo-Label+Refinement%22+OR+(ti:%22UWformer-VIO:+A+Transformer-Based+Framework+for+Robust+Underwater+Visual-Inertial+Odometry%22+OR+(ti:%22DexHiL:+A+Human-In-The-Loop+Framework+for+Post-Training+VLA+Models+in+Dexterous+Manipulation%22+OR+(ti:%22AERMANI-VLM:+Structured+Prompting+and+Reasoning+for+Aerial+Manipulation+with+Vision+Language+Models%22+OR+(ti:%22FlowAgent:+Agentic+Video+Generation+Meets+Flow-Constrained+Diffusion%22+OR+(ti:%22A+Robot+System+for+Indoor+Environment+Question+Answering+with+Cognitive+Map+Leveraging+Vision-Language+Models%22+OR+ti:%22Improving+Policy+Learning+from+Delayed+Interventions%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.21287v1</id>
+    <title>Unsupervised Domain Adaptation for Sim-to-Real Object Pose Estimation with Contrastive Alignment and Pseudo-Label Refinement</title>
+    <updated>2026-06-19T10:11:17Z</updated>
+    <link href="https://arxiv.org/abs/2606.21287v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.21287v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Unsupervised domain adaptation (UDA) enables robust transfer of knowledge from simulated to real environments while exploiting a subset of unlabeled target data to improve real-world performance. Existing UDA methods for Object pose estimation often rely on global feature matching, multi-stage larger frameworks, or image translation pipelines, which tend to overlook the pose-specific information embedded in feature representations. To bridge this limitation, we introduce CAPLR that targets the adaptation of pose-sensitive features in localized regions, ensuring that domain alignment preserves the geometric cues essential for accurate pose estimation. CAPLR achieves UDA with three key components: (1) Efficient Cross-Domain Pairing strategy leveraging intermediate features to identify pose similar image pairs across domains without supervision; (2) Contrastive Alignment to perform feature alignment at localised regions in both intermediate and task-specific representations; and (3) Consistency-Based Pseudo-Label Refinement to improve reliability by encouraging stable target predictions. Extensive experiments demonstrate that CAPLR achieves state-of-the-art performance across multiple well-known object pose estimation benchmarks featuring diverse and challenging scenarios.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-19T10:11:17Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Nidhal Eddine Chenni</name>
+    </author>
+    <author>
+      <name>Arunkumar Rathinam</name>
+    </author>
+    <author>
+      <name>Djamila Aouada</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.01472v2</id>
+    <title>AERMANI-VLM: Structured Prompting and Reasoning for Aerial Manipulation with Vision Language Models</title>
+    <updated>2026-06-28T15:13:39Z</updated>
+    <link href="https://arxiv.org/abs/2511.01472v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.01472v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The rapid progress of vision--language models (VLMs) has sparked growing interest in robotic control, where natural language can express the operation goals while visual feedback links perception to action. However, directly deploying VLM-driven policies on aerial manipulators remains unsafe and unreliable since the generated actions are often inconsistent, hallucination-prone, and dynamically infeasible for flight. In this work, we present AERMANI-VLM, the first framework to adapt pretrained VLMs for aerial manipulation by separating high-level reasoning from low-level control, without any task-specific fine-tuning. Our framework encodes natural language instructions, task context, and safety constraints into a structured prompt that guides the model to generate a step-by-step reasoning trace in natural language. This reasoning output is used to select from a predefined library of discrete, flight-safe skills, ensuring interpretable and temporally consistent execution. By decoupling symbolic reasoning from physical action, AERMANI-VLM mitigates hallucinated commands and prevents unsafe behavior, enabling robust task completion. We validate the framework in both simulation and hardware on diverse multi-step pick-and-place tasks, demonstrating strong generalization to previously unseen commands, objects, and environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-03T11:31:55Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sarthak Mishra</name>
+    </author>
+    <author>
+      <name>Rishabh Dev Yadav</name>
+    </author>
+    <author>
+      <name>Avirup Das</name>
+    </author>
+    <author>
+      <name>Saksham Gupta</name>
+    </author>
+    <author>
+      <name>Wei Pan</name>
+    </author>
+    <author>
+      <name>Spandan Roy</name>
+    </author>
+  </entry>
+</feed>

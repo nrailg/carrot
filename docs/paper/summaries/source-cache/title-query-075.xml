@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/OqtF8BVKL6eE66MvPNs8Bsxpa5I</id>
+  <title>arXiv Query: search_query=ti:"RigPI: Dynamic Parameter Identification of Rigid Body Via VLM-Seeded Differentiable Simulation" OR ti:"GP-TTAPose: Geometry-Proxy Guided Test-Time Adaptation for Category-Level Object Pose Estimation" OR ti:"Warming-Up and Shaping Robot Policy Learning with Large Language Model-Based Critic Feedback" OR ti:"CDE: Concept-Driven Exploration for Reinforcement Learning" OR ti:"Stage-Transition Dense Reward Modeling for Reinforcement Learning" OR ti:"IRL4IDM: Inverse Reinforcement Learning for Inverse Dynamics Model in Video Generative Robot Planner" OR ti:"HiL-ResRL: A Model-Agnostic Finetuning Adapter via Human-in-the-loop Residual Reinforcement Learning" OR ti:"SemantiGrasp: Fine-Grained Semantic Part Correspondence for Generalizable Dexterous Grasping" OR ti:"In-Hand Manipulation of Articulated Tools with Dexterous Robot Hands with Sim-To-Real Transfer" OR ti:"Function-Based Parametric Co-Design Optimization of Dexterous Hands"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:54Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22RigPI:+Dynamic+Parameter+Identification+of+Rigid+Body+Via+VLM-Seeded+Differentiable+Simulation%22+OR+(ti:%22GP-TTAPose:+Geometry-Proxy+Guided+Test-Time+Adaptation+for+Category-Level+Object+Pose+Estimation%22+OR+(ti:%22Warming-Up+and+Shaping+Robot+Policy+Learning+with+Large+Language+Model-Based+Critic+Feedback%22+OR+(ti:%22CDE:+Concept-Driven+Exploration+for+Reinforcement+Learning%22+OR+(ti:%22Stage-Transition+Dense+Reward+Modeling+for+Reinforcement+Learning%22+OR+(ti:%22IRL4IDM:+Inverse+Reinforcement+Learning+for+Inverse+Dynamics+Model+in+Video+Generative+Robot+Planner%22+OR+(ti:%22HiL-ResRL:+A+Model-Agnostic+Finetuning+Adapter+via+Human-in-the-loop+Residual+Reinforcement+Learning%22+OR+(ti:%22SemantiGrasp:+Fine-Grained+Semantic+Part+Correspondence+for+Generalizable+Dexterous+Grasping%22+OR+(ti:%22In-Hand+Manipulation+of+Articulated+Tools+with+Dexterous+Robot+Hands+with+Sim-To-Real+Transfer%22+OR+ti:%22Function-Based+Parametric+Co-Design+Optimization+of+Dexterous+Hands%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.25212v2</id>
+    <title>RigPI: Dynamic Parameter Identification of Rigid Body via VLM-Seeded Differentiable Simulation</title>
+    <updated>2026-06-25T06:30:32Z</updated>
+    <link href="https://arxiv.org/abs/2606.25212v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.25212v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate physical parameter identification of manipulated objects is fundamental to advanced robotic manipulation and the construction of faithful digital twins. However, acquiring physically consistent inertial and frictional properties from real-world interactions remains challenging due to sensing noise, modeling errors, and limited prior knowledge. This paper presents RigPI, a systematic framework for identifying dynamic parameters of both unconstrained rigid bodies and multi-link rigid bodies during robot-object interaction. RigPI integrates vision-based semantic priors, force-torque measurements, and motion observations within a differentiable simulation pipeline. A vision-language model (VLM) provides informed initialization and a constrained search space, while gradient information from a differentiable physics simulator enables efficient and stable parameter refinement. The proposed two-stage optimization strategy alleviates sensitivity to noise and avoids physically implausible solutions. Extensive real-world experiments on objects with revolute and prismatic joints demonstrate that RigPI achieves accurate and stable parameter estimates, and successfully reproduces manipulation trajectories on a real robot with parameter-aware predictive validity. These results highlight the effectiveness and robustness of RigPI for real-world robotic system identification tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-23T22:15:42Z</published>
+    <arxiv:comment>Accepted to IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS 2027)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Xincheng He</name>
+    </author>
+    <author>
+      <name>Rongrong Zhang</name>
+    </author>
+    <author>
+      <name>Wei Jiang</name>
+    </author>
+    <author>
+      <name>Wenqiang Xu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.22860v1</id>
+    <title>HiL-ResRL: A Model-Agnostic Finetuning Adapter via Human-in-the-loop Residual Reinforcement Learning</title>
+    <updated>2026-06-22T05:07:08Z</updated>
+    <link href="https://arxiv.org/abs/2606.22860v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.22860v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recent advancements in generative imitation learning have significantly propelled the field of robotic manipulation. However, the majority of existing models rely heavily on Behavior Cloning (BC), a paradigm that suffers from compounding errors and distributional shift. Consequently, the efficacy of these models in practical industrial deployments remains limited. To address these challenges, we introduce a novel, plug-and-play fine-tuning pipeline designed to facilitate the robust deployment of Vision-Language-Action (VLA) models in real-world environments. In contrast to contemporary reinforcement learning (RL) fine-tuning strategies, which are often constrained by specific model architectures, our proposed framework is model-agnostic and adaptable to a diverse range of VLA models. We conceptualize VLA-generated actions as a unified interface, upon which we train a residual policy. This policy is designed to rectify suboptimal actions and address the distributional shift inherent in imitation learning. Additionally, we incorporate human-in-the-loop guidance to ensure safe exploration and maximize training efficiency. We conduct experiments directly in real-world robotic settings. The results demonstrate that within only 1.5 hour of real-world online RL training, the average success rate exceeds 95% on real robots. Our work presents a practical solution for deploying behavior cloning models in industrial scenarios.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T05:07:08Z</published>
+    <arxiv:comment>8 pages, 9 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jingyi Liu</name>
+    </author>
+    <author>
+      <name>Zhaohong Mai</name>
+    </author>
+    <author>
+      <name>ShunSen He</name>
+    </author>
+    <author>
+      <name>Hang Ren</name>
+    </author>
+    <author>
+      <name>Chao Wang</name>
+    </author>
+    <author>
+      <name>Shunbo Zhou</name>
+    </author>
+    <author>
+      <name>XiaoDong Wu</name>
+    </author>
+    <author>
+      <name>Heng Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.23075v3</id>
+    <title>In-Hand Manipulation of Articulated Tools with Dexterous Robot Hands with Sim-to-Real Transfer</title>
+    <updated>2026-03-05T00:52:36Z</updated>
+    <link href="https://arxiv.org/abs/2509.23075v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.23075v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reinforcement learning (RL) and sim-to-real transfer have advanced rigid-object manipulation. However, policies remain brittle for articulated mechanisms due to contact-rich dynamics that require both stable grasping and simultaneous free in-hand articulation. Furthermore, articulated objects and robot hands exhibit under-modeled joint phenomena such as friction, stiction, and backlash in real life that can increase the sim-to-real gap, and robot hands still fall short of idealized tactile sensing, both in terms of coverage, sensitivity, and specificity. In this paper, we present an original approach to learning dexterous in-hand manipulation of articulated tools that has reduced articulation and kinematic redundancy relative to the human hand. Our approach augments a simulation-trained base policy with a sensor-driven refinement learned from hardware demonstrations. This refinement conditions on proprioception and target articulation states while fusing whole-hand tactile and force-torque feedback with the policy's action intent through cross-attention. The resulting controller adapts online to instance-specific articulation properties, stabilizes contact interactions, and regulates internal forces under perturbations. We validate our method across diverse real-world tools, including scissors, pliers, minimally invasive surgical instruments, and staplers, demonstrating robust sim-to-real transfer, improved disturbance resilience, and generalization across structurally related articulated tools without precise physical modeling.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-27T02:56:57Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Soofiyan Atar</name>
+    </author>
+    <author>
+      <name>Daniel Huang</name>
+    </author>
+    <author>
+      <name>Florian Richter</name>
+    </author>
+    <author>
+      <name>Michael Yip</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.27557v1</id>
+    <title>Function-based Parametric Co-Design Optimization of Dexterous Hands</title>
+    <updated>2026-04-30T08:06:00Z</updated>
+    <link href="https://arxiv.org/abs/2604.27557v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.27557v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Despite advances in dexterous hand manipulation, robotic hand design is still largely decoupled from task-driven evaluation and control, limiting systematic optimization. Existing robotic hand co-design approaches are often limited in scope, optimizing a small subset of design parameters. We introduce a comprehensive parametric framework for robotic hand generation that unifies palm structure, finger kinematics, fingertip geometry, and fine-scale surface curvatures within a single design space. Fine geometric features are introduced through parametric surface deformation kernels that directly influence contact interactions. We validate the framework on design optimization in grasp stability tasks in simulation and real-world dynamic scenarios. Our framework produces simulation- and fabrication-ready hand models and will be released as open-source to enable rapid design iteration for dexterous hand co-design optimization frameworks and cross-embodiment policy training and control research.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-30T08:06:00Z</published>
+    <arxiv:comment>8 pages, 7 figures, https://www.aminmirzaee.com/HandCDO/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mohammad Amin Mirzaee</name>
+    </author>
+    <author>
+      <name>Harsh Gupta</name>
+    </author>
+    <author>
+      <name>Wenzhen Yuan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.08851v2</id>
+    <title>CDE: Concept-Driven Exploration for Reinforcement Learning</title>
+    <updated>2026-03-07T06:03:58Z</updated>
+    <link href="https://arxiv.org/abs/2510.08851v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.08851v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Intelligent exploration remains a critical challenge in reinforcement learning (RL), especially in visual control tasks. Unlike low-dimensional state-based RL, visual RL must extract task-relevant structure from raw pixels, making exploration inefficient. We propose Concept-Driven Exploration (CDE), which leverages a pre-trained vision-language model (VLM) to generate object-centric visual concepts from textual task descriptions as weak, potentially noisy supervisory signals. Rather than directly conditioning on these noisy signals, CDE trains a policy to reconstruct the concepts via an auxiliary objective, learning general representations of the concepts and using reconstruction accuracy as an intrinsic reward to guide exploration toward task-relevant objects. Across five challenging simulated visual manipulation tasks, CDE achieves efficient, targeted exploration and remains robust to both synthetic errors and noisy VLM predictions. Finally, we demonstrate real-world transfer by deploying CDE on a Franka arm, attaining an 80\% success rate in a real-world manipulation task.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-09T23:01:36Z</published>
+    <arxiv:comment>Preprint</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Le Mao</name>
+    </author>
+    <author>
+      <name>Andrew H. Liu</name>
+    </author>
+    <author>
+      <name>Renos Zabounidis</name>
+    </author>
+    <author>
+      <name>Yanan Niu</name>
+    </author>
+    <author>
+      <name>Zachary Kingston</name>
+    </author>
+    <author>
+      <name>Joseph Campbell</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.31377v1</id>
+    <title>Stage-Transition Dense Reward Modeling for Reinforcement Learning</title>
+    <updated>2026-06-30T09:07:19Z</updated>
+    <link href="https://arxiv.org/abs/2606.31377v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.31377v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reinforcement learning for long-horizon robotic manipulation is often limited by sparse and delayed rewards, while manually designing dense shaping signals is costly and brittle to changes in environments and object configurations. This work proposes Stage-Transition Dense Reward (STDR), a visual reward-learning framework that converts unstructured expert videos into logically grounded dense rewards for training RL agents from scratch. STDR leverages semantic understanding to infer a task's stage structure from demonstrations, and delivers two complementary learning signals during online training: (i) stage-transition feedback that provides goal-directed reward, and (ii) within-stage progress feedback that supplies fine-grained guidance toward completing each stage. Furthermore, an out-of-distribution (OOD) detection mechanism and a grasping regulation module are integrated to enhance robustness and prevent reward hacking. Experiments on 14 manipulation tasks across MetaWorld, ManiSkill, and Franka Kitchen show that STDR consistently improves sample efficiency and success rates over multiple baselines, and matches or surpasses handcrafted dense rewards on several challenging tasks. Real-robot evaluations further indicate that STDR assigns stable, progress-aligned rewards on successful executions while producing appropriately low rewards for failures, suggesting robustness to visual noise and better-calibrated reward assignment across settings.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-30T09:07:19Z</published>
+    <arxiv:comment>8 pages,3 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yang Yang</name>
+    </author>
+    <author>
+      <name>Bingjie Chen</name>
+    </author>
+    <author>
+      <name>Zihan Wang</name>
+    </author>
+    <author>
+      <name>Yizhe Li</name>
+    </author>
+    <author>
+      <name>Guoping Pan</name>
+    </author>
+    <author>
+      <name>Yi Cheng</name>
+    </author>
+    <author>
+      <name>Houde Liu</name>
+    </author>
+  </entry>
+</feed>

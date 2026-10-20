@@ -1,0 +1,111 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/vwAewDNu16BoeUTCN2pFdFEeAzE</id>
+  <title>arXiv Query: search_query=ti:"An Intuitive Avatar Operation Method with Low Cognitive Load for Telecommunication Using Finger and Wrist Movements" OR ti:"Hand-Gesture Based Robot Tracking and Teaching Framework: Demonstration in Surface Polishing Task" OR ti:"Deployable Chiral-Origami Modular Arms for High-Precision Manipulation in Confined Spaces" OR ti:"Implementation of a Bio-Inspired Double-Spiral Joint for Terrain-Adaptive Realignment in a Legged Robot" OR ti:"Hardware Reconfiguration for Enhancing the Control Bandwidth of Pneumatic Artificial Muscles through High-Bandwidth Pressure Control" OR ti:"New Families of Handed Shearing Auxetics Via Parameterization" OR ti:"Programmable Locking Cells (PLC) for Modular Robots with High Stiffness Tunability and Morphological Adaptability" OR ti:"SurgRAW: Multi-Agent Workflow with Chain of Thought Reasoning for Robotic Surgical Video Analysis" OR ti:"Cosmos-Surg-dVRK: World Foundation Model-Based Automated Online Evaluation of Surgical Robot Policy Learning" OR ti:"An Actively Steerable Continuum Robotic Instrument for Compliant Retinal Vessel Puncture"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:08Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22An+Intuitive+Avatar+Operation+Method+with+Low+Cognitive+Load+for+Telecommunication+Using+Finger+and+Wrist+Movements%22+OR+(ti:%22Hand-Gesture+Based+Robot+Tracking+and+Teaching+Framework:+Demonstration+in+Surface+Polishing+Task%22+OR+(ti:%22Deployable+Chiral-Origami+Modular+Arms+for+High-Precision+Manipulation+in+Confined+Spaces%22+OR+(ti:%22Implementation+of+a+Bio-Inspired+Double-Spiral+Joint+for+Terrain-Adaptive+Realignment+in+a+Legged+Robot%22+OR+(ti:%22Hardware+Reconfiguration+for+Enhancing+the+Control+Bandwidth+of+Pneumatic+Artificial+Muscles+through+High-Bandwidth+Pressure+Control%22+OR+(ti:%22New+Families+of+Handed+Shearing+Auxetics+Via+Parameterization%22+OR+(ti:%22Programmable+Locking+Cells+(PLC)+for+Modular+Robots+with+High+Stiffness+Tunability+and+Morphological+Adaptability%22+OR+(ti:%22SurgRAW:+Multi-Agent+Workflow+with+Chain+of+Thought+Reasoning+for+Robotic+Surgical+Video+Analysis%22+OR+(ti:%22Cosmos-Surg-dVRK:+World+Foundation+Model-Based+Automated+Online+Evaluation+of+Surgical+Robot+Policy+Learning%22+OR+ti:%22An+Actively+Steerable+Continuum+Robotic+Instrument+for+Compliant+Retinal+Vessel+Puncture%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.16240v2</id>
+    <title>Cosmos-Surg-dVRK: World Foundation Model-based Automated Online Evaluation of Surgical Robot Policy Learning</title>
+    <updated>2025-11-03T16:25:14Z</updated>
+    <link href="https://arxiv.org/abs/2510.16240v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.16240v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The rise of surgical robots and vision-language-action models has accelerated the development of autonomous surgical policies and efficient assessment strategies. However, evaluating these policies directly on physical robotic platforms such as the da Vinci Research Kit (dVRK) remains hindered by high costs, time demands, reproducibility challenges, and variability in execution. World foundation models (WFM) for physical AI offer a transformative approach to simulate complex real-world surgical tasks, such as soft tissue deformation, with high fidelity. This work introduces Cosmos-Surg-dVRK, a surgical finetune of the Cosmos WFM, which, together with a trained video classifier, enables fully automated online evaluation and benchmarking of surgical policies. We evaluate Cosmos-Surg-dVRK using two distinct surgical datasets. On tabletop suture pad tasks, the automated pipeline achieves strong correlation between online rollouts in Cosmos-Surg-dVRK and policy outcomes on the real dVRK Si platform, as well as good agreement between human labelers and the V-JEPA 2-derived video classifier. Additionally, preliminary experiments with ex-vivo porcine cholecystectomy tasks in Cosmos-Surg-dVRK demonstrate promising alignment with real-world evaluations, highlighting the platform's potential for more complex surgical procedures.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-17T22:05:25Z</published>
+    <arxiv:comment>minor metadata and notation fixes; +3 citations</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lukas Zbinden</name>
+    </author>
+    <author>
+      <name>Nigel Nelson</name>
+    </author>
+    <author>
+      <name>Juo-Tung Chen</name>
+    </author>
+    <author>
+      <name>Xinhao Chen</name>
+    </author>
+    <author>
+      <name>Ji Woong Kim</name>
+    </author>
+    <author>
+      <name>Mahdi Azizian</name>
+    </author>
+    <author>
+      <name>Axel Krieger</name>
+    </author>
+    <author>
+      <name>Sean Huver</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.07916v1</id>
+    <title>Programmable Locking Cells (PLC) for Modular Robots with High Stiffness Tunability and Morphological Adaptability</title>
+    <updated>2025-09-09T16:57:10Z</updated>
+    <link href="https://arxiv.org/abs/2509.07916v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.07916v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic systems operating in unstructured environments require the ability to switch between compliant and rigid states to perform diverse tasks such as adaptive grasping, high-force manipulation, shape holding, and navigation in constrained spaces, among others. However, many existing variable stiffness solutions rely on complex actuation schemes, continuous input power, or monolithic designs, limiting their modularity and scalability. This paper presents the Programmable Locking Cell (PLC)-a modular, tendon-driven unit that achieves discrete stiffness modulation through mechanically interlocked joints actuated by cable tension. Each unit transitions between compliant and firm states via structural engagement, and the assembled system exhibits high stiffness variation-up to 950% per unit-without susceptibility to damage under high payload in the firm state. Multiple PLC units can be assembled into reconfigurable robotic structures with spatially programmable stiffness. We validate the design through two functional prototypes: (1) a variable-stiffness gripper capable of adaptive grasping, firm holding, and in-hand manipulation; and (2) a pipe-traversing robot composed of serial PLC units that achieves shape adaptability and stiffness control in confined environments. These results demonstrate the PLC as a scalable, structure-centric mechanism for programmable stiffness and motion, enabling robotic systems with reconfigurable morphology and task-adaptive interaction.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-09T16:57:10Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jianshu Zhou</name>
+    </author>
+    <author>
+      <name>Wei Chen</name>
+    </author>
+    <author>
+      <name>Junda Huang</name>
+    </author>
+    <author>
+      <name>Boyuan Liang</name>
+    </author>
+    <author>
+      <name>Yunhui Liu</name>
+    </author>
+    <author>
+      <name>Masayoshi Tomizuka</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.10265v3</id>
+    <title>SurgRAW: Multi-Agent Workflow with Chain of Thought Reasoning for Robotic Surgical Video Analysis</title>
+    <updated>2026-09-16T06:49:57Z</updated>
+    <link href="https://arxiv.org/abs/2503.10265v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.10265v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic-assisted surgery (RAS) is central to modern surgery, driving the need for intelligent systems with accurate scene understanding. Most existing surgical AI methods rely on isolated, task-specific models, leading to fragmented pipelines with limited interpretability and no unified understanding of RAS scene. Vision-Language Models (VLMs) offer strong zero-shot reasoning, but struggle with hallucinations, domain gaps and weak task-interdependency modeling. To address the lack of unified data for RAS scene understanding, we introduce SurgCoTBench, the first reasoning-focused benchmark in RAS, covering 14256 QA pairs with frame-level annotations across five major surgical tasks. Building on SurgCoTBench, we propose SurgRAW, a clinically aligned Chain-of-Thought (CoT) driven agentic workflow for zero-shot multi-task reasoning in surgery. SurgRAW employs a hierarchical reasoning workflow where an orchestrator divides surgical scene understanding into two reasoning streams and directs specialized agents to generate task-level reasoning, while higher-level agents capture workflow interdependencies or ground output clinically. Specifically, we propose a panel discussion mechanism to ensure task-specific agents collaborate synergistically and leverage on task interdependencies. Similarly, we incorporate a retrieval-augmented generation module to enrich agents with surgical knowledge and alleviate domain gaps in general VLMs. We design task-specific CoT prompts grounded in surgical domain to ensure clinically aligned reasoning, reduce hallucinations and enhance interpretability. Extensive experiments show that SurgRAW surpasses mainstream VLMs and agentic systems and outperforms a supervised model by 14.61% accuracy. Dataset and code is available at https://github.com/jinlab-imvr/SurgRAW.git .</summary>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-13T11:23:13Z</published>
+    <arxiv:primary_category term="cs.AI"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, 2026, pp. 1-8</arxiv:journal_ref>
+    <author>
+      <name>Chang Han Low</name>
+    </author>
+    <author>
+      <name>Ziyue Wang</name>
+    </author>
+    <author>
+      <name>Tianyi Zhang</name>
+    </author>
+    <author>
+      <name>Zhu Zhuo</name>
+    </author>
+    <author>
+      <name>Zhitao Zeng</name>
+    </author>
+    <author>
+      <name>Evangelos B. Mazomenos</name>
+    </author>
+    <author>
+      <name>Yueming Jin</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3665443</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3665443" title="doi"/>
+  </entry>
+</feed>

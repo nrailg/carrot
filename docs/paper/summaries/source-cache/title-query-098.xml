@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/iLGl5pzUSorbPqOBxLtlEMjdtzE</id>
+  <title>arXiv Query: search_query=ti:"A ROS 2-Based Framework for Automated Real-Time Affective Nonverbal Sound Generation in Robots" OR ti:"A Goal-Conditioned Deep Reinforcement Learning Approach to Gaze Modulation for Attention Regulation" OR ti:"VISA-HOI: A Video-Based Interaction-Aware Graph Semantic-Guided Attention Fusion Network for Human-Object Interaction Recognition" OR ti:"Mind the Shape Gap: A Benchmark and Baseline for Deformation-Aware 6D Pose Estimation of Agricultural Produce" OR ti:"FlowTouch: View-Invariant Visuo-Tactile Prediction" OR ti:"Attentive Feature Aggregation Or: How Policies Learn to Stop Worrying about Robustness and Attend to Task-Relevant Visual Cues" OR ti:"FCAR: Force-Conditioned Action Residual Policies for Contact-Rich Manipulation" OR ti:"HiFlow: Tokenization-Free Scale-Wise Autoregressive Policy Learning Via Flow Matching" OR ti:"TrajPred: Trajectory-Conditioned Joint Embedding Prediction for Surgical Instrument-Tissue Interaction Recognition in Vision-Language Models" OR ti:"Synergistic Perception–Action Decision Making Via Composite Utility for Long-Horizon Mobile Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:26Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22A+ROS+2-Based+Framework+for+Automated+Real-Time+Affective+Nonverbal+Sound+Generation+in+Robots%22+OR+(ti:%22A+Goal-Conditioned+Deep+Reinforcement+Learning+Approach+to+Gaze+Modulation+for+Attention+Regulation%22+OR+(ti:%22VISA-HOI:+A+Video-Based+Interaction-Aware+Graph+Semantic-Guided+Attention+Fusion+Network+for+Human-Object+Interaction+Recognition%22+OR+(ti:%22Mind+the+Shape+Gap:+A+Benchmark+and+Baseline+for+Deformation-Aware+6D+Pose+Estimation+of+Agricultural+Produce%22+OR+(ti:%22FlowTouch:+View-Invariant+Visuo-Tactile+Prediction%22+OR+(ti:%22Attentive+Feature+Aggregation+Or:+How+Policies+Learn+to+Stop+Worrying+about+Robustness+and+Attend+to+Task-Relevant+Visual+Cues%22+OR+(ti:%22FCAR:+Force-Conditioned+Action+Residual+Policies+for+Contact-Rich+Manipulation%22+OR+(ti:%22HiFlow:+Tokenization-Free+Scale-Wise+Autoregressive+Policy+Learning+Via+Flow+Matching%22+OR+(ti:%22TrajPred:+Trajectory-Conditioned+Joint+Embedding+Prediction+for+Surgical+Instrument-Tissue+Interaction+Recognition+in+Vision-Language+Models%22+OR+ti:%22Synergistic+Perception%E2%80%93Action+Decision+Making+Via+Composite+Utility+for+Long-Horizon+Mobile+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.10762v2</id>
+    <title>Attentive Feature Aggregation or: How Policies Learn to Stop Worrying about Robustness and Attend to Task-Relevant Visual Cues</title>
+    <updated>2026-02-27T14:57:02Z</updated>
+    <link href="https://arxiv.org/abs/2511.10762v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.10762v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The adoption of pre-trained visual representations (PVRs), leveraging features from large-scale vision models, has become a popular paradigm for training visuomotor policies. However, these powerful representations can encode a broad range of task-irrelevant scene information, making the resulting trained policies vulnerable to out-of-domain visual changes and distractors. In this work we address visuomotor policy feature pooling as a solution to the observed lack of robustness in perturbed scenes. We achieve this via Attentive Feature Aggregation (AFA), a lightweight, trainable pooling mechanism that learns to naturally attend to task-relevant visual cues, ignoring even semantically rich scene distractors. Through extensive experiments in both simulation and the real world, we demonstrate that policies trained with AFA significantly outperform standard pooling approaches in the presence of visual perturbations, without requiring expensive dataset augmentation or fine-tuning of the PVR. Our findings show that ignoring extraneous visual information is a crucial step towards deploying robust and generalisable visuomotor policies. Project Page: tsagkas.github.io/afa</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-13T19:31:05Z</published>
+    <arxiv:comment>This paper stems from a split of our earlier work "When Pre-trained Visual Representations Fall Short: Limitations in Visuo-Motor Robot Learning." While "The Temporal Trap" replaces the original and focuses on temporal entanglement, this companion study examines policy robustness and task-relevant visual cue selection. arXiv admin note: text overlap with arXiv:2502.03270</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nikolaos Tsagkas</name>
+    </author>
+    <author>
+      <name>Andreas Sochopoulos</name>
+    </author>
+    <author>
+      <name>Duolikun Danier</name>
+    </author>
+    <author>
+      <name>Sethu Vijayakumar</name>
+    </author>
+    <author>
+      <name>Alexandros Kouris</name>
+    </author>
+    <author>
+      <name>Oisin Mac Aodha</name>
+    </author>
+    <author>
+      <name>Chris Xiaoxuan Lu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.06999v3</id>
+    <title>TrajPred: Trajectory-Conditioned Joint Embedding Prediction for Surgical Instrument-Tissue Interaction Recognition in Vision-Language Models</title>
+    <updated>2026-03-15T02:05:17Z</updated>
+    <link href="https://arxiv.org/abs/2603.06999v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.06999v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Recognizing instruments' interactions with tissues is essential for building context-aware AI assistants in robotic surgery. Vision-language models (VLMs) have opened a new avenue for surgical perception and achieved better generalization on a wide range of tasks compared to conventional task-specific deep learning approaches. However, their performance on instrument--tissue interaction recognition remains limited, largely due to two challenges: (1) many models do not effectively leverage temporal information, and (2) alignment between vision and text often misses fine-grained action details. To address these issues, we propose TrajPred, a framework that encodes instrument trajectories to incorporate temporal motion cues and, conditioned on these trajectories, introduces a predictor module to generate visual semantic embeddings that better capture fine-grained action details. We further incorporate prompt tuning and a verb-rephrasing technique to enable smooth adaptation to the instrument--tissue interaction recognition task. Extensive experiments on the public laparoscopic benchmark, CholecT50, show that our method improves both Average Precision and Top-K accuracy. We also investigate whether visual embeddings of instrument--tissue interaction regions align better with the corresponding text by visualizing the cosine similarity between visual and textual embeddings. The visualization results indicate that the proposed method improves alignment between relevant visual and textual representations.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-07T02:44:57Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Jiajun Cheng</name>
+    </author>
+    <author>
+      <name>Xiaofan Yu</name>
+    </author>
+    <author>
+      <name>Subarna Tripathi</name>
+    </author>
+    <author>
+      <name>Sainan Liu</name>
+    </author>
+    <author>
+      <name>Shan Lin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.27281v1</id>
+    <title>HiFlow: Tokenization-Free Scale-Wise Autoregressive Policy Learning via Flow Matching</title>
+    <updated>2026-03-28T14:22:58Z</updated>
+    <link href="https://arxiv.org/abs/2603.27281v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.27281v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Coarse-to-fine autoregressive modeling has recently shown strong promise for visuomotor policy learning, combining the inference efficiency of autoregressive methods with the global trajectory coherence of diffusion-based policies. However, existing approaches rely on discrete action tokenizers that map continuous action sequences to codebook indices, a design inherited from image generation where learned compression is necessary for high-dimensional pixel data. We observe that robot actions are inherently low-dimensional continuous vectors, for which such tokenization introduces unnecessary quantization error and a multi-stage training pipeline. In this work, we propose Hierarchical Flow Policy (HiFlow), a tokenization-free coarse-to-fine autoregressive policy that operates directly on raw continuous actions. HiFlow constructs multi-scale continuous action targets from each action chunk via simple temporal pooling. Specifically, it averages contiguous action windows to produce coarse summaries that are refined at finer temporal resolutions. The entire model is trained end-to-end in a single stage, eliminating the need for a separate tokenizer. Experiments on MimicGen, RoboTwin 2.0, and real-world environments demonstrate that HiFlow consistently outperforms existing methods including diffusion-based and tokenization-based autoregressive policies.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-28T14:22:58Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Daichi Yashima</name>
+    </author>
+    <author>
+      <name>Koki Seno</name>
+    </author>
+    <author>
+      <name>Shuhei Kurita</name>
+    </author>
+    <author>
+      <name>Yusuke Oda</name>
+    </author>
+    <author>
+      <name>Komei Sugiura</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.27429v1</id>
+    <title>Mind the Shape Gap: A Benchmark and Baseline for Deformation-Aware 6D Pose Estimation of Agricultural Produce</title>
+    <updated>2026-03-28T22:06:51Z</updated>
+    <link href="https://arxiv.org/abs/2603.27429v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.27429v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate 6D pose estimation for robotic harvesting is fundamentally hindered by the biological deformability and high intra-class shape variability of agricultural produce. Instance-level methods fail in this setting, as obtaining exact 3D models for every unique piece of produce is practically infeasible, while category-level approaches that rely on a fixed template suffer significant accuracy degradation when the prior deviates from the true instance geometry. To bridge such lack of robustness to deformation, we introduce PEAR (Pose and dEformation of Agricultural pRoduce), the first benchmark providing joint 6D pose and per-instance 3D deformation ground truth across 8 produce categories, acquired via a robotic manipulator for high annotation accuracy. Using PEAR, we show that state-of-the-art methods suffer up to 6x performance degradation when faced with the inherent geometric deviations of real-world produce. Motivated by this finding, we propose SEED (Simultaneous Estimation of posE and Deformation), a unified RGB-only framework that jointly predicts 6D pose and explicit lattice deformations from a single image across multiple produce categories. Trained entirely on synthetic data with generative texture augmentation applied at the UV level, SEED outperforms MegaPose on 6 out of 8 categories under identical RGB-only conditions, demonstrating that explicit shape modeling is a critical step toward reliable pose estimation in agricultural robotics.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-28T22:06:51Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Nikolas Chatzis</name>
+    </author>
+    <author>
+      <name>Angeliki Tsinouka</name>
+    </author>
+    <author>
+      <name>Katerina Papadimitriou</name>
+    </author>
+    <author>
+      <name>Niki Efthymiou</name>
+    </author>
+    <author>
+      <name>Marios Glytsos</name>
+    </author>
+    <author>
+      <name>George Retsinas</name>
+    </author>
+    <author>
+      <name>Paris Oikonomou</name>
+    </author>
+    <author>
+      <name>Gerasimos Potamianos</name>
+    </author>
+    <author>
+      <name>Petros Maragos</name>
+    </author>
+    <author>
+      <name>Panagiotis Paraskevas Filntisis</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.08255v1</id>
+    <title>FlowTouch: View-Invariant Visuo-Tactile Prediction</title>
+    <updated>2026-03-09T11:24:29Z</updated>
+    <link href="https://arxiv.org/abs/2603.08255v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.08255v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tactile sensation is essential for contact-rich manipulation tasks. It provides direct feedback on object geometry, surface properties, and interaction forces, enhancing perception and enabling fine-grained control. An inherent limitation of tactile sensors is that readings are available only when an object is touched. This precludes their use during planning and the initial execution phase of a task. Predicting tactile information from visual information can bridge this gap. A common approach is to learn a direct mapping from camera images to the output of vision-based tactile sensors. However, the resulting model will depend strongly on the specific setup and on how well the camera can capture the area where an object is touched. In this work, we introduce FlowTouch, a novel model for view-invariant visuo-tactile prediction. Our key idea is to use an object's local 3D mesh to encode rich information for predicting tactile patterns while abstracting away from scene-dependent details. FlowTouch integrates scene reconstruction and Flow Matching-based models for image generation. Our results show that FlowTouch is able to bridge the sim-to-real gap and generalize to new sensor instances. We further show that the resulting tactile images can be used for downstream grasp stability prediction. Our code, datasets and videos are available at https://flowtouch.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-09T11:24:29Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Seongjin Bien</name>
+    </author>
+    <author>
+      <name>Carlo Kneissl</name>
+    </author>
+    <author>
+      <name>Tobias Jülg</name>
+    </author>
+    <author>
+      <name>Frank Fundel</name>
+    </author>
+    <author>
+      <name>Thomas Ressler-Antal</name>
+    </author>
+    <author>
+      <name>Florian Walter</name>
+    </author>
+    <author>
+      <name>Björn Ommer</name>
+    </author>
+    <author>
+      <name>Gitta Kutyniok</name>
+    </author>
+    <author>
+      <name>Wolfram Burgard</name>
+    </author>
+  </entry>
+</feed>

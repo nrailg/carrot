@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/blPqaatd1dWvTOsKdaOP2+Z0K+A</id>
+  <title>arXiv Query: search_query=ti:"AutoAresti: A Benchmark and Architecture for Real-Time Aerobatic Sequence Interpretation" OR ti:"FALCON: Future-Aware Learning with Contextual Object-Centric Pretraining for UAV Action Recognition" OR ti:"Featherlight Flyers: Mastering Cluttered Environments with Minimalistic Sensing and Reinforcement Learning" OR ti:"SoraNav: Adaptive UAV Task-Centric Navigation Via Zero-Shot VLM Reasoning" OR ti:"SynthLA: Synthetic Language–Action Multi–task Policies for Zero–shot Real–world Manipulation Via Structured Perception" OR ti:"Jointly Learning Predicates and Actions Enables Zero-Shot Skill Composition" OR ti:"RobustFuzz: A Semantic Disturbance Benchmark for Learned Policies in Embodied Control" OR ti:"Hybrid Dynamic Modeling and CBF–MPC for Safe Cargo Quadrotor Control" OR ti:"CAMFlow: Learning Coordination-Aware Aerial Manipulation Via Consistency Flow Matching" OR ti:"MAG-PG: Mathematical Modeling Guided Multi-Agent LLM for Push–Grasping Synergy in Cluttered Scenes"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:52Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22AutoAresti:+A+Benchmark+and+Architecture+for+Real-Time+Aerobatic+Sequence+Interpretation%22+OR+(ti:%22FALCON:+Future-Aware+Learning+with+Contextual+Object-Centric+Pretraining+for+UAV+Action+Recognition%22+OR+(ti:%22Featherlight+Flyers:+Mastering+Cluttered+Environments+with+Minimalistic+Sensing+and+Reinforcement+Learning%22+OR+(ti:%22SoraNav:+Adaptive+UAV+Task-Centric+Navigation+Via+Zero-Shot+VLM+Reasoning%22+OR+(ti:%22SynthLA:+Synthetic+Language%E2%80%93Action+Multi%E2%80%93task+Policies+for+Zero%E2%80%93shot+Real%E2%80%93world+Manipulation+Via+Structured+Perception%22+OR+(ti:%22Jointly+Learning+Predicates+and+Actions+Enables+Zero-Shot+Skill+Composition%22+OR+(ti:%22RobustFuzz:+A+Semantic+Disturbance+Benchmark+for+Learned+Policies+in+Embodied+Control%22+OR+(ti:%22Hybrid+Dynamic+Modeling+and+CBF%E2%80%93MPC+for+Safe+Cargo+Quadrotor+Control%22+OR+(ti:%22CAMFlow:+Learning+Coordination-Aware+Aerial+Manipulation+Via+Consistency+Flow+Matching%22+OR+ti:%22MAG-PG:+Mathematical+Modeling+Guided+Multi-Agent+LLM+for+Push%E2%80%93Grasping+Synergy+in+Cluttered+Scenes%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.20648v1</id>
+    <title>Jointly Learning Predicates and Actions Enables Zero-Shot Skill Composition</title>
+    <updated>2026-05-20T03:09:41Z</updated>
+    <link href="https://arxiv.org/abs/2605.20648v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.20648v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning from Demonstration (LfD) enables robots to learn complex behaviors from expert examples, yet existing approaches often fail to generalize to new compositions of known skills without retraining. Modern generative policies model distributions over action trajectories alone, thus are unable to reason about the symbolic outcomes required for robust composition. We propose that skills should jointly model action trajectories and the symbolic outcomes they induce. To address this gap, we introduce Predicate Action Skills (PACTS), a class of closed-loop visuomotor policies that model skills as a joint generative process over action and predicate belief trajectories, producing coherent action-outcome rollouts within a single model. Jointly generating actions and predicates enables PACTS to learn internal representations that improve both action generation and predicate classification. Furthermore, we demonstrate zero-shot composition of learned skills via planning by leveraging online predicate predictions from PACTS as a symbolic interface for sequencing and monitoring execution. Project website: https://planpacts.github.io/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-20T03:09:41Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Benedict Quartey</name>
+    </author>
+    <author>
+      <name>Sebastian Castro</name>
+    </author>
+    <author>
+      <name>Eric Rosen</name>
+    </author>
+    <author>
+      <name>Wil Thomason</name>
+    </author>
+    <author>
+      <name>George Konidaris</name>
+    </author>
+    <author>
+      <name>Stefanie Tellex</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2409.18300v2</id>
+    <title>FALCON: Future-Aware Learning with Contextual Object-Centric Pretraining for UAV Action Recognition</title>
+    <updated>2026-03-06T15:43:52Z</updated>
+    <link href="https://arxiv.org/abs/2409.18300v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2409.18300v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce FALCON, a unified self-supervised video pretraining approach for UAV action recognition from raw RGB aerial footage, requiring no additional preprocessing at inference. UAV videos exhibit severe spatial imbalance: large, cluttered backgrounds dominate the field of view, causing reconstruction-based pretraining to waste capacity on uninformative regions and under-learn action-relevant human/object cues. FALCON addresses this by integrating object-aware masked autoencoding with object-centric dual-horizon future reconstruction. Using detections only during pretraining, we construct objectness priors that (i) enforce balanced token visibility during masking and (ii) concentrate reconstruction supervision on action-relevant regions, preventing learning from being dominated by background appearance. To promote temporal dynamics learning, we further reconstruct short- and long-horizon future content within an object-centric supervision region, injecting anticipatory temporal supervision that is robust to noisy aerial context. Across UAV benchmarks, FALCON improves top-1 accuracy by 2.9\% on NEC-Drone and 5.8\% on UAV-Human with a ViT-B backbone, while achieving 2$\times$--5$\times$ faster inference than supervised approaches that rely on heavy test-time augmentation.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-09-26T21:15:22Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Ruiqi Xian</name>
+    </author>
+    <author>
+      <name>Xiyang Wu</name>
+    </author>
+    <author>
+      <name>Tianrui Guan</name>
+    </author>
+    <author>
+      <name>Xijun Wang</name>
+    </author>
+    <author>
+      <name>Boqing Gong</name>
+    </author>
+    <author>
+      <name>Dinesh Manocha</name>
+    </author>
+  </entry>
+</feed>

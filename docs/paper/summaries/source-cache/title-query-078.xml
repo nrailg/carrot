@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/OdYqGamn6eXNWBO8rFLkJLa8VM8</id>
+  <title>arXiv Query: search_query=ti:"Hippo: High-Performance Interior-Point and Projection-Based Solver for Generic Constrained Trajectory Optimization" OR ti:"AISMPC: Adaptive Integral Sliding Mode Predictive Controller for Trajectory Tracking of Mobile Manipulator" OR ti:"Interactive Navigation with Adaptive Non-Prehensile Mobile Manipulation" OR ti:"DexKP-VLA: A Dexterous Keypoint Vision-Language-Action Framework for Zero-Shot Grasping" OR ti:"TempoFit: Plug-And-Play Layer-Wise Temporal KV Memory for Long-Horizon VLA Manipulation" OR ti:"VCoT-Grasp: Grasp Foundation Models with Visual Chain-Of-Thought Reasoning for Language-Driven Grasp Generation" OR ti:"MrGrasp: A Multi-Rate Vision–Tactile–Language–Action Framework for Gentle Grasping of Fragile Deformable Objects" OR ti:"Affordance-To-Contact Grounding for Intent Understanding in Language-Guided Dexterous Grasp Generation" OR ti:"QTac: Quantitative Robotic Grasping with Tactile Sensing" OR ti:"Physics-Informed Neural Controlled Differential Equations for Scalable Long Horizon Multi-Agent Motion Forecasting"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:06Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Hippo:+High-Performance+Interior-Point+and+Projection-Based+Solver+for+Generic+Constrained+Trajectory+Optimization%22+OR+(ti:%22AISMPC:+Adaptive+Integral+Sliding+Mode+Predictive+Controller+for+Trajectory+Tracking+of+Mobile+Manipulator%22+OR+(ti:%22Interactive+Navigation+with+Adaptive+Non-Prehensile+Mobile+Manipulation%22+OR+(ti:%22DexKP-VLA:+A+Dexterous+Keypoint+Vision-Language-Action+Framework+for+Zero-Shot+Grasping%22+OR+(ti:%22TempoFit:+Plug-And-Play+Layer-Wise+Temporal+KV+Memory+for+Long-Horizon+VLA+Manipulation%22+OR+(ti:%22VCoT-Grasp:+Grasp+Foundation+Models+with+Visual+Chain-Of-Thought+Reasoning+for+Language-Driven+Grasp+Generation%22+OR+(ti:%22MrGrasp:+A+Multi-Rate+Vision%E2%80%93Tactile%E2%80%93Language%E2%80%93Action+Framework+for+Gentle+Grasping+of+Fragile+Deformable+Objects%22+OR+(ti:%22Affordance-To-Contact+Grounding+for+Intent+Understanding+in+Language-Guided+Dexterous+Grasp+Generation%22+OR+(ti:%22QTac:+Quantitative+Robotic+Grasping+with+Tactile+Sensing%22+OR+ti:%22Physics-Informed+Neural+Controlled+Differential+Equations+for+Scalable+Long+Horizon+Multi-Agent+Motion+Forecasting%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.05827v1</id>
+    <title>VCoT-Grasp: Grasp Foundation Models with Visual Chain-of-Thought Reasoning for Language-driven Grasp Generation</title>
+    <updated>2025-10-07T11:50:26Z</updated>
+    <link href="https://arxiv.org/abs/2510.05827v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.05827v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic grasping is one of the most fundamental tasks in robotic manipulation, and grasp detection/generation has long been the subject of extensive research. Recently, language-driven grasp generation has emerged as a promising direction due to its practical interaction capabilities. However, most existing approaches either lack sufficient reasoning and generalization capabilities or depend on complex modular pipelines. Moreover, current grasp foundation models tend to overemphasize dialog and object semantics, resulting in inferior performance and restriction to single-object grasping. To maintain strong reasoning ability and generalization in cluttered environments, we propose VCoT-Grasp, an end-to-end grasp foundation model that incorporates visual chain-of-thought reasoning to enhance visual understanding for grasp generation. VCoT-Grasp adopts a multi-turn processing paradigm that dynamically focuses on visual inputs while providing interpretable reasoning traces. For training, we refine and introduce a large-scale dataset, VCoT-GraspSet, comprising 167K synthetic images with over 1.36M grasps, as well as 400+ real-world images with more than 1.2K grasps, annotated with intermediate bounding boxes. Extensive experiments on both VCoT-GraspSet and real robot demonstrate that our method significantly improves grasp success rates and generalizes effectively to unseen objects, backgrounds, and distractors. More details can be found at https://zhanghr2001.github.io/VCoT-Grasp.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-07T11:50:26Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haoran Zhang</name>
+    </author>
+    <author>
+      <name>Shuanghao Bai</name>
+    </author>
+    <author>
+      <name>Wanqi Zhou</name>
+    </author>
+    <author>
+      <name>Yuedi Zhang</name>
+    </author>
+    <author>
+      <name>Qi Zhang</name>
+    </author>
+    <author>
+      <name>Pengxiang Ding</name>
+    </author>
+    <author>
+      <name>Cheng Chi</name>
+    </author>
+    <author>
+      <name>Donglin Wang</name>
+    </author>
+    <author>
+      <name>Badong Chen</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.00871v1</id>
+    <title>Hippo: High-performance Interior-Point and Projection-based Solver for Generic Constrained Trajectory Optimization</title>
+    <updated>2026-03-01T02:24:42Z</updated>
+    <link href="https://arxiv.org/abs/2603.00871v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.00871v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Trajectory optimization is the core of modern model-based robotic control and motion planning. Existing trajectory optimizers, based on sequential quadratic programming (SQP) or differential dynamic programming (DDP), are often limited by their slow computation efficiency, low modeling flexibility, and poor convergence for complex tasks requiring hard constraints. In this paper, we introduce Hippo, a solver that can handle inequality constraints using the interior-point method (IPM) with an adaptive barrier update strategy and hard equality constraints via projection or IPM. Through extensive numerical benchmarks, we show that Hippo is a robust and efficient alternative to existing state-of-the-art solvers for difficult robotic trajectory optimization problems requiring high-quality solutions, such as locomotion and manipulation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-01T02:24:42Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Haizhou Zhao</name>
+    </author>
+    <author>
+      <name>Ludovic Righetti</name>
+    </author>
+    <author>
+      <name>Majid Khadiv</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.00401v1</id>
+    <title>Physics-Informed Neural Controlled Differential Equations for Scalable Long Horizon Multi-Agent Motion Forecasting</title>
+    <updated>2025-10-01T01:27:07Z</updated>
+    <link href="https://arxiv.org/abs/2510.00401v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.00401v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Long-horizon motion forecasting for multiple autonomous robots is challenging due to non-linear agent interactions, compounding prediction errors, and continuous-time evolution of dynamics. Learned dynamics of such a system can be useful in various applications such as travel time prediction, prediction-guided planning and generative simulation. In this work, we aim to develop an efficient trajectory forecasting model conditioned on multi-agent goals. Motivated by the recent success of physics-guided deep learning for partially known dynamical systems, we develop a model based on neural Controlled Differential Equations (CDEs) for long-horizon motion forecasting. Unlike discrete-time methods such as RNNs and transformers, neural CDEs operate in continuous time, allowing us to combine physics-informed constraints and biases to jointly model multi-robot dynamics. Our approach, named PINCoDE (Physics-Informed Neural Controlled Differential Equations), learns differential equation parameters that can be used to predict the trajectories of a multi-agent system starting from an initial condition. PINCoDE is conditioned on future goals and enforces physics constraints for robot motion over extended periods of time. We adopt a strategy that scales our model from 10 robots to 100 robots without the need for additional model parameters, while producing predictions with an average ADE below 0.5 m for a 1-minute horizon. Furthermore, progressive training with curriculum learning for our PINCoDE model results in a 2.7X reduction of forecasted pose error over 4 minute horizons compared to analytical models.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-01T01:27:07Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shounak Sural</name>
+    </author>
+    <author>
+      <name>Charles Kekeh</name>
+    </author>
+    <author>
+      <name>Wenliang Liu</name>
+    </author>
+    <author>
+      <name>Federico Pecora</name>
+    </author>
+    <author>
+      <name>Mouhacine Benosman</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2410.13418v1</id>
+    <title>Interactive Navigation with Adaptive Non-prehensile Mobile Manipulation</title>
+    <updated>2024-10-17T10:40:31Z</updated>
+    <link href="https://arxiv.org/abs/2410.13418v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2410.13418v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper introduces a framework for interactive navigation through adaptive non-prehensile mobile manipulation. A key challenge in this process is handling objects with unknown dynamics, which are difficult to infer from visual observation. To address this, we propose an adaptive dynamics model for common movable indoor objects via learned SE(2) dynamics representations. This model is integrated into Model Predictive Path Integral (MPPI) control to guide the robot's interactions. Additionally, the learned dynamics help inform decision-making when navigating around objects that cannot be manipulated.Our approach is validated in both simulation and real-world scenarios, demonstrating its ability to accurately represent object dynamics and effectively manipulate various objects. We further highlight its success in the Navigation Among Movable Objects (NAMO) task by deploying the proposed framework on a dynamically balancing mobile robot, Shmoobot. Project website: https://cmushmoobot.github.io/AdaptivePushing/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-10-17T10:40:31Z</published>
+    <arxiv:comment>7 pages, 8 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Cunxi Dai</name>
+    </author>
+    <author>
+      <name>Xiaohan Liu</name>
+    </author>
+    <author>
+      <name>Koushil Sreenath</name>
+    </author>
+    <author>
+      <name>Zhongyu Li</name>
+    </author>
+    <author>
+      <name>Ralph Hollis</name>
+    </author>
+  </entry>
+</feed>

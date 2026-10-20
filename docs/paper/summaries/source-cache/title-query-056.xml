@@ -1,0 +1,197 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/LObH5qGwoHYj5LNGmCOoziE/fas</id>
+  <title>arXiv Query: search_query=ti:"A Mixed-Criticality Implementation Framework for Intelligent Robots Based on Embedded Virtual Machines" OR ti:"Expanding Safe Sets with Learning-Based Barrier Functions and Reachability" OR ti:"PROTEA: Securing Robot Task Planning and Execution" OR ti:"Real-Time High-Precision Collision Detection Via Physics-Motivated Fusion" OR ti:"Disturbance-Aware Dynamical Trajectory Planning for Air-Land Bimodal Vehicles" OR ti:"A New Approach to Motion Planning in 3D for a Dubins Vehicle: Special Case on a Sphere" OR ti:"Disturbances-Aware Flight for Aerial Robots in Narrow Space" OR ti:"Geometric Model Predictive Path Integral for Agile UAV Control with Online Collision Avoidance" OR ti:"ASTER: Attitude-Aware Suspended-Payload Quadrotor Traversal Via Efficient Reinforcement Learning" OR ti:"Learning Agile Gate Traversal Via Analytical Optimal Policy Gradient"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:32Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22A+Mixed-Criticality+Implementation+Framework+for+Intelligent+Robots+Based+on+Embedded+Virtual+Machines%22+OR+(ti:%22Expanding+Safe+Sets+with+Learning-Based+Barrier+Functions+and+Reachability%22+OR+(ti:%22PROTEA:+Securing+Robot+Task+Planning+and+Execution%22+OR+(ti:%22Real-Time+High-Precision+Collision+Detection+Via+Physics-Motivated+Fusion%22+OR+(ti:%22Disturbance-Aware+Dynamical+Trajectory+Planning+for+Air-Land+Bimodal+Vehicles%22+OR+(ti:%22A+New+Approach+to+Motion+Planning+in+3D+for+a+Dubins+Vehicle:+Special+Case+on+a+Sphere%22+OR+(ti:%22Disturbances-Aware+Flight+for+Aerial+Robots+in+Narrow+Space%22+OR+(ti:%22Geometric+Model+Predictive+Path+Integral+for+Agile+UAV+Control+with+Online+Collision+Avoidance%22+OR+(ti:%22ASTER:+Attitude-Aware+Suspended-Payload+Quadrotor+Traversal+Via+Efficient+Reinforcement+Learning%22+OR+ti:%22Learning+Agile+Gate+Traversal+Via+Analytical+Optimal+Policy+Gradient%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>7</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10715v1</id>
+    <title>ASTER: Attitude-aware Suspended-payload Quadrotor Traversal via Efficient Reinforcement Learning</title>
+    <updated>2026-03-11T12:40:29Z</updated>
+    <link href="https://arxiv.org/abs/2603.10715v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10715v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agile maneuvering of the quadrotor cable-suspended system is significantly hindered by its non-smooth hybrid dynamics. While model-free Reinforcement Learning (RL) circumvents explicit differentiation of complex models, achieving attitude-constrained or inverted flight remains an open challenge due to the extreme reward sparsity under strict orientation requirements. This paper presents ASTER, a robust RL framework that achieves, to our knowledge, the first successful autonomous inverted flight for the cable-suspended system. We propose hybrid-dynamics-informed state seeding (HDSS), an initialization strategy that back-propagates target configurations through physics-consistent kinematic inversions across both taut and slack cable phases. HDSS enables the policy to discover aggressive maneuvers that are unreachable via standard exploration. Extensive simulations and real-world experiments demonstrate remarkable agility, precise attitude alignment, and robust zero-shot sim-to-real transfer across complex trajectories.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T12:40:29Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Dongcheng Cao</name>
+    </author>
+    <author>
+      <name>Jin Zhou</name>
+    </author>
+    <author>
+      <name>Shuo Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.05972v2</id>
+    <title>Disturbance-Aware Dynamical Trajectory Planning for Air-Land Bimodal Vehicles</title>
+    <updated>2025-09-17T02:56:49Z</updated>
+    <link href="https://arxiv.org/abs/2508.05972v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.05972v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Air-land bimodal vehicles provide a promising solution for navigating complex environments by combining the flexibility of aerial locomotion with the energy efficiency of ground mobility. However, planning dynamically feasible, smooth, collision-free, and energy-efficient trajectories remains challenging due to two key factors: 1) unknown dynamic disturbances in both aerial and terrestrial domains, and 2) the inherent complexity of managing bimodal dynamics with distinct constraint characteristics. This paper proposes a disturbance-aware motion-planning framework that addresses this challenge through real-time disturbance estimation and adaptive trajectory generation. The framework comprises two key components: 1) a disturbance-adaptive safety boundary adjustment mechanism that dynamically determines the feasible region of dynamic constraints for both air and land modes based on estimated disturbances via a disturbance observer, and 2) a constraint-adaptive bimodal motion planner that integrates disturbance-aware path searching to guide trajectories toward regions with reduced disturbances and B-spline-based trajectory optimization to refine trajectories within the established feasible constraint boundaries. Experimental validation on a self-developed air-land bimodal vehicle demonstrates substantial performance improvements across three representative disturbance scenarios, achieving an average 33.9% reduction in trajectory tracking error while still maintaining superior time-energy trade-offs compared to existing methods.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-08T03:09:53Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shaoting Liu</name>
+    </author>
+    <author>
+      <name>Wenshuai Yu</name>
+    </author>
+    <author>
+      <name>Bo Zhang</name>
+    </author>
+    <author>
+      <name>Shoubin Chen</name>
+    </author>
+    <author>
+      <name>Fei Ma</name>
+    </author>
+    <author>
+      <name>Zhou Liu</name>
+    </author>
+    <author>
+      <name>Qingquan Li</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.12924v2</id>
+    <title>Geometric Model Predictive Path Integral for Agile UAV Control with Online Collision Avoidance</title>
+    <updated>2026-02-23T12:06:20Z</updated>
+    <link href="https://arxiv.org/abs/2510.12924v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.12924v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this letter, we introduce Geometric Model Predictive Path Integral (GMPPI), a sampling-based controller capable of tracking agile trajectories while avoiding obstacles. In each iteration, GMPPI generates a large number of candidate rollout trajectories and then averages them to create a nominal control to be followed by the controlled Unmanned Aerial Vehicle (UAV). Classical Model Predictive Path Integral (MPPI) faces a trade-off between tracking precision and obstacle avoidance; high-noise random rollouts are inefficient for tracking but necessary for collision avoidance. To this end, we propose leveraging geometric SE(3) control to generate a portion of GMPPI rollouts. To maximize their benefit, we introduce a UAV-tailored cost function balancing tracking performance with obstacle avoidance. All generated rollouts are projected onto depth images for collision avoidance, representing, to our knowledge, the first method utilizing depth data directly in a UAV MPPI loop. Simulations show GMPPI matches the tracking error of an obstacle-blind geometric controller while exceeding the avoidance capabilities of state-of-the-art planners and learning-based controllers. Real-world experiments demonstrate flight at speeds up to 17 m/s and obstacle avoidance up to 10 m/s.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-14T18:56:25Z</published>
+    <arxiv:comment>This work has been accepted to the IEEE for possible publication</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Pavel Pochobradský</name>
+    </author>
+    <author>
+      <name>Ondřej Procházka</name>
+    </author>
+    <author>
+      <name>Robert Pěnička</name>
+    </author>
+    <author>
+      <name>Vojtěch Vonásek</name>
+    </author>
+    <author>
+      <name>Martin Saska</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.21592v4</id>
+    <title>Learning Agile Gate Traversal via Analytical Optimal Policy Gradient</title>
+    <updated>2026-03-05T06:19:40Z</updated>
+    <link href="https://arxiv.org/abs/2508.21592v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.21592v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Traversing narrow gates presents a significant challenge and has become a standard benchmark for evaluating agile and precise quadrotor flight. Traditional modularized autonomous flight stacks require extensive design and parameter tuning, while end-to-end reinforcement learning (RL) methods often suffer from low sample efficiency, limited interpretability, and degraded disturbance rejection under unseen perturbations. In this work, we present a novel hybrid framework that adaptively fine-tunes model predictive control (MPC) parameters online using outputs from a neural network (NN) trained offline. The NN jointly predicts a reference pose and cost function weights, conditioned on the coordinates of the gate corners and the current drone state. To achieve efficient training, we derive analytical policy gradients not only for the MPC module but also for an optimization-based gate traversal detection module. Hardware experiments demonstrate agile and accurate gate traversal with peak accelerations of $30\ \mathrm{m/s^2}$, as well as recovery within $0.85\ \mathrm{s}$ following body-rate disturbances exceeding $1146\ \mathrm{deg/s}$.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-29T12:48:39Z</published>
+    <arxiv:comment>8 pages, 8 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tianchen Sun</name>
+    </author>
+    <author>
+      <name>Bingheng Wang</name>
+    </author>
+    <author>
+      <name>Nuthasith Gerdpratoom</name>
+    </author>
+    <author>
+      <name>Longbin Tang</name>
+    </author>
+    <author>
+      <name>Yichao Gao</name>
+    </author>
+    <author>
+      <name>Lin Zhao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.07186v1</id>
+    <title>PROTEA: Securing Robot Task Planning and Execution</title>
+    <updated>2026-01-12T04:13:46Z</updated>
+    <link href="https://arxiv.org/abs/2601.07186v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.07186v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robots need task planning methods to generate action sequences for complex tasks. Recent work on adversarial attacks has revealed significant vulnerabilities in existing robot task planners, especially those built on foundation models. In this paper, we aim to address these security challenges by introducing PROTEA, an LLM-as-a-Judge defense mechanism, to evaluate the security of task plans. PROTEA is developed to address the dimensionality and history challenges in plan safety assessment. We used different LLMs to implement multiple versions of PROTEA for comparison purposes. For systemic evaluations, we created a dataset containing both benign and malicious task plans, where the harmful behaviors were injected at varying levels of stealthiness. Our results provide actionable insights for robotic system practitioners seeking to enhance robustness and security of their task planning systems. Details, dataset and demos are provided: https://protea-secure.github.io/PROTEA/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-12T04:13:46Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zainab Altaweel</name>
+    </author>
+    <author>
+      <name>Mohaiminul Al Nahian</name>
+    </author>
+    <author>
+      <name>Jake Juettner</name>
+    </author>
+    <author>
+      <name>Adnan Siraj Rakin</name>
+    </author>
+    <author>
+      <name>Shiqi Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.01215v2</id>
+    <title>A New Approach to Motion Planning in 3D for a Dubins Vehicle: Special Case on a Sphere</title>
+    <updated>2026-04-13T00:48:46Z</updated>
+    <link href="https://arxiv.org/abs/2504.01215v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.01215v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this article, a new model for 3D motion planning, applicable to aerial vehicles, is proposed to connect an initial and final configuration subject to pitch rate and yaw rate constraints. The motion planning problem for a curvature-constrained vehicle over the surface of a sphere is identified as an intermediary problem to be solved, and it is the focus of this paper. In this article, the optimal path candidates for a vehicle with a minimum turning radius $r$ moving over a unit sphere are derived using a phase portrait approach. We show that the optimal path is $CGC$ or concatenations of $C$ segments through simple proofs, where $C = L, R$ denotes a turn of radius $r$ and $G$ denotes a great circular arc. We generalize the previous result of optimal paths being $CGC$ and $CCC$ paths for $r \in \left(0, \frac{1}{2} \right]\bigcup\{\frac{1}{\sqrt{2}}\}$ to $r \leq \frac{\sqrt{3}}{2}$ to account for vehicles with a larger $r$. We show that the optimal path is $CGC, CCCC,$ for $r \leq \frac{1}{\sqrt{2}},$ and $CGC, CC_πC, CCCCC$ for $r \leq \frac{\sqrt{3}}{2}.$ Additionally, we analytically construct all candidate paths and provide the code in a publicly accessible repository.</summary>
+    <category term="math.OC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-01T22:05:25Z</published>
+    <arxiv:primary_category term="math.OC"/>
+    <author>
+      <name>Deepak Prakash Kumar</name>
+    </author>
+    <author>
+      <name>Swaroop Darbha</name>
+    </author>
+    <author>
+      <name>Satyanarayana Gupta Manyam</name>
+    </author>
+    <author>
+      <name>David Casbeer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.17476v1</id>
+    <title>Disturbance-Aware Flight for Aerial Robots in Narrow Space</title>
+    <updated>2026-07-20T01:58:05Z</updated>
+    <link href="https://arxiv.org/abs/2607.17476v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.17476v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous flight of aerial robots in narrow space remains challenging due to strong aerodynamic disturbances and limited flying space. Existing approaches mainly address aerodynamic disturbances at the control level, while motion planning typically relies on geometric constraints and fixed speed limits, leading to conservative or unsafe behaviors in confined environments. This paper presents a disturbance-aware planning and control framework (DAPCF) that integrates online disturbance estimation into the planning-control loop for quadrotor flight in narrow space. First, the dual-loop observers estimate 6-degree-of-freedom disturbance forces and torques in real time based on odometry and motor speed measurements. Then, a disturbance risk function is introduced that adaptively modulates the reference speed of the planner based on disturbance estimation, reducing velocity when disturbances exceed a threshold and restoring it under low-disturbance conditions. Finally, a motor-dynamics-based nonlinear model predictive controller (MDNMPC) with disturbance compensation is designed to ensure robust trajectory tracking under perturbed conditions. Experiments demonstrate that a quadrotor with a diagonal length of 0.39~m can traverse straight, sloped, and curved tunnels as narrow as 0.6~m, outperforming human pilots in both success rate and flight efficiency.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-20T01:58:05Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Lei Qiang</name>
+    </author>
+    <author>
+      <name>Tianyu He</name>
+    </author>
+    <author>
+      <name>Chenyang Sun</name>
+    </author>
+    <author>
+      <name>Xurui Liu</name>
+    </author>
+    <author>
+      <name>Miao Wang</name>
+    </author>
+    <author>
+      <name>Xiaobin Zhou</name>
+    </author>
+  </entry>
+</feed>

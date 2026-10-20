@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/Pq+DbjGdIUk4vpWH0tBioJNYBiU</id>
+  <title>arXiv Query: search_query=ti:"You Only Orient Once (YOOO): Vision-Driven Robotic Cable Insertion for Automotive Wiring Harness Assembly" OR ti:"WeldLLM: A Multimodal Framework for Welding Defect Detection and Automated Diagnostic Reasoning" OR ti:"DynaLite-GS: Lightweight Dynamic 3DGS-SLAM in Resource-Constrained Scenarios Via Decoupled Masking and Stochastic Backtracking" OR ti:"GEM-SLAM: Geometry-Enhanced Monocular Gaussian Splatting SLAM with Scale Governance and Trust-Region Feedback" OR ti:"MonoEM-GS: Monocular Expectation-Maximization Gaussian Splatting SLAM" OR ti:"GaussianFlow SLAM: Monocular Gaussian Splatting SLAM Guided by GaussianFlow" OR ti:"SPEAR: Selective Preference Elicitation with Adaptive Rewards for VLM-Guided Robotic Manipulation" OR ti:"SLICK: Structure-Aware Learning for Recessed Object Retrieval Via Slide-Flick Interaction" OR ti:"Escaping the Greedy Trap: Robust Manipulation Via Spatial Beam Search in Coarse-To-Fine Reinforcement Learning" OR ti:"Human-In-The-Loop Online Rejection Sampling for Robotic Manipulation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:42Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22You+Only+Orient+Once+(YOOO):+Vision-Driven+Robotic+Cable+Insertion+for+Automotive+Wiring+Harness+Assembly%22+OR+(ti:%22WeldLLM:+A+Multimodal+Framework+for+Welding+Defect+Detection+and+Automated+Diagnostic+Reasoning%22+OR+(ti:%22DynaLite-GS:+Lightweight+Dynamic+3DGS-SLAM+in+Resource-Constrained+Scenarios+Via+Decoupled+Masking+and+Stochastic+Backtracking%22+OR+(ti:%22GEM-SLAM:+Geometry-Enhanced+Monocular+Gaussian+Splatting+SLAM+with+Scale+Governance+and+Trust-Region+Feedback%22+OR+(ti:%22MonoEM-GS:+Monocular+Expectation-Maximization+Gaussian+Splatting+SLAM%22+OR+(ti:%22GaussianFlow+SLAM:+Monocular+Gaussian+Splatting+SLAM+Guided+by+GaussianFlow%22+OR+(ti:%22SPEAR:+Selective+Preference+Elicitation+with+Adaptive+Rewards+for+VLM-Guided+Robotic+Manipulation%22+OR+(ti:%22SLICK:+Structure-Aware+Learning+for+Recessed+Object+Retrieval+Via+Slide-Flick+Interaction%22+OR+(ti:%22Escaping+the+Greedy+Trap:+Robust+Manipulation+Via+Spatial+Beam+Search+in+Coarse-To-Fine+Reinforcement+Learning%22+OR+ti:%22Human-In-The-Loop+Online+Rejection+Sampling+for+Robotic+Manipulation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.15612v1</id>
+    <title>GaussianFlow SLAM: Monocular Gaussian Splatting SLAM Guided by GaussianFlow</title>
+    <updated>2026-04-17T01:34:46Z</updated>
+    <link href="https://arxiv.org/abs/2604.15612v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.15612v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Gaussian splatting has recently gained traction as a compelling map representation for SLAM systems, enabling dense and photo-realistic scene modeling. However, its application to monocular SLAM remains challenging due to the lack of reliable geometric cues from monocular input. Without geometric supervision, mapping or tracking could fall in local-minima, resulting in structural degeneracies and inaccuracies. To address this challenge, we propose GaussianFlow SLAM, a monocular 3DGS-SLAM that leverages optical flow as a geometry-aware cue to guide the optimization of both the scene structure and camera poses. By encouraging the projected motion of Gaussians, termed GaussianFlow, to align with the optical flow, our method introduces consistent structural cues to regularize both map reconstruction and pose estimation. Furthermore, we introduce normalized error-based densification and pruning modules to refine inactive and unstable Gaussians, thereby contributing to improved map quality and pose accuracy. Experiments conducted on public datasets demonstrate that our method achieves superior rendering quality and tracking accuracy compared with state-of-the-art algorithms. The source code is available at: https://github.com/url-kaist/gaussianflow-slam.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-17T01:34:46Z</published>
+    <arxiv:comment>8 pages, 5 figures, 7 tables, accepted to IEEE RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Dong-Uk Seo</name>
+    </author>
+    <author>
+      <name>Jinwoo Jeon</name>
+    </author>
+    <author>
+      <name>Eungchang Mason Lee</name>
+    </author>
+    <author>
+      <name>Hyun Myung</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.10593v1</id>
+    <title>MonoEM-GS: Monocular Expectation-Maximization Gaussian Splatting SLAM</title>
+    <updated>2026-04-12T11:51:16Z</updated>
+    <link href="https://arxiv.org/abs/2604.10593v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.10593v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Feed-forward geometric foundation models can infer dense point clouds and camera motion directly from RGB streams, providing priors for monocular SLAM. However, their predictions are often view-dependent and noisy: geometry can vary across viewpoints and under image transformations, and local metric properties may drift between frames. We present MonoEM-GS, a monocular mapping pipeline that integrates such geometric predictions into a global Gaussian Splatting representation while explicitly addressing these inconsistencies. MonoEM-GS couples Gaussian Splatting with an Expectation--Maximization formulation to stabilize geometry, and employs ICP-based alignment for monocular pose estimation. Beyond geometry, MonoEM-GS parameterizes Gaussians with multi-modal features, enabling in-place open-set segmentation and other downstream queries directly on the reconstructed map. We evaluate MonoEM-GS on 7-Scenes, TUM RGB-D and Replica, and compare against recent baselines.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-12T11:51:16Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Evgenii Kruzhkov</name>
+    </author>
+    <author>
+      <name>Sven Behnke</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.26406v1</id>
+    <title>Human-in-the-loop Online Rejection Sampling for Robotic Manipulation</title>
+    <updated>2025-10-30T11:53:08Z</updated>
+    <link href="https://arxiv.org/abs/2510.26406v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.26406v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reinforcement learning (RL) is widely used to produce robust robotic manipulation policies, but fine-tuning vision-language-action (VLA) models with RL can be unstable due to inaccurate value estimates and sparse supervision at intermediate steps. In contrast, imitation learning (IL) is easy to train but often underperforms due to its offline nature. In this paper, we propose Hi-ORS, a simple yet effective post-training method that utilizes rejection sampling to achieve both training stability and high robustness. Hi-ORS stabilizes value estimation by filtering out negatively rewarded samples during online fine-tuning, and adopts a reward-weighted supervised training objective to provide dense intermediate-step supervision. For systematic study, we develop an asynchronous inference-training framework that supports flexible online human-in-the-loop corrections, which serve as explicit guidance for learning error-recovery behaviors. Across three real-world tasks and two embodiments, Hi-ORS fine-tunes a pi-base policy to master contact-rich manipulation in just 1.5 hours of real-world training, outperforming RL and IL baselines by a substantial margin in both effectiveness and efficiency. Notably, the fine-tuned policy exhibits strong test-time scalability by reliably executing complex error-recovery behaviors to achieve better performance.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-30T11:53:08Z</published>
+    <arxiv:comment>8 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guanxing Lu</name>
+    </author>
+    <author>
+      <name>Rui Zhao</name>
+    </author>
+    <author>
+      <name>Haitao Lin</name>
+    </author>
+    <author>
+      <name>He Zhang</name>
+    </author>
+    <author>
+      <name>Yansong Tang</name>
+    </author>
+  </entry>
+</feed>

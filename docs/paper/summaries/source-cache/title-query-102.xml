@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bURCjCJiVnnx4AoHjc/MzfZgrrU</id>
+  <title>arXiv Query: search_query=ti:"Task-Oriented Dual-Arm Manipulation Via Semantic-Physics Grasp Scoring and Kinematic Comfortability" OR ti:"ObjRetarget: An Object-Aware Motion Retargeting Framework with Anthropomorphic Arm Constraints and Polyhedral Hand Modeling" OR ti:"SPIDER: Scalable Physics-Informed Dexterous Retargeting" OR ti:"AR-HueCode: A Meta-Marker That Enables Wide-Range and Occlusion-Robust Pose Estimation by Overlaying Multiple AR Markers in Different Colored Layers" OR ti:"DLOSAC: Joint Spatial-Geometric Image Estimation Via Delaunay-Guided Local Optimization RANSAC" OR ti:"Self-Supervised Learning for Object Pose Estimation through Active Real Sample Capture" OR ti:"RoEL: Robust Event-Based 3D Line Reconstruction" OR ti:"Active Tracking of Marine Pollution Sources: An Uncertainty-Aware Categorical Bayesian Framework for Unmanned Surface Vehicles" OR ti:"A Collaborative Reasoning Framework for Anomaly Diagnostics in Underwater Robotics" OR ti:"A Closed-Loop On-Orbit Calibration Strategy of Space Robots based on Planar Constraints"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:41Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Task-Oriented+Dual-Arm+Manipulation+Via+Semantic-Physics+Grasp+Scoring+and+Kinematic+Comfortability%22+OR+(ti:%22ObjRetarget:+An+Object-Aware+Motion+Retargeting+Framework+with+Anthropomorphic+Arm+Constraints+and+Polyhedral+Hand+Modeling%22+OR+(ti:%22SPIDER:+Scalable+Physics-Informed+Dexterous+Retargeting%22+OR+(ti:%22AR-HueCode:+A+Meta-Marker+That+Enables+Wide-Range+and+Occlusion-Robust+Pose+Estimation+by+Overlaying+Multiple+AR+Markers+in+Different+Colored+Layers%22+OR+(ti:%22DLOSAC:+Joint+Spatial-Geometric+Image+Estimation+Via+Delaunay-Guided+Local+Optimization+RANSAC%22+OR+(ti:%22Self-Supervised+Learning+for+Object+Pose+Estimation+through+Active+Real+Sample+Capture%22+OR+(ti:%22RoEL:+Robust+Event-Based+3D+Line+Reconstruction%22+OR+(ti:%22Active+Tracking+of+Marine+Pollution+Sources:+An+Uncertainty-Aware+Categorical+Bayesian+Framework+for+Unmanned+Surface+Vehicles%22+OR+(ti:%22A+Collaborative+Reasoning+Framework+for+Anomaly+Diagnostics+in+Underwater+Robotics%22+OR+ti:%22A+Closed-Loop+On-Orbit+Calibration+Strategy+of+Space+Robots+based+on+Planar+Constraints%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.03828v1</id>
+    <title>ObjRetarget: An Object-Aware Motion Retargeting Framework with Anthropomorphic Arm Constraints and Polyhedral Hand Modeling</title>
+    <updated>2026-07-04T11:31:23Z</updated>
+    <link href="https://arxiv.org/abs/2607.03828v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.03828v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning robot dexterous manipulation from human manipulation videos requires reliably retargeting human intent to executable robot actions while maintaining stable hand-object contact, which remains a key challenge in embodied intelligence. Existing retargeting methods often ignore explicit contact modeling or rely on reinforcement learning, resulting in limited accuracy and generalization. To address this, we propose ObjRetarget, a human-to-robot motion retargeting framework for learning robot dexterous manipulation from human videos, which integrates anthropomorphic arm trajectory constraints with structured hand-object geometric modeling. For arm motion, reference trajectories extracted from human videos are used for initialization, followed by anthropomorphic constraints and redundancy-aware optimization to generate natural and accurate movements. For hand manipulation, ObjRetarget represents multi-finger contacts using polytope clusters and preserves contact structure through geometric invariants to improve stability. Experiments on real robots show that ObjRetarget improves manipulation success rates and contact stability across multiple dexterous tasks, and generalizes well to different demonstrations, object poses, and task settings.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-04T11:31:23Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yuanchuan Lai</name>
+    </author>
+    <author>
+      <name>Qing Gao</name>
+    </author>
+    <author>
+      <name>Ziyan Liang</name>
+    </author>
+    <author>
+      <name>Junjie Hu</name>
+    </author>
+    <author>
+      <name>Zhaojie Ju</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.20593v3</id>
+    <title>Active Tracking of Marine Pollution Sources: An Uncertainty-Aware Categorical Bayesian Framework for Unmanned Surface Vehicles</title>
+    <updated>2026-07-20T09:23:36Z</updated>
+    <link href="https://arxiv.org/abs/2509.20593v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.20593v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This paper presents an uncertainty-aware framework for the active tracking of marine pollution sources using Unmanned Surface Vehicles (USVs). The proposed framework employs an Informative Path Planning (IPP) strategy driven by Bayesian inference, modelling the belief of source location as a categorical distribution. This work presents a high-fidelity simulation pipeline, coupling Computational Fluid Dynamics (CFD) for realistic pollutant dispersion with Gazebo-based hydrodynamics and ArduPilot for USV control. Furthermore, this paper introduces the Smallest Credible Interval (SCI) as a metric to quantify estimation uncertainty and to serve as an autonomous termination criterion. Extensive simulations across diverse wave conditions and source locations demonstrate that the proposed framework achieves a 95.8% success rate, significantly outperforming baseline methods in both localisation accuracy and environmental adaptability. This framework provides a scalable and ROS-compatible foundation for fully autonomous environmental monitoring and rapid incident response.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-24T22:23:06Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Song Ma</name>
+    </author>
+    <author>
+      <name>Yanchao Wang</name>
+    </author>
+    <author>
+      <name>Yewei Huang</name>
+    </author>
+    <author>
+      <name>Richard Bucknall</name>
+    </author>
+    <author>
+      <name>Yuanchang Liu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.09484v3</id>
+    <title>SPIDER: Scalable Physics-Informed Dexterous Retargeting</title>
+    <updated>2026-09-26T11:32:05Z</updated>
+    <link href="https://arxiv.org/abs/2511.09484v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.09484v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning agile robotic policies requires large-scale demonstrations, but translating abundant human motion data to robots is bottlenecked by the embodiment gap and missing dynamic information. To bridge this gap, we propose Scalable Physics-Informed DExterous Retargeting (SPIDER), a physics-based retargeting framework to transform and augment kinematic-only human demonstrations into dynamically feasible robot trajectories at scale. Our key insight is that human demonstrations should provide global task structure and objective, while a sampling-based solver can be used to find the feasible solution given the physics constraints. As a general framework, SPIDER is an efficient physics-based retargeting method that can be applied to both humanoid whole-body loco-manipulation and dexterous manipulation across 9 humanoid/dexterous hand embodiments, 6 datasets and 3 simulators. By bypassing the need for policy optimization, it achieves state-of-the-art performance while being 10x faster than reinforcement learning (RL) baselines. Furthermore, SPIDER enables physics-based data augmentation, such as imposing external payloads, perturbations, and new contact patterns, to generate diverse data. We demonstrate that the retargeted motion can be executed on the robot directly open-loop or serve as feasible reference motion for efficient RL policy learning. Our pipeline enables large-scale generation of robot trajectories from human motion, and we release a dataset of 6,520 simulated demonstrations across four hands and 191 dataset-specific object identities to support future research.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-12T16:54:00Z</published>
+    <arxiv:comment>Project website: https://jc-bao.github.io/spider-project/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chaoyi Pan</name>
+    </author>
+    <author>
+      <name>Changhao Wang</name>
+    </author>
+    <author>
+      <name>Haozhi Qi</name>
+    </author>
+    <author>
+      <name>Julen Urain</name>
+    </author>
+    <author>
+      <name>Zixi Liu</name>
+    </author>
+    <author>
+      <name>Homanga Bharadhwaj</name>
+    </author>
+    <author>
+      <name>Akash Sharma</name>
+    </author>
+    <author>
+      <name>Tingfan Wu</name>
+    </author>
+    <author>
+      <name>Guanya Shi</name>
+    </author>
+    <author>
+      <name>Jitendra Malik</name>
+    </author>
+    <author>
+      <name>Francois Hogan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2602.18258v1</id>
+    <title>RoEL: Robust Event-based 3D Line Reconstruction</title>
+    <updated>2026-02-20T14:43:46Z</updated>
+    <link href="https://arxiv.org/abs/2602.18258v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2602.18258v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Event cameras in motion tend to detect object boundaries or texture edges, which produce lines of brightness changes, especially in man-made environments. While lines can constitute a robust intermediate representation that is consistently observed, the sparse nature of lines may lead to drastic deterioration with minor estimation errors. Only a few previous works, often accompanied by additional sensors, utilize lines to compensate for the severe domain discrepancies of event sensors along with unpredictable noise characteristics. We propose a method that can stably extract tracks of varying appearances of lines using a clever algorithmic process that observes multiple representations from various time slices of events, compensating for potential adversaries within the event data. We then propose geometric cost functions that can refine the 3D line maps and camera poses, eliminating projective distortions and depth ambiguities. The 3D line maps are highly compact and can be equipped with our proposed cost function, which can be adapted for any observations that can detect and extract line structures or projections of them, including 3D point cloud maps or image observations. We demonstrate that our formulation is powerful enough to exhibit a significant performance boost in event-based mapping and pose refinement across diverse datasets, and can be flexibly applied to multimodal scenarios. Our results confirm that the proposed line-based formulation is a robust and effective approach for the practical deployment of event-based perceptual modules. Project page: https://gwangtak.github.io/roel/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-02-20T14:43:46Z</published>
+    <arxiv:comment>IEEE Transactions on Robotics (T-RO)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Gwangtak Bae</name>
+    </author>
+    <author>
+      <name>Jaeho Shin</name>
+    </author>
+    <author>
+      <name>Seunggu Kang</name>
+    </author>
+    <author>
+      <name>Junho Kim</name>
+    </author>
+    <author>
+      <name>Ayoung Kim</name>
+    </author>
+    <author>
+      <name>Young Min Kim</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.03075v2</id>
+    <title>A Collaborative Reasoning Framework for Anomaly Diagnostics in Underwater Robotics</title>
+    <updated>2026-07-08T21:10:49Z</updated>
+    <link href="https://arxiv.org/abs/2511.03075v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.03075v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The safe deployment of autonomous systems in safety-critical settings requires a paradigm that combines human expertise with AI-driven analysis, especially when anomalies are unforeseen. We introduce AURA (Autonomous Resilience Agent), a collaborative framework for anomaly and fault diagnostics in robotics. AURA integrates large language models (LLMs), a high-fidelity digital twin (DT), and human-in-the-loop interaction to detect and respond to anomalous behavior in real time. The architecture uses two agents with clear roles: (i) a low-level State Anomaly Characterization Agent that monitors telemetry and converts signals into a structured natural-language problem description, and (ii) a high-level Diagnostic Reasoning Agent that conducts a knowledge-grounded dialogue with an operator to identify root causes, drawing on external sources. Human-validated diagnoses are then converted into new training examples that refine the low-level perceptual model. This feedback loop progressively distills expert knowledge into the AI, transforming it from a static tool into an adaptive partner. We describe the framework's operating principles and provide a concrete implementation, establishing a pattern for trustworthy, continually improving human-robot teams.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-04T23:42:23Z</published>
+    <arxiv:comment>Paper was submitted for ICRA 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Markus Buchholz</name>
+    </author>
+    <author>
+      <name>Niamh Ellis</name>
+    </author>
+    <author>
+      <name>Rahaf Abu Hara</name>
+    </author>
+    <author>
+      <name>Ignacio Carlucho</name>
+    </author>
+    <author>
+      <name>Yvan R. Petillot</name>
+    </author>
+  </entry>
+</feed>

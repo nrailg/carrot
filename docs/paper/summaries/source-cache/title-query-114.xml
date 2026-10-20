@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/O5TZpmhWYvA4DxPO7LSiod1a7eo</id>
+  <title>arXiv Query: search_query=ti:"SVIn+: Multi-Modal Framework for Robust Underwater State Estimation Using 3D Sonar, Visual-Inertial, Water-Pressure, and DVL" OR ti:"Side-Scan Sonar SLAM Using Ping-Level Landmark Detection in Feature-Poor Seabed Environments" OR ti:"LiDAR-Inertial SLAM with Voxel-Information Filter for Autonomous Surface Vehicles" OR ti:"SIO-UV: Rapid and Robust Sonar Intertial Odometry for Underwater Vehicles" OR ti:"WaterSplat-SLAM: Photorealistic Monocular SLAM in Underwater Environment" OR ti:"MuTRAP: Multi-Trigger Trojans Attacking Robot Task Planning Systems" OR ti:"Distributionally Robust Safe Control of Robotic Manipulators in Dynamic Environments" OR ti:"WRASTLE: Worst-Case Recurrent Adversarial Signal Temporal Learning Equilibrium" OR ti:"Rethinking Gaussian Trajectory Predictors: Calibrated Uncertainty for Safe Planning" OR ti:"Residual-Calibrated Nonconvex Distributionally Robust Uncertainty Modeling for Safe Robot Navigation in Crowds"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:28Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22SVIn%2B:+Multi-Modal+Framework+for+Robust+Underwater+State+Estimation+Using+3D+Sonar,+Visual-Inertial,+Water-Pressure,+and+DVL%22+OR+(ti:%22Side-Scan+Sonar+SLAM+Using+Ping-Level+Landmark+Detection+in+Feature-Poor+Seabed+Environments%22+OR+(ti:%22LiDAR-Inertial+SLAM+with+Voxel-Information+Filter+for+Autonomous+Surface+Vehicles%22+OR+(ti:%22SIO-UV:+Rapid+and+Robust+Sonar+Intertial+Odometry+for+Underwater+Vehicles%22+OR+(ti:%22WaterSplat-SLAM:+Photorealistic+Monocular+SLAM+in+Underwater+Environment%22+OR+(ti:%22MuTRAP:+Multi-Trigger+Trojans+Attacking+Robot+Task+Planning+Systems%22+OR+(ti:%22Distributionally+Robust+Safe+Control+of+Robotic+Manipulators+in+Dynamic+Environments%22+OR+(ti:%22WRASTLE:+Worst-Case+Recurrent+Adversarial+Signal+Temporal+Learning+Equilibrium%22+OR+(ti:%22Rethinking+Gaussian+Trajectory+Predictors:+Calibrated+Uncertainty+for+Safe+Planning%22+OR+ti:%22Residual-Calibrated+Nonconvex+Distributionally+Robust+Uncertainty+Modeling+for+Safe+Robot+Navigation+in+Crowds%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2504.17070v3</id>
+    <title>MuTRAP: Multi-trigger Trojans Attacking Robot Task Planning Systems</title>
+    <updated>2026-06-23T04:54:53Z</updated>
+    <link href="https://arxiv.org/abs/2504.17070v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.17070v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robots need task planning methods to achieve goals that require more than one action. Recently, large pretrained models have demonstrated impressive performance in task planning. For instance, large language models (LLMs) can generate task plans using action and goal descriptions. Despite the rapid progress of large models in robot intelligence, their security implications remain only partially understood, leaving important gaps in the exploration of potential vulnerabilities in LLM-driven robotic planning systems. To investigate such risks, in this paper, we develop MuTRAP, the first multi-trigger trojan attack specifically designed and targeted for LLM-assisted robot task planners. MuTRAP follows the standard practice of LLM usage in robotics where the backbone LLM is typically frozen and hosted in a central server limiting attacker's reach. In contrast, MuTRAP injects backdoor using a small set of task-specific parameters. In addition, we develop a trigger optimization method for selecting multiple-trigger words that are most effective for different robot applications. For instance, one can use unique trigger word "herical" to activate a specific malicious behavior, e.g., cutting hand on a kitchen robot. Through MuTRAP that demonstrates the vulnerability of current LLM-based planners, our goal is to promote the development of secured robot intelligence. Details and demos are provided in: https://mutrap.github.io/MuTRAP/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-23T19:39:16Z</published>
+    <arxiv:comment>Accepted for publication at the 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mohaiminul Al Nahian</name>
+    </author>
+    <author>
+      <name>Zainab Altaweel</name>
+    </author>
+    <author>
+      <name>David Reitano</name>
+    </author>
+    <author>
+      <name>Sabbir Ahmed</name>
+    </author>
+    <author>
+      <name>Shiqi Zhang</name>
+    </author>
+    <author>
+      <name>Adnan Siraj Rakin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.04642v1</id>
+    <title>WaterSplat-SLAM: Photorealistic Monocular SLAM in Underwater Environment</title>
+    <updated>2026-04-06T12:51:00Z</updated>
+    <link href="https://arxiv.org/abs/2604.04642v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.04642v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Underwater monocular SLAM is a challenging problem with applications from autonomous underwater vehicles to marine archaeology. However, existing underwater SLAM methods struggle to produce maps with high-fidelity rendering. In this paper, we propose WaterSplat-SLAM, a novel monocular underwater SLAM system that achieves robust pose estimation and photorealistic dense mapping. Specifically, we couple semantic medium filtering into two-view 3D reconstruction prior to enable underwater-adapted camera tracking and depth estimation. Furthermore, we present a semantic-guided rendering and adaptive map management strategy with an online medium-aware Gaussian map, modeling underwater environment in a photorealistic and compact manner. Experiments on multiple underwater datasets demonstrate that WaterSplat-SLAM achieves robust camera tracking and high-fidelity rendering in underwater environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-06T12:51:00Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kangxu Wang</name>
+    </author>
+    <author>
+      <name>Shaofeng Zou</name>
+    </author>
+    <author>
+      <name>Chenxing Jiang</name>
+    </author>
+    <author>
+      <name>Yixiang Dai</name>
+    </author>
+    <author>
+      <name>Siang Chen</name>
+    </author>
+    <author>
+      <name>Shaojie Shen</name>
+    </author>
+    <author>
+      <name>Guijin Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.10407v2</id>
+    <title>Rethinking Gaussian Trajectory Predictors: Calibrated Uncertainty for Safe Planning</title>
+    <updated>2026-07-12T19:45:05Z</updated>
+    <link href="https://arxiv.org/abs/2603.10407v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.10407v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate trajectory prediction is critical for safe autonomous navigation in crowded environments. While many trajectory predictors output Gaussian distributions to represent the multi-modal distribution over future pedestrian positions, the reliability of their confidence levels often remains unaddressed. This limitation can lead to unsafe or overly conservative motion planning when the predictor is integrated with an uncertainty-aware planner. Existing Gaussian trajectory predictors primarily rely on the Negative Log-Likelihood loss, which is prone to predict over- or under-confident distributions, and may compromise downstream planner safety. This paper introduces a novel loss function for calibrating prediction uncertainty which leverages Kernel Density Estimation to estimate the empirical distribution of confidence levels. The proposed formulation enforces consistency with the properties of a Gaussian assumption by explicitly matching the estimated empirical distribution to the Chi-squared distribution. To ensure accurate mean prediction, a Mean Squared Error term is also incorporated in the final loss formulation. Experimental results on real-world trajectory datasets show that our method significantly improves the reliability of confidence levels predicted by different State-Of-The-Art Gaussian trajectory predictors. We also demonstrate the importance of providing planners with reliable probabilistic insights (i.e. calibrated confidence levels) for collision-free navigation in complex scenarios. For this purpose, we integrate Gaussian trajectory predictors trained with our loss function with an uncertainty-aware Model Predictive Control on scenarios extracted from real-world datasets, achieving improved planning performance through calibrated confidence levels.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T04:42:49Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Fatemeh Cheraghi Pouria</name>
+    </author>
+    <author>
+      <name>Mahsa Golchoubian</name>
+    </author>
+    <author>
+      <name>Katherine Driggs-Campbell</name>
+    </author>
+  </entry>
+</feed>

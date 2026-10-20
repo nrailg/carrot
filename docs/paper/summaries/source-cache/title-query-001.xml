@@ -1,0 +1,151 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/rf2rFHgPGnbkgIdFx5UZw3eisF0</id>
+  <title>arXiv Query: search_query=ti:"Q-Residual Physics: Hamiltonian-Structured Quantum Residual Learning for Embodied Dynamics" OR ti:"Dispatchable Coordination Envelopes for Embodied Collaboration Under Sequential Uncertainty" OR ti:"Q-CoMove: Differentiable Quantum Circuit Priors for Coordinated Motion in Multi-Component Embodied Systems" OR ti:"Tactile MNIST: Benchmarking Active Tactile Perception" OR ti:"Grounding Driving VLA via Inverse Kinematics" OR ti:"IDEAL: Interaction Dynamics and Force-Aware Learning for Dual-Humanoid Collaborative Manipulation" OR ti:"Endowing Your Vision-Language-Action Model with a Predictive Mind" OR ti:"OmniSpace: Efficient Geometry Awareness for Autonomous Vehicles MLLMs" OR ti:"DriveSpatial: A Benchmark for Spatiotemporal Intelligence in VLMs for Autonomous Driving" OR ti:"SimVLA: Attributing Gains in VLA Models Through Controlled Ablation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:34:44Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Q-Residual+Physics:+Hamiltonian-Structured+Quantum+Residual+Learning+for+Embodied+Dynamics%22+OR+(ti:%22Dispatchable+Coordination+Envelopes+for+Embodied+Collaboration+Under+Sequential+Uncertainty%22+OR+(ti:%22Q-CoMove:+Differentiable+Quantum+Circuit+Priors+for+Coordinated+Motion+in+Multi-Component+Embodied+Systems%22+OR+(ti:%22Tactile+MNIST:+Benchmarking+Active+Tactile+Perception%22+OR+(ti:%22Grounding+Driving+VLA+via+Inverse+Kinematics%22+OR+(ti:%22IDEAL:+Interaction+Dynamics+and+Force-Aware+Learning+for+Dual-Humanoid+Collaborative+Manipulation%22+OR+(ti:%22Endowing+Your+Vision-Language-Action+Model+with+a+Predictive+Mind%22+OR+(ti:%22OmniSpace:+Efficient+Geometry+Awareness+for+Autonomous+Vehicles+MLLMs%22+OR+(ti:%22DriveSpatial:+A+Benchmark+for+Spatiotemporal+Intelligence+in+VLMs+for+Autonomous+Driving%22+OR+ti:%22SimVLA:+Attributing+Gains+in+VLA+Models+Through+Controlled+Ablation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.22617v2</id>
+    <title>OmniSpace: Efficient Geometry Awareness for Autonomous Vehicles MLLMs</title>
+    <updated>2026-09-26T06:18:59Z</updated>
+    <link href="https://arxiv.org/abs/2606.22617v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.22617v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multimodal Large Language Models (MLLMs) have achieved remarkable performance on 2D visual tasks, yet enhancing their spatial intelligence for real-world applications such as Autonomous Vehicles (AV) remains an open challenge. Existing geometry-aware MLLMs typically rely on auxiliary 3D models at inference time, introducing pipeline complexity and the risk of cascading failures. In this paper, we present OmniSpace, a simple yet effective plug-and-play paradigm for geometry-aware spatial reasoning from purely 2D observations. Motivated by our finding that current MLLMs are bottlenecked by weak cross-view correspondence and depth estimation, OmniSpace introduces a Camera Pose Injector, a Multi-view Epipolar Attention module, and a 3D Geometric Distillation objective that jointly address these two limitations by transferring geometric knowledge into the model. Extensive experiments show that OmniSpace surpasses existing methods on planning benchmarks (nuScenes, Bench2Drive), risk detection (nuInstruct), language (Omnidrive), and generalization (DriveBench).</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-21T17:47:31Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hao Vo</name>
+    </author>
+    <author>
+      <name>Phu Loc Nguyen</name>
+    </author>
+    <author>
+      <name>Khoa Vo</name>
+    </author>
+    <author>
+      <name>Sieu Tran</name>
+    </author>
+    <author>
+      <name>Duc Minh Nguyen</name>
+    </author>
+    <author>
+      <name>Ngo Xuan Cuong</name>
+    </author>
+    <author>
+      <name>Nghi D. Q. Bui</name>
+    </author>
+    <author>
+      <name>Anh Nguyen</name>
+    </author>
+    <author>
+      <name>Duy Minh Ho Nguyen</name>
+    </author>
+    <author>
+      <name>Ngan Le</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.06361v2</id>
+    <title>Tactile MNIST: Benchmarking Active Tactile Perception</title>
+    <updated>2025-06-14T14:33:43Z</updated>
+    <link href="https://arxiv.org/abs/2506.06361v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.06361v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tactile perception has the potential to significantly enhance dexterous robotic manipulation by providing rich local information that can complement or substitute for other sensory modalities such as vision. However, because tactile sensing is inherently local, it is not well-suited for tasks that require broad spatial awareness or global scene understanding on its own. A human-inspired strategy to address this issue is to consider active perception techniques instead. That is, to actively guide sensors toward regions with more informative or significant features and integrate such information over time in order to understand a scene or complete a task. Both active perception and different methods for tactile sensing have received significant attention recently. Yet, despite advancements, both fields lack standardized benchmarks. To bridge this gap, we introduce the Tactile MNIST Benchmark Suite, an open-source, Gymnasium-compatible benchmark specifically designed for active tactile perception tasks, including localization, classification, and volume estimation. Our benchmark suite offers diverse simulation scenarios, from simple toy environments all the way to complex tactile perception tasks using vision-based tactile sensors. Furthermore, we also offer a comprehensive dataset comprising 13,500 synthetic 3D MNIST digit models and 153,600 real-world tactile samples collected from 600 3D printed digits. Using this dataset, we train a CycleGAN for realistic tactile simulation rendering. By providing standardized protocols and reproducible evaluation frameworks, our benchmark suite facilitates systematic progress in the fields of tactile sensing and active perception.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-03T14:42:16Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tim Schneider</name>
+    </author>
+    <author>
+      <name>Guillaume Duret</name>
+    </author>
+    <author>
+      <name>Cristiana de Farias</name>
+    </author>
+    <author>
+      <name>Roberto Calandra</name>
+    </author>
+    <author>
+      <name>Liming Chen</name>
+    </author>
+    <author>
+      <name>Jan Peters</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.23176v3</id>
+    <title>DRIVESPATIAL: A Benchmark for Spatiotemporal Intelligence in VLMs for Autonomous Driving</title>
+    <updated>2026-09-26T06:58:14Z</updated>
+    <link href="https://arxiv.org/abs/2605.23176v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.23176v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Spatiotemporal intelligence in autonomous driving (AD) requires an agent to integrate multi-view observations into a coherent scene representation, maintain object continuity across viewpoints and time, and reason about spatial relations, interactions, and future dynamics. However, existing AD vision-language benchmarks largely focus on single-view, static, ego-centric, or single-source question answering, leaving it unclear whether current Vision-Language Models (VLMs) can truly construct and reason over dynamic driving scenes. We introduce DriveSpatial, a benchmark of 15.6K human-verified QA pairs across 20 tasks from five large-scale AD datasets. DriveSpatial evaluates four abilities: Cognitive Scene Construction, Multi-view Relational Understanding, Temporal Reasoning, and Generalization. Unlike prior benchmarks, DriveSpatial is generated from a dynamic multi-relational scene graph that encodes object states, spatial relations, interactions, camera visibility, and temporal correspondences, enabling QA pairs that enforce genuine cross-view and spatiotemporal reasoning. Evaluating 15 representative VLMs reveals a substantial human-model gap: the strongest model trails humans by 28.4 points, with Cognitive Scene Construction emerging as the key bottleneck. Further diagnostics show that language-only prompting is insufficient, while explicit BEV grounding consistently improves performance. These results suggest that current VLMs lack the scene-construction ability needed for reliable spatiotemporal driving intelligence. DriveSpatial and its construction pipeline will be released to support future research.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-22T02:52:06Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hao Vo</name>
+    </author>
+    <author>
+      <name>Khoa Vo</name>
+    </author>
+    <author>
+      <name>Phu Loc Nguyen</name>
+    </author>
+    <author>
+      <name>Sieu Tran</name>
+    </author>
+    <author>
+      <name>Duc Minh Nguyen</name>
+    </author>
+    <author>
+      <name>Ngo Xuan Cuong</name>
+    </author>
+    <author>
+      <name>Gladys Gawugah</name>
+    </author>
+    <author>
+      <name>Sreevenkata Anjani Tishita Godavarthi</name>
+    </author>
+    <author>
+      <name>Chase Rainwater</name>
+    </author>
+    <author>
+      <name>Nghi D. Q. Bui</name>
+    </author>
+    <author>
+      <name>Anh Nguyen</name>
+    </author>
+    <author>
+      <name>Duy Minh Ho Nguyen</name>
+    </author>
+    <author>
+      <name>Ngan Le</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.21061v1</id>
+    <title>Grounding Driving VLA via Inverse Kinematics</title>
+    <updated>2026-05-20T11:45:32Z</updated>
+    <link href="https://arxiv.org/abs/2605.21061v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.21061v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Existing Driving VLAs predict trajectories while largely ignoring their visual tokens -- a phenomenon we trace not to insufficient training but to a structurally ill-posed task formulation. We show that trajectory recovery, when viewed through the lens of inverse kinematics, requires both a current and a future visual state as boundary conditions; existing VLAs supply only the former, which encourages the model to shortcut through ego status and text commands alone. To address this, we re-design Driving VLA in the style of an inverse kinematics solver. First, a next visual state prediction objective that requires the LLM to predict the future visual scene provides dense visual supervision and suppresses shortcut paths. Second, a separate Inverse Kinematics Network (a cross-attention-based conditional diffusion model) that takes only the current and future visual states as input is designed to suppress reliance on ego status and textual shortcuts during trajectory decoding. With this simple prescription alone, our 0.5B-scale model recovers visual grounding and reaches trajectory planning performance comparable to 7B--8B VLAs more than an order of magnitude larger, on both the closed-loop NAVSIM-v2 and the nuScenes benchmarks. Extensive analysis further shows that this improvement stems from a recovered ability to exploit visual features, with the effect being most pronounced in dynamic driving situations such as turning.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-20T11:45:32Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Junsung Park</name>
+    </author>
+    <author>
+      <name>Hyunjung Shim</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/s+nTHgXlFNNqYd08tAllg2INgi4</id>
+  <title>arXiv Query: search_query=ti:"Sampling-Based MuJoCo MPC for Double-Pendulum Sway Suppression on a Shipboard Crane" OR ti:"Comparison of Adaptive Input Shaping for Payload Sway Suppression of 5-DoF Tower Cranes" OR ti:"Endpoint-Consistent Flow Matching for Forestry Crane Motion Planning" OR ti:"SpectraMine: Real-Time Aerial Landmine Detection Via Hyperspectral Imaging" OR ti:"Online Learning of Deceptive Policies under Intermittent Observation" OR ti:"Risk-Aware Navigation in Dynamic Smoke Environments via Probabilistic Fourier Neural Operators" OR ti:"Iterative Adversarial Learning with Chaser Agents for Time-Efficient Crowd-Aware Navigation" OR ti:"Interaction Centric Traffic Scenario Extraction Via MLLM-Based Analysis for Autonomous Vehicle Validation" OR ti:"A Hybrid Control Framework for Videocapsule Navigation: Magnetic-Field-Based Positioning with Clinician-Guided Orientation" OR ti:"MRI-Based Tracking of a Magnetically-Actuated Robotic Catheter Using Particle Filtering"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:26Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Sampling-Based+MuJoCo+MPC+for+Double-Pendulum+Sway+Suppression+on+a+Shipboard+Crane%22+OR+(ti:%22Comparison+of+Adaptive+Input+Shaping+for+Payload+Sway+Suppression+of+5-DoF+Tower+Cranes%22+OR+(ti:%22Endpoint-Consistent+Flow+Matching+for+Forestry+Crane+Motion+Planning%22+OR+(ti:%22SpectraMine:+Real-Time+Aerial+Landmine+Detection+Via+Hyperspectral+Imaging%22+OR+(ti:%22Online+Learning+of+Deceptive+Policies+under+Intermittent+Observation%22+OR+(ti:%22Risk-Aware+Navigation+in+Dynamic+Smoke+Environments+via+Probabilistic+Fourier+Neural+Operators%22+OR+(ti:%22Iterative+Adversarial+Learning+with+Chaser+Agents+for+Time-Efficient+Crowd-Aware+Navigation%22+OR+(ti:%22Interaction+Centric+Traffic+Scenario+Extraction+Via+MLLM-Based+Analysis+for+Autonomous+Vehicle+Validation%22+OR+(ti:%22A+Hybrid+Control+Framework+for+Videocapsule+Navigation:+Magnetic-Field-Based+Positioning+with+Clinician-Guided+Orientation%22+OR+ti:%22MRI-Based+Tracking+of+a+Magnetically-Actuated+Robotic+Catheter+Using+Particle+Filtering%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.16407v4</id>
+    <title>Sampling-Based MuJoCo MPC for Double-Pendulum Sway Suppression on a Shipboard Crane</title>
+    <updated>2026-09-23T21:40:47Z</updated>
+    <link href="https://arxiv.org/abs/2603.16407v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.16407v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Transferring heavy payloads in maritime settings relies on efficient crane operation, limited by hazardous double-pendulum payload sway. This sway motion is further exacerbated in offshore environments by external perturbations from wind and ocean waves. Manual suppression of these oscillations on an underactuated crane system by human operators is challenging. Existing control methods struggle in such settings, often relying on simplified analytical models, while deep reinforcement learning (RL) approaches tend to generalise poorly to unseen conditions. Deploying a predictive controller onto compute-constrained, highly non-linear physical systems without relying on extensive offline training or complex analytical models remains a significant challenge. Here we show a complete real-time control pipeline centered on the MuJoCo MPC framework that leverages a cross-entropy method planner to evaluate candidate action sequences directly within a physics simulator. By using simulated rollouts, this sampling-based approach successfully reconciles the conflicting objectives of dynamic target tracking and sway damping without relying on complex analytical models. We demonstrate that the controller can run effectively on a resource-constrained embedded hardware, while outperforming traditional PID and RL baselines in counteracting external base perturbations. Furthermore, our system demonstrates robustness even when subjected to unmodeled physical discrepancies like the introduction of a second payload.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-17T11:43:52Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Oscar Pang</name>
+    </author>
+    <author>
+      <name>Lisa Coiffard</name>
+    </author>
+    <author>
+      <name>Paul Templier</name>
+    </author>
+    <author>
+      <name>Luke Beddow</name>
+    </author>
+    <author>
+      <name>Kamil Dreczkowski</name>
+    </author>
+    <author>
+      <name>Antoine Cully</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.14453v2</id>
+    <title>Online Learning of Deceptive Policies under Intermittent Observation</title>
+    <updated>2025-09-19T01:12:28Z</updated>
+    <link href="https://arxiv.org/abs/2509.14453v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.14453v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In supervisory control settings, autonomous systems are not monitored continuously. Instead, monitoring often occurs at sporadic intervals within known bounds. We study the problem of deception, where an agent pursues a private objective while remaining plausibly compliant with a supervisor's reference policy when observations occur. Motivated by the behavior of real, human supervisors, we situate the problem within Theory of Mind: the representation of what an observer believes and expects to see. We show that Theory of Mind can be repurposed to steer online reinforcement learning (RL) toward such deceptive behavior. We model the supervisor's expectations and distill from them a single, calibrated scalar -- the expected evidence of deviation if an observation were to happen now. This scalar combines how unlike the reference and current action distributions appear, with the agent's belief that an observation is imminent. Injected as a state-dependent weight into a KL-regularized policy improvement step within an online RL loop, this scalar informs a closed-form update that smoothly trades off self-interest and compliance, thus sidestepping hand-crafted or heuristic policies. In real-world, real-time hardware experiments on marine (ASV) and aerial (UAV) navigation, our ToM-guided RL runs online, achieves high return and success with observed-trace evidence calibrated to the supervisor's expectations.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-17T22:06:01Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Gokul Puthumanaillam</name>
+    </author>
+    <author>
+      <name>Ram Padmanabhan</name>
+    </author>
+    <author>
+      <name>Jose Fuentes</name>
+    </author>
+    <author>
+      <name>Nicole Cruz</name>
+    </author>
+    <author>
+      <name>Paulo Padrao</name>
+    </author>
+    <author>
+      <name>Ruben Hernandez</name>
+    </author>
+    <author>
+      <name>Hao Jiang</name>
+    </author>
+    <author>
+      <name>William Schafer</name>
+    </author>
+    <author>
+      <name>Leonardo Bobadilla</name>
+    </author>
+    <author>
+      <name>Melkior Ornik</name>
+    </author>
+  </entry>
+</feed>

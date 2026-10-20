@@ -1,0 +1,1 @@
+{"paper_id":"arxiv:2609.27308","evidence_url":"https://arxiv.org/html/2609.27308v1","evidence_type":"arxiv_abstract_and_body","body_note":"官方§4.1及附录D：编码代理修改场景、策略与中间阶段起点，按阶段注入DART式扰动，另随机质量摩擦与视觉重渲染；生成轨迹经任务grader与开环重放通过才保留。§4.3实机为四阶段灯拆卸，10次完整到旋出灯泡20%，非半小时任务全实机成功。","proposed_solution":"EmbodiedSWE先让编码代理在仿真解决任务，再修改场景、策略及阶段起点并注入扰动，将通过任务和重放核验的轨迹用于VLA训练。"}

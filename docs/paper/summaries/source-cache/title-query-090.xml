@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/QZ5b7gMlmNSmyqb3g04WXaOn22g</id>
+  <title>arXiv Query: search_query=ti:"XR-DT: Extended Reality-Enhanced Digital Twin for Safe Motion Planning Via Human-Aware Model Predictive Path Integral Control" OR ti:"A Structured Framework for Physics-Guided Residual Kinematic Modeling and Hybrid IK–RL Control of Tendon-Driven Continuum Robots" OR ti:"Intuitive Tele-Manipulation of Objects with Continuum Robots Via Affordance Primitives" OR ti:"Active Tactile Pattern Reconstruction with Reinforcement Learning" OR ti:"Understanding Contact from Vision, Sound, and Touch with Trimodal Alignment" OR ti:"Robust Trajectory Planning for Multi-Drone Formation Target Tracking in Challenging Scenarios" OR ti:"Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)" OR ti:"PGRL-Nav: Prior-Guided Residual Reinforcement Learning for Decentralized Multi-Robot Navigation" OR ti:"PyRCH: Algorithms and Solvers for Min-Max Constrained Heterogeneous Multi-Robot Routing Problems" OR ti:"ResidualFlow: Single-Step Multimodal Trajectory Generation for Quadrotor UAVs via Flow Matching with Residual-Guided Truncation"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:53Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22XR-DT:+Extended+Reality-Enhanced+Digital+Twin+for+Safe+Motion+Planning+Via+Human-Aware+Model+Predictive+Path+Integral+Control%22+OR+(ti:%22A+Structured+Framework+for+Physics-Guided+Residual+Kinematic+Modeling+and+Hybrid+IK%E2%80%93RL+Control+of+Tendon-Driven+Continuum+Robots%22+OR+(ti:%22Intuitive+Tele-Manipulation+of+Objects+with+Continuum+Robots+Via+Affordance+Primitives%22+OR+(ti:%22Active+Tactile+Pattern+Reconstruction+with+Reinforcement+Learning%22+OR+(ti:%22Understanding+Contact+from+Vision,+Sound,+and+Touch+with+Trimodal+Alignment%22+OR+(ti:%22Robust+Trajectory+Planning+for+Multi-Drone+Formation+Target+Tracking+in+Challenging+Scenarios%22+OR+(ti:%22Advancing+MAPF+Toward+the+Real+World:+A+Scalable+Multi-Agent+Realistic+Testbed+(SMART)%22+OR+(ti:%22PGRL-Nav:+Prior-Guided+Residual+Reinforcement+Learning+for+Decentralized+Multi-Robot+Navigation%22+OR+(ti:%22PyRCH:+Algorithms+and+Solvers+for+Min-Max+Constrained+Heterogeneous+Multi-Robot+Routing+Problems%22+OR+ti:%22ResidualFlow:+Single-Step+Multimodal+Trajectory+Generation+for+Quadrotor+UAVs+via+Flow+Matching+with+Residual-Guided+Truncation%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.05270v2</id>
+    <title>XR-DT: Extended Reality-Enhanced Digital Twin for Safe Motion Planning via Human-Aware Model Predictive Path Integral Control</title>
+    <updated>2026-03-06T01:02:59Z</updated>
+    <link href="https://arxiv.org/abs/2512.05270v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.05270v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>As mobile robots increasingly operate alongside humans in shared workspaces, ensuring safe, efficient, and interpretable Human-Robot Interaction (HRI) has become a pressing challenge. While substantial progress has been devoted to human behavior prediction, limited attention has been paid to how humans perceive, interpret, and trust robots' inferences and how robots plan safe and efficient trajectories based on predicted human behaviors. To address these challenges, this paper presents XR-DT, an eXtended Reality-enhanced Digital Twin framework for mobile robots, which bridges physical and virtual spaces to enable bi-directional understanding between humans and robots. Our hierarchical XR-DT architecture integrates augmented-, virtual-, and mixed-reality layers, fusing real-time sensor data, simulated environments in the Unity game engine, and human feedback captured through wearable XR devices. Within this framework, we design a novel Human-Aware Model Predictive Path Integral (HA-MPPI) control model, an MPPI-based motion planner that incorporates ATLAS (Attention-based Trajectory Learning with Anticipatory Sensing), a multi-modal Transformer model designed for egocentric human trajectory prediction via XR headsets. Extensive real-world experimental results demonstrate accurate human trajectory prediction, and safe and efficient robot navigation, validating the HA-MPPI's effectiveness within the XR-DT framework. By embedding human behavior, environmental dynamics, and robot navigation into the XR-DT framework, our system enables interpretable, trustworthy, and adaptive HRI.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-04T21:49:14Z</published>
+    <arxiv:comment>8 pages, 6 figures, 3 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tianyi Wang</name>
+    </author>
+    <author>
+      <name>Jiseop Byeon</name>
+    </author>
+    <author>
+      <name>Ahmad Yehia</name>
+    </author>
+    <author>
+      <name>Yiming Xu</name>
+    </author>
+    <author>
+      <name>Jihyung Park</name>
+    </author>
+    <author>
+      <name>Tianyi Zeng</name>
+    </author>
+    <author>
+      <name>Sikai Chen</name>
+    </author>
+    <author>
+      <name>Ziran Wang</name>
+    </author>
+    <author>
+      <name>Junfeng Jiao</name>
+    </author>
+    <author>
+      <name>Christian Claudel</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.04798v3</id>
+    <title>Advancing MAPF Toward the Real World: A Scalable Multi-Agent Realistic Testbed (SMART)</title>
+    <updated>2026-04-19T14:14:33Z</updated>
+    <link href="https://arxiv.org/abs/2503.04798v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.04798v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present Scalable Multi-Agent Realistic Testbed (SMART), a realistic and efficient software tool for evaluating Multi-Agent Path Finding (MAPF) algorithms. MAPF focuses on planning collision-free paths for a group of robots. While state-of-the-art MAPF planners can plan paths for hundreds of robots in seconds, they often rely on simplified robot models, making their real-world performance unclear. Researchers typically lack access to hundreds of physical robots in laboratory settings to evaluate the algorithms. Meanwhile, industrial professionals who lack expertise in MAPF require an easy-to-use simulator to efficiently test and understand the performance of MAPF planners in their specific settings. SMART fills this gap with several advantages: (1) SMART uses physics-engine-based simulators to create realistic simulation environments, accounting for complex real-world factors such as robot kinodynamics and execution uncertainties, (2) SMART uses an execution monitor framework based on the Action Dependency Graph, facilitating seamless integration with various MAPF planners and robot models, and (3) SMART scales to thousands of robots. The code is publicly available at https://github.com/smart-mapf/smart with an online service available at https://smart-mapf.github.io/demo/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-03T05:26:59Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jingtian Yan</name>
+    </author>
+    <author>
+      <name>Zhifei Li</name>
+    </author>
+    <author>
+      <name>William Kang</name>
+    </author>
+    <author>
+      <name>Kevin Zheng</name>
+    </author>
+    <author>
+      <name>Yulun Zhang</name>
+    </author>
+    <author>
+      <name>Zhe Chen</name>
+    </author>
+    <author>
+      <name>Yue Zhang</name>
+    </author>
+    <author>
+      <name>Daniel Harabor</name>
+    </author>
+    <author>
+      <name>Stephen F. Smith</name>
+    </author>
+    <author>
+      <name>Jiaoyang Li</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3688062</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3688062" title="doi"/>
+  </entry>
+</feed>

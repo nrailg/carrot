@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/MBJMYO1m3sKtus3BUAOT1cwpkXs</id>
+  <title>arXiv Query: search_query=ti:"Trajectory-Enhanced Hierarchical Reinforcement Learning for Long-Range Mapless Navigation" OR ti:"Behaviour-Aware Adaptive Path Planning with Q-Learning Weight Adaptation" OR ti:"AsyncShield: A Plug-And-Play Edge Adapter for Asynchronous Cloud-Based VLA Navigation" OR ti:"A Multi-Layer Navigation System for Smart Wheelchairs with a Limited Input Interface" OR ti:"MicroVLA: A Vision-Language-Action Framework for Microrobotic Navigation Considering Inter-Particle Micro-Force Fields" OR ti:"LATCH: Language-Affordance Teleoperation with Conflict-Aware Haptic Guidance" OR ti:"Rapid Human-Robot Collaborative Tidying with Personal Space Aware Policy Adaptation" OR ti:"Context-Aware Adaptive Shared Control for Magnetically-Driven Bimanual Dexterous Micromanipulation" OR ti:"Human-Agent Shared-Control Based Training Scheme for Efficient Robotic Tadpole Navigation" OR ti:"VertiAdaptor: Online Kinodynamics Adaptation for Vertically Challenging Terrain"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:02Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Trajectory-Enhanced+Hierarchical+Reinforcement+Learning+for+Long-Range+Mapless+Navigation%22+OR+(ti:%22Behaviour-Aware+Adaptive+Path+Planning+with+Q-Learning+Weight+Adaptation%22+OR+(ti:%22AsyncShield:+A+Plug-And-Play+Edge+Adapter+for+Asynchronous+Cloud-Based+VLA+Navigation%22+OR+(ti:%22A+Multi-Layer+Navigation+System+for+Smart+Wheelchairs+with+a+Limited+Input+Interface%22+OR+(ti:%22MicroVLA:+A+Vision-Language-Action+Framework+for+Microrobotic+Navigation+Considering+Inter-Particle+Micro-Force+Fields%22+OR+(ti:%22LATCH:+Language-Affordance+Teleoperation+with+Conflict-Aware+Haptic+Guidance%22+OR+(ti:%22Rapid+Human-Robot+Collaborative+Tidying+with+Personal+Space+Aware+Policy+Adaptation%22+OR+(ti:%22Context-Aware+Adaptive+Shared+Control+for+Magnetically-Driven+Bimanual+Dexterous+Micromanipulation%22+OR+(ti:%22Human-Agent+Shared-Control+Based+Training+Scheme+for+Efficient+Robotic+Tadpole+Navigation%22+OR+ti:%22VertiAdaptor:+Online+Kinodynamics+Adaptation+for+Vertically+Challenging+Terrain%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.06887v3</id>
+    <title>VertiAdaptor: Online Kinodynamics Adaptation for Vertically Challenging Terrain</title>
+    <updated>2026-06-29T20:57:22Z</updated>
+    <link href="https://arxiv.org/abs/2603.06887v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.06887v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous driving in off-road environments presents significant challenges due to the dynamic and unpredictable nature of unstructured terrain. Traditional kinodynamic models often struggle to generalize across diverse geometric and semantic terrain types, underscoring the need for real-time adaptation to ensure safe and reliable navigation. We propose VertiAdaptor (VA), a novel online adaptation framework that efficiently integrates elevation with semantic embeddings to enable terrain-aware kinodynamic modeling and planning via function encoders. VA learns a kinodynamic space spanned by a set of neural ordinary differential equation basis functions, capturing complex vehicle-terrain interactions across varied environments. After offline training, the proposed approach can rapidly adapt to new, unseen environments by identifying kinodynamics in the learned space through a computationally efficient least-squares calculation. We evaluate VA within the Verti-Bench simulator, built on the Chrono multi-physics engine, and validate its performance both in simulation and on a physical Verti-4-Wheeler platform. Our results demonstrate that VA improves prediction accuracy by up to 23.9% and achieves a 5X faster adaptation time, advancing the robustness and reliability of autonomous robots in complex and evolving off-road environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-06T21:08:19Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tong Xu</name>
+    </author>
+    <author>
+      <name>Chenhui Pan</name>
+    </author>
+    <author>
+      <name>Aniket Datar</name>
+    </author>
+    <author>
+      <name>Xuesu Xiao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.14388v1</id>
+    <title>Context-Aware Adaptive Shared Control for Magnetically-Driven Bimanual Dexterous Micromanipulation</title>
+    <updated>2026-03-15T13:58:37Z</updated>
+    <link href="https://arxiv.org/abs/2603.14388v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.14388v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Magnetically actuated robots provide a promising untethered platform for navigation in confined environments, enabling biological studies and targeted micro-delivery. However, dexterous manipulation in complex structures remains challenging. While single-arm magnetic actuation suffices for simple transport, steering through tortuous or bifurcating channels demands coordinated control of multiple magnetic sources to generate the torques required for precise rotation and directional guidance. Bimanual teleoperation enables such dexterous steering but imposes high cognitive demands, as operators must handle the nonlinear dynamics of magnetic actuation while coordinating two robotic manipulators. To address these limitations, we propose Bi-CAST, a context-aware adaptive shared control framework for bimanual magnetic micromanipulation. A multimodal network fuses spatio-temporal visual features, spatial risk metrics, and historical states to continuously adjust the control authority of each manipulator in real time. In parallel, a bidirectional haptic interface integrates force-based intent recognition with risk-aware guidance, enabling force feedback to provide a continuous channel for dynamic human-machine authority negotiation. We validate the framework through user studies with eight participants performing three navigation tasks of increasing complexity in a vascular phantom. Compared with fixed authority and discrete switching baselines, Bi-CAST achieves up to 76.6% reduction in collisions, 25.9% improvement in trajectory smoothness, and 44.4% lower NASA-TLX workload, while delivering the fastest task completion times.</summary>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-15T13:58:37Z</published>
+    <arxiv:primary_category term="eess.SY"/>
+    <author>
+      <name>Yongchen Wang</name>
+    </author>
+    <author>
+      <name>Kangyi Lu</name>
+    </author>
+    <author>
+      <name>Lan Wei</name>
+    </author>
+    <author>
+      <name>Dandan Zhang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.24086v1</id>
+    <title>AsyncShield: A Plug-and-Play Edge Adapter for Asynchronous Cloud-based VLA Navigation</title>
+    <updated>2026-04-27T06:20:15Z</updated>
+    <link href="https://arxiv.org/abs/2604.24086v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.24086v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While Vision-Language-Action (VLA) models have been demonstrated possessing strong zero-shot generalization for robot control, their massive parameter sizes typically necessitate cloud-based deployment. However, cloud deployment introduces network jitter and inference latency, which can induce severe spatiotemporal misalignment in mobile navigation under continuous displacement, so that the stale intents expressed in past ego frames may become spatially incorrect in the current frame and lead to collisions. To address this issue, we propose AsyncShield, a plug-and-play asynchronous control framework. AsyncShield discards traditional black-box time-series prediction in favor of a deterministic physical white-box spatial mapping. By maintaining a temporal pose buffer and utilizing kinematic transformations, the system accurately converts temporal lag into spatial pose offsets to restore the VLA's original geometric intent. To balance intent restoration fidelity and physical safety, the edge adaptation is formulated as a constrained Markov decision process (CMDP). Solved via the PPO-Lagrangian algorithm, a reinforcement learning adapter dynamically trades off between tracking the VLA intent and responding to high-frequency LiDAR obstacle avoidance hard constraints. Furthermore, benefiting from a standardized universal sub-goal interface, domain randomization, and perception-level adaptation via Collision Radius Inflation, AsyncShield operates as a lightweight, plug-and-play module. Simulation and real-world experiments demonstrate that, without fine-tuning any cloud-based foundation models, the framework exhibits zero-shot and robust generalization capabilities, effectively improving the success rate and physical safety of asynchronous navigation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-27T06:20:15Z</published>
+    <arxiv:comment>9 pages, 2 figures, 4 tables</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kai Yang</name>
+    </author>
+    <author>
+      <name>Zedong Chu</name>
+    </author>
+    <author>
+      <name>Yingnan Guo</name>
+    </author>
+    <author>
+      <name>Zhengbo Wang</name>
+    </author>
+    <author>
+      <name>Shichao Xie</name>
+    </author>
+    <author>
+      <name>Yanfen Shen</name>
+    </author>
+    <author>
+      <name>Xiaolong Wu</name>
+    </author>
+    <author>
+      <name>Xing Li</name>
+    </author>
+    <author>
+      <name>Mu Xu</name>
+    </author>
+  </entry>
+</feed>

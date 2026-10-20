@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/wzfgarResvWp2CZkQEdUwaF3+iQ</id>
+  <title>arXiv Query: search_query=ti:"DreamManip: Holistic Visual Planning for Long-Horizon Robotic Manipulation via Video Foundation Models" OR ti:"ORIGAMI: Object Representation Inferred Geometrically for Articulated Manipulation" OR ti:"GOPLA: Generalizable Object Placement Learning Via Synthetic Augmentation of Human Arrangement" OR ti:"RTFF: Random-to-Target Fabric Flattening Policy using Dual-Arm Manipulator" OR ti:"Enforcing Human-Like Kinematics in Dexterous Piano Playing Via Adversarial Posture Regularization" OR ti:"DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation" OR ti:"Relational Dexterity: Transferring Human Dexterity Via Relational Geometric Prior" OR ti:"Learning Non-Prehensile Manipulation with Force and Vision Feedback Using Optimization-Based Demonstrations" OR ti:"Bridging Deep Learning and Gait Physiology: A Neuro-Symbolic Framework for Reliable Locomotion Classification" OR ti:"Pilot Study for Step-Linked Haptic Assistance Based on Mobile Manipulator Platform for Track-Based Overground Gait Symmetry Training of Stroke Patients"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:17Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22DreamManip:+Holistic+Visual+Planning+for+Long-Horizon+Robotic+Manipulation+via+Video+Foundation+Models%22+OR+(ti:%22ORIGAMI:+Object+Representation+Inferred+Geometrically+for+Articulated+Manipulation%22+OR+(ti:%22GOPLA:+Generalizable+Object+Placement+Learning+Via+Synthetic+Augmentation+of+Human+Arrangement%22+OR+(ti:%22RTFF:+Random-to-Target+Fabric+Flattening+Policy+using+Dual-Arm+Manipulator%22+OR+(ti:%22Enforcing+Human-Like+Kinematics+in+Dexterous+Piano+Playing+Via+Adversarial+Posture+Regularization%22+OR+(ti:%22DEXOP:+A+Device+for+Robotic+Transfer+of+Dexterous+Human+Manipulation%22+OR+(ti:%22Relational+Dexterity:+Transferring+Human+Dexterity+Via+Relational+Geometric+Prior%22+OR+(ti:%22Learning+Non-Prehensile+Manipulation+with+Force+and+Vision+Feedback+Using+Optimization-Based+Demonstrations%22+OR+(ti:%22Bridging+Deep+Learning+and+Gait+Physiology:+A+Neuro-Symbolic+Framework+for+Reliable+Locomotion+Classification%22+OR+ti:%22Pilot+Study+for+Step-Linked+Haptic+Assistance+Based+on+Mobile+Manipulator+Platform+for+Track-Based+Overground+Gait+Symmetry+Training+of+Stroke+Patients%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.23848v1</id>
+    <title>Enforcing Human-like Kinematics in Dexterous Piano Playing via Adversarial Posture Regularization</title>
+    <updated>2026-06-22T18:30:36Z</updated>
+    <link href="https://arxiv.org/abs/2606.23848v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.23848v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reinforcement learning can train bimanual dexterous hands to play piano in physics simulation with high note accuracy, but for high-DoF dexterous hands, relying solely on task rewards or IK inversion often leads to unnatural postures and joint overextension. We propose \textit{Adversarial Posture Regularization (APR)}. It avoids expensive, song-aligned expert demonstration data and instead uses a small amount of casual human playing data. By matching the distribution of the posture of the policy with the human prior through an adversarial objective, APR encourages more human-like hand shapes. Meanwhile, we collect and release unstructured hand motion data of piano playing using a consumer-grade Meta Quest 3, and retarget the key motion information to the Shadow Hand. Finally, we achieve significantly better performance than prior methods on all three human-likeness metrics (cPSI, BSE, and FAC) as well as in visual quality. Project repository: https://github.com/APRProject/APRPianist.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-22T18:30:36Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:journal_ref>
+    <author>
+      <name>Bin Qiu</name>
+    </author>
+    <author>
+      <name>Yanming Shao</name>
+    </author>
+    <author>
+      <name>Guanyu Cai</name>
+    </author>
+    <author>
+      <name>Yao Mu</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.00814v2</id>
+    <title>RTFF: Random-to-Target Fabric Flattening Policy using Dual-Arm Manipulator</title>
+    <updated>2026-06-23T03:39:03Z</updated>
+    <link href="https://arxiv.org/abs/2510.00814v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.00814v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic fabric manipulation remains challenging due to fabric deformability and occlusions from wrinkles and the manipulator. This paper defines Random-to-Target Fabric Flattening (RTFF) as the task of bringing a randomly wrinkled fabric to an arbitrary user-specified wrinkle-free target pose. RTFF requires simultaneous flattening and pose alignment, where the two objectives are inherently coupled since flattening the fabric displaces its pose, while realigning it tends to introduce wrinkles. To solve this task, this paper anchors both the current and target fabric states to the same template mesh, enabling direct vertex-level wrinkle and pose assessment without registration. Building on this representation, a hybrid Imitation Learning--Visual Servoing (IL--VS) RTFF policy is proposed. A novel Mesh Action Chunking Transformer (MACT) leverages structured mesh observations to achieve goal-conditioned coarse alignment from a compact demonstration set, after which VS ensures precise convergence to the target. The policy is validated on a real dual-arm teleoperation system, demonstrating precise alignment to unseen target poses, fabric types, and scales. Code and videos: https://kaitang98.github.io/RTFF_Policy/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-01T12:20:36Z</published>
+    <arxiv:comment>8 pages, 7 figures, conference</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kai Tang</name>
+    </author>
+    <author>
+      <name>Dipankar Bhattacharya</name>
+    </author>
+    <author>
+      <name>Hang Xu</name>
+    </author>
+    <author>
+      <name>Fuyuki Tokuda</name>
+    </author>
+    <author>
+      <name>Norman C. Tien</name>
+    </author>
+    <author>
+      <name>Kazuhiro Kosuge</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.14627v2</id>
+    <title>GOPLA: Generalizable Object Placement Learning via Synthetic Augmentation of Human Arrangement</title>
+    <updated>2025-10-25T16:54:00Z</updated>
+    <link href="https://arxiv.org/abs/2510.14627v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.14627v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robots are expected to serve as intelligent assistants, helping humans with everyday household organization. A central challenge in this setting is the task of object placement, which requires reasoning about both semantic preferences (e.g., common-sense object relations) and geometric feasibility (e.g., collision avoidance). We present GOPLA, a hierarchical framework that learns generalizable object placement from augmented human demonstrations. A multi-modal large language model translates human instructions and visual inputs into structured plans that specify pairwise object relationships. These plans are then converted into 3D affordance maps with geometric common sense by a spatial mapper, while a diffusion-based planner generates placement poses guided by test-time costs, considering multi-plan distributions and collision avoidance. To overcome data scarcity, we introduce a scalable pipeline that expands human placement demonstrations into diverse synthetic training data. Extensive experiments show that our approach improves placement success rates by 30.04 percentage points over the runner-up, evaluated on positioning accuracy and physical plausibility, demonstrating strong generalization across a wide range of real-world robotic placement scenarios.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-16T12:38:14Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yao Zhong</name>
+    </author>
+    <author>
+      <name>Hanzhi Chen</name>
+    </author>
+    <author>
+      <name>Simon Schaefer</name>
+    </author>
+    <author>
+      <name>Anran Zhang</name>
+    </author>
+    <author>
+      <name>Stefan Leutenegger</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.04441v2</id>
+    <title>DEXOP: A Device for Robotic Transfer of Dexterous Human Manipulation</title>
+    <updated>2025-09-08T12:08:04Z</updated>
+    <link href="https://arxiv.org/abs/2509.04441v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.04441v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We introduce perioperation, a paradigm for robotic data collection that sensorizes and records human manipulation while maximizing the transferability of the data to real robots. We implement this paradigm in DEXOP, a passive hand exoskeleton designed to maximize human ability to collect rich sensory (vision + tactile) data for diverse dexterous manipulation tasks in natural environments. DEXOP mechanically connects human fingers to robot fingers, providing users with direct contact feedback (via proprioception) and mirrors the human hand pose to the passive robot hand to maximize the transfer of demonstrated skills to the robot. The force feedback and pose mirroring make task demonstrations more natural for humans compared to teleoperation, increasing both speed and accuracy. We evaluate DEXOP across a range of dexterous, contact-rich tasks, demonstrating its ability to collect high-quality demonstration data at scale. Policies learned with DEXOP data significantly improve task performance per unit time of data collection compared to teleoperation, making DEXOP a powerful tool for advancing robot dexterity. Our project page is at https://dex-op.github.io.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.HC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-04T17:57:13Z</published>
+    <arxiv:comment>project page: https://dex-op.github.io</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Hao-Shu Fang</name>
+    </author>
+    <author>
+      <name>Branden Romero</name>
+    </author>
+    <author>
+      <name>Yichen Xie</name>
+    </author>
+    <author>
+      <name>Arthur Hu</name>
+    </author>
+    <author>
+      <name>Bo-Ruei Huang</name>
+    </author>
+    <author>
+      <name>Juan Alvarez</name>
+    </author>
+    <author>
+      <name>Matthew Kim</name>
+    </author>
+    <author>
+      <name>Gabriel Margolis</name>
+    </author>
+    <author>
+      <name>Kavya Anbarasu</name>
+    </author>
+    <author>
+      <name>Masayoshi Tomizuka</name>
+    </author>
+    <author>
+      <name>Edward Adelson</name>
+    </author>
+    <author>
+      <name>Pulkit Agrawal</name>
+    </author>
+  </entry>
+</feed>

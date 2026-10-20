@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/7S5zRdV+2kNW60r27xUbyvYsh6A</id>
+  <title>arXiv Query: search_query=ti:"Temporal Re-Attention LSTM for Multivariate Prediction in Industrial Heating Process with Large Time Delays" OR ti:"Truncated Diffusion Process for Temporal Consistent Inference" OR ti:"Real-Time 3D Motion Prediction for Human-Robot Collaboration Via Bayesian-Optimized Diffusion Models" OR ti:"Leveraging Preferences for Adaptive Decision-Making in Human-Robot Interaction" OR ti:"I've Changed My Mind: Robots Adapting to Changing Human Goals During Collaboration" OR ti:"D3P: Dynamic Denoising Diffusion Policy Via Reinforcement Learning" OR ti:"Training Fast Robot Policies with Slow Foundation Models" OR ti:"AeroGrab: A Unified Framework for Aerial Grasping in Cluttered Environments" OR ti:"A Hybrid Perching Mechanism for Aerial Robots: Branch and Surface Perching Robust to Large Surface Orientation Misalignment" OR ti:"Energy-Based Swing-Up and Grasping Maneuver Using Suspended Aerial Manipulator"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:34:57Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Temporal+Re-Attention+LSTM+for+Multivariate+Prediction+in+Industrial+Heating+Process+with+Large+Time+Delays%22+OR+(ti:%22Truncated+Diffusion+Process+for+Temporal+Consistent+Inference%22+OR+(ti:%22Real-Time+3D+Motion+Prediction+for+Human-Robot+Collaboration+Via+Bayesian-Optimized+Diffusion+Models%22+OR+(ti:%22Leveraging+Preferences+for+Adaptive+Decision-Making+in+Human-Robot+Interaction%22+OR+(ti:%22I've+Changed+My+Mind:+Robots+Adapting+to+Changing+Human+Goals+During+Collaboration%22+OR+(ti:%22D3P:+Dynamic+Denoising+Diffusion+Policy+Via+Reinforcement+Learning%22+OR+(ti:%22Training+Fast+Robot+Policies+with+Slow+Foundation+Models%22+OR+(ti:%22AeroGrab:+A+Unified+Framework+for+Aerial+Grasping+in+Cluttered+Environments%22+OR+(ti:%22A+Hybrid+Perching+Mechanism+for+Aerial+Robots:+Branch+and+Surface+Perching+Robust+to+Large+Surface+Orientation+Misalignment%22+OR+ti:%22Energy-Based+Swing-Up+and+Grasping+Maneuver+Using+Suspended+Aerial+Manipulator%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2511.15914v1</id>
+    <title>I've Changed My Mind: Robots Adapting to Changing Human Goals during Collaboration</title>
+    <updated>2025-11-19T22:43:47Z</updated>
+    <link href="https://arxiv.org/abs/2511.15914v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.15914v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>For effective human-robot collaboration, a robot must align its actions with human goals, even as they change mid-task. Prior approaches often assume fixed goals, reducing goal prediction to a one-time inference. However, in real-world scenarios, humans frequently shift goals, making it challenging for robots to adapt without explicit communication. We propose a method for detecting goal changes by tracking multiple candidate action sequences and verifying their plausibility against a policy bank. Upon detecting a change, the robot refines its belief in relevant past actions and constructs Receding Horizon Planning (RHP) trees to actively select actions that assist the human while encouraging Differentiating Actions to reveal their updated goal. We evaluate our approach in a collaborative cooking environment with up to 30 unique recipes and compare it to three comparable human goal prediction algorithms. Our method outperforms all baselines, quickly converging to the correct goal after a switch, reducing task completion time, and improving collaboration efficiency.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-19T22:43:47Z</published>
+    <arxiv:comment>Accepted to RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Debasmita Ghose</name>
+    </author>
+    <author>
+      <name>Oz Gitelson</name>
+    </author>
+    <author>
+      <name>Ryan Jin</name>
+    </author>
+    <author>
+      <name>Grace Abawe</name>
+    </author>
+    <author>
+      <name>Marynel Vazquez</name>
+    </author>
+    <author>
+      <name>Brian Scassellati</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.15097v2</id>
+    <title>AeroGrab: A Unified Framework for Aerial Grasping in Cluttered Environments</title>
+    <updated>2026-06-26T13:38:24Z</updated>
+    <link href="https://arxiv.org/abs/2603.15097v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.15097v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reliable aerial grasping in cluttered environments remains challenging due to occlusions and collision risks. Existing aerial manipulation pipelines largely rely on centroid-based grasping and lack integration between the grasp pose generation models, active exploration, and language-level task specification, resulting in the absence of a complete end-to-end system. In this work, we present an integrated pipeline for reliable aerial grasping in cluttered environments. Given a scene and a language instruction, the system identifies the target object and actively explores it to gain better views of the object. During exploration, a grasp generation network predicts multiple 6-DoF grasp candidates for each view. Each candidate is evaluated using a collision-aware feasibility framework, and the overall best grasp is selected and executed using standard trajectory generation and control methods. Experiments in cluttered real-world scenarios demonstrate robust and reliable grasp execution, highlighting the effectiveness of combining active perception with feasibility-aware grasp selection for aerial manipulation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-16T10:50:03Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shivansh Pratap Singh</name>
+    </author>
+    <author>
+      <name>Naveen Sudheer Nair</name>
+    </author>
+    <author>
+      <name>Samaksh Ujjawal</name>
+    </author>
+    <author>
+      <name>Sarthak Mishra</name>
+    </author>
+    <author>
+      <name>Soham Patil</name>
+    </author>
+    <author>
+      <name>Rishabh Dev Yadav</name>
+    </author>
+    <author>
+      <name>Spandan Roy</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.06804v1</id>
+    <title>D3P: Dynamic Denoising Diffusion Policy via Reinforcement Learning</title>
+    <updated>2025-08-09T03:27:21Z</updated>
+    <link href="https://arxiv.org/abs/2508.06804v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.06804v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Diffusion policies excel at learning complex action distributions for robotic visuomotor tasks, yet their iterative denoising process poses a major bottleneck for real-time deployment. Existing acceleration methods apply a fixed number of denoising steps per action, implicitly treating all actions as equally important. However, our experiments reveal that robotic tasks often contain a mix of \emph{crucial} and \emph{routine} actions, which differ in their impact on task success. Motivated by this finding, we propose \textbf{D}ynamic \textbf{D}enoising \textbf{D}iffusion \textbf{P}olicy \textbf{(D3P)}, a diffusion-based policy that adaptively allocates denoising steps across actions at test time. D3P uses a lightweight, state-aware adaptor to allocate the optimal number of denoising steps for each action. We jointly optimize the adaptor and base diffusion policy via reinforcement learning to balance task performance and inference efficiency. On simulated tasks, D3P achieves an averaged 2.2$\times$ inference speed-up over baselines without degrading success. Furthermore, we demonstrate D3P's effectiveness on a physical robot, achieving a 1.9$\times$ acceleration over the baseline.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-09T03:27:21Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shu-Ang Yu</name>
+    </author>
+    <author>
+      <name>Feng Gao</name>
+    </author>
+    <author>
+      <name>Yi Wu</name>
+    </author>
+    <author>
+      <name>Chao Yu</name>
+    </author>
+    <author>
+      <name>Yu Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2406.05881v7</id>
+    <title>Training Fast Robot Policies with Slow Foundation Models</title>
+    <updated>2026-07-22T01:32:22Z</updated>
+    <link href="https://arxiv.org/abs/2406.05881v7" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2406.05881v7" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Continuous robotic control requires policies that execute with low latency and modest computational cost during deployment. Foundation models provide strong semantic and visual reasoning, but repeatedly querying a large model throughout deployment incurs substantial inference latency and compute requirements. Language-to-Reward (L2R) methods avoid this deployment-time cost by using large language models (LLMs) to synthesize rewards for training lightweight policies, but these rewards are generated without visually analyzing how the learned policy physically fails, and thus often lack physical grounding. We propose Visually-Grounded Reward Synthesis (VGRS), which uses slow foundation models during training to produce fast robotic control policies. An LLM first synthesizes executable reward code from a natural-language instruction to train a lightweight hierarchical policy. When learning stalls, a frozen vision-language model (VLM) analyzes failed trajectories to provide failure mode diagnosis, which the LLM uses to rewrite and densify the reward. Since foundation models are used only during training, deployment requires only the learned policy. We perform experiments on simulated and real-world navigation and manipulation tasks, and show that VGRS achieves success rates above 55% on challenging long-horizon tasks while deploying successfully to real robots.</summary>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-06-09T18:40:24Z</published>
+    <arxiv:primary_category term="cs.LG"/>
+    <author>
+      <name>Utsav Singh</name>
+    </author>
+    <author>
+      <name>Pramit Bhattacharyya</name>
+    </author>
+    <author>
+      <name>Vinay P. Namboodiri</name>
+    </author>
+    <author>
+      <name>Amrit Singh Bedi</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/ajE8m4yq44l3mMdL9JIkQ6NbJ4c</id>
+  <title>arXiv Query: search_query=ti:"Flying through Feasible Spatial Sectors with Reinforcement Learning" OR ti:"UAV-NAS: UAV Identification on FPGAs via Neural Architecture Search" OR ti:"MBD-Planner: A Real-Time Obstacle Avoidance Framework for UAVs via Feature-Domain Motion Blur Decoupling" OR ti:"Cooperative Aerial Robot Inspection Challenge: A Benchmark for Heterogeneous Multi-UAV Planning and Lessons Learned" OR ti:"HIL-ResRFT: Improving Imitation Learning Policy with Human in the Loop Residual RL for Robot Manipulation" OR ti:"Safety-Aware Imitation Learning Via MPC-Guided Disturbance Injection" OR ti:"Safe MPC Alignment with Human Directional Feedback" OR ti:"Unsupervised Vision-Action Misbehavior Detection for Iterative Cleaning of Training Data in Autonomous Driving" OR ti:"Anomaly-Informed Confidence Calibration for Vision-Based Safety Prediction" OR ti:"MapTCL: Temporal Consistency Learning Via Bidirectional Alignment for Vectorized HD Map Construction"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:24Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Flying+through+Feasible+Spatial+Sectors+with+Reinforcement+Learning%22+OR+(ti:%22UAV-NAS:+UAV+Identification+on+FPGAs+via+Neural+Architecture+Search%22+OR+(ti:%22MBD-Planner:+A+Real-Time+Obstacle+Avoidance+Framework+for+UAVs+via+Feature-Domain+Motion+Blur+Decoupling%22+OR+(ti:%22Cooperative+Aerial+Robot+Inspection+Challenge:+A+Benchmark+for+Heterogeneous+Multi-UAV+Planning+and+Lessons+Learned%22+OR+(ti:%22HIL-ResRFT:+Improving+Imitation+Learning+Policy+with+Human+in+the+Loop+Residual+RL+for+Robot+Manipulation%22+OR+(ti:%22Safety-Aware+Imitation+Learning+Via+MPC-Guided+Disturbance+Injection%22+OR+(ti:%22Safe+MPC+Alignment+with+Human+Directional+Feedback%22+OR+(ti:%22Unsupervised+Vision-Action+Misbehavior+Detection+for+Iterative+Cleaning+of+Training+Data+in+Autonomous+Driving%22+OR+(ti:%22Anomaly-Informed+Confidence+Calibration+for+Vision-Based+Safety+Prediction%22+OR+ti:%22MapTCL:+Temporal+Consistency+Learning+Via+Bidirectional+Alignment+for+Vectorized+HD+Map+Construction%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2608.05209v1</id>
+    <title>MapTCL: Temporal Consistency Learning via Bidirectional Alignment for Vectorized HD Map Construction</title>
+    <updated>2026-08-05T08:53:26Z</updated>
+    <link href="https://arxiv.org/abs/2608.05209v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2608.05209v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Constructing reliable online HD maps remains challenging in dynamic urban environments due to moving objects and occlusions. While recent works employ feature-level temporal fusion to address this, they rely solely on per-frame ground truth supervision. Consequently, they lack an explicit objective to directly penalize the geometric noise and temporal jitter between consecutive online HD maps. To address this, we propose MapTCL, an auxiliary training strategy that formulates temporal consistency loss between current and past frames via bidirectional alignment. Specifically, Bidirectional Vector Consistency Learning (BVCL) models the geometric and semantic discrepancies between associated past and current vector instances as an auxiliary loss. We also employ Raster map Consistency Learning (RCL) as an additional loss to stabilize dense BEV features. By jointly training with these dual losses, MapTCL improves the temporal stability of generated HD maps. Extensive experiments on two standard benchmarks demonstrate the effectiveness of our approach. As a versatile plug-and-play module, MapTCL consistently enhances existing baseline models, achieving gains of +3.7 mAP &amp; +2.8 C-mAP on nuScenes and +3.1 mAP &amp; +2.5 C-mAP on Argoverse 2 without additional inference overhead.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-08-05T08:53:26Z</published>
+    <arxiv:comment>Accepted at 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Hyeonseo Kim</name>
+    </author>
+    <author>
+      <name>Juyeb Shin</name>
+    </author>
+    <author>
+      <name>Hyeonjun Jeong</name>
+    </author>
+    <author>
+      <name>Hiwon Shin</name>
+    </author>
+    <author>
+      <name>Dongsuk Kum</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2501.06566v2</id>
+    <title>Cooperative Aerial Robot Inspection Challenge: A Benchmark for Heterogeneous Multi-UAV Planning and Lessons Learned</title>
+    <updated>2025-01-14T05:06:42Z</updated>
+    <link href="https://arxiv.org/abs/2501.06566v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2501.06566v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose the Cooperative Aerial Robot Inspection Challenge (CARIC), a simulation-based benchmark for motion planning algorithms in heterogeneous multi-UAV systems. CARIC features UAV teams with complementary sensors, realistic constraints, and evaluation metrics prioritizing inspection quality and efficiency. It offers a ready-to-use perception-control software stack and diverse scenarios to support the development and evaluation of task allocation and motion planning algorithms. Competitions using CARIC were held at IEEE CDC 2023 and the IROS 2024 Workshop on Multi-Robot Perception and Navigation, attracting innovative solutions from research teams worldwide. This paper examines the top three teams from CDC 2023, analyzing their exploration, inspection, and task allocation strategies while drawing insights into their performance across scenarios. The results highlight the task's complexity and suggest promising directions for future research in cooperative multi-UAV systems.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-01-11T15:06:34Z</published>
+    <arxiv:comment>Please find our website at https://ntu-aris.github.io/caric</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Muqing Cao</name>
+    </author>
+    <author>
+      <name>Thien-Minh Nguyen</name>
+    </author>
+    <author>
+      <name>Shenghai Yuan</name>
+    </author>
+    <author>
+      <name>Andreas Anastasiou</name>
+    </author>
+    <author>
+      <name>Angelos Zacharia</name>
+    </author>
+    <author>
+      <name>Savvas Papaioannou</name>
+    </author>
+    <author>
+      <name>Panayiotis Kolios</name>
+    </author>
+    <author>
+      <name>Christos G. Panayiotou</name>
+    </author>
+    <author>
+      <name>Marios M. Polycarpou</name>
+    </author>
+    <author>
+      <name>Xinhang Xu</name>
+    </author>
+    <author>
+      <name>Mingjie Zhang</name>
+    </author>
+    <author>
+      <name>Fei Gao</name>
+    </author>
+    <author>
+      <name>Boyu Zhou</name>
+    </author>
+    <author>
+      <name>Ben M. Chen</name>
+    </author>
+    <author>
+      <name>Lihua Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.03129v1</id>
+    <title>Safety-Aware Imitation Learning via MPC-Guided Disturbance Injection</title>
+    <updated>2025-08-05T06:21:23Z</updated>
+    <link href="https://arxiv.org/abs/2508.03129v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.03129v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Imitation Learning has provided a promising approach to learning complex robot behaviors from expert demonstrations. However, learned policies can make errors that lead to safety violations, which limits their deployment in safety-critical applications. We propose MPC-SafeGIL, a design-time approach that enhances the safety of imitation learning by injecting adversarial disturbances during expert demonstrations. This exposes the expert to a broader range of safety-critical scenarios and allows the imitation policy to learn robust recovery behaviors. Our method uses sampling-based Model Predictive Control (MPC) to approximate worst-case disturbances, making it scalable to high-dimensional and black-box dynamical systems. In contrast to prior work that relies on analytical models or interactive experts, MPC-SafeGIL integrates safety considerations directly into data collection. We validate our approach through extensive simulations including quadruped locomotion and visuomotor navigation and real-world experiments on a quadrotor, demonstrating improvements in both safety and task performance. See our website here: https://leqiu2003.github.io/MPCSafeGIL/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-05T06:21:23Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Le Qiu</name>
+    </author>
+    <author>
+      <name>Yusuf Umut Ciftci</name>
+    </author>
+    <author>
+      <name>Somil Bansal</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.21109v2</id>
+    <title>Anomaly-Informed Confidence Calibration for Vision-Based Safety Prediction</title>
+    <updated>2026-08-08T23:23:54Z</updated>
+    <link href="https://arxiv.org/abs/2605.21109v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.21109v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reliable confidence estimates are important for safely deploying vision-based controllers in autonomous racing, where safety predictions must be derived from camera images, yet modern predictors become dangerously overconfident under test-time distribution shifts. A commonly assumed perception-dynamics gap holds that observation-space anomaly signals, such as autoencoder reconstruction error, should miss dynamics anomalies (e.g., actuation bias, latency) that originate outside the image. We interrogate this gap with an Anomaly-Informed Test-Time Calibration approach that, without retraining any model component, fuses a perceptual score (reconstruction error) and a disentangled dynamics score (epistemic uncertainty and control-stream statistics) from a world model to condition a lightweight temperature-scaling calibrator, aided by test-time augmentation. On a physical DonkeyCar under four real-world anomaly protocols unseen during training (darkness, blur, actuation bias, processing latency), it cuts average expected calibration error from 0.184 to 0.116, a 37% improvement over the best baseline, without modifying the base predictor. Our central finding is that in a tightly coupled closed loop, the perception-dynamics gap is not prominent. Specifically, a dynamics fault degrades the trajectory until the observation is itself out-of-distribution, so the perceptual score alone already captures most dynamics anomalies and accounts for the calibration gains. As a result, the disentangled dynamics score adds little further calibration but remains a direct, interpretable signal that aids out-of-distribution detection of dynamics and control faults.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-20T12:43:09Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhenjiang Mao</name>
+    </author>
+    <author>
+      <name>Jiawen Wu</name>
+    </author>
+    <author>
+      <name>Gabriel Wagner</name>
+    </author>
+    <author>
+      <name>Zhongzheng Zhang</name>
+    </author>
+    <author>
+      <name>Ivan Ruchkin</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2407.04216v3</id>
+    <title>Safe MPC Alignment with Human Directional Feedback</title>
+    <updated>2025-12-07T05:47:33Z</updated>
+    <link href="https://arxiv.org/abs/2407.04216v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2407.04216v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In safety-critical robot planning or control, manually specifying safety constraints or learning them from demonstrations can be challenging. In this article, we propose a certifiable alignment method for a robot to learn a safety constraint in its model predictive control (MPC) policy from human online directional feedback. To our knowledge, it is the first method to learn safety constraints from human feedback. The proposed method is based on an empirical observation: human directional feedback, when available, tends to guide the robot toward safer regions. The method only requires the direction of human feedback to update the learning hypothesis space. It is certifiable, providing an upper bound on the total number of human feedback in the case of successful learning, or declaring the hypothesis misspecification, i.e., the true safety constraint cannot be found within the specified hypothesis space. We evaluated the proposed method in numerical examples and user studies with two simulation games. Additionally, we tested the proposed method on a real-world Franka robot arm performing mobile water-pouring tasks. The results demonstrate the efficacy and efficiency of our method, showing that it enables a robot to successfully learn safety constraints with a small handful (tens) of human directional corrections.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-07-05T02:00:47Z</published>
+    <arxiv:comment>20 pages, pre-print, submitted to TRO</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhixian Xie</name>
+    </author>
+    <author>
+      <name>Wenlong Zhang</name>
+    </author>
+    <author>
+      <name>Yi Ren</name>
+    </author>
+    <author>
+      <name>Zhaoran Wang</name>
+    </author>
+    <author>
+      <name>George J. Pappas</name>
+    </author>
+    <author>
+      <name>Wanxin Jin</name>
+    </author>
+  </entry>
+</feed>

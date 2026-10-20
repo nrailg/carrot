@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/b173SGS6i15MdT8XMwj4cUAsdr4</id>
+  <title>arXiv Query: search_query=ti:"Pecan-Agent: Closed-Loop Industrial Shelling with MLLM-Guided Morphological Priors" OR ti:"Mapping of Insect Pest Infestation with a Cable-Suspended Continuum Robot" OR ti:"Design and Integration of a Compact Mobile Outdoor Soil Sampling Agricultural Robot" OR ti:"The Representation Invariance Principle: A Robustness and Uncertainty Framework for Robotic Agents" OR ti:"Seeking Safety from Uncertainty: Probabilistic Vessel Trajectory Prediction with a Flow-Based Generative Model" OR ti:"Continual Reinforcement Learning Framework for Scalable Collision Avoidance and Mitigation System with Packing Strategy" OR ti:"SRDR: Smoothed Return-Guided Domain Randomization for Stable and Robust Policy Learning" OR ti:"Don't Fool Me Twice: Adapting to Adversity in the Wild with Experience-Driven Reasoning" OR ti:"Remember Your Driving Feel: Proprioception Based Online Learning for UGV Traversability across Complex Terrains" OR ti:"CubeDAgger: Interactive Imitation Learning for Dynamic Systems with Efficient yet Low-Risk Interaction"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:40:30Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Pecan-Agent:+Closed-Loop+Industrial+Shelling+with+MLLM-Guided+Morphological+Priors%22+OR+(ti:%22Mapping+of+Insect+Pest+Infestation+with+a+Cable-Suspended+Continuum+Robot%22+OR+(ti:%22Design+and+Integration+of+a+Compact+Mobile+Outdoor+Soil+Sampling+Agricultural+Robot%22+OR+(ti:%22The+Representation+Invariance+Principle:+A+Robustness+and+Uncertainty+Framework+for+Robotic+Agents%22+OR+(ti:%22Seeking+Safety+from+Uncertainty:+Probabilistic+Vessel+Trajectory+Prediction+with+a+Flow-Based+Generative+Model%22+OR+(ti:%22Continual+Reinforcement+Learning+Framework+for+Scalable+Collision+Avoidance+and+Mitigation+System+with+Packing+Strategy%22+OR+(ti:%22SRDR:+Smoothed+Return-Guided+Domain+Randomization+for+Stable+and+Robust+Policy+Learning%22+OR+(ti:%22Don't+Fool+Me+Twice:+Adapting+to+Adversity+in+the+Wild+with+Experience-Driven+Reasoning%22+OR+(ti:%22Remember+Your+Driving+Feel:+Proprioception+Based+Online+Learning+for+UGV+Traversability+across+Complex+Terrains%22+OR+ti:%22CubeDAgger:+Interactive+Imitation+Learning+for+Dynamic+Systems+with+Efficient+yet+Low-Risk+Interaction%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.31119v2</id>
+    <title>Don't Fool Me Twice: Adapting to Adversity in the Wild with Experience-Driven Reasoning</title>
+    <updated>2026-07-22T13:05:59Z</updated>
+    <link href="https://arxiv.org/abs/2605.31119v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.31119v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In robotics, dangers and adversity modes are often embodiment-specific and relative to each agent. A frontier of autonomous mobile robotics is to enable agents to operate effectively in the wild in unseen unstructured environments. A significant challenge in unseen unstructured environments is that it may not be possible to predict all the dangers to the specific robot. Although recent work has used large foundation vision-language models (VLMs) to preemptively predict an exhaustive list of common-sense dangers, it remains difficult to capture possible interaction and embodiment-dependent adversities. We propose a continual learning framework for a mobile embodied agent to learn online from disturbances and attribute anomalous behaviours to causes through semantics, enabling better prediction and planning of the world in the future. Our framework, "Don't Fool Me Twice", first observes disturbances and describes their effects on the robot; this description is augmented with visual context to query a VLM to predict possible causes; the local disturbance is characterized using kernel regression, which allows for efficient, few-shot modeling of transient anomalies. We leverage semantic voxel-centric modeling to estimate epistemic uncertainty, enabling richer downstream recovery by treating interaction-driven disturbances as learnable spatial behaviors. We present four hypotheses and validate them in simulation and on hardware across embodiments and adversity modes.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-29T10:30:02Z</published>
+    <arxiv:comment>Accepted at 2026 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Navin Sriram Ravie</name>
+    </author>
+    <author>
+      <name>Andrew Jong</name>
+    </author>
+    <author>
+      <name>Krrish Jain</name>
+    </author>
+    <author>
+      <name>John Liu</name>
+    </author>
+    <author>
+      <name>Omar Alama</name>
+    </author>
+    <author>
+      <name>Bijo Sebastian</name>
+    </author>
+    <author>
+      <name>Sebastian Scherer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.04897v2</id>
+    <title>CubeDAgger: Interactive Imitation Learning for Dynamic Systems with Efficient yet Low-risk Interaction</title>
+    <updated>2026-04-22T10:58:33Z</updated>
+    <link href="https://arxiv.org/abs/2505.04897v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.04897v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Interactive imitation learning makes an agent's control policy robust by stepwise supervisions from an expert. The recent algorithms mostly employ expert-agent switching systems to reduce the expert's burden by limitedly selecting the supervision timing. However, this approach is useful only for static tasks; in dynamic tasks, timing discrepancies cause abrupt changes in actions, losing the robot's dynamic stability. This paper therefore proposes a novel method, named CubeDAgger, which improves robustness with less dynamic stability violations even for dynamic tasks. The proposed method is designed on a baseline, EnsembleDAgger, with three improvements. The first adds a regularization to explicitly activate the threshold for deciding the supervision timing. The second transforms the expert-agent switching system to an optimal consensus system of multiple action candidates. Third, autoregressive colored noise is injected to the agent's actions for time-consistent exploration. These improvements are verified by simulations, showing that the trained policies are sufficiently robust while maintaining dynamic stability during interaction. Finally, real-robot scooping experiments with a human expert demonstrate that the proposed method can learn robust policies from scratch based on just 30 minutes of interaction. https://youtu.be/kBl3SCTnVEM</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-08T02:18:49Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Taisuke Kobayashi</name>
+    </author>
+  </entry>
+</feed>

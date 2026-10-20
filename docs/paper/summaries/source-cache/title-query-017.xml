@@ -1,0 +1,184 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/vuiASbJS/+eBiL7AwXDHDMQelnw</id>
+  <title>arXiv Query: search_query=ti:"VLAD-Grasp: Zero-Shot Grasp Detection Via Vision-Language Models" OR ti:"DexTact: A Visuo-Tactile Foundation Model for Dexterous Hand Grasping" OR ti:"BIFROST: Bridging Invariant Feature Representation for Observation-Space Sim2Real Transfer" OR ti:"Energy-Score Stabilized Attentive Mixture-Density Policy: A Lightweight Approach to Multimodal Robot Motion" OR ti:"Vision-Conditioned Variational Bayesian Last Layer Dynamics Models" OR ti:"Lies We Can Trust: Quantifying Action Uncertainty with Inaccurate Stochastic Dynamics through Conformalized Nonholonomic Lie Groups" OR ti:"Efficient Continuous-Time Multisensor Calibration with Nonuniform B-Splines on Lie Groups" OR ti:"FSAG: Enhancing Human-To-Dexterous-Hand Finger-Specific Affordance Grounding Via Diffusion Models" OR ti:"Zero-Shot Affordance and Trajectory Extraction from Video Demonstrations for Articulated Object Manipulation" OR ti:"ManiVID-3D: Generalizable View-Invariant Reinforcement Learning for Robotic Manipulation Via Disentangled 3D Representations"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:35:59Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22VLAD-Grasp:+Zero-Shot+Grasp+Detection+Via+Vision-Language+Models%22+OR+(ti:%22DexTact:+A+Visuo-Tactile+Foundation+Model+for+Dexterous+Hand+Grasping%22+OR+(ti:%22BIFROST:+Bridging+Invariant+Feature+Representation+for+Observation-Space+Sim2Real+Transfer%22+OR+(ti:%22Energy-Score+Stabilized+Attentive+Mixture-Density+Policy:+A+Lightweight+Approach+to+Multimodal+Robot+Motion%22+OR+(ti:%22Vision-Conditioned+Variational+Bayesian+Last+Layer+Dynamics+Models%22+OR+(ti:%22Lies+We+Can+Trust:+Quantifying+Action+Uncertainty+with+Inaccurate+Stochastic+Dynamics+through+Conformalized+Nonholonomic+Lie+Groups%22+OR+(ti:%22Efficient+Continuous-Time+Multisensor+Calibration+with+Nonuniform+B-Splines+on+Lie+Groups%22+OR+(ti:%22FSAG:+Enhancing+Human-To-Dexterous-Hand+Finger-Specific+Affordance+Grounding+Via+Diffusion+Models%22+OR+(ti:%22Zero-Shot+Affordance+and+Trajectory+Extraction+from+Video+Demonstrations+for+Articulated+Object+Manipulation%22+OR+ti:%22ManiVID-3D:+Generalizable+View-Invariant+Reinforcement+Learning+for+Robotic+Manipulation+Via+Disentangled+3D+Representations%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.10294v2</id>
+    <title>Lies We Can Trust: Quantifying Action Uncertainty with Inaccurate Stochastic Dynamics through Conformalized Nonholonomic Lie groups</title>
+    <updated>2026-08-22T22:54:21Z</updated>
+    <link href="https://arxiv.org/abs/2512.10294v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.10294v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We propose Conformal Lie-group Action Prediction Sets (CLAPS), a symmetry-aware conformal prediction-based algorithm that constructs, for a given action, a set guaranteed to contain the resulting system configuration at a user-defined probability. Our assurance holds under both aleatoric and epistemic uncertainty, non-asymptotically, and does not require strong assumptions about the true system dynamics, the uncertainty sources, or the quality of the approximate dynamics model. Typically, uncertainty quantification is tackled by making strong assumptions about the error distribution or magnitude, or by relying on uncalibrated uncertainty estimates - i.e., with no link to frequentist probabilities - which are insufficient for safe control. Recently, conformal prediction has emerged as a statistical framework capable of providing distribution-free probabilistic guarantees on test-time prediction accuracy. While current conformal methods treat robot configurations as Euclidean points, many systems have non-Euclidean configurations, e.g., some mobile robots have SE(2). In this work, we rigorously analyze configuration errors using Lie groups, extending previous Euclidean space theoretical guarantees to SE(2). Our experiments on a simulated JetBot, and on a real MBot, suggest that by considering the configuration space's structure, our symmetry-informed nonconformity score leads to more volume-efficient prediction regions which represent the underlying uncertainty better than existing approaches.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-11T05:26:56Z</published>
+    <arxiv:comment>12 pages, 7 figures, 4 tables. Published in IEEE Robotics and Automation Letters. Extended version with appendix. Project page: https://um-arm-lab.github.io/claps/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, vol. 11, no. 4, pp. 4801-4808 (2026)</arxiv:journal_ref>
+    <author>
+      <name>Luís Marques</name>
+    </author>
+    <author>
+      <name>Maani Ghaffari</name>
+    </author>
+    <author>
+      <name>Dmitry Berenson</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3656773</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3656773" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.08246v2</id>
+    <title>FSAG: Enhancing Human-to-Dexterous-Hand Finger-Specific Affordance Grounding via Diffusion Models</title>
+    <updated>2026-03-12T07:24:53Z</updated>
+    <link href="https://arxiv.org/abs/2601.08246v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.08246v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Dexterous grasp synthesis must jointly satisfy functional intent and physical feasibility, yet existing pipelines often decouple semantic grounding from refinement, yielding unstable or non-functional contacts under object and pose variations. This challenge is exacerbated by the high dimensionality and kinematic diversity of multi-fingered hands, which makes many methods rely on large, hardware-specific grasp datasets collected in simulation or through costly real-world trials. We propose a data-efficient framework that bypasses robot grasp data collection by exploiting object-centric semantic priors in pretrained generative diffusion models. Temporally aligned and fine-grained grasp affordances are extracted from raw human video demonstrations and fused with 3D scene geometry from depth images to infer semantically grounded contact targets. We further incorporate these affordance regions into the grasp refinement objective, explicitly guiding each fingertip toward its predicted region during optimization. The resulting system produces stable, human-intuitive multi-contact grasps across common objects and tools, while exhibiting strong generalization to previously unseen object instances within a category, pose variations, and multiple hand embodiments.This work (i) introduces a semantic affordance extraction pipeline leveraging vision--language generative priors for dexterous grasping, (ii) demonstrates cross-hand generalization without constructing hardware-specific grasp datasets, and (iii) establishes that a single depth modality suffices for high-performance grasp synthesis when coupled with foundation-model semantics. Our results highlight a path toward scalable, hardware-agnostic dexterous manipulation driven by human demonstrations and pretrained generative models.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-13T06:08:56Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yifan Han</name>
+    </author>
+    <author>
+      <name>Yichuan Peng</name>
+    </author>
+    <author>
+      <name>Pengfei Yi</name>
+    </author>
+    <author>
+      <name>Junyan Li</name>
+    </author>
+    <author>
+      <name>Hanqing Wang</name>
+    </author>
+    <author>
+      <name>Gaojing Zhang</name>
+    </author>
+    <author>
+      <name>Qi Peng Liu</name>
+    </author>
+    <author>
+      <name>Wenzhao Lian</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.11125v3</id>
+    <title>ManiVID-3D: Generalizable View-Invariant Reinforcement Learning for Robotic Manipulation via Disentangled 3D Representations</title>
+    <updated>2026-03-12T07:19:18Z</updated>
+    <link href="https://arxiv.org/abs/2509.11125v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.11125v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Deploying visual reinforcement learning (RL) policies in real-world manipulation is often hindered by camera viewpoint changes. A policy trained from a fixed front-facing camera may fail when the camera is shifted -- an unavoidable situation in real-world settings where sensor placement is hard to manage appropriately. Existing methods often rely on precise camera calibration or struggle with large perspective changes. To address these limitations, we propose ManiVID-3D, a novel 3D RL architecture designed for robotic manipulation, which learns view-invariant representations through self-supervised disentangled feature learning. The framework incorporates ViewNet, a lightweight yet effective module that automatically aligns point cloud observations from arbitrary viewpoints into a unified spatial coordinate system without the need for extrinsic calibration. Additionally, we develop an efficient GPU-accelerated batch rendering module capable of processing over 5000 frames per second, enabling large-scale training for 3D visual RL at unprecedented speeds. Extensive evaluation across 10 simulated and 5 real-world tasks demonstrates that our approach achieves a 40.6% higher success rate than state-of-the-art methods under viewpoint variations while using 80% fewer parameters. The system's robustness to severe perspective changes and strong sim-to-real performance highlight the effectiveness of learning geometrically consistent representations for scalable robotic manipulation in unstructured environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-14T06:31:04Z</published>
+    <arxiv:comment>Accepted to RA-L. Project website: https://zheng-joe-lee.github.io/manivid3d/</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zheng Li</name>
+    </author>
+    <author>
+      <name>Pei Qu</name>
+    </author>
+    <author>
+      <name>Yufei Jia</name>
+    </author>
+    <author>
+      <name>Shihui Zhou</name>
+    </author>
+    <author>
+      <name>Haizhou Ge</name>
+    </author>
+    <author>
+      <name>Jiahang Cao</name>
+    </author>
+    <author>
+      <name>Jinni Zhou</name>
+    </author>
+    <author>
+      <name>Guyue Zhou</name>
+    </author>
+    <author>
+      <name>Jun Ma</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.05791v2</id>
+    <title>VLAD-Grasp: Zero-shot Grasp Detection via Vision-Language Models</title>
+    <updated>2026-03-16T02:08:07Z</updated>
+    <link href="https://arxiv.org/abs/2511.05791v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.05791v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic grasping is a fundamental capability for enabling autonomous manipulation, with usually infinite solutions. State-of-the-art approaches for grasping rely on learning from large-scale datasets comprising expert annotations of feasible grasps. Curating such datasets is challenging, and hence, learning-based methods are limited by the solution coverage of the dataset, and require retraining to handle novel objects. Towards this, we present VLAD-Grasp, a Vision-Language model Assisted zero-shot approach for Detecting Grasps. Our method (1) prompts a large vision-language model to generate a goal image where a virtual cylindrical proxy intersects the object's geometry, explicitly encoding an antipodal grasp axis in image space, then (2) predicts depth and segmentation to lift this generated image into 3D, and (3) aligns generated and observed object point clouds via principal components and correspondence-free optimization to recover an executable grasp pose. Unlike prior work, our approach is training-free and does not require curated grasp datasets, while achieving performance competitive with the state-of-the-art methods on the Cornell and Jacquard datasets. Furthermore, we demonstrate zero-shot generalization to real-world objects on a Franka Research 3 robot, highlighting vision-language models as powerful priors for robotic manipulation.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-08T01:47:40Z</published>
+    <arxiv:comment>8 pages, 4 figures, under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Manav Kulshrestha</name>
+    </author>
+    <author>
+      <name>S. Talha Bukhari</name>
+    </author>
+    <author>
+      <name>Damon Conover</name>
+    </author>
+    <author>
+      <name>Aniket Bera</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2607.01410v1</id>
+    <title>BIFROST: Bridging Invariant Feature Representation for Observation-space Sim2Real Transfer</title>
+    <updated>2026-07-01T19:15:17Z</updated>
+    <link href="https://arxiv.org/abs/2607.01410v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.01410v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Sim2real transfer for robot policy learning suffers due to mismatch between simulation and reality. Existing methods typically address each gap in isolation through separate adaptation modules, which are composed or layered when both gaps coexist. Yet the basis for attempting sim2real in the first place is that there is shared structure between a task in simulation and reality, where equivalent actions from equivalent configurations produce equivalent long term outcomes regardless of domain specific differences in rendering or physics. In this paper, we study whether we can identify and exploit this shared structure from raw observations to train a policy that enables zero shot transfer. We introduce BIFROST, which learns a shared history encoder on paired cross-domain data via cross-domain bisimulation objective: observation-action sequences leading to equivalent long-term behavior are mapped to nearby latent states, regardless of domain. Policies trained on these latent states in simulation transfer zero-shot to reality. We provide empirical evidence on sim2sim visual navigation and sim2real contact rich manipulation task and visual servoing task that BIFROST achieves effective transfer where domain adaptation and co-training baselines fail under both visual and dynamics domain gaps.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-01T19:15:17Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yunfu Deng</name>
+    </author>
+    <author>
+      <name>Josiah P. Hanna</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.09178v2</id>
+    <title>Vision-Conditioned Variational Bayesian Last Layer Dynamics Models</title>
+    <updated>2026-01-16T16:32:59Z</updated>
+    <link href="https://arxiv.org/abs/2601.09178v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.09178v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Agile control of robotic systems often requires anticipating how the environment affects system behavior. For example, a driver must perceive the road ahead to anticipate available friction and plan actions accordingly. Achieving such proactive adaptation within autonomous frameworks remains a challenge, particularly under rapidly changing conditions. Traditional modeling approaches often struggle to capture abrupt variations in system behavior, while adaptive methods are inherently reactive and may adapt too late to ensure safety. We propose a vision-conditioned variational Bayesian last-layer dynamics model that leverages visual context to anticipate changes in the environment. The model first learns nominal vehicle dynamics and is then fine-tuned with feature-wise affine transformations of latent features, enabling context-aware dynamics prediction. The resulting model is integrated into an optimal controller for vehicle racing. We validate our method on a Lexus LC500 racing through water puddles. With vision-conditioning, the system completed all 12 attempted laps under varying conditions. In contrast, all baselines without visual context consistently lost control, demonstrating the importance of proactive dynamics adaptation in high-performance applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-14T05:25:18Z</published>
+    <arxiv:comment>9 pages, 7 figures, currently under review</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Paul Brunzema</name>
+    </author>
+    <author>
+      <name>Thomas Lew</name>
+    </author>
+    <author>
+      <name>Ray Zhang</name>
+    </author>
+    <author>
+      <name>Takeru Shirasawa</name>
+    </author>
+    <author>
+      <name>John Subosits</name>
+    </author>
+    <author>
+      <name>Marcus Greiff</name>
+    </author>
+  </entry>
+</feed>

@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/jAfqqnJu/fDg/oyD9Ar61EJXA7I</id>
+  <title>arXiv Query: search_query=ti:"Cognitive Tele-Palpation: Context-Based Haptic Event Detection" OR ti:"Closed-Loop Stroke Rehabilitation Robot Control Via Semi-Supervised Gait Quality Estimation with Spatio-Temporal Graph Attention VAE" OR ti:"Interaction-Force-Aware Leader-Follower Safe Reinforcement Learning for Human-Walker Rehabilitation" OR ti:"Automatic Assessment of Motor Performance with Disturbance Forces by a Force-Controlled Robotic Walker Using Machine Learning" OR ti:"Assist–Resist-as-Needed Robotic Control for Cable-Driven Bedside Training" OR ti:"Estimating Three-Dimensional Human Poses through Multimodal Latent Representations from Limited Observations During Humanoid Sit-To-Stand Assistance" OR ti:"PA-MPPI: Perception-Aware Model Predictive Path Integral Control for Quadrotor Navigation in Unknown Environments" OR ti:"Learning Acrobatic Flight from Preferences" OR ti:"Multi-Scale Nonlinear Wrench Allocation for Jet-Powered VTOL" OR ti:"A Novel Model for 3D Motion Planning for a Generalized Dubins Vehicle with Pitch and Yaw Rate Constraints"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:16Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Cognitive+Tele-Palpation:+Context-Based+Haptic+Event+Detection%22+OR+(ti:%22Closed-Loop+Stroke+Rehabilitation+Robot+Control+Via+Semi-Supervised+Gait+Quality+Estimation+with+Spatio-Temporal+Graph+Attention+VAE%22+OR+(ti:%22Interaction-Force-Aware+Leader-Follower+Safe+Reinforcement+Learning+for+Human-Walker+Rehabilitation%22+OR+(ti:%22Automatic+Assessment+of+Motor+Performance+with+Disturbance+Forces+by+a+Force-Controlled+Robotic+Walker+Using+Machine+Learning%22+OR+(ti:%22Assist%E2%80%93Resist-as-Needed+Robotic+Control+for+Cable-Driven+Bedside+Training%22+OR+(ti:%22Estimating+Three-Dimensional+Human+Poses+through+Multimodal+Latent+Representations+from+Limited+Observations+During+Humanoid+Sit-To-Stand+Assistance%22+OR+(ti:%22PA-MPPI:+Perception-Aware+Model+Predictive+Path+Integral+Control+for+Quadrotor+Navigation+in+Unknown+Environments%22+OR+(ti:%22Learning+Acrobatic+Flight+from+Preferences%22+OR+(ti:%22Multi-Scale+Nonlinear+Wrench+Allocation+for+Jet-Powered+VTOL%22+OR+ti:%22A+Novel+Model+for+3D+Motion+Planning+for+a+Generalized+Dubins+Vehicle+with+Pitch+and+Yaw+Rate+Constraints%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>3</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2509.14978v3</id>
+    <title>PA-MPPI: Perception-Aware Model Predictive Path Integral Control for Quadrotor Navigation in Unknown Environments</title>
+    <updated>2026-02-13T12:02:15Z</updated>
+    <link href="https://arxiv.org/abs/2509.14978v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.14978v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Quadrotor navigation in unknown environments is critical for practical missions such as search-and-rescue. Solving this problem requires addressing three key challenges: path planning in non-convex free space due to obstacles, satisfying quadrotor-specific dynamics and objectives, and exploring unknown regions to expand the map. Recently, the Model Predictive Path Integral (MPPI) method has emerged as a promising solution to the first two challenges. By leveraging sampling-based optimization, it can effectively handle non-convex free space while directly optimizing over the full quadrotor dynamics, enabling the inclusion of quadrotor-specific costs such as energy consumption. However, MPPI has been limited to tracking control that optimizes trajectories only within a small neighborhood around a reference trajectory, as it lacks the ability to explore unknown regions and plan alternative paths when blocked by large obstacles. To address this limitation, we introduce Perception-Aware MPPI (PA-MPPI). In this approach, perception-awareness is characterized by planning and adapting the trajectory online based on perception objectives. Specifically, when the goal is occluded, PA-MPPI incorporates a perception cost that biases trajectories toward those that can observe unknown regions. This expands the mapped traversable space and increases the likelihood of finding alternative paths to the goal. Through hardware experiments, we demonstrate that PA-MPPI, running at 50 Hz, performs on par with the state-of-the-art quadrotor navigation planner for unknown environments in challenging test scenarios. Furthermore, we show that PA-MPPI can serve as a safe and robust action policy for navigation foundation models, which often provide goal poses that are not directly reachable.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-18T14:08:32Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters (RA-L), 2026</arxiv:journal_ref>
+    <author>
+      <name>Yifan Zhai</name>
+    </author>
+    <author>
+      <name>Rudolf Reiter</name>
+    </author>
+    <author>
+      <name>Davide Scaramuzza</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3662653</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3662653" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2509.24143v2</id>
+    <title>A Novel Model for 3D Motion Planning for a Generalized Dubins Vehicle with Pitch and Yaw Rate Constraints</title>
+    <updated>2026-05-15T18:45:07Z</updated>
+    <link href="https://arxiv.org/abs/2509.24143v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2509.24143v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper, we propose a new modeling approach and a fast algorithm for 3D motion planning, applicable for fixed-wing unmanned aerial vehicles. The goal is to construct the shortest path connecting given initial and final configurations subject to motion constraints. Our work differs from existing literature in two ways. First, we consider full vehicle orientation using a body-attached frame, which includes roll, pitch, and yaw angles. However, existing work uses only pitch and/or heading angle, which is insufficient to uniquely determine orientation. Second, we use two control inputs to represent bounded pitch and yaw rates, reflecting control by two separate actuators. In contrast, most previous methods rely on a single input, such as path curvature, which is insufficient for accurately modeling the vehicle's kinematics in 3D. We use a rotation minimizing frame to describe the vehicle's configuration and its evolution, and construct paths by concatenating optimal Dubins paths on spherical, cylindrical, or planar surfaces. Numerical simulations show our approach generates feasible paths within 10 seconds on average and yields shorter paths than existing methods in most cases.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="math.OC" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-09-29T00:39:23Z</published>
+    <arxiv:comment>The code for this paper is available at https://github.com/DeepakPrakashKumar/3D-Motion-Planning-for-Generalized-Dubins-with-Pitch-Yaw-constraints</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Deepak Prakash Kumar</name>
+    </author>
+    <author>
+      <name>Swaroop Darbha</name>
+    </author>
+    <author>
+      <name>Satyanarayana Gupta Manyam</name>
+    </author>
+    <author>
+      <name>David W. Casbeer</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.18817v3</id>
+    <title>Learning Acrobatic Flight from Preferences</title>
+    <updated>2026-09-08T15:58:30Z</updated>
+    <link href="https://arxiv.org/abs/2508.18817v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.18817v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Preference-based reinforcement learning (PbRL) enables agents to learn control policies without requiring manually designed reward functions, making it well-suited for tasks where objectives are difficult to formalize or inherently subjective. Acrobatic flight poses a particularly challenging problem due to its complex dynamics, rapid movements, and the importance of precise execution. However, manually designed reward functions for such tasks often fail to capture the qualities that matter: we find that hand-crafted rewards agree with human judgment only 60.7% of the time, underscoring the need for preference-driven approaches. In this work, we propose Reward Ensemble under Confidence (REC), a probabilistic reward learning framework for PbRL that explicitly models per-timestep reward uncertainty through an ensemble of distributional reward models. By propagating uncertainty into the preference loss and leveraging disagreement for exploration, REC achieves 88.4% of shaped reward performance on acrobatic quadrotor control, compared to 55.2% with standard Preference PPO. We train policies in simulation and successfully transfer them zero-shot to the real world, demonstrating complex acrobatic maneuvers learned purely from preference feedback. We further validate REC on a continuous control benchmark, confirming its applicability beyond the domain of aerial robotics.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-26T08:56:53Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Colin Merk</name>
+    </author>
+    <author>
+      <name>Ismail Geles</name>
+    </author>
+    <author>
+      <name>Jiaxu Xing</name>
+    </author>
+    <author>
+      <name>Angel Romero</name>
+    </author>
+    <author>
+      <name>Giorgia Ramponi</name>
+    </author>
+    <author>
+      <name>Davide Scaramuzza</name>
+    </author>
+  </entry>
+</feed>

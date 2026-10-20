@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/uvvfBfuN+PztGRc3rveGfH5TN8k</id>
+  <title>arXiv Query: search_query=ti:"Sensorless Four-Channel Control Architecture Using Inverse Dynamics Modeling for Human-Scale Bilateral Teleoperation" OR ti:"Exploiting Passive Low-Level Control Dissipating Capabilities to Leverage TDPA Passivity Layer in Teleoperation" OR ti:"LoGo: A Low-Cost, General-Purpose Teleoperation Framework for Mobile Manipulation" OR ti:"Investigating the Effects of Form Factor on Mobile Device-Based Robot Teleoperation for Dexterous Tasks" OR ti:"An Adaptive Finite-Time Convergent Neural Network with Enhanced Joint Limit Constraints for 3-DoF Visual Servoing of Rigid-Flexible Coupling Robots" OR ti:"GAASP: Graph-Based Automated Assembly Sequencing and Planning" OR ti:"Rethink Repeatable Measures of Robot Performance with Statistical Query" OR ti:"Scheduling Robotic Cellular Manufacturing Systems with a Petri-Net-Based Monte Carlo Tree Search" OR ti:"Intra-Rollout Self-Supervised Adaptation of Inverse Dynamics Models for Sub-Centimeter Precision Placement" OR ti:"Hardware-Aware Scheduling Techniques and Model Reformulation for Real-Time AI Workloads on Heterogeneous Edge GPUs"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:10Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Sensorless+Four-Channel+Control+Architecture+Using+Inverse+Dynamics+Modeling+for+Human-Scale+Bilateral+Teleoperation%22+OR+(ti:%22Exploiting+Passive+Low-Level+Control+Dissipating+Capabilities+to+Leverage+TDPA+Passivity+Layer+in+Teleoperation%22+OR+(ti:%22LoGo:+A+Low-Cost,+General-Purpose+Teleoperation+Framework+for+Mobile+Manipulation%22+OR+(ti:%22Investigating+the+Effects+of+Form+Factor+on+Mobile+Device-Based+Robot+Teleoperation+for+Dexterous+Tasks%22+OR+(ti:%22An+Adaptive+Finite-Time+Convergent+Neural+Network+with+Enhanced+Joint+Limit+Constraints+for+3-DoF+Visual+Servoing+of+Rigid-Flexible+Coupling+Robots%22+OR+(ti:%22GAASP:+Graph-Based+Automated+Assembly+Sequencing+and+Planning%22+OR+(ti:%22Rethink+Repeatable+Measures+of+Robot+Performance+with+Statistical+Query%22+OR+(ti:%22Scheduling+Robotic+Cellular+Manufacturing+Systems+with+a+Petri-Net-Based+Monte+Carlo+Tree+Search%22+OR+(ti:%22Intra-Rollout+Self-Supervised+Adaptation+of+Inverse+Dynamics+Models+for+Sub-Centimeter+Precision+Placement%22+OR+ti:%22Hardware-Aware+Scheduling+Techniques+and+Model+Reformulation+for+Real-Time+AI+Workloads+on+Heterogeneous+Edge+GPUs%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2607.01201v1</id>
+    <title>Sensorless Four-Channel Control Architecture Using Inverse Dynamics Modeling for Human-Scale Bilateral Teleoperation</title>
+    <updated>2026-07-01T17:37:48Z</updated>
+    <link href="https://arxiv.org/abs/2607.01201v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2607.01201v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>The four-channel teleoperation architecture is a well-established framework for achieving transparency in bilateral systems. However, its performance in human-scale teleoperation is limited by high inertia, modeling challenges, and reliance on noisy and costly force/torque sensors. This paper introduces a sensorless four-channel architecture based on inverse dynamics modeling. The controller is implemented and validated on a customized WAM bilateral teleoperation setup. Experiments demonstrate that the proposed approach outperforms conventional two- and four-channel schemes as well as transparency-enhancement methods, improving position and force tracking, reducing operator effort, and increasing maximum transmittable impedance without external sensors. A door-opening case study involving sustained whole-body contact along the manipulator further demonstrates the effectiveness of the method in realistic human-scale manipulation tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-07-01T17:37:48Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Amir Noohian</name>
+    </author>
+    <author>
+      <name>Dylan Miller</name>
+    </author>
+    <author>
+      <name>Justin Valentine</name>
+    </author>
+    <author>
+      <name>Alan Lynch</name>
+    </author>
+    <author>
+      <name>Martin Jagersand</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.08216v3</id>
+    <title>Rethink Repeatable Measures of Robot Performance with Statistical Query</title>
+    <updated>2025-10-21T17:51:30Z</updated>
+    <link href="https://arxiv.org/abs/2505.08216v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.08216v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>For a general standardized testing algorithm designed to evaluate a specific aspect of a robot's performance, several key expectations are commonly imposed. Beyond accuracy (i.e., closeness to a typically unknown ground-truth reference) and efficiency (i.e., feasibility within acceptable testing costs and equipment constraints), one particularly important attribute is repeatability. Repeatability refers to the ability to consistently obtain the same testing outcome when similar testing algorithms are executed on the same subject robot by different stakeholders, across different times or locations. However, achieving repeatable testing has become increasingly challenging as the components involved grow more complex, intelligent, diverse, and, most importantly, stochastic. While related efforts have addressed repeatability at ethical, hardware, and procedural levels, this study focuses specifically on repeatable testing at the algorithmic level. Specifically, we target the well-adopted class of testing algorithms in standardized evaluation: statistical query (SQ) algorithms (i.e., algorithms that estimate the expected value of a bounded function over a distribution using sampled data). We propose a lightweight, parameterized, and adaptive modification applicable to any SQ routine, whether based on Monte Carlo sampling, importance sampling, or adaptive importance sampling, that makes it provably repeatable, with guaranteed bounds on both accuracy and efficiency. We demonstrate the effectiveness of the proposed approach across three representative scenarios: (i) established and widely adopted standardized testing of manipulators, (ii) emerging intelligent testing algorithms for operational risk assessment in automated vehicles, and (iii) developing use cases involving command tracking performance evaluation of humanoid robots in locomotion tasks.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-13T04:14:48Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Bowen Weng</name>
+    </author>
+    <author>
+      <name>Linda Capito</name>
+    </author>
+    <author>
+      <name>Guillermo A. Castillo</name>
+    </author>
+    <author>
+      <name>Dylan Khor</name>
+    </author>
+    <arxiv:doi>10.1109/TRO.2025.3645934</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TRO.2025.3645934" title="doi"/>
+  </entry>
+</feed>

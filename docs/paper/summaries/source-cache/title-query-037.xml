@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/bAbcU588VcRql+K6YpLbBIfcEH0</id>
+  <title>arXiv Query: search_query=ti:"GeoReFormer: Geometry-Aware Refinement for Lane Segment Detection and Topology Reasoning" OR ti:"Sparse Recovery Bird’s-Eye View Model Soup for Robust Camera-Based 3d Object Detection" OR ti:"AMAC: Adaptive Maximal Clique for Cross-Density Point Cloud Registration" OR ti:"Dynamic-ICP: Doppler-Aware Iterative Closest Point Registration for Dynamic Scenes" OR ti:"D-SLAMSpoof: An Environment-Agnostic LiDAR Spoofing Attack Using Dynamic Point Cloud Injection" OR ti:"4D Radar-Inertial Odometry Based on Gaussian Modeling and Multi-Hypothesis Scan Matching" OR ti:"Proactive Local-Minima-Free Robot Navigation: Blending Motion Prediction with Safe Control" OR ti:"Safety-Critical Collision Avoidance Control for Elliptical Multi-Robot Systems Via Control Barrier Functions" OR ti:"Distance Field Driven Reinforcement Learning for Reactive and Robust Collision Avoidance" OR ti:"LiE-CBF: Lie Group Energy-Augmented Control Barrier Functions for Redundant Manipulators on SE(3)"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:17Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22GeoReFormer:+Geometry-Aware+Refinement+for+Lane+Segment+Detection+and+Topology+Reasoning%22+OR+(ti:%22Sparse+Recovery+Bird%E2%80%99s-Eye+View+Model+Soup+for+Robust+Camera-Based+3d+Object+Detection%22+OR+(ti:%22AMAC:+Adaptive+Maximal+Clique+for+Cross-Density+Point+Cloud+Registration%22+OR+(ti:%22Dynamic-ICP:+Doppler-Aware+Iterative+Closest+Point+Registration+for+Dynamic+Scenes%22+OR+(ti:%22D-SLAMSpoof:+An+Environment-Agnostic+LiDAR+Spoofing+Attack+Using+Dynamic+Point+Cloud+Injection%22+OR+(ti:%224D+Radar-Inertial+Odometry+Based+on+Gaussian+Modeling+and+Multi-Hypothesis+Scan+Matching%22+OR+(ti:%22Proactive+Local-Minima-Free+Robot+Navigation:+Blending+Motion+Prediction+with+Safe+Control%22+OR+(ti:%22Safety-Critical+Collision+Avoidance+Control+for+Elliptical+Multi-Robot+Systems+Via+Control+Barrier+Functions%22+OR+(ti:%22Distance+Field+Driven+Reinforcement+Learning+for+Reactive+and+Robust+Collision+Avoidance%22+OR+ti:%22LiE-CBF:+Lie+Group+Energy-Augmented+Control+Barrier+Functions+for+Redundant+Manipulators+on+SE(3)%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.11365v1</id>
+    <title>D-SLAMSpoof: An Environment-Agnostic LiDAR Spoofing Attack using Dynamic Point Cloud Injection</title>
+    <updated>2026-03-11T23:06:52Z</updated>
+    <link href="https://arxiv.org/abs/2603.11365v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.11365v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this work, we introduce Dynamic SLAMSpoof (D-SLAMSpoof), a novel attack that compromises LiDAR SLAM even in feature-rich environments. The attack leverages LiDAR spoofing, which injects spurious measurements into LiDAR scans through external laser interference. By designing both spatial injection shapes and temporally coordinated dynamic injection patterns guided by scan-matching principles, D-SLAMSpoof significantly improves attack success rates in real-world, feature-rich environments such as urban areas and indoor spaces, where conventional LiDAR spoofing methods often fail. Furthermore, we propose a practical defense method, ISD-SLAM, that relies solely on inertial dead reckoning signals commonly available in autonomous systems. We demonstrate that ISD-SLAM accurately detects LiDAR spoofing attacks, including D-SLAMSpoof, and effectively mitigates the resulting position drift. Our findings expose inherent vulnerabilities in LiDAR-based SLAM and introduce the first practical defense against LiDAR-based SLAM spoofing using only standard onboard sensors, providing critical insights for improving the security and reliability of autonomous systems.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-11T23:06:52Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Rokuto Nagata</name>
+    </author>
+    <author>
+      <name>Kenji Koide</name>
+    </author>
+    <author>
+      <name>Kazuma Ikeda</name>
+    </author>
+    <author>
+      <name>Ozora Sako</name>
+    </author>
+    <author>
+      <name>Kentaro Yoshioka</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.20292v3</id>
+    <title>Dynamic-ICP: Doppler-Aware Iterative Closest Point Registration for Dynamic Scenes</title>
+    <updated>2026-03-18T15:29:44Z</updated>
+    <link href="https://arxiv.org/abs/2511.20292v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.20292v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Reliable odometry in highly dynamic environments remains challenging when it relies on ICP-based registration: ICP assumes near-static scenes and degrades in repetitive or low-texture geometry. We introduce Dynamic-ICP, a Doppler-aware registration framework. The method (i) estimates ego motion from per-point Doppler velocity via robust regression and builds a velocity filter, (ii) clusters dynamic objects and reconstructs object-wise translational velocities from ego-compensated radial measurements, (iii) predicts dynamic points with a constant-velocity model, and (iv) aligns scans using a compact objective that combines point-to-plane geometry residual with a translation-invariant, rotation-only Doppler residual. The approach requires no external sensors or sensor-vehicle calibration and operates directly on FMCW LiDAR range and Doppler velocities. We evaluate Dynamic-ICP on three datasets-HeRCULES, HeLiPR, AevaScenes-focusing on highly dynamic scenes. Dynamic-ICP consistently improves rotational stability and translation accuracy over the state-of-the-art methods. Our approach is also simple to integrate into existing pipelines, runs in real time, and provides a lightweight solution for robust registration in dynamic environments. To encourage further research, the code is available at: https://github.com/JMUWRobotics/Dynamic-ICP.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-25T13:21:27Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <arxiv:journal_ref>IEEE Robotics and Automation Letters, 2026</arxiv:journal_ref>
+    <author>
+      <name>Dong Wang</name>
+    </author>
+    <author>
+      <name>Daniel Casado Herraez</name>
+    </author>
+    <author>
+      <name>Stefan May</name>
+    </author>
+    <author>
+      <name>Andreas Nüchter</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3669808</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3669808" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2601.10233v2</id>
+    <title>Proactive Local-Minima-Free Robot Navigation: Blending Motion Prediction with Safe Control</title>
+    <updated>2026-02-11T16:48:21Z</updated>
+    <link href="https://arxiv.org/abs/2601.10233v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2601.10233v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>This work addresses the challenge of safe and efficient mobile robot navigation in complex dynamic environments with concave moving obstacles. Reactive safe controllers like Control Barrier Functions (CBFs) design obstacle avoidance strategies based only on the current states of the obstacles, risking future collisions. To alleviate this problem, we use Gaussian processes to learn barrier functions online from multimodal motion predictions of obstacles generated by neural networks trained with energy-based learning. The learned barrier functions are then fed into quadratic programs using modulated CBFs (MCBFs), a local-minimum-free version of CBFs, to achieve safe and efficient navigation. The proposed framework makes two key contributions. First, it develops a prediction-to-barrier function online learning pipeline. Second, it introduces an autonomous parameter tuning algorithm that adapts MCBFs to deforming, prediction-based barrier functions. The framework is evaluated in both simulations and real-world experiments, consistently outperforming baselines and demonstrating superior safety and efficiency in crowded dynamic environments.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-01-15T09:46:03Z</published>
+    <arxiv:comment>Co-first authors: Yifan Xue and Ze Zhang; Accepted by IEEE RA-L 2026</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yifan Xue</name>
+    </author>
+    <author>
+      <name>Ze Zhang</name>
+    </author>
+    <author>
+      <name>Knut Åkesson</name>
+    </author>
+    <author>
+      <name>Nadia Figueroa</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.13639v5</id>
+    <title>4D Radar-Inertial Odometry based on Gaussian Modeling and Multi-Hypothesis Scan Matching</title>
+    <updated>2026-03-12T08:36:27Z</updated>
+    <link href="https://arxiv.org/abs/2412.13639v5" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.13639v5" rel="related" type="application/pdf" title="pdf"/>
+    <summary>4D millimeter-wave (mmWave) radars are sensors that provide robustness against adverse weather conditions (rain, snow, fog, etc.), and as such they are increasingly used for odometry and SLAM (Simultaneous Location and Mapping). However, the noisy and sparse nature of the returned scan data proves to be a challenging obstacle for existing registration algorithms, especially those originally intended for more accurate sensors such as LiDAR. Following the success of 3D Gaussian Splatting for vision, in this paper we propose a summarized representation for radar scenes based on global simultaneous optimization of 3D Gaussians as opposed to voxel-based approaches, and leveraging its inherent Probability Density Function (PDF) for registration. Moreover, we propose optimizing multiple registration hypotheses for better protection against local optima of the PDF. We evaluate our modeling and registration system against state of the art techniques, finding that our system provides richer models and more accurate registration results. Finally, we evaluate the effectiveness of our system in a real Radar-Inertial Odometry task. Experiments using publicly available 4D radar datasets show that our Gaussian approach is comparable to existing registration algorithms, outperforming them in several sequences.
+  Copyright 2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-18T09:11:24Z</published>
+    <arxiv:comment>Our code and results can be publicly accessed at: https://github.com/robotics-upo/gaussian-rio-cpp Accepted for publication in IEEE Robotics and Automation Letters</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Fernando Amodeo</name>
+    </author>
+    <author>
+      <name>Luis Merino</name>
+    </author>
+    <author>
+      <name>Fernando Caballero</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2026.3675514</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2026.3675514" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.26018v1</id>
+    <title>GeoReFormer: Geometry-Aware Refinement for Lane Segment Detection and Topology Reasoning</title>
+    <updated>2026-03-27T02:26:12Z</updated>
+    <link href="https://arxiv.org/abs/2603.26018v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.26018v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate 3D lane segment detection and topology reasoning are critical for structured online map construction in autonomous driving. Recent transformer-based approaches formulate this task as query-based set prediction, yet largely inherit decoder designs originally developed for compact object detection. However, lane segments are continuous polylines embedded in directed graphs, and generic query initialization and unconstrained refinement do not explicitly encode this geometric and relational structure. We propose GeoReFormer (Geometry-aware Refinement Transformer), a unified query-based architecture that embeds geometry- and topology-aware inductive biases directly within the transformer decoder. GeoReFormer introduces data-driven geometric priors for structured query initialization, bounded coordinate-space refinement for stable polyline deformation, and per-query gated topology propagation to selectively integrate relational context. On the OpenLane-V2 benchmark, GeoReFormer achieves state-of-the-art performance with 34.5% mAP while improving topology consistency over strong transformer baselines, demonstrating the utility of explicit geometric and relational structure encoding.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-27T02:26:12Z</published>
+    <arxiv:comment>8 pages, 6 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Danny Abraham</name>
+    </author>
+    <author>
+      <name>Nikhil Kamalkumar Advani</name>
+    </author>
+    <author>
+      <name>Arun Das</name>
+    </author>
+    <author>
+      <name>Nikil Dutt</name>
+    </author>
+  </entry>
+</feed>

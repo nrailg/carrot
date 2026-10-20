@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/JEorXvJFS8RqRFYv7QUjpzWiSQU</id>
+  <title>arXiv Query: search_query=ti:"Optical Flow-Guided Manipulation: Learning to Act from Historical and Future Dynamics" OR ti:"SANE: Smooth Action Via Noise Envelope Conditioned on Gaussian Process for Denoising Policies" OR ti:"Variational Shape Inference for Grasp Diffusion on SE(3)" OR ti:"RoamFlow: Reinforcement-Aligned One-Step Action MeanFlow Policy for Image-Goal Navigation" OR ti:"Beyond Imitation: Reinforcement Learning Fine-Tuning for Adaptive Diffusion Navigation Policies" OR ti:"CoFiNav: Efficient Coarse-To-Fine Visual Navigation Via Uncertainty-Adaptive Diffusion" OR ti:"FastNav: An Efficient and Reliable Visual Navigation Approach Via Diffusion Distillation" OR ti:"RaFM-Nav: Risk-Aware Flow Matching Policy for Collision-Free Visual Navigation" OR ti:"Variable-Speed Teaching–playback As Real-World Data Augmentation for Imitation Learning" OR ti:"Learning from the Best: Smoothness-Driven Metrics for Data Quality in Imitation Learning"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:42Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Optical+Flow-Guided+Manipulation:+Learning+to+Act+from+Historical+and+Future+Dynamics%22+OR+(ti:%22SANE:+Smooth+Action+Via+Noise+Envelope+Conditioned+on+Gaussian+Process+for+Denoising+Policies%22+OR+(ti:%22Variational+Shape+Inference+for+Grasp+Diffusion+on+SE(3)%22+OR+(ti:%22RoamFlow:+Reinforcement-Aligned+One-Step+Action+MeanFlow+Policy+for+Image-Goal+Navigation%22+OR+(ti:%22Beyond+Imitation:+Reinforcement+Learning+Fine-Tuning+for+Adaptive+Diffusion+Navigation+Policies%22+OR+(ti:%22CoFiNav:+Efficient+Coarse-To-Fine+Visual+Navigation+Via+Uncertainty-Adaptive+Diffusion%22+OR+(ti:%22FastNav:+An+Efficient+and+Reliable+Visual+Navigation+Approach+Via+Diffusion+Distillation%22+OR+(ti:%22RaFM-Nav:+Risk-Aware+Flow+Matching+Policy+for+Collision-Free+Visual+Navigation%22+OR+(ti:%22Variable-Speed+Teaching%E2%80%93playback+As+Real-World+Data+Augmentation+for+Imitation+Learning%22+OR+ti:%22Learning+from+the+Best:+Smoothness-Driven+Metrics+for+Data+Quality+in+Imitation+Learning%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>5</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2606.29934v1</id>
+    <title>RoamFlow: Reinforcement-Aligned One-Step Action MeanFlow Policy for Image-Goal Navigation</title>
+    <updated>2026-06-29T08:10:43Z</updated>
+    <link href="https://arxiv.org/abs/2606.29934v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.29934v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Image-goal navigation is a key challenge in embodied robotics, where an agent must reach a target specified solely by a goal image. While existing reinforcement learning approaches map perceptual observations directly to actions, they struggle to model long-horizon dependencies, often leading to suboptimal trajectories. To address this limitation, we propose RoamFlow, a generative navigation framework that leverages MeanFlow to predict the average velocity field for trajectory synthesis, enabling efficient few-step generation and reducing inference latency. We further adopt a two-stage training strategy that combines expert imitation for stable initialization with reinforcement learning for task-specific policy refinement. Extensive experiments in both Habitat simulation and real-world robotic platforms demonstrate that RoamFlow achieves efficient inference while maintaining strong navigation performance under real-time constraints.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-29T08:10:43Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zixuan Zhang</name>
+    </author>
+    <author>
+      <name>Yuqi Chen</name>
+    </author>
+    <author>
+      <name>Junjie Gao</name>
+    </author>
+    <author>
+      <name>Siyuan Song</name>
+    </author>
+    <author>
+      <name>Yongzhou Pan</name>
+    </author>
+    <author>
+      <name>Beichen Wang</name>
+    </author>
+    <author>
+      <name>Mir Feroskhan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2412.03252v2</id>
+    <title>Variable-Speed Teaching-Playback as Real-World Data Augmentation for Imitation Learning</title>
+    <updated>2025-05-06T06:54:15Z</updated>
+    <link href="https://arxiv.org/abs/2412.03252v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2412.03252v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Because imitation learning relies on human demonstrations in hard-to-simulate settings, the inclusion of force control in this method has resulted in a shortage of training data, even with a simple change in speed. Although the field of data augmentation has addressed the lack of data, conventional methods of data augmentation for robot manipulation are limited to simulation-based methods or downsampling for position control. This paper proposes a novel method of data augmentation that is applicable to force control and preserves the advantages of real-world datasets. We applied teaching-playback at variable speeds as real-world data augmentation to increase both the quantity and quality of environmental reactions at variable speeds. An experiment was conducted on bilateral control-based imitation learning using a method of imitation learning equipped with position-force control. We evaluated the effect of real-world data augmentation on two tasks, pick-and-place and wiping, at variable speeds, each from two human demonstrations at fixed speed. The results showed a maximum 55% increase in success rate from a simple change in speed of real-world reactions and improved accuracy along the duration/frequency command by gathering environmental reactions at variable speeds.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.LG" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2024-12-04T11:51:50Z</published>
+    <arxiv:comment>16 pages, 12 figures, 4 tables. This is a preprint of an article whose final and definitive form has been published in ADVANCED ROBOTICS 2025, copyright Taylor &amp; Francis and Robotics Society of Japan, is available online at: http://www.tandfonline.com/10.1080/01691864.2025.2497423; doi:10.1080/01691864.2025.2497423</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Nozomu Masuya</name>
+    </author>
+    <author>
+      <name>Hiroshi Sato</name>
+    </author>
+    <author>
+      <name>Koki Yamane</name>
+    </author>
+    <author>
+      <name>Takuya Kusume</name>
+    </author>
+    <author>
+      <name>Sho Sakaino</name>
+    </author>
+    <author>
+      <name>Toshiaki Tsuji</name>
+    </author>
+    <arxiv:doi>10.1080/01691864.2025.2497423</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1080/01691864.2025.2497423" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.12868v1</id>
+    <title>Beyond Imitation: Reinforcement Learning Fine-Tuning for Adaptive Diffusion Navigation Policies</title>
+    <updated>2026-03-13T10:14:32Z</updated>
+    <link href="https://arxiv.org/abs/2603.12868v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.12868v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Diffusion-based robot navigation policies trained on large-scale imitation learning datasets, can generate multi-modal trajectories directly from the robot's visual observations, bypassing the traditional localization-mapping-planning pipeline and achieving strong zero-shot generalization. However, their performance remains constrained by the coverage of offline datasets, and when deployed in unseen settings, distribution shift often leads to accumulated trajectory errors and safety-critical failures. Adapting diffusion policies with reinforcement learning is challenging because their iterative denoising structure hinders effective gradient backpropagation, while also making the training of an additional value network computationally expensive and less stable. To address these issues, we propose a reinforcement learning fine-tuning framework tailored for diffusion-based navigation. The method leverages the inherent multi-trajectory sampling mechanism of diffusion models and adopts Group Relative Policy Optimization (GRPO), which estimates relative advantages across sampled trajectories without requiring a separate value network. To preserve pretrained representations while enabling adaptation, we freeze the visual encoder and selectively update the higher decoder layers and action head, enhancing safety-aware behaviors through online environmental feedback. On the PointGoal task in Isaac Sim, our approach improves the Success Rate from 52.0% to 58.7% and SPL from 0.49 to 0.54 on unseen scenes, while reducing collision frequency. Additional experiments show that the fine-tuned policy transfers zero-shot to a real quadruped platform and maintains stable performance in geometrically out-of-distribution environments, suggesting improved adaptability and safe generalization to new domains.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-13T10:14:32Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Junhe Sheng</name>
+    </author>
+    <author>
+      <name>Ruofei Bai</name>
+    </author>
+    <author>
+      <name>Kuan Xu</name>
+    </author>
+    <author>
+      <name>Ruimeng Liu</name>
+    </author>
+    <author>
+      <name>Jie Chen</name>
+    </author>
+    <author>
+      <name>Shenghai Yuan</name>
+    </author>
+    <author>
+      <name>Wei-Yun Yau</name>
+    </author>
+    <author>
+      <name>Lihua Xie</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2604.23000v1</id>
+    <title>Learning from the Best: Smoothness-Driven Metrics for Data Quality in Imitation Learning</title>
+    <updated>2026-04-24T20:40:11Z</updated>
+    <link href="https://arxiv.org/abs/2604.23000v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.23000v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In behavioral cloning (BC), policy performance is fundamentally limited by demonstration data quality. Real-world datasets contain trajectories of varying quality due to operator skill differences, teleoperation artifacts, and procedural inconsistencies, yet standard BC treats all demonstrations equally. Existing curation methods require costly policy training in the loop or manual annotation, limiting scalability. We propose RINSE (Ranking and INdexing Smooth Examples), a lightweight framework for scoring demonstrations based on trajectory smoothness that is policy-architecture-agnostic and operates on trajectory data alone, with TED additionally using a phase-boundary/contact signal. Grounded in motor control theory, which establishes smoothness as a hallmark of skilled movement, RINSE uses two complementary metrics: Spectral Arc Length (SAL), a spectral measure of frequency-domain regularity, and Trajectory-Envelope Distance (TED), a spatial measure of contact-aware geometric deviation. We show that smoothness filtering can reduce the conditional action variance of the retained data distribution, with downstream effects that can be amplified by action chunking and compounding error. On RoboMimic benchmarks, SAL filtering achieves 16% higher success using one-sixth of the data. On real-world manipulation, TED filtering achieves 20% improvement with half the data. As a retrieval-stage filter within STRAP on LIBERO-10, RINSE re-ranking improves mean success by 5.6%. As soft weights in Re-Mix domain reweighting, RINSE scores produce domain allocations highly correlated with the learned Re-Mix allocations (Spearman $ρ\geq 0.89$). These results support smoothness as a useful quality signal across filtering, retrieval, and reweighting settings, especially in noisy or heterogeneous data regimes.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-24T20:40:11Z</published>
+    <arxiv:comment>8 pages, 5 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Soham Kulkarni</name>
+    </author>
+    <author>
+      <name>Raayan Dhar</name>
+    </author>
+    <author>
+      <name>Yuchen Cui</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.17482v2</id>
+    <title>Variational Shape Inference for Grasp Diffusion on SE(3)</title>
+    <updated>2025-12-06T21:25:33Z</updated>
+    <link href="https://arxiv.org/abs/2508.17482v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.17482v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Grasp synthesis is a fundamental task in robotic manipulation which usually has multiple feasible solutions. Multimodal grasp synthesis seeks to generate diverse sets of stable grasps conditioned on object geometry, making the robust learning of geometric features crucial for success. To address this challenge, we propose a framework for learning multimodal grasp distributions that leverages variational shape inference to enhance robustness against shape noise and measurement sparsity. Our approach first trains a variational autoencoder for shape inference using implicit neural representations, and then uses these learned geometric features to guide a diffusion model for grasp synthesis on the SE(3) manifold. Additionally, we introduce a test-time grasp optimization technique that can be integrated as a plugin to further enhance grasping performance. Experimental results demonstrate that our shape inference for grasp synthesis formulation outperforms state-of-the-art multimodal grasp synthesis methods on the ACRONYM dataset by 6.3%, while demonstrating robustness to deterioration in point cloud density compared to other approaches. Furthermore, our trained model achieves zero-shot transfer to real-world manipulation of household objects, generating 34% more successful grasps than baselines despite measurement noise and point cloud calibration errors.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-24T18:14:11Z</published>
+    <arxiv:comment>This work has been submitted to the IEEE for possible publication</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>S. Talha Bukhari</name>
+    </author>
+    <author>
+      <name>Kaivalya Agrawal</name>
+    </author>
+    <author>
+      <name>Zachary Kingston</name>
+    </author>
+    <author>
+      <name>Aniket Bera</name>
+    </author>
+  </entry>
+</feed>

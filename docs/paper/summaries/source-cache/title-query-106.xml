@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/PWtvIjAY1R8iLI9ljo0PQ03BHqk</id>
+  <title>arXiv Query: search_query=ti:"AURORA: Attention-Intended Dual Verification with Adaptive Rollback for Large Language Model Agents" OR ti:"TacMagPie: A Fast, High-Fidelity Soft Magnetic Tactile Sensor Simulator for Sim-To-Real Robotic Manipulation" OR ti:"SymDrive: Realistic and Controllable Driving Simulator Via Symmetric Auto-Regressive Online Restoration" OR ti:"ACEsplat: Accelerated 3D Gaussian Scene Regression Via RGB and Poses Only" OR ti:"GaussianFusionOcc: A Seamless Sensor Fusion Approach for 3D Occupancy Prediction Using 3D Gaussians" OR ti:"PPReg: Prior-Guided Photometric Registration of 3D Gaussian Splats in Low-Overlap Scenes" OR ti:"Splatting As Attention: Reasoning in 3D Gaussian Fields for Occupancy Prediction in Autonomous Driving" OR ti:"SeaSIG: Underwater 3D Gaussian Splatting Via Medium–Radiance Decomposition and Structure-Invariant Guidance" OR ti:"Push-Grasp Policy Learning Using Equivariant Models and Grasp Score Optimization" OR ti:"Learning Synergistic Multi-Skill Manipulation for a Real-World Dual-Arm Robot in Dense Clutter"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:41:57Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22AURORA:+Attention-Intended+Dual+Verification+with+Adaptive+Rollback+for+Large+Language+Model+Agents%22+OR+(ti:%22TacMagPie:+A+Fast,+High-Fidelity+Soft+Magnetic+Tactile+Sensor+Simulator+for+Sim-To-Real+Robotic+Manipulation%22+OR+(ti:%22SymDrive:+Realistic+and+Controllable+Driving+Simulator+Via+Symmetric+Auto-Regressive+Online+Restoration%22+OR+(ti:%22ACEsplat:+Accelerated+3D+Gaussian+Scene+Regression+Via+RGB+and+Poses+Only%22+OR+(ti:%22GaussianFusionOcc:+A+Seamless+Sensor+Fusion+Approach+for+3D+Occupancy+Prediction+Using+3D+Gaussians%22+OR+(ti:%22PPReg:+Prior-Guided+Photometric+Registration+of+3D+Gaussian+Splats+in+Low-Overlap+Scenes%22+OR+(ti:%22Splatting+As+Attention:+Reasoning+in+3D+Gaussian+Fields+for+Occupancy+Prediction+in+Autonomous+Driving%22+OR+(ti:%22SeaSIG:+Underwater+3D+Gaussian+Splatting+Via+Medium%E2%80%93Radiance+Decomposition+and+Structure-Invariant+Guidance%22+OR+(ti:%22Push-Grasp+Policy+Learning+Using+Equivariant+Models+and+Grasp+Score+Optimization%22+OR+ti:%22Learning+Synergistic+Multi-Skill+Manipulation+for+a+Real-World+Dual-Arm+Robot+in+Dense+Clutter%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2512.21618v1</id>
+    <title>SymDrive: Realistic and Controllable Driving Simulator via Symmetric Auto-regressive Online Restoration</title>
+    <updated>2025-12-25T10:28:43Z</updated>
+    <link href="https://arxiv.org/abs/2512.21618v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.21618v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>High-fidelity and controllable 3D simulation is essential for addressing the long-tail data scarcity in Autonomous Driving (AD), yet existing methods struggle to simultaneously achieve photorealistic rendering and interactive traffic editing. Current approaches often falter in large-angle novel view synthesis and suffer from geometric or lighting artifacts during asset manipulation. To address these challenges, we propose SymDrive, a unified diffusion-based framework capable of joint high-quality rendering and scene editing. We introduce a Symmetric Auto-regressive Online Restoration paradigm, which constructs paired symmetric views to recover fine-grained details via a ground-truth-guided dual-view formulation and utilizes an auto-regressive strategy for consistent lateral view generation. Furthermore, we leverage this restoration capability to enable a training-free harmonization mechanism, treating vehicle insertion as context-aware inpainting to ensure seamless lighting and shadow consistency. Extensive experiments demonstrate that SymDrive achieves state-of-the-art performance in both novel-view enhancement and realistic 3D vehicle insertion.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-12-25T10:28:43Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Zhiyuan Liu</name>
+    </author>
+    <author>
+      <name>Daocheng Fu</name>
+    </author>
+    <author>
+      <name>Pinlong Cai</name>
+    </author>
+    <author>
+      <name>Lening Wang</name>
+    </author>
+    <author>
+      <name>Ying Liu</name>
+    </author>
+    <author>
+      <name>Yilong Ren</name>
+    </author>
+    <author>
+      <name>Botian Shi</name>
+    </author>
+    <author>
+      <name>Jianqiang Wang</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.22091v1</id>
+    <title>ACEsplat: Accelerated 3D Gaussian Scene Regression via RGB and Poses Only</title>
+    <updated>2026-06-20T15:16:24Z</updated>
+    <link href="https://arxiv.org/abs/2606.22091v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.22091v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Per-scene 3D Gaussian Splatting (3DGS) enables high-fidelity rendering, but practical robotic and AR scene capture pipelines often depend on external geometric initialization (e.g., SfM point clouds or depth estimates), which can be slow and brittle in on-site deployment. We present ACEsplat, a fast per-scene optimization framework that reconstructs 3D Gaussian representations from RGB images and camera poses only, without requiring external 3D priors (e.g., precomputed SfM models or supervised depth maps). ACEsplat uses a two-stage pipeline: (1) a self-supervised scene coordinate regression (SCR) module builds an internal geometry prior within 4--5 minutes; (2) SCR features and coordinate priors are fused by a lightweight Gaussian initialization head, followed by per-scene 3DGS optimization. On static-view rendering, ACEsplat achieves 29.11 dB PSNR on Wayspots with real-time SLAM poses and 33.20 dB on Cambridge Landmarks with SfM-refined poses. On RealEstate10K sparse-view novel view synthesis, it achieves competitive image fidelity under a challenging 2-view setting. ACEsplat completes scene-specific SCR mapping and 3DGS reconstruction within 15--25 minutes on a single GPU, making it a practical RGB+pose-only solution for rapid scene setup in robotics and mixed-reality applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-20T15:16:24Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mingkai Liu</name>
+    </author>
+    <author>
+      <name>Haohua Que</name>
+    </author>
+    <author>
+      <name>Dikai Fan</name>
+    </author>
+    <author>
+      <name>Haojia Gao</name>
+    </author>
+    <author>
+      <name>Tianle Zhu</name>
+    </author>
+    <author>
+      <name>Handong Yao</name>
+    </author>
+    <author>
+      <name>Qian Zhang</name>
+    </author>
+    <author>
+      <name>Ruopeng Zhang</name>
+    </author>
+    <author>
+      <name>Xianliang Huang</name>
+    </author>
+    <author>
+      <name>Fei Qiao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2507.18522v1</id>
+    <title>GaussianFusionOcc: A Seamless Sensor Fusion Approach for 3D Occupancy Prediction Using 3D Gaussians</title>
+    <updated>2025-07-24T15:46:38Z</updated>
+    <link href="https://arxiv.org/abs/2507.18522v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2507.18522v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>3D semantic occupancy prediction is one of the crucial tasks of autonomous driving. It enables precise and safe interpretation and navigation in complex environments. Reliable predictions rely on effective sensor fusion, as different modalities can contain complementary information. Unlike conventional methods that depend on dense grid representations, our approach, GaussianFusionOcc, uses semantic 3D Gaussians alongside an innovative sensor fusion mechanism. Seamless integration of data from camera, LiDAR, and radar sensors enables more precise and scalable occupancy prediction, while 3D Gaussian representation significantly improves memory efficiency and inference speed. GaussianFusionOcc employs modality-agnostic deformable attention to extract essential features from each sensor type, which are then used to refine Gaussian properties, resulting in a more accurate representation of the environment. Extensive testing with various sensor combinations demonstrates the versatility of our approach. By leveraging the robustness of multi-modal fusion and the efficiency of Gaussian representation, GaussianFusionOcc outperforms current state-of-the-art models.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-07-24T15:46:38Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Tomislav Pavković</name>
+    </author>
+    <author>
+      <name>Mohammad-Ali Nikouei Mahani</name>
+    </author>
+    <author>
+      <name>Johannes Niedermayer</name>
+    </author>
+    <author>
+      <name>Johannes Betz</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2504.03053v1</id>
+    <title>Push-Grasp Policy Learning Using Equivariant Models and Grasp Score Optimization</title>
+    <updated>2025-04-03T22:00:35Z</updated>
+    <link href="https://arxiv.org/abs/2504.03053v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.03053v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Goal-conditioned robotic grasping in cluttered environments remains a challenging problem due to occlusions caused by surrounding objects, which prevent direct access to the target object. A promising solution to mitigate this issue is combining pushing and grasping policies, enabling active rearrangement of the scene to facilitate target retrieval. However, existing methods often overlook the rich geometric structures inherent in such tasks, thus limiting their effectiveness in complex, heavily cluttered scenarios. To address this, we propose the Equivariant Push-Grasp Network, a novel framework for joint pushing and grasping policy learning. Our contributions are twofold: (1) leveraging SE(2)-equivariance to improve both pushing and grasping performance and (2) a grasp score optimization-based training strategy that simplifies the joint learning process. Experimental results show that our method improves grasp success rates by 49% in simulation and by 35% in real-world scenarios compared to strong baselines, representing a significant advancement in push-grasp policy learning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-03T22:00:35Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Boce Hu</name>
+    </author>
+    <author>
+      <name>Heng Tian</name>
+    </author>
+    <author>
+      <name>Dian Wang</name>
+    </author>
+    <author>
+      <name>Haojie Huang</name>
+    </author>
+    <author>
+      <name>Xupeng Zhu</name>
+    </author>
+    <author>
+      <name>Robin Walters</name>
+    </author>
+    <author>
+      <name>Robert Platt</name>
+    </author>
+  </entry>
+</feed>

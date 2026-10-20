@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/AYMsZgIZjEtavYzILzzg1N8TJrI</id>
+  <title>arXiv Query: search_query=ti:"Path-Conditioned Reinforcement Learning-Based Local Planning for Long-Range Navigation" OR ti:"Graph-Constrained Task Scheduling for Mobile Robots Via Reinforcement Learning" OR ti:"MULTI-ORFT: Stable Online Reinforcement Fine-Tuning on Diffusion-Based Multi-Agent Planning for Cooperative Driving" OR ti:"Robust Autonomous Control of a Magnetic Millirobot in in Vitro Cardiac Flow" OR ti:"Few-Shot Magnet Localization Using Sim-To-Real Transfer Learning" OR ti:"Magnetically Actuated Milli-Scale Voxel Robot for Navigation in Tubular and Anatomical Environments" OR ti:"StructGeo-Diff: Structurally-Consistent Weather Augmentation for Autonomous Navigation Via Geometric Fusion" OR ti:"LSAA: Latent Space-Aware Adversarial Attack on Semantic Segmentation" OR ti:"Synthesis of Control Barrier Functions from Spatial Safety Specifications" OR ti:"Real-Time Trajectory Planning for Active-Steering Tractor-Trailer Robots Based on Constraint Dimension Shifting"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:32Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Path-Conditioned+Reinforcement+Learning-Based+Local+Planning+for+Long-Range+Navigation%22+OR+(ti:%22Graph-Constrained+Task+Scheduling+for+Mobile+Robots+Via+Reinforcement+Learning%22+OR+(ti:%22MULTI-ORFT:+Stable+Online+Reinforcement+Fine-Tuning+on+Diffusion-Based+Multi-Agent+Planning+for+Cooperative+Driving%22+OR+(ti:%22Robust+Autonomous+Control+of+a+Magnetic+Millirobot+in+in+Vitro+Cardiac+Flow%22+OR+(ti:%22Few-Shot+Magnet+Localization+Using+Sim-To-Real+Transfer+Learning%22+OR+(ti:%22Magnetically+Actuated+Milli-Scale+Voxel+Robot+for+Navigation+in+Tubular+and+Anatomical+Environments%22+OR+(ti:%22StructGeo-Diff:+Structurally-Consistent+Weather+Augmentation+for+Autonomous+Navigation+Via+Geometric+Fusion%22+OR+(ti:%22LSAA:+Latent+Space-Aware+Adversarial+Attack+on+Semantic+Segmentation%22+OR+(ti:%22Synthesis+of+Control+Barrier+Functions+from+Spatial+Safety+Specifications%22+OR+ti:%22Real-Time+Trajectory+Planning+for+Active-Steering+Tractor-Trailer+Robots+Based+on+Constraint+Dimension+Shifting%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2604.01523v1</id>
+    <title>Robust Autonomous Control of a Magnetic Millirobot in In Vitro Cardiac Flow</title>
+    <updated>2026-04-02T01:48:04Z</updated>
+    <link href="https://arxiv.org/abs/2604.01523v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2604.01523v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Untethered magnetic millirobots offer significant potential for minimally invasive cardiac therapies; however, achieving reliable autonomous control in pulsatile cardiac flow remains challenging. This work presents a vision-guided control framework enabling precise autonomous navigation of a magnetic millirobot in an in vitro heart phantom under physiologically relevant flow conditions. The system integrates UNet-based localization, A* path planning, and a sliding mode controller with a disturbance observer (SMC-DOB) designed for multi-coil electromagnetic actuation. Although drag forces are estimated using steady-state CFD simulations, the controller compensates for transient pulsatile disturbances during closed-loop operation. In static fluid, the SMC-DOB achieved sub-millimeter accuracy (root-mean-square error, RMSE = 0.49 mm), outperforming PID and MPC baselines. Under moderate pulsatile flow (7 cm/s peak, 20 cP), it reduced RMSE by 37% and peak error by 2.4$\times$ compared to PID. It further maintained RMSE below 2 mm (0.27 body lengths) under elevated pulsatile flow (10 cm/s peak, 20 cP) and under low-viscosity conditions (4.3 cP, 7 cm/s peak), where baseline controllers exhibited unstable or failed tracking. These results demonstrate robust closed-loop magnetic control under time-varying cardiac flow disturbances and support the feasibility of autonomous millirobot navigation for targeted drug delivery.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-04-02T01:48:04Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Anuruddha Bhattacharjee</name>
+    </author>
+    <author>
+      <name>Xinhao Chen</name>
+    </author>
+    <author>
+      <name>Lamar O. Mair</name>
+    </author>
+    <author>
+      <name>Suraj Raval</name>
+    </author>
+    <author>
+      <name>Yancy Diaz-Mercado</name>
+    </author>
+    <author>
+      <name>Axel Krieger</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.13888v2</id>
+    <title>Path-conditioned Reinforcement Learning-based Local Planning for Long-Range Navigation</title>
+    <updated>2026-08-03T23:09:39Z</updated>
+    <link href="https://arxiv.org/abs/2603.13888v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.13888v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Long-range navigation is commonly addressed through hierarchical pipelines in which a global planner generates a path, decomposed into waypoints, and followed sequentially by a local planner. These systems are sensitive to global path quality, as inaccurate remote sensing data can result in locally infeasible waypoints, which degrade local execution. At the same time, the limited global context available to the local planner hinders long-range efficiency. To address this issue, we propose a reinforcement learning-based local navigation policy that leverages path information as contextual guidance. The policy is conditioned on reference path observations and trained with a reward function mainly based on goal-reaching objectives, without any explicit path-following reward. Through this implicit conditioning, the policy learns to opportunistically exploit path information while remaining robust to misleading or degraded guidance. Experimental results show that the proposed approach significantly improves navigation efficiency when high-quality paths are available and maintains baseline-level performance when path observations are severely degraded or even non-existent. These properties make the method particularly well-suited for long-range navigation scenarios in which high-level plans are approximate and local execution must remain adaptive to uncertainty.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-14T10:56:14Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Mateo Haro</name>
+    </author>
+    <author>
+      <name>Julia Richter</name>
+    </author>
+    <author>
+      <name>Fan Yang</name>
+    </author>
+    <author>
+      <name>Cesar Cadena</name>
+    </author>
+    <author>
+      <name>Marco Hutter</name>
+    </author>
+  </entry>
+</feed>

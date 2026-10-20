@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Your First Experiment | SkillOpt</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Your First Experiment" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts." />
+<meta property="og:description" content="SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts." />
+<link rel="canonical" href="https://microsoft.github.io/SkillOpt/docs/guide/first-experiment.html" />
+<meta property="og:url" content="https://microsoft.github.io/SkillOpt/docs/guide/first-experiment.html" />
+<meta property="og:site_name" content="SkillOpt" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Your First Experiment" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","description":"SkillOpt is a text-space optimizer that trains reusable natural-language skills for frozen LLM agents through trajectory-driven edits, validation-gated updates, and deployable best_skill.md artifacts.","headline":"Your First Experiment","url":"https://microsoft.github.io/SkillOpt/docs/guide/first-experiment.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/SkillOpt/assets/css/style.css?v=343db229dbd5ddaf9df6b1d5540d8bcdb2604d5c">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/SkillOpt/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://microsoft.github.io/SkillOpt/">SkillOpt</a></h1>
+      
+
+      <h1 id="your-first-experiment">Your First Experiment</h1>
+
+<p>This guide walks through running a complete SkillOpt training on SearchQA.</p>
+
+<h2 id="1-choose-a-benchmark">1. Choose a Benchmark</h2>
+
+<p>SkillOpt includes ready-to-use configs for several benchmarks. End-to-end
+runtime depends on the chosen models, provider latency, worker limits, and
+dataset size, so the project does not promise fixed wall-clock estimates.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Benchmark</th>
+      <th>Modality</th>
+      <th>Additional setup</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>SearchQA</td>
+      <td>Text QA</td>
+      <td>Materialize the released ID manifest</td>
+    </tr>
+    <tr>
+      <td>DocVQA</td>
+      <td>Document/image QA</td>
+      <td>Obtain and materialize images and examples</td>
+    </tr>
+    <tr>
+      <td>ALFWorld</td>
+      <td>Embodied agent</td>
+      <td>Install ALFWorld and download its assets</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We’ll use <strong>SearchQA</strong> because it is the simplest text-only walkthrough.</p>
+
+<h2 id="2-install-and-materialize-searchqa">2. Install and Materialize SearchQA</h2>
+
+<p>The repository contains a stable SearchQA ID manifest, not the full runnable
+examples. From a source checkout, install the data extra and materialize the
+split once:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s2">".[searchqa]"</span>
+python scripts/materialize_searchqa.py
+</code></pre></div></div>
+
+<p>By default, the materializer reads <code class="language-plaintext highlighter-rouge">data/searchqa_id_split/</code> and writes the
+train/validation/test payloads expected by the config to
+<code class="language-plaintext highlighter-rouge">data/searchqa_split/</code>; both paths have command-line overrides.</p>
+
+<h2 id="3-configure">3. Configure</h2>
+
+<p>Configure and export one model backend as described in
+<a href="/SkillOpt/docs/guide/installation.html#environment-variables">Installation</a>. For example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cp</span> .env.example .env
+<span class="c"># Edit .env, choose one authentication mode, then export it:</span>
+<span class="nb">set</span> <span class="nt">-a</span><span class="p">;</span> <span class="nb">source</span> .env<span class="p">;</span> <span class="nb">set</span> +a
+</code></pre></div></div>
+
+<p>Review the config file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>configs/searchqa/default.yaml
+</code></pre></div></div>
+
+<p>Key parameters (deep learning analogy in parentheses):</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">train</span><span class="pi">:</span>
+  <span class="na">num_epochs</span><span class="pi">:</span> <span class="m">4</span>           <span class="c1"># (epochs)</span>
+  <span class="na">batch_size</span><span class="pi">:</span> <span class="m">40</span>          <span class="c1"># (batch size)</span>
+
+<span class="na">optimizer</span><span class="pi">:</span>
+  <span class="na">learning_rate</span><span class="pi">:</span> <span class="m">4</span>        <span class="c1"># (max edits per step)</span>
+  <span class="na">lr_scheduler</span><span class="pi">:</span> <span class="s">cosine</span>    <span class="c1"># (learning rate schedule)</span>
+  <span class="na">use_slow_update</span><span class="pi">:</span> <span class="no">true</span>   <span class="c1"># (momentum at epoch boundary)</span>
+  <span class="na">use_meta_skill</span><span class="pi">:</span> <span class="no">true</span>    <span class="c1"># (cross-epoch optimizer memory)</span>
+
+<span class="na">gradient</span><span class="pi">:</span>
+  <span class="na">analyst_workers</span><span class="pi">:</span> <span class="m">16</span>     <span class="c1"># (parallel reflection workers)</span>
+
+<span class="na">evaluation</span><span class="pi">:</span>
+  <span class="na">use_gate</span><span class="pi">:</span> <span class="no">true</span>          <span class="c1"># (validation gating)</span>
+</code></pre></div></div>
+
+<h2 id="4-train">4. Train</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python scripts/train.py <span class="se">\</span>
+  <span class="nt">--config</span> configs/searchqa/default.yaml <span class="se">\</span>
+  <span class="nt">--out_root</span> outputs/searchqa_first_run
+</code></pre></div></div>
+
+<p>The command prints the resolved backend/data configuration, per-step rollout
+and gate progress, and the generated output directory.</p>
+
+<h2 id="5-monitor">5. Monitor</h2>
+
+<p>The explicit <code class="language-plaintext highlighter-rouge">--out_root</code> above creates this run directory:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>outputs/searchqa_first_run/
+├── config.json
+├── runtime_state.json
+├── history.json
+├── best_skill.md
+├── skills/
+│   └── skill_vXXXX.md
+├── steps/
+│   └── step_XXXX/
+│       ├── candidate_skill.md
+│       ├── step_record.json
+│       └── trajectory_digest.json
+├── slow_update/
+│   └── epoch_XX/
+└── meta_skill/
+    └── epoch_XX/
+</code></pre></div></div>
+
+<h2 id="6-evaluate">6. Evaluate</h2>
+
+<p>Evaluate the best skill on the test split:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python scripts/eval_only.py <span class="se">\</span>
+  <span class="nt">--config</span> configs/searchqa/default.yaml <span class="se">\</span>
+  <span class="nt">--skill</span> outputs/searchqa_first_run/best_skill.md <span class="se">\</span>
+  <span class="nt">--split</span> valid_unseen
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">--skill</code> path above is the training artifact. Evaluation writes
+<code class="language-plaintext highlighter-rouge">eval_summary.json</code> to its own timestamped <code class="language-plaintext highlighter-rouge">outputs/eval_.../</code> directory unless
+you pass an explicit <code class="language-plaintext highlighter-rouge">--out_root</code>; it does not overwrite the training run.</p>
+
+<h2 id="webui">WebUI</h2>
+
+<p>Prefer a graphical interface? Launch the WebUI:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install</span> <span class="nt">-e</span> <span class="s2">".[webui]"</span>
+python <span class="nt">-m</span> skillopt_webui.app
+</code></pre></div></div>
+
+<p>Then open <code class="language-plaintext highlighter-rouge">http://localhost:7860</code> in your browser to configure parameters and
+launch training. The default host is <code class="language-plaintext highlighter-rouge">0.0.0.0</code>; pass <code class="language-plaintext highlighter-rouge">--host 127.0.0.1</code> for a
+local-only dashboard.</p>
+
+<h2 id="next-steps">Next Steps</h2>
+
+<ul>
+  <li><a href="/SkillOpt/docs/guide/training-loop.html">Understand the training loop</a></li>
+  <li><a href="/SkillOpt/docs/reference/config.html">Configuration reference</a></li>
+  <li><a href="/SkillOpt/docs/guide/new-benchmark.html">Add a new benchmark</a></li>
+</ul>
+
+
+      
+      <div class="footer border-top border-gray-light mt-5 pt-3 text-right text-gray">
+        This site is open source. <a href="https://github.com/microsoft/SkillOpt/edit/main/docs/guide/first-experiment.md">Improve this page</a>.
+      </div>
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

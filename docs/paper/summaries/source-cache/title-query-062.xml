@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/GScaxagbqw9/U7bxW6rDoNs1GSg</id>
+  <title>arXiv Query: search_query=ti:"EvoDPM: Nonparametric Knowledge Evolution Via Internal Semantic Bottlenecks in Continual Imitation Learning" OR ti:"CARoL: Context-Aware Adaptation for Robot Learning" OR ti:"PROMPT: PRObabilistic Memory Trees for Efficient Skill Reuse in Robotics" OR ti:"MyoDEA: A Self-Sensing Dielectric Elastomer Actuator for Real-Time Muscle Stiffness Monitoring" OR ti:"BiFlex: A Passive Bimodal Stiffness Flexible Wrist for Manipulation in Unstructured Environments" OR ti:"Designing Autonomous Behavioral Switching in Eight-Armed Octopus-Like Soft Robot: Physical Reservoir Computing Approach" OR ti:"Robot-To-Robot Tactile Communication in Resource-Limited, Small-Scale Robots" OR ti:"A Simple Three-Link Passive Suspension Mechanism for Enhancing Ground Contact and Stability in Omnidirectional Mobile Robots" OR ti:"Multi-Degree-Of-Freedom Planar Linkage Synthesis for Leg Designs" OR ti:"A Wheel-Gripper: Enabling Multifunctionality through Factorability"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:39:02Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22EvoDPM:+Nonparametric+Knowledge+Evolution+Via+Internal+Semantic+Bottlenecks+in+Continual+Imitation+Learning%22+OR+(ti:%22CARoL:+Context-Aware+Adaptation+for+Robot+Learning%22+OR+(ti:%22PROMPT:+PRObabilistic+Memory+Trees+for+Efficient+Skill+Reuse+in+Robotics%22+OR+(ti:%22MyoDEA:+A+Self-Sensing+Dielectric+Elastomer+Actuator+for+Real-Time+Muscle+Stiffness+Monitoring%22+OR+(ti:%22BiFlex:+A+Passive+Bimodal+Stiffness+Flexible+Wrist+for+Manipulation+in+Unstructured+Environments%22+OR+(ti:%22Designing+Autonomous+Behavioral+Switching+in+Eight-Armed+Octopus-Like+Soft+Robot:+Physical+Reservoir+Computing+Approach%22+OR+(ti:%22Robot-To-Robot+Tactile+Communication+in+Resource-Limited,+Small-Scale+Robots%22+OR+(ti:%22A+Simple+Three-Link+Passive+Suspension+Mechanism+for+Enhancing+Ground+Contact+and+Stability+in+Omnidirectional+Mobile+Robots%22+OR+(ti:%22Multi-Degree-Of-Freedom+Planar+Linkage+Synthesis+for+Leg+Designs%22+OR+ti:%22A+Wheel-Gripper:+Enabling+Multifunctionality+through+Factorability%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>2</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2504.08706v2</id>
+    <title>BiFlex: A Passive Bimodal Stiffness Flexible Wrist for Manipulation in Unstructured Environments</title>
+    <updated>2025-05-14T18:26:32Z</updated>
+    <link href="https://arxiv.org/abs/2504.08706v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2504.08706v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic manipulation in unstructured, humancentric environments poses a dual challenge: achieving the precision need for delicate free-space operation while ensuring safety during unexpected contact events. Traditional wrists struggle to balance these demands, often relying on complex control schemes or complicated mechanical designs to mitigate potential damage from force overload. In response, we present BiFlex, a flexible robotic wrist that uses a soft buckling honeycomb structure to provides a natural bimodal stiffness response. The higher stiffness mode enables precise household object manipulation, while the lower stiffness mode provides the compliance needed to adapt to external forces. We design BiFlex to maintain a fingertip deflection of less than 1 cm while supporting loads up to 500g and create a BiFlex wrist for many grippers, including Panda, Robotiq, and BaRiFlex. We validate BiFlex under several real-world experimental evaluations, including surface wiping, precise pick-and-place, and grasping under environmental constraints. We demonstrate that BiFlex simplifies control while maintaining precise object manipulation and enhanced safety in real-world applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-04-11T17:16:13Z</published>
+    <arxiv:comment>8 pages, 10 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Gu-Cheol Jeong</name>
+    </author>
+    <author>
+      <name>Stefano Dalla Gasperina</name>
+    </author>
+    <author>
+      <name>Ashish D. Deshpande</name>
+    </author>
+    <author>
+      <name>Lillian Chin</name>
+    </author>
+    <author>
+      <name>Roberto Martín-Martín</name>
+    </author>
+    <arxiv:doi>10.1109/LRA.2025.3605095</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/LRA.2025.3605095" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2506.07006v1</id>
+    <title>CARoL: Context-aware Adaptation for Robot Learning</title>
+    <updated>2025-06-08T06:05:32Z</updated>
+    <link href="https://arxiv.org/abs/2506.07006v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2506.07006v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Using Reinforcement Learning (RL) to learn new robotic tasks from scratch is often inefficient. Leveraging prior knowledge has the potential to significantly enhance learning efficiency, which, however, raises two critical challenges: how to determine the relevancy of existing knowledge and how to adaptively integrate them into learning a new task. In this paper, we propose Context-aware Adaptation for Robot Learning (CARoL), a novel framework to efficiently learn a similar but distinct new task from prior knowledge. CARoL incorporates context awareness by analyzing state transitions in system dynamics to identify similarities between the new task and prior knowledge. It then utilizes these identified similarities to prioritize and adapt specific knowledge pieces for the new task. Additionally, CARoL has a broad applicability spanning policy-based, value-based, and actor-critic RL algorithms. We validate the efficiency and generalizability of CARoL on both simulated robotic platforms and physical ground vehicles. The simulations include CarRacing and LunarLander environments, where CARoL demonstrates faster convergence and higher rewards when learning policies for new tasks. In real-world experiments, we show that CARoL enables a ground vehicle to quickly and efficiently adapt policies learned in simulation to smoothly traverse real-world off-road terrain.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-06-08T06:05:32Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zechen Hu</name>
+    </author>
+    <author>
+      <name>Tong Xu</name>
+    </author>
+    <author>
+      <name>Xuesu Xiao</name>
+    </author>
+    <author>
+      <name>Xuan Wang</name>
+    </author>
+  </entry>
+</feed>

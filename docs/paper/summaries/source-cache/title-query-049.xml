@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/BvLyDca3gLTVZzGR+L73BdmUZDk</id>
+  <title>arXiv Query: search_query=ti:"RVN-Bench: A Benchmark for Reactive Visual Navigation" OR ti:"3D-CovDiffusion: 3D-Aware Diffusion Policy for Coverage Path Planning" OR ti:"TLC-Nav: Safe Trajectory Learning for Mapless Navigation with Trajectory-Level Constraints" OR ti:"Co-SDF: Learning Signed-Distance-Correlated Neural Fields in Configuration Space without Distance Supervision" OR ti:"DIRRT*-Connect: An Optimal Ellipsoidal Heuristic Sampling-Based Path Planning Algorithm Using Gradient Descent Optimization" OR ti:"MIGHTY: Hermite Spline-Based Efficient Trajectory Planning" OR ti:"Guaranteed Global Optimal Path Planning through Convex Segmentation and Homotopy Guidance" OR ti:"VR-DAgger: Immersive VR for Dexterous Data Collection and Uncertainty-Guided On-Policy Correction" OR ti:"Comparing Semi-Autonomous Strategies for Virtual Reality Based Remote Robotic Telemanipulation: On Peg-In-Hole Tasks" OR ti:"Toward Real-Time High-Fidelity Immersive Robotic Telepresence Via Online 3D Gaussian Splatting"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:38:04Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22RVN-Bench:+A+Benchmark+for+Reactive+Visual+Navigation%22+OR+(ti:%223D-CovDiffusion:+3D-Aware+Diffusion+Policy+for+Coverage+Path+Planning%22+OR+(ti:%22TLC-Nav:+Safe+Trajectory+Learning+for+Mapless+Navigation+with+Trajectory-Level+Constraints%22+OR+(ti:%22Co-SDF:+Learning+Signed-Distance-Correlated+Neural+Fields+in+Configuration+Space+without+Distance+Supervision%22+OR+(ti:%22DIRRT*-Connect:+An+Optimal+Ellipsoidal+Heuristic+Sampling-Based+Path+Planning+Algorithm+Using+Gradient+Descent+Optimization%22+OR+(ti:%22MIGHTY:+Hermite+Spline-Based+Efficient+Trajectory+Planning%22+OR+(ti:%22Guaranteed+Global+Optimal+Path+Planning+through+Convex+Segmentation+and+Homotopy+Guidance%22+OR+(ti:%22VR-DAgger:+Immersive+VR+for+Dexterous+Data+Collection+and+Uncertainty-Guided+On-Policy+Correction%22+OR+(ti:%22Comparing+Semi-Autonomous+Strategies+for+Virtual+Reality+Based+Remote+Robotic+Telemanipulation:+On+Peg-In-Hole+Tasks%22+OR+ti:%22Toward+Real-Time+High-Fidelity+Immersive+Robotic+Telepresence+Via+Online+3D+Gaussian+Splatting%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2605.27114v2</id>
+    <title>VR-DAgger: Immersive VR for Dexterous Data Collection and Uncertainty-Guided On-Policy Correction</title>
+    <updated>2026-05-28T19:27:21Z</updated>
+    <link href="https://arxiv.org/abs/2605.27114v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.27114v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Learning from demonstrations is effective for robotic manipulation, but collecting sufficient task-specific data remains a major bottleneck. Under distribution shift, small errors compound, performance degrades, and expert time is often spent on redundant, low-value corrections instead of the few critical failure cases. We present VR-DAgger, a human-in-the-loop framework centered on an immersive VR application for dexterous teleoperation, demonstration collection, and selective policy correction. The VR client provides intuitive hand control with synchronized scene visualization, while a backend workstation runs simulation and learning, enabling autonomous rollouts without continuous operator oversight. We use Monte Carlo (MC) dropout to score uncertainty during Isaac Lab rollouts of a diffusion policy and select informative failure segments for correction. These segments are replayed in VR as clips, where the operator selectively labels and corrects the policy's behavior, concentrating supervision where uncertainty is highest without full-rollout monitoring or a separate intervention classifier. We evaluate on three dexterous manipulation tasks (Pan pick-and-place, Drawer opening, Valve turning) with a 10-DoF XHand under standard and challenging initial configurations. Active labeling consistently improves over behavioral cloning across all tasks, with gains of up to 23 percentage points. Compared to unguided human-in-the-loop inspection, VR-DAgger reduces per-sample collection time by approximately 40% by focusing review on selected segments rather than full rollouts.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-26T14:52:39Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>René Zurbrügg</name>
+    </author>
+    <author>
+      <name>Tifanny Portela</name>
+    </author>
+    <author>
+      <name>Arjun Bhardwaj</name>
+    </author>
+    <author>
+      <name>Aravind Elanjimattathil Vijayan</name>
+    </author>
+    <author>
+      <name>Maximum Wilder-Smith</name>
+    </author>
+    <author>
+      <name>Marco Hutter</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2510.03011v2</id>
+    <title>3D-CovDiffusion: 3D-Aware Diffusion Policy for Coverage Path Planning</title>
+    <updated>2026-08-02T10:46:59Z</updated>
+    <link href="https://arxiv.org/abs/2510.03011v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.03011v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Diffusion models have shown strong potential for robot skill learning, yet their role in coverage path planning remains underexplored. In industrial surface processing (painting, polishing, spray coating), high coverage requires globally ordered, temporally coherent trajectories rather than stitching unordered local segments. We reformulate coverage path planning as conditional sequence generation and adopt a geometry-conditioned diffusion framework that synthesizes continuous trajectories directly from raw 3D point clouds. Our method produces temporally ordered trajectory chunks and avoids post-hoc heuristic ordering or stitching in prior learning-based methods via simple sequential concatenation, improving sequence-level consistency. A single shared policy generalizes across different geometries without category-specific architectures. Extensive benchmarks show substantial gains over prior learning-based baselines: 98.2\% lower point-wise Chamfer Distance (lower is better), 97.0\% lower jerk (smoother trajectories), and +67.5 percentage points overlapping surface coverage on average.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-03T13:55:57Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Chenyuan Chen</name>
+    </author>
+    <author>
+      <name>Haoran Ding</name>
+    </author>
+    <author>
+      <name>Ran Ding</name>
+    </author>
+    <author>
+      <name>Tianyu Liu</name>
+    </author>
+    <author>
+      <name>Zewen He</name>
+    </author>
+    <author>
+      <name>Anqing Duan</name>
+    </author>
+    <author>
+      <name>Yoshihiko Nakamura</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.10822v4</id>
+    <title>MIGHTY: Hermite Spline-based Efficient Trajectory Planning</title>
+    <updated>2026-03-25T18:42:21Z</updated>
+    <link href="https://arxiv.org/abs/2511.10822v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.10822v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Hard-constraint trajectory planners often rely on commercial solvers and demand substantial computational resources. Existing soft-constraint methods achieve faster computation, but either (1) decouple spatial and temporal optimization or (2) restrict the search space. To overcome these limitations, we introduce MIGHTY, a Hermite spline-based planner that performs spatiotemporal optimization while fully leveraging the continuous search space of a spline. In simulation, MIGHTY achieves a 9.3% reduction in computation time and a 13.1% reduction in travel time over state-of-the-art baselines, with a 100% success rate. In hardware, MIGHTY completes multiple high-speed flights up to 6.7 m/s in a cluttered static environment and long-duration flights with dynamically added obstacles.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-13T21:45:54Z</published>
+    <arxiv:comment>10 pages, 12 figures</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Kota Kondo</name>
+    </author>
+    <author>
+      <name>Yuwei Wu</name>
+    </author>
+    <author>
+      <name>Vijay Kumar</name>
+    </author>
+    <author>
+      <name>Jonathan P. How</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.03953v2</id>
+    <title>RVN-Bench: A Benchmark for Reactive Visual Navigation</title>
+    <updated>2026-07-11T11:02:35Z</updated>
+    <link href="https://arxiv.org/abs/2603.03953v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.03953v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Safe visual navigation is critical for indoor mobile robots operating in cluttered environments. Existing benchmarks, however, often neglect collisions or are designed for outdoor scenarios, making them unsuitable for indoor visual navigation. To address this limitation, we introduce the reactive visual navigation benchmark (RVN-Bench), a collision-aware benchmark for indoor mobile robots. In RVN-Bench, an agent must reach sequential goal positions in previously unseen environments using only visual observations and no prior map, while avoiding collisions. Built on the Habitat 2.0 simulator and leveraging high-fidelity HM3D scenes, RVN-Bench provides large-scale, diverse indoor environments, defines a collision-aware navigation task and evaluation metrics, and offers tools for standardized training and benchmarking. RVN-Bench supports both online and offline learning by offering an environment for online reinforcement learning, a trajectory image dataset generator, and tools for producing negative trajectory image datasets that capture collision events. Evaluations demonstrate that policies trained on RVN-Bench generalize effectively across unseen simulated environments. Furthermore, initial physical experiments using a Jackal UGV indicate promising sim-to-real transfer. Code and additional materials are available at: https://sequor-robotics-research.github.io/projects/RVN-Bench/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-04T11:26:26Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jaewon Lee</name>
+    </author>
+    <author>
+      <name>Jaeseok Heo</name>
+    </author>
+    <author>
+      <name>Gunmin Lee</name>
+    </author>
+    <author>
+      <name>Howoong Jun</name>
+    </author>
+    <author>
+      <name>Jeongwoo Oh</name>
+    </author>
+    <author>
+      <name>Songhwai Oh</name>
+    </author>
+  </entry>
+</feed>

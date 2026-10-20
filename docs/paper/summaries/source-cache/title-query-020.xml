@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/W16QkiI2kEiK4XeBoaLav+vvolI</id>
+  <title>arXiv Query: search_query=ti:"Revisiting Direct Control: A Field Evaluation of Sensor Fusion Efficacy in Teleoperating Full-Scale Autonomous Vehicles Via Bird's Eye View" OR ti:"OOPS: Out-Of-Distribution Policy Summarization" OR ti:"Mediating Human-Swarm Interactions through a Robot Helper: A Shepherding-Inspired Approach" OR ti:"Failure-Aware Multi-Robot Coordination for Resilient and Adaptive Target Tracking" OR ti:"Robust Geospatial Coordination of Multi-Agent Communications Networks under Attrition" OR ti:"Stratified Topological Autonomy for Long-Range Coordination (STALC)" OR ti:"Incremental Generalized Hybrid A*" OR ti:"Planning and Control for Deformable Linear Object Manipulation" OR ti:"REFLEX: Metacognitive Reasoning for Reflective Zero-Shot Robotic Planning with Large Language Models" OR ti:"Constrained Neuro-Symbolic Framework for Knowledge-Driven Task and Motion Planning"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:36:10Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Revisiting+Direct+Control:+A+Field+Evaluation+of+Sensor+Fusion+Efficacy+in+Teleoperating+Full-Scale+Autonomous+Vehicles+Via+Bird's+Eye+View%22+OR+(ti:%22OOPS:+Out-Of-Distribution+Policy+Summarization%22+OR+(ti:%22Mediating+Human-Swarm+Interactions+through+a+Robot+Helper:+A+Shepherding-Inspired+Approach%22+OR+(ti:%22Failure-Aware+Multi-Robot+Coordination+for+Resilient+and+Adaptive+Target+Tracking%22+OR+(ti:%22Robust+Geospatial+Coordination+of+Multi-Agent+Communications+Networks+under+Attrition%22+OR+(ti:%22Stratified+Topological+Autonomy+for+Long-Range+Coordination+(STALC)%22+OR+(ti:%22Incremental+Generalized+Hybrid+A*%22+OR+(ti:%22Planning+and+Control+for+Deformable+Linear+Object+Manipulation%22+OR+(ti:%22REFLEX:+Metacognitive+Reasoning+for+Reflective+Zero-Shot+Robotic+Planning+with+Large+Language+Models%22+OR+ti:%22Constrained+Neuro-Symbolic+Framework+for+Knowledge-Driven+Task+and+Motion+Planning%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>7</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2505.14899v3</id>
+    <title>REFLEX: Metacognitive Reasoning for Reflective Zero-Shot Robotic Planning with Large Language Models</title>
+    <updated>2026-03-02T20:01:50Z</updated>
+    <link href="https://arxiv.org/abs/2505.14899v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.14899v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>While large language models (LLMs) have shown great potential across various domains, their applications in robotics remain largely limited to static prompt-based behaviors and still face challenges in complex tasks under zero-shot or few-shot settings. Inspired by human metacognitive learning and creative problem-solving, we address this limitation by exploring a fundamental question: Can LLMs be empowered with metacognitive capabilities to reason, reflect, and create, thereby enhancing their ability to perform robotic tasks with minimal demonstrations? In this paper, we present REFLEX, a framework that integrates metacognitive learning into LLM-powered multi-robot collaboration. The system equips the LLM-powered robotic agents with a skill decomposition and self-reflection mechanism that identifies modular skills from prior tasks, reflects on failures in unseen task scenarios, and synthesizes effective new solutions. We propose a more challenging robotic benchmark task and evaluate our framework on the existing benchmark and the novel task. Experimental results show that our metacognitive learning framework significantly outperforms existing baselines. Moreover, we observe that our framework can generate solutions that differ from the ground truth yet still successfully complete the tasks. These findings support our hypothesis that metacognitive learning can foster creativity in robotic planning.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CL" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-20T20:51:18Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Wenjie Lin</name>
+    </author>
+    <author>
+      <name>Jin Wei-Kocsis</name>
+    </author>
+    <author>
+      <name>Jiansong Zhang</name>
+    </author>
+    <author>
+      <name>Byung-Cheol Min</name>
+    </author>
+    <author>
+      <name>Dongming Gan</name>
+    </author>
+    <author>
+      <name>Paul Asunda</name>
+    </author>
+    <author>
+      <name>Ragu Athinarayanan</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.10475v4</id>
+    <title>Stratified Topological Autonomy for Long-Range Coordination (STALC)</title>
+    <updated>2026-04-23T15:58:06Z</updated>
+    <link href="https://arxiv.org/abs/2503.10475v4" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.10475v4" rel="related" type="application/pdf" title="pdf"/>
+    <summary>In this paper, we present Stratified Topological Autonomy for Long-Range Coordination (STALC), a hierarchical planning approach for multi-robot coordination in real-world environments with significant inter-robot spatial and temporal dependencies. At its core, STALC consists of a multi-robot graph-based planner which combines a topological graph with a novel, computationally efficient mixed-integer programming formulation to generate highly-coupled multi-robot plans in seconds. To enable autonomous planning across different spatial and temporal scales, we construct our graphs so that they capture connectivity between free-space regions and other problem-specific features, such as traversability or risk. We then use receding-horizon planners to achieve local collision avoidance and formation control. To evaluate our approach, we consider a multi-robot reconnaissance scenario where robots must autonomously coordinate to navigate through an environment while minimizing the risk of detection by observers. Through simulation-based experiments, we show that our approach is able to scale to address complex multi-robot planning scenarios. Through hardware experiments, we demonstrate our ability to generate graphs from real-world data and successfully plan across the entire hierarchy to achieve shared objectives.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-13T15:45:27Z</published>
+    <arxiv:comment>©2026 IEEE. Personal use of this material is permitted. Permission from IEEE must be obtained for all other uses, in any current or future media, including reprinting/republishing this material for advertising or promotional purposes, creating new collective works, for resale or redistribution to servers or lists, or reuse of any copyrighted component of this work in other works</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Cora A. Duggan</name>
+    </author>
+    <author>
+      <name>Adam Goertz</name>
+    </author>
+    <author>
+      <name>Adam Polevoy</name>
+    </author>
+    <author>
+      <name>Mark Gonzales</name>
+    </author>
+    <author>
+      <name>Kevin C. Wolfe</name>
+    </author>
+    <author>
+      <name>Bradley Woosley</name>
+    </author>
+    <author>
+      <name>John G. Rogers</name>
+    </author>
+    <author>
+      <name>Joseph Moore</name>
+    </author>
+    <arxiv:doi>10.1109/TRO.2026.3686241</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TRO.2026.3686241" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2512.02079v2</id>
+    <title>Robust Geospatial Coordination of Multi-Agent Communications Networks Under Attrition</title>
+    <updated>2026-04-01T17:21:59Z</updated>
+    <link href="https://arxiv.org/abs/2512.02079v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2512.02079v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Coordinating emergency responses in extreme environments, such as wildfires, requires resilient and high-bandwidth communication backbones. While autonomous aerial swarms can establish ad-hoc networks to provide this connectivity, the high risk of individual node attrition in these settings often leads to network fragmentation and mission-critical downtime.
+  To overcome this challenge, we introduce and formalize the problem of Robust Task Networking Under Attrition (RTNUA), which extends connectivity maintenance in multi-robot systems to explicitly address proactive redundancy and attrition recovery. We then introduce Physics-Informed Robust Employment of Multi-Agent Networks ($Φ$IREMAN), a topological algorithm leveraging physics-inspired potential fields to solve this problem. In our evaluations, $Φ$IREMAN consistently outperforms baselines, and is able to maintain greater than $99.9\%$ task uptime despite substantial attrition in simulations with up to 100 tasks and 500 drones, demonstrating both effectiveness and scalability.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.MA" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="eess.SY" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-30T22:13:50Z</published>
+    <arxiv:comment>8 pages, 4 figures, 4 tables, accepted to IEEE RA-L</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Jonathan S. Kent</name>
+    </author>
+    <author>
+      <name>Eliana Stefani</name>
+    </author>
+    <author>
+      <name>Brian Plancher</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.02529v2</id>
+    <title>Failure-Aware Multi-Robot Coordination for Resilient and Adaptive Target Tracking</title>
+    <updated>2025-08-08T16:47:32Z</updated>
+    <link href="https://arxiv.org/abs/2508.02529v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.02529v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Multi-robot coordination is crucial for autonomous systems, yet real-world deployments often encounter various failures. These include both temporary and permanent disruptions in sensing and communication, which can significantly degrade system robustness and performance if not explicitly modeled. Despite its practical importance, failure-aware coordination remains underexplored in the literature. To bridge the gap between idealized conditions and the complexities of real-world environments, we propose a unified failure-aware coordination framework designed to enable resilient and adaptive multi-robot target tracking under both temporary and permanent failure conditions. Our approach systematically distinguishes between two classes of failures: (1) probabilistic and temporary disruptions, where robots recover from intermittent sensing or communication losses by dynamically adapting paths and avoiding inferred danger zones, and (2) permanent failures, where robots lose sensing or communication capabilities irreversibly, requiring sustained, decentralized behavioral adaptation. To handle these scenarios, the robot team is partitioned into subgroups. Robots that remain connected form a communication group and collaboratively plan using partially centralized nonlinear optimization. Robots experiencing permanent disconnection or failure continue to operate independently through decentralized or individual optimization, allowing them to contribute to the task within their local context. We extensively evaluate our method across a range of benchmark variations and conduct a comprehensive assessment under diverse real-world failure scenarios. Results show that our framework consistently achieves robust performance in realistic environments with unknown danger zones, offering a practical and generalizable solution for the multi-robot systems community.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-04T15:38:13Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Peihan Li</name>
+    </author>
+    <author>
+      <name>Jiazhen Liu</name>
+    </author>
+    <author>
+      <name>Yuwei Wu</name>
+    </author>
+    <author>
+      <name>Lifeng Zhou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.04007v1</id>
+    <title>Planning and Control for Deformable Linear Object Manipulation</title>
+    <updated>2025-03-06T01:44:36Z</updated>
+    <link href="https://arxiv.org/abs/2503.04007v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.04007v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Manipulating a deformable linear object (DLO) such as wire, cable, and rope is a common yet challenging task due to their high degrees of freedom and complex deformation behaviors, especially in an environment with obstacles. Existing local control methods are efficient but prone to failure in complex scenarios, while precise global planners are computationally intensive and difficult to deploy. This paper presents an efficient, easy-to-deploy framework for collision-free DLO manipulation using mobile manipulators. We demonstrate the effectiveness of leveraging standard planning tools for high-dimensional DLO manipulation without requiring custom planners or extensive data-driven models. Our approach combines an off-the-shelf global planner with a real-time local controller. The global planner approximates the DLO as a series of rigid links connected by spherical joints, enabling rapid path planning without the need for problem-specific planners or large datasets. The local controller employs control barrier functions (CBFs) to enforce safety constraints, maintain the DLO integrity, prevent overstress, and handle obstacle avoidance. It compensates for modeling inaccuracies by using a state-of-the-art position-based dynamics technique that approximates physical properties like Young's and shear moduli. We validate our framework through extensive simulations and real-world demonstrations. In complex obstacle scenarios-including tent pole transport, corridor navigation, and tasks requiring varied stiffness-our method achieves a 100% success rate over thousands of trials, with significantly reduced planning times compared to state-of-the-art techniques. Real-world experiments include transportation of a tent pole and a rope using mobile manipulators. We share our ROS-based implementation to facilitate adoption in various applications.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-06T01:44:36Z</published>
+    <arxiv:comment>SUBMITTED TO IEEE TRANSACTIONS ON AUTOMATION SCIENCE AND ENGINEERING (T-ASE)</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Burak Aksoy</name>
+    </author>
+    <author>
+      <name>John Wen</name>
+    </author>
+    <arxiv:doi>10.1109/TASE.2025.3635685</arxiv:doi>
+    <link rel="related" href="https://doi.org/10.1109/TASE.2025.3635685" title="doi"/>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2508.13392v3</id>
+    <title>Incremental Generalized Hybrid A*</title>
+    <updated>2025-12-09T03:30:57Z</updated>
+    <link href="https://arxiv.org/abs/2508.13392v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2508.13392v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We address the problem of efficiently organizing search over very large trees, which arises in many applications ranging from autonomous driving to aerial vehicles. Here, we are motivated by off-road autonomy, where real-time planning is essential. Classical approaches use graphs of motion primitives and exploit dominance to mitigate the curse of dimensionality and prune expansions efficiently. However, for complex dynamics, repeatedly solving two-point boundary-value problems makes graph construction too slow for fast kinodynamic planning. Hybrid A* (HA*) addressed this challenge by searching over a tree of motion primitives and introducing approximate pruning using a grid-based dominance check. However, choosing the grid resolution is difficult: too coarse risks failure, while too fine leads to excessive expansions and slow planning. We propose Incremental Generalized Hybrid A* (IGHA*), an anytime tree-search framework that dynamically organizes vertex expansions without rigid pruning. IGHA* provably matches or outperforms HA*. For both on-road kinematic and off-road kinodynamic planning queries for a car-like robot, variants of IGHA* use 6x fewer expansions to the best solution compared to an optimized version of HA* (HA*M, an internal baseline). In simulated off-road experiments in a high-fidelity simulator, IGHA* outperforms HA*M when both are used in the loop with a model predictive controller. We demonstrate real-time performance both in simulation and on a small-scale off-road vehicle, enabling fast, robust planning under complex dynamics. Website: https://personalrobotics.github.io/IGHAStar/</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-08-18T22:41:28Z</published>
+    <arxiv:comment>8 pages, 7 figures, Accepted to IEEE RA-L, Nov 2025</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sidharth Talia</name>
+    </author>
+    <author>
+      <name>Oren Salzman</name>
+    </author>
+    <author>
+      <name>Siddhartha Srinivasa</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2605.30647v2</id>
+    <title>Bidirectional Incremental Generalized Hybrid A*</title>
+    <updated>2026-10-05T21:11:37Z</updated>
+    <link href="https://arxiv.org/abs/2605.30647v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2605.30647v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We focus on the problem of efficient anytime kinodynamic planning for systems with complex dynamics in unstructured environments that make using precomputed motion primitives infeasible. Directly applying A* here is computationally infeasible due to the curse of dimensionality. Methods such as Hybrid A* (HA*) address this by pruning the search tree by discretizing the state space, but the coupling between pruning and discretization resolution can eliminate a vertex on the solution path. The Incremental Generalized Hybrid A* (IGHA*) breaks this coupling by organizing anytime search over a hierarchy of resolutions and by freezing vertices for later expansion rather than pruning. However, IGHA* can still freeze a vertex on the solution path, forcing the search to spend expansions elsewhere before reaching it. Our key insight is that bidirectional-IGHA* (Bi-IGHA*) not only gains the expected reduction in effective search depth from classical bidirectionality, but also mitigates this frozen-vertex barrier: when one search is blocked, the opposing search can reach it at a low resolution. We formalize this structural separation between Bi-IGHA* and IGHA* and empirically show a reduction in effective branching factor beyond the theoretical expectation from classic bidirectionality alone. Through open- loop experiments in R3, R4, and R6, we show that Bi- IGHA* substantially reduces expansions over IGHA*. Closed- loop experiments further demonstrate improved performance and feasibility in simulation and on a real-world robotic system. Link to Website: https://personalrobotics.github.io/IGHAStar/biighastar.html</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-05-28T23:04:37Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Sidharth Talia</name>
+    </author>
+    <author>
+      <name>Oren Salzman</name>
+    </author>
+    <author>
+      <name>Siddhartha Srinivasa</name>
+    </author>
+  </entry>
+</feed>

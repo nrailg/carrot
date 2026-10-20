@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/mLijArAzed4pgfb2600UExel/gg</id>
+  <title>arXiv Query: search_query=ti:"SemanticFlow: A Self-Supervised Framework for Joint Scene Flow Prediction and Instance Segmentation in Dynamic Environments" OR ti:"Perception-Aware Multimodal Spatial Reasoning from Monocular Images" OR ti:"Off-Road Navigation Via Implicit Neural Representation of Terrain Traversability" OR ti:"QuasittudeNet: Self-Supervised Network for Vehicle Attitude Estimation" OR ti:"TIDY: Thermal Infrared Image Denoising Via Wavelet Domain Entropy and Directional Stripe Index" OR ti:"ViDi-Nav: Fast and Robust Obstacle-Aware Vision-Based Navigation on Uneven Terrain Via Differentiable Physics" OR ti:"LoRANav: Structurally-Constrained Low-Rank Adaptation for Open-Vocabulary Object Goal Navigation" OR ti:"SenseExpo: Spatial Exploration and Navigation Via Scene Estimation from Expeditious Predictive Operators" OR ti:"REST: Receding Horizon Explorative Steiner Tree for Zero-Shot Object-Goal Navigation" OR ti:"EPANav: An Exploration-Progress-Aware Object Navigation Framework"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:42:47Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22SemanticFlow:+A+Self-Supervised+Framework+for+Joint+Scene+Flow+Prediction+and+Instance+Segmentation+in+Dynamic+Environments%22+OR+(ti:%22Perception-Aware+Multimodal+Spatial+Reasoning+from+Monocular+Images%22+OR+(ti:%22Off-Road+Navigation+Via+Implicit+Neural+Representation+of+Terrain+Traversability%22+OR+(ti:%22QuasittudeNet:+Self-Supervised+Network+for+Vehicle+Attitude+Estimation%22+OR+(ti:%22TIDY:+Thermal+Infrared+Image+Denoising+Via+Wavelet+Domain+Entropy+and+Directional+Stripe+Index%22+OR+(ti:%22ViDi-Nav:+Fast+and+Robust+Obstacle-Aware+Vision-Based+Navigation+on+Uneven+Terrain+Via+Differentiable+Physics%22+OR+(ti:%22LoRANav:+Structurally-Constrained+Low-Rank+Adaptation+for+Open-Vocabulary+Object+Goal+Navigation%22+OR+(ti:%22SenseExpo:+Spatial+Exploration+and+Navigation+Via+Scene+Estimation+from+Expeditious+Predictive+Operators%22+OR+(ti:%22REST:+Receding+Horizon+Explorative+Steiner+Tree+for+Zero-Shot+Object-Goal+Navigation%22+OR+ti:%22EPANav:+An+Exploration-Progress-Aware+Object+Navigation+Framework%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>6</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2603.18624v2</id>
+    <title>REST: Receding Horizon Explorative Steiner Tree for Zero-Shot Object-Goal Navigation</title>
+    <updated>2026-07-16T09:15:06Z</updated>
+    <link href="https://arxiv.org/abs/2603.18624v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.18624v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Zero-shot object-goal navigation (ZSON) requires navigating unknown environments to find a target object without task-specific training. Prior hierarchical solutions mainly focus on either scene understanding and representations (belief) or high-level decision-making and planning (policy), yet treat the option, i.e., the subgoal candidate that belief proposes and policy selects, as an interface inherited from adjacent modules rather than a design axis in its own right. In practice, options are predominantly single waypoints scored by destination utility: a lone destination hides the value gathered en route, and a flat list obscures the relationships among candidates. Our insight is that the option space should be a tree of paths. Full paths expose en-route information gain that destination-only scoring systematically neglects; a tree of shared segments enables coarse-to-fine LLM reasoning that dismisses or pursues entire branches before examining individual leaves, compressing the combinatorial path space into an efficient hierarchy. We instantiate this insight in REST (Receding Horizon Explorative Steiner Tree), a training-free framework that (1) builds an explicit open-vocabulary 3D map from online RGB-D streams; (2) grows an agent-centric tree of safe and informative paths as the option space via sampling-based planning; and (3) textualizes each branch into a spatial narrative and selects the next-best path through chain-of-thought LLM reasoning. Across the Gibson, HM3D, and HSSD benchmarks, REST consistently ranks among the top methods in success rate and path efficiency.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-19T08:43:40Z</published>
+    <arxiv:comment>Accepted to IROS'26</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Shuqi Xiao</name>
+    </author>
+    <author>
+      <name>Maani Ghaffari</name>
+    </author>
+    <author>
+      <name>Chengzhong Xu</name>
+    </author>
+    <author>
+      <name>Hui Kong</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.16000v2</id>
+    <title>SenseExpo: Spatial Exploration and Navigation via Scene Estimation from Expeditious Predictive Operators</title>
+    <updated>2026-06-20T15:22:53Z</updated>
+    <link href="https://arxiv.org/abs/2503.16000v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.16000v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>We present \textbf{SenseExpo}, a lightweight single-robot exploration framework that integrates a compact map prediction network into a frontier-based strategy. SenseExpo addresses two long-standing challenges in classical methods -- high computational overhead and poor environmental generalization. Our prediction network combines Generative Adversarial Networks (GANs), Transformers, and Fast Fourier Convolution (FFC) to achieve a remarkably small footprint of only 709K parameters. Despite its compactness, SenseExpo outperforms U-Net (24.5M) and LaMa (51M) on the KTH dataset, achieving PSNR 9.026 and SSIM 0.718, representing a 38.7\% PSNR gain over LaMa. Cross-domain evaluation further verifies strong generalization with an FID of 161.55 on HouseExpo. In exploration experiments, SenseExpo reaches target coverage 67.9\% faster on KTH and 77.1\% faster on MRPB~1.0 than a MapEx-style global obstacle-prediction baseline under the same simulator; because the methods predict different map semantics, this comparison evaluates planning utility rather than a direct predictor ranking. Implemented as a plug-and-play ROS (Robot Operating System) node, our framework integrates with existing navigation stacks, providing an efficient solution for resource-constrained robotic systems.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-20T10:07:51Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Haojia Gao</name>
+    </author>
+    <author>
+      <name>Haohua Que</name>
+    </author>
+    <author>
+      <name>Mingkai Liu</name>
+    </author>
+    <author>
+      <name>Jiayue Xie</name>
+    </author>
+    <author>
+      <name>Hoiian Au</name>
+    </author>
+    <author>
+      <name>Yusen Qin</name>
+    </author>
+    <author>
+      <name>Qian Zhang</name>
+    </author>
+    <author>
+      <name>Jiajun Sun</name>
+    </author>
+    <author>
+      <name>Weihao Shan</name>
+    </author>
+    <author>
+      <name>Tianle Zhu</name>
+    </author>
+    <author>
+      <name>Handong Yao</name>
+    </author>
+    <author>
+      <name>Fei Qiao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2606.19813v1</id>
+    <title>TIDY: Thermal Infrared Image Denoising via Wavelet Domain Entropy and Directional Stripe Index</title>
+    <updated>2026-06-18T05:42:50Z</updated>
+    <link href="https://arxiv.org/abs/2606.19813v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2606.19813v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Thermal infrared (TIR) imaging has been a popular choice for field robotics due to its robust perception capability under low light visual degradation, but it suffers from severe stochastic and fixed-pattern noise that breaks downstream estimation. This noise is intensified indoors due to low thermal contrast and uniform temperature distributions, contributing to the relative lack of indoor TIR deployments. Existing TIR denoising methods exhibit a poor accuracy-efficiency tradeoff, either too slow for online deployment required in robotics or insufficiently robust to severe degradation, while typically being trained on synthetic noise. Addressing these problems, we propose TIDY, a lightweight wavelet-domain denoiser trained on real clean-noisy TIR data. By reformulating TIR denoising in the wavelet domain, TIDY explicitly disentangles noise from structural content, enabling targeted suppression with reduced spatial complexity, significantly improving inference speed over prior methods (~34Hz). TIDY introduces two new metrics, Wavelet Entropy and Wavelet Directional Stripe Index, as complementary loss terms to explicitly suppress stochastic noise and stripe artifacts. Across severe indoor corruption and zero-shot settings, TIDY improves robustness and yields consistent gains in downstream robotics tasks including thermal inertial odometry and monocular depth estimation. Code and dataset is available at: https://github.com/williamrheeth/TIDY</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-06-18T05:42:50Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Tai Hyoung Rhee</name>
+    </author>
+    <author>
+      <name>Dong-Guw Lee</name>
+    </author>
+    <author>
+      <name>Ayoung Kim</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2503.14837v1</id>
+    <title>SemanticFlow: A Self-Supervised Framework for Joint Scene Flow Prediction and Instance Segmentation in Dynamic Environments</title>
+    <updated>2025-03-19T02:43:19Z</updated>
+    <link href="https://arxiv.org/abs/2503.14837v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2503.14837v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Accurate perception of dynamic traffic scenes is crucial for high-level autonomous driving systems, requiring robust object motion estimation and instance segmentation. However, traditional methods often treat them as separate tasks, leading to suboptimal performance, spatio-temporal inconsistencies, and inefficiency in complex scenarios due to the absence of information sharing. This paper proposes a multi-task SemanticFlow framework to simultaneously predict scene flow and instance segmentation of full-resolution point clouds. The novelty of this work is threefold: 1) developing a coarse-to-fine prediction based multi-task scheme, where an initial coarse segmentation of static backgrounds and dynamic objects is used to provide contextual information for refining motion and semantic information through a shared feature processing module; 2) developing a set of loss functions to enhance the performance of scene flow estimation and instance segmentation, while can help ensure spatial and temporal consistency of both static and dynamic objects within traffic scenes; 3) developing a self-supervised learning scheme, which utilizes coarse segmentation to detect rigid objects and compute their transformation matrices between sequential frames, enabling the generation of self-supervised labels. The proposed framework is validated on the Argoverse and Waymo datasets, demonstrating superior performance in instance segmentation accuracy, scene flow estimation, and computational efficiency, establishing a new benchmark for self-supervised methods in dynamic scene understanding.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-03-19T02:43:19Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yinqi Chen</name>
+    </author>
+    <author>
+      <name>Meiying Zhang</name>
+    </author>
+    <author>
+      <name>Qi Hao</name>
+    </author>
+    <author>
+      <name>Guang Zhou</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2511.18183v3</id>
+    <title>Off-Road Navigation via Implicit Neural Representation of Terrain Traversability</title>
+    <updated>2026-02-27T18:48:43Z</updated>
+    <link href="https://arxiv.org/abs/2511.18183v3" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2511.18183v3" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Autonomous off-road navigation requires robots to estimate terrain traversability from onboard sensors and plan motion accordingly. Conventional approaches typically rely on sampling-based planners such as MPPI to generate short-term control actions that aim to minimize traversal time and risk measures derived from the traversability estimates. These planners can react quickly but optimize only over a short look-ahead window, limiting their ability to reason about the full path geometry, which is important for navigating in challenging off-road environments. Moreover, they lack the ability to adjust speed based on the terrain-induced vibrations, which is important for smooth navigation on challenging terrains. In this paper, we introduce TRAIL (Traversability with an Implicit Learned Representation), an off-road navigation framework that leverages an implicit neural representation to model terrain properties as a continuous field that can be queried at arbitrary locations. This representation yields spatial gradients that enable integration with a novel gradient-based trajectory optimization method that adapts the path geometry and speed profile based on terrain traversability.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-11-22T20:39:31Z</published>
+    <arxiv:comment>Full version: 10 pages</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Yixuan Jia</name>
+    </author>
+    <author>
+      <name>Qingyuan Li</name>
+    </author>
+    <author>
+      <name>Jonathan P. How</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.06985v1</id>
+    <title>Perception-Aware Multimodal Spatial Reasoning from Monocular Images</title>
+    <updated>2026-03-07T02:05:12Z</updated>
+    <link href="https://arxiv.org/abs/2603.06985v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.06985v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Spatial reasoning from monocular images is essential for autonomous driving, yet current Vision-Language Models (VLMs) still struggle with fine-grained geometric perception, particularly under large scale variation and ambiguous object appearance. We propose a simple yet effective perception-aware multimodal reasoning framework that equips VLMs with explicit object-centric grounding ability. Instead of relying on textual bounding-box outputs, each referred object is represented using all Visual Reference Tokens (VRTs) within its spatial extent, enabling visual evidence and textual reasoning to be processed jointly in a unified token space. To further strengthen cross-modal interaction, we construct a Multimodal Chain-of-Thought (MM-CoT) dataset that injects aligned visual and textual reasoning signals. A deterministic ordering strategy is introduced to make supervision over inherently unordered VRT sets fully compatible with the VLM's autoregressive next-token prediction. With only standard supervised fine-tuning, our method achieves substantial improvements on the SURDS benchmark, outperforming previous approaches - including those using RL-based post-training - by a large margin across both single-object and multi-object tasks. These results demonstrate that accurate perception and multimodal reasoning are mutually reinforcing, and together form the key to robust spatial understanding in challenging monocular driving scenarios.</summary>
+    <category term="cs.CV" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-07T02:05:12Z</published>
+    <arxiv:primary_category term="cs.CV"/>
+    <author>
+      <name>Yanchun Cheng</name>
+    </author>
+    <author>
+      <name>Rundong Wang</name>
+    </author>
+    <author>
+      <name>Xulei Yang</name>
+    </author>
+    <author>
+      <name>Alok Prakash</name>
+    </author>
+    <author>
+      <name>Daniela Rus</name>
+    </author>
+    <author>
+      <name>Marcelo H Ang</name>
+    </author>
+    <author>
+      <name>ShiJie Li</name>
+    </author>
+  </entry>
+</feed>

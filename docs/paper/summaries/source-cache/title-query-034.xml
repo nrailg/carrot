@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<feed xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:arxiv="http://arxiv.org/schemas/atom" xmlns="http://www.w3.org/2005/Atom">
+  <id>https://arxiv.org/api/haAwFaAVFGdqSW5pm3AvqgHC2+g</id>
+  <title>arXiv Query: search_query=ti:"Lateral Pleated Pneumatic Artificial Muscles: High-Contraction and Extended High-Force Range Actuators for Soft Robotics" OR ti:"LED Pouch Motor: Wavelength Selective Wireless Actuation of Dyed Liquid-To-Gas Phase Change Actuators Using LEDs" OR ti:"Bio-Inspired Event-Frame Dual-Modal Tactile Sensor for Texture and Stiffness Classification" OR ti:"A Multi-Modal Tactile Fingertip Design for Robotic Hands to Enhance Dexterous Manipulation" OR ti:"A Whisker-Like 2D Contact Sensor for Environmental Perception of Mobile Robots" OR ti:"Canonical Policy: Learning Canonical 3D Representation for SE(3)-Equivariant Policy" OR ti:"EasyInsert: A Data Efficient and Generalizable Insertion Policy" OR ti:"Sampling-Based Motion Planning with Scene Graphs under Perception Constraints" OR ti:"Edge Nearest Neighbor: Neighbor-Finding Revisited in Sampling-Based Motion Planning" OR ti:"Can We Get There Faster: Tuning Sample-Based Path Planners"&amp;id_list=&amp;start=0&amp;max_results=100</title>
+  <updated>2026-10-12T09:37:05Z</updated>
+  <link href="https://arxiv.org/api/query?search_query=ti:%22Lateral+Pleated+Pneumatic+Artificial+Muscles:+High-Contraction+and+Extended+High-Force+Range+Actuators+for+Soft+Robotics%22+OR+(ti:%22LED+Pouch+Motor:+Wavelength+Selective+Wireless+Actuation+of+Dyed+Liquid-To-Gas+Phase+Change+Actuators+Using+LEDs%22+OR+(ti:%22Bio-Inspired+Event-Frame+Dual-Modal+Tactile+Sensor+for+Texture+and+Stiffness+Classification%22+OR+(ti:%22A+Multi-Modal+Tactile+Fingertip+Design+for+Robotic+Hands+to+Enhance+Dexterous+Manipulation%22+OR+(ti:%22A+Whisker-Like+2D+Contact+Sensor+for+Environmental+Perception+of+Mobile+Robots%22+OR+(ti:%22Canonical+Policy:+Learning+Canonical+3D+Representation+for+SE(3)-Equivariant+Policy%22+OR+(ti:%22EasyInsert:+A+Data+Efficient+and+Generalizable+Insertion+Policy%22+OR+(ti:%22Sampling-Based+Motion+Planning+with+Scene+Graphs+under+Perception+Constraints%22+OR+(ti:%22Edge+Nearest+Neighbor:+Neighbor-Finding+Revisited+in+Sampling-Based+Motion+Planning%22+OR+ti:%22Can+We+Get+There+Faster:+Tuning+Sample-Based+Path+Planners%22))))))))&amp;start=0&amp;max_results=100&amp;id_list=" type="application/atom+xml"/>
+  <opensearch:itemsPerPage>100</opensearch:itemsPerPage>
+  <opensearch:totalResults>4</opensearch:totalResults>
+  <opensearch:startIndex>0</opensearch:startIndex>
+  <entry>
+    <id>http://arxiv.org/abs/2510.05382v2</id>
+    <title>A multi-modal tactile fingertip design for robotic hands to enhance dexterous manipulation</title>
+    <updated>2026-09-27T05:39:18Z</updated>
+    <link href="https://arxiv.org/abs/2510.05382v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2510.05382v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Tactile sensing is critical for enhancing manipulation precision and versatility, but its adoption in robotic hands remains limited due to high sensor costs, manufacturing and integration challenges, and difficulties in extracting expressive and reliable contact information. In this work, we present a low-cost, easy-to-make, adaptable, and compact fingertip design for robotic hands that integrates multi-modal tactile sensors. We use strain gauge sensors to capture static forces and a contact microphone sensor to measure high-frequency vibrations during contact. These tactile sensors are integrated into a compact design with a minimal sensor footprint. From sensor characterization, we show that strain gauge sensors provide repeatable 3D force measurements in the 0-5~N range and the contact microphone sensor can captures distinct vibrotactile signatures associated with different material types. We evaluate our design with three types of manipulation tasks, including slip-aware closed-loop grasping to handle a wide range of objects, cup counting and unstacking with precise contact localization, and box selection and opening with hidden material identification. Given the expressiveness and reliability of tactile sensor readings, we show that different tactile sensing modalities can be used flexibly in manipulation, solely or together to achieve improved task performance. The design will be open-sourced on the project website: https://sites.google.com/view/tactilefingertip.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-10-06T21:17:35Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhuowei Xu</name>
+    </author>
+    <author>
+      <name>Zilin Si</name>
+    </author>
+    <author>
+      <name>Oliver Kroemer</name>
+    </author>
+    <author>
+      <name>Zeynep Temel</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.18474v2</id>
+    <title>Canonical Policy: Learning Canonical 3D Representation for SE(3)-Equivariant Policy</title>
+    <updated>2025-11-08T04:33:46Z</updated>
+    <link href="https://arxiv.org/abs/2505.18474v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.18474v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Visual Imitation learning has achieved remarkable progress in robotic manipulation, yet generalization to unseen objects, scene layouts, and camera viewpoints remains a key challenge. Recent advances address this by using 3D point clouds, which provide geometry-aware, appearance-invariant representations, and by incorporating equivariance into policy architectures to exploit spatial symmetries. However, existing equivariant approaches often lack interpretability and rigor due to unstructured integration of equivariant components. We introduce canonical policy, a principled framework for 3D equivariant imitation learning that unifies 3D point cloud observations under a canonical representation. We first establish a theory of 3D canonical representations, enabling equivariant observation-to-action mappings by grouping both seen and novel point clouds to a canonical representation. We then propose a flexible policy learning pipeline that leverages geometric symmetries from canonical representation and the expressiveness of modern generative models. We validate canonical policy on 12 diverse simulated tasks and 4 real-world manipulation tasks across 16 configurations, involving variations in object color, shape, camera viewpoint, and robot platform. Compared to state-of-the-art imitation learning policies, canonical policy achieves an average improvement of 18.0% in simulation and 39.7% in real-world experiments, demonstrating superior generalization capability and sample efficiency. For more details, please refer to the project website: https://zhangzhiyuanzhang.github.io/cp-website/.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-24T02:37:58Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Zhiyuan Zhang</name>
+    </author>
+    <author>
+      <name>Zhengtong Xu</name>
+    </author>
+    <author>
+      <name>Jai Nanda Lakamsani</name>
+    </author>
+    <author>
+      <name>Yu She</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2505.16187v2</id>
+    <title>EasyInsert: A Data-Efficient and Generalizable Insertion Policy</title>
+    <updated>2026-03-09T14:38:12Z</updated>
+    <link href="https://arxiv.org/abs/2505.16187v2" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2505.16187v2" rel="related" type="application/pdf" title="pdf"/>
+    <summary>Robotic insertion is a highly challenging task that requires exceptional precision in cluttered environments. Existing methods often have poor generalization capabilities. They typically function in restricted and structured environments, and frequently fail when the plug and socket are far apart, when the scene is densely cluttered, or when handling novel objects. They also rely on strong assumptions such as access to CAD models or a digital twin in simulation. To address these limitations, we propose EasyInsert. Inspired by human intuition, it formulates insertion as a delta-pose regression problem, which unlocks an efficient, highly scalable data collection pipeline with minimal human labor to train an end-to-end visual policy. During execution, the visual policy predicts the relative pose between plug and socket to drive a multi-phase, coarse-to-fine insertion process. EasyInsert demonstrates strong zero-shot generalization capability for unseen objects in cluttered environments, robustly handling cases with significant initial pose deviations. In real-world experiments, by leveraging just 1 hour of human teleoperation data to bootstrap a large-scale automated data collection process, EasyInsert achieves an over 90% success rate in zero-shot insertion for 13 out of 15 unseen novel objects, including challenging objects like Type-C cables, HDMI cables, and Ethernet cables. Furthermore, requiring only a single manual reset, EasyInsert allows for fast adaptation to novel test objects through automated data collection and fine-tuning, achieving an over 90% success rate across all 15 objects.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <category term="cs.AI" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2025-05-22T03:46:05Z</published>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Guanghe Li</name>
+    </author>
+    <author>
+      <name>Junming Zhao</name>
+    </author>
+    <author>
+      <name>Shengjie Wang</name>
+    </author>
+    <author>
+      <name>Yang Gao</name>
+    </author>
+  </entry>
+  <entry>
+    <id>http://arxiv.org/abs/2603.03514v1</id>
+    <title>Sampling-Based Motion Planning with Scene Graphs Under Perception Constraints</title>
+    <updated>2026-03-03T20:46:00Z</updated>
+    <link href="https://arxiv.org/abs/2603.03514v1" rel="alternate" type="text/html"/>
+    <link href="https://arxiv.org/pdf/2603.03514v1" rel="related" type="application/pdf" title="pdf"/>
+    <summary>It will be increasingly common for robots to operate in cluttered human-centered environments such as homes, workplaces, and hospitals, where the robot is often tasked to maintain perception constraints, such as monitoring people or multiple objects, for safety and reliability while executing its task. However, existing perception-aware approaches typically focus on low-degree-of-freedom (DoF) systems or only consider a single object in the context of high-DoF robots. This motivates us to consider the problem of perception-aware motion planning for high-DoF robots that accounts for multi-object monitoring constraints. We employ a scene graph representation of the environment, offering a great potential for incorporating long-horizon task and motion planning thanks to its rich semantic and spatial information. However, it does not capture perception-constrained information, such as the viewpoints the user prefers. To address these challenges, we propose MOPS-PRM, a roadmap-based motion planner, that integrates the perception cost of observing multiple objects or humans directly into motion planning for high-DoF robots. The perception cost is embedded to each object as part of a scene graph, and used to selectively sample configurations for roadmap construction, implicitly enforcing the perception constraints. Our method is extensively validated in both simulated and real-world experiments, achieving more than ~36% improvement in the average number of detected objects and ~17% better track rate against other perception-constrained baselines, with comparable planning times and path lengths.</summary>
+    <category term="cs.RO" scheme="http://arxiv.org/schemas/atom"/>
+    <published>2026-03-03T20:46:00Z</published>
+    <arxiv:comment>8 pages, 5 figures, Accepted to R-AL</arxiv:comment>
+    <arxiv:primary_category term="cs.RO"/>
+    <author>
+      <name>Qingxi Meng</name>
+    </author>
+    <author>
+      <name>Emiliano Flores</name>
+    </author>
+    <author>
+      <name>Thai Duong</name>
+    </author>
+    <author>
+      <name>Vaibhav Unhelkar</name>
+    </author>
+    <author>
+      <name>Lydia E. Kavraki</name>
+    </author>
+  </entry>
+</feed>

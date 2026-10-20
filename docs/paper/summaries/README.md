@@ -4,7 +4,11 @@
 
 已于 2026-10-13 完成本轮全部 205 批提取和质量检查。9659 条来源记录映射为 9073 个保守去重条目：7551 条摘要支持、641 条范围外候选、881 条信息不足。待提取、必审待复核和未解决返工均为 0。
 
-最终入口：[问题地图](../problem-map.md) · [逐篇结果](../paper-summaries.jsonl) · [验收记录](final-validation.json)。问题地图包含 12 大类、各类 3–5 篇代表论文，共 57 个代表条目。
+最终入口：[HTML 阅读页](../problem-map.html) · [问题地图](../problem-map.md) · [逐篇结果](../paper-summaries.jsonl) · [验收记录](final-validation.json)。问题地图包含 12 大类、各类 3–5 篇代表论文，共 57 个代表条目。
+
+HTML 阅读页支持分类切换、代表论文全文搜索和独立论文卡片，将问题、方法步骤与实验边界分区展示。页面为单文件，可离线打开；在仓库根目录执行 `python3 docs/paper/summaries/tools/build_html.py` 可重新生成，与 Markdown 阅读版共用已复核的代表论文解释。
+
+问题地图的阅读版将代表论文展开为完整段落，使用 `representative-explanations.json` 保存解释，使用 `map-editorial.json` 保存分类说明和术语表。解释绑定原摘要结果的哈希；修改原记录后需要重新核对。`tools/build_map.py` 从这些文件生成问题地图，避免重新生成时覆盖可读性修改。逐篇 JSONL 仍保留原来的紧凑结构化记录，不能视为全部条目均已完成详细改写。
 
 - `canonical-inputs.jsonl`：保守去重后的输入与摘要证据。
 - `source-ledger.jsonl`：每条原始来源记录到论文条目的映射。

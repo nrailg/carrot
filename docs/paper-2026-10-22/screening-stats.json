@@ -1,0 +1,88 @@
+{
+  "CoRL": {
+    "total": 687,
+    "abstracts": 687,
+    "statuses": {
+      "ai-related": 687
+    },
+    "tags": {
+      "vla-foundation": 225,
+      "reinforcement-learning": 271,
+      "imitation-policy": 169,
+      "other-robot-learning": 189,
+      "representation-adaptation": 80,
+      "ai-data-evaluation": 55,
+      "world-models": 86,
+      "generative-models": 48,
+      "neural-control": 7,
+      "learned-perception": 10,
+      "symbolic-ai-planning": 7
+    }
+  },
+  "RSS": {
+    "total": 210,
+    "abstracts": 210,
+    "statuses": {
+      "ai-related": 164,
+      "candidate": 6,
+      "unmarked": 40
+    },
+    "tags": {
+      "imitation-policy": 36,
+      "vla-foundation": 44,
+      "ai-data-evaluation": 18,
+      "other-robot-learning": 34,
+      "world-models": 16,
+      "representation-adaptation": 30,
+      "generative-models": 21,
+      "reinforcement-learning": 30,
+      "neural-control": 8,
+      "learned-perception": 11,
+      "symbolic-ai-planning": 2
+    }
+  },
+  "ICRA": {
+    "total": 2898,
+    "abstracts": 2761,
+    "statuses": {
+      "unmarked": 1152,
+      "ai-related": 1680,
+      "candidate": 66
+    },
+    "tags": {
+      "representation-adaptation": 205,
+      "learned-perception": 476,
+      "reinforcement-learning": 306,
+      "ai-data-evaluation": 94,
+      "vla-foundation": 212,
+      "neural-control": 700,
+      "other-robot-learning": 608,
+      "generative-models": 74,
+      "imitation-policy": 293,
+      "symbolic-ai-planning": 92,
+      "world-models": 26
+    }
+  },
+  "IROS": {
+    "total": 2078,
+    "abstracts": 2058,
+    "statuses": {
+      "ai-related": 1208,
+      "unmarked": 812,
+      "candidate": 58
+    },
+    "tags": {
+      "vla-foundation": 219,
+      "symbolic-ai-planning": 30,
+      "other-robot-learning": 462,
+      "reinforcement-learning": 259,
+      "imitation-policy": 193,
+      "learned-perception": 266,
+      "neural-control": 514,
+      "generative-models": 46,
+      "ai-data-evaluation": 64,
+      "representation-adaptation": 146,
+      "world-models": 25
+    }
+  }
+}

@@ -1,0 +1,2209 @@
+{
+  "rss-2026:p001": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p003": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "world-models",
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p004": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "generative-models",
+      "representation-adaptation"
+    ]
+  },
+  "rss-2026:p005": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models"
+    ]
+  },
+  "rss-2026:p008": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "generative-models"
+    ]
+  },
+  "rss-2026:p024": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p030": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p037": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "ai-data-evaluation",
+      "reinforcement-learning",
+      "imitation-policy",
+      "vla-foundation"
+    ],
+    "ai_basis": "人工摘要复核：USER 提供真机异步在线策略学习系统，支持模仿学习、强化学习和 VLA。"
+  },
+  "rss-2026:p051": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "rss-2026:p055": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "generative-models"
+    ]
+  },
+  "rss-2026:p056": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "ai-data-evaluation"
+    ]
+  },
+  "rss-2026:p059": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models"
+    ]
+  },
+  "rss-2026:p060": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "world-models",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p067": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation",
+      "ai-data-evaluation"
+    ]
+  },
+  "rss-2026:p069": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "representation-adaptation"
+    ]
+  },
+  "rss-2026:p075": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p076": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "ai-data-evaluation"
+    ]
+  },
+  "rss-2026:p082": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "rss-2026:p084": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p096": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation"
+    ]
+  },
+  "rss-2026:p098": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "reinforcement-learning",
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p114": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "rss-2026:p115": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p116": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p119": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p121": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p128": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p129": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p134": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p137": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p139": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "imitation-policy",
+      "reinforcement-learning"
+    ],
+    "ai_basis": "人工摘要复核：系统研究控制器增益对离线模仿、强化学习及 sim-to-real 的影响。"
+  },
+  "rss-2026:p141": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p143": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "rss-2026:p147": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "representation-adaptation"
+    ]
+  },
+  "rss-2026:p149": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "world-models"
+    ]
+  },
+  "rss-2026:p150": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "rss-2026:p157": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "rss-2026:p159": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "neural-control",
+      "world-models",
+      "ai-data-evaluation"
+    ],
+    "ai_basis": "人工摘要复核：神经执行器模型预测力矩、外力与电机工况，并以姿态监督和可微仿真训练 Transformer，提供 NAD 数据集。"
+  },
+  "rss-2026:p165": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p167": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p170": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "rss-2026:p177": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p193": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "rss-2026:p199": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p205": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "rss-2026:p206": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "generative-models",
+      "representation-adaptation",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:88": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:708": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:911": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:1119": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:1280": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models",
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:1866": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:2011": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:2424": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:4632": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5191": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:6062": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:6269": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:2406": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:5918": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:155": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:372": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:510": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:782": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:864": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:955": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:1276": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:1290": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:2931": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:3067": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:3717": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4219": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:4354": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4824": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4889": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:5477": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:5830": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:6075": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:6181": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:6267": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:6502": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:6569": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:2494": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:2289": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:1857": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:2257": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:2278": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:2657": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "icra-2026:3070": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:3625": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4310": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "neural-control",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:4481": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4484": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:4813": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4826": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4868": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "icra-2026:5331": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5926": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:6167": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "generative-models"
+    ]
+  },
+  "icra-2026:6529": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:6633": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "rss-2026:p041": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文为无需示范数据的模型驱动扩散优化；摘要中的学习式扩散用于说明已有方法，暂不计入机器学习主体清单。",
+    "ai_tags": []
+  },
+  "rss-2026:p110": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文核心为半定规划、ADMM 与 MPC；cul-de-sac 被缩写规则误读成 SAC，已排除。",
+    "ai_tags": []
+  },
+  "rss-2026:p126": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文为任务层迭代学习控制，以二次规划更新动作；未从摘要确认神经网络 / 统计机器学习，作为控制类边界项保留。",
+    "ai_tags": []
+  },
+  "icra-2026:45": {
+    "ai_status": "unmarked",
+    "ai_basis": "摘要的 object detection 出现在任务背景；核心是非线性 MPC 与推动规划。",
+    "ai_tags": []
+  },
+  "icra-2026:5574": {
+    "ai_status": "unmarked",
+    "ai_basis": "LoRa 为无线通信，不是大模型低秩适配 LoRA；核心为传感器投放机构。",
+    "ai_tags": []
+  },
+  "icra-2026:5886": {
+    "ai_status": "unmarked",
+    "ai_basis": "核心是利用 LiDAR 的光通信；object detection 为传输数据举例，不能据此计作 AI 方法论文。",
+    "ai_tags": []
+  },
+  "icra-2026:1569": {
+    "ai_status": "unmarked",
+    "ai_basis": "核心为混合整数二次规划与鲁棒不变集；learning-based control 是相关工作。",
+    "ai_tags": []
+  },
+  "icra-2026:4515": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:3715": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:82": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:162": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:719": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:1176": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "neural-control"
+    ]
+  },
+  "icra-2026:1224": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:1262": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:1305": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:1572": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:1751": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:2121": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "neural-control"
+    ]
+  },
+  "icra-2026:3465": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:3540": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:3666": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:3902": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:4055": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:4599": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5445": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:5977": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:71": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:300": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:808": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:1166": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:1734": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:2507": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:3091": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "symbolic-ai-planning"
+    ]
+  },
+  "icra-2026:3101": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:4169": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "ai-data-evaluation"
+    ]
+  },
+  "icra-2026:4882": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5297": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5905": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "symbolic-ai-planning"
+    ]
+  },
+  "icra-2026:6353": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:6376": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:5547": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "icra-2026:6225": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:849": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:2137": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:2163": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models",
+      "neural-control"
+    ]
+  },
+  "icra-2026:4023": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:4269": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:4332": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "icra-2026:4423": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:5000": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "icra-2026:5928": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "icra-2026:6320": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "neural-control"
+    ]
+  },
+  "icra-2026:6399": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "icra-2026:6404": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "learned-perception",
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "icra-2026:6508": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "icra-2026:6514": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "icra-2026:5944": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "iros-2026:1481": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "iros-2026:2693": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:1931": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:1370": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:860": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:2015": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:750": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:761": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:4961": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:191": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:1187": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2805": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models"
+    ]
+  },
+  "iros-2026:4326": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:472": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "iros-2026:4703": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "symbolic-ai-planning"
+    ]
+  },
+  "iros-2026:4688": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2187": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3543": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2850": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "iros-2026:1362": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:5054": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3753": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:3004": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ]
+  },
+  "iros-2026:5034": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2178": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:4067": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:4134": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:4641": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:2523": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:3125": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2515": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "iros-2026:3709": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:5017": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3294": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:523": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3431": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:502": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:2400": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models",
+      "representation-adaptation",
+      "learned-perception"
+    ]
+  },
+  "iros-2026:662": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3954": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:1588": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:837": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:1892": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:4556": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:4583": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3689": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:1118": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3171": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:1570": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation"
+    ]
+  },
+  "iros-2026:2880": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "neural-control"
+    ]
+  },
+  "iros-2026:4034": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models"
+    ]
+  },
+  "iros-2026:3410": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:382": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:4038": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "iros-2026:4358": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:1796": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "iros-2026:3153": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "ai-data-evaluation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:1038": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2718": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "generative-models"
+    ]
+  },
+  "iros-2026:2788": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:4691": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3725": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:4177": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:4988": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:1677": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "iros-2026:3793": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:4545": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation",
+      "symbolic-ai-planning"
+    ]
+  },
+  "iros-2026:4235": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation"
+    ]
+  },
+  "iros-2026:3176": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:2316": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3910": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:744": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:227": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:110": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:145": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:2800": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ]
+  },
+  "iros-2026:3015": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2264": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:3866": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:2712": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3415": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2930": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception"
+    ]
+  },
+  "iros-2026:2466": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "imitation-policy"
+    ]
+  },
+  "iros-2026:1890": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:972": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "learned-perception"
+    ]
+  },
+  "iros-2026:1805": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:38": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ]
+  },
+  "iros-2026:829": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:2057": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:351": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:1857": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:937": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:1325": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "ai-data-evaluation"
+    ]
+  },
+  "iros-2026:1297": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ]
+  },
+  "iros-2026:521": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:50": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "symbolic-ai-planning"
+    ]
+  },
+  "iros-2026:28": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:3665": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2009": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:4566": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:2907": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "ai-data-evaluation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:2149": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:1420": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:63": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:3474": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:3245": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:1976": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation"
+    ]
+  },
+  "iros-2026:2103": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:905103": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "neural-control"
+    ]
+  },
+  "iros-2026:905112": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ]
+  },
+  "iros-2026:905114": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905131": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ]
+  },
+  "iros-2026:905133": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905139": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905144": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control"
+    ]
+  },
+  "iros-2026:905163": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "iros-2026:905187": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy"
+    ]
+  },
+  "iros-2026:905188": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "imitation-policy",
+      "ai-data-evaluation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905204": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "vla-foundation",
+      "imitation-policy",
+      "representation-adaptation",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905207": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "representation-adaptation"
+    ]
+  },
+  "iros-2026:905216": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "neural-control",
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905226": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:905227": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "world-models"
+    ]
+  },
+  "iros-2026:905246": {
+    "ai_status": "ai-related",
+    "ai_basis": "人工复核标题及摘要：本文使用 / 评测 AI 方法，或提供明确面向机器人学习的数据与系统。",
+    "ai_tags": [
+      "other-robot-learning"
+    ]
+  },
+  "iros-2026:836": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文为重复任务的迭代学习控制与轨迹优化；摘要未确认机器学习方法，按传统控制边界项保留。",
+    "ai_tags": []
+  },
+  "iros-2026:1486": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文使用法向引导图剪枝及假设检验进行配准，明确无需预训练模型；摘要中的预训练模型为被替代方法。",
+    "ai_tags": []
+  },
+  "iros-2026:5099": {
+    "ai_status": "unmarked",
+    "ai_basis": "本文核心为接触隐式最优规划和迭代学习控制；learning-while-doing 不足以确认采用统计机器学习。",
+    "ai_tags": []
+  },
+  "iros-2026:3703": {
+    "ai_status": "unmarked",
+    "ai_basis": "连续时间 GP 用作标定轨迹插值；本轮未将此类传统状态估计 / 标定自动归为 AI。",
+    "ai_tags": []
+  },
+  "rss-2026:p006": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "generative-models"
+    ],
+    "ai_basis": "人工摘要复核：TactAlign 通过 rectified flow 学习人手与机器人触觉的共享潜在表示，并验证策略迁移。"
+  },
+  "rss-2026:p027": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "representation-adaptation"
+    ],
+    "ai_basis": "人工摘要复核：使用行为蒸馏、潜在对齐及多 critic / discriminator 训练视觉人形行走策略。"
+  },
+  "rss-2026:p047": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "learned-perception"
+    ],
+    "ai_basis": "人工摘要复核：利用前馈 3D 模型预测的点云替代传统特征跟踪，属于学习模型辅助的 VINS 初始化。"
+  },
+  "rss-2026:p048": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "learned-perception"
+    ],
+    "ai_basis": "人工摘要复核：学习不确定性图并以 2D–3D Transformer 预测全景分割。"
+  },
+  "rss-2026:p066": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "other-robot-learning"
+    ],
+    "ai_basis": "人工摘要复核：从感知预测运动条件化的地形高斯代价参数，以学习式表征支持越障规划。"
+  },
+  "rss-2026:p106": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "world-models"
+    ],
+    "ai_basis": "人工摘要复核：从静态和动态轨迹数据学习平衡先验及残差动力学，验证分布外多步预测。"
+  },
+  "rss-2026:p113": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "ai-data-evaluation"
+    ],
+    "ai_basis": "人工摘要复核：SHREC 明确评测基础模型在人机交互中的社会推理。"
+  },
+  "rss-2026:p132": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "ai-data-evaluation"
+    ],
+    "ai_basis": "人工摘要复核：OmniNavBench 评测跨技能、跨形态的具身导航智能体，包含 VLN / EQA 等任务。"
+  },
+  "rss-2026:p156": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "reinforcement-learning"
+    ],
+    "ai_basis": "人工摘要复核：以 MoE 策略及 RoboGauge 评估套件研究学习式四足运动的 sim-to-real 鲁棒性。"
+  },
+  "rss-2026:p158": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "representation-adaptation"
+    ],
+    "ai_basis": "人工摘要复核：利用潜在损伤表示和集成方法，快速适应未见的软体执行器损伤。"
+  },
+  "rss-2026:p196": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "learned-perception"
+    ],
+    "ai_basis": "人工摘要复核：使用学习型感知指标 LPIPS 作为低可见度飞行器的设计优化目标。"
+  },
+  "rss-2026:p180": {
+    "ai_status": "candidate",
+    "ai_tags": [
+      "symbolic-ai-planning"
+    ],
+    "ai_basis": "AgentChord 采用 agentic task graph 与多角色编排；摘要未明确说明是否使用 LLM 或学习模型，需要查全文。"
+  },
+  "corl-2026:jeNVGuJQrb": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "vla-foundation",
+      "representation-adaptation"
+    ],
+    "ai_basis": "人工摘要复核：SPARK 以动力学相关表征目标和知识保留目标，将预训练基础模型适配到机器人控制。"
+  },
+  "corl-2026:QHIz2k4E88": {
+    "ai_status": "ai-related",
+    "ai_tags": [
+      "world-models",
+      "reinforcement-learning",
+      "vla-foundation"
+    ],
+    "ai_basis": "人工摘要复核：WoVR 在受控世界模型 rollout 上对 VLA 进行强化学习后训练，显式处理想象误差。"
+  }
+}

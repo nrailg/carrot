@@ -1,0 +1,142 @@
+# AI 阅读笔记：16 篇优先入口
+
+这是从本次完整目录选出的阅读路线，**不是最佳论文排名**。按标题与公开摘要记录研究问题、方法和阅读时需检查的边界；未逐篇精读全文，也未独立复现实验。CoRL 摘要取自注明出处的社区快照，其他三会取自官方程序 / proceedings。
+
+完整 AI 清单见 [ai-papers.md](ai-papers.md)，全部论文见 [all-papers.md](all-papers.md)。
+
+## 从研究问题出发
+
+- 关心迁移与预训练：先看跨形态 zero-shot 的定义，再看 SPARK 如何适配表征。
+- 关心真机训练：先看 USER 的异步系统，再看控制增益与执行器建模。
+- 关心闭环稳定性：对照 B2FF、CorrectManip、DCDP 与高层恢复策略。
+- 关心数据与规划：对照 BiDemoSyn 的示范扩增，以及 LLM 替代 TAMP 组件的负结果。
+- 关心接触任务：把 ACT 隐式力线索、NeuralActuator 与世界模型插入放在一起读。
+
+## 逐篇笔记
+
+### CoRL 2026
+
+**[A Systematic Study of Zero-Shot Cross-Embodiment Transfer in Vision-Language-Action Models](https://openreview.net/forum?id=4RLjGPEfpH)**
+
+- 方向：跨机器人迁移。
+- 方法：将目标机器人完全未进入训练集，与只在预训练阶段见过目标机器人的 zero-shot 分开；在 14 个目标形态上控制任务与场景条件，比较动作表示、形态多样性与联合训练。
+- 阅读重点：读它是为了检查跨形态泛化的定义与数据暴露边界，避免把预训练见过目标平台的结果当成严格零样本迁移。
+- 记录 ID：`corl-2026:4RLjGPEfpH`；摘要出处：[来源](https://openreview.net/forum?id=4RLjGPEfpH)。
+
+**[SPARK: Simple Post-training for Adapting pRetrained Knowledge to Robot Control](https://openreview.net/forum?id=jeNVGuJQrb)**
+
+- 方向：预训练表征适配。
+- 方法：SPARK 用动力学相关的表征目标与知识保留目标，将通用基础模型特征适配到机器人控制。
+- 阅读重点：值得看目标函数如何同时保留语义先验和动作相关的时序信息；摘要未提供统一可外推的收益幅度。
+- 记录 ID：`corl-2026:jeNVGuJQrb`；摘要出处：[来源](https://openreview.net/forum?id=jeNVGuJQrb)。
+
+**[Back to the Familiar Future: Failure Recovery for VLA Policies via Pre-Imagined Milestone Selection](https://openreview.net/forum?id=JQvRoFU5aS)**
+
+- 方向：VLA 失败恢复。
+- 方法：B2FF 在执行前建立未来视觉里程碑库，偏离轨迹后选择可恢复的熟悉状态作为视觉目标。
+- 阅读重点：LIBERO 的故障注入实验在受控恢复时刻进行；应检查该触发条件与真实部署中自主检测失败的差距。
+- 记录 ID：`corl-2026:JQvRoFU5aS`；摘要出处：[来源](https://openreview.net/forum?id=JQvRoFU5aS)。
+
+**[WoVR: World Models as Reliable Simulators for Post-Training VLA Policies with RL](https://openreview.net/forum?id=QHIz2k4E88)**
+
+- 方向：世界模型与 RL 后训练。
+- 方法：WoVR 不假设世界模型完全准确，而是通过可控视频模型、关键帧初始化 rollout 和策略—世界模型共同演化限制想象误差。
+- 阅读重点：重点检查想象轨迹的误差控制、策略优化的可信区间，以及真实机器人收益的任务范围。
+- 记录 ID：`corl-2026:QHIz2k4E88`；摘要出处：[来源](https://openreview.net/forum?id=QHIz2k4E88)。
+
+### RSS 2026
+
+**[One-Shot Real-World Demonstration Synthesis for Scalable Bimanual Manipulation](https://roboticsproceedings.org/rss22/p001.html)**
+
+- 方向：少示范数据扩增。
+- 方法：BiDemoSyn 将一次真实双臂示范分解为不变协作片段与依赖物体的调整，再结合视觉对齐和轻量轨迹优化生成多样示范。
+- 阅读重点：它适合比较少示范数据扩增与直接采集的效率，但不意味着任意单次示范都能覆盖新技能和新物体。
+- 记录 ID：`rss-2026:p001`；摘要出处：[来源](https://roboticsproceedings.org/rss22/p001.html)。
+
+**[USER: A Unified and Extensible System for Online Real-World Policy Learning in Embodied AI](https://roboticsproceedings.org/rss22/p037.html)**
+
+- 方向：真机在线学习系统。
+- 方法：USER 将机器人与 GPU 一起作为可管理资源，围绕异步学习、通信、权重同步、持久缓存和恢复组织真机训练系统。
+- 阅读重点：对于训练框架开发，比单纯换策略网络更值得关注的是机器人调度、数据复用和长期运行的工程约束。
+- 记录 ID：`rss-2026:p037`；摘要出处：[来源](https://roboticsproceedings.org/rss22/p037.html)。
+
+**[Tune to Learn: How Controller Gains Shape Robot Policy Learning](https://roboticsproceedings.org/rss22/p139.html)**
+
+- 方向：控制器与学习的相互作用。
+- 方法：Tune to Learn 比较控制增益对离线模仿、从头强化学习和 sim-to-real 的影响，强调有效刚度还取决于学习策略的反馈。
+- 阅读重点：不要从某个学习范式的最优增益直接推导另一范式的设置；应读其机器人、任务及调参范围。
+- 记录 ID：`rss-2026:p139`；摘要出处：[来源](https://roboticsproceedings.org/rss22/p139.html)。
+
+**[NeuralActuator: Neural Actuation Modeling for Robot Dynamics and External Force Perception](https://roboticsproceedings.org/rss22/p159.html)**
+
+- 方向：执行器建模与力感知。
+- 方法：NeuralActuator 面向廉价舵机的摩擦、迟滞、背隙和热效应，联合预测驱动力矩、外力及电机状态；结合可微仿真、姿态监督与 Transformer 时序建模。
+- 阅读重点：与低成本机械臂的 sim-to-real 和无外置力传感器反馈直接相关；需要查全文区分训练数据的力标注与各子任务的监督来源。
+- 记录 ID：`rss-2026:p159`；摘要出处：[来源](https://roboticsproceedings.org/rss22/p159.html)。
+
+### ICRA 2026
+
+**[CorrectManip: A Data-Driven Closed-Loop Framework for Autonomous Skill Learning with Failure Recovery](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_3.html#tui2i_242)**
+
+- 方向：失败驱动数据闭环。
+- 方法：CorrectManip 将测试时失败分析与训练环境 / 数据生成连接，让发现的策略弱点指导下一轮数据，而不是无差别扩容。
+- 阅读重点：检查失败分类、生成器与测试时优化的独立贡献，以及未见环境是否存在评测泄漏。
+- 记录 ID：`icra-2026:3962`；摘要出处：[来源](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_3.html#tui2i_242)。
+
+**[MoE-DP: An MoE-Enhanced Diffusion Policy for Robust Long-Horizon Robotic Manipulation with Skill Decomposition and Failure Recovery](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#wei1i_153)**
+
+- 方向：扩散策略与技能分解。
+- 方法：MoE-DP 在视觉编码器与扩散模型之间加入专家层，为不同任务阶段分配专家，并研究扰动恢复与技能结构。
+- 阅读重点：论文摘要报告的是特定长任务上的相对成功率提升，不能与其他论文的百分点改善直接比较。
+- 记录 ID：`icra-2026:2463`；摘要出处：[来源](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#wei1i_153)。
+
+**[Stream-To-Act: ROS 2 Native Token Streaming for Continuous Motion Execution of Vision-Language-Action Models](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#wei2i_301)**
+
+- 方向：推理与执行流水线。
+- 方法：Stream-to-Act 为 ROS 2 中的 token 流输出设计动作启动策略，缓解等待完整计划与 token 间隙造成的停走。
+- 阅读重点：其 CARLA 示例与执行时间线更适合研究系统延迟；不可直接当作机械臂低层控制精度的证据。
+- 记录 ID：`icra-2026:5167`；摘要出处：[来源](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#wei2i_301)。
+
+**[Closed-Loop Action Chunks with Dynamic Corrections for Training-Free Diffusion Policy](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#webt2_05)**
+
+- 方向：Action chunk 闭环修正。
+- 方法：DCDP 在 chunk 动作执行前注入动态信息，通过动态特征、跨注意力融合和不对称动作编解码实现实时修正。
+- 阅读重点：标题的 training-free 应结合摘要理解为不重训原有策略的适配方式；全文仍需核查附加编码器的训练来源和使用条件。
+- 记录 ID：`icra-2026:5475`；摘要出处：[来源](https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html#webt2_05)。
+
+### IROS 2026
+
+**[A Systematic Study of Large Language Models for Task and Motion Planning with PDDLStream](https://2026.ieee-iros.org/program/contributed-talks/#4d5505:4323)**
+
+- 方向：LLM 规划的负结果。
+- 方法：该研究构造 16 种以 LLM 替代 TAMP 组件的方法，在三个领域的大量零样本评估中，发现其成功率与规划耗时通常不及工程化系统。
+- 阅读重点：这是理解 LLM 与几何规划边界的重要对照；结论限于其组件替换方式、模型及测试域，不代表一切 LLM 机器人规划。
+- 记录 ID：`iros-2026:4323`；摘要出处：[来源](https://2026.ieee-iros.org/program/poster-sessions/#pn:4323)。
+
+**[Beyond Implicit Force: Evaluating Explicit Force-Torque Proxies in Action Chunking with Transformers](https://2026.ieee-iros.org/program/contributed-talks/#40972c:3659)**
+
+- 方向：ACT 与隐式力反馈。
+- 方法：论文考察 leader 命令与 follower 实际状态的跟踪差，是否为 ACT 提供了隐式接触线索；再测试电流 / 关节力矩代理是否能恢复或增强力感知。
+- 阅读重点：对 leader–follower 示教数据尤其值得读；其解释针对接触任务与采集方式，不能直接归因所有自由空间轨迹误差。
+- 记录 ID：`iros-2026:3659`；摘要出处：[来源](https://2026.ieee-iros.org/program/poster-sessions/#pn:3659)。
+
+**[Learning Robust Execution in Robotic Manipulation with Agentic Reinforcement Learning](https://2026.ieee-iros.org/program/contributed-talks/#40972c:1756)**
+
+- 方向：高层恢复策略。
+- 方法：在低层 VLA 之上学习高层执行模式选择与恢复机制，以运行时执行质量指标调节继续执行和恢复。
+- 阅读重点：先分清它优化的是高层执行决策还是低层动作，并核对 LIBERO 中的干扰注入与恢复触发设置。
+- 记录 ID：`iros-2026:1756`；摘要出处：[来源](https://2026.ieee-iros.org/program/poster-sessions/#pn:1756)。
+
+**[Generalizable Robotic Insertion with World Models](https://2026.ieee-iros.org/program/contributed-talks/#40972c:2858)**
+
+- 方向：可泛化插入与世界模型。
+- 方法：用本体感知和腕部图像训练跨多种零件的共享世界模型，研究未见几何的零样本插入以及少量微调的效率。
+- 阅读重点：摘要中的 56% 与 7% 是特定未见物体测试和模型无关基线的比较；还需看真实零件、训练任务与测试分布。
+- 记录 ID：`iros-2026:2858`；摘要出处：[来源](https://2026.ieee-iros.org/program/poster-sessions/#pn:2858)。
+
+## 边界项与不应直接混算的条目
+
+- 无需数据的模型驱动扩散优化、迭代学习控制，可能与 AI 规划有方法联系，但不能仅凭 diffusion / learning 就等同于训练神经策略。
+- 通用数值求解器、仿真和机构设计，只在明确用于机器人学习数据、评测或训练时归入 AI 配套研究；其余保持未标记或候选。
+- 不同论文中的相对提升、百分点提升、成功率、实验任务数和是否真机不可直接横向排名。
+- 这里的全部目录按公开程序快照穷举；AI 分类是有明确依据的筛选结果，仍需在具体选题时核对全文。

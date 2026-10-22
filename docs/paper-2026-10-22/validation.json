@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-22",
+  "result": "PASS",
+  "records": 5873,
+  "unique_ids": 5873,
+  "main_program": 5602,
+  "late_breaking_results": 271,
+  "abstracts": 5716,
+  "authors": 5873,
+  "statuses": {
+    "ai-related": 3739,
+    "candidate": 130,
+    "unmarked": 2004
+  },
+  "manual_review_overrides": 301,
+  "normalized_duplicate_titles": {},
+  "source_checksums": "PASS",
+  "official_roster_id_sets": "PASS",
+  "markdown_row_counts": "PASS",
+  "local_links": "PASS",
+  "viewer_embedded_records": "PASS",
+  "viewer_javascript_syntax": "PASS",
+  "conference_pages": {
+    "CoRL": 687,
+    "RSS": 210,
+    "ICRA": 2898,
+    "IROS": 2078
+  },
+  "html_navigation": "PASS"
+}

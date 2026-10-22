@@ -1,0 +1,139 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>来源与完整性审计</title><style>body{font:15px/1.65 system-ui,sans-serif;color:#183029;background:#f4f6f3;margin:0}main{max-width:1140px;margin:auto;padding:32px 22px}h1{font-size:30px;letter-spacing:-1px;margin-bottom:4px}p{color:#586b63}header small{letter-spacing:2px;color:#547462}nav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}input,select,button{font:inherit;padding:9px 12px;border:1px solid #b8c8bd;border-radius:6px;background:white;color:#183029}input{flex:1;min-width:200px}button{cursor:pointer}button:disabled{opacity:.4}article{background:white;border:1px solid #d9e2db;border-radius:9px;padding:18px 22px;margin:12px 0}h2{font-size:18px;margin:4px 0}a{color:#1a6547;text-decoration:none}a:hover{text-decoration:underline}.meta{font-size:13px;color:#6a7a71}.tags{color:#386650;font-size:13px}.basis{font-size:13px;margin:8px 0}.status{display:inline-block;background:#e5efe7;padding:2px 7px;border-radius:4px;font-size:12px}.candidate{background:#fff0cf}summary{cursor:pointer;color:#426c56}.abstract{color:#364c41;white-space:pre-wrap}.pager{display:flex;gap:16px;align-items:center;justify-content:center;margin:22px}#result{font-weight:600}footer{margin-top:40px;color:#6a7a71}details{margin-top:10px}.empty{text-align:center;padding:50px}.site-nav{display:flex;gap:9px;flex-wrap:wrap;margin:0 0 30px}.site-nav a{padding:6px 12px;border:1px solid #cfdbd2;border-radius:99px;background:white}.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:28px 0}.cards article{margin:0}.number{font-size:34px;line-height:1.2;color:#1a6547;font-weight:650}.actions{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px}.doc{background:white;padding:28px;border:1px solid #d9e2db;border-radius:9px}.doc h2{font-size:22px;margin-top:32px}.doc h3{font-size:18px;margin-top:25px}.doc table{border-collapse:collapse;display:block;overflow:auto;width:100%}.doc th,.doc td{border:1px solid #d9e2db;padding:8px 12px;text-align:left}.doc code{font-family:ui-monospace,monospace}.doc pre{overflow:auto;background:#eff4ef;padding:16px;border-radius:6px}.doc p{color:#364c41}@media(max-width:680px){.cards{grid-template-columns:1fr}.doc{padding:18px}}</style><main><div class="site-nav"><a href="index.html">总览</a><a href="corl.html">CoRL 2026</a><a href="rss.html">RSS 2026</a><a href="icra.html">ICRA 2026</a><a href="iros.html">IROS 2026</a><a href="ai-notes.html">AI 阅读笔记</a><a href="about.html">来源与说明</a></div><section class="doc"><h1 id="_1">检索、来源与完整性审计</h1>
+<p>快照：2026-10-22（Asia/Shanghai）。本文件记录元数据扫描的范围与可验证边界，不把目录全量等同于逐篇精读。</p>
+<h2 id="_2">范围与计数</h2>
+<ul>
+<li>主目录只接纳官方录用 / proceedings / 技术程序中的条目。</li>
+<li>同一会议按来源 ID 去重；保留多次展示的 session 信息。</li>
+<li>期刊展示条目计入会议程序；LBR 单列；各独立 workshop 的论文不在穷举范围。</li>
+<li>不以 arXiv 作者自报会议、搜索结果或非录用的 OpenReview 投稿补主目录。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>会议</th>
+<th style="text-align: right;">主目录</th>
+<th style="text-align: right;">LBR</th>
+<th style="text-align: right;">有摘要</th>
+<th style="text-align: right;">有作者</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CoRL 2026</td>
+<td style="text-align: right;">687</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">687</td>
+<td style="text-align: right;">687</td>
+</tr>
+<tr>
+<td>RSS 2026</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: right;">210</td>
+</tr>
+<tr>
+<td>ICRA 2026</td>
+<td style="text-align: right;">2776</td>
+<td style="text-align: right;">122</td>
+<td style="text-align: right;">2761</td>
+<td style="text-align: right;">2898</td>
+</tr>
+<tr>
+<td>IROS 2026</td>
+<td style="text-align: right;">1929</td>
+<td style="text-align: right;">149</td>
+<td style="text-align: right;">2058</td>
+<td style="text-align: right;">2078</td>
+</tr>
+</tbody>
+</table>
+<h2 id="corl-2026">CoRL 2026</h2>
+<ul>
+<li><a href="https://2026.corl.org/program/accepted-papers">官方录用程序</a> 中的论文表以 Google Sites <code>data-code</code> 内嵌 HTML 保存；单纯读取可见正文会遗漏整张表。</li>
+<li>解析 780 次展示，按 OpenReview ID 去重为 687 篇；展示次数不能当论文数。</li>
+<li>作者与摘要来自 <a href="https://gisbi-kim.github.io/conference-explorers/corl2026/data.json">社区元数据 JSON</a>，快照标注更新于 2026-10-18。与官方 687 个 ID 一一匹配，没有额外或缺失 ID。</li>
+<li>OpenReview API 此次请求返回 403；因此明确标注摘要通过社区镜像获得。记录中保留 <code>abstract_source</code> 指向原始出处，<code>metadata_mirror</code> 指向此次读取的镜像。</li>
+<li>6 条标题文字 / 数学排版差异如下，保留官方程序标题；其中 RARM 的差异属于实质改题，其余主要为符号空格。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>OpenReview ID</th>
+<th>官方程序标题</th>
+<th>社区元数据标题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5XKFwWrW0v</td>
+<td>π 0.7 : a Steerable Generalist Robotic Foundation Model with Emergent Capabilities</td>
+<td>π0.7: a Steerable Generalist Robotic Foundation Model with Emergent Capabilities</td>
+</tr>
+<tr>
+<td>AAn8ouEHwO</td>
+<td>RARM: Confidence-Gated Progress Reward Modeling for RL in Manipulation</td>
+<td>Progress That Trains: Reference-Anchored Reward Modeling for Robotic Manipulation from a Single Demonstration</td>
+</tr>
+<tr>
+<td>GFxjqZVSND</td>
+<td>M 3 P-R1: Reinforcement Learning for Large Language Model Guided Multi-Modal Motion Planning via MIP Code Generation</td>
+<td>M3P-R1: Reinforcement Learning for Large Language Model Guided Multi-Modal Motion Planning via MIP Code Generation</td>
+</tr>
+<tr>
+<td>kGLogzKtYq</td>
+<td>GROW 2 : Grounding Which and Where for Robot Tool Use</td>
+<td>GROW2: Grounding Which and Where for Robot Tool Use</td>
+</tr>
+<tr>
+<td>qvOl1xOUtn</td>
+<td>τ 0 -WM: A Unified Video-Action World Model for Robotic Manipulation</td>
+<td>τ0-WM: A Unified Video-Action World Model for Robotic Manipulation</td>
+</tr>
+<tr>
+<td>ShBMWDRPVu</td>
+<td>μ 0 : A Scalable 3D Interaction-Trace World Model</td>
+<td>μ0: A Scalable 3D Interaction-Trace World Model</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rss-2026">RSS 2026</h2>
+<ul>
+<li><a href="https://roboticsproceedings.org/rss22/">RSS XXII 官方 proceedings</a> 提供 210 个论文页；逐页取得官方标题、作者、摘要、PDF 链接和 DOI。</li>
+<li>标题以论文详情页的 <code>citation_title</code> 为准，修正目录页默认编码带来的破折号乱码。</li>
+<li>210/210 均有摘要；按 <code>p001</code> 等官方编号记录。</li>
+</ul>
+<h2 id="icra-2026">ICRA 2026</h2>
+<ul>
+<li>从 <a href="https://2026.ieee-icra.org/Program/">官方会议程序入口</a> 跟到 <a href="https://ras.papercept.net/conferences/conferences/ICRA26/program/">PaperCept 六日日程</a>。</li>
+<li>以 <code>.pTtl</code> 标题中具有 <code>viewAbstract</code> ID 的条目作为论文记录，排除 keynote、panel、chair 等活动条目。</li>
+<li>六日论文条目数为 0、0、968、969、961、0，合计 2,898 个唯一 ID。去除 session 明确标为 Late Breaking Results 的 122 条后，主目录为 2,776 条。</li>
+<li>全部 2,898 条标题与作者均已取得；2,761 条有公开摘要，137 条保留空值。</li>
+<li>PaperCept 的标点按 Windows-1252 解码；清除源文本中的非打印控制字符，保留标题原文。</li>
+<li><code>paper_id</code> 是来源程序使用的标识；不额外推断它是否等于投稿编号，也不把程序数量称作 contributed-paper 录用数。</li>
+</ul>
+<h2 id="iros-2026">IROS 2026</h2>
+<ul>
+<li>旧路径 <code>paper_index</code>、<code>contributed_talks</code>、<code>poster_sessions</code> 在脚本请求中返回 403；通过浏览器确认当前页面使用连字符路径。</li>
+<li><a href="https://2026.ieee-iros.org/program/paper-index/">当前官方 Paper &amp; Author Index</a> 内的 <code>pi-data</code> 有 1,929 个唯一论文编号，作为主目录完整基准。</li>
+<li><a href="https://2026.ieee-iros.org/program/poster-sessions/">官方 Poster Sessions</a> 的 <code>poster-map-data</code> 有 2,078 条：完整覆盖主目录 1,929 个 ID，另有 149 个 ID，全部标为 Late-Breaking Results，单列保存。</li>
+<li>主目录有 1,909 条摘要，缺 20 条；LBR 149 条摘要齐全。</li>
+<li>当前官方目录与 <a href="https://gisbi-kim.github.io/iros2026-explorer/output/iros2026_explorer.html">社区旧快照</a> 的 1,933 条不同。旧快照有而当前官方没有的编号为 <code>21, 244, 323, 5043, 5053</code>；当前官方新增 <code>1812</code>。这里只记录目录差异，不推断撤稿或缺席原因。</li>
+<li>官方索引中包含期刊展示；1,929 与 contributed-paper 的录用数是不同口径。</li>
+</ul>
+<h2 id="ai">AI 分类与人工复核</h2>
+<ul>
+<li>全部条目逐记录运行标题、作者关键词和摘要规则；没有 PDF 的条目也不会被静默丢弃。</li>
+<li>区分标题 / 关键词直接证据与摘要提及；仅背景提及的条目优先列候选。对摘要描述本文方法的明确语句另做上下文筛选。</li>
+<li>人工检查了边界候选、RSS 的未标记目录和 16 篇阅读笔记；判断覆盖以 <code>review-overrides.json</code> 为准，其他条目不宣称人工逐篇审核。</li>
+<li>已修正 LoRa 无线通信与 LoRA 适配混淆、cul-de-sac 与 SAC 缩写混淆；ACT 缩写使用大小写约束。</li>
+<li>人工判断仍有范围取舍，例如无学习的扩散数值优化、迭代学习控制和连续时间 GP 标定。完整理由保留在条目的 <code>ai_basis</code> 中。</li>
+<li>AI 相关清单不等同于经过专家精读后确定的领域真值；候选与未标记条目保留，便于后续修改筛选口径。</li>
+</ul>
+<h2 id="_3">可复现证据</h2>
+<ul>
+<li><a href="source-manifest.json">source-manifest.json</a> 给出来源 URL、落盘路径、日期、解压后的 UTF-8 快照字节数和 SHA-256。源快照以 gzip 压缩，<code>collect.py</code> 可直接复用，无需重新联网。</li>
+<li><a href="collection-audit.json">collection-audit.json</a> 记录去重、跨来源 ID 差异与摘要 / 作者覆盖。</li>
+<li><a href="screening-stats.json">screening-stats.json</a> 保存会议级筛选与多标签统计；<a href="review-overrides.json">review-overrides.json</a> 保存人工复核覆盖。</li>
+<li><a href="validation.json">validation.json</a> 核对唯一 ID、官方名册 ID 集合、分类子集、作者 / 摘要覆盖、Markdown 行数、来源校验和、内部链接、离线页面内嵌数据及 JavaScript 语法。</li>
+</ul></section></main></html>

@@ -1,0 +1,1563 @@
+[
+  {
+    "file": "sources/corl-accepted.html.gz",
+    "url": "https://2026.corl.org/program/accepted-papers",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 450936,
+    "sha256": "18f41c53786726fd6f1f29f2a29b47215df5dd2191e8e3efc6a7f5fb14e26193"
+  },
+  {
+    "file": "sources/corl-data.json.gz",
+    "url": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 3107885,
+    "sha256": "b30381943b8f06d0d38e089b4c6f35869d6aa92f7687ae8a668bdeaf9cdb7bdc"
+  },
+  {
+    "file": "sources/rss-index.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 100843,
+    "sha256": "b6ae14c3989f9d622e2f47a566c3fd59a0aa31d7e28ff7a491455d8b056ffab9"
+  },
+  {
+    "file": "sources/rss-p001.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p001.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8895,
+    "sha256": "9fef127c808163386385c73c957bf438af156b763118cedbb0d3df8a34127415"
+  },
+  {
+    "file": "sources/rss-p002.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p002.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9339,
+    "sha256": "a5e2d90985b9618ac544866be68f6d4d70a76628d3db59f989d32affc074e4b4"
+  },
+  {
+    "file": "sources/rss-p003.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p003.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9201,
+    "sha256": "2dd8696ee5f5cccad9f43fb74f3248f88d78aa2b3fdadf6f7448c1be7eca9e5b"
+  },
+  {
+    "file": "sources/rss-p004.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p004.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9024,
+    "sha256": "fc9d4b574d8365f77ab8d5bb1ca387501fed6b90ca3df34cbe0165c40d412e76"
+  },
+  {
+    "file": "sources/rss-p005.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p005.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9260,
+    "sha256": "c28057bd2237e1b137959f9f4b03978d6daea557cd4b3c20bf35a203350257b0"
+  },
+  {
+    "file": "sources/rss-p006.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p006.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9016,
+    "sha256": "23657b8e93a75b48ea90e1102a6c108175402af4f7556d698962fc4cec04bc7b"
+  },
+  {
+    "file": "sources/rss-p007.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p007.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9919,
+    "sha256": "73ec50e3f8bda653b313fad940e6fde72914bbd0e767a993b7ce346f81c685f9"
+  },
+  {
+    "file": "sources/rss-p008.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p008.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8880,
+    "sha256": "1f86a8fac746e70560ce7f8e0ec542660f4c8d2581544ccfcc74d2aaa265210b"
+  },
+  {
+    "file": "sources/rss-p009.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p009.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8639,
+    "sha256": "8ad9e2b5c14a27d780b703ca9e18acda22b7d5a4e04130f57cfe1763c5030ca0"
+  },
+  {
+    "file": "sources/rss-p010.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p010.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9379,
+    "sha256": "bd5b2652c84353edb60927b537283f4693b8cf3ecf1cddee0c54d0471b6d417e"
+  },
+  {
+    "file": "sources/rss-p011.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p011.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9977,
+    "sha256": "870eefdb4c3240ebfa30a220fc37240c7c662543717f25bda470efca0009ab14"
+  },
+  {
+    "file": "sources/rss-p012.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p012.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9388,
+    "sha256": "35f61fb8b77fe734afd37de7ea3e7803590fb95e2ebd010c57bce48f5e9c327d"
+  },
+  {
+    "file": "sources/rss-p013.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p013.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10043,
+    "sha256": "75d42692ec6bb5c10f2f78a70c846c02f15e3175aee31b14d222954344bdd369"
+  },
+  {
+    "file": "sources/rss-p014.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p014.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9119,
+    "sha256": "69557e8e2873e62492cc0425a7ca0583cb63df818a7c40d9a842cfbd6b18526e"
+  },
+  {
+    "file": "sources/rss-p015.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p015.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9505,
+    "sha256": "4413905293c48dc544531e6d12b2e9b60203bfc95e671357a9d1c2e361b93d06"
+  },
+  {
+    "file": "sources/rss-p016.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p016.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9097,
+    "sha256": "59516cf414b0e125dff87e1ca1e0b831b65d9bc8b2b6521121aabdd90ce6222b"
+  },
+  {
+    "file": "sources/rss-p017.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p017.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9098,
+    "sha256": "321a89d195b169ce2543ee1364899252fb60ee83aef158b65c25eee69ad142b4"
+  },
+  {
+    "file": "sources/rss-p018.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p018.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9479,
+    "sha256": "724e605fff09144f7dee68a8df58190084c7e06057a4eee4dc9099618eacb7b2"
+  },
+  {
+    "file": "sources/rss-p019.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p019.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9026,
+    "sha256": "5e79b749c922bf4e085f635457a736c1a87018362b2919a7fc1dfb7ec42e3589"
+  },
+  {
+    "file": "sources/rss-p020.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p020.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9766,
+    "sha256": "80eb5f781bf05f47d20520069d4937ca8598fb94d770a74e7a28b2579054c838"
+  },
+  {
+    "file": "sources/rss-p021.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p021.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10105,
+    "sha256": "7cec528c98632d0a4f31011b1e2b0e2c40eb6221d8b76d6561193ceb491dc197"
+  },
+  {
+    "file": "sources/rss-p022.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p022.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9040,
+    "sha256": "69a51d5ee175005011b97aace00e2c77a1258aaf54e6d2d84d581c43b01671ad"
+  },
+  {
+    "file": "sources/rss-p023.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p023.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9083,
+    "sha256": "5f08f18edd05ca23138522955d8944fd2b5583b050c7836a411fb70bd1dd305b"
+  },
+  {
+    "file": "sources/rss-p024.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p024.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8433,
+    "sha256": "ab74a847770a5f90c89c7ebd93b3c133950fcaf5743701b726ea236e71f1d04b"
+  },
+  {
+    "file": "sources/rss-p025.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p025.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8898,
+    "sha256": "2018711e0aa37bcf97976c3587a1721f0aa903c1a6027578c54720efce133831"
+  },
+  {
+    "file": "sources/rss-p026.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p026.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9416,
+    "sha256": "e86bbe9821a82c93040202e6762287a8de348319b472517bb1fba3b412d1da69"
+  },
+  {
+    "file": "sources/rss-p027.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p027.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9463,
+    "sha256": "fc73e28e568762ca1d50c00cd259d4e505403a5ae688ecb07b0d015ae1db3c05"
+  },
+  {
+    "file": "sources/rss-p028.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p028.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9256,
+    "sha256": "0fff60e1a57ece98e5269119194401db18cefb112ef69f4c77989491b52ac7fe"
+  },
+  {
+    "file": "sources/rss-p029.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p029.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9146,
+    "sha256": "243b64d32d79ed01862e99795a0925099e609b94bd5d8221ac6a05c33a36c941"
+  },
+  {
+    "file": "sources/rss-p030.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p030.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9317,
+    "sha256": "9f7e1d560c8548e62d79a5e26dc14698f7484189b2b42f51239af5df0d8c365f"
+  },
+  {
+    "file": "sources/rss-p031.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p031.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9133,
+    "sha256": "f30fddb57cf64fbffa0b7efe376ab23dc3c9bdd07ead3b24be9761f449ff748a"
+  },
+  {
+    "file": "sources/rss-p032.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p032.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8602,
+    "sha256": "09cb70e58c58469d0d9e1a6059fcce966e3a37c2662fb047dbc7d30a6db42e42"
+  },
+  {
+    "file": "sources/rss-p033.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p033.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8777,
+    "sha256": "813727abf30f61905c7bb46cd6af08f30c1df98bc4a9008671cf5df85ac1295a"
+  },
+  {
+    "file": "sources/rss-p034.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p034.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9256,
+    "sha256": "0a3a5d468e7c440ba31d13a03b551e61245aa40f89eb34c7f5c2db0ef8dd44b0"
+  },
+  {
+    "file": "sources/rss-p035.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p035.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 7977,
+    "sha256": "edb32887007d0e0c79a17a931c82bac3f8703cf6647e5919c35f6ef79c97976f"
+  },
+  {
+    "file": "sources/rss-p036.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p036.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9167,
+    "sha256": "b6ac8327900b12a2e968fc429ea3fad3d0e46a5d403e75caee09a14887360d28"
+  },
+  {
+    "file": "sources/rss-p037.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p037.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10288,
+    "sha256": "fcc54e71d91304c7eb3d1054495282e71b46192df2c71fc8d388dba7739f6152"
+  },
+  {
+    "file": "sources/rss-p038.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p038.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9102,
+    "sha256": "8e701c2e85cfafa725bda91b2c693f906ed14528bb96c958df3d4a7bd2fe58c4"
+  },
+  {
+    "file": "sources/rss-p039.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p039.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9372,
+    "sha256": "01ccb6848a1f2940e95085c5ff9fd4b66f777428df41a55bb47764f4b17e9d25"
+  },
+  {
+    "file": "sources/rss-p040.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p040.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8603,
+    "sha256": "698ad2720dbb2fb64ac6ef5a7a1794d7cc1308532ab1cea36aad3ec5e15dfb07"
+  },
+  {
+    "file": "sources/rss-p041.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p041.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8635,
+    "sha256": "e231a3dc5d23f9200db1bac8f645dc0c6eb6c3e2cc159d2699f77d2a6cd0b08d"
+  },
+  {
+    "file": "sources/rss-p042.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p042.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8555,
+    "sha256": "7cb9f829bca6cb5bf935de9d9fbf9bd879087f751a4bfab9d41eadbaffa9a557"
+  },
+  {
+    "file": "sources/rss-p043.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p043.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8740,
+    "sha256": "aa9e5dcb33305bbf0c5cc4b95c4496974ecd8bdc47ab9f529910201af467926c"
+  },
+  {
+    "file": "sources/rss-p044.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p044.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8884,
+    "sha256": "c58e970ac47e1b536163ee10aa18629a4757717c28460f795849bcbf76590a80"
+  },
+  {
+    "file": "sources/rss-p045.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p045.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8643,
+    "sha256": "3267e1e719f6df5d44f5a2689f738cdf53c7c92d69f3636316fb99b113357bf8"
+  },
+  {
+    "file": "sources/rss-p046.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p046.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8474,
+    "sha256": "f9831cfea4da762e4b4f1f9899829ffa09e6be3ade540d6ceda4fbca1dace2ac"
+  },
+  {
+    "file": "sources/rss-p047.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p047.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9275,
+    "sha256": "b64a424e8be5fd57c80ddc4b04c93702ff775805e63dd327f05a70ea0eb43d95"
+  },
+  {
+    "file": "sources/rss-p048.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p048.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9005,
+    "sha256": "524f308a55a808957f639ec5b6728785157e056bf382312a8b753eb209b2d6db"
+  },
+  {
+    "file": "sources/rss-p049.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p049.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9000,
+    "sha256": "f4f5b0be6434c4838b5e5152deed4c5059e7e95e9f44a5efedd2fd4aeb357605"
+  },
+  {
+    "file": "sources/rss-p050.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p050.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8907,
+    "sha256": "dc4c3f8138a8989de4a91c611e55ffcad161a421e186ba3aa8382260ff95703f"
+  },
+  {
+    "file": "sources/rss-p051.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p051.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8395,
+    "sha256": "d3f0b3d20cc398417b7c825607a0e3793d4d424023ca7743b027767ca0296faf"
+  },
+  {
+    "file": "sources/rss-p052.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p052.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9242,
+    "sha256": "834c0bc2f092b6772a647a37f098cf113465d8b680d176c9b17e7d2736212967"
+  },
+  {
+    "file": "sources/rss-p053.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p053.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8737,
+    "sha256": "9af650525412a506367675ccd5e0045c318a7ebf9876cde23b8d5cd67a97c60b"
+  },
+  {
+    "file": "sources/rss-p054.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p054.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9212,
+    "sha256": "697d4a4ac627898dc3cfe171c6f6bcfe864fbe2312f7a42139b7143834df6938"
+  },
+  {
+    "file": "sources/rss-p055.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p055.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8946,
+    "sha256": "07cc1acc4f90b8f63e2673c1041fe29c2af6e9916cdc2eac91951429a18a1a86"
+  },
+  {
+    "file": "sources/rss-p056.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p056.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9013,
+    "sha256": "cc09a355dcdaec68958c7076ab1fb6d656f6c6dc4c49166d9aa7d686bd5bf548"
+  },
+  {
+    "file": "sources/rss-p057.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p057.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9183,
+    "sha256": "3fc8ea55ab241b72c408d54de925934fd154664707e2545bd5b630b7798ec0d4"
+  },
+  {
+    "file": "sources/rss-p058.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p058.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9223,
+    "sha256": "29f2055ad5d8bfff6fc081be6baf1c8900f5afb656edb3e61a547da9ce13aadf"
+  },
+  {
+    "file": "sources/rss-p059.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p059.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9157,
+    "sha256": "25df926496f280d42ec65ebcc5f0eaad4eca38b6e7ce1d71a878a910e1b0bae8"
+  },
+  {
+    "file": "sources/rss-p060.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p060.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9883,
+    "sha256": "2ffcacc84e8d6c40d5bbf6b8c9a5dd4b1baa84ab5de7cb5f6ceb0f5b86e6214a"
+  },
+  {
+    "file": "sources/rss-p061.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p061.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8973,
+    "sha256": "1afc1fca2058dad5511e3fa827f7972fee672f0b4c447d3333c501db21daa26b"
+  },
+  {
+    "file": "sources/rss-p062.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p062.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10030,
+    "sha256": "537d0b56c24574300a764ba511d79dade81e1de533409e61f98f4fc4769ef545"
+  },
+  {
+    "file": "sources/rss-p063.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p063.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9078,
+    "sha256": "23fa5c48d510132b0e0825adeebdccbf37a5269ab41edd80aac646b00b6195a8"
+  },
+  {
+    "file": "sources/rss-p064.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p064.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9024,
+    "sha256": "1c4f7c4dd96d58b135453e94d6d72a1f6bc0b602c0d8e2eccae338cb3e3fcc79"
+  },
+  {
+    "file": "sources/rss-p065.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p065.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9319,
+    "sha256": "7e964bd0b9697e532a0ac94b05048cf439e3e5ff2717a0a2b93b321eea03fac1"
+  },
+  {
+    "file": "sources/rss-p066.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p066.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9001,
+    "sha256": "ec395b22c33e145dd9c3cfda6975ca12b38889890c843b727542eea2692ff124"
+  },
+  {
+    "file": "sources/rss-p067.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p067.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8698,
+    "sha256": "2ac29750c40321d102249023760ce571fa1bb0db7e4677336439b10760805f54"
+  },
+  {
+    "file": "sources/rss-p068.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p068.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9167,
+    "sha256": "c7d0fab44cb60236eb534b4edbe455801d735b5100cb45bdcf33c5df9d94ccda"
+  },
+  {
+    "file": "sources/rss-p069.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p069.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9005,
+    "sha256": "5bc5fb2a8573dde820706353dfaaf8009087bc820dd775a6b31edf963c976b59"
+  },
+  {
+    "file": "sources/rss-p070.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p070.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9205,
+    "sha256": "a1329404784d5c9780e84bd20c276fecff4aa1a47e65b5052aeab6562ef7361a"
+  },
+  {
+    "file": "sources/rss-p071.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p071.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8674,
+    "sha256": "49f6b79c14193e7aba95f6281ee522f072c6609a8c72856ff9159df2f69d995a"
+  },
+  {
+    "file": "sources/rss-p072.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p072.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8949,
+    "sha256": "667f44cfd67eb7ecef734b449fbe2789f678631473cac1b9d494017b444671b4"
+  },
+  {
+    "file": "sources/rss-p073.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p073.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8898,
+    "sha256": "ed3d23de790124ff8c870411ca40171d1487a2c7b76e62047459229eb2d0f63f"
+  },
+  {
+    "file": "sources/rss-p074.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p074.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9237,
+    "sha256": "c5a8ea369d82bb3a020840416b41dc960c03f4ff7f32fd630736932920d39a47"
+  },
+  {
+    "file": "sources/rss-p075.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p075.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8910,
+    "sha256": "2199f2863d256a2f2d9cdee5f43472121859139f710beaae827595a12d38234d"
+  },
+  {
+    "file": "sources/rss-p076.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p076.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9285,
+    "sha256": "7a5648178ee73ed6bb68e7ab17d97b5f7602470bd7c9e4e888133d3a4e3cd43d"
+  },
+  {
+    "file": "sources/rss-p077.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p077.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9198,
+    "sha256": "4ef02d4fcedd3781762a1831d41a8880d7f8064f5eb308e5f1be7d8e59dcb8d5"
+  },
+  {
+    "file": "sources/rss-p078.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p078.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9782,
+    "sha256": "73b41c960d6deada8008fc69809e542ff3aabbff80976733f7c7c3995e658c0e"
+  },
+  {
+    "file": "sources/rss-p079.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p079.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8635,
+    "sha256": "e568291bb39e82ac6e56617ff63534c794b040b8095dd1ad4c84e8e87c858d7a"
+  },
+  {
+    "file": "sources/rss-p080.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p080.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8978,
+    "sha256": "4165d956d9486552b49d655205c2197cc5003e3dad53a8fe416aab7738e708bc"
+  },
+  {
+    "file": "sources/rss-p081.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p081.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9326,
+    "sha256": "8ba447a66cf7a5af2157075b1fae655307c31f552f2ac1deec3de268c890f07d"
+  },
+  {
+    "file": "sources/rss-p082.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p082.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8844,
+    "sha256": "18b8b059885a928f5f8c3e428c2ef3e6c8d142b88f016ca1613a6cc89dae2002"
+  },
+  {
+    "file": "sources/rss-p083.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p083.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9407,
+    "sha256": "17afaffc1b867b6cfc5daaa1cc9370439505db2626cd53faa9637fa2fe2199d7"
+  },
+  {
+    "file": "sources/rss-p084.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p084.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10168,
+    "sha256": "4c041e527ec4af920ea16651fe509bd2283f6fdd87f2a1d39ca0ae9d3433d923"
+  },
+  {
+    "file": "sources/rss-p085.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p085.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9299,
+    "sha256": "6b0727d46332bb5f032e6377330d717fde234eea1a61eb8d1237301d07ef592b"
+  },
+  {
+    "file": "sources/rss-p086.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p086.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9432,
+    "sha256": "2609965ff7329da6884f413d5c032431c659676427c21288bf41940909753331"
+  },
+  {
+    "file": "sources/rss-p087.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p087.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 12985,
+    "sha256": "4603ed1fcd8f069ed93763bee3aa75a881711b11b741c1baad617f5bc7cf3698"
+  },
+  {
+    "file": "sources/rss-p088.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p088.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9082,
+    "sha256": "8ad7f42781006b057707ba067c3fc7b60165c2c6160793179654a52506ae5813"
+  },
+  {
+    "file": "sources/rss-p089.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p089.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10226,
+    "sha256": "fba3f443e1c36f627896d9724c2556a7d9ae152a5513c1985568ed0c2c905865"
+  },
+  {
+    "file": "sources/rss-p090.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p090.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9095,
+    "sha256": "ae375656b7ff422dec13a0ff02aae59669eca2876a58221ac12c0dab2ab26ae9"
+  },
+  {
+    "file": "sources/rss-p091.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p091.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 11091,
+    "sha256": "65d66ea95e68a8bbb30f7c5bc6d2d6df4363f843b0254a62a02b4025d6df94a6"
+  },
+  {
+    "file": "sources/rss-p092.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p092.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 11941,
+    "sha256": "46a81c7c3bc0c13dafb94da3fb702a86fab2f987106eea1e54b5c0aa81762dda"
+  },
+  {
+    "file": "sources/rss-p093.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p093.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 12100,
+    "sha256": "70dc2bb2ebf8870edb81a85a0ee7fffd7dc2daaa2af305192137b78dd8c24459"
+  },
+  {
+    "file": "sources/rss-p094.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p094.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9230,
+    "sha256": "135a54b15cedde1f00308d8fee4fa7a92a0ed3ba99ffea5003403a32d0f750cd"
+  },
+  {
+    "file": "sources/rss-p095.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p095.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9136,
+    "sha256": "95189d8e3a4c25ef0f13b799b8f8155c923a449e0c74720a1065137f6cc83a4b"
+  },
+  {
+    "file": "sources/rss-p096.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p096.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9451,
+    "sha256": "f6f9e8f31c13e04a3f3b3ee6b8a51ac5fb3ce8cc4f7535a448ba0762a8b92fec"
+  },
+  {
+    "file": "sources/rss-p097.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p097.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8956,
+    "sha256": "594f95e3f72e6573fc3e3dcf09623cc8d0ece4dc2f6008f48e39bffdc2d91f23"
+  },
+  {
+    "file": "sources/rss-p098.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p098.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9722,
+    "sha256": "9b29948126624ac39ce581278da98a9154572398d9d991d2b0beb5fd6a2c6e23"
+  },
+  {
+    "file": "sources/rss-p099.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p099.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9700,
+    "sha256": "ae4d6a62037a83e14045ac55646333111e4fd8e05f37ae93c3b00f608c5584c0"
+  },
+  {
+    "file": "sources/rss-p100.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p100.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8660,
+    "sha256": "b5d9254530cfc28fb6c0e38ae47421d7703c1dfd6765d9d97f7a7f61fd9891a2"
+  },
+  {
+    "file": "sources/rss-p101.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p101.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8438,
+    "sha256": "9463fe381b0a5cc59c1f9eb71e24fdabc519745d7982f99ca43287a6b366c60a"
+  },
+  {
+    "file": "sources/rss-p102.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p102.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8600,
+    "sha256": "1df1451f4c44e78eb8d138dd12231fecff54254a29659716a4d3a0cf852933b8"
+  },
+  {
+    "file": "sources/rss-p103.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p103.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8865,
+    "sha256": "ac2cc6030145650ccb3c65e51251998305b88269c8dcc09734a1d4d82519927b"
+  },
+  {
+    "file": "sources/rss-p104.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p104.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8744,
+    "sha256": "e8724e51d6fed39edcc30234080133b9ac0388cf55efda5deea4809de79ac932"
+  },
+  {
+    "file": "sources/rss-p105.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p105.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9377,
+    "sha256": "51f80b2b5fe3f2f7b34d8abab13323a4362d479c6d9ede841df12ce85f2b2fe4"
+  },
+  {
+    "file": "sources/rss-p106.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p106.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8808,
+    "sha256": "f29099094e93e2427843f4b9b76b402088eae110343cbbf8e3a0b7d7675f63b7"
+  },
+  {
+    "file": "sources/rss-p107.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p107.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8682,
+    "sha256": "cb8a2965e1ac9e57253589d1fb1c476e2458abedf317a76aea99c95132b2fde0"
+  },
+  {
+    "file": "sources/rss-p108.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p108.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9172,
+    "sha256": "ad05d2ff19e34e4d8d6bbd345b2e1ddcd11a5636f1dc6f1243d76061dfae5f70"
+  },
+  {
+    "file": "sources/rss-p109.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p109.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8339,
+    "sha256": "0ff1d2ed869d8d23a13af6377c77d269f0637025c59aa54a253bf01817dd2fd2"
+  },
+  {
+    "file": "sources/rss-p110.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p110.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8951,
+    "sha256": "ca08fb2d3f2ac9301babf2a74d2eb755139ae227ac463582d93c10a239ca6734"
+  },
+  {
+    "file": "sources/rss-p111.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p111.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8733,
+    "sha256": "69d2f18488caf49535c8e981b97a241a7ae69156b9040cb2590a2529f915949e"
+  },
+  {
+    "file": "sources/rss-p112.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p112.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9715,
+    "sha256": "048f035846547ffe665ccb9789051accd2524ace7b1d4e11ea16bdbd60d9dbea"
+  },
+  {
+    "file": "sources/rss-p113.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p113.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9218,
+    "sha256": "876d65b7834801b11fac558980b4ae39c17f7ab162fd579bb74d61a91e2813f3"
+  },
+  {
+    "file": "sources/rss-p114.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p114.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8886,
+    "sha256": "11db9d327ab7f22b20d0293e9c52bffaf7fae2632f4551266f260fd8b629c3fa"
+  },
+  {
+    "file": "sources/rss-p115.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p115.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8706,
+    "sha256": "f47333f8bd681f72aaa9f9f12eb3abdcbe250ea7d7742e768f31efb4fbef1858"
+  },
+  {
+    "file": "sources/rss-p116.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p116.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8811,
+    "sha256": "f28a1c3cc3cf2e49fd6864f264830a537eb15b2ab5f1bc0780cfcb40a45f9343"
+  },
+  {
+    "file": "sources/rss-p117.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p117.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8953,
+    "sha256": "a7873c6f1c49a5ded0b3d5b2e5e33c11fe3cc7c54c4b0f35d157cd2c4d82f236"
+  },
+  {
+    "file": "sources/rss-p118.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p118.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9766,
+    "sha256": "8169fe4cf6ab46dea26ae69a913b01c604325021e0034eb1a9d55a806b574ca2"
+  },
+  {
+    "file": "sources/rss-p119.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p119.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9529,
+    "sha256": "350eed5a90ec9d8b2d5d19c3a83c3a1b3f5e65246428742e2413ece9ec4935ce"
+  },
+  {
+    "file": "sources/rss-p120.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p120.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9158,
+    "sha256": "6d869922e8f8bd3c937ad4b9e780714adbdf6e49bc96a3a560c0d76d82372065"
+  },
+  {
+    "file": "sources/rss-p121.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p121.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9138,
+    "sha256": "0331b4b9d0bdf6038f240f780929148e69cd823f78d20359ac98e88e676f86b4"
+  },
+  {
+    "file": "sources/rss-p122.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p122.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9439,
+    "sha256": "8dd4761842f35d5922f92ac0423a4f065023802d0cc31d1a2326c63a4e83150c"
+  },
+  {
+    "file": "sources/rss-p123.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p123.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8537,
+    "sha256": "ce0a97deaca120b55ec076be6dae1f0092f24e1b2e4c3c80840a7902399ac90f"
+  },
+  {
+    "file": "sources/rss-p124.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p124.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9072,
+    "sha256": "1d2ff3ac9c8ec8f3bb62be2621c774e691a324e0c6b50eb00390728cc0fa2e2d"
+  },
+  {
+    "file": "sources/rss-p125.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p125.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9083,
+    "sha256": "95ae311e89e001e06346384c6c1145d6922c589df1c8f34ac8925273e2eff3cc"
+  },
+  {
+    "file": "sources/rss-p126.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p126.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8351,
+    "sha256": "0d74026adc33d619dffc28a7fc5ec41ba8c5483c8a07491dbe6017c564648168"
+  },
+  {
+    "file": "sources/rss-p127.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p127.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9091,
+    "sha256": "675b9f0a7773dac00509497cd1b45298d4734c143c87406691753e0e51730d61"
+  },
+  {
+    "file": "sources/rss-p128.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p128.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9507,
+    "sha256": "ccf52b66908137b46a1145b1e32fda15ce64001994faad3e7e836728b7335f0d"
+  },
+  {
+    "file": "sources/rss-p129.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p129.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8768,
+    "sha256": "aeecadda52a34bf07303b819b39927e800bdaab6e48d6129655077ad37980cc7"
+  },
+  {
+    "file": "sources/rss-p130.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p130.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9209,
+    "sha256": "c16eb01e991430734e2864f4607e3c6a6db29839ac90b76a08387ddeedbef096"
+  },
+  {
+    "file": "sources/rss-p131.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p131.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9025,
+    "sha256": "3465bd2c6c5dda58ef4a1b810975223b14a3aba7b5b7d9c4f33d460363d4023b"
+  },
+  {
+    "file": "sources/rss-p132.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p132.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9792,
+    "sha256": "7cbb584442397a29f9f83d46bd74eff21301ff05dffd7f3222c1884205a2bf28"
+  },
+  {
+    "file": "sources/rss-p133.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p133.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9019,
+    "sha256": "14dbcd8eb89c23f2ba8a0c182a7c5e544d5ee17e539376d36421da217399b2ea"
+  },
+  {
+    "file": "sources/rss-p134.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p134.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8773,
+    "sha256": "aca4a9590008c2efe2ad2b36ece925cba7b4eb98edbedff6d66ed11545b064a6"
+  },
+  {
+    "file": "sources/rss-p135.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p135.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9001,
+    "sha256": "3f8942e84dbbe20b92034cc47b578d01d63cb74d4d7ed16e3cab86fe1ad1cfe1"
+  },
+  {
+    "file": "sources/rss-p136.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p136.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9518,
+    "sha256": "d4547a72a67fe02237a69bd81ac2252220f97d3af60c7da39f6cc6bb2535b16c"
+  },
+  {
+    "file": "sources/rss-p137.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p137.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9155,
+    "sha256": "b0cb849e39628e5e637f05bcf1a93b0071ec1c0eacd89ae6aad012ba280f3478"
+  },
+  {
+    "file": "sources/rss-p138.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p138.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9662,
+    "sha256": "b332154e49f4009826cefcee2c3669effc3bd8d1060237bd055df41d21edb1ce"
+  },
+  {
+    "file": "sources/rss-p139.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p139.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8640,
+    "sha256": "9f08b6a44669faafbfae09d37c645469ccfb741c29b51403ec31f6238aa85532"
+  },
+  {
+    "file": "sources/rss-p140.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p140.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9840,
+    "sha256": "cd4f8346af8d742cc95a65213afe4b02fd52a1ee84f5ea8e9ee3af11643d53bd"
+  },
+  {
+    "file": "sources/rss-p141.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p141.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9980,
+    "sha256": "288d699591059359b8a7926439e60d913cd4abc144e5632791196c32507db432"
+  },
+  {
+    "file": "sources/rss-p142.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p142.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8978,
+    "sha256": "fb0b3581327d3783c6f218d9e4fcbd4fea5db3c821f5dd8ff287753be7e8ef68"
+  },
+  {
+    "file": "sources/rss-p143.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p143.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9188,
+    "sha256": "d46964d049a4e2d22ade413da82f86e5b2b914d19ac9637b9c4f3c892c373add"
+  },
+  {
+    "file": "sources/rss-p144.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p144.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8696,
+    "sha256": "d0347da0cfd2f6b90becc7b58acc7ec976e9b9a42aa2fdb676d0a49985cc7083"
+  },
+  {
+    "file": "sources/rss-p145.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p145.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9152,
+    "sha256": "6e4527d8f89ac4546217c67236fa9150a0df74735c439b830de77aa6e1fa86e6"
+  },
+  {
+    "file": "sources/rss-p146.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p146.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8692,
+    "sha256": "1a8e15bf6005c5895c513b2b15e093f9e95867e2b22cde8af60357a4d5f00822"
+  },
+  {
+    "file": "sources/rss-p147.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p147.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9080,
+    "sha256": "6a0d3fbc9272aec04102ae2359e5d1e5df234749a64729dc2fcc693e3b07826b"
+  },
+  {
+    "file": "sources/rss-p148.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p148.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8727,
+    "sha256": "6d1a71398a828b96ff8cce55e98807c2e370cd6b3f1d1e94a63f5c655971f843"
+  },
+  {
+    "file": "sources/rss-p149.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p149.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9372,
+    "sha256": "a3e4c4d211339dc01f962c9ff3470217acf9b5ad3b3b38c272718a8835ad2e2c"
+  },
+  {
+    "file": "sources/rss-p150.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p150.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8906,
+    "sha256": "10270cb7ad2288c36765cdafc6092e900be1a1ebb360c61116c34e3df8f123a9"
+  },
+  {
+    "file": "sources/rss-p151.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p151.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8822,
+    "sha256": "7f84a6980ad564276565c345b5f35f948e7d69ca3f8a05d98f43d3c85e39b4db"
+  },
+  {
+    "file": "sources/rss-p152.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p152.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8651,
+    "sha256": "02412f4ee6c0e20211b29fb0afc095af5e74d19aa486bb085b2a5a01cc4b1b49"
+  },
+  {
+    "file": "sources/rss-p153.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p153.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9191,
+    "sha256": "f6f8a549d19e9eeddd22a361c0b1b968681c099727916a51f94a8a3d746fb6cc"
+  },
+  {
+    "file": "sources/rss-p154.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p154.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8765,
+    "sha256": "e9afb60877d095533dbcab4829b874b35f1ccf5d1407e76d919fb50a46a5434c"
+  },
+  {
+    "file": "sources/rss-p155.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p155.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9163,
+    "sha256": "7e236dcbc39d84aa3f4bd59faad475c4e2b52eae639e2f9b820b3d97388fb79d"
+  },
+  {
+    "file": "sources/rss-p156.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p156.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9080,
+    "sha256": "509ee5d2a1fcc60c994d057b93fd837152b7ba81c575faef3b4e058fbe23a8c7"
+  },
+  {
+    "file": "sources/rss-p157.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p157.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8696,
+    "sha256": "a0260bd80b2a7457d107e546f9f26f831a050aca9a16df9f41975725b03f3c9c"
+  },
+  {
+    "file": "sources/rss-p158.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p158.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8448,
+    "sha256": "66acd60589fb768649113bebd1452956174c092a884624a8dc47d2d500286b48"
+  },
+  {
+    "file": "sources/rss-p159.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p159.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9815,
+    "sha256": "d138fd85d348efb5d3478722ba9bafee710c337a6279d768298bb88fda249402"
+  },
+  {
+    "file": "sources/rss-p160.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p160.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9688,
+    "sha256": "9ac30b8d3163f6d50f265af54ac663b31802240e5e8ad3264fbd32a02c34357b"
+  },
+  {
+    "file": "sources/rss-p161.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p161.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8528,
+    "sha256": "35537b55981bc055c92b73ee9281f7ec7cf28cbbf090a9fcc5de6bd5e6737b43"
+  },
+  {
+    "file": "sources/rss-p162.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p162.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8549,
+    "sha256": "f5fc1ff2f3d0e14cf5eba3ca6c69721d32fea196330ac909bdf6b06ebd17159c"
+  },
+  {
+    "file": "sources/rss-p163.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p163.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8874,
+    "sha256": "c2eee80b7b66e48a49f972e9694df13e23326609519efc2ae795bb5a4cfc61dc"
+  },
+  {
+    "file": "sources/rss-p164.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p164.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10282,
+    "sha256": "1e8d7ba568680a173db19e3d5d2afcded75ead82db2c44d098c83e9c68aedefe"
+  },
+  {
+    "file": "sources/rss-p165.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p165.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8841,
+    "sha256": "1ae7e8b9134d898aa93e2f0174761912e108b8feb3466f28ca3d7d0752da8bd6"
+  },
+  {
+    "file": "sources/rss-p166.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p166.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8634,
+    "sha256": "ace4384dfbd1108be8a431f90389ad87baa7e6b18655cc8ec65be2e876d8da25"
+  },
+  {
+    "file": "sources/rss-p167.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p167.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8648,
+    "sha256": "46fe56a89b7f8fea7e6339d6a77e572ea8e46bde4743e22d0ea5128b09f9729c"
+  },
+  {
+    "file": "sources/rss-p168.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p168.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8739,
+    "sha256": "0008970f31d8c82b7a4b2e467c5e2607204aa9f9bffd678d6d3d191ec138f5f6"
+  },
+  {
+    "file": "sources/rss-p169.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p169.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8766,
+    "sha256": "b410339f21f9b538d8276e847437752260b565b844df7b6c9305620f1180e5bb"
+  },
+  {
+    "file": "sources/rss-p170.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p170.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8559,
+    "sha256": "f9db6fa7c7deb00584711c6114f63652e7bb07eaed9147e42c62d250808739c3"
+  },
+  {
+    "file": "sources/rss-p171.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p171.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8380,
+    "sha256": "8f3d2c84de0fcf2d16a66d70fcdd0ad3e62516e448026c7aabd181aa3bb0c228"
+  },
+  {
+    "file": "sources/rss-p172.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p172.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8611,
+    "sha256": "dc65c9338aaa6572f29a03869412550500be3e36b5e7bef8c50f3bb56bb75b54"
+  },
+  {
+    "file": "sources/rss-p173.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p173.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9035,
+    "sha256": "0445b946751fc51aa94ad773787e36fc6cf7c69a72aaed36b9863254f74ed09c"
+  },
+  {
+    "file": "sources/rss-p174.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p174.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8894,
+    "sha256": "5b9ce43e2cae99763a48f42cc71bf3b23cab77a2bf3168b65947013583bdb407"
+  },
+  {
+    "file": "sources/rss-p175.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p175.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8434,
+    "sha256": "574d17131a477554233a315e972074cfbdcc8922089785dec7cbf0a3f176ec00"
+  },
+  {
+    "file": "sources/rss-p176.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p176.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8863,
+    "sha256": "7a59aeabdd0fe6ac60e164267c6de07b60629de61a07833f81be25cf2900339d"
+  },
+  {
+    "file": "sources/rss-p177.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p177.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8783,
+    "sha256": "458f8723ad72aaaafc9ee8fc91412f175896c294144d7d2961b259cd5bb55894"
+  },
+  {
+    "file": "sources/rss-p178.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p178.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8942,
+    "sha256": "1fa5e6d8d569bf2bca1ecae69985fd84dcefd7bd724bb08d39aa801b5057107a"
+  },
+  {
+    "file": "sources/rss-p179.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p179.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8968,
+    "sha256": "96cc2f88c912ef83af93060a00931af724cfdee041abc36c8a7da769aef6e6b2"
+  },
+  {
+    "file": "sources/rss-p180.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p180.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9186,
+    "sha256": "3c10439fbfb328cb304eaef2fc7f9b048f0c5424113122b6243a88baf68b3797"
+  },
+  {
+    "file": "sources/rss-p181.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p181.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8821,
+    "sha256": "8c96613bfa75d7a94205b0995d782f386ab55920771bfdda631fd19c7ae6481a"
+  },
+  {
+    "file": "sources/rss-p182.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p182.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8872,
+    "sha256": "5b956ce139e9f4a1812e0421dee16b5b057d188f38b3e6151e17089c6cb4fe85"
+  },
+  {
+    "file": "sources/rss-p183.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p183.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9295,
+    "sha256": "ed7c97c1ac15c9f21ba6381dd5431fbfc346effa3b0a853687066343da601607"
+  },
+  {
+    "file": "sources/rss-p184.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p184.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9503,
+    "sha256": "0ff4fb29df704693a9d8176a0498f410dc932f7ea94b1ac1246ecbb10c1ea1cb"
+  },
+  {
+    "file": "sources/rss-p185.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p185.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9038,
+    "sha256": "418df4b70f90ef4ecf968189b60093b88c344d9c6a387323d7cee47aaf68eef7"
+  },
+  {
+    "file": "sources/rss-p186.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p186.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8641,
+    "sha256": "966cc90ac3a7e1281b2220d39475154da6cab88ad20a8307412ee11ea17884f8"
+  },
+  {
+    "file": "sources/rss-p187.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p187.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8804,
+    "sha256": "233244f87b83f552e375d171ce53ffd8fa2379876ac621aa4cafd1a867ccb2a2"
+  },
+  {
+    "file": "sources/rss-p188.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p188.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8853,
+    "sha256": "289f39205b847606e0190b240e38b8159c3e6eb755c6aba747f6fa33a3080fa8"
+  },
+  {
+    "file": "sources/rss-p189.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p189.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8968,
+    "sha256": "7c28d32b331fbf9673b506c26ffcf545fe69b68d2c9f287da2046d70bcae4f13"
+  },
+  {
+    "file": "sources/rss-p190.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p190.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8882,
+    "sha256": "0afe0e78b204aa33983fe01ef01c247c9858df323639e3ed58c1008e83233a54"
+  },
+  {
+    "file": "sources/rss-p191.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p191.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8673,
+    "sha256": "4eb070214aadec3b3c3414ff0cc2d7623a4d6242cfd4420721305ba22e291c10"
+  },
+  {
+    "file": "sources/rss-p192.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p192.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8302,
+    "sha256": "c5f32656406313157589ae773fe2d6089caf3e7eb0d6a25901e8c68db7767306"
+  },
+  {
+    "file": "sources/rss-p193.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p193.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9048,
+    "sha256": "61c7bf2725dbd9663f9de55a99bb113007b7ff7b3a0806affef103982b8f6fb8"
+  },
+  {
+    "file": "sources/rss-p194.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p194.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9109,
+    "sha256": "a81f807333f6700641655f108061915a2b7d4e464c5a551cf3e53c9b9245f761"
+  },
+  {
+    "file": "sources/rss-p195.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p195.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8367,
+    "sha256": "f5e5874f8adb479df5c968b3f3f5fe327a50a996dc40369e3a1c9ddcff7c41a8"
+  },
+  {
+    "file": "sources/rss-p196.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p196.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8399,
+    "sha256": "b45efcaae8cc8e9057daf9221b3f78734539d9060c473822ed61bcab7298ee7a"
+  },
+  {
+    "file": "sources/rss-p197.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p197.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9071,
+    "sha256": "b7b3974b25c6d60c8c7422b5f425e16e7274df1a9cbc696b8cb4b086e0a0f256"
+  },
+  {
+    "file": "sources/rss-p198.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p198.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8182,
+    "sha256": "03640ddb5134bafa1621352799634eb406720b9e470feafda2d39171576d6ebf"
+  },
+  {
+    "file": "sources/rss-p199.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p199.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9185,
+    "sha256": "560494f6bc6cc048c6182f4d8049dbf045ab8e2f1c78ce9c1d129094f9bb6adf"
+  },
+  {
+    "file": "sources/rss-p200.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p200.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9180,
+    "sha256": "d4d2ccc4c850ad94e53677452604e176936e083bbc0c83bb1f6829c32e092085"
+  },
+  {
+    "file": "sources/rss-p201.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p201.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9142,
+    "sha256": "9cc2cd67624acd43a89ac19945ed5274fe6c3482caa74e05914fdf7886f2a6f3"
+  },
+  {
+    "file": "sources/rss-p202.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p202.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9818,
+    "sha256": "d0a6f248487436f9d11638010f492bb7d72d3baf6b79064b2d1028fbbdcc8ae3"
+  },
+  {
+    "file": "sources/rss-p203.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p203.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9026,
+    "sha256": "20cdb6fb291a770f4227c3b34c6f2416facccd02154e98097ec3ea672e9354ab"
+  },
+  {
+    "file": "sources/rss-p204.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p204.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9276,
+    "sha256": "9911448ef7b2f861558ed1f23e1688adbba07f04cbe72a6f1b5a0ce136f2ffff"
+  },
+  {
+    "file": "sources/rss-p205.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p205.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8862,
+    "sha256": "9a23b00a0149414b194ea6bae23249f887c39f505ddb3ca239ab88e47a19c71e"
+  },
+  {
+    "file": "sources/rss-p206.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p206.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9091,
+    "sha256": "1b7381bb35e74e1149b6115484900a315fb5424b7ca2bdd9939a8043b9a12853"
+  },
+  {
+    "file": "sources/rss-p207.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p207.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8840,
+    "sha256": "090c731759ba41f506e8c67f4eb0f870c20c6f9095e8601d4084927e89d3af01"
+  },
+  {
+    "file": "sources/rss-p208.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p208.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8463,
+    "sha256": "92abb2989d3a981be51758c10c1afa92b0607ae92b8237efd4d0c3fa15487617"
+  },
+  {
+    "file": "sources/rss-p209.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p209.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 8956,
+    "sha256": "da0e7616cb2820a4402dde158a0a9f92ea51811091b466479cf03ab3a6d90450"
+  },
+  {
+    "file": "sources/rss-p210.html.gz",
+    "url": "https://roboticsproceedings.org/rss22/p210.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 10633,
+    "sha256": "20405c8ef886e7d40ab6f372ae2970c09e92fe857584e9501067e8fae3370e0e"
+  },
+  {
+    "file": "sources/icra-index.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 14885,
+    "sha256": "34a842cb8574eae2e30cf67052c8acf6b12423d7aab3df0c6553b4e676f8a737"
+  },
+  {
+    "file": "sources/icra-day1.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_1.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 16586,
+    "sha256": "5742ccd42fcf9867c179491008a5b8621ffc9cb38fe4653d3d38a44fd8baeb96"
+  },
+  {
+    "file": "sources/icra-day2.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_2.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 18164,
+    "sha256": "3a324dacf9752842a528b794bc49dec6277a175313d6b89047ead1e67fab1ba2"
+  },
+  {
+    "file": "sources/icra-day3.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_3.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 3546195,
+    "sha256": "fb2bad60403efaac0198db45ae92d3fd381a85ba415b96f066c6b5812134c9c6"
+  },
+  {
+    "file": "sources/icra-day4.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_4.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 3593076,
+    "sha256": "df1b42d933c1c7ea77726dc5a1c56be7531ca266007cd271b50eb338bdf4538a"
+  },
+  {
+    "file": "sources/icra-day5.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_5.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 3533388,
+    "sha256": "620577fd8b71df0d1b015f4ceeaaa905c7c40f613688d8a95da082bec5966ae5"
+  },
+  {
+    "file": "sources/icra-day6.html.gz",
+    "url": "https://ras.papercept.net/conferences/conferences/ICRA26/program/ICRA26_ContentListWeb_6.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 16601,
+    "sha256": "013c3414447f884e42be61c96d80271b836cc2459afcfdeb412bc8289825b15d"
+  },
+  {
+    "file": "sources/iros-official.html.gz",
+    "url": "https://2026.ieee-iros.org/program/paper-index/",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 9839994,
+    "sha256": "2bed1490851b5d3f00ecec7b5788026a5c81932d28a4a41abde7545d1657bb8e"
+  },
+  {
+    "file": "sources/iros-posters.html.gz",
+    "url": "https://2026.ieee-iros.org/program/poster-sessions/",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 6991057,
+    "sha256": "74ce208bca0a78cb211cbb41d10849dbedb4442b925056a7d8e27b1caa69815a"
+  },
+  {
+    "file": "sources/iros-explorer.html.gz",
+    "url": "https://gisbi-kim.github.io/iros2026-explorer/output/iros2026_explorer.html",
+    "retrieved_date": "2026-10-22",
+    "bytes_saved": 1880005,
+    "sha256": "fd4332aa9f4d4ba44173ba198809fc997c491d619148958660889f9c9da7a573"
+  }
+]

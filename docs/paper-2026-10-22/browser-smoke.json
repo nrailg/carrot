@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-22",
+  "result": "PASS",
+  "surface": "in-app browser, localhost temporary server",
+  "checks": [
+    {
+      "action": "load index.html",
+      "observed": "overview has four separate conference links, AI shortcuts and HTML notes"
+    },
+    {
+      "action": "open rss.html?status=ai-related",
+      "observed": "RSS only; AI status selected; 164 / 210 records"
+    },
+    {
+      "action": "search NeuralActuator within RSS AI page",
+      "observed": "1 / 210 records"
+    },
+    {
+      "action": "open corl.html",
+      "observed": "687 / 687 records"
+    },
+    {
+      "action": "open icra.html",
+      "observed": "2,898 / 2,898 records including LBR"
+    },
+    {
+      "action": "open iros.html",
+      "observed": "2,078 / 2,078 records including LBR"
+    }
+  ]
+}

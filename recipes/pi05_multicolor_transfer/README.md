@@ -1,6 +1,6 @@
 # 多色换笔临摹 RL → LIBERO
 
-状态：pilot-01 已停止并保留示范；按用户确认的全局批量配置验证并重启中。无迁移效果结论。
+状态：pilot-02 已按全局批量配置启动，正在采集示范（2026-10-24 00:27：32/64）；无迁移效果结论。
 
 起点是既有 LIBERO SFT `step-00000100`。历史 745/2000（37.25%）只用于说明模型来源，
 不能替代本实验新跑的配对 init 基线。三个对照为 init、临摹示范 SFT、临摹 PPO 最终 checkpoint；
@@ -119,3 +119,23 @@ H20 policy-20261023-04真实完成GBS256/micro8的PPO与SFT各一次，梯度累
 old logprob最大误差3.8147e-6；精确恢复、状态不变性、拒绝小rollout与丢弃尾部均通过。
 跨池cross-pool-20261023-04通过32环境/64相机、31slot partial reset、97文件SHA、
 160实际转移和4个LIBERO suite接口检查。测试不构成收敛或迁移效果证据。
+
+### pilot-20261023-02
+
+运行源码提交 `71ff4b9`，2026-10-23 23:57:26（Asia/Shanghai）启动。
+原始 H20 MCP task `8ec98b1f-0047`；MCP会话重连后以持久化事件及进程验证状态。
+截至2026-10-24 00:27，driver PID22325与renderer PID1248346均在运行，init checkpoint已保存，
+4env partial reset通过。已复用pilot-01的20个成功示范，并新增12个，共32/64；
+最近四个双色任务IoU0.7911–0.8004，均两次抓取/归还、零掉笔。SFT/RL正式更新仍为0。
+初始化曾有carb.launcher辅助子进程超时错误，主仿真随后完成初始化并持续采集，未因此重启。
+
+配置：micro8、SFT/PPO global batch256、global rollout4096；RL32环境×128chunks，
+单learner梯度累积32次、每轮16个optimizer steps、1 PPO epoch；SFT最多500步。
+准备6h/RL10h/总24h硬预算，RL转移上限1,024,000；示范课程仍4环境，SFT后切换32环境。
+两池88文件冻结清单SHA256：`208722772efb8e34c9d7ce856a545f24dc895f7595fdc0c8307f75401f583592`。
+源码分别位于各池个人DFS的`experiments/carrot/pi05_multicolor_transfer/sources/pilot-20261023-02`，
+H20的resolved-pilot.yaml固定Pro5000源码与旧示范来源，运行不受后续Mutagen修改影响。
+
+H20输出：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02`。
+Pro5000输出：`/mnt/ceph-zjk1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02/renderer`。
+观察H20的events.jsonl/sft.jsonl，以及Pro5000的demos/collection.json与reuse.json。

@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-22",
+  "date": "2026-10-23",
   "result": "PASS",
   "records": 5873,
   "unique_ids": 5873,
@@ -26,5 +26,8 @@
     "ICRA": 2898,
     "IROS": 2078
   },
-  "html_navigation": "PASS"
+  "html_navigation": "PASS",
+  "chinese_abstracts": 3565,
+  "translation_hashes": "PASS",
+  "translation_remaining": 2151
 }

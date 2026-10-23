@@ -1,0 +1,578 @@
+[
+  {
+    "id": "corl-2026:PAX622BSf6",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "PAX622BSf6",
+    "title": "REAP: Learning General Rearrangement Heuristics from Motion-Planner Feedback",
+    "authors": [
+      "Daniel Swoboda",
+      "Hector Geffner"
+    ],
+    "url": "https://openreview.net/forum?id=PAX622BSf6",
+    "abstract": "Robotic rearrangement tasks require planning sequences of actions that fulfill high-level specifications while also being geometrically feasible. Symbolic abstractions make the combinatorial structure of rearrangement tasks tractable, but they usually do not fully capture the geometric constraints that determine which actions a motion policy can realize. This is due to the complexity of expressing the underlying geometric feasibility constraints in the symbolic model. We propose REAP (Rearrangement with Elicited Action Preconditions), a framework in which a relational graph neural network heuristic is learned over a simple symbolic abstraction. A motion policy serves as a supervisor that elicits the hidden geometric preconditions of the problem during training. Deployed with greedy best-first search, the learned heuristic generalizes out-of-distribution along object count, plan length, and object arrangement. Compared to classical heuristic search and TAMP baselines on the same instances, REAP requires approximately an order of magnitude fewer motion policy queries because the heuristic anticipates which low-level actions are geometrically feasible. We show that the same architecture, training recipe, and search procedure adapt to various robotic rearrangement domains.",
+    "abstract_source": "https://openreview.net/forum?id=PAX622BSf6",
+    "keywords": [
+      "Combination of learning and planning in robotics",
+      "Task and motion planning",
+      "Generalised Planning for Robotics"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "REAP: Learning General Rearrangement Heuristics from Motion-Planner Feedback",
+    "pdf_url": "https://openreview.net/pdf?id=PAX622BSf6",
+    "arxiv_url": "",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "neural-control"
+    ],
+    "ai_abstract_tags": [
+      "neural-control"
+    ],
+    "ai_evidence": [
+      {
+        "field": "abstract",
+        "tag": "neural-control",
+        "terms": [
+          "graph neural"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:1HqdYVWaXi",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "1HqdYVWaXi",
+    "title": "ReSiReg: Towards Spatially Consistent Semantics in Language-Conditioned Robotic Tasks",
+    "authors": [
+      "Simon Schwaiger",
+      "David Seyser",
+      "Alessandro Scherl",
+      "Wilfried Wöber",
+      "Gerald Steinbauer-Wagner"
+    ],
+    "url": "https://openreview.net/forum?id=1HqdYVWaXi",
+    "abstract": "Vision-Language Models (VLMs) enable robots to follow open-language instructions. However, dense VLM embeddings have shown to be noisy and lack spatial consistency. This is problematic for robotic applications, which require simultaneous reasoning over semantics and 3D space. We examine spatial structure across recent VLMs and propose ReSiReg, a feature reconstruction method that uses spatially consistent VLM intermediates to improve dense language-grounded retrieval. ReSiReg clusters intermediates into visual prototypes, derives their language descriptors, and reconstructs each patch as a soft mixture of prototype-level language embeddings. We evaluate quantitatively on OVSS and 3D mapping across backbones, and qualitatively in real-world manipulation scenes. Quantitative results show improved dense retrieval; manipulation scenes show more spatially consistent target activations. We further provide a compact 25M dense VLM for robotic applications, substantially smaller than and competitive with ViT-B baselines. Code and model weights will be released.",
+    "abstract_source": "https://openreview.net/forum?id=1HqdYVWaXi",
+    "keywords": [
+      "Learning representations for robotic perception and control",
+      "Multimodal perception, sensor fusion, and robot vision",
+      "Language-Grounded Robot Control",
+      "Semantic Mapping"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "ReSiReg: Towards Spatially Consistent Semantics in Language-Conditioned Robotic Tasks",
+    "pdf_url": "https://openreview.net/pdf?id=1HqdYVWaXi",
+    "arxiv_url": "https://arxiv.org/abs/2606.19088",
+    "project_urls": [
+      "https://resireg.github.io"
+    ],
+    "code_urls": [
+      "https://github.com/SimonSchwaiger/resireg"
+    ],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [
+      "vla-foundation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language",
+          "VLMs",
+          "VLM"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:JiMWz6U93i",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "JiMWz6U93i",
+    "title": "AsyncVLA: An Asynchronous VLA for Fast and Robust Navigation on the Edge",
+    "authors": [
+      "Noriaki Hirose",
+      "Catherine Glossop",
+      "Dhruv Shah",
+      "Sergey Levine"
+    ],
+    "url": "https://openreview.net/forum?id=JiMWz6U93i",
+    "abstract": "Robotic foundation models achieve strong generalization by leveraging internet-scale vision-language representations, but their massive computational cost creates a fundamental bottleneck: high inference latency. In dynamic environments, this latency breaks the control loop, rendering powerful models unsafe for real-time deployment. We propose AsyncVLA, an asynchronous control framework that decouples semantic reasoning from reactive execution. Inspired by hierarchical control, AsyncVLA runs a large foundation model on a remote workstation to provide high-level guidance, while a lightweight, onboard Edge Adapter continuously refines actions at high frequency. To bridge the domain gap between these asynchronous streams, we introduce an end-to-end finetuning protocol and a trajectory re-weighting strategy that prioritizes dynamic interactions. We evaluate our approach on real-world vision-based navigation tasks with communication delays up to 6 seconds. AsyncVLA achieves a 40% higher success rate than state-of-the-art baselines, effectively bridging the gap between the semantic intelligence of large models and the reactivity required for edge robotics.",
+    "abstract_source": "https://openreview.net/forum?id=JiMWz6U93i",
+    "keywords": [
+      "Robot foundation models and general-purpose knowledge systems",
+      "Robot navigation and locomotion"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "AsyncVLA: An Asynchronous VLA for Fast and Robust Navigation on the Edge",
+    "pdf_url": "https://openreview.net/pdf?id=JiMWz6U93i",
+    "arxiv_url": "https://arxiv.org/abs/2602.13476",
+    "project_urls": [
+      "https://asyncvla.github.io"
+    ],
+    "code_urls": [
+      "https://github.com/NHirose/AsyncVLA"
+    ],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "vla-foundation",
+        "terms": [
+          "VLA"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "foundation models"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "foundation models",
+          "vision-language",
+          "VLA",
+          "foundation model"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "finetun"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:Av4ykyMvpX",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "Av4ykyMvpX",
+    "title": "LCLA: Language-Conditioned Latent Alignment for Vision-Language Navigation",
+    "authors": [
+      "Nitesh Subedi",
+      "Adam Haroon",
+      "Samuel Tetteh",
+      "Prajwal Koirala",
+      "Cody Fleming",
+      "Soumik Sarkar"
+    ],
+    "url": "https://openreview.net/forum?id=Av4ykyMvpX",
+    "abstract": "We propose LCLA (Language-Conditioned Latent Alignment), a framework for vision-language navigation that decouples perception from control by aligning visual-language observations to the latent representation of a frozen privileged expert policy. A lightweight adapter maps frozen vision-language embeddings into the expert latent space using supervised latent alignment rather than end-to-end policy optimization, enabling expert navigation behavior to be reused across perception backbones and environmental variations. We evaluate LCLA across in-distribution simulation, zero-shot out-of-distribution environments, robustness perturbations, and direct real-world deployment on a TurtleBot platform, where it improves OOD success rate from 49.3% to 80.5% and reduces collision rates from 45.0% to 15.5% relative to direct behavior cloning. Without any real-world fine-tuning or calibration, LCLA attains 70.7% real-world success, compared to 60.9% for a navigation-pretrained baseline and 40.2% for direct behavior cloning, demonstrating robust and efficient sim2real transfer while remaining lightweight at inference time.",
+    "abstract_source": "https://openreview.net/forum?id=Av4ykyMvpX",
+    "keywords": [
+      "Learning representations for robotic perception and control",
+      "Sim-to-real transfer",
+      "Vision Language Navigation",
+      "Foundation Models"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "LCLA: Language-Conditioned Latent Alignment for Vision-Language Navigation",
+    "pdf_url": "https://openreview.net/pdf?id=Av4ykyMvpX",
+    "arxiv_url": "https://arxiv.org/abs/2602.07629",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [
+      "imitation-policy",
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision Language",
+          "Foundation Models"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "vision-language"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "imitation-policy",
+        "terms": [
+          "behavior cloning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "fine-tun",
+          "pretrain"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:PjzSYChBzg",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "PjzSYChBzg",
+    "title": "WAM-Nav: Asymmetric Latent World-Action Modeling for Unified Visual Navigation",
+    "authors": [
+      "Ning Yang",
+      "Yan Huang",
+      "Kaiwen Peng",
+      "Ziheng He",
+      "Kai Wang",
+      "Cui Miao",
+      "Kailin Lyu",
+      "guo li",
+      "Xiaofeng Wang",
+      "Zheng Zhu",
+      "Jing Liu",
+      "Nianfeng Liu"
+    ],
+    "url": "https://openreview.net/forum?id=PjzSYChBzg",
+    "abstract": "Visual navigation requires generating smooth and collision-free trajectories under complex geometric and physical constraints. Existing reactive policies that directly map observations to actions lack anticipatory reasoning, limiting their ability to proactively avoid obstacles. While visual imagination offers predictive foresight, conventional modular approaches separate scene prediction from policy learning, often leading to error accumulation and inefficient inference. To address these limitations, we propose WAM-Nav, a Latent World-Action Model for embodied visual navigation that jointly learns action generation and latent visual foresight, enabling more robust and foresighted navigation decisions without compromising inference efficiency. Specifically, WAM-Nav utilizes a shared Diffusion Transformer for asymmetric joint diffusion to concurrently generate long-horizon actions and short-horizon visual foresight, reducing the inference latency and visual error accumulation inherent in multi-step autoregressive rollouts. To further encourage smooth and consistent trajectory generation, we introduce a dual-stream contextual conditioning mechanism that integrates episode-level ego-motion history with sequential visual observations. Combined with a unified goal alignment module that preserves balanced representations across goal types, WAM-Nav naturally supports Image-Goal, Point-Goal, and No-Goal exploration within a single policy. Extensive experiments on the challenging \\textit{ClutterScenes} and \\textit{InternScenes} benchmarks demonstrate strong generalization of WAM-Nav, particularly on Image-Goal and Point-Goal navigation, where it improves success rates by \\textbf{15.7\\%} and \\textbf{3.3\\%}, respectively. Real-world deployment further validates effective zero-shot sim-to-real transfer, achieving an average \\textbf{85\\%} task success rate across diverse indoor and outdoor environments.",
+    "abstract_source": "https://openreview.net/forum?id=PjzSYChBzg",
+    "keywords": [
+      "Robot navigation and locomotion",
+      "Video models and latent world models for robot learning",
+      "Embodied Visual Navigation",
+      "World Action Model"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "WAM-Nav: Asymmetric Latent World-Action Modeling for Unified Visual Navigation",
+    "pdf_url": "https://openreview.net/pdf?id=PjzSYChBzg",
+    "arxiv_url": "https://arxiv.org/abs/2606.04907",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "world-models",
+      "other-robot-learning"
+    ],
+    "ai_abstract_tags": [
+      "generative-models"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "world-models",
+        "terms": [
+          "Video model",
+          "world model"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "other-robot-learning",
+        "terms": [
+          "robot learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "generative-models",
+        "terms": [
+          "Diffusion Transformer"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:nYkpEYmvbg",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "nYkpEYmvbg",
+    "title": "SPAN-Nav: Generalized Spatial Awareness for Embodied Navigation",
+    "authors": [
+      "Jiahang Liu",
+      "Tianyu Xu",
+      "Jiawei Chen",
+      "Lu Yue",
+      "Jiazhao Zhang",
+      "Zhiyong Wang",
+      "Minghan Li",
+      "Qisheng Zhao",
+      "Anqi Li",
+      "Qi Su",
+      "Zhizheng Zhang",
+      "He Wang"
+    ],
+    "url": "https://openreview.net/forum?id=nYkpEYmvbg",
+    "abstract": "Recent embodied navigation methods leveraging Vision-Language Models (VLMs) have shown strong generalization. However, reliable path planning in complex environments remains challenging due to insufficient spatial awareness. The key challenge lies in learning spatial awareness that generalizes across diverse scenes and supports cross-task navigation reasoning. Motivated by this challenge, we propose SPAN-Nav, which advances generalized 3D spatial awareness for embodied navigation by estimating egocentric 3D occupancy from RGB video streams and using it as an intermediate spatial representation for navigation reasoning. SPAN-Nav represents 3D occupancy in a continuous latent space and projects it into a compact spatial token for VLM integration. This design provides navigation-relevant geometric cues while avoiding the inference overhead of dense volumetric representations. To align occupancy perception with navigation reasoning, SPAN-Nav adopts Two-Stage Spatial-to-Action Alignment (S2A-Align), a training strategy that first grounds navigation decisions on ground-truth occupancy and then adapts action reasoning to self-predicted spatial priors to reduce the training-inference gap. Based on a large-scale dataset with 4.2M occupancy annotations across diverse scenes and navigation tasks, SPAN-Nav achieves state-of-the-art performance on Vision-and-Language Navigation (VLN), urban navigation and point-goal navigation benchmarks, improving Success Rate (SR) by 4.6% / 5.3% on R2R-CE / RxR-CE, reducing MetaUrban collision cost by over 4×, and reaching 90.9% / 91.0% zero-shot SR on InternVLA-N1 System-1 point-goal navigation benchmark. Real-world experiments further demonstrate robust obstacle avoidance and reliable execution in cluttered environments.",
+    "abstract_source": "https://openreview.net/forum?id=nYkpEYmvbg",
+    "keywords": [
+      "Robot navigation and locomotion",
+      "Robot foundation models and general-purpose knowledge systems"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "SPAN-Nav: Generalized Spatial Awareness for Embodied Navigation",
+    "pdf_url": "https://openreview.net/pdf?id=nYkpEYmvbg",
+    "arxiv_url": "",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [
+      "ai-data-evaluation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "foundation models"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language",
+          "VLMs",
+          "VLM",
+          "VLA"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "ai-data-evaluation",
+        "terms": [
+          "benchmarks, improving Success Rate (SR) by 4.6% / 5.3% on R2R-CE / RxR-CE, reducing MetaUrban collision cost by over 4×, and reaching 90.9% / 91.0% zero-shot SR on InternVLA"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:1zWj66605w",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "1zWj66605w",
+    "title": "G2-Nav: Grounded and Guarded Vision-Language Costmaps for Robot Social Navigation",
+    "authors": [
+      "Yuwen Liao",
+      "Yihang Lan",
+      "Yizhuo Yang",
+      "Ruimeng Liu",
+      "Xinhang Xu",
+      "Shenghai Yuan",
+      "Lihua Xie"
+    ],
+    "url": "https://openreview.net/forum?id=1zWj66605w",
+    "abstract": "Social navigation requires the robot to reason and respond in complex real-world environments. While recent works attempt to incorporate human-level intelligence into robot planning using large Vision-Language Models (VLMs), end-to-end frameworks often create an unpredictable black-box, and existing instruction-following methods are not designed for full autonomy. To bridge this gap, we present G2-Nav, a novel framework that grounds abstract social reasoning and guards safe real-world deployment. Instead of asking the VLM for direct planning decisions, G2-Nav translates its semantic reasoning into a vision-language costmap with reliability and interpretability. The VLM evaluates traversable regions and social agents from open-set perception, mapping social context into the costmap. To improve real-world robustness, the VLM performs semantic verification on upstream tracking, and we introduce a high-frequency safety check to guard against system latency prior to trajectory generation. We demonstrate through real-world experiments that G2-Nav delivers safe, efficient, and socially compliant autonomous navigation in unstructured environments. Code will be made publicly available.",
+    "abstract_source": "https://openreview.net/forum?id=1zWj66605w",
+    "keywords": [
+      "Human-robot interaction and natural language instruction",
+      "Robot navigation and locomotion",
+      "Social Navigation",
+      "VLM Grounding"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "G2-Nav: Grounded and Guarded Vision-Language Costmaps for Robot Social Navigation",
+    "pdf_url": "https://openreview.net/pdf?id=1zWj66605w",
+    "arxiv_url": "https://arxiv.org/abs/2607.16956",
+    "project_urls": [],
+    "code_urls": [
+      "https://github.com/centiLinda/G2-Nav"
+    ],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "VLM"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language",
+          "VLMs",
+          "VLM",
+          "vision-language"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:RExYYVsLbT",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "RExYYVsLbT",
+    "title": "Plann3r: Predicting Planning Costs Grounded in 3D",
+    "authors": [
+      "Aditya Vadali",
+      "Krish Pandya",
+      "Vansh Garg",
+      "Nishant Chandna",
+      "Dustin Craggs",
+      "Feras Dayoub",
+      "Madhava Krishna",
+      "Sourav Garg"
+    ],
+    "url": "https://openreview.net/forum?id=RExYYVsLbT",
+    "abstract": "Planning paths or trajectories for robot navigation requires understanding scene geometry and traversability. Classic approaches relied on accurate 3D maps to define occupancy based planning costs. Learning based alternatives predict planning costs either in terms of distance to goal or temporal distance between images. However, the former overfits to scene layout and the latter lacks geometric understanding. Moreover, most of these methods estimate \\textit{image-level} scalar costs, which are not sufficiently informative to effectively guide the robot. In this paper, we propose \\textbf{Plann3r} as a 3D grounded method to predict \\textit{pixel-level} planning costs in terms of geodesic distances for any given set of images with an arbitrary subgoal pixel. We integrate Plann3r within a navigation pipeline, dubbed \\textbf{VGGT-Nav}, in two unique ways: the offline mapping cum global planning phase iteratively uses Plann3r to generate subgoals and reference image global costmaps; and in the execution phase Plann3r performs simultaneous localization and local planning to generate planning costmaps to directly condition a learnt control policy. We show that the proposed Plann3r and VGGT-Nav largely outperform baselines respectively on the planning and navigation tasks on existing benchmark dataset. We further show real world demonstrations that highlight sim-to-real deployment. We will make the code publicly available: \\url{https://plann3r.github.io/} (anonymized).",
+    "abstract_source": "https://openreview.net/forum?id=RExYYVsLbT",
+    "keywords": [
+      "Learning representations for robotic perception and control",
+      "Robot navigation and locomotion"
+    ],
+    "presentations": [
+      "Poster Poster Session 1"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "Plann3r: Predicting Planning Costs Grounded in 3D",
+    "pdf_url": "https://openreview.net/pdf?id=RExYYVsLbT",
+    "arxiv_url": "",
+    "project_urls": [
+      "https://plann3r.github.io"
+    ],
+    "code_urls": [
+      "https://github.com/MostlyKIGuess/plann3r-code"
+    ],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "other-robot-learning"
+    ],
+    "ai_abstract_tags": [
+      "other-robot-learning"
+    ],
+    "ai_evidence": [
+      {
+        "field": "abstract",
+        "tag": "other-robot-learning",
+        "terms": [
+          "Learning based"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  }
+]

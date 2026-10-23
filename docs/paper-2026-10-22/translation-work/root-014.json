@@ -1,0 +1,618 @@
+[
+  {
+    "id": "corl-2026:7ymfgWpcWw",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "7ymfgWpcWw",
+    "title": "ControlTac: Scaling Tactile Data with Physically Controlled Tactile Image Generation",
+    "authors": [
+      "Dongyu Luo",
+      "Kelin Yu",
+      "Amir Hossein Shahidzadeh",
+      "Cornelia Fermuller",
+      "Yiannis Aloimonos",
+      "Ruohan Gao"
+    ],
+    "url": "https://openreview.net/forum?id=7ymfgWpcWw",
+    "abstract": "Vision-based tactile sensing is widely used in perception, reconstruction, and robotic manipulation, yet collecting large-scale tactile data remains costly due to diverse sensor-object interactions and inconsistencies across sensor instances. Existing approaches to scaling tactile data—simulation and free-form tactile generation—often yield unrealistically rendered signals with poor transfer to highly dynamic real-world tasks. We propose ControlTac, a two-stage controllable tactile image generation framework that generates realistic tactile images conditioned on a single reference tactile image, contact force, and contact pose. By grounding generation in these important physical priors, ControlTac synthesizes realistic samples across different sensors while effectively capturing task-relevant variations. Across a series of downstream tasks and real-world experiments, such as object insertion, imitation learning, and object weighting, the augmented datasets using our approach consistently improve performance and demonstrate practical utility in dynamic real-world settings.",
+    "abstract_source": "https://openreview.net/forum?id=7ymfgWpcWw",
+    "keywords": [
+      "Multimodal perception, sensor fusion, and robot vision",
+      "Robotic data generation",
+      "Tactile Sensing",
+      "Tactile Data Augmentation for Visuo-Tactile Robot Learning"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "ControlTac: Scaling Tactile Data with Physically Controlled Tactile Image Generation",
+    "pdf_url": "https://openreview.net/pdf?id=7ymfgWpcWw",
+    "arxiv_url": "https://arxiv.org/abs/2505.20498",
+    "project_urls": [
+      "https://dongyuluo.github.io/controltac"
+    ],
+    "code_urls": [
+      "https://github.com/DongyuLUO/ControlTac"
+    ],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "other-robot-learning"
+    ],
+    "ai_abstract_tags": [
+      "imitation-policy"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "other-robot-learning",
+        "terms": [
+          "Robot Learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "imitation-policy",
+        "terms": [
+          "imitation learning"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:xn8Hwa4hpq",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "xn8Hwa4hpq",
+    "title": "TACTX: Learning Shared Tactile Representations Across Diverse Sensors",
+    "authors": [
+      "Junsung Park",
+      "Sachin Bhadang",
+      "Carmelo Sferrazza",
+      "Sha Yi",
+      "Xiaolong Wang"
+    ],
+    "url": "https://openreview.net/forum?id=xn8Hwa4hpq",
+    "abstract": "Tactile sensors provide critical information for contact-rich manipulation, yet tactile representations and policies remain tightly coupled to each specific sensor, limiting transferability across robots and hardware platforms. We propose TACTX, a framework for learning a transferable tactile representation across sensors spanning three fundamentally different transduction modalities: resistive, magnetic, and vision-based. TACTX maps heterogeneous tactile observations into a shared latent space through modality-specific encoders trained on paired contact data. Such paired interactions provide a natural alignment signal across modalities, and the encoders are jointly trained across all sensor pairs, inducing a consistent latent space for all sensor types. Our experiments show that TACTX aligns tactile representations across sensors while preserving object-level contact information, as evidenced by sensor-identity prediction and object classification in the learned latent space. We evaluate TACTX on four contact-rich manipulation tasks—pick-and-place, plug insertion, board wiping, and object reorientation—and show that policies trained with one sensor transfer zero-shot to physically distinct sensors through the shared latent. This improves the average success rate from 27.5% for vision-only transfer to 45.9%, providing a step toward sensor-agnostic tactile manipulation.",
+    "abstract_source": "https://openreview.net/forum?id=xn8Hwa4hpq",
+    "keywords": [
+      "Learning representations for robotic perception and control",
+      "Robot manipulation",
+      "Tactile Representation Learning",
+      "Cross-Sensor Transfer"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "TACTX: Learning Shared Tactile Representations Across Diverse Sensors",
+    "pdf_url": "https://openreview.net/pdf?id=xn8Hwa4hpq",
+    "arxiv_url": "https://arxiv.org/abs/2606.31236",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "representation-adaptation"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "representation-adaptation",
+        "terms": [
+          "Representation Learning"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:0DopZPPLvw",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "0DopZPPLvw",
+    "title": "Heterogeneous Tactile Transformer",
+    "authors": [
+      "Jianxin Bi",
+      "QIANG WANG",
+      "Jayaram Reddy",
+      "Lin Kelvin",
+      "Soibkhon Khajikhanov",
+      "Ruihan Gao",
+      "Harold Soh"
+    ],
+    "url": "https://openreview.net/forum?id=0DopZPPLvw",
+    "abstract": "Tactile sensors are inherently heterogeneous: a model trained on one sensor cannot be directly used on another, which limits learning contact-rich manipulation policies from diverse tactile data at scale. To bridge this gap, we propose the Heterogeneous Tactile Transformer (HTT), a framework that learns shared tactile representations across heterogeneous sensors. HTT consists of sensor-specific encoders and a shared transformer trunk, and is pretrained with per-modality masked reconstruction together with cross-modal alignment between paired sensors. Pretraining uses our novel Heterogeneous Paired Tactile (HPT) dataset, containing 1.6M synchronized paired frames across four vision- and array-based tactile sensors. Across distinct tactile perception and real-world manipulation tasks, HTT is shown to learn transferable representations that adapt to new tasks and previously unseen sensors. Dataset, code, and model checkpoints will be released upon publication.",
+    "abstract_source": "https://openreview.net/forum?id=0DopZPPLvw",
+    "keywords": [
+      "Learning representations for robotic perception and control",
+      "Multimodal perception, sensor fusion, and robot vision",
+      "Tactile Perception",
+      "Contact-Rich Manipulation"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "Heterogeneous Tactile Transformer",
+    "pdf_url": "https://openreview.net/pdf?id=0DopZPPLvw",
+    "arxiv_url": "https://arxiv.org/abs/2606.29948",
+    "project_urls": [
+      "https://jxbi1010.github.io/htt-gh-page"
+    ],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "representation-adaptation"
+    ],
+    "ai_abstract_tags": [
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "pretrain",
+          "Pretrain"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:xc8asDq7QI",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "xc8asDq7QI",
+    "title": "FTP-1: A Generalist Foundation Tactile Policy Across Tactile Sensors for Contact-Rich Manipulation",
+    "authors": [
+      "Chengbo Yuan",
+      "Zicheng Zhang",
+      "Mingjie Zhou",
+      "Wendi Chen",
+      "Yi Wang",
+      "Zhuoyang Liu",
+      "Dantong Niu",
+      "Shuo Wang",
+      "Hui Zhang",
+      "Wenkang Zhang",
+      "Yingdong Hu",
+      "Yuanqing Gong",
+      "Wanli Xing",
+      "Chuan Wen",
+      "Cewu Lu",
+      "Kaifeng Zhang",
+      "Yang Gao"
+    ],
+    "url": "https://openreview.net/forum?id=xc8asDq7QI",
+    "abstract": "Despite the success of vision-based generalist robotic policies, existing tactile-based policies remain tied to fixed embodiments and sensor setups. This is because tactile signals are highly heterogeneous across hardware, making cross-sensor generalization difficult. We present FTP-1, the first generalist foundation tactile policy pretrained to acquire transferable tactile manipulation abilities across diverse sensors and embodiments. FTP-1 supports varied tactile inputs, including image-, array-, and state-based signals, by using heterogeneous encoders to project them into unified morphology-aware latent tokens that are jointly modeled by a shared tactile Transformer expert. Pretrained on ~ 3,000 hours of tactile manipulation data aggregated from 26 data sources, spanning human and robot demonstrations across 21 sensors, FTP-1 learns tactile skills that transfer beyond the sensors seen during pretraining. Across downstream finetuning experiments spanning 5 hardware configurations, FTP-1 improves contact-rich manipulation on seen sensor setups by +17.2% and, surprisingly, transfers to two previously unseen tactile-sensor setups, achieving a +31% gain in success rate. FTP-1 establishes the first unified foundation baseline for tactile manipulation, providing future tactile policies with a shared model-level starting point. All model checkpoints, datasets, and training code will be released in the future.",
+    "abstract_source": "https://openreview.net/forum?id=xc8asDq7QI",
+    "keywords": [
+      "Robot foundation models and general-purpose knowledge systems",
+      "Learning representations for robotic perception and control",
+      "Tactile Manipulation",
+      "Generalist Policy"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "FTP-1: A Generalist Foundation Tactile Policy Across Tactile Sensors for Contact-Rich Manipulation",
+    "pdf_url": "https://openreview.net/pdf?id=xc8asDq7QI",
+    "arxiv_url": "https://arxiv.org/abs/2606.13102",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "foundation models"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "pretrain",
+          "Pretrain",
+          "finetun"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:b2gSINMX3R",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "b2gSINMX3R",
+    "title": "Multi-Resolution Tactile Imitation Learning for Contact-Rich Robotic Manipulation",
+    "authors": [
+      "Rickmer Krohn",
+      "Erik Helmut",
+      "Niklas Funk",
+      "Jan Peters",
+      "Vignesh Prasad",
+      "Georgia Chalvatzaki"
+    ],
+    "url": "https://openreview.net/forum?id=b2gSINMX3R",
+    "abstract": "Touch sensing is essential for solving a wide variety of manipulation tasks. While there exists a wide range of tactile sensors with different properties, exploiting the fusion of multiple heterogeneous tactile sensors to improve manipulation learning remains underexplored. We present Multi-Resolution Tactile Sensing (MiTaS), a representation framework that leverages multiple tactile sensors operating at different temporal resolutions in order to solve complex contact-rich manipulation tasks. We propose a novel architecture using modality-specific convolutional stems and transformer-based fusion that effectively fuses information from an RGB camera stream, a vision-based GelSight Mini sensor and a high-frequency event-based Evetac sensor. This multi-sensor representation then conditions a flow-matching policy for downstream task solving. Experimental results across five contact-rich manipulation tasks demonstrate the effectiveness of multi-resolution tactile features in imitation learning. MiTaS achieves an average success rate of 80 %, while vision-only (31 %) and visual-tactile (54 %) baselines cannot solve the task reliably. Co-training a visuo-tactile model with multi-tactile data boosts performance by over 10 % in certain tasks, without having access to the Evetac sensor during policy evaluation. A detailed sensor-reading and attention analysis reveals the importance of different sensors throughout task execution, validating our multi-resolution tactile sensing approach.",
+    "abstract_source": "https://openreview.net/forum?id=b2gSINMX3R",
+    "keywords": [
+      "Multimodal perception, sensor fusion, and robot vision",
+      "Imitation learning (behavioral cloning, inverse RL)",
+      "Touch sensing for robotic manipulation"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "Multi-Resolution Tactile Imitation Learning for Contact-Rich Robotic Manipulation",
+    "pdf_url": "https://openreview.net/pdf?id=b2gSINMX3R",
+    "arxiv_url": "https://arxiv.org/abs/2606.06281",
+    "project_urls": [
+      "https://mitas-touch.github.io"
+    ],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "reinforcement-learning",
+      "imitation-policy"
+    ],
+    "ai_abstract_tags": [
+      "generative-models",
+      "learned-perception"
+    ],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "imitation-policy",
+        "terms": [
+          "Imitation Learning"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "reinforcement-learning",
+        "terms": [
+          "RL"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "imitation-policy",
+        "terms": [
+          "Imitation learning",
+          "behavioral cloning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "imitation-policy",
+        "terms": [
+          "imitation learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "generative-models",
+        "terms": [
+          "flow-matching"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "learned-perception",
+        "terms": [
+          "convolutional"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:yeAKwjw5Xa",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "yeAKwjw5Xa",
+    "title": "Learning to Feel the Future: DreamTacVLA for Contact-Rich Manipulation",
+    "authors": [
+      "Guo Ye",
+      "Zexi Zhang",
+      "Xu Zhao",
+      "Shang Wu",
+      "Haoran Lu",
+      "Shihan Lu",
+      "Han Liu"
+    ],
+    "url": "https://openreview.net/forum?id=yeAKwjw5Xa",
+    "abstract": "Vision-Language-Action (VLA) models have shown remarkable generalization by mapping web-scale knowledge to robotic control, yet they remain blind to physical contact. Consequently, they struggle with contact-rich manipulation tasks that require reasoning about force, texture, and slip. While some approaches incorporate low-dimensional tactile signals, they fail to capture the high-resolution dynamics essential for such interactions. To address this limitation, we introduce DreamTacVLA, a framework that grounds VLA models in contact physics by learning to feel the future. Our model adopts a hierarchical perception scheme in which high-resolution tactile images serve as micro-vision inputs coupled with wrist-camera local vision and third-person macro vision. To reconcile these multi-scale sensory streams, we first train a unified policy with a Hierarchical Spatial Alignment (HSA) loss that aligns tactile tokens with their spatial counterparts in the wrist and third-person views. To further deepen the model’s understanding of fine-grained contact dynamics, we finetune the system with a tactile world model that predicts future tactile signals. To mitigate tactile data scarcity and the wear-prone nature of tactile sensors, we construct a hybrid large-scale dataset sourced from both high-fidelity digital twin and real-world experiments. By anticipating upcoming tactile states, DreamTacVLA acquires a rich model of contact physics and conditions its actions on both real observations and imagined consequences. Across contact-rich manipulation tasks, it outperforms state-of-the-art VLA baselines, achieving up to 95\\% success, highlighting the importance of understanding physical contact for robust, touch-aware robotic agents.",
+    "abstract_source": "https://openreview.net/forum?id=yeAKwjw5Xa",
+    "keywords": [
+      "Robot manipulation",
+      "Imitation learning (behavioral cloning, inverse RL)",
+      "Tactile Manipulation"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "Learning to Feel the Future: DreamTacVLA for Contact-Rich Manipulation",
+    "pdf_url": "https://openreview.net/pdf?id=yeAKwjw5Xa",
+    "arxiv_url": "https://arxiv.org/abs/2512.23864",
+    "project_urls": [
+      "https://michaelyeah7.github.io/learning-to-feel-the-future"
+    ],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation",
+      "reinforcement-learning",
+      "imitation-policy",
+      "other-robot-learning"
+    ],
+    "ai_abstract_tags": [
+      "world-models",
+      "representation-adaptation",
+      "ai-data-evaluation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "vla-foundation",
+        "terms": [
+          "VLA"
+        ]
+      },
+      {
+        "field": "title",
+        "tag": "other-robot-learning",
+        "terms": [
+          "Learning to "
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "reinforcement-learning",
+        "terms": [
+          "RL"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "imitation-policy",
+        "terms": [
+          "Imitation learning",
+          "behavioral cloning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language-Action",
+          "VLA"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "world-models",
+        "terms": [
+          "world model"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "finetun"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "ai-data-evaluation",
+        "terms": [
+          "VLA) models have shown remarkable generalization by mapping web-scale knowledge to robotic control, yet they remain blind to physical contact. Consequently, they struggle with contact-rich manipulation tasks that require reasoning about force, texture, and slip. While some approaches incorporate low-dimensional tactile signals, they fail to capture the high-resolution dynamics essential for such interactions. To address this limitation, we introduce DreamTacVLA, a framework that grounds VLA models in contact physics by learning to feel the future. Our model adopts a hierarchical perception scheme in which high-resolution tactile images serve as micro-vision inputs coupled with wrist-camera local vision and third-person macro vision. To reconcile these multi-scale sensory streams, we first train a unified policy with a Hierarchical Spatial Alignment (HSA) loss that aligns tactile tokens with their spatial counterparts in the wrist and third-person views. To further deepen the model’s understanding of fine-grained contact dynamics, we finetune the system with a tactile world model that predicts future tactile signals. To mitigate tactile data scarcity and the wear-prone nature of tactile sensors, we construct a hybrid large-scale dataset"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "other-robot-learning",
+        "terms": [
+          "learning to "
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:1zYrrwoISV",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "1zYrrwoISV",
+    "title": "FAWAM: Force-Aware World Action Models for Closed-Loop Contact-Rich Manipulation",
+    "authors": [
+      "Haotian He",
+      "zeyu yan",
+      "Qipeng Liu",
+      "Ning Guo",
+      "Wenzhao Lian"
+    ],
+    "url": "https://openreview.net/forum?id=1zYrrwoISV",
+    "abstract": "Force signals provide critical interaction cues for contact-rich robotic manipulation. However, existing methods mostly use force as an additional observation modality, without fully exploiting its role in modeling future interaction dynamics or guiding execution-time feedback correction. In this paper, we propose FAWAM, a force-aware world action model that incorporates force information at three levels: perception, prediction, and closed-loop execution. FAWAM first encodes historical 6-axis force/torque signals to modulate action generation, then jointly predicts future actions and end-effector wrenches to explicitly model contact evolution. It further introduces a residual correction module that uses the predicted wrench trajectory as an execution-time reference to refine actions online based on real-time force feedback. Real-world experiments across multiple contact-rich tasks show that FAWAM improves the average success rate by 36.25% over vision-only baselines and 21.25% over existing force-aware baselines, demonstrating the effectiveness of our force-aware framework for robust contact-rich manipulation.",
+    "abstract_source": "https://openreview.net/forum?id=1zYrrwoISV",
+    "keywords": [
+      "Robot manipulation",
+      "Video models and latent world models for robot learning",
+      "world action model with force",
+      "contact rich manipulation"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "FAWAM: Force-Aware World Action Models for Closed-Loop Contact-Rich Manipulation",
+    "pdf_url": "https://openreview.net/pdf?id=1zYrrwoISV",
+    "arxiv_url": "https://arxiv.org/abs/2606.08555",
+    "project_urls": [
+      "https://fawam.github.io"
+    ],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "world-models",
+      "other-robot-learning"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "world-models",
+        "terms": [
+          "Video model",
+          "world model"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "other-robot-learning",
+        "terms": [
+          "robot learning"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "corl-2026:q1q252TIt0",
+    "conference": "CoRL",
+    "year": 2026,
+    "paper_id": "q1q252TIt0",
+    "title": "FR-VLA: Implicit Force Reasoning VLA for Contact-Rich Manipulation",
+    "authors": [
+      "Jiaju He",
+      "Zhiyuan Yang",
+      "Ruyang Han",
+      "Jiahong Tang",
+      "Zhiping Lin",
+      "Haiyue Zhu"
+    ],
+    "url": "https://openreview.net/forum?id=q1q252TIt0",
+    "abstract": "Integrating Vision-Language-Action Model (VLA) with force awareness is not merely a matter of encoding wrench measurements as an additional modality, but of determining the optimal timing and strength when and how physical interaction should influence contact-conditioned robot action generation. Existing force-aware VLAs typically treat force-to-action conditioning as a constant channel, leaving its decision relevance to be inferred implicitly during action prediction. We argue that force-informed action generation requires an intermediate force-relevance mechanism inside the VLA, where visual-language context estimates the task-dependent relevance of physical feedback before force is injected into the action pathway. FR-VLA addresses this gap with a VLM-based implicit force reasoning module that derives a vision-language-grounded force-admission signal from learnable force-query tokens and uses it to modulate an external tokenized force pathway for action generation. Real-world experiments on two robotic platforms and five contact-rich tasks show a 20.8% average success rate improvement over the strongest baseline, with visualizations confirming phase-dependent force admission dynamics.",
+    "abstract_source": "https://openreview.net/forum?id=q1q252TIt0",
+    "keywords": [
+      "Multimodal perception, sensor fusion, and robot vision",
+      "Learning representations for robotic perception and control",
+      "Force-aware VLA",
+      "Contact-rich manipulation"
+    ],
+    "presentations": [
+      "Poster Poster Session 2"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.corl.org/program/accepted-papers",
+    "source_type": "official_accepted_program",
+    "abstract_retrieval": "community_metadata_snapshot_2026-10-18",
+    "metadata_mirror": "https://gisbi-kim.github.io/conference-explorers/corl2026/data.json",
+    "metadata_title": "FR-VLA: Implicit Force Reasoning VLA for Contact-Rich Manipulation",
+    "pdf_url": "https://openreview.net/pdf?id=q1q252TIt0",
+    "arxiv_url": "",
+    "project_urls": [],
+    "code_urls": [],
+    "presentation_type": "Poster only",
+    "ai_status": "ai-related",
+    "ai_basis": "CoRL 官方录用论文；机器人学习会议范围内的研究及配套系统 / 数据 / 评测。",
+    "ai_tags": [
+      "vla-foundation"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "vla-foundation",
+        "terms": [
+          "VLA"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "vla-foundation",
+        "terms": [
+          "VLA"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "Vision-Language-Action",
+          "VLA",
+          "VLAs",
+          "VLM",
+          "vision-language"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  }
+]

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-23",
+  "source_abstracts": 5716,
+  "chinese_abstracts": 3565,
+  "remaining": 2151,
+  "missing_source_abstracts": 157,
+  "by_conference": {
+    "CoRL": 687,
+    "RSS": 210,
+    "ICRA": 2612,
+    "IROS": 56
+  },
+  "authors": {
+    "current_conversation_assistant": 205,
+    "astra_subagent": 3360
+  },
+  "review_status": {
+    "directly_authored": 205,
+    "main_assistant_checked": 2770,
+    "pending_main_assistant_review": 590
+  },
+  "method": "Direct reading and Chinese rewriting by the main assistant and user-authorized Astra subagents; no external translation API used.",
+  "coverage_status": "in_progress",
+  "checks": [
+    "valid paper IDs",
+    "no duplicate translations",
+    "source abstracts present",
+    "Chinese text present",
+    "source SHA-256 recorded"
+  ]
+}

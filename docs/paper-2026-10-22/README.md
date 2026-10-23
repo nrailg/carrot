@@ -24,6 +24,12 @@
 - [全部结构化记录](papers.jsonl) · [AI 相关 JSONL](ai-papers.jsonl) · [AI 候选 JSONL](ai-candidates.jsonl)
 - [来源与完整性审计](collection-audit.md) · [机器可读审计](collection-audit.json) · [来源快照清单与 SHA-256](source-manifest.json)
 
+## 中文摘要
+
+中文改写进行中：**3,565 / 5,716 条公开摘要**已完成，按语义分段、统一机器人与 AI 术语。中文摘要默认直接显示；英文原文保留在下方，可展开核对。搜索同时覆盖中英文摘要。原始来源缺失的摘要保持空缺。
+
+中文由本次会话助手直接根据英文摘要撰写，保留关键方法、实验范围、数字与结论；未完成中文的条目直接显示英文，并明确标记。中英文对照记录与来源哈希保存在 [abstracts-zh.jsonl](abstracts-zh.jsonl)；覆盖情况见 [translation-audit.json](translation-audit.json)。
+
 ## AI 筛选口径
 
 AI 相关包括：VLA / VLM / LLM / 基础模型；强化学习与奖励学习；模仿学习与动作策略；扩散 / 流匹配 / 生成模型；世界模型；学习式感知、神经表示与控制；表征学习和迁移；符号 AI、POMDP 等认知 / 不确定性推理；明确面向这些方法的数据、评测与基础设施。硬件论文若明确使用学习方法或服务于机器人学习评测，也可纳入。
@@ -47,6 +53,7 @@ AI 相关包括：VLA / VLM / LLM / 基础模型；强化学习与奖励学习�
 ```sh
 uv run --no-project --with requests --with beautifulsoup4 python docs/paper-2026-10-22/scripts/collect.py
 python3 docs/paper-2026-10-22/scripts/classify.py
+python3 docs/paper-2026-10-22/scripts/assemble_translations.py
 uv run --no-project --with markdown python docs/paper-2026-10-22/scripts/render.py
 python3 docs/paper-2026-10-22/scripts/write_notes.py
 python3 docs/paper-2026-10-22/scripts/validate.py

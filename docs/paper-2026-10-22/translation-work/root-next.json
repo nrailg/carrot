@@ -1,0 +1,434 @@
+[
+  {
+    "id": "iros-2026:1714",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "1714",
+    "title": "GROVE: Grounded Pedestrian Simulation Via Natural Language for Interactive Social Robot Navigation",
+    "authors": [
+      "Nguyen, Duc Tai",
+      "Shcherbyna, Volodymyr",
+      "Do Duc, Anh",
+      "Shen, Zhengcheng",
+      "Buiyan, Teham",
+      "Kästner, Linh"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:1714",
+    "abstract": "Pedestrian simulation is a critical component for training and deploying social robot navigation approaches, yet it remains a largely rigid system that repeatedly requires manual data generation to define even simple scenarios. We propose GROVE, a text-to-scenario pedestrian simulation framework that combines state-of-the-art approaches to produce realistic, socially challenging scenarios for social robot navigation. Our framework allows users to customize one of several common presets (emergency, queuing, normal) or even enter a fully independent prompt to generate a highly customizable pedestrian simulation. Multiple modules separately ensure the realism and soundness of long-horizon human behavior, medium-horizon pedestrian navigation, and short-horizon robot/social interactions. Each module is tuned by the prompt in a way that reflects the user intent across all aspects of pedestrian simulation. By dynamically selecting one of several state-of-the-art (SotA) approaches in our modules based on the scenario, we capture many situational nuances of pedestrian behavior in order to narrow the simulation-to-real (sim2real) gap. The human simulation is directly integrated into Isaac Sim, Gazebo, and RViz simulators for robot deployment in highly social environments. We validate our approach through qualitative comparison against existing pedestrian simulation baselines across scenarios of varying complexity in residential, hospital, and office environments. The result is a high-fidelity pedestrian simulation that challenges social robot navigation with complex, diverse, realistic human behaviors.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:1714",
+    "keywords": [
+      "Modeling and Simulating Humans",
+      "Human-Aware Motion Planning",
+      "Human Detection and Tracking"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "unmarked",
+    "ai_basis": "现有字段未命中明确 AI 证据；不等同于已确认与 AI 无关。",
+    "ai_tags": [],
+    "ai_abstract_tags": [],
+    "ai_evidence": [],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:2636",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "2636",
+    "title": "Mind the Context: Continual Learning of Socially Appropriate Robot Actions via Environmental–Social Disentanglement",
+    "authors": [
+      "Karpinski, Rafal Robert",
+      "Dogan, Fethiye Irmak",
+      "Churamani, Nikhil",
+      "Luo, Yiming",
+      "de Graaf, Maartje",
+      "Dell'Anna, Davide",
+      "Gunes, Hatice"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:2636",
+    "abstract": "Social robots are expected to operate across diverse environments, where similar arrangements can imply different socially appropriate actions, e.g., starting a conversation may be acceptable in a crowded home but disruptive in an office meeting. Because such norms and environments cannot all be anticipated in advance, robots require continual learning (CL) to adapt from sequential experience while retaining previously acquired knowledge. Prior work has studied CL for generating socially appropriate robot actions, but it has not addressed domain-incremental settings in which the robot incrementally encounters diverse contexts (e.g., living room, meeting room, office, hallway), where both environmental (e.g., whether the space is open or cluttered with furniture) and social cues (e.g., how people or other agents are positioned around the robot) jointly shape the appropriateness of robot actions. We address this gap with the Explicit Disentanglement Dual-Branch (EDD) framework. EDD explicitly separates environmental and social-agent related knowledge and uses replay-based rehearsal to mitigate forgetting while learning the appropriateness of robot actions (e.g., cleaning, serving, starting a conversation) across several indoor domains. Experiments show that EDD outperforms several state-of-the-art baselines, and ablation studies further evaluate different disentanglement strategies and the sensitivity to domain ordering. Our code is publicly available at https://github.com/Cambridge-AFAR/Mind-the-Context.git.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:2636",
+    "keywords": [
+      "Human-Centered Robotics",
+      "Continual Learning",
+      "Human Factors and Human-in-the-Loop"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "ai-related",
+    "ai_basis": "标题或作者关键词明确涉及 AI 方法 / 模型 / AI 数据与评测。",
+    "ai_tags": [
+      "representation-adaptation"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "title",
+        "tag": "representation-adaptation",
+        "terms": [
+          "Continual Learning"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "representation-adaptation",
+        "terms": [
+          "Continual Learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "continual learning"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:2443",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "2443",
+    "title": "Robots Ask the Way: Communication-Enabled Social Navigation",
+    "authors": [
+      "Sacco, Valentino",
+      "Scofano, Luca",
+      "Spinelli, Indro",
+      "Galasso, Fabio"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:2443",
+    "abstract": "Assistive autonomous robots operating in multi-agent environments require efficient strategies to locate specific individuals among multiple residents. Current social navigation methods focus on reactive collision avoidance and trajectory adaptation, but lack mechanisms to proactively gather information through human-robot communication. We introduce Communication-enabled Social Navigation (CommNav). In this novel task, robotic agents actively seek assistance from residents to locate target individuals by requesting information about recent sightings, locations, and movements. To evaluate CommNav, we extend Habitat 3.0 to create Habitat 3.0c, a communication-enabled variant supporting multi-human environments with information exchange protocols. Adding our communication module (COMM) to a state-of-the-art social navigation model yields a 10 percentage-point improvement in Episode Success. We further investigate the transition from structured data to natural language by evaluating models trained on LLM-generated instructions and on colloquial instructions collected from a human study. Our experiments reveal that: (i) explicit human-robot communication substantially enhances multi-person navigation performance; (ii) pre-training COMM on a communication pretext task effectively addresses the challenge of occasional interaction signals; and (iii) the navigation policy is highly robust to natural, colloquial human language, achieving an episode success statistically similar to the model using perfect structured data.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:2443",
+    "keywords": [
+      "Social HRI",
+      "Human-Aware Motion Planning",
+      "Reinforcement Learning"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "ai-related",
+    "ai_basis": "标题或作者关键词明确涉及 AI 方法 / 模型 / AI 数据与评测。",
+    "ai_tags": [
+      "reinforcement-learning"
+    ],
+    "ai_abstract_tags": [
+      "vla-foundation",
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "reinforcement-learning",
+        "terms": [
+          "Reinforcement Learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "LLM"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "pre-train"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:2420",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "2420",
+    "title": "Mixed-Agent Museum Tour Guide Design Improves Gendered Learning Outcomes and Visitor Preferences",
+    "authors": [
+      "Masterson, Annette",
+      "Jo, Wonse",
+      "Sieh, Helena C.",
+      "Robert, Lionel",
+      "Tilbury, Dawn"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:2420",
+    "abstract": "Robots are increasingly integrated into everyday contexts, including museums, where they can both entertain and educate visitors. To enhance visitor experience and engagement, we present a novel mixed-agent tour guide system that combines a physical robot with a projected virtual agent that actively participates in the tour through conversation and interaction, achieving the interaction richness of two mobile agents from a single platform. We validate the system through a within-subjects study with 30 participants to assess engagement, quality of experience, and learning performance. Participants experienced different conversational styles and agent configurations, and data were collected via surveys, behavioral sensors, and interviews. Results showed that engagement and quality of experience remained consistent across conditions. Learning performance revealed a significant gender-moderated difference: the mixed-agent conditions improved learning performance for female participants. This suggests that the proposed dyadic conversational style in this paper influenced learning performance differently by gender. Nonetheless, in interviews, participants reported a greater preference for mixed-agent teams regardless of gender, citing interaction as a key factor in their experience.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:2420",
+    "keywords": [
+      "Human-Centered Robotics",
+      "Service Robotics",
+      "Social HRI"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "candidate",
+    "ai_basis": "标题有 learning / learned，尚未从明确方法词确认是否为机器学习。",
+    "ai_tags": [],
+    "ai_abstract_tags": [],
+    "ai_evidence": [],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:994",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "994",
+    "title": "Breaking the 15% Barrier: A Real-World Data-Driven System for Proactive Social Robot Triggered by User Nonverbal Cues",
+    "authors": [
+      "Yano, Yuga",
+      "Okafuji, Yuki",
+      "Miyoshi, Ryo",
+      "Yamashita, Sanae",
+      "Ohira, Yoshiki"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:994",
+    "abstract": "Service robots in retail stores increasingly rely on cascaded speech pipelines (STT–LLM–TTS), yet many customer–robot interactions are initiated or guided by nonverbal behaviors such as approaching, waving, pointing, or showing items. This paper studies such cues in a real-world store deployment with a teleoperated humanoid robot and shows that a non-negligible portion of robot turns are triggered by nonverbal behaviors rather than spoken input, revealing a limitation of audio-only dialogue systems. In a 6-day in-the-wild deployment, 15.3% of robot utterances were initiated by users' nonverbal behaviors rather than spoken input. Based on an analysis of observed customer behaviors, we define a set of frequent, service-relevant nonverbal cues and develop a real-time multi-person, multi-label recognizer that can run online from video. We then propose a dialogue framework that conditions LLM-based utterance generation on recognized nonverbal cue tokens (and optionally leverages a vision–language model when items are shown), enabling proactive robot responses without hand-crafted rules. We evaluate the approach offline on nonverbal-triggered turns and demonstrate an online prototype that reacts to users' nonverbal cues in real time.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:994",
+    "keywords": [
+      "Natural Dialog for HRI",
+      "Deep Learning for Visual Perception",
+      "Datasets for Human Motion"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "ai-related",
+    "ai_basis": "标题或作者关键词明确涉及 AI 方法 / 模型 / AI 数据与评测。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ],
+    "ai_abstract_tags": [
+      "vla-foundation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "learned-perception",
+        "terms": [
+          "Deep Learning for Visual Perception"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "neural-control",
+        "terms": [
+          "Deep Learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "vla-foundation",
+        "terms": [
+          "LLM",
+          "vision-language"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:3324",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "3324",
+    "title": "Bridging the Awareness Gap: Socially Mediated State Externalization for Transparent Distributed Home Robots",
+    "authors": [
+      "Zhao, Wenzheng",
+      "Duggi, Manideep",
+      "Yuan, Fengpei"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#609578:3324",
+    "abstract": "Distributed multi-robot systems for the home often require robots to operate out of the user’s sight, creating a state awareness gap that can diminish trust and perceived transparency and control. This paper investigates whether realtime, socially mediated state externalization can bridge this gap without compromising task performance. We developed a system where a co-located social mediator robot (Pepper) externalizes the hidden execution states of an out-of-sight mobile manipulator (Stretch 3) for voice-driven object retrieval and delivery, where task-level states are synchronized and externalized through verbal updates and a visual progress display. In a counterbalanced within-subject study (N = 30), we compared a baseline of Autonomous Hidden Execution against Socially Mediated State Externalization. Our results show that externalization significantly increases user task-focused attention (from 15.8% to 84.6%, p < .001) and substantially improves perceived perspicuity, dependability, stimulation, and attractiveness (all p < .001). Furthermore, 83% of participants preferred the externalized condition, and this improvement in user experience was achieved without a statistically significant increase in end-to-end task completion time (p = .271). The results suggest that socially mediated state externalization is an effective architectural mechanism for designing more transparent and trustworthy distributed robot systems, ultimately enhancing user experience without sacrificing performance in distributed home robot deployments.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:3324",
+    "keywords": [
+      "Distributed Robot Systems",
+      "Social HRI",
+      "Domestic Robotics"
+    ],
+    "presentations": [
+      "Reading and Respecting Social Norms in HRI"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "unmarked",
+    "ai_basis": "现有字段未命中明确 AI 证据；不等同于已确认与 AI 无关。",
+    "ai_tags": [],
+    "ai_abstract_tags": [],
+    "ai_evidence": [],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:396",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "396",
+    "title": "ACEsplat: Accelerated 3D Gaussian Scene Regression Via RGB and Poses Only",
+    "authors": [
+      "Liu, Mingkai",
+      "Que, Haohua",
+      "Fan, Dikai",
+      "Gao, Haojia",
+      "Zhu, Tianle",
+      "Yao, Handong",
+      "Zhang, Qian",
+      "Zhang, Ruopeng",
+      "Huang, Xianliang",
+      "Qiao, Fei"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#c3196a:396",
+    "abstract": "Per-scene 3D Gaussian Splatting (3DGS) enables high-fidelity rendering, but practical robotic and AR scene capture pipelines often depend on external geometric initialization (e.g., SfM point clouds or depth estimates), which can be slow and brittle in on-site deployment. We present ACEsplat, a fast per-scene optimization framework that reconstructs 3D Gaussian representations from RGB images and camera poses only, without requiring external 3D priors (e.g., precomputed SfM models or supervised depth maps). ACEsplat uses a two-stage pipeline: (1) a self-supervised scene coordinate regression (SCR) module builds an internal geometry prior within ~4--5 minutes; (2) SCR features and coordinate priors are fused by a lightweight Gaussian initialization head, followed by per-scene 3DGS optimization. On static-view rendering, ACEsplat achieves 29.11 dB PSNR on Wayspots with real-time SLAM poses and 33.20 dB on Cambridge Landmarks with SfM-refined poses. On RealEstate10K sparse-view novel view synthesis, it achieves competitive image fidelity under a challenging 2-view setting. ACEsplat completes scene-specific SCR mapping and 3DGS reconstruction within 15--25 minutes on a single GPU, making it a practical RGB+pose-only solution for rapid scene setup in robotics and mixed-reality applications.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:396",
+    "keywords": [
+      "Deep Learning for Visual Perception",
+      "Mapping",
+      "Computer Vision for Automation"
+    ],
+    "presentations": [
+      "Reconstructing the World with Gaussian Splats"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "ai-related",
+    "ai_basis": "标题或作者关键词明确涉及 AI 方法 / 模型 / AI 数据与评测。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ],
+    "ai_abstract_tags": [
+      "representation-adaptation"
+    ],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "learned-perception",
+        "terms": [
+          "Deep Learning for Visual Perception"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "neural-control",
+        "terms": [
+          "Deep Learning"
+        ]
+      },
+      {
+        "field": "abstract",
+        "tag": "representation-adaptation",
+        "terms": [
+          "self-supervised"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  },
+  {
+    "id": "iros-2026:645",
+    "conference": "IROS",
+    "year": 2026,
+    "paper_id": "645",
+    "title": "GaussianFusionOcc: A Seamless Sensor Fusion Approach for 3D Occupancy Prediction Using 3D Gaussians",
+    "authors": [
+      "Pavkovic, Tomislav",
+      "Mahani, Mohammad-Ali",
+      "Niedermayer, Johannes",
+      "Betz, Johannes"
+    ],
+    "url": "https://2026.ieee-iros.org/program/contributed-talks/#c3196a:645",
+    "abstract": "3D semantic occupancy prediction is one of the crucial tasks of autonomous driving. It enables precise and safe interpretation and navigation in complex environments. Reliable predictions rely on effective sensor fusion, as different modalities can contain complementary information. Unlike conventional methods that depend on dense grid representations, our approach, GaussianFusionOcc, uses semantic 3D Gaussians alongside an innovative sensor fusion mechanism. Seamless integration of data from camera, LiDAR, and radar sensors enables more precise and scalable occupancy prediction, while 3D Gaussian representation significantly improves memory efficiency and inference speed. GaussianFusionOcc employs modality-agnostic deformable attention to extract essential features from each sensor type, which are then used to refine Gaussian properties, resulting in a more accurate representation of the environment. Extensive testing with various sensor combinations demonstrates the versatility of our approach. By leveraging the robustness of multi-modal fusion and the efficiencyof Gaussian representation, GaussianFusionOcc outperforms current state-of-the-art models.",
+    "abstract_source": "https://2026.ieee-iros.org/program/poster-sessions/#pn:645",
+    "keywords": [
+      "Deep Learning for Visual Perception",
+      "RGB-D Perception",
+      "Sensor Fusion"
+    ],
+    "presentations": [
+      "Reconstructing the World with Gaussian Splats"
+    ],
+    "track": "main-program",
+    "source_url": "https://2026.ieee-iros.org/program/paper-index/",
+    "source_type": "official_technical_program",
+    "abstract_retrieval": "official",
+    "presentation_type": "Lightning Talks",
+    "day": "Monday",
+    "ai_status": "ai-related",
+    "ai_basis": "标题或作者关键词明确涉及 AI 方法 / 模型 / AI 数据与评测。",
+    "ai_tags": [
+      "learned-perception",
+      "neural-control"
+    ],
+    "ai_abstract_tags": [],
+    "ai_evidence": [
+      {
+        "field": "keywords",
+        "tag": "learned-perception",
+        "terms": [
+          "Deep Learning for Visual Perception"
+        ]
+      },
+      {
+        "field": "keywords",
+        "tag": "neural-control",
+        "terms": [
+          "Deep Learning"
+        ]
+      }
+    ],
+    "ai_review": "deterministic_screen_v1",
+    "ai_method_evidence": []
+  }
+]

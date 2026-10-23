@@ -10,38 +10,45 @@ class Key:
     qcode: str
     x: float
     y: float
-    modifiers: tuple[str, ...] = ()
 
 
 def keyboard_layout() -> list[Key]:
     rows = [
-        [(c, c) for c in "1234567890"] + [("=", "equal"), ("*", "asterisk")],
-        [(c, c) for c in "qwertyuiop"] + [("-", "minus"), ("+", "kp_add")],
+        [(c, c) for c in "1234567890"] + [("-", "minus"), ("=", "equal")],
+        [(c, c) for c in "qwertyuiop"] + [("[", "bracket_left"), ("]", "bracket_right")],
         [(c, c) for c in "asdfghjkl"] + [(";", "semicolon"), ("'", "apostrophe")],
         [(c, c) for c in "zxcvbnm"],
     ]
     rows[3] += [(".", "dot"), (",", "comma"), ("/", "slash"), ("BS", "backspace")]
-    rows.append([("SPACE", "spc"), ("ENTER", "ret"), ("SHIFT", "shift"), ("CTRL", "ctrl")])
+    rows.append([("SPACE", "spc"), ("ENTER", "ret")])
     keys = [
         Key(label, code, 0.60 - r * 0.032, (len(row) - 1) * 0.016 - c * 0.032)
         for r, row in enumerate(rows)
         for c, (label, code) in enumerate(row)
     ]
-    symbols = [
-        ("(", "9", ("shift",)),
-        (")", "0", ("shift",)),
-        ("[", "bracket_left", ()),
-        ("]", "bracket_right", ()),
-        (":", "semicolon", ("shift",)),
-        ("<", "comma", ("shift",)),
-        (">", "dot", ("shift",)),
-        ("_", "minus", ("shift",)),
-    ]
-    keys.extend(
-        Key(label, code, 0.60 - 5 * 0.032, (len(symbols) - 1) * 0.016 - c * 0.032, mods)
-        for c, (label, code, mods) in enumerate(symbols)
-    )
+    keys.extend([Key("SHIFT", "shift", 0.35, 0.30), Key("CTRL", "ctrl", 0.31, 0.30)])
     return keys
+
+
+def typing_chord(char: str) -> tuple[str, bool]:
+    """Return the physical base key and whether the expert must hold the Shift key.
+
+    Parameters
+    ----------
+    char : str
+        One US-layout character. This planner never emits guest HID events.
+
+    Returns
+    -------
+    tuple[str, bool]
+        Key label and physical Shift requirement.
+    """
+    shifted = dict(zip('!@#$%^&*()_+{}:"<>?', "1234567890-=[];',./", strict=True))
+    if char in shifted:
+        return shifted[char], True
+    if "A" <= char <= "Z":
+        return char.lower(), True
+    return {"\n": "ENTER", " ": "SPACE", "\b": "BS"}.get(char, char), False
 
 
 class KeySwitches:

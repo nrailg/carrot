@@ -1,142 +1,88 @@
 # Carrot
 
-Carrot is a lightweight, backend-neutral foundation for distributed robot SFT
-and RL training. The first milestone provides the orchestration primitives;
-model, environment, and algorithm integrations come next.
+Carrot is a lightweight, backend-neutral foundation for distributed robot learning.
+It provides resource placement, worker groups, and communication channels, with
+PI0.5 SFT, checkpoint export and resume, LIBERO evaluation, and SO101 real-robot
+inference built on top.
 
 ## Design
 
-The public API is intentionally independent of Ray:
+The public API keeps Ray actors, object references, queues, and placement groups
+inside the private runtime:
 
 ```text
-training runner
-  ├── Cluster          resource view + lifecycle
-  ├── PlacementSpec    worker count + per-worker resources
-  ├── WorkerGroup      broadcast / scatter / rank selection
-  ├── Future           asynchronous control plane
-  └── Channel          bounded producer-consumer data plane
-          │
-          └── private Ray runtime
+training / models / environments
+              ↓
+Cluster · WorkerGroup · Channel · PlacementSpec
+              ↓
+       private Ray runtime
 ```
 
-This keeps useful ideas from the reference projects without inheriting their
-runtime coupling:
+See [architecture](docs/architecture.md) for the interfaces and module boundaries.
 
-- slime: a small, explicit rollout/train loop and asynchronous handles;
-- verl: separate resource, dispatch, execute, and collect concerns;
-- RLinf: WorkerGroup, placement, and channels for embodied pipelines;
-- G-Core/YATT: predictable topology and a path toward parallel controllers.
+## Quickstart
 
-See [docs/architecture.md](docs/architecture.md) for the design boundaries.
-
-## Quick start
+Use Python **3.12**. For a standalone CPU runtime demo, create a local environment
+and install the core package and development tools:
 
 ```bash
-python -m pip install -e ".[dev]"
-pytest
+uv venv --python 3.12 .venv
+uv --no-config pip install --python .venv/bin/python -e ".[dev]"
+source .venv/bin/activate
 python examples/distributed_smoke.py
 ```
 
-```python
-from carrot.distributed import Cluster, PlacementSpec, RolePlacement, Worker
+The [demo](examples/distributed_smoke.py) sends trajectories from two environment
+workers to a learner through a bounded channel. GPU containers and Mac robot
+clients use separate environments; see [environment setup](docs/environments.md).
 
+## Record SO101 demonstrations
 
-class Trainer(Worker):
-    def step(self, batch):
-        return {"rank": self.rank, "size": len(batch)}
+Calibrate the leader and follower, check teleoperation and the wrist camera, then
+record locally with LeRobot 0.6.1. In the recording environment, set the actual
+ports, calibrated robot IDs, and camera index as described in the
+[recording guide](docs/so101-data-sft.md):
 
-
-if __name__ == "__main__":
-    with Cluster() as cluster:
-        cluster.reserve("train", PlacementSpec(bundles_per_node=2))
-        trainers = cluster.launch(
-            "trainer",
-            Trainer,
-            placement=RolePlacement(pool="train"),
-        )
-        print(trainers.call("step", [1, 2, 3]).wait())
+```bash
+lerobot-record \
+  --robot.type=so101_follower --robot.port="$FOLLOWER_PORT" \
+  --robot.id="$FOLLOWER_ID" --robot.use_degrees=true \
+  --robot.cameras="{wrist: {type: opencv, index_or_path: $WRIST_CAMERA_INDEX, width: 640, height: 480, fps: 15, warmup_s: 5}}" \
+  --teleop.type=so101_leader --teleop.port="$LEADER_PORT" \
+  --teleop.id="$LEADER_ID" --teleop.use_degrees=true \
+  --dataset.repo_id=local/knock_down_the_cylinder \
+  --dataset.single_task="Knock down the cylinder" \
+  --dataset.num_episodes=2 --dataset.episode_time_s=120 \
+  --dataset.reset_time_s=60 --dataset.fps=15 \
+  --dataset.push_to_hub=false --display_data=false
 ```
 
-Ray is a required implementation dependency, but Ray actors, object references,
-queues, and scheduling types are kept behind Carrot's public API.
+This records two episodes at 15 FPS without uploading them. Validate the videos,
+joint units, and episode metadata before transferring the dataset for training.
 
 ## PI0.5 SFT
 
-Install the optional training dependencies and launch the bundled RoboTwin
-configuration:
+Start from a [SO101 wrist-camera configuration](recipes/pi05_sft_so101_knock_down_the_cylinder_overfit/train.yaml)
+or the [RoboTwin configuration](configs/pi05_sft_robotwin_main.yaml).
+Copy and adapt the model, tokenizer, dataset, statistics, output directory, and
+GPU layout for the new run. In the prepared GPU environment, from the repository root:
 
 ```bash
-python -m pip install -e ".[sft]"
-carrot-train-sft --config configs/pi05_sft_robotwin_main.yaml
+export PYTHONPATH="$PWD/src:$PWD:${PYTHONPATH:-}"
+python -m carrot.cli.train_sft --config /absolute/path/to/train.yaml
 ```
 
-Generate the PI0.5 statistics once before the first training run:
+Training uses Ray workers and PyTorch FSDP2. See [SFT and checkpoints](docs/pi05-sft.md)
+for data contracts, normalization, and resume, and [SO101 deployment](examples/so101_real/README.md)
+for inference and robot execution. Training completion, offline fit, and task
+success are evaluated separately.
 
-```bash
-carrot-compute-pi05-stats \
-  --root /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified \
-  --output /mnt/ceph-hz1-csp/mm-base-plt2/nrwu/hf-hub/lerobot/robotwin_unified/meta/pi05_norm_stats.json
-```
+## Documentation
 
-The statistics command streams only parquet columns. It does not decode camera
-video. Action statistics are computed from the same 50-step, episode-bounded
-future action windows used for training, after Aloha adaptation and conversion
-of arm joints to deltas relative to the current state.
-
-Carrot vendors the native PI0.5 architecture derived from verl-vla: a SigLIP
-vision encoder plus dual-stream PaliGemma/action-expert decoder. It uses FSDP2
-with BF16 forward parameters and FP32 optimizer masters. RobotWin data adaptation
-constructs a 50-step action window, maps the three camera streams to 224x224
-PI0.5 inputs, encodes the task and discretized state into a 200-token prompt,
-and excludes padded action steps from the flow-matching loss.
-
-The LeRobot dataset must provide these fields per frame:
-
-- `observation.state`: 14 Aloha state values;
-- `action`: 14 absolute Aloha action values (the dataset adapter builds the
-  `[50, 14]` future window);
-- the three image keys returned by `dataset.factory`, as CHW tensors in
-  `[0, 1]` or `[0, 255]`;
-- `task`: the language instruction. LeRobot also supplies `action_is_pad` for
-  future steps beyond the end of an episode.
-
-`dataset.factory` is an import path returning `carrot.data.SFTDatasetSpec`; its
-`factory_kwargs` are passed through unchanged. `dataset.preprocess` is an
-optional import path for a function taking `(state, actions)` and returning the
-transformed pair. The RobotWin defaults are
-`carrot.data.robotwin.build_dataset` and
-`carrot.data.robotwin.robotwin_preprocess`; set `preprocess: null` when no
-dataset-specific state/action conversion is required.
-
-Each `checkpoints/step-*` directory contains two representations:
-
-- `dcp/` is the sharded model and AdamW state used by `--resume`;
-- `pretrained_model/` is a consolidated Diffusers checkpoint, tokenizer, and
-  `norm_stats.json` loadable with `PI0Pytorch.from_pretrained`.
-
-RoboTwin's LeRobot metadata does not contain PI0.5 quantiles. Set
-`dataset.norm_stats_path` to an OpenPI-style JSON containing `state.q01/q99`
-and `action.q01/q99`; when omitted, the adapter uses dataset min/max statistics.
-
-SO101 uses [orange_cube_merged](https://huggingface.co/datasets/felixmayor/orange_cube_merged)
-through `recipes/pi05_sft_so101_orange_cube/pi05_sft_so101_orange_cube.yaml`.
-The adapter maps `top` to the base view and `fpv` to the left wrist view,
-masks the missing third view, and trains on six absolute joint targets using
-the dataset's quantile statistics.
-The config pins the dataset revision and points `dataset.factory_kwargs.root`
-to a local copy; update that path if the dataset is stored elsewhere. SO101
-checkpoints can be served with `carrot-serve-pi05 --embodiment so101`.
-
-Resume a distributed checkpoint with:
-
-```bash
-carrot-train-sft --config configs/pi05_sft_robotwin_main.yaml \
-  --resume outputs/pi05_robotwin_sft/checkpoints/step-00001000
-```
-
-This restores model parameters, AdamW state, scheduler state, and the completed
-step from `dcp/`. To start a fresh optimizer from an exported model instead,
-point both `model.path` and `model.tokenizer_path` at that checkpoint's
-`pretrained_model/` directory and omit `--resume`; the bundled
-`norm_stats.json` is loaded automatically when `dataset.norm_stats_path` is
-unset.
+| Document | Contents |
+| --- | --- |
+| [Environment setup](docs/environments.md) | Python 3.12, local `.venv`, Mac recording/client environments, and GPU containers |
+| [SO101 recording to SFT](docs/so101-data-sft.md) | Recording, dataset checks, transfer, training preparation, and experiment handoff |
+| [PI0.5 SFT and checkpoints](docs/pi05-sft.md) | Training entry points, data contracts, statistics, export, and resume |
+| [SO101 deployment](examples/so101_real/README.md) | GPU policy service, Mac client, observations, robot execution, and logs |
+| [Distributed architecture](docs/architecture.md) | Cluster, WorkerGroup, Channel, placement, and the Ray boundary |

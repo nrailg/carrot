@@ -23,7 +23,9 @@ class TransferConfig:
     simulator_bundle: int = 0
     learner_bundle: int = 1
     seed: int = 7
-    num_envs: int = 4
+    num_envs: int = 32
+    demo_num_envs: int = 4
+    demonstration_source: str | None = None
     max_episode_steps: int = 4000
     num_colors: int = 3
     execute_steps: int = 5
@@ -36,15 +38,14 @@ class TransferConfig:
     value_lr: float = 1e-4
     sft_lr: float = 1e-5
     sft_steps: int = 500
-    sft_batch_size: int = 16
-    micro_batch_size: int = 2
-    minibatch_size: int = 8
-    rollout_chunks: int = 64
+    micro_batch_size: int = 8
+    global_batch_size: int = 256
+    global_rollout_batch_size: int = 4096
     checkpoint_every_updates: int = 10
-    max_transitions: int = 200_000
+    max_transitions: int = 1_024_000
     demo_successes: int = 64
     demo_attempts: int = 128
-    source_eval_episodes: int = 8
+    source_eval_episodes: int = 32
     target_eval_rounds: int = 5
     prepare_hours: float = 6
     rl_hours: float = 10
@@ -57,15 +58,32 @@ class TransferConfig:
         assert self.num_envs >= 2 and self.num_colors in (2, 3)
         assert 1 <= self.execute_steps <= 5 and self.denoise_steps >= 2
         assert self.noise_level > 0 and 0 < self.gamma <= 1 and 0 <= self.gae_lambda <= 1
-        assert self.minibatch_size >= self.micro_batch_size >= 1
-        assert self.minibatch_size % self.micro_batch_size == 0
-        assert self.sft_batch_size % self.micro_batch_size == 0
-        assert self.rollout_chunks * self.num_envs % self.minibatch_size == 0
-        assert self.demo_attempts >= self.demo_successes >= self.num_envs
+        assert self.global_batch_size >= self.micro_batch_size >= 1
+        assert self.global_batch_size % self.micro_batch_size == 0, (
+            "global_batch_size must be divisible by micro_batch_size (one learner)"
+        )
+        assert self.global_rollout_batch_size >= self.global_batch_size
+        assert self.global_rollout_batch_size % self.global_batch_size == 0, (
+            "global_rollout_batch_size must contain full optimizer batches"
+        )
+        assert self.global_rollout_batch_size % self.num_envs == 0, (
+            "global_rollout_batch_size must be divisible by num_envs"
+        )
+        assert self.demo_attempts >= self.demo_successes >= self.demo_num_envs >= 1
         assert self.source_eval_episodes % self.num_envs == 0
         assert 0 < self.prepare_hours + self.rl_hours < self.total_hours
         assert self.sft_steps > 0 and self.max_transitions > 0 and self.target_eval_rounds > 0
         assert self.checkpoint_every_updates > 0
+
+    @property
+    def gas(self) -> int:
+        """Gradient accumulation steps for the single learner (renderer is not a DP rank)."""
+        return self.global_batch_size // self.micro_batch_size
+
+    @property
+    def rollout_steps(self) -> int:
+        """Vector steps per rollout; each sample is one environment's action chunk."""
+        return self.global_rollout_batch_size // self.num_envs
 
     def validate_paths(self) -> None:
         for path in (

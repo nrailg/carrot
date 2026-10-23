@@ -101,7 +101,14 @@ class LearnerWorker(Worker):
         if seed is not None:
             torch.manual_seed(seed)
             torch.cuda.manual_seed_all(seed)
-        return self.policy.sample(observations, stochastic=False)["actions"]
+        return np.concatenate(
+            [
+                self.policy.sample(
+                    observations[i : i + self.config.micro_batch_size], stochastic=False
+                )["actions"]
+                for i in range(0, len(observations), self.config.micro_batch_size)
+            ]
+        )
 
     def sample(self, observations: list[dict]) -> np.ndarray:
         """Sample one on-policy chunk and retain its replay data until ``record``.
@@ -142,7 +149,7 @@ class LearnerWorker(Worker):
         Returns
         -------
         dict
-            Actual control-transition count, buffered chunks and mean reward.
+            Actual control-transition count, buffered environment/chunk samples and mean reward.
         """
         assert self.policy is not None and self.pending is not None
         assert self.pending["version"] == self.version
@@ -153,7 +160,12 @@ class LearnerWorker(Worker):
                 k: torch.tensor(result[k])
                 for k in ("rewards", "lengths", "terminated", "truncated")
             },
-            "next_values": self.policy.values(result["observations"]),
+            "next_values": torch.cat(
+                [
+                    self.policy.values(result["observations"][i : i + self.config.micro_batch_size])
+                    for i in range(0, len(result["observations"]), self.config.micro_batch_size)
+                ]
+            ),
         }
         del entry["actions"]
         self.transitions += int(entry["lengths"].sum())
@@ -161,7 +173,7 @@ class LearnerWorker(Worker):
         self.pending = None
         return {
             "transitions": self.transitions,
-            "buffer_chunks": len(self.buffer),
+            "rollout_samples": sum(len(row["observations"]) for row in self.buffer),
             "reward_mean": float(entry["rewards"].mean()),
         }
 
@@ -175,6 +187,10 @@ class LearnerWorker(Worker):
         """
         assert self.policy is not None and self.pending is None and self.buffer
         cfg = self.config
+        samples = sum(len(row["observations"]) for row in self.buffer)
+        assert samples == cfg.global_rollout_batch_size, (
+            f"PPO requires {cfg.global_rollout_batch_size} rollout samples, got {samples}"
+        )
         fields = ("rewards", "value", "next_values", "lengths", "terminated", "truncated")
         stacked = {k: torch.stack([entry[k] for entry in self.buffer]) for k in fields}
         advantages, returns = duration_gae(
@@ -209,8 +225,8 @@ class LearnerWorker(Worker):
         assert max_parity < 0.02, f"pre-update logprob mismatch: {max_parity}"
         order = torch.randperm(len(raw))
         metrics: dict[str, list[float]] = {}
-        for start in range(0, len(raw), cfg.minibatch_size):
-            batch = order[start : start + cfg.minibatch_size]
+        for start in range(0, len(raw), cfg.global_batch_size):
+            batch = order[start : start + cfg.global_batch_size]
             self.optimizer.zero_grad(set_to_none=True)
             for offset in range(0, len(batch), cfg.micro_batch_size):
                 ids = batch[offset : offset + cfg.micro_batch_size]
@@ -247,8 +263,27 @@ class LearnerWorker(Worker):
             "updates": self.updates,
             "transitions": self.transitions,
             "version": self.version,
+            "global_rollout_batch_size": samples,
+            "global_batch_size": cfg.global_batch_size,
+            "micro_batch_size": cfg.micro_batch_size,
+            "gradient_accumulation_steps": cfg.gas,
+            "optimizer_steps": samples // cfg.global_batch_size,
             "peak_gpu_gib": torch.cuda.max_memory_allocated() / 1024**3,
         }
+
+    def discard_rollout(self) -> dict:
+        """Discard an incomplete rollout at a budget boundary without a smaller PPO update.
+
+        Returns
+        -------
+        dict
+            Discarded sample count and completed PPO update count for the run ledger.
+        """
+        assert self.pending is None
+        samples = sum(len(row["observations"]) for row in self.buffer)
+        assert samples < self.config.global_rollout_batch_size
+        self.buffer.clear()
+        return {"discarded_samples": samples, "updates": self.updates}
 
     def sft(self, directory: str, deadline: float) -> dict:
         """Fit the action expert to successful source demonstrations within a deadline.
@@ -270,7 +305,7 @@ class LearnerWorker(Worker):
         optimizer = torch.optim.AdamW(self.policy.parameters(), lr=cfg.sft_lr, weight_decay=0)
         log = Path(cfg.output) / "sft.jsonl"
         while self.sft_updates < cfg.sft_steps and time.time() < deadline:
-            indices = np.random.randint(len(dataset), size=cfg.sft_batch_size)
+            indices = np.random.randint(len(dataset), size=cfg.global_batch_size)
             optimizer.zero_grad(set_to_none=True)
             total = 0.0
             for offset in range(0, len(indices), cfg.micro_batch_size):
@@ -278,8 +313,8 @@ class LearnerWorker(Worker):
                 raw, lengths = zip(*batch, strict=True)
                 loss = self.policy.supervised_loss(list(raw), torch.tensor(lengths))
                 assert torch.isfinite(loss)
-                (loss * len(batch) / cfg.sft_batch_size).backward()
-                total += float(loss.detach()) * len(batch) / cfg.sft_batch_size
+                (loss / cfg.gas).backward()
+                total += float(loss.detach()) / cfg.gas
             norm = torch.nn.utils.clip_grad_norm_(
                 self.policy.parameters(), 1, error_if_nonfinite=True
             )
@@ -290,6 +325,10 @@ class LearnerWorker(Worker):
                 "loss": total,
                 "grad_norm": float(norm),
                 "time": time.time(),
+                "global_batch_size": cfg.global_batch_size,
+                "micro_batch_size": cfg.micro_batch_size,
+                "gradient_accumulation_steps": cfg.gas,
+                "samples_seen": self.sft_updates * cfg.global_batch_size,
             }
             with log.open("a") as stream:
                 stream.write(json.dumps(row) + "\n")

@@ -33,3 +33,11 @@ test_policy.py SHA `a3a0f3fbde9d221eb2e3b3508bf55e68d4a1500286124bcf32268021c8d0
 证据：H20同根目录`policy-20261023-03/result.json`、`run.log`及checkpoint。
 learner SHA `30a91642de9b877f50e8d6d17c5b86d2b6f4164110c5ffed5f39904d7c47efa2`；
 test_policy SHA `9372353077bfb54448918002d4224ceda3e7489b8745f45c3dd7472194bd2c4b`。
+
+批量配置改动待复测：H20 真模型 micro=8，32 个观测分块推理/价值计算；256 个 rollout samples 完成一次 GBS=256 PPO 更新和一次 GBS=256 SFT 更新；拒绝不足批量的 PPO，预算尾部丢弃并记账。
+
+第四轮 `8ec98b1f-0039`：PASS/exit0，220s，H20 GPU1，真实GBS256/micro8。
+256个rollout samples累积32次后只做1次optimizer step（768控制转移），old logprob最大误差3.8147e-6。
+真SFT入口同样完成GBS256更新，samples_seen=256，loss0.12818；32观测推理与价值计算分块通过。
+不足rollout拒绝更新，32样本尾部丢弃且update计数不变；FP32/optimizer/RNG恢复、BF16导出重载和状态不变性通过。
+证据：同H20测试根目录policy-20261023-04/result.json、sft.jsonl、run.log、checkpoint。

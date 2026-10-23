@@ -8,7 +8,7 @@ from torch.utils.data import default_collate
 from carrot.models.pi05 import transforms
 from carrot.models.pi05.model import PI0Observation, PI0Pytorch
 from carrot.models.pi05.model.pi0_pytorch import make_att_2d_masks
-from carrot.trainer.rl.algorithms import flow_transition, gaussian_logprob
+from carrot.trainer.rl.algorithms import flow_transition, gaussian_logprob, supervised_flow_loss
 
 
 @dataclass
@@ -179,9 +179,8 @@ class FlowPolicy:
         time = self.model.sample_time(len(raw), self.device)
         latent = time[:, None, None] * noise + (1 - time[:, None, None]) * actions
         prediction = self.velocity(prefix, latent, time)
-        mask = torch.arange(10, device=self.device)[None] < lengths.to(self.device)[:, None]
         error = (prediction[:, :, :7] - (noise - actions)[:, :, :7]).square()
-        return (error * mask[..., None]).sum() / (mask.sum() * 7)
+        return supervised_flow_loss(error, lengths)
 
     def parameters(self) -> list[nn.Parameter]:
         return [p for module in self.trainable for p in module.parameters()]

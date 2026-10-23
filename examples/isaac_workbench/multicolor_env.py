@@ -9,6 +9,8 @@ from multicolor_scene import MulticolorWorkbench, PaintExpert
 from PIL import Image
 from scene import DT
 
+from carrot.trainer.rl.data import reuse_demonstrations
+
 
 class MulticolorEnv:
     """Synchronous vector environment; reset is explicit and never advances physics.
@@ -174,7 +176,14 @@ class MulticolorEnv:
         assert self.envs[0].canvas.contact_samples == 0 and self.envs[0].controls == 0
         return {"partial_reset": "PASS", "unchanged_slots": len(before)}
 
-    def collect(self, output: str, successes: int, attempts: int, deadline: float) -> dict:
+    def collect(
+        self,
+        output: str,
+        successes: int,
+        attempts: int,
+        deadline: float,
+        source: str | None = None,
+    ) -> dict:
         """Record pre-action observations and retain only complete successful expert episodes.
 
         Parameters
@@ -184,6 +193,8 @@ class MulticolorEnv:
             Required successful episodes and hard cap on started attempts, respectively.
         deadline : float
             Absolute Unix deadline; partial episodes are discarded and recorded as interrupted.
+        source : str | None
+            Explicit previous collection to reuse; only committed successes are copied.
 
         Returns
         -------
@@ -194,10 +205,31 @@ class MulticolorEnv:
         directory = Path(output)
         directory.mkdir(parents=True, exist_ok=False)
         buffers: list[list[dict]] = [[] for _ in self.envs]
-        observations = self.reset(num_colors=1)
         finished = saved = 0
-        started = len(self.envs)
         records = []
+        if source is not None:
+            reused = reuse_demonstrations(source, directory, successes)
+            saved = finished = reused["saved"]
+            records = reused["episodes"]
+            self.next_seed = max(self.next_seed, reused["next_seed"])
+            (directory / "reuse.json").write_text(json.dumps(reused, indent=2) + "\n")
+        colors = min(3, 1 + saved * 3 // successes)
+        observations = self.reset(num_colors=colors)
+        started = saved + (len(self.envs) if saved < successes else 0)
+        assert started <= attempts
+        (directory / "collection.json").write_text(
+            json.dumps(
+                {
+                    "saved": saved,
+                    "completed": finished,
+                    "started": started,
+                    "required": successes,
+                    "episodes": records,
+                },
+                indent=2,
+            )
+            + "\n"
+        )
         while time.time() < deadline and saved < successes:
             actions = self.expert_actions()
             for i, obs in enumerate(observations):

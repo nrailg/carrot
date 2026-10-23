@@ -1,6 +1,7 @@
 import json
 import math
 import os
+from dataclasses import replace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -34,9 +35,97 @@ from carrot.trainer.rl.algorithms import (
     flow_transition,
     gaussian_logprob,
     ppo_loss,
+    supervised_flow_loss,
 )
-from carrot.trainer.rl.data import Demonstrations
+from carrot.trainer.rl.config import TransferConfig
+from carrot.trainer.rl.data import Demonstrations, reuse_demonstrations
 from carrot.trainer.rl.evaluation import LABELS, paired_summary
+
+
+def test_global_batch_contract() -> None:
+    # 两个 Ray 角色不是两个 DP rank；micro 改显存占用，global 决定算法批量。
+    cfg = TransferConfig(
+        **{
+            name: "fixture"
+            for name in (
+                "checkpoint",
+                "tokenizer",
+                "norm_stats",
+                "robot_usd",
+                "output",
+                "simulator_output",
+                "simulator_source",
+                "simulator_script",
+                "libero_script",
+            )
+        },
+        simulator_node_ip="10.0.0.1",
+        learner_node_ip="10.0.0.2",
+    )
+    assert cfg.global_batch_size == 256 and cfg.global_rollout_batch_size == 4096
+    assert cfg.gas == 32 and cfg.rollout_steps == 128
+    smaller = replace(cfg, micro_batch_size=2)
+    assert smaller.gas == 128 and smaller.rollout_steps == cfg.rollout_steps
+    # 所有整除约束必须先于启动 GPU 校验，不能悄悄形成尾部小 batch。
+    for changes in (
+        {"micro_batch_size": 3},
+        {"global_rollout_batch_size": 4000},
+        {"num_envs": 30},
+        {"global_batch_size": 8192},
+    ):
+        with pytest.raises(AssertionError):
+            replace(cfg, **changes)
+
+
+def test_supervised_accumulation_independent_of_micro_batch() -> None:
+    # 长短动作混合；独立逐样本 oracle 验证 loss 与累积梯度不随分块方式变化。
+    lengths = torch.tensor([1, 10, 2, 7, 3, 9, 4, 5])
+    prediction = torch.linspace(-1, 2, 8 * 10 * 32).reshape(8, 10, 32).requires_grad_()
+    oracle = torch.stack(
+        [prediction[i, :length, :7].square().mean() for i, length in enumerate(lengths)]
+    ).mean()
+    expected = torch.autograd.grad(oracle, prediction)[0]
+    for micro in (1, 2, 4, 8):
+        prediction.grad = None
+        total = 0.0
+        for start in range(0, 8, micro):
+            loss = (
+                supervised_flow_loss(
+                    prediction[start : start + micro].square(), lengths[start : start + micro]
+                )
+                * micro
+                / 8
+            )
+            loss.backward()
+            total += float(loss.detach())
+        assert total == pytest.approx(float(oracle.detach()))
+        torch.testing.assert_close(prediction.grad, expected)
+
+
+def test_reuse_only_committed_successes(tmp_path: Path) -> None:
+    # 只复用成功且已写入提交标记的 episode；正在写入的残片不进入训练。
+    source, destination = tmp_path / "old", tmp_path / "new"
+    episode = source / "episode-0000"
+    episode.mkdir(parents=True)
+    destination.mkdir()
+    np.save(episode / "actions.npy", np.zeros((3, 7), np.float32))
+    np.save(episode / "phase.npy", np.zeros(3, np.int32))
+    np.save(episode / "state.npy", np.zeros((3, 8), np.float32))
+    np.save(episode / "prompt.npy", np.array(["pick"] * 3))
+    for key in ("image", "wrist_image"):
+        np.save(episode / f"{key}.npy", np.zeros((3, 8, 8, 3), np.uint8))
+    (episode / "result.json").write_text(json.dumps({"success": True, "seed": 12}))
+    (source / "episode-0001").mkdir()
+    reused = reuse_demonstrations(str(source), destination, 64)
+    assert reused["saved"] == 1 and reused["next_seed"] == 1012
+    assert len(list(destination.glob("episode-*"))) == 1
+    assert (source / "episode-0001").is_dir()
+    # 已提交的损坏数据不能以恢复名义被静默忽略。
+    (episode / "result.json").write_text(json.dumps({"success": False, "seed": 12}))
+    another = tmp_path / "another"
+    another.mkdir()
+    with pytest.raises(AssertionError, match="unsuccessful"):
+        reuse_demonstrations(str(source), another, 64)
 
 
 def test_simulator_environment_excludes_credentials() -> None:

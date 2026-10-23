@@ -36,3 +36,10 @@ learner SHA `4bbcc9b59cc8eeef3a50c602c9048bf7a208a658cdb508cfa1c3eb7c67037fdf`�
 第三轮`8ec98b1f-0029`：PASS，exit0；双相机观测、10转移/1PPO更新、四suite重置/推理均通过。
 old logprob误差0，peak19.97GiB，7文件111929bytes跨池SHA校验通过。
 两池各自同根目录`cross-pool-20261023-03`中保留result/run.log和simulator.log。
+
+批量配置改动待复测：真实 Pro5000 扩容到 32 个 Isaac 环境，31 个未重置 slot 保持不变；双相机跨池采样、GBS=32/micro=8 的小规模闭环和四个 LIBERO suite。正式 recipe 的 GBS=256 由 test_policy 单独验收。
+
+第四轮 `8ec98b1f-0041`：PASS/exit0，227s。32环境/64相机均有效，partial reset保持其余31slot不变。
+160控制转移、一次GBS32/micro8 PPO更新（4次累积），概率重算误差3.8147e-6。
+97文件/1787399bytes跨池SHA通过，四个LIBERO suite的task0重置/推理/步进及同seed初态一致性通过。
+证据：两池同测试根目录cross-pool-20261023-04，H20含result.json/run.log，Pro5000含simulator.log。

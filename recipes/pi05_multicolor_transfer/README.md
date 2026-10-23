@@ -1,6 +1,6 @@
 # 多色换笔临摹 RL → LIBERO
 
-状态：正式pilot已启动，当前准备/示范采集阶段；无迁移效果结论。
+状态：pilot-01 已停止并保留示范；按用户确认的全局批量配置验证并重启中。无迁移效果结论。
 
 起点是既有 LIBERO SFT `step-00000100`。历史 745/2000（37.25%）只用于说明模型来源，
 不能替代本实验新跑的配对 init 基线。三个对照为 init、临摹示范 SFT、临摹 PPO 最终 checkpoint；
@@ -32,11 +32,20 @@ MountedPanda基座偏移[-0.66,0,0.912]，不含物体真值。沿用Workbench�
 VLM 冻结；动作专家、action projection、time MLP 使用 FP32 master 和 BF16 forward。
 PPO 每个 chunk 随机选择一个 Flow-SDE 去噪转移，其余走 ODE；5 denoise、noise=0.5，
 clip=0.2、γ=.99、λ=.95、1 epoch，策略 lr=5e-6、价值头 lr=1e-4。
-SFT 最多 500 updates，batch16，lr=1e-5；监督目标不跨子任务，参考颜色不做随机增强。
+SFT 最多 500 updates，global batch 256，lr=1e-5；监督目标不跨子任务，参考颜色不做随机增强。
+SFT 与 PPO 共用 `micro_batch_size=8`、`global_batch_size=256`；单 learner 自动累积32次梯度。
+`global_rollout_batch_size=4096` 按环境/action chunk计数，`num_envs=32` 时自动采集每环境128 chunks；
+每轮 PPO 1 epoch、16次optimizer step。渲染worker不计入DP；当前DP=1，未声称使用全部H20训练。
+micro 同时限制采样、推理、价值计算和反传批量；变长SFT目标先按样本平均再累积，避免分块改变权重。
+不足4096的预算尾部只记账并丢弃，不进行缩小batch的更新；一次完整PPO更新都没有则报错。
+示范仍用 `demo_num_envs=4` 维持一色到三色课程，SFT后切换32环境。
+`demonstration_source` 可显式指向前次renderer demos目录，只复制有result.json提交标记的成功episode，
+校验必需数组并保留来源，新目录继续采集；旧目录不修改，旧失败不计入新run的attempt预算。
 每次 PPO 更新前重算全部 old logprob，并检查骨干没有梯度。
 每10次PPO更新保存一次可恢复的learner checkpoint；最终对照仍固定采用最后一个RL checkpoint。
 
-24h pilot：准备/示范/SFT 最多 6h，RL 最多 10h 或 200k 实际控制转移，余下时间评测和归档。
+24h pilot：准备/示范/SFT 最多 6h，RL 最多 10h 或 1,024,000 实际控制转移，余下时间评测和归档。
+转移预算足以覆盖至少50轮完整rollout（满长chunk时每轮20,480转移），但10h时限可能先到；不承诺收敛。
 截止检查在动作块/优化步边界，正在执行的一次调用和最终保存可能产生少量超时。
 源码冻结和真实物理验收通过后才启动该预算。没有成功示范或 SFT 更新时直接失败，禁止空跑 RL。
 
@@ -80,7 +89,9 @@ Carrot 基线 `ff9e882` 加未提交改动；RLinf 参考 commit 见 NOTICE；�
 ### pilot-20261023-01
 
 2026-10-23 23:21:09（Asia/Shanghai）启动，H20 MCP task `8ec98b1f-0034`。
-24h预算从driver的events.jsonl中start时间开始计算；当前运行中，尚无SFT/RL完成结论。
+24h预算从driver的events.jsonl中start时间开始计算。本轮已为全局batch配置调整而停止，SFT/RL更新均为0。
+停止时已提交20个成功示范，供新run复用；旧配置为SFT GBS16、PPO GBS8、4环境×64chunks。
+原始driver日志保存在driver-stopped-for-batch-reconfiguration.log，旧产物与源码快照保留。
 23:22:44已保存init checkpoint（model.safetensors、FP32 learner.pt、manifest/config/norm齐备），
 4env partial reset通过（3个未重置slot保持不变），已进入64成功示范采集。
 渲染Pro5000 launcher GPU1，模型H20 launcher GPU0；沿用已验证Ray `29.209.162.214:6379`。
@@ -100,3 +111,11 @@ H20的`resolved-pilot.yaml`固定Pro5000 snapshot的simulator_source、Isaac和L
 
 首批已完成3个成功示范（seed15/12/13），IoU0.8042/0.8348/0.8018、均零掉笔，已入库3/64；
 这是单色课程阶段，尚未完成三色示范采集，尚未开始SFT/RL更新。
+
+### 全局批量配置验收
+
+基础实现已提交23b8ba8；新增micro/global batch配置后，22项CPU检查通过。
+H20 policy-20261023-04真实完成GBS256/micro8的PPO与SFT各一次，梯度累积32次，
+old logprob最大误差3.8147e-6；精确恢复、状态不变性、拒绝小rollout与丢弃尾部均通过。
+跨池cross-pool-20261023-04通过32环境/64相机、31slot partial reset、97文件SHA、
+160实际转移和4个LIBERO suite接口检查。测试不构成收敛或迁移效果证据。

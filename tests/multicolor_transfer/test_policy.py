@@ -1,6 +1,7 @@
 import argparse
 import json
 import os
+import time
 from dataclasses import replace
 from pathlib import Path
 
@@ -15,7 +16,15 @@ from carrot.trainer.rl.learner import LearnerWorker
 
 def check_policy(config_path: str, output: Path) -> None:
     # 真 checkpoint 验证概率重算、反传、冻结参数、FP32 恢复和 BF16 导出，禁止用 mock 模型代替。
-    config = replace(load_config(config_path), output=str(output), learner_node_ip="127.0.0.1")
+    config = replace(
+        load_config(config_path),
+        output=str(output),
+        learner_node_ip="127.0.0.1",
+        global_batch_size=256,
+        global_rollout_batch_size=256,
+        micro_batch_size=8,
+        sft_steps=1,
+    )
     output.mkdir(parents=True, exist_ok=False)
     os.environ.update(LOCAL_RANK="0", MASTER_ADDR="127.0.0.1")
     learner = LearnerWorker(config)
@@ -31,40 +40,53 @@ def check_policy(config_path: str, output: Path) -> None:
             "observation/state": np.array([0.4, 0, 0.3, 3.14, 0, 0, 0.04, -0.04], np.float32),
             "prompt": "pick up the red pen from the rack",
         }
-        for _ in range(2)
+        for _ in range(32)
     ]
     before_weight = policy.model.action_out_proj.weight.detach().clone()
     # 用真实不同执行长度核对 ratio=1，终止与截断的下一观测保留给 critic。
     actions = learner.sample(observations)
-    assert actions.shape == (2, 10, 7) and np.isfinite(actions).all()
+    assert actions.shape == (32, 10, 7) and np.isfinite(actions).all()
     replay = learner.pending
     assert replay is not None
     with torch.no_grad():
-        new, _ = policy.evaluate(observations, replay)
-    lengths = torch.tensor([1, 5])
+        new, _ = policy.evaluate(
+            observations[:8], {k: v[:8] for k, v in replay.items() if isinstance(v, torch.Tensor)}
+        )
+    lengths = torch.tensor([1, 5] * 16)
     error = (
         (
-            chunk_logprob(new, lengths.to(policy.device)).cpu()
-            - chunk_logprob(replay["logprob"], lengths)
+            chunk_logprob(new, lengths[:8].to(policy.device)).cpu()
+            - chunk_logprob(replay["logprob"][:8], lengths[:8])
         )
         .abs()
         .max()
         .item()
     )
     assert error < 0.02, error
-    learner.record(
-        {
-            "observations": observations,
-            "rewards": np.array([1.0, -0.2], np.float32),
-            "lengths": lengths.numpy(),
-            "terminated": np.array([True, False]),
-            "truncated": np.array([False, True]),
-        }
-    )
+    result = {
+        "observations": observations,
+        "rewards": np.array([1.0, -0.2] * 16, np.float32),
+        "lengths": lengths.numpy(),
+        "terminated": np.array([True, False] * 16),
+        "truncated": np.array([False, True] * 16),
+    }
+    learner.record(result)
+    # 正式 GBS=256 需累积 32 次 micro=8；不足一个 rollout 时必须拒绝更新。
+    try:
+        learner.update()
+    except AssertionError as exc:
+        assert "256 rollout samples" in str(exc)
+    else:
+        raise AssertionError("partial rollout was accepted")
+    for _ in range(7):
+        learner.sample(observations)
+        learner.record(result)
     # 更新必须改变动作参数，所有 VLM 参数无梯度且不在优化器参数列表中。
     metrics = learner.update()
     print(json.dumps({"PPO_UPDATE": metrics}), flush=True)
     assert all(np.isfinite(value) for value in metrics.values())
+    assert metrics["global_batch_size"] == 256 and metrics["optimizer_steps"] == 1
+    assert metrics["gradient_accumulation_steps"] == 32
     assert not torch.equal(before_weight, policy.model.action_out_proj.weight)
     frozen = list(policy.model.paligemma_with_expert.paligemma.parameters())
     assert all(not p.requires_grad and p.grad is None for p in frozen)
@@ -72,7 +94,23 @@ def check_policy(config_path: str, output: Path) -> None:
     optimized = {id(p) for group in learner.optimizer.param_groups for p in group["params"]}
     assert not optimized.intersection(id(p) for p in frozen)
     # SFT 使用同一输入契约，只有实际子任务范围内的动作进入 loss。
-    supervised = [{**obs, "actions": np.zeros((10, 7), np.float32)} for obs in observations]
+    supervised = [{**obs, "actions": np.zeros((10, 7), np.float32)} for obs in observations[:2]]
+    learner.optimizer.zero_grad(set_to_none=True)
+    # 真 SFT 入口完成一次 GBS=256 更新，覆盖采样、梯度累积和审计日志。
+    episode = output / "demos/episode-0000"
+    episode.mkdir(parents=True)
+    for key in observations[0]:
+        np.save(
+            episode / (key.replace("observation/", "") + ".npy"),
+            np.asarray([obs[key] for obs in observations]),
+        )
+    np.save(episode / "actions.npy", np.zeros((32, 7), np.float32))
+    np.save(episode / "phase.npy", np.repeat(np.arange(8), 4))
+    (episode / "result.json").write_text(json.dumps({"success": True}))
+    sft_result = learner.sft(str(output / "demos"), time.time() + 1800)
+    assert sft_result["sft_updates"] == 1
+    sft_row = json.loads((output / "sft.jsonl").read_text())
+    assert sft_row["global_batch_size"] == 256 and sft_row["samples_seen"] == 256
     learner.optimizer.zero_grad(set_to_none=True)
     loss = policy.supervised_loss(supervised, torch.tensor([1, 3]))
     assert torch.isfinite(loss)
@@ -99,7 +137,7 @@ def check_policy(config_path: str, output: Path) -> None:
     assert torch.equal(expected_torch, torch.rand(3))
     assert np.array_equal(expected_numpy, np.random.rand(3))
     assert torch.equal(expected_cuda, torch.rand(3, device=policy.device))
-    assert learner.transitions == 6 and learner.updates == 1
+    assert learner.transitions == 768 and learner.updates == 1 and learner.sft_updates == 1
     assert all(
         value.dtype == torch.float32
         for state in learner.optimizer.state.values()
@@ -110,7 +148,7 @@ def check_policy(config_path: str, output: Path) -> None:
     del policy, frozen, before_weight, saved_weight, loss, replay
     learner.load(str(checkpoint))
     inference = learner.infer(observations, seed=7)
-    assert inference.shape == (2, 10, 7) and np.isfinite(inference).all()
+    assert inference.shape == (32, 10, 7) and np.isfinite(inference).all()
     # 官方 pi05_libero 只启用双相机；接口中的本体状态不能悄悄进入策略。
     encoded = learner.policy.inputs(dict(observations[0]))
     assert encoded["image_mask"] == {
@@ -122,6 +160,12 @@ def check_policy(config_path: str, output: Path) -> None:
         {**obs, "observation/state": np.arange(8, dtype=np.float32)} for obs in observations
     ]
     np.testing.assert_array_equal(inference, learner.infer(changed_state, seed=7))
+    # 截止时尾部只丢弃，不形成小 batch，也不增加 optimizer/update 计数。
+    learner.sample(observations)
+    learner.record(result)
+    discarded = learner.discard_rollout()
+    assert discarded == {"discarded_samples": 32, "updates": 1}
+    assert not learner.buffer
     config_json = json.loads((checkpoint / "config.json").read_text())
     assert config_json["action_horizon"] == 10
     native = PI0Pytorch.load_config(checkpoint)
@@ -133,6 +177,8 @@ def check_policy(config_path: str, output: Path) -> None:
         "preupdate_logprob_error": error,
         "ppo": metrics,
         "sft_loss": sft_loss,
+        "sft_batch": sft_row,
+        "discarded_tail": discarded,
         "checkpoint": str(checkpoint),
         "torch": torch.__version__,
         "gpu": torch.cuda.get_device_name(0),

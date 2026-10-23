@@ -1,7 +1,52 @@
 import json
+import shutil
 from pathlib import Path
 
 import numpy as np
+
+
+def reuse_demonstrations(source: str, destination: Path, limit: int) -> dict:
+    """Copy committed successful episodes from an interrupted collection into a fresh run.
+
+    Parameters
+    ----------
+    source : str
+        Prior renderer's demos directory. A result.json written last commits an episode;
+        an unfinished directory without that marker is explicitly excluded.
+    destination : pathlib.Path
+        Existing empty directory; the source is never modified.
+    limit : int
+        Maximum accepted successes. Corrupt committed episodes are errors.
+
+    Returns
+    -------
+    dict
+        Provenance, completed episode metadata and a fresh training seed range.
+        Only reused successes count against this run's attempt budget.
+    """
+    root = Path(source)
+    assert root.is_dir() and not list(destination.iterdir())
+    episodes = []
+    for path in sorted(root.glob("episode-*")):
+        marker = path / "result.json"
+        if not marker.is_file():
+            continue
+        info = json.loads(marker.read_text())
+        assert info["success"], f"unsuccessful committed episode: {path}"
+        assert len(episodes) < limit, f"source exceeds requested {limit} demonstrations"
+        shutil.copytree(path, destination / f"episode-{len(episodes):04d}")
+        episodes.append(info)
+    assert episodes, f"no committed successes to reuse: {source}"
+    Demonstrations(str(destination))
+    # 老进程可能还有未落盘的并行轨迹，为新采集预留不重叠的种子区间。
+    next_seed = max(info["seed"] for info in episodes) + 1000
+    assert next_seed < 1_000_000
+    return {
+        "source": str(root.resolve()),
+        "saved": len(episodes),
+        "episodes": episodes,
+        "next_seed": next_seed,
+    }
 
 
 class Demonstrations:
@@ -24,6 +69,8 @@ class Demonstrations:
             arrays = {
                 p.stem: np.load(p, mmap_mode="r", allow_pickle=False) for p in episode.glob("*.npy")
             }
+            required = {"actions", "phase", "state", "prompt", "image", "wrist_image"}
+            assert required <= arrays.keys(), f"missing demonstration arrays: {episode}"
             count = len(arrays["actions"])
             assert count > 0 and arrays["actions"].shape == (count, 7)
             assert all(len(value) == count for value in arrays.values())

@@ -6,6 +6,31 @@ import math
 import torch
 
 
+def supervised_flow_loss(error: torch.Tensor, lengths: torch.Tensor) -> torch.Tensor:
+    """Average valid action errors per sample, then across samples.
+
+    Parameters
+    ----------
+    error : torch.Tensor
+        Squared errors with shape (batch, horizon, action_dim).
+    lengths : torch.Tensor
+        Positive valid horizons. Equal sample weighting makes gradient accumulation
+        independent of how variable-length samples are partitioned into micro batches.
+
+    Returns
+    -------
+    torch.Tensor
+        Scalar mean loss, excluding padded timesteps and dimensions beyond the seven controls.
+    """
+    assert error.ndim == 3 and error.shape[2] >= 7
+    assert lengths.shape == error.shape[:1]
+    assert torch.all((lengths > 0) & (lengths <= error.shape[1]))
+    lengths = lengths.to(error.device)
+    mask = torch.arange(error.shape[1], device=error.device)[None] < lengths[:, None]
+    sums = (error[:, :, :7] * mask[..., None]).sum(dim=(1, 2))
+    return (sums / (lengths * 7)).mean()
+
+
 def flow_transition(
     latent: torch.Tensor,
     velocity: torch.Tensor,

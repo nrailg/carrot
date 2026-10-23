@@ -30,3 +30,8 @@ test_transfer.py SHA `d90cf9ac7fb1798bd3680e6c6d929bd0c34066fdcdb30456208faeab7e
 
 第四轮双相机示范数据契约回归：`80e65273-0250`，exit0，19 passed in1.80s。
 日志同目录`test-transfer-20261023-04.log`；不再要求独立reference_image数组。
+
+批量配置改动待复测：GBS=256、rollout=4096 的整除约束；变长 SFT 样本的 micro 分块梯度不变性；中断采集仅复用已提交成功示范。
+
+全局批量/复用验收：22项PASS，1.86s，task80e65273-0276/exit0。
+包含必需示范数组校验后的最终版本；日志为Pro5000个人DFS下tests/carrot/multicolor_transfer/test-transfer-20261023-06.log。

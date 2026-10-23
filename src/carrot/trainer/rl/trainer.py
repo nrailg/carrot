@@ -63,7 +63,11 @@ def _event(output: Path, stage: str, **data: object) -> None:
     print(json.dumps(record), flush=True)
 
 
-def _launch(config: TransferConfig, cluster: Cluster) -> tuple[WorkerGroup, WorkerGroup]:
+def _launch(
+    config: TransferConfig,
+    cluster: Cluster,
+    simulator_num_envs: int | None = None,
+) -> tuple[WorkerGroup, WorkerGroup]:
     nodes = tuple(sorted({config.simulator_node_ip, config.learner_node_ip}))
     cluster.reserve(
         "transfer",
@@ -87,7 +91,7 @@ def _launch(config: TransferConfig, cluster: Cluster) -> tuple[WorkerGroup, Work
         config.simulator_script,
         {
             "robot_usd": config.robot_usd,
-            "num_envs": config.num_envs,
+            "num_envs": config.num_envs if simulator_num_envs is None else simulator_num_envs,
             "max_episode_steps": config.max_episode_steps,
             "seed": config.seed,
             "num_colors": config.num_colors,
@@ -152,6 +156,11 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
         image=os.environ.get("CARROT_IMAGE_TAG", "not_recorded"),
         renderer_node=config.simulator_node_ip,
         learner_node=config.learner_node_ip,
+        micro_batch_size=config.micro_batch_size,
+        global_batch_size=config.global_batch_size,
+        global_rollout_batch_size=config.global_rollout_batch_size,
+        gradient_accumulation_steps=config.gas,
+        rollout_steps=config.rollout_steps,
     )
     checkpoints = {
         "init": str(output / "checkpoints/init"),
@@ -167,7 +176,9 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
                 "HF_DATASETS_OFFLINE": "1",
             },
         ) as cluster:
-            simulator, learner = _launch(config, cluster)
+            simulator, learner = _launch(
+                config, cluster, config.demo_num_envs if resume is None else config.num_envs
+            )
             _event(output, "checkpoint_init", **learner.call("save", checkpoints["init"]).wait()[0])
             _event(output, "partial_reset", **simulator.call("request", "check_reset").wait()[0])
             if resume is None:
@@ -178,6 +189,7 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
                     successes=config.demo_successes,
                     attempts=config.demo_attempts,
                     deadline=prepare_deadline,
+                    source=config.demonstration_source,
                 ).wait()[0]
                 _event(output, "demonstrations", **collected)
                 assert collected["saved"] == config.demo_successes, (
@@ -195,6 +207,24 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
                     output, "checkpoint_sft", **learner.call("save", checkpoints["sft"]).wait()[0]
                 )
                 transitions = 0
+                if config.demo_num_envs != config.num_envs:
+                    simulator.call(
+                        "restart",
+                        config.simulator_script,
+                        {
+                            "robot_usd": config.robot_usd,
+                            "num_envs": config.num_envs,
+                            "max_episode_steps": config.max_episode_steps,
+                            "seed": config.seed,
+                            "num_colors": config.num_colors,
+                        },
+                    ).wait()
+                    _event(
+                        output,
+                        "rollout_environments",
+                        num_envs=config.num_envs,
+                        **simulator.call("request", "check_reset").wait()[0],
+                    )
             else:
                 manifest = json.loads((Path(resume) / "manifest.json").read_text())
                 assert manifest["initial_checkpoint"] == config.checkpoint
@@ -226,14 +256,14 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
                     "request", "step", actions=actions[:, :execute], gamma=config.gamma
                 ).wait()[0]
                 counted = learner.call("record", result).wait()[0]
-                transitions, buffered = counted["transitions"], counted["buffer_chunks"]
+                transitions, buffered = counted["transitions"], counted["rollout_samples"]
                 observations = result["observations"]
                 done = np.flatnonzero(result["terminated"] | result["truncated"]).tolist()
                 for i in done:
                     _event(output, "source_episode", **result["info"][i])
                 if done:
                     observations = simulator.call("request", "reset", ids=done).wait()[0]
-                if buffered >= config.rollout_chunks:
+                if buffered >= config.global_rollout_batch_size:
                     updated = learner.call("update").wait()[0]
                     _event(output, "ppo", **updated)
                     buffered = 0
@@ -244,9 +274,9 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
                             "checkpoint_periodic",
                             **learner.call("save", str(path)).wait()[0],
                         )
-            if buffered:
-                _event(output, "ppo", **learner.call("update").wait()[0])
-            assert transitions > 0, "RL budget exhausted without a transition"
+            discarded = learner.call("discard_rollout").wait()[0]
+            _event(output, "rollout_budget_end", **discarded)
+            assert discarded["updates"] > 0, "RL budget exhausted without a full PPO rollout"
             _event(output, "checkpoint_rl", **learner.call("save", checkpoints["rl"]).wait()[0])
             source_rows = []
             source_deadline = min(time.time() + 3600, deadline)

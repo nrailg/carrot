@@ -17,7 +17,9 @@ def check_cross_pool(config_path: str, output: Path, simulator_output: str) -> N
         load_config(config_path),
         output=str(output),
         simulator_output=simulator_output,
-        num_envs=2,
+        num_envs=32,
+        global_batch_size=32,
+        global_rollout_batch_size=32,
     )
     assert config.num_nodes == 2 and os.environ.get("RAY_ADDRESS")
     output.mkdir(parents=True, exist_ok=False)
@@ -29,7 +31,8 @@ def check_cross_pool(config_path: str, output: Path, simulator_output: str) -> N
         print("WORKERS_READY", flush=True)
         # partial reset 不推进其他 slot；真实相机输出经跨池传输后必须完整保留。
         reset_check = simulator.call("request", "check_reset").wait()[0]
-        observations = simulator.call("request", "reset", seeds=[7, 8]).wait()[0]
+        observations = simulator.call("request", "reset", seeds=list(range(7, 39))).wait()[0]
+        assert len(observations) == 32 and reset_check["unchanged_slots"] == 31
         for observation in observations:
             assert set(observation) == {
                 "observation/image",
@@ -53,6 +56,8 @@ def check_cross_pool(config_path: str, output: Path, simulator_output: str) -> N
         assert counted["transitions"] == int(result["lengths"].sum())
         assert metrics["transitions"] == counted["transitions"] > 0
         assert metrics["max_preupdate_logprob_error"] < 0.02
+        assert metrics["global_rollout_batch_size"] == 32
+        assert metrics["gradient_accumulation_steps"] == 4
         print(json.dumps({"PPO": metrics}), flush=True)
         # 两个仿真依赖环境必须在同一 Pro5000 actor 中顺序切换，H20 只做推理。
         simulator.call("restart", config.libero_script, {}, config.libero_python).wait()

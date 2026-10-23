@@ -17,7 +17,7 @@ for path in sorted((ROOT/'translations').glob('*.json')):
     batch = json.loads(path.read_text())
     assert not (authored.keys() & batch.keys()), f'Duplicate IDs in {path}'
     authored.update(batch)
-    authors.update({paper_id: 'astra_subagent' if path.name.startswith('astra-') else 'current_conversation_assistant' for paper_id in batch})
+    authors.update({paper_id: 'user_authorized_subagent' if path.name.startswith('astra-') else 'current_conversation_assistant' for paper_id in batch})
 assert authored.keys() <= by_id.keys(), 'Unknown paper ID'
 records = []
 review_path = ROOT/'translation-work/main-review.json'
@@ -29,7 +29,7 @@ for paper in papers:
     assert paper['abstract'], paper['id']
     assert isinstance(prose,str) and len(re.findall(r'[\u4e00-\u9fff]',prose)) > 30, paper['id']
     review = 'directly_authored'
-    if authors[paper['id']] == 'astra_subagent':
+    if authors[paper['id']] == 'user_authorized_subagent':
         checked_hash = reviews.get(paper['id'], {}).get('translation_sha256')
         review = 'main_assistant_checked' if checked_hash == hashlib.sha256(prose.encode()).hexdigest() else 'pending_main_assistant_review'
     records.append({'id':paper['id'], 'source_sha256':hashlib.sha256(paper['abstract'].encode()).hexdigest(),
@@ -44,7 +44,7 @@ audit = {'date':'2026-10-23', 'source_abstracts':sum(bool(p['abstract']) for p i
          'by_conference':dict(Counter(by_id[r['id']]['conference'] for r in records)),
          'authors':dict(Counter(authors.values())),
          'review_status':dict(Counter(r['review'] for r in records)),
-         'method':'Direct reading and Chinese rewriting by the main assistant and user-authorized Astra subagents; no external translation API used.',
+         'method':'Direct reading and Chinese rewriting by the main assistant and user-authorized subagents; no external translation API used.',
          'coverage_status':'complete' if len(records)==sum(bool(p['abstract']) for p in papers) else 'in_progress',
          'checks':['valid paper IDs','no duplicate translations','source abstracts present','Chinese text present','source SHA-256 recorded']}
 (ROOT/'translation-audit.json').write_text(json.dumps(audit,ensure_ascii=False,indent=2)+'\n')

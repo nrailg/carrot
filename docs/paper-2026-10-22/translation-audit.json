@@ -1,26 +1,26 @@
 {
   "date": "2026-10-23",
   "source_abstracts": 5716,
-  "chinese_abstracts": 3565,
-  "remaining": 2151,
+  "chinese_abstracts": 5716,
+  "remaining": 0,
   "missing_source_abstracts": 157,
   "by_conference": {
     "CoRL": 687,
     "RSS": 210,
-    "ICRA": 2612,
-    "IROS": 56
+    "ICRA": 2761,
+    "IROS": 2058
   },
   "authors": {
     "current_conversation_assistant": 205,
-    "astra_subagent": 3360
+    "user_authorized_subagent": 5511
   },
   "review_status": {
     "directly_authored": 205,
-    "main_assistant_checked": 2770,
-    "pending_main_assistant_review": 590
+    "main_assistant_checked": 4685,
+    "pending_main_assistant_review": 826
   },
-  "method": "Direct reading and Chinese rewriting by the main assistant and user-authorized Astra subagents; no external translation API used.",
-  "coverage_status": "in_progress",
+  "method": "Direct reading and Chinese rewriting by the main assistant and user-authorized subagents; no external translation API used.",
+  "coverage_status": "complete",
   "checks": [
     "valid paper IDs",
     "no duplicate translations",

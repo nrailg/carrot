@@ -12,6 +12,9 @@ Isaac Lab：把仿真包装成适合机器人学习的批量环境
 Isaac Sim：创建三维世界，运行物理、渲染和传感器
 ```
 
+机器人操作真实 Linux 虚拟机与画笔临摹的批量环境，见独立的
+[Isaac workbench 示例](../isaac_workbench/README.md)。
+
 这些文件是学习材料，不属于 Carrot 的运行依赖。项目支持两种互斥的运行环境：
 
 - Gemini/Carrot 容器：使用容器预装的 `/opt/venvs/carrot`，这是远程服务器上的推荐方式。

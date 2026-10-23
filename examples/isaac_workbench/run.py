@@ -10,12 +10,13 @@ import imageio.v2 as imageio
 import numpy as np
 from PIL import Image
 from logic import DEFAULT_STROKES, reference_image
+from multicolor_controls import remove_sensitive_environment
 from tasks import CODING_TASKS, CodingTask
 
 parser = argparse.ArgumentParser(
     description="Isaac robot workbench: batched Linux coding and painting"
 )
-parser.add_argument("--task", choices=("computer", "paint"), required=True)
+parser.add_argument("--task", choices=("computer", "paint", "multicolor"), required=True)
 parser.add_argument("--num-envs", type=int, default=1)
 parser.add_argument("--robot-usd", type=Path, required=True)
 parser.add_argument("--guest-dir", type=Path)
@@ -28,6 +29,8 @@ parser.add_argument("--headless", action="store_true")
 parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--policy", choices=("scripted", "hold"), default="scripted")
 parser.add_argument("--steps", type=int, default=4000)
+parser.add_argument("--seed", type=int, default=7)
+parser.add_argument("--num-colors", type=int, choices=(1, 2, 3), default=2)
 parser.add_argument("--strokes", type=Path, help="expert strokes as normalized UV coordinate lists")
 parser.add_argument(
     "--reference-image", type=Path, help="target image observed by the painting policy"
@@ -40,6 +43,9 @@ parser.add_argument(
     "--record-guest-screen", action="store_true", help="record QEMU display at 15 fps"
 )
 args = parser.parse_args()
+if args.task == "multicolor":
+    remove_sensitive_environment()
+    os.sched_setaffinity(0, sorted(os.sched_getaffinity(0))[:16])
 assert args.steps > 0 and args.num_envs > 0 and args.robot_usd.is_file()
 assert args.task != "computer" or (args.guest_dir is not None and args.guest_dir.is_dir())
 assert not args.record_guest_screen or args.task == "computer"
@@ -72,8 +78,21 @@ simulation_app = SimulationApp(
     }
 )
 
+from multicolor_preflight import run as run_multicolor_preflight
 from policy import ScriptedPolicy
 from vector_env import VectorWorkbench
+
+if args.task == "multicolor":
+    exit_code = 0
+    try:
+        run_multicolor_preflight(args)
+    except BaseException:
+        exit_code = 1
+        traceback.print_exc()
+        raise
+    finally:
+        simulation_app.close(exit_code=exit_code)
+    raise SystemExit(exit_code)
 
 
 def save_episode(

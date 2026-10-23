@@ -12,6 +12,17 @@ from classify import LABELS
 
 ROOT = Path(__file__).resolve().parents[1]
 PAPERS = [json.loads(l) for l in (ROOT/'papers.jsonl').read_text().splitlines()]
+# Translations are separate derived data; never overwrite the source abstracts.
+import hashlib
+translation_path = ROOT/'abstracts-zh.jsonl'
+translations = {r['id']: r for r in map(json.loads, translation_path.read_text().splitlines())} if translation_path.exists() else {}
+for paper in PAPERS:
+    record = translations.get(paper['id'])
+    if record:
+        assert record['source_sha256'] == hashlib.sha256(paper['abstract'].encode()).hexdigest(), paper['id']
+        paper['abstract_zh'] = record['abstract_zh']
+        paper['translation_review'] = record['review']
+translated_count = sum(bool(p.get('abstract_zh')) for p in PAPERS)
 VENUES = ['CoRL', 'RSS', 'ICRA', 'IROS']
 STATUS = {'ai-related':'AI 相关', 'candidate':'AI 候选，待复核', 'unmarked':'未标记'}
 
@@ -93,6 +104,12 @@ readme=f'''# CoRL / RSS / ICRA / IROS 最新一期论文扫描
 - [全部结构化记录](papers.jsonl) · [AI 相关 JSONL](ai-papers.jsonl) · [AI 候选 JSONL](ai-candidates.jsonl)
 - [来源与完整性审计](collection-audit.md) · [机器可读审计](collection-audit.json) · [来源快照清单与 SHA-256](source-manifest.json)
 
+## 中文摘要
+
+中文改写进行中：**{translated_count:,} / {sum(bool(p["abstract"]) for p in PAPERS):,} 条公开摘要**已完成，按语义分段、统一机器人与 AI 术语。中文摘要默认直接显示；英文原文保留在下方，可展开核对。搜索同时覆盖中英文摘要。原始来源缺失的摘要保持空缺。
+
+中文由本次会话助手直接根据英文摘要撰写，保留关键方法、实验范围、数字与结论；未完成中文的条目直接显示英文，并明确标记。中英文对照记录与来源哈希保存在 [abstracts-zh.jsonl](abstracts-zh.jsonl)；覆盖情况见 [translation-audit.json](translation-audit.json)。
+
 ## AI 筛选口径
 
 AI 相关包括：VLA / VLM / LLM / 基础模型；强化学习与奖励学习；模仿学习与动作策略；扩散 / 流匹配 / 生成模型；世界模型；学习式感知、神经表示与控制；表征学习和迁移；符号 AI、POMDP 等认知 / 不确定性推理；明确面向这些方法的数据、评测与基础设施。硬件论文若明确使用学习方法或服务于机器人学习评测，也可纳入。
@@ -116,6 +133,7 @@ AI 相关包括：VLA / VLM / LLM / 基础模型；强化学习与奖励学习�
 ```sh
 uv run --no-project --with requests --with beautifulsoup4 python docs/paper-2026-10-22/scripts/collect.py
 python3 docs/paper-2026-10-22/scripts/classify.py
+python3 docs/paper-2026-10-22/scripts/assemble_translations.py
 uv run --no-project --with markdown python docs/paper-2026-10-22/scripts/render.py
 python3 docs/paper-2026-10-22/scripts/write_notes.py
 python3 docs/paper-2026-10-22/scripts/validate.py
@@ -136,16 +154,22 @@ python3 -m http.server 8769 --bind 127.0.0.1 --directory /Users/wujunyu/work/car
 # No external JavaScript, analytics, network fetches, or dependencies.
 payload=json.dumps(PAPERS,ensure_ascii=False).replace('<','\\u003c')
 template='''<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Robotics 2026 · Paper Scan</title>
-<style>body{font:15px/1.65 system-ui,sans-serif;color:#183029;background:#f4f6f3;margin:0}main{max-width:1140px;margin:auto;padding:32px 22px}h1{font-size:30px;letter-spacing:-1px;margin-bottom:4px}p{color:#586b63}header small{letter-spacing:2px;color:#547462}nav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}input,select,button{font:inherit;padding:9px 12px;border:1px solid #b8c8bd;border-radius:6px;background:white;color:#183029}input{flex:1;min-width:200px}button{cursor:pointer}button:disabled{opacity:.4}article{background:white;border:1px solid #d9e2db;border-radius:9px;padding:18px 22px;margin:12px 0}h2{font-size:18px;margin:4px 0}a{color:#1a6547;text-decoration:none}a:hover{text-decoration:underline}.meta{font-size:13px;color:#6a7a71}.tags{color:#386650;font-size:13px}.basis{font-size:13px;margin:8px 0}.status{display:inline-block;background:#e5efe7;padding:2px 7px;border-radius:4px;font-size:12px}.candidate{background:#fff0cf}summary{cursor:pointer;color:#426c56}.abstract{color:#364c41;white-space:pre-wrap}.pager{display:flex;gap:16px;align-items:center;justify-content:center;margin:22px}#result{font-weight:600}footer{margin-top:40px;color:#6a7a71}details{margin-top:10px}.empty{text-align:center;padding:50px}</style>
+<style>body{font:15px/1.65 system-ui,sans-serif;color:#183029;background:#f4f6f3;margin:0}main{max-width:1140px;margin:auto;padding:32px 22px}h1{font-size:30px;letter-spacing:-1px;margin-bottom:4px}p{color:#586b63}header small{letter-spacing:2px;color:#547462}nav{display:flex;gap:10px;flex-wrap:wrap;margin:24px 0}input,select,button{font:inherit;padding:9px 12px;border:1px solid #b8c8bd;border-radius:6px;background:white;color:#183029}input{flex:1;min-width:200px}button{cursor:pointer}button:disabled{opacity:.4}article{background:white;border:1px solid #d9e2db;border-radius:9px;padding:18px 22px;margin:12px 0}h2{font-size:18px;margin:4px 0}a{color:#1a6547;text-decoration:none}a:hover{text-decoration:underline}.meta{font-size:13px;color:#6a7a71}.tags{color:#386650;font-size:13px}.basis{font-size:13px;margin:8px 0}.status{display:inline-block;background:#e5efe7;padding:2px 7px;border-radius:4px;font-size:12px}.candidate{background:#fff0cf}summary{cursor:pointer;color:#426c56}.abstract{color:#263e33;max-width:88ch;font-size:16px;line-height:1.9;overflow-wrap:anywhere}.abstract p{color:inherit;margin:0 0 .85em}.abstract-label{font-size:13px;color:#547462;margin:17px 0 9px;font-weight:600}.original{white-space:pre-wrap;font-size:14px;line-height:1.7;margin-top:12px}.translation-note{font-weight:400;color:#7b887f;font-size:12px;margin-left:8px}.pager{display:flex;gap:16px;align-items:center;justify-content:center;margin:22px}#result{font-weight:600}footer{margin-top:40px;color:#6a7a71}details{margin-top:10px}.empty{text-align:center;padding:50px}</style>
 <main><header><small>RESEARCH INDEX · 2026-10-22</small><h1>CoRL / RSS / ICRA / IROS</h1><p>四场会议全部公开主目录与 LBR 补充。AI 分类基于元数据、摘要规则及人工复核；详情见 <a href="README.md">README</a>。CoRL 摘要为社区元数据快照，其他会议摘要来自官方。</p></header>
 <nav><input id="q" type="search" placeholder="搜索标题、作者、关键词、摘要" aria-label="搜索论文"><select id="venue" aria-label="会议"><option value="">全部会议</option><option>CoRL</option><option>RSS</option><option>ICRA</option><option>IROS</option></select><select id="track" aria-label="目录范围"><option value="">主目录 + LBR</option><option value="main-program">主目录</option><option value="late-breaking-results">LBR 补充</option></select><select id="status" aria-label="AI 筛选状态"><option value="">全部 AI 状态</option><option value="ai-related">AI 相关</option><option value="candidate">AI 候选</option><option value="unmarked">未标记</option></select><select id="tag" aria-label="AI 方向"><option value="">全部 AI 方向</option></select></nav>
-<div id="result" role="status" aria-live="polite"></div><div class="pager"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div><section id="list"></section><div class="pager"><button id="prev2">上一页</button><span id="page2"></span><button id="next2">下一页</button></div><footer>来源保留到逐条记录；标签不代表论文质量或排序。无公开摘要的记录不会生成摘要。本站离线运行，无外部资源。</footer></main>
+<div id="result" role="status" aria-live="polite"></div><div class="pager"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div><section id="list"></section><div class="pager"><button id="prev2">上一页</button><span id="page2"></span><button id="next2">下一页</button></div><footer>来源保留到逐条记录；标签不代表论文质量或排序。无公开摘要的记录保持空缺。中文摘要由本次会话助手直接撰写，英文原文可展开核对。本站离线运行，无外部资源。</footer></main>
 <script id="papers" type="application/json">__DATA__</script><script>
 const papers=JSON.parse(document.getElementById('papers').textContent),labels=__LABELS__,statusLabels={'ai-related':'AI 相关',candidate:'AI 候选，待复核',unmarked:'未标记'};let page=0,filtered=papers;const size=50,$=id=>document.getElementById(id),escape=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 for(const [key,value] of Object.entries(labels)){let o=document.createElement('option');o.value=key;o.textContent=value;$('tag').appendChild(o)}
-const haystacks=papers.map(p=>[p.title,p.authors.join(' '),p.keywords.join(' '),p.abstract].join(' ').toLocaleLowerCase());
+const haystacks=papers.map(p=>[p.title,p.authors.join(' '),p.keywords.join(' '),p.abstract,p.abstract_zh||''].join(' ').toLocaleLowerCase());
 function update(){const query=$('q').value.trim().toLocaleLowerCase().split(/\\s+/).filter(Boolean);filtered=papers.filter((p,i)=>(!$('venue').value||p.conference===$('venue').value)&&(!$('track').value||p.track===$('track').value)&&(!$('status').value||p.ai_status===$('status').value)&&(!$('tag').value||p.ai_tags.includes($('tag').value))&&query.every(w=>haystacks[i].includes(w)));page=0;render()}
-function render(){const pages=Math.max(1,Math.ceil(filtered.length/size));$('result').textContent=`${filtered.length.toLocaleString()} / ${papers.length.toLocaleString()} 条记录`;$('page').textContent=$('page2').textContent=`${page+1} / ${pages}`;for(const id of ['prev','prev2'])$(id).disabled=page===0;for(const id of ['next','next2'])$(id).disabled=page>=pages-1;$('list').innerHTML=filtered.slice(page*size,(page+1)*size).map(p=>`<article><div class="meta">${escape(p.conference)} 2026 · ${escape(p.paper_id)} · ${p.track==='main-program'?'主目录':'LBR 补充'} <span class="status ${p.ai_status==='candidate'?'candidate':''}">${statusLabels[p.ai_status]}</span></div><h2><a href="${escape(p.url)}" target="_blank" rel="noopener">${escape(p.title)}</a></h2><div class="meta">${escape(p.authors.join('; '))}</div><div class="tags">${escape(p.ai_tags.map(t=>labels[t]).join(' · '))}</div><p class="basis">${escape(p.ai_basis)}</p><details><summary>${p.abstract?'摘要、关键词与筛选证据':'无公开摘要 · 查看关键词与证据'}</summary><div class="abstract">${escape(p.abstract||'来源未提供公开摘要。')}</div><p class="meta">关键词：${escape(p.keywords.join('; ')||'未提供')}<br>摘要来源：${escape(p.abstract_retrieval||'未提供')}<br>AI 证据：${escape(p.ai_evidence.map(e=>e.field+': '+e.terms.join(', ')).join(' | '))}<br>复核：${escape(p.ai_review)}</p><a href="${escape(p.source_url)}" target="_blank" rel="noopener">官方目录来源 ↗</a></details></article>`).join('')||'<p class="empty">没有匹配的论文。请缩小关键词范围。</p>'}
+function abstractBlock(p){
+  if(!p.abstract)return '<p class="meta">来源未提供公开摘要。</p>';
+  const text=p.abstract_zh||p.abstract;
+  const paragraphs=text.split(/\\n\\s*\\n/).filter(Boolean).map(t=>`<p>${escape(t)}</p>`).join('');
+  return `<div class="abstract-label">${p.abstract_zh?'中文摘要':'摘要'}<span class="translation-note">${p.abstract_zh?('根据原摘要撰写'):'英文原文 · 中文待补'}</span></div><div class="abstract" lang="${p.abstract_zh?'zh-CN':'en'}">${paragraphs}</div>${p.abstract_zh?`<details class="original-details"><summary>查看英文原文</summary><div class="abstract original" lang="en">${escape(p.abstract)}</div></details>`:''}`;
+}
+function render(){const pages=Math.max(1,Math.ceil(filtered.length/size));$('result').textContent=`${filtered.length.toLocaleString()} / ${papers.length.toLocaleString()} 条记录`;$('page').textContent=$('page2').textContent=`${page+1} / ${pages}`;for(const id of ['prev','prev2'])$(id).disabled=page===0;for(const id of ['next','next2'])$(id).disabled=page>=pages-1;$('list').innerHTML=filtered.slice(page*size,(page+1)*size).map(p=>`<article><div class="meta">${escape(p.conference)} 2026 · ${escape(p.paper_id)} · ${p.track==='main-program'?'主目录':'LBR 补充'} <span class="status ${p.ai_status==='candidate'?'candidate':''}">${statusLabels[p.ai_status]}</span></div><h2><a href="${escape(p.url)}" target="_blank" rel="noopener">${escape(p.title)}</a></h2><div class="meta">${escape(p.authors.join('; '))}</div><div class="tags">${escape(p.ai_tags.map(t=>labels[t]).join(' · '))}</div><p class="basis">${escape(p.ai_basis)}</p>${abstractBlock(p)}<details><summary>关键词与筛选证据</summary><p class="meta">关键词：${escape(p.keywords.join('; ')||'未提供')}<br>摘要来源：${escape(p.abstract_retrieval||'未提供')}<br>AI 证据：${escape(p.ai_evidence.map(e=>e.field+': '+e.terms.join(', ')).join(' | '))}<br>复核：${escape(p.ai_review)}</p><a href="${escape(p.source_url)}" target="_blank" rel="noopener">官方目录来源 ↗</a></details></article>`).join('')||'<p class="empty">没有匹配的论文。请缩小关键词范围。</p>'}
 for(const id of ['venue','track','status','tag'])$(id).addEventListener('change',update);let timer;$('q').addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(update,180)});for(const id of ['prev','prev2'])$(id).onclick=()=>{page--;render();scrollTo(0,0)};for(const id of ['next','next2'])$(id).onclick=()=>{page++;render();scrollTo(0,0)};render();
 </script></html>'''
 # Shared navigation: conference pages contain only that conference's records.
@@ -161,6 +185,9 @@ update();''')
 for venue in [None]+VENUES:
     group=PAPERS if venue is None else [p for p in PAPERS if p['conference']==venue]
     page=template
+    ready=sum(bool(p.get('abstract_zh')) for p in group)
+    available=sum(bool(p['abstract']) for p in group)
+    page=page.replace('</header>',f'<p class="translation-progress">中文摘要：{ready:,} / {available:,} 篇。由本次会话助手直接阅读原文后撰写；其余条目暂时直接显示英文。</p></header>')
     if venue:
         page=page.replace('<title>Robotics 2026 · Paper Scan</title>',f'<title>{venue} 2026 · Papers</title>')
         page=page.replace('<h1>CoRL / RSS / ICRA / IROS</h1>',f'<h1>{venue} 2026 · 论文目录</h1>')
@@ -181,7 +208,7 @@ for venue in VENUES:
     supplemental=len(group)-len(primary)
     slug=venue.lower()+'.html'
     cards.append(f'<article><div class="meta">2026 CONFERENCE</div><h2><a href="{slug}">{venue} 2026 ↗</a></h2><div class="number">{len(primary):,}</div><p>主目录论文 · AI 相关 {ai:,} 篇'+(f' · LBR 补充 {supplemental} 条' if supplemental else '')+f'</p><div class="actions"><a href="{slug}">全部论文 →</a><a href="{slug}?status=ai-related">只看 AI →</a><a href="{slug}?status=candidate">待复核 →</a></div></article>')
-home='<header><small>ROBOTICS RESEARCH · 2026-10-22</small><h1>机器人顶会 · 论文扫描</h1><p>四场会议分开阅读。共 5,602 篇主目录论文，另有 271 条 LBR。各页支持搜索、AI 方向筛选与摘要展开。</p></header><section class="cards">'+''.join(cards)+'</section><article><h2>从 AI 研究问题开始</h2><p>跨机器人迁移、真机在线学习、执行反馈、失败恢复与世界模型：16 篇中文阅读笔记。</p><div class="actions"><a href="ai-notes.html">阅读笔记 →</a><a href="all.html?status=ai-related">跨会议 AI 检索 →</a><a href="all.html">跨会议全部检索 →</a></div></article><p>AI 分类基于标题、关键词、公开摘要与人工复核；CoRL 摘要使用已注明来源的社区快照。<a href="about.html">查看范围与筛选口径</a> · <a href="collection-audit.html">来源审计</a></p>'
+home='<header><small>ROBOTICS RESEARCH · 2026-10-22</small><h1>机器人顶会 · 论文扫描</h1><p>四场会议分开阅读。共 5,602 篇主目录论文，另有 271 条 LBR。各页默认展示摘要，已撰写的中文摘要直接显示；其余显示英文。支持中英文搜索与 AI 方向筛选。</p></header><section class="cards">'+''.join(cards)+'</section><article><h2>从 AI 研究问题开始</h2><p>跨机器人迁移、真机在线学习、执行反馈、失败恢复与世界模型：16 篇中文阅读笔记。</p><div class="actions"><a href="ai-notes.html">阅读笔记 →</a><a href="all.html?status=ai-related">跨会议 AI 检索 →</a><a href="all.html">跨会议全部检索 →</a></div></article><p>AI 分类基于标题、关键词、公开摘要与人工复核；CoRL 摘要使用已注明来源的社区快照。<a href="about.html">查看范围与筛选口径</a> · <a href="collection-audit.html">来源审计</a></p>'
 (ROOT/'index.html').write_text(document('机器人顶会 · 2026 论文扫描',home))
 
 # Regenerate the authored notes before converting documents, so one build is sufficient.

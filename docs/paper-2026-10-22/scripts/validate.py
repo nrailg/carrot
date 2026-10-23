@@ -66,6 +66,21 @@ for venue in ['CoRL','RSS','ICRA','IROS']:
 html=(ROOT/'all.html').read_text()
 embedded=json.loads(re.search(r'<script id="papers" type="application/json">(.*?)</script>',html,re.S).group(1))
 assert {p['id'] for p in embedded}==ids
+translations=[json.loads(l) for l in (ROOT/'abstracts-zh.jsonl').read_text().splitlines()]
+translated={p['id']:p for p in translations}
+assert len(translated)==len(translations)
+assert translated.keys()<=ids
+for p in embedded:
+    if p['id'] in translated:
+        t=translated[p['id']]
+        assert t['source_sha256']==hashlib.sha256(p['abstract'].encode()).hexdigest(),p['id']
+        assert p['abstract_zh']==t['abstract_zh'],p['id']
+        assert t['method']=='direct_reading_and_chinese_rewriting'
+    else:
+        assert not p.get('abstract_zh'),p['id']
+translation_audit=json.loads((ROOT/'translation-audit.json').read_text())
+assert translation_audit['chinese_abstracts']==len(translated)
+assert translation_audit['remaining']==sum(bool(p['abstract']) for p in papers)-len(translated)
 node=shutil.which('node')
 assert node,'Node.js required for viewer JavaScript syntax check'
 script=re.search(r'</script><script>(.*?)</script>',html,re.S).group(1)
@@ -78,6 +93,10 @@ for venue in ['CoRL','RSS','ICRA','IROS']:
     expected={p['id'] for p in papers if p['conference']==venue}
     assert {p['id'] for p in data}==expected,venue
     assert all(p['conference']==venue for p in data),venue
+    for p in data:
+        assert p.get('abstract_zh')==translated.get(p['id'],{}).get('abstract_zh'),p['id']
+    assert '${abstractBlock(p)}<details>' in page
+    assert '查看英文原文' in page and '英文原文 · 中文待补' in page
     assert f'<input type="hidden" id="venue" value="{venue}">' in page
     conference_pages[venue]=len(data)
     js=re.search(r'</script><script>(.*?)</script>',page,re.S).group(1)
@@ -103,7 +122,7 @@ for p in ROOT.glob('*.md'):
             if href=='validation.json':
                 continue  # This report is created after all checks pass below.
             assert (p.parent/href.split('#')[0]).exists(),(p.name,href)
-report={'date':'2026-10-22','result':'PASS','records':len(papers),'unique_ids':len(ids),
+report={'date':'2026-10-23','result':'PASS','records':len(papers),'unique_ids':len(ids),
         'main_program':sum(p['track']=='main-program' for p in papers),
         'late_breaking_results':sum(p['track']=='late-breaking-results' for p in papers),
         'abstracts':sum(bool(p['abstract']) for p in papers),
@@ -112,7 +131,9 @@ report={'date':'2026-10-22','result':'PASS','records':len(papers),'unique_ids':l
         'manual_review_overrides':len(overrides),'normalized_duplicate_titles':duplicate_titles,
         'source_checksums':'PASS','official_roster_id_sets':'PASS','markdown_row_counts':'PASS','local_links':'PASS',
         'viewer_embedded_records':'PASS','viewer_javascript_syntax':'PASS',
-        'conference_pages':conference_pages,'html_navigation':'PASS'}
+        'conference_pages':conference_pages,'html_navigation':'PASS',
+        'chinese_abstracts':len(translated),'translation_hashes':'PASS',
+        'translation_remaining':translation_audit['remaining']}
 (ROOT/'validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
 assert (ROOT/'validation.json').exists()
 print(json.dumps(report,ensure_ascii=False,indent=2))

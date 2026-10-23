@@ -27,5 +27,17 @@
       "action": "open iros.html",
       "observed": "2,078 / 2,078 records including LBR"
     }
-  ]
+  ],
+  "chinese_abstracts_check": {
+    "date": "2026-10-23",
+    "page": "corl.html",
+    "default_visible": true,
+    "chinese_paragraphs": 3,
+    "chinese_search_query": "目标机器人数据",
+    "search_results": "1 / 687",
+    "english_original_expand": "PASS",
+    "layout_screenshot_review": "PASS",
+    "coverage": 64,
+    "available": 5716
+  }
 }

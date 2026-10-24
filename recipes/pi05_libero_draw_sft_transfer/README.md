@@ -94,3 +94,5 @@ H20任务9f2afe6d-0125运行8卡两步梯度检查，先用真实LIBERO验证VLM
 - 新版本在初始化/reset时显示完整目标图，整个episode不更新参考屏；prompt固定。teacher schedule只用于示范生成和诊断，不能控制actor输入或动作chunk的执行边界。
 - PaintProgress按颜色统计抓取、画完和归还，保留物理接触、分色IoU0.72、笔归位、夹爪打开等要求；六种颜色顺序都允许。dataset拒绝动态prompt，动作监督跨teacher阶段；gate记录static-reference-v1，prepare拒绝旧任务定义。
 - H20 CPU验证15项PASS，任务b434d471-0153，见tests/libero_draw_transfer/test_static_task.md。PRO完整三色画面验证0428退出0/309秒：2345controls、IoU0.7988097、抓取/归还各3次、掉笔0，prompt每步恒定，参考屏始终完整三线图。新113文件冻结源码`sources/static-reference-20261024-01`；这是teacher验证，不是模型自主规划效果。
+- 静态整图更正已提交**ae6d4bd**，此前实现提交975fc31；未push。PRO新任务**6b56755c-0429**使用GPU2，输出`static-reference-20261024-01/collection`，重新验证此任务定义的16条三色示范后采64条，不复用旧动态图gate。
+- 新复制PID**2540932**，H20同run目录copy-detached.log；H20队列**b434d471-0155**，同113文件冻结源码、CARROT_COMMIT=ae6d4bd，输出同run/training。等待正确任务数据原子发布后执行既定SFT，当前正式optimizer step仍为0。任务链只运行一次，没有创建自动监控。

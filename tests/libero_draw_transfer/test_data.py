@@ -29,16 +29,26 @@ def write_episode(root) -> None:
         np.save(episode / f"{name}.npy", values)
 
 
-def test_draw_adapter_masks_phase_boundaries(tmp_path) -> None:
-    # 保护动作监督不跨子任务；补齐部分不能被当作有效零动作。
-    # 两个相邻phase只有两帧，确保horizon10会触及边界。
+def test_draw_adapter_crosses_private_teacher_phases(tmp_path) -> None:
+    # 总任务指令不变时，动作监督必须跨teacher内部阶段，只在episode末尾补齐。
+    # 保留两个不同phase，防止隐藏的teacher阶段仍截断模型的动作计划。
     write_episode(tmp_path)
     dataset = DrawDataset(str(tmp_path))
     sample = dataset[1]
-    # phase末帧仅保留一个动作，后九个padding同时清零和置mask。
-    assert dataset.lengths.tolist() == [2, 1, 2, 1]
-    assert sample["action_is_pad"].tolist() == [False] + [True] * 9
-    assert np.all(sample["actions"][0] == 1) and np.all(sample["actions"][1:] == 0)
+    # 第一阶段末帧仍监督下一阶段的两个动作，只有episode外的七帧被mask。
+    assert dataset.lengths.tolist() == [4, 3, 2, 1]
+    assert sample["action_is_pad"].tolist() == [False] * 3 + [True] * 7
+    assert np.all(sample["actions"][:3] == 1) and np.all(sample["actions"][3:] == 0)
+
+
+def test_draw_adapter_rejects_subtask_prompts(tmp_path) -> None:
+    # 防止旧的逐阶段语言提示数据误入整图规划训练。
+    # 同一episode故意更换prompt，其他数据保持合法。
+    write_episode(tmp_path)
+    np.save(tmp_path / "episode-0000/prompt.npy", np.array(["pick", "pick", "draw", "draw"]))
+    # 混用旧任务定义必须明确报错，不能只忽略phase文件继续训练。
+    with pytest.raises(AssertionError, match="changing subtask prompt"):
+        DrawDataset(str(tmp_path))
 
 
 def test_scheduled_adapter_rejects_wrong_mask(tmp_path) -> None:

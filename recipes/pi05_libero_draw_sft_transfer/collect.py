@@ -69,6 +69,7 @@ def main() -> None:
     if args.reuse_physics_gate is not None:
         gate = json.loads(args.reuse_physics_gate.read_text())
         assert gate["passed"] is True and gate["teacher_mode"] == "events"
+        assert gate["task_contract"] == "static-reference-v1", "old oracle-guided task"
         assert gate["carrot_sha256"] == digest(
             source / "examples/isaac_workbench/multicolor_scene.py"
         )
@@ -109,6 +110,7 @@ def main() -> None:
             gate = {
                 "passed": True,
                 "teacher_mode": "events",
+                "task_contract": "static-reference-v1",
                 "camera": camera,
                 "episodes": rows,
                 "carrot_sha256": digest(source / "examples/isaac_workbench/multicolor_scene.py"),

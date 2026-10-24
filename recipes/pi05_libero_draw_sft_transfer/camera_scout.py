@@ -47,8 +47,10 @@ def main() -> None:
     states, action_rows = [], []
     try:
         observations = simulator.request("reset", seeds=[300000], num_colors=3)
+        task_prompt = observations[0]["prompt"]
         for control in range(4000):
             phase = observations[0]["prompt"]
+            assert phase == task_prompt, "actor received a changing subtask instruction"
             if control % 100 == 0 or phase != previous_phase:
                 views = simulator.request("camera_views", configurations=configurations)
                 sheet = Image.new("RGB", (3 * 224, 2 * 256), "#17202a")
@@ -76,6 +78,9 @@ def main() -> None:
                     json.dumps(result["info"][0], indent=2) + "\n"
                 )
                 print(json.dumps(result["info"][0]), flush=True)
+                info = result["info"][0]
+                assert info["success"] and info["picks"] == info["returns"] == 3
+                assert info["drops"] == 0
                 break
     finally:
         writer.close()

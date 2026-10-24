@@ -5,6 +5,10 @@ from PIL import Image, ImageDraw
 
 COLORS = ((220, 40, 40), (35, 165, 65), (40, 80, 220))
 COLOR_NAMES = ("red", "green", "blue")
+DRAW_PROMPT = (
+    "Copy all the colored lines from the reference image onto the canvas, "
+    "then return the pens to their rack."
+)
 
 
 @dataclass(frozen=True)
@@ -100,8 +104,44 @@ class ColorCanvas:
         self.contact_samples = 0
 
 
+class PaintProgress:
+    """Track physical completion per color without prescribing a drawing order.
+
+    Parameters
+    ----------
+    task : PaintTask
+    """
+
+    def __init__(self, task: PaintTask) -> None:
+        self.active = np.zeros(3, dtype=bool)
+        self.active[[stroke.color for stroke in task.strokes]] = True
+        self.picked = np.zeros(3, dtype=bool)
+        self.drawn = np.zeros(3, dtype=bool)
+        self.returned = np.zeros(3, dtype=bool)
+
+    def advance(self, held: np.ndarray, drawn: np.ndarray, returned: np.ndarray) -> float:
+        """Award each physical pick and completed return once per active color.
+
+        Parameters
+        ----------
+        held, drawn, returned : numpy.ndarray
+            Boolean arrays of shape (3,), indexed by color; drawn requires the tip lifted.
+
+        Returns
+        -------
+        float
+            Sum of newly completed 0.1 pick/return milestones.
+        """
+        assert all(x.shape == (3,) and x.dtype == np.bool_ for x in (held, drawn, returned))
+        before = int(self.picked.sum() + self.returned.sum())
+        self.picked |= held & self.active
+        self.drawn |= drawn & self.picked
+        self.returned |= returned & self.drawn
+        return 0.1 * (int(self.picked.sum() + self.returned.sum()) - before)
+
+
 class PaintSchedule:
-    """Oracle subtask order; no robot actions or object poses are exposed to the actor.
+    """Private demonstration-expert order, never used as the actor's task instruction.
 
     Parameters
     ----------

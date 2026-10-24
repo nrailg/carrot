@@ -9,7 +9,9 @@ from isaacsim.sensors.camera import Camera
 from multicolor_controls import EEF_OFFSET, EEF_ROTATION, command_target, libero_state
 from multicolor_logic import (
     COLORS,
+    DRAW_PROMPT,
     ColorCanvas,
+    PaintProgress,
     PaintSchedule,
     PaintTask,
     color_iou,
@@ -51,7 +53,7 @@ class MulticolorWorkbench(Workbench):
             self.stage,
             self.root + "/ReferenceBoard",
             [(0.30, 0.369, 0.62), (0.70, 0.369, 0.62), (0.70, 0.369, 0.30), (0.30, 0.369, 0.30)],
-            render_strokes((task.strokes[0],)),
+            render_strokes(task.strokes),
         )
         position, target = np.array([0.10, -0.85, 0.78]), np.array([0.43, 0, 0.30])
         back = position - target
@@ -67,6 +69,7 @@ class MulticolorWorkbench(Workbench):
         self.stage.RemovePrim(hand + "/ToolTip")
         self.canvas = ColorCanvas()
         self.schedule = PaintSchedule(task)
+        self.progress = PaintProgress(task)
         self.target = render_strokes(task.strokes)
         self.wrist = Camera(hand + "/WristCamera", resolution=(224, 224))
         self._pens()
@@ -280,17 +283,21 @@ class MulticolorWorkbench(Workbench):
         self.dropped |= self.drop_ticks >= 10
         score, scores = color_iou(self.canvas.image, self.target)
         color = self.schedule.stroke.color
-        phase = self.schedule.phase
-        milestone, changed = self.schedule.advance(
+        _, changed = self.schedule.advance(
             held=bool(self.held_ticks[color] >= 3),
             drawn=bool(scores[color] >= 0.72 and tip_positions[color, 2] > CANVAS_TOP + 0.02),
             returned=bool(self.return_ticks[color] >= 3),
         )
-        self.pick_count += int(phase == "pick" and changed)
-        self.return_count += int(phase == "place" and changed)
+        milestone = self.progress.advance(
+            held=self.held_ticks >= 3,
+            drawn=(scores >= 0.72) & (tip_positions[:, 2] > CANVAS_TOP + 0.02),
+            returned=self.return_ticks >= 3,
+        )
+        self.pick_count = int(self.progress.picked.sum())
+        self.return_count = int(self.progress.returned.sum())
         success = bool(
-            self.schedule.phase == "done"
-            and score >= 0.72
+            self.progress.returned[self.progress.active].all()
+            and (scores[self.progress.active] >= 0.72).all()
             and (self.return_ticks >= 3).all()
             and (self.robot.get_joint_positions()[0, 7:] > 0.03).all()
             and eef[2] > 0.30
@@ -298,8 +305,6 @@ class MulticolorWorkbench(Workbench):
         failure = bool((positions[:, 2] < 0.12).any() or self.dropped.any())
         reward = score - self.score + milestone + float(success)
         self.score = score
-        if changed:
-            self.monitor.update(render_strokes((self.schedule.stroke,)))
         return (
             reward,
             success or failure,
@@ -328,12 +333,13 @@ class MulticolorWorkbench(Workbench):
             "observation/state": libero_state(
                 position, rotation, self.robot.get_joint_positions()[0, 7:]
             ),
-            "prompt": self.schedule.prompt,
+            "prompt": DRAW_PROMPT,
         }
 
     def reset_task(self, task: PaintTask) -> None:
         self.reset_state()
         self.schedule = PaintSchedule(task)
+        self.progress = PaintProgress(task)
         self.target = render_strokes(task.strokes)
         positions = RACK_POSITIONS[[task.rack_colors.index(c) for c in range(3)]] + self.origin
         quaternions = np.tile([1, 0, 0, 0], (3, 1))
@@ -347,7 +353,7 @@ class MulticolorWorkbench(Workbench):
         self.ever_held[:] = self.dropped[:] = False
         self.controls = self.pick_count = self.return_count = 0
         self.score = 0.0
-        self.monitor.update(render_strokes((self.schedule.stroke,)))
+        self.monitor.update(self.target)
 
 
 class PaintExpert:

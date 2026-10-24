@@ -161,7 +161,7 @@ class MulticolorEnv:
         return self.observe()
 
     def step(self, actions: np.ndarray, gamma: float = 0.99) -> dict:
-        """Execute at most one chunk, stopping all slots at the first subtask or episode boundary.
+        """Execute a chunk, stopping all slots only at an episode boundary.
 
         Parameters
         ----------
@@ -189,13 +189,13 @@ class MulticolorEnv:
                 for env in self.envs:
                     env.read_contacts()
             results = [env.finish_control() for env in self.envs]
-            reward, terminated, changed, self.last_info = map(list, zip(*results, strict=True))
+            reward, terminated, _, self.last_info = map(list, zip(*results, strict=True))
             terminated = np.asarray(terminated, dtype=bool)
             truncated = np.array([env.controls >= self.max_episode_steps for env in self.envs])
             truncated &= ~terminated
             self.needs_reset = terminated | truncated
             rewards += gamma**step * np.asarray(reward)
-            if any(changed) or self.needs_reset.any():
+            if self.needs_reset.any():
                 break
         for env in self.envs:
             env.update_canvas()

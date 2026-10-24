@@ -1,6 +1,6 @@
 # LIBERO + 多色 draw 全参数 SFT
 
-状态：2026-10-24用户看过5条Isaac回放后，明确要求备份、去掉latency并修正相机遮挡。原始demos已完整备份并逐文件校验。旧机位采集和旧训练等待链已停止；正在以新机位重新生成数据，正式SFT尚未执行optimizer step。下方早期任务链仅保留历史记录。
+状态：2026-10-24相机/latency及SFT实现已提交975fc31。用户随后明确要求参考屏全程显示静态完整三线图，由机器人完成整图规划。动态单线参考与子任务提示的数据链已停止，保留20条相机修正版数据；正在验证静态整图版本。正式SFT尚未执行optimizer step，下方任务链为历史记录。
 
 ## 实验协议
 
@@ -14,14 +14,14 @@
 
 VLM、视觉编码器、动作专家全部训练，使用正式trainer/sft，不使用RL的冻结prefix路径。GBS256、micro4、单节点8GPU/FSDP2、GAS8、恒定LR1e-5；AdamW等配置见train.yaml。每50步保存；固定比较100/200/200，不按目标评测挑checkpoint。
 
-源数据为真实三色抓笔—画线—归还。场景参考板经双相机观察，oracle只提供子任务文字；成功条件与planAct2一致。源/目标共用LIBERO动作变换与norm_stats。训练样本是一帧观测和最多10个动作，不跨phase或episode。
+源数据为真实三色抓笔—画线—归还。参考板全程显示完整目标图，actor只收到固定的整图临摹指令，不接收teacher阶段、当前颜色或下一步提示。示范teacher保留内部步骤，但奖励/成功按颜色独立统计，允许任意绘画顺序；动作执行与训练的10步horizon都可跨teacher阶段，仅在episode末尾截断。源/目标共用LIBERO动作变换与norm_stats。此任务训练端到端行为策略，不额外加入外部planner；是否学会整图规划须由闭环评测验证。
 
 精确采样manifest在启动前冻结，训练设置shuffle=false。两路LIBERO样本流来自相同独立RNG，Mix200中的25600次LIBERO抽取等于L100曝光。每域loss按整个global batch有效时间步归一化，混合目标为0.5*L_LIBERO+0.5*L_DRAW；保存每域加权loss贡献与有效监督量。
 
 ## 执行顺序
 
 1. 当前会话重新检测DFS，检查GPU/dguard/已有进程。源码在Mac开发并同步，运行用独立冻结副本；不覆盖旧demos/checkpoints，不停止用户其他任务。
-2. Pro5000运行collect.py，使用camera.json的右侧高机位。事件驱动teacher已通过固定16条三色物理任务；仅变更相机时可通过--reuse-physics-gate复用该结果，必须匹配scene/teacher SHA及16条完整成功记录，并另行检查新机位运动画面。复用来源及原相机记录写入新gate。随后从seed200000起收集64条三色成功示范、最多128次尝试。失败则保留证据并停止，不降成功阈值。最长采集窗口默认8h，不代表收敛承诺。
+2. Pro5000运行collect.py，使用camera.json的右侧高机位。静态整图版本验证固定16条三色任务后，从seed200000起收集64条三色成功示范、最多128次尝试。--reuse-physics-gate仅允许同一static-reference-v1任务契约、相同scene/teacher SHA及16条完整成功记录，旧动态单线gate不能复用。失败则保留证据并停止，不降成功阈值。最长采集窗口默认8h，不代表收敛承诺。
 3. 将完整demos、manifest.json、teacher-gate.json复制到H20新持久化目录，校验SHA；两个池不共享CephFS，不重复传输旧约40GB数据。
 4. H20准备8张空闲GPU与专用Ray资源，设置下面环境变量，运行run.sh。prepare.py核验teacher证据与数据，生成两份采样清单、训练配置和provenance。
 5. run.sh首先执行8GPU两步梯度预检，再串行训练libero和mixed。预检临时权重丢弃；每条正式路线只训练一次。出现异常停止，不能跳过预检。需以metrics.jsonl实际正数step确认启动，以退出状态和完整checkpoint确认完成。
@@ -86,3 +86,11 @@ H20任务9f2afe6d-0125运行8卡两步梯度检查，先用真实LIBERO验证VLM
 - DevCloud复制进程PID**2519882**，日志H20 `camera-fixed-20261024-01/copy-detached.log`；按新manifest复制并校验后原子发布collection，包含camera.json。失败写collection.failed。
 - H20队列任务**b434d471-0151**：使用相同冻结源码和新collection，等待复制后自动执行原定全参数SFT两条路线，输出`camera-fixed-20261024-01/training`。当前无正式optimizer step，禁止把队列说成训练完成或开跑。启动前Ray确认单节点48CPU/8GPU、资源使用0；等待期间dguard保留。
 - 最新新数据进度4/64，seeds200002/200000/200001/200003全部三色成功、picks=returns=3、drops=0、IoU0.7984–0.8087。首条实际训练数据已导出`camera-fixed-20261024-01/first-demo.mp4`：2239帧、20fps、111.95秒，首帧/绘画帧确认采用新机位，数组帧数一致；本地副本SHA与远端相同，ffprobe帧数/帧率通过。preview任务6b56755c-0421退出0并已归档日志。
+
+## 静态整图更正（覆盖上述相机修正版任务链）
+
+- 975fc31保存更正前代码。用户要求参考图静态显示三条线，由机器人完成整图规划；此前逐条显示参考线并更换pick/draw/place提示不符合该定义。
+- 已停止PRO采集0413（SIGINT，保留20条成功数据，task-status complete=false）、DevCloud复制PID2519882和H20等待0151，旧版本不再自动进入训练。
+- 新版本在初始化/reset时显示完整目标图，整个episode不更新参考屏；prompt固定。teacher schedule只用于示范生成和诊断，不能控制actor输入或动作chunk的执行边界。
+- PaintProgress按颜色统计抓取、画完和归还，保留物理接触、分色IoU0.72、笔归位、夹爪打开等要求；六种颜色顺序都允许。dataset拒绝动态prompt，动作监督跨teacher阶段；gate记录static-reference-v1，prepare拒绝旧任务定义。
+- H20 CPU验证15项PASS，任务b434d471-0153，见tests/libero_draw_transfer/test_static_task.md。PRO完整三色画面验证0428退出0/309秒：2345controls、IoU0.7988097、抓取/归还各3次、掉笔0，prompt每步恒定，参考屏始终完整三线图。新113文件冻结源码`sources/static-reference-20261024-01`；这是teacher验证，不是模型自主规划效果。

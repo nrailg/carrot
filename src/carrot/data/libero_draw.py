@@ -10,7 +10,7 @@ from carrot.data.libero import build_dataset as build_libero
 
 
 class DrawDataset(Dataset):
-    """Read successful three-color demonstrations with phase-bounded action targets.
+    """Read whole-drawing demonstrations with action targets bounded only by the episode.
 
     Parameters
     ----------
@@ -35,9 +35,8 @@ class DrawDataset(Dataset):
             assert data["actions"].shape == (count, 7) and count > 0, path
             assert all(len(a) == count for a in data.values()), path
             assert np.isfinite(data["actions"]).all(), path
-            boundaries = np.r_[np.flatnonzero(np.diff(data["phase"]) != 0) + 1, count]
-            starts = np.r_[0, boundaries[:-1]]
-            lengths = np.minimum(np.repeat(boundaries, boundaries - starts) - np.arange(count), 10)
+            assert len(np.unique(data["prompt"])) == 1, f"changing subtask prompt: {path}"
+            lengths = np.minimum(count - np.arange(count), 10)
             self.index.extend((len(self.episodes), frame) for frame in range(count))
             self.lengths.extend(lengths)
             self.episodes.append(data)

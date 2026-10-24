@@ -28,6 +28,7 @@ def main() -> None:
     source = Path(__file__).resolve().parents[2]
     gate = json.loads(args.teacher_gate.read_text())
     assert gate["teacher_mode"] == "events" and gate["passed"] is True
+    assert gate["task_contract"] == "static-reference-v1", "old oracle-guided task"
     assert sorted(row["seed"] for row in gate["episodes"]) == list(range(300000, 300016))
     assert all(row["success"] and row["picks"] == row["returns"] == 3 for row in gate["episodes"])
     assert gate["carrot_sha256"] == digest(source / "examples/isaac_workbench/multicolor_scene.py")

@@ -15,7 +15,12 @@ from transformers import AutoTokenizer
 from carrot.distributed.worker import Worker
 from carrot.models.pi05.embodiments.libero import create_libero_transform_spec
 from carrot.models.pi05.model import PI0Pytorch
-from carrot.trainer.rl.algorithms import chunk_logprob, duration_gae, ppo_loss
+from carrot.trainer.rl.algorithms import (
+    chunk_logprob,
+    distribution_statistics,
+    duration_gae,
+    ppo_loss,
+)
 from carrot.trainer.rl.config import TransferConfig
 from carrot.trainer.rl.data import Demonstrations
 from carrot.trainer.rl.pi05 import FlowPolicy
@@ -204,7 +209,24 @@ class LearnerWorker(Worker):
             gae_lambda=cfg.gae_lambda,
         )
         advantages = advantages.flatten()
+        distributions = {
+            "advantage_raw": distribution_statistics(advantages),
+            "reward": distribution_statistics(stacked["rewards"]),
+            "return": distribution_statistics(returns),
+            "value": distribution_statistics(stacked["value"]),
+        }
         advantages = (advantages - advantages.mean()) / (advantages.std(unbiased=False) + 1e-8)
+        distributions["advantage_normalized"] = distribution_statistics(advantages)
+        signal = {
+            "version": self.version,
+            "samples": samples,
+            "distributions": distributions,
+        }
+        with (Path(cfg.output) / "advantage.jsonl").open("a") as stream:
+            stream.write(json.dumps(signal) + "\n")
+        assert distributions["advantage_raw"]["std"] > 0, (
+            f"constant advantages would produce no policy signal: {signal}"
+        )
         returns = returns.flatten()
         raw = [obs for entry in self.buffer for obs in entry["observations"]]
         replay = {
@@ -259,6 +281,7 @@ class LearnerWorker(Worker):
         self.buffer.clear()
         return {
             **{k: float(np.mean(v)) for k, v in metrics.items()},
+            "distributions": distributions,
             "max_preupdate_logprob_error": max_parity,
             "updates": self.updates,
             "transitions": self.transitions,

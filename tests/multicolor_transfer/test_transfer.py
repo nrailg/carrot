@@ -32,6 +32,7 @@ from carrot.distributed.placement import PlacementSpec
 from carrot.distributed.ray_runtime import RayRuntime
 from carrot.trainer.rl.algorithms import (
     chunk_logprob,
+    distribution_statistics,
     duration_gae,
     flow_transition,
     gaussian_logprob,
@@ -240,6 +241,25 @@ def test_ppo_ratio_one_and_gradient() -> None:
     assert metrics["approx_kl"] == 0 and metrics["clip_fraction"] == 0
     torch.testing.assert_close(current.grad, torch.tensor([-0.5, 0.5]))
     assert torch.isfinite(values.grad).all()
+
+
+def test_advantage_signal_statistics() -> None:
+    # 区分真实正负信号、常数信号与仅靠标准化产生的正负号；小奖励不能被当成零。
+    mixed = torch.tensor([-2.0, 0.0, 1.0, 3.0])
+    stats = distribution_statistics(mixed)
+    # 分位数和符号占比独立手算，标准差使用总体口径以匹配PPO标准化。
+    assert stats["positive_fraction"] == 0.5 and stats["negative_fraction"] == 0.25
+    assert stats["zero_fraction"] == 0.25 and stats["median"] == 0.5
+    assert stats["std"] == pytest.approx(math.sqrt(3.25))
+    # 全部相同的原始优势经标准化变成全零，不允许把有非零均值误认为有策略梯度。
+    constant = torch.ones(8)
+    normalized = (constant - constant.mean()) / (constant.std(unbiased=False) + 1e-8)
+    assert distribution_statistics(constant)["std"] == 0
+    assert distribution_statistics(normalized)["zero_fraction"] == 1
+    # 微小但不同的信号仍保留符号与原始尺度；near-zero另列而非静默抹除。
+    tiny = distribution_statistics(torch.tensor([-1e-9, 1e-9]))
+    assert tiny["positive_fraction"] == tiny["negative_fraction"] == 0.5
+    assert tiny["std"] > 0 and tiny["near_zero_fraction"] == 1
 
 
 def test_canvas_contact_lift_and_wrong_color() -> None:

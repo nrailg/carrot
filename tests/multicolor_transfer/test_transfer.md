@@ -43,3 +43,12 @@ test_transfer.py SHA `d90cf9ac7fb1798bd3680e6c6d929bd0c34066fdcdb30456208faeab7e
 CPU检查覆盖无完成标记拒绝、完整副本可用、同长度内容损坏SHA拒绝及配置互斥。
 已同步到H20 work/carrot并执行test_transfer.sh：22 passed in 2.31s，MCP task e7ede9f3-0034；Ruff通过。
 运行源码71ff4b9加本地未提交改动；Docker image tag未记录。
+
+2026-10-24追加advantage信号诊断：记录归一化前后正/负/零占比、均值、总体标准差、
+min/p05/median/p95/max，reward/return/value同样记录；常数优势先持久化证据再拒绝无策略信号的更新。
+CPU新增正负混合、常数标准化全零、微小但非零信号三种情形，运行前NOT RUN。
+
+advantage统计回归PASS：H20 task7739aeea-0099，23 passed in 2.38s。
+本地ruff通过；algorithms.py SHA175de1495b36ccf5a6f948f55ef1d168a4ac8beabbecbeaa06f43527372bff8e，
+test_transfer.py SHA2875aa0941bfa9b0765033d68a0734539538571a9cda94069475a856b0d4f5aa。
+只改未运行源码；旧RL已停止，新RL未启动。后续仍需在真实rollout验收信号分布。

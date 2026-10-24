@@ -173,3 +173,30 @@ def ppo_loss(
         "approx_kl": ((ratio - 1) - log_ratio).mean().detach(),
         "clip_fraction": ((ratio - 1).abs() > clip).float().mean().detach(),
     }
+
+
+def distribution_statistics(values: torch.Tensor) -> dict[str, float]:
+    """Summarize finite rewards or advantages before and after normalization.
+
+    Parameters
+    ----------
+    values : torch.Tensor
+        Any nonempty shape; zero fractions use an explicit absolute tolerance of 1e-8.
+
+    Returns
+    -------
+    dict[str, float]
+        Scale, quantiles and sign fractions without altering the input.
+    """
+    values = values.detach().float().flatten()
+    assert values.numel() > 0 and torch.isfinite(values).all()
+    quantiles = torch.quantile(values, values.new_tensor([0, 0.05, 0.5, 0.95, 1]))
+    return {
+        "mean": float(values.mean()),
+        "std": float(values.std(unbiased=False)),
+        **dict(zip(("min", "p05", "median", "p95", "max"), quantiles.tolist(), strict=True)),
+        "positive_fraction": float((values > 0).float().mean()),
+        "negative_fraction": float((values < 0).float().mean()),
+        "zero_fraction": float((values == 0).float().mean()),
+        "near_zero_fraction": float((values.abs() <= 1e-8).float().mean()),
+    }

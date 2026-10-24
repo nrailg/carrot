@@ -85,7 +85,13 @@ def check_policy(config_path: str, output: Path) -> None:
     # 更新必须改变动作参数，所有 VLM 参数无梯度且不在优化器参数列表中。
     metrics = learner.update()
     print(json.dumps({"PPO_UPDATE": metrics}), flush=True)
-    assert all(np.isfinite(value) for value in metrics.values())
+    assert all(np.isfinite(value) for key, value in metrics.items() if key != "distributions")
+    # 原始与标准化优势单独核对，不能只凭标准化后的正负号证明奖励有效。
+    distributions = metrics["distributions"]
+    assert all(np.isfinite(v) for stats in distributions.values() for v in stats.values())
+    assert distributions["advantage_raw"]["std"] > 0
+    assert distributions["advantage_normalized"]["positive_fraction"] > 0
+    assert distributions["advantage_normalized"]["negative_fraction"] > 0
     assert metrics["global_batch_size"] == 256 and metrics["optimizer_steps"] == 1
     assert metrics["gradient_accumulation_steps"] == 32
     assert not torch.equal(before_weight, policy.model.action_out_proj.weight)

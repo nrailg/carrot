@@ -49,3 +49,9 @@ CPU契约22项PASS/2.31s（e7ede9f3-0048），Ruff通过。镜像tag未记录。
 
 周期SFT checkpoint断言全部通过；正式GBS256更新loss=0.12817959，grad_norm=0.80524671。
 FP32权重与实时更新权重一致、SFT AdamW step=1；原有PPO、RNG恢复及BF16重载测试通过。
+
+2026-10-24优势监控复测：task7739aeea-0108 PASS/exit0，333s，H20 GPU2。
+输出policy-20261024-02/result.json、advantage.jsonl。原始std=.510806，正负各50%，
+标准化std=1，GBS256/micro8/GAS32，optimizer_steps=1；PPO旧概率最大差3.8147e-6，
+梯度7.67047，峰值19.97GiB。FP32/RNG恢复、SFT周期保存通过。此正负奖励fixture验证实现，
+不代表实际任务奖励或旧RL已产生有效advantage。dguard按用户要求保持on，仅使用空闲GPU2。

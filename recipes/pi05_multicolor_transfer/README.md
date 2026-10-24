@@ -1,6 +1,6 @@
 # 多色换笔临摹 RL → LIBERO
 
-状态：按用户要求停止recovery-01（step371），准备从原始模型重训pilot-20261024-sft50-01，每50步保存；直接复用HZ完整示范。尚无迁移效果结论。
+状态：SFT500步已完成，每50步权重保留。2026-10-24按用户要求停止旧RL；step100/500各两条训练内单色闭环均0成功。当前先诊断SFT和推理链路，验证后再改完整trajectory及每轮1～2次更新的RL；尚无收敛或迁移效果结论。
 
 起点是既有 LIBERO SFT `step-00000100`。历史 745/2000（37.25%）只用于说明模型来源，
 不能替代本实验新跑的配对 init 基线。三个对照为 init、临摹示范 SFT、临摹 PPO 最终 checkpoint；
@@ -223,3 +223,136 @@ learner_demonstrations明确指向recovery-01 H20 CephFS完整demos，demonstrat
 重训前验证：22项CPU契约测试PASS；H20真模型周期checkpoint、优化器状态和重载测试PASS（task e7ede9f3-0047，221s）。
 H20完整teacher预检PASS（task e7ede9f3-0051，82s），64episodes/132393frames，未跨池传输。
 两池冻结源码快照sources/pilot-20261024-sft50-01共88文件SHA一致。
+
+11:51:16启动新driver task e7ede9f3-0054，源码commit ba45957，已连接既有Ray，正式SFT已验收前两步。
+既有heartbeat automation已切换至此run，每30分钟单次检查；正常进展静默。
+
+11:54核实新run正式SFT step3，driver PID21305仍运行。
+前两步loss=0.1348394365/0.1052955075，grad_norm=0.5854445100/0.5547556281，均有限；
+两步GBS256/micro8/GAS32。events含dataset_reuse(64episodes/132393frames)，不含dataset_transfer，
+新输出没有demos目录，直接使用旧HZ持久teacher。日志为新输出sft.jsonl；每50步的实际产物由后续检查核实。
+
+
+### 2026-10-24 12:10 首个周期checkpoint与后续验收
+
+新run driver PID21305存活，最新SFT step71，loss0.0279224114、grad_norm0.0983796343。
+已检查checkpoints/sft-step-000050/manifest.json：sft_updates=50；model.safetensors为7,233,650,296字节，
+learner.pt为6,216,845,069字节。正式周期产物存在，尚未单独加载此正式checkpoint评测。
+用户目标更新为SFT完成后继续RL并验证两者收敛；现有driver自动衔接，无需重复启动。
+验收分别检查SFT全程loss/梯度及早晚窗口趋势，RL奖励/成功率趋势及KL/clip/梯度稳定性，
+最后结合独立种子的源任务成功率/IoU、init/SFT/RL配对LIBERO评测。仅loss下降、完成预算或文件存在不构成收敛证据。
+保留每30分钟单次检查；证据不足则标记未验证，效果不佳则继续依据结果诊断，不预先承诺收敛。
+
+
+### 2026-10-24 14:03 SFT完成，切换RL环境
+
+13:52:46 events.jsonl记录sft_updates=500；500条SFT记录loss/grad_norm全部有限，GBS256/micro8/GAS32全程正确。
+step500 loss=0.0103970514、grad_norm=0.1208265051；前20/末20步平均loss=0.0597583965/0.00770341884。
+每50步的10个checkpoint（50至500）及最终checkpoints/sft均已核实manifest、model.safetensors和learner.pt文件。
+最终sft的learner.pt为2775877329字节（RL状态），周期checkpoint包含额外SFT AdamW；model均为7233650296字节。
+13:53:47记录rollout_environments num_envs=32、partial_reset=PASS；driver PID21305仍运行。
+当前未出现ppo或source_episode事件，尚不能确认首个完整RL更新，更不能判断SFT/RL任务效果或收敛。
+未再次跨池传数据；数据仍复用HZ完整teacher。继续30分钟检查，下一步核对首个PPO更新及奖励/成功率。
+证据：HZ experiments/carrot/pi05_multicolor_transfer/pilot-20261024-sft50-01下events.jsonl、sft.jsonl和checkpoints。
+
+
+### 2026-10-24 SFT独立闭环诊断与rollout口径修正
+
+用户要求rollout按完整trajectory计数，展开后的实际sample数sum(num_seg)/train GBS控制在1至2次更新；
+当前4096chunks/256=16次更新不符合该要求。旧run保留作诊断，不能作为新口径收敛证据。
+SFT诊断先在见过的单色任务seeds15、12上，分别加载step100和500，用原生10步ODE/每次执行最多5步，
+完整运行到success、failure或4000控制步上限，禁止用低loss或离线MAE替代成功率。
+H20独立推理服务GPU2/3，Pro独立renderer GPU2/3；不占正式RL GPU0/1，不停止Pro用户GPU0。
+使用既有serve_pi05_policy与eval_sft.py，模型留在HZ，通过WebSocket交换观测和动作，不复制teacher。
+评测持久化progress.jsonl（抓放/IoU/分段耗时）、episodes.json、result.json和视频。
+先比较训练内任务来定位SFT/推理问题；这些结果不得作为泛化率或选择LIBERO模型的依据。
+
+
+### 2026-10-24 用户纠正rollout、训练更新次数及SFT验收
+
+用户要求rollout GBS按完整trajectory计数；segment/sample由每条变长轨迹实际展开，训练更新次数按sum(num_seg)/train GBS控制在1至2，micro仅控制显存。旧实现4096chunks/256=16不符合。不能用PPO理论支持多minibatch来代替实际配置验收。用户需要不好不坏、有改善空间的SFT起点，不是先fit到满成功；0%须先查SFT/推理。当前算法未改、旧RL仍运行，不声称满足新语义。
+已读GiGPO master TrajectoryCollector的完整收集与gather_rollout_data展开、verl v0.5.0 actor.update_policy的mini/micro边界、Dressage training.md的segment归属与prompt等权、版本控制；这些参考不代表已改代码。
+本地MCP重启使旧session丢失；已用本线程凭据恢复H20 session7739aeea、Pro a6ef4c1b，driver PID21305存活，资源并未因此重启。后续monitor已更新会话。
+离线真SFT推理诊断task7739aeea-0073 exit0/452s：72示范观测、step50/100/250/500，数据直接HZ读取。结果在HZ tests/carrot/multicolor_transfer/sft-inference-20261024-01；roundtrip=1.19e-7，step500 ODE xyz动作MAE [.007858,.005631,.013805]，SDE [.018108,.015573,.023245]，夹爪符号均100%。native/封装ODE最大差step500=.008787，step50=.041386，未严格parity。离线不能替代闭环成功率。
+独立闭环诊断已启动：H20GPU2 step100 ODE10 server7739aeea-0078（port28100），GPU3 step500 server7739aeea-0079（port28500），均timeout5400；ProGPU2 client a6ef4c1b-0326、GPU3 client a6ef4c1b-0327，均2个训练内单色seeds15、12，完整episode上限4000controls。Pro输出为实验根diagnostics/sft-100-seen-onecolor-01及sft-500-seen-onecolor-01，有progress.jsonl/episodes.json/result.json/video；服务只交换观测动作，不传teacher或模型文件。任务完成后只停止对应0078/0079，保持旧RL、Ray及用户ProGPU0。新版heartbeat仍30分钟单次检查。当前只确认服务连接和client启动，未确认首动作或结果。
+
+### 2026-10-24 停止旧RL与SFT闭环诊断
+
+按用户最新指令停止driver task e7ede9f3-0054，确认PID21305消失；Ray与旧权重保留。
+H20两节点dguard WATCH=1；补起仅占空闲卡的7200秒巡检task7739aeea-0088：
+launcher卡0/1/2/4/5/6/7，worker八卡。launcher GPU3留作推理诊断；实测其余七卡利用率100%。
+未触碰Pro5000 GPU0用户进程630356。
+
+独立原生ODE10闭环step100和500均完成seeds15/12，每条4000controls，均0成功、IoU0。
+step100两条均未抓笔；step500仅seed12抓到笔，停在draw、contact_samples=0。
+输出在Pro实验根diagnostics/sft-{100,500}-seen-onecolor-01，result.json、episodes.json和视频齐备。
+对应推理server task7739aeea-0078/0079已停止。
+
+下一诊断复用原teacher，不采集新数据、不启动训练：eval_sft.py增加expert/replay模式及逐步state/action记录；
+在同一冻结仿真器回放seeds15/12完整teacher，另跑在线expert对照。输出分别diagnostics/teacher-replay-01和teacher-expert-01。
+离线复测将ODE时间步对齐原生累计方式，并单独比较实际部署BF16与训练侧FP32/autocast路径。
+
+teacher-replay-01完成2/2成功，IoU=.79921037/.83395028、1056/1068controls；
+teacher-expert-01完成2/2成功，IoU=.80419976/.83438486、1057/1068controls。可复现有效动作和判定。
+接下来通过serve_sft.py恢复step500的FP32 learner权重，统一ODE，seeds15/12分别从reset、
+在线expert执行500controls后接管做闭环trace；输出diagnostics/sft-500-trace-01、sft-500-draw-prefix-01。
+该诊断不更新模型、不作为新正式训练，也不传teacher。
+
+### 2026-10-24 目标讨论与随后纠正
+
+曾将用户关于SFT迁移的讨论误解为调整主线；用户随后明确RL仍需做，该解释已撤回。
+当前优先排查SFT闭环/推理BUG及reward-advantage信号，再修正完整trajectory及每轮1～2次更新；
+SFT的LIBERO迁移评测后置，不以LIBERO测试结果挑选checkpoint。
+advantage监控要求保留：归一化前后符号/零占比、均值/方差/分位数与reward/return/value一起检查，
+不能把标准化产生正负号当成有效奖励信号。23项CPU回归通过，未启动RL。
+FP32恢复诊断server task7739aeea-0096已监听28500；client a6ef4c1b-0345/0346分别从reset及expert500步后接管，
+输出sft-500-trace-01/sft-500-draw-prefix-01。沿用半小时单次检查，不主动密集轮询。
+
+用户随后澄清：RL仍要做；当前优先排查SFT闭环失败与reward/advantage信号，SFT迁移评测后置。
+旧RL继续保持停止，修复验证后按完整trajectory及每轮1～2次更新推进，不取消RL目标。
+
+在训练集原始关键观测上，step500已出现明显动作偏差：seed15首帧teacher xyz[-.3,0,-.0993]，
+FP32模型预测均值约[-.3022,.2529,-.3078]；等待帧则接近teacher。补齐维度反事实未改善误差，
+不能据此认定根因。新增20步固定18观测拟合诊断task7739aeea-0105，仅验证梯度/推理权重链路，
+micro8/GBS256/lr1e-5，HZ输出tests/carrot/multicolor_transfer/sft-critical-20261024-02。
+
+reward-only对照中critic置零（不是旧RL实际advantage）：成功teacher累计reward1.9992/2.034，
+非零奖励126/142帧；当前每控制步gamma=.99/lambda=.95将首动作advantage衰减至约8e-15，
+约29%优势绝对值<=1e-8。失败策略前2090controls奖励全0；teacher抓笔后接管只获得一次.1抓笔奖励。
+后续必须记录真实critic下的分布，不能把critic误差或标准化制造的正负号当成有效奖励。
+
+### 2026-10-24 FP32闭环与训练/推理契约核对
+
+两组FP32闭环已结束：sft-500-trace-01两条均4000controls、picks0、IoU0；
+sft-500-draw-prefix-01在expert500步后接管，两条均IoU0，seed12在950controls失败终止，
+seed15在4000截断，均有画布接触。H20 server7739aeea-0096已停止，未启动旧RL。
+仅缩小了导出精度和推理封装的疑点，尚不能确认完整根因。
+
+SFT关键帧20步拟合task0105 exit0/370s；xyz MAE从[.01719,.04863,.05305]下降到
+[.01443,.00967,.03978]。原生联合attention与生产缓存路径对照task0112 exit0/191s，
+速度相对L2=.00420178，三组动作参数梯度cosine=.999385/.999807/.999351；BF16容差内通过。
+未发现此次测试覆盖范围内的梯度断路；这些离线结果不能替代闭环修复验收。
+
+teacher存在隐藏等待计数导致的动作标签冲突：两条单色示范第253/254帧状态逐元素相同、prompt相同；
+双图MAE约.17/.16（0～255尺度），xyz动作z却由-.00045变成-.3。代码PaintExpert先等待220次
+调用再下降，计数不在策略输入中。此事实支持teacher时序设计存在可学习性问题，但尚未通过干预
+证明它能解释全部闭环失败，不直接重采集/修改旧teacher。
+
+advantage监控真GPU回归task7739aeea-0108 PASS/333s，GBS256/micro8/GAS32，
+旧概率误差3.81e-6，有限梯度；原始/标准化分布、FP32恢复、周期SFT保存均通过。该回归使用
+已知正负奖励fixture，不是实际RL成功或信号验收。独立真实critic离线诊断task7739aeea-0114
+读取HZ的完整teacher，Pro仅传4865字节奖励元数据；检查奖励项与critic项对GAE的分别贡献。
+输出HZ tests/carrot/multicolor_transfer/reward-signal-20261024-01；这是SFT时保存的未训练critic，
+不是旧RL更新四轮后的critic，不能把它写成旧在线advantage。
+
+真实初始critic分解task0114已exit0/262s：teacher共1056/1068controls，按phase/最多5步展开
+213/215chunks。reward总和1.99921/2.03395；前100控制步reward-only优势最大仅约2.95e-12，
+该窗口实际critic优势正15%/负85%，去掉全部reward仍逐元素相同（FP32）。当前gamma/lambda
+每控制步折扣使早期抓笔动作几乎收不到任务信号；标准化正负号并不解决这个问题。
+诊断不是旧RL实际优势复原。全部本轮诊断已完成，旧RL未恢复；完整trajectory与1～2次更新语义尚未实施。
+
+2026-10-24 CPU离线credit尺度核验PASS：输出HZ tests/carrot/multicolor_transfer/credit-scale-20261024-01/result.json。
+逐控制步初始reward-only优势，seeds15/12：原gamma=.99/lambda=.95为8.404e-15/8.260e-15；
+仅lambda=1为.00313239/.00306365；gamma=lambda=1为1.99921048/2.03394985，等于未折扣总奖励，断言通过。
+lambda逐控制步衰减是早期信号消失的主要来源之一；这只是离线反事实，不表示lambda=1已获在线验收。
+没有新GPU任务、模型推理或配置变更；零奖励失败轨迹也不能靠增大lambda获得任务奖励。

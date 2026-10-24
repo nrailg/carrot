@@ -116,10 +116,15 @@ class FlowPolicy:
         indices = torch.randint(steps, (batch,), device=self.device)
         before, after, logprob = (torch.zeros_like(latent) for _ in range(3))
         times = torch.linspace(1, 0, steps + 1, device=self.device)
-        for step in range(steps):
-            velocity = self.velocity(prefix, latent, times[step].expand(batch))
-            next_latent = latent - (times[step] - times[step + 1]) * velocity
-            if stochastic:
+        if not stochastic:
+            with torch.autocast(self.device.type, dtype=torch.bfloat16):
+                latent = self.model.sample_actions(
+                    self.device, observation, noise=latent, num_steps=10
+                )
+        else:
+            for step in range(steps):
+                velocity = self.velocity(prefix, latent, times[step].expand(batch))
+                next_latent = latent - (times[step] - times[step + 1]) * velocity
                 index = torch.full_like(indices, step)
                 mean, std = flow_transition(
                     latent, velocity, index, num_steps=steps, noise_level=self.noise_level
@@ -129,8 +134,7 @@ class FlowPolicy:
                 before = torch.where(selected, latent, before)
                 after = torch.where(selected, sampled, after)
                 logprob = torch.where(selected, gaussian_logprob(sampled, mean, std), logprob)
-                next_latent = torch.where(selected, sampled, next_latent)
-            latent = next_latent
+                latent = torch.where(selected, sampled, next_latent)
         decoded = self.outputs({"state": observation.state, "actions": latent})["actions"]
         assert torch.isfinite(decoded).all()
         return {

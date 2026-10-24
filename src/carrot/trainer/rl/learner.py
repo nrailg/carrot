@@ -330,18 +330,26 @@ class LearnerWorker(Worker):
                 "gradient_accumulation_steps": cfg.gas,
                 "samples_seen": self.sft_updates * cfg.global_batch_size,
             }
+            if self.sft_updates % cfg.sft_checkpoint_every_steps == 0:
+                checkpoint = Path(cfg.output) / "checkpoints" / f"sft-step-{self.sft_updates:06d}"
+                self.save(str(checkpoint), sft_optimizer=optimizer)
+                row["checkpoint"] = str(checkpoint)
             with log.open("a") as stream:
                 stream.write(json.dumps(row) + "\n")
         del optimizer
         return {"sft_updates": self.sft_updates, "dataset_transitions": len(dataset)}
 
-    def save(self, directory: str) -> dict:
+    def save(
+        self, directory: str, *, sft_optimizer: torch.optim.Optimizer | None = None
+    ) -> dict:
         """Atomically export inference weights and exact FP32 learner state at an update boundary.
 
         Parameters
         ----------
         directory : str
             Must not exist; environment state is intentionally excluded from resumption.
+        sft_optimizer : torch.optim.Optimizer | None
+            Include the active SFT optimizer in periodic snapshots for later recovery.
 
         Returns
         -------
@@ -378,6 +386,8 @@ class LearnerWorker(Worker):
             "denoise_steps": self.config.denoise_steps,
             "noise_level": self.config.noise_level,
         }
+        if sft_optimizer is not None:
+            state["sft_optimizer"] = sft_optimizer.state_dict()
         torch.save(state, temporary / "learner.pt")
         manifest = {
             "transitions": self.transitions,
@@ -388,6 +398,9 @@ class LearnerWorker(Worker):
             "initial_checkpoint": self.config.checkpoint,
             "sft_checkpoint": self.sft_checkpoint,
         }
+        if sft_optimizer is not None:
+            manifest["stage"] = "sft"
+            manifest["resume"] = "SFT weights and optimizer snapshot; CLI resume is RL-only"
         (temporary / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
         os.replace(temporary, destination)
         return {"checkpoint": str(destination), **manifest}

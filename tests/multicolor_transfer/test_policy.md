@@ -41,3 +41,11 @@ test_policy SHA `9372353077bfb54448918002d4224ceda3e7489b8745f45c3dd7472194bd2c4
 真SFT入口同样完成GBS256更新，samples_seen=256，loss0.12818；32观测推理与价值计算分块通过。
 不足rollout拒绝更新，32样本尾部丢弃且update计数不变；FP32/optimizer/RNG恢复、BF16导出重载和状态不变性通过。
 证据：同H20测试根目录policy-20261023-04/result.json、sft.jsonl、run.log、checkpoint。
+
+2026-10-24：新增SFT周期checkpoint验证；测试设置interval1以单次真实GBS256更新覆盖保存路径，
+核对model.safetensors/manifest/FP32权重及实际SFT AdamW状态、无.partial残留。正式配置interval50。
+H20空闲GPU1，task e7ede9f3-0047，输出tests/carrot/multicolor_transfer/policy-20261024-01，PASS/exit0，221s。
+CPU契约22项PASS/2.31s（e7ede9f3-0048），Ruff通过。镜像tag未记录。
+
+周期SFT checkpoint断言全部通过；正式GBS256更新loss=0.12817959，grad_norm=0.80524671。
+FP32权重与实时更新权重一致、SFT AdamW step=1；原有PPO、RNG恢复及BF16重载测试通过。

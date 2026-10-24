@@ -1,3 +1,4 @@
+import hashlib
 import json
 import math
 import os
@@ -38,7 +39,11 @@ from carrot.trainer.rl.algorithms import (
     supervised_flow_loss,
 )
 from carrot.trainer.rl.config import TransferConfig
-from carrot.trainer.rl.data import Demonstrations, reuse_demonstrations
+from carrot.trainer.rl.data import (
+    Demonstrations,
+    reuse_demonstrations,
+    verify_local_demonstrations,
+)
 from carrot.trainer.rl.evaluation import LABELS, paired_summary
 
 
@@ -64,6 +69,7 @@ def test_global_batch_contract() -> None:
     )
     assert cfg.global_batch_size == 256 and cfg.global_rollout_batch_size == 4096
     assert cfg.gas == 32 and cfg.rollout_steps == 128
+    assert cfg.sft_checkpoint_every_steps == 50
     smaller = replace(cfg, micro_batch_size=2)
     assert smaller.gas == 128 and smaller.rollout_steps == cfg.rollout_steps
     # 所有整除约束必须先于启动 GPU 校验，不能悄悄形成尾部小 batch。
@@ -72,6 +78,8 @@ def test_global_batch_contract() -> None:
         {"global_rollout_batch_size": 4000},
         {"num_envs": 30},
         {"global_batch_size": 8192},
+        {"sft_checkpoint_every_steps": 0},
+        {"demonstration_source": "renderer", "learner_demonstrations": "learner"},
     ):
         with pytest.raises(AssertionError):
             replace(cfg, **changes)
@@ -120,6 +128,26 @@ def test_reuse_only_committed_successes(tmp_path: Path) -> None:
     assert reused["saved"] == 1 and reused["next_seed"] == 1012
     assert len(list(destination.glob("episode-*"))) == 1
     assert (source / "episode-0001").is_dir()
+    # 完整传输清单允许本地复用，缺少完成标记不得误认成可训练备份。
+    with pytest.raises(AssertionError, match="incomplete dataset transfer"):
+        verify_local_demonstrations(str(destination), 1)
+    manifest = [
+        {
+            "path": str(p.relative_to(destination)),
+            "size": p.stat().st_size,
+            "sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
+        }
+        for p in destination.rglob("*")
+        if p.is_file()
+    ]
+    (destination / "transfer-manifest.json").write_text(json.dumps(manifest))
+    assert verify_local_demonstrations(str(destination), 1)["samples"] == 3
+    # 同长度内容损坏必须由 SHA 拒绝，不能静默使用或退回跨池传输。
+    copied = destination / "episode-0000/actions.npy"
+    content = copied.read_bytes()
+    copied.write_bytes(content[:-1] + bytes([content[-1] ^ 1]))
+    with pytest.raises(AssertionError, match="checksum mismatch"):
+        verify_local_demonstrations(str(destination), 1)
     # 已提交的损坏数据不能以恢复名义被静默忽略。
     (episode / "result.json").write_text(json.dumps({"success": False, "seed": 12}))
     another = tmp_path / "another"

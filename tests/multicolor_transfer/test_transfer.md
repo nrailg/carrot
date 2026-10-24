@@ -35,3 +35,11 @@ test_transfer.py SHA `d90cf9ac7fb1798bd3680e6c6d929bd0c34066fdcdb30456208faeab7e
 
 全局批量/复用验收：22项PASS，1.86s，task80e65273-0276/exit0。
 包含必需示范数组校验后的最终版本；日志为Pro5000个人DFS下tests/carrot/multicolor_transfer/test-transfer-20261023-06.log。
+
+## 2026-10-24 H20 持久化示范复用
+
+新增learner_demonstrations入口；完整transfer-manifest及SHA/episode数校验后直接SFT，
+不调用renderer collect或copy_artifacts。与renderer demonstration_source互斥。
+CPU检查覆盖无完成标记拒绝、完整副本可用、同长度内容损坏SHA拒绝及配置互斥。
+已同步到H20 work/carrot并执行test_transfer.sh：22 passed in 2.31s，MCP task e7ede9f3-0034；Ruff通过。
+运行源码71ff4b9加本地未提交改动；Docker image tag未记录。

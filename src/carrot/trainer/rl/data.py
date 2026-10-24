@@ -1,8 +1,45 @@
+import hashlib
 import json
 import shutil
 from pathlib import Path
 
 import numpy as np
+
+
+def verify_local_demonstrations(directory: str, successes: int) -> dict:
+    """Validate a completed learner-local transfer before reusing it for SFT.
+
+    Parameters
+    ----------
+    directory : str
+        Persistent dataset with a completed transfer-manifest.json.
+    successes : int
+        Required number of successful episodes.
+
+    Returns
+    -------
+    dict
+        Verified dataset location, episode count and sample count.
+    """
+    root = Path(directory).resolve()
+    marker = root / "transfer-manifest.json"
+    assert marker.is_file(), f"incomplete dataset transfer: {root}"
+    manifest = json.loads(marker.read_text())
+    assert manifest, f"empty transfer manifest: {marker}"
+    names = [entry["path"] for entry in manifest]
+    assert len(names) == len(set(names)), "duplicate transfer paths"
+    actual = {str(p.relative_to(root)) for p in root.rglob("*") if p.is_file()}
+    assert actual == set(names) | {marker.name}, "dataset files differ from transfer manifest"
+    for entry in manifest:
+        path = (root / entry["path"]).resolve()
+        assert path.is_relative_to(root) and path.is_file(), entry["path"]
+        assert path.stat().st_size == entry["size"], f"dataset size mismatch: {path}"
+        with path.open("rb") as stream:
+            digest = hashlib.file_digest(stream, "sha256").hexdigest()
+        assert digest == entry["sha256"], f"dataset checksum mismatch: {path}"
+    data = Demonstrations(str(root))
+    assert len(data.episodes) == successes, "unexpected demonstration count"
+    return {"directory": str(root), "saved": successes, "samples": len(data)}
 
 
 def reuse_demonstrations(source: str, destination: Path, limit: int) -> dict:

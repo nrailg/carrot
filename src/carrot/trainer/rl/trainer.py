@@ -9,6 +9,7 @@ import numpy as np
 
 from carrot.distributed import Cluster, PlacementSpec, RolePlacement, WorkerGroup
 from carrot.trainer.rl.config import TransferConfig, save_config
+from carrot.trainer.rl.data import verify_local_demonstrations
 from carrot.trainer.rl.evaluation import LABELS, source_evaluation, target_evaluation
 from carrot.trainer.rl.learner import LearnerWorker
 from carrot.trainer.rl.simulator import SimulatorWorker
@@ -182,25 +183,34 @@ def run(config: TransferConfig, resume: str | None = None) -> dict:
             _event(output, "checkpoint_init", **learner.call("save", checkpoints["init"]).wait()[0])
             _event(output, "partial_reset", **simulator.call("request", "check_reset").wait()[0])
             if resume is None:
-                collected = simulator.call(
-                    "request",
-                    "collect",
-                    output=str(Path(config.simulator_output) / "demos"),
-                    successes=config.demo_successes,
-                    attempts=config.demo_attempts,
-                    deadline=prepare_deadline,
-                    source=config.demonstration_source,
-                ).wait()[0]
-                _event(output, "demonstrations", **collected)
-                assert collected["saved"] == config.demo_successes, (
-                    "incomplete demonstrations; inspect physical grasp/draw/return evidence"
-                )
-                _event(
-                    output,
-                    "dataset_transfer",
-                    **copy_artifacts(simulator, "demos", output / "demos"),
-                )
-                result = learner.call("sft", str(output / "demos"), prepare_deadline).wait()[0]
+                if config.learner_demonstrations is not None:
+                    dataset = config.learner_demonstrations
+                    _event(
+                        output,
+                        "dataset_reuse",
+                        **verify_local_demonstrations(dataset, config.demo_successes),
+                    )
+                else:
+                    collected = simulator.call(
+                        "request",
+                        "collect",
+                        output=str(Path(config.simulator_output) / "demos"),
+                        successes=config.demo_successes,
+                        attempts=config.demo_attempts,
+                        deadline=prepare_deadline,
+                        source=config.demonstration_source,
+                    ).wait()[0]
+                    _event(output, "demonstrations", **collected)
+                    assert collected["saved"] == config.demo_successes, (
+                        "incomplete demonstrations; inspect physical grasp/draw/return evidence"
+                    )
+                    _event(
+                        output,
+                        "dataset_transfer",
+                        **copy_artifacts(simulator, "demos", output / "demos"),
+                    )
+                    dataset = str(output / "demos")
+                result = learner.call("sft", dataset, prepare_deadline).wait()[0]
                 assert result["sft_updates"] > 0, "preparation budget exhausted before SFT"
                 _event(output, "sft", **result)
                 _event(

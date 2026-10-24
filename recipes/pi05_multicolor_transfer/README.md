@@ -1,6 +1,6 @@
 # 多色换笔临摹 RL → LIBERO
 
-状态：pilot-02 已按全局批量配置启动，正在采集示范（2026-10-24 00:27：32/64）；无迁移效果结论。
+状态：按用户要求停止recovery-01（step371），准备从原始模型重训pilot-20261024-sft50-01，每50步保存；直接复用HZ完整示范。尚无迁移效果结论。
 
 起点是既有 LIBERO SFT `step-00000100`。历史 745/2000（37.25%）只用于说明模型来源，
 不能替代本实验新跑的配对 init 基线。三个对照为 init、临摹示范 SFT、临摹 PPO 最终 checkpoint；
@@ -139,3 +139,87 @@ H20的resolved-pilot.yaml固定Pro5000源码与旧示范来源，运行不受后
 H20输出：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02`。
 Pro5000输出：`/mnt/ceph-zjk1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02/renderer`。
 观察H20的events.jsonl/sft.jsonl，以及Pro5000的demos/collection.json与reuse.json。
+
+### 2026-10-24 09:26 中断核查（Asia/Shanghai）
+
+Pro5000的collection.json确认64/64成功示范（started67，达到目标后interrupted3）；
+数据保留在上述renderer/demos。H20在02:31:04停止写入，demos有435个文件、
+37,814,804,793字节；无传输完成事件，无sft.jsonl/result.json，仅有init checkpoint。
+Pro5000的Ray日志（UTC 18:32:06，即北京时间02:32:06）报告GCS失联超过60秒并退出，
+本实验renderer worker随之退出；不能据此确定H20容器为何失联。
+09:24用原连接重新登录H20仍鉴权后立即断开；通过DevCloud只读访问H20持久化目录完成上述核查。
+正式SFT/RL更新为0，未达到前两步验收；未新建或重启实验，未修改已有数据或停止用户GPU0仿真。
+已请用户确认H20资源状态或提供新连接；恢复后应保留并校验现有产物，再继续传输和训练。
+
+用户随后报告节点已挂；本轮归档为节点故障导致的运行中断，故障根因未查明，
+不能据此判断SFT/RL算法或迁移效果失败。已核实heartbeat `sft`为PAUSED；
+等待恢复资源后复用64条示范，保留旧输出并校验传输完整性。
+
+### 恢复运行 pilot-20261023-02-recovery-01
+
+用户提供新H20节点mpi-1832456670-launcher，并保留原Pro5000。两池DFS及IP实测不变；
+Pro5000原64条成功示范通过Demonstrations数据契约检查，共132,393帧、39,895,233,082字节。
+复用原71ff4b9冻结源码（H20核验88文件SHA一致）与全部64条示范；
+新输出目录采用pilot-20261023-02-recovery-01，保留原中断目录，不重复采集。
+SFT micro8/GBS256/GAS32/最多500步、rollout4096、RL32环境及原预算不变。
+新H20 dguard暂停2880分钟；Pro5000原暂停仍有效，用户GPU0进程630356保持运行。
+计划恢复两池Ray、按原runner执行复用→SHA校验传输→SFT→RL→评测。
+
+2026-10-24 09:59:22（Asia/Shanghai）恢复driver已后台启动，H20 MCP task `e7ede9f3-0027`。
+实际执行原snapshot的run.sh，--config为`sources/pilot-20261023-02/resolved-recovery-01.yaml`；
+该配置仅更改输出目录与demonstration_source（指向pilot-02完整64示范），不改算法参数。
+两节点Ray共32CPU/2GPU，H20仅GPU0训练、Pro仅GPU1渲染，dguard/用户仿真边界同上。
+自动审批曾拒绝强制停止Ray；只读确认两端均无raylet/GCS且端口空闲后直接启动成功，未执行强制停止。
+自动检查sft已更新为恢复run并启用，等待正式两步验收；当前仅确认driver start，尚无SFT step。
+
+10:03核查：driver PID5087运行，init checkpoint与partial reset通过；
+10:02:52确认复用64/64（无新增采集），正在全量跨池传输39.9GB，已收约0.67GB。
+当前copy_artifacts仅支持新目录传输，没有续接旧pilot-02的37.8GB部分副本；正式SFT尚0步。
+用户先要求停止轮询，旧heartbeat已删除；随后明确授权每10分钟单次检查，已按新频率创建，
+禁止触发内循环等待，健康传输静默，正式两步验收后结束检查。
+
+### H20 teacher 副本与 dguard（用户追加要求）
+
+恢复run的`demos/`本身位于H20 CephFS，传输完成后保留，不能当临时目录清理。
+完整副本地址：
+`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02-recovery-01/demos`。
+必须等`transfer-manifest.json`生成才能视为完整副本；截至此次检查尚在传输，已约7.9GB。
+新增`learner_demonstrations`配置：未来SFT重跑填上述完整目录，且`demonstration_source: null`；
+校验SHA、文件集合和64条数据契约后直接调用SFT，跳过collect/copy_artifacts。
+修改已同步到H20 work/carrot，CPU 22项通过；当前运行的71ff4b9冻结源码保持不变。
+用户要求开启H20 dguard：两节点已核验WATCH=1；worker run.py运行，launcher因模型进程存在跳过。
+现有dguard按整节点是否有GPU进程判断，不按利用率逐卡补负载；不能保证训练节点空闲卡被占用，
+也不能据此前节点故障推断平台回收原因。本次未修改dguard脚本或干扰当前learner。
+
+用户进一步明确授权临时占用H20空闲卡：launcher GPU1–7启动原dguard/run.py，
+7进程，1800秒自动退出，timeout1860秒并附15秒强制退出上限；task e7ede9f3-0037。
+不使用训练GPU0，不操作Pro5000；worker沿用已开启的dguard。此占用不改变正式训练配置。
+
+### 2026-10-24 10:25 正式SFT前两步验收通过
+
+恢复run于10:19:49完成跨池传输：450文件、39,895,247,315字节，
+`demos/transfer-manifest.json`已生成，完整SHA校验通过；H20 CephFS副本保留供后续复用。
+正式SFT step1（10:20:05）loss=0.13483943650498986，grad_norm=0.5854445099830627；
+step2（10:20:19）loss=0.10529550747014582，grad_norm=0.5547556281089783。
+两步均GBS256/micro8/GAS32，指标有限；累计samples_seen分别256和512。
+本次单次检查最新step23，loss=0.025886536095640622，grad_norm=0.1950606107711792，
+samples_seen=5888，driver PID5087仍在运行；未完成500步，尚不能声称收敛或迁移成功。
+日志：`/mnt/ceph-hz1-csp/mm-base-plt2/nrwu/experiments/carrot/pi05_multicolor_transfer/pilot-20261023-02-recovery-01/sft.jsonl`。
+按用户要求结束十分钟heartbeat，训练/RL/评测/Ray保持运行；临时空闲卡占用仍按自身30分钟时限退出。
+
+两步验收后用户更新要求：既然训练已开始，继续每30分钟单次检查；已创建对应heartbeat。
+正常进展静默，阶段完成/故障/需要用户操作时通知，不做触发内循环等待。
+
+### 用户要求从头重训，每50步保存
+
+旧recovery-01在正式SFT step371（loss0.00774819）时按用户要求停止driver task e7ede9f3-0027，
+保留全部数据、日志和init checkpoint；它没有中间SFT权重，不能当作step100模型。
+新运行计划pilot-20261024-sft50-01，仍从原LIBERO step-00000100初始化；
+SFT micro8/GBS256/GAS32/最多500步，每50步保存sft-step-000050/000100等目录，
+包括BF16导出、FP32权重、SFT AdamW与RNG状态；当前CLI resume仍只用于RL，勿误称已支持SFT续训。
+learner_demonstrations明确指向recovery-01 H20 CephFS完整demos，demonstration_source=null；
+不重新采集或跨池传数据。新运行前验证完整manifest与SHA，旧输出不覆盖。
+
+重训前验证：22项CPU契约测试PASS；H20真模型周期checkpoint、优化器状态和重载测试PASS（task e7ede9f3-0047，221s）。
+H20完整teacher预检PASS（task e7ede9f3-0051，82s），64episodes/132393frames，未跨池传输。
+两池冻结源码快照sources/pilot-20261024-sft50-01共88文件SHA一致。

@@ -26,6 +26,7 @@ class TransferConfig:
     num_envs: int = 32
     demo_num_envs: int = 4
     demonstration_source: str | None = None
+    learner_demonstrations: str | None = None
     max_episode_steps: int = 4000
     num_colors: int = 3
     execute_steps: int = 5
@@ -38,6 +39,7 @@ class TransferConfig:
     value_lr: float = 1e-4
     sft_lr: float = 1e-5
     sft_steps: int = 500
+    sft_checkpoint_every_steps: int = 50
     micro_batch_size: int = 8
     global_batch_size: int = 256
     global_rollout_batch_size: int = 4096
@@ -70,10 +72,14 @@ class TransferConfig:
             "global_rollout_batch_size must be divisible by num_envs"
         )
         assert self.demo_attempts >= self.demo_successes >= self.demo_num_envs >= 1
+        assert self.learner_demonstrations is None or self.demonstration_source is None, (
+            "choose learner-local demonstrations or renderer-side reuse, not both"
+        )
         assert self.source_eval_episodes % self.num_envs == 0
         assert 0 < self.prepare_hours + self.rl_hours < self.total_hours
         assert self.sft_steps > 0 and self.max_transitions > 0 and self.target_eval_rounds > 0
         assert self.checkpoint_every_updates > 0
+        assert self.sft_checkpoint_every_steps > 0
 
     @property
     def gas(self) -> int:

@@ -24,6 +24,7 @@ def check_policy(config_path: str, output: Path) -> None:
         global_rollout_batch_size=256,
         micro_batch_size=8,
         sft_steps=1,
+        sft_checkpoint_every_steps=1,
     )
     output.mkdir(parents=True, exist_ok=False)
     os.environ.update(LOCAL_RANK="0", MASTER_ADDR="127.0.0.1")
@@ -111,6 +112,24 @@ def check_policy(config_path: str, output: Path) -> None:
     assert sft_result["sft_updates"] == 1
     sft_row = json.loads((output / "sft.jsonl").read_text())
     assert sft_row["global_batch_size"] == 256 and sft_row["samples_seen"] == 256
+    # 每步保存用于加速覆盖正式50步保存路径，检查原子完成及真实SFT优化器状态。
+    periodic = output / "checkpoints/sft-step-000001"
+    assert sft_row["checkpoint"] == str(periodic)
+    assert (periodic / "model.safetensors").is_file()
+    assert not periodic.with_name(periodic.name + ".partial").exists()
+    periodic_manifest = json.loads((periodic / "manifest.json").read_text())
+    assert periodic_manifest["stage"] == "sft" and periodic_manifest["sft_updates"] == 1
+    saved_sft = torch.load(periodic / "learner.pt", map_location="cpu", weights_only=False)
+    assert saved_sft["sft_optimizer"]["state"]
+    assert all(s["step"] == 1 for s in saved_sft["sft_optimizer"]["state"].values())
+    # 保存的FP32训练参数必须是本次更新之后的权重。
+    torch.testing.assert_close(
+        saved_sft["trainable"]["action_out_proj.weight"],
+        policy.model.action_out_proj.weight.detach().cpu(),
+        rtol=0,
+        atol=0,
+    )
+    del saved_sft
     learner.optimizer.zero_grad(set_to_none=True)
     loss = policy.supervised_loss(supervised, torch.tensor([1, 3]))
     assert torch.isfinite(loss)

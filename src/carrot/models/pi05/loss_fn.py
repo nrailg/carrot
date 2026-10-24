@@ -42,7 +42,7 @@ class Pi05TransformedDataset(Dataset[dict[str, Any]]):
     def __getitem__(self, index: int) -> dict[str, Any]:
         raw = self.source[index]
         transformed = self.input_transform(raw)
-        return {
+        result = {
             "image": transformed["image"],
             "image_mask": transformed["image_mask"],
             "state": transformed["state"],
@@ -51,6 +51,10 @@ class Pi05TransformedDataset(Dataset[dict[str, Any]]):
             "actions": transformed["actions"],
             "action_is_pad": raw["action_is_pad"],
         }
+        if "loss_weight" in raw:
+            result["loss_weight"] = raw["loss_weight"]
+            result["sample_domain"] = raw["sample_domain"]
+        return result
 
 
 class Pi05SFTLossFn(Pi05Preprocessor):
@@ -90,8 +94,22 @@ class Pi05SFTLossFn(Pi05Preprocessor):
         gamma2 = torch.rand(actions.shape[0], device=device)
         time = (gamma1 / (gamma1 + gamma2) * 0.999 + 0.001).to(dtype)
         per_step = model(observation, actions, noise=noise, time=time).mean(dim=-1)
-        loss = (per_step * valid).sum() / valid.sum()
-        return loss, {"loss": loss.detach(), "per_step_loss": per_step.detach()}
+        metrics = {"per_step_loss": per_step.detach()}
+        if "loss_weight" in batch:
+            weights = batch["loss_weight"].to(device=device, dtype=torch.float32)
+            domains = batch["sample_domain"].to(device=device)
+            assert weights.shape == domains.shape == (actions.shape[0],)
+            assert torch.isfinite(weights).all() and (weights > 0).all()
+            assert ((domains == 0) | (domains == 1)).all()
+            contributions = (per_step.float() * valid).sum(dim=1) * weights
+            loss = contributions.mean()
+            for domain, name in ((0, "libero"), (1, "draw")):
+                metrics[f"loss_{name}"] = (
+                    (contributions * (domains == domain)).sum() / len(contributions)
+                ).detach()
+        else:
+            loss = (per_step * valid).sum() / valid.sum()
+        return loss, {"loss": loss.detach(), **metrics}
 
     def prepare_inputs(
         self, model: PI0Pytorch, batch: dict[str, Any]

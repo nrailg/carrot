@@ -56,6 +56,8 @@ try:
             "check_reset": env.check_reset,
             "collect": env.collect,
             "expert_actions": env.expert_actions,
+            "camera_views": env.camera_views,
+            "set_camera": env.set_camera,
         }
         assert method in methods, f"unsupported simulator command: {method}"
         try:

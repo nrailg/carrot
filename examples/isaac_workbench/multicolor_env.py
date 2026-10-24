@@ -8,6 +8,7 @@ from multicolor_logic import generate_task
 from multicolor_scene import MulticolorWorkbench, PaintExpert
 from PIL import Image
 from scene import DT
+from scipy.spatial.transform import Rotation
 
 from carrot.trainer.rl.data import reuse_demonstrations
 
@@ -32,8 +33,12 @@ class MulticolorEnv:
         max_episode_steps: int = 4000,
         seed: int = 0,
         num_colors: int = 3,
+        teacher_mode: str = "legacy",
+        camera: dict | None = None,
     ) -> None:
         assert num_envs >= 1 and max_episode_steps > 0
+        assert teacher_mode in ("legacy", "events")
+        self.teacher_mode = teacher_mode
         self.world = World(physics_dt=DT, rendering_dt=1 / 20, stage_units_in_meters=1)
         self.next_seed, self.num_colors = seed, num_colors
         self.max_episode_steps = max_episode_steps
@@ -44,15 +49,78 @@ class MulticolorEnv:
         self.world.reset()
         for env in self.envs:
             env.initialize()
+        self.camera_config = {
+            "position": [0.10, -0.85, 0.78],
+            "target": [0.43, 0, 0.30],
+            "focal_length": 0.021,
+        }
+        if camera is not None:
+            self.set_camera(**camera)
         for _ in range(30):
             self.world.step(render=True)
         self.needs_reset = np.zeros(num_envs, dtype=bool)
-        self.experts = [PaintExpert(env) for env in self.envs]
+        self.experts = [
+            PaintExpert(env, event_driven=self.teacher_mode == "events") for env in self.envs
+        ]
         self.next_seed += num_envs
         self.last_info: list[dict] = [{} for _ in self.envs]
 
     def observe(self) -> list[dict]:
         return [env.actor_observation() for env in self.envs]
+
+    def set_camera(self, position: list[float], target: list[float], focal_length: float) -> None:
+        """Set the shared external-camera pose without advancing physics.
+
+        Parameters
+        ----------
+        position, target : list[float]
+            Three-dimensional local workbench coordinates in metres.
+        focal_length : float
+            Same units as Isaac Camera.set_focal_length; aperture remains 0.024.
+        """
+        position_array, target_array = np.asarray(position), np.asarray(target)
+        assert position_array.shape == target_array.shape == (3,)
+        assert np.isfinite([*position, *target, focal_length]).all() and focal_length > 0
+        back = position_array - target_array
+        assert np.linalg.norm(back) > 0
+        back = back / np.linalg.norm(back)
+        right = np.cross([0, 0, 1], back)
+        assert np.linalg.norm(right) > 0
+        right /= np.linalg.norm(right)
+        up = np.cross(back, right)
+        quat = Rotation.from_matrix(np.column_stack((right, up, back))).as_quat()
+        for env in self.envs:
+            env.camera.set_world_pose(
+                position_array + env.origin, quat[[3, 0, 1, 2]], camera_axes="usd"
+            )
+            env.camera.set_focal_length(focal_length)
+        self.camera_config = {"position": position, "target": target, "focal_length": focal_length}
+        # Flush the asynchronous renderer before reading a changed camera pose.
+        for _ in range(8):
+            self.world.render()
+
+    def camera_views(self, configurations: dict[str, dict]) -> dict[str, np.ndarray]:
+        """Render candidate external views of slot zero at the identical physical state.
+
+        Parameters
+        ----------
+        configurations : dict[str, dict]
+            Named arguments for set_camera; the production camera is restored afterwards.
+
+        Returns
+        -------
+        dict[str, numpy.ndarray]
+            Unmodified 224x224 RGB camera frames.
+        """
+        saved = self.camera_config
+        images = {}
+        try:
+            for name, configuration in configurations.items():
+                self.set_camera(**configuration)
+                images[name] = self.envs[0].rgb().copy()
+        finally:
+            self.set_camera(**saved)
+        return images
 
     def reset(
         self,
@@ -86,7 +154,7 @@ class MulticolorEnv:
         colors = self.num_colors if num_colors is None else num_colors
         for i, seed in zip(ids, seeds, strict=True):
             self.envs[i].reset_task(generate_task(seed, colors))
-            self.experts[i] = PaintExpert(self.envs[i])
+            self.experts[i] = PaintExpert(self.envs[i], event_driven=self.teacher_mode == "events")
             self.needs_reset[i] = False
             self.last_info[i] = {}
         self.world.render()
@@ -183,6 +251,8 @@ class MulticolorEnv:
         attempts: int,
         deadline: float,
         source: str | None = None,
+        curriculum: bool = True,
+        start_seed: int | None = None,
     ) -> dict:
         """Record pre-action observations and retain only complete successful expert episodes.
 
@@ -213,7 +283,10 @@ class MulticolorEnv:
             records = reused["episodes"]
             self.next_seed = max(self.next_seed, reused["next_seed"])
             (directory / "reuse.json").write_text(json.dumps(reused, indent=2) + "\n")
-        colors = min(3, 1 + saved * 3 // successes)
+        if start_seed is not None:
+            assert source is None and 0 <= start_seed < 1_000_000
+            self.next_seed = start_seed
+        colors = min(3, 1 + saved * 3 // successes) if curriculum else self.num_colors
         observations = self.reset(num_colors=colors)
         started = saved + (len(self.envs) if saved < successes else 0)
         assert started <= attempts
@@ -264,7 +337,7 @@ class MulticolorEnv:
                 print(json.dumps({k: v for k, v in report.items() if k != "episodes"}), flush=True)
                 if started + len(done) > attempts or saved >= successes:
                     break
-                colors = min(3, 1 + saved * 3 // successes)
+                colors = min(3, 1 + saved * 3 // successes) if curriculum else self.num_colors
                 observations = self.reset(done, num_colors=colors)
                 started += len(done)
         report = {

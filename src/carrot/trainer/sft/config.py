@@ -49,6 +49,7 @@ class DatasetConfig:
     norm_stats_asset_id: str | None = None
     preprocess: str | None = "carrot.data.robotwin.robotwin_preprocess"
     num_workers: int = 4
+    shuffle: bool = True
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "factory_kwargs", dict(self.factory_kwargs))
@@ -67,6 +68,7 @@ class DatasetConfig:
                 and ".." not in asset_id.parts
             ), "dataset.norm_stats_asset_id must be a relative asset path"
         assert self.num_workers >= 0, "dataset.num_workers cannot be negative"
+        assert isinstance(self.shuffle, bool), "dataset.shuffle must be a Boolean"
 
 
 @dataclass(frozen=True)

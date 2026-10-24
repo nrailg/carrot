@@ -1,0 +1,38 @@
+model:
+  path: supplied-by-prepare
+  tokenizer_path: supplied-by-prepare
+dataset:
+  factory: carrot.data.libero_draw.build_dataset
+  factory_kwargs: {}
+  num_workers: 4
+  shuffle: false
+  norm_stats_path: supplied-by-prepare
+  norm_stats_asset_id: physical-intelligence/libero
+  preprocess: null
+optimizer:
+  learning_rate: 1.0e-5
+  weight_decay: 1.0e-10
+  betas: [0.9, 0.95]
+  eps: 1.0e-8
+  warmup_steps: 0
+  decay_steps: 200
+  decay_learning_rate: 1.0e-5
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+wandb:
+  enabled: false
+  project: carrot-sft
+  entity: '1001'
+  name: supplied-by-prepare
+steps: 200
+micro_batch_size: 4
+global_batch_size: 256
+log_freq: 1
+save_freq: 50
+seed: 1000
+dp_size: 8
+num_nodes: 1

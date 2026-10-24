@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import math
 import random
 from collections.abc import Callable
@@ -132,6 +133,7 @@ class SFTTrainWorkerImpl:
     def _train_loop(self, iterator, mean_loss: float) -> dict[str, float | int]:
         while self.step < self.config.steps:
             accumulated_loss = 0.0
+            domain_losses = {}
             for micro_step in range(self.config.gas):
                 try:
                     batch = next(iterator)
@@ -143,7 +145,10 @@ class SFTTrainWorkerImpl:
                     batch = next(iterator)
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
                     print("first batch fetched, running forward", flush=True)
-                loss, _ = self.loss_fn(self.model, batch)
+                loss, metrics = self.loss_fn(self.model, batch)
+                for name in ("loss_libero", "loss_draw"):
+                    if name in metrics:
+                        domain_losses[name] = domain_losses.get(name, 0.0) + float(metrics[name])
                 assert torch.isfinite(loss), f"non-finite loss at step {self.step}: {loss.item()}"
                 scaled = loss / self.config.gas
                 if self._is_rank_0() and self.step == 0 and micro_step == 0:
@@ -158,6 +163,7 @@ class SFTTrainWorkerImpl:
             grad_norm = torch.nn.utils.clip_grad_norm_(
                 self.model.parameters(),
                 max_norm=self.config.optimizer.max_grad_norm,
+                error_if_nonfinite=True,
             )
             if isinstance(grad_norm, DTensor):
                 grad_norm = grad_norm.full_tensor()
@@ -172,6 +178,25 @@ class SFTTrainWorkerImpl:
                 dist.all_reduce(value)
                 mean_loss = value.item() / dist.get_world_size()
             learning_rate = self.optimizer.param_groups[0]["lr"]
+            if domain_losses:
+                domain_values = torch.tensor(
+                    [domain_losses[name] / self.config.gas for name in domain_losses],
+                    device=torch.cuda.current_device(),
+                )
+                if dist.is_initialized():
+                    dist.all_reduce(domain_values)
+                    domain_values /= dist.get_world_size()
+                if self._is_rank_0():
+                    directory = Path(self.config.output_dir)
+                    directory.mkdir(parents=True, exist_ok=True)
+                    with (directory / "metrics.jsonl").open("a") as stream:
+                        stream.write(json.dumps({
+                            "step": self.step,
+                            "loss": mean_loss,
+                            "grad_norm": float(grad_norm),
+                            "lr": learning_rate,
+                            **dict(zip(domain_losses, domain_values.tolist(), strict=True)),
+                        }) + "\n")
             if self._is_rank_0() and self.step % self.config.log_freq == 0:
                 print(
                     f"step={self.step} loss={mean_loss:.6f} lr={learning_rate:.3e} "
@@ -262,7 +287,7 @@ class SFTTrainWorker(Worker):
             components.dataset,
             num_replicas=self.world_size,
             rank=self.rank,
-            shuffle=True,
+            shuffle=self.config.dataset.shuffle,
             seed=self.config.seed,
             drop_last=True,
         )

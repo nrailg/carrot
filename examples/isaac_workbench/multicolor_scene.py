@@ -351,8 +351,9 @@ class MulticolorWorkbench(Workbench):
 
 
 class PaintExpert:
-    def __init__(self, env: MulticolorWorkbench) -> None:
+    def __init__(self, env: MulticolorWorkbench, *, event_driven: bool = False) -> None:
         self.env = env
+        self.event_driven = event_driven
         self.key = -1
         self.waypoints: list[tuple[np.ndarray, float, int]] = []
         self.index, self.dwell = 0, 0
@@ -437,7 +438,21 @@ class PaintExpert:
                 goal_rotation = self.release_rotation
         distance = np.linalg.norm(target - eef)
         tolerance = 0.006 if env.schedule.phase in ("pick", "place") else 0.001
-        if distance < tolerance and tilt < 0.04:
+        if self.event_driven:
+            fingers = env.robot.get_joint_positions()[0, 7:]
+            color = env.schedule.stroke.color
+            forces = np.linalg.norm(env.fingers.get_contact_force_matrix(dt=DT), axis=-1)
+            ready = distance < tolerance and tilt < 0.04
+            if env.schedule.phase == "pick":
+                if self.index <= 1:
+                    ready &= bool((fingers > 0.035).all())
+                elif self.index == 2:
+                    ready &= bool((forces[:, color] > 0.02).all())
+            elif env.schedule.phase == "place" and self.index == 3:
+                ready &= bool((fingers > 0.035).all() and (forces[:, color] < 0.02).all())
+            if ready and self.index < len(self.waypoints) - 1:
+                self.index += 1
+        elif distance < tolerance and tilt < 0.04:
             self.dwell += 1
             if self.dwell >= ticks and self.index < len(self.waypoints) - 1:
                 self.index += 1

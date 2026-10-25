@@ -5,10 +5,12 @@ import numpy as np
 import pytest
 import torch
 from torch import nn
+from torch.utils.data import DataLoader
 
 from carrot.data.libero_draw import DrawDataset, ScheduledDataset
 from carrot.data.mixture_schedule import make_schedule
-from carrot.models.pi05.loss_fn import Pi05SFTLossFn
+from carrot.models.pi05.loss_fn import Pi05SFTLossFn, Pi05TransformedDataset
+from carrot.models.pi05.transforms import Pi05TransformSpec
 
 
 def write_episode(root) -> None:
@@ -63,6 +65,33 @@ def test_scheduled_adapter_rejects_wrong_mask(tmp_path) -> None:
     dataset = ScheduledDataset(data, data, str(tmp_path / "samples.npz"))
     with pytest.raises(AssertionError, match="action boundary"):
         dataset[0]
+
+
+@pytest.mark.parametrize("tensor_first", [True, False])
+@pytest.mark.parametrize("workers", [0, 1])
+def test_mixed_mask_types_collate(tensor_first, workers) -> None:
+    # 真实混合来源的mask分别是Tensor和NumPy；顺序或多进程加载不能影响组batch。
+    # 已规范化的其他字段排除图像/tokenizer影响，只保留此前报错的类型差异。
+    sample = {
+        "image": {"base_0_rgb": np.zeros((3, 8, 8), np.uint8)},
+        "image_mask": {"base_0_rgb": True},
+        "state": np.zeros(32, np.float32),
+        "tokenized_prompt": np.zeros(8, np.int64),
+        "tokenized_prompt_mask": np.ones(8, bool),
+        "actions": np.zeros((10, 32), np.float32),
+    }
+    masks = [torch.arange(10) >= 3, np.arange(10) >= 7]
+    if not tensor_first:
+        masks.reverse()
+    dataset = Pi05TransformedDataset(
+        [{**sample, "action_is_pad": mask} for mask in masks],
+        Pi05TransformSpec(inputs=(), outputs=(), action_dim=7),
+    )
+    # 调用生产adapter和默认DataLoader，验证类型统一且每条样本的有效长度不变。
+    batch = next(iter(DataLoader(dataset, batch_size=2, num_workers=workers)))
+    assert batch["action_is_pad"].dtype == torch.bool
+    assert batch["action_is_pad"].shape == (2, 10)
+    assert (~batch["action_is_pad"]).sum(1).tolist() == ([3, 7] if tensor_first else [7, 3])
 
 
 class ScalarModel(nn.Module):

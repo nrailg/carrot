@@ -17,3 +17,7 @@ Docker image与实际运行commit：未记录；本地基线6be3d5a加实验改�
 证据：H20个人DFS `/mnt/ceph-hz1-csp/mm-base-plt2/nrwu` 下 `experiments/carrot/pi05_libero_draw_sft_transfer/sft-mix-20261024-01/h20-preflight/gradient-check/result.json`，任务输出归档为同级上层 `task.log`。固定101文件源码位于 `experiments/carrot/pi05_libero_draw_sft_transfer/sources/sft-mix-20261024-01`，source-manifest.json记录SHA。
 
 环境：torch2.11.0+cu128、transformers5.5.4、lerobot0.6.1、ray2.58.0、safetensors0.8.0；实际Docker tag与上游git commit未记录。H20 head本地dguard已在检查结束后恢复。此结果验证全参数梯度；混合新版示范的实际路径还需在数据就绪后执行。
+
+## 2026-10-25 静态整图真实混合数据实测
+
+H20任务b434d471-0164的8GPU混合两步检查PASS。GBS256/micro4/GAS8；loss 0.0739348624、0.0762029132，grad_norm 0.661914647、0.520577908。vision/VLM/expert代表参数每步均有有限非零梯度和约1e-5更新，临时权重丢弃。证据为H20个人DFS下`experiments/carrot/pi05_libero_draw_sft_transfer/static-reference-20261024-01/training/gpu-preflight/result.json`；SHA冻结源`sources/train-20261025-01`。该任务随后正式训练的forkserver读取启动失败，不影响此独立检查结果，且不计为正式训练step。

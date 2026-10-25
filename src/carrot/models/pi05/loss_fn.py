@@ -49,7 +49,7 @@ class Pi05TransformedDataset(Dataset[dict[str, Any]]):
             "tokenized_prompt": transformed["tokenized_prompt"],
             "tokenized_prompt_mask": transformed["tokenized_prompt_mask"],
             "actions": transformed["actions"],
-            "action_is_pad": raw["action_is_pad"],
+            "action_is_pad": torch.as_tensor(raw["action_is_pad"], dtype=torch.bool),
         }
         if "loss_weight" in raw:
             result["loss_weight"] = raw["loss_weight"]

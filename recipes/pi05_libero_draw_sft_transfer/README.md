@@ -96,3 +96,37 @@ H20任务9f2afe6d-0125运行8卡两步梯度检查，先用真实LIBERO验证VLM
 - H20 CPU验证15项PASS，任务b434d471-0153，见tests/libero_draw_transfer/test_static_task.md。PRO完整三色画面验证0428退出0/309秒：2345controls、IoU0.7988097、抓取/归还各3次、掉笔0，prompt每步恒定，参考屏始终完整三线图。新113文件冻结源码`sources/static-reference-20261024-01`；这是teacher验证，不是模型自主规划效果。
 - 静态整图更正已提交**ae6d4bd**，此前实现提交975fc31；未push。PRO新任务**6b56755c-0429**使用GPU2，输出`static-reference-20261024-01/collection`，重新验证此任务定义的16条三色示范后采64条，不复用旧动态图gate。
 - 新复制PID**2540932**，H20同run目录copy-detached.log；H20队列**b434d471-0155**，同113文件冻结源码、CARROT_COMMIT=ae6d4bd，输出同run/training。等待正确任务数据原子发布后执行既定SFT，当前正式optimizer step仍为0。任务链只运行一次，没有创建自动监控。
+
+## 数据重复检查
+
+用户要求确认数据不重复。已检查全部128个候选训练seed：线条几何与笔架布局组合128种唯一；训练200000–200127、验证300000–300015、评测1000000–1000031互不重叠。旧版本目录不会合并进新训练集。
+
+copy_collection.py发布前要求64条成功episode的seed、完整actions.npy及state.npy SHA分别唯一，报告写入发布目录deduplication.json；重复或缺条即失败，不发布到H20训练目录。只做episode级检查，不删除相邻相似帧。4项测试PASS，见test_deduplication.md。
+
+已替换复制等待进程2540932为**2543905**，使用独立冻结源码`sources/deduplication-20261024-01`，日志改为同run/copy-dedup.log；旧copy-pid.json保留为copy-pid-before-dedup.json。采集0429和H20等待0155没有重启。最新仍在首批4条静态任务验证，control2201、drops全0；正式训练数据0/64，实际数据唯一性须生成后检查，不能把空目录说成去重通过。
+
+2026-10-25更新：静态整图16/16验证全部通过，正式采集2/64，seeds200002/200000均三色成功、drops0，正式采集已运行约610秒。PRO0429、去重复制2543905及H20等待0155均存活；当前正式optimizer step仍0。用户再次授权完成后立即训练，沿用现有自动衔接链，未重启采集或新增验证要求。
+
+## 2026-10-25 数据完成与训练启动修复
+
+静态整图64/64全部成功，148165帧，drops总计0，平均IoU0.8058094、最低0.7854384。64个seed、64个actions SHA与64个state SHA均唯一。449文件、44,677,762,270字节已逐文件校验并发布到H20；deduplication.json passed=true。PRO采集在北京时间03:07:25完成，日志已归档collection-task.log。
+
+H20旧任务0155在真实混合两步检查的DataLoader collate中失败：LIBERO mask为Tensor，draw mask为NumPy，首个正式训练step尚未执行；完整错误日志failed-mixed-mask-preflight.log。Pi05TransformedDataset统一mask为bool Tensor，四项类型混合回归与其余数据/任务测试合计19PASS。
+
+新任务**b434d471-0164**使用SHA冻结113文件`sources/train-20261025-01`。复用原training目录的已验证配置和两份采样清单，不重采、不重抽样、不覆盖旧日志；启动记录training/launch-maskfix.json保留新源SHA与原配置/清单SHA。执行混合两步全参数检查后串行LIBERO200和Mix200；GPU检查与正式训练是否开始，须以后续result.json与metrics.jsonl更新。
+
+真实混合8GPU两步检查已通过：`training/gpu-preflight/result.json` passed=true，loss为0.07393486/0.07620291，grad_norm为0.66191465/0.52057791，vision/VLM/expert代表参数均有有限非零梯度与约1e-5更新。临时检查权重丢弃。
+
+0164随后进入正式Ray训练，但forkserver DataLoader在首个batch前序列化内存映射数据，actor RSS约83GB且未产生正式step；已定向终止该任务的8个actor及子进程，保留日志`failed-forkserver-launch.log`。改为与通过检查相同的`dataset.num_workers=0`，原配置保留，另写`libero-loader0.yaml`和`mixed-loader0.yaml`；其他训练参数、采样清单和输出路径不变，记录`training/launch-loader0.json`。recipe默认也改为0，避免重复序列化45GB示范。
+
+北京时间2026-10-25 09:44启动任务**b434d471-0176**，使用同一SHA冻结源码train-20261025-01，顺序执行两份loader0配置。复用本轮已通过的GPU检查；不重复采集、采样或临时训练。正式step以metrics.jsonl为准。
+
+0176正式训练已确认启动：`training/libero/metrics.jsonl`连续step1–8，step8 loss=0.0610054508、grad_norm=0.248627275、lr=1e-5，全程有限；8张H20显存各约62GB、利用率89–100%。该记录是正式optimizer step，不是临时检查。纯LIBERO200结束后同一后台任务自动执行Mix200，当前尚未完成训练或评测。
+
+用户于2026-10-25授权30分钟后检查、训练完成后自动开始测试，并根据结果检查错漏和分析能力迁移。当前聊天heartbeat `sft` 每30分钟推进，沿用本档案配对评测协议；未恢复旧RL监控。新探索性算法方案按AGENTS.md先检索并确认，既定评测和常规故障修复无需再次批准。
+
+## 2026-10-25 10:33 半小时检查
+
+H20 task b434d471-0176 仍健康运行。直接核对持久化 metrics：LIBERO 已完成连续200步，末步loss0.0241624434、grad_norm0.0637181103；Mix最新连续163步，loss0.0165391248、grad_norm0.0568414815（loss_libero0.0156105664、loss_draw0.0009285602）。两路现有全部指标有限、LR1e-5；8卡98–100%利用率。LIBERO50/100/150/200和Mix50/100/150 checkpoint目录包含model.safetensors、trainer_state/config/tokenizer/stats/optimizer；本轮只查文件存在/大小，尚未验证最终checkpoint可加载，不宣称完整训练完成。后台task日志只转发到Mix93，实际metrics为163，不能按日志滞后判卡住。
+
+尚未启动正式评测，等待当前Mix200及任务收尾；不重启训练、不重复检查、不重采。dguard启动暂停120分钟，当前运行约49分钟，尚未临近到期。评测接线仍待完成：旧recipes/pi05_multicolor_transfer/eval_sft.py未传新camera/固定逐调用noise，不能原样作为新协议正式评测；复用Pi05Policy.infer(noise=...)及已有LIBERO设施完成配对入口。下次确认训练完成后即实施并启动。heartbeat保持有效，本轮健康等待静默。

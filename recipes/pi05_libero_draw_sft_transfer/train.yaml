@@ -4,7 +4,7 @@ model:
 dataset:
   factory: carrot.data.libero_draw.build_dataset
   factory_kwargs: {}
-  num_workers: 4
+  num_workers: 0
   shuffle: false
   norm_stats_path: supplied-by-prepare
   norm_stats_asset_id: physical-intelligence/libero

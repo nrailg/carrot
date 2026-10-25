@@ -37,7 +37,8 @@ def make_schedule(
     Parameters
     ----------
     libero_lengths, draw_lengths : numpy.ndarray
-        Valid horizon lengths for each source sample.
+        Valid horizon lengths for each source sample. Each source is shuffled and
+        exhausted without replacement before starting its next independently shuffled pass.
     mixed : bool
         Equal source counts when true; otherwise LIBERO only.
     seed, steps, global_batch_size, dp_size : int
@@ -58,7 +59,10 @@ def make_schedule(
     for source, source_lengths in enumerate((libero_lengths, draw_lengths)):
         selected = domain == source
         rng = np.random.default_rng(seed + source)
-        indices[selected] = rng.integers(len(source_lengths), size=int(selected.sum()))
+        positions = np.flatnonzero(selected)
+        for start in range(0, len(positions), len(source_lengths)):
+            chunk = positions[start : start + len(source_lengths)]
+            indices[chunk] = rng.permutation(len(source_lengths))[: len(chunk)]
         lengths[selected] = source_lengths[indices[selected]]
     weights = np.empty(count, np.float64)
     for start in range(0, count, global_batch_size):

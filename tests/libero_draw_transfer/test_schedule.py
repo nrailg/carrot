@@ -4,6 +4,47 @@ import pytest
 from carrot.data.mixture_schedule import make_schedule, valid_lengths
 
 
+@pytest.mark.parametrize("mixed", [False, True])
+def test_each_source_is_exhausted_before_reshuffling(mixed: bool) -> None:
+    # 每个来源必须完整无放回遍历再重洗；不同大小的数据集不能共享错误的轮次边界。
+    # 互质大小让遍历边界落在batch内部，并同时覆盖多轮和最后的不完整轮次。
+    sources = (np.arange(17) % 10 + 1, np.arange(29) % 10 + 1)
+    plan = make_schedule(*sources, mixed=mixed, steps=3)
+    repeat = make_schedule(*sources, mixed=mixed, steps=3)
+    # 同种子逐字段可复现；样本长度必须与实际索引绑定，不能沿用洗牌前的长度。
+    for key in plan:
+        np.testing.assert_array_equal(plan[key], repeat[key])
+    for domain in range(2 if mixed else 1):
+        selected = plan["domain"] == domain
+        indices = plan["source_index"][selected]
+        size = len(sources[domain])
+        np.testing.assert_array_equal(plan["valid_length"][selected], sources[domain][indices])
+        # 每个完整轮次恰好覆盖全体样本；末尾不足一轮时也不能重复。
+        for start in range(0, len(indices), size):
+            chunk = indices[start : start + size]
+            assert len(np.unique(chunk)) == len(chunk)
+            if len(chunk) == size:
+                np.testing.assert_array_equal(np.sort(chunk), np.arange(size))
+        # 下一轮须重新打乱，而不是无限重播第一轮的固定顺序。
+        assert not np.array_equal(indices[:size], indices[size : 2 * size])
+
+
+def test_experiment_budget_has_no_repeated_start_frames() -> None:
+    # 本轮200步预算小于各数据集大小，应完全没有重复起点并保持配对曝光。
+    # 使用真实帧数，避免只在跨多轮的小fixture上验证而漏掉实际实验边界。
+    sources = (np.full(273465, 10), np.full(148165, 10))
+    pure = make_schedule(*sources, mixed=False)
+    mixed = make_schedule(*sources, mixed=True)
+    # 纯LIBERO和混合各来源的整段抽样都不得重复；混合LIBERO等于纯路线的前缀。
+    assert len(np.unique(pure["source_index"])) == 51200
+    for domain in (0, 1):
+        indices = mixed["source_index"][mixed["domain"] == domain]
+        assert len(indices) == len(np.unique(indices)) == 25600
+    np.testing.assert_array_equal(
+        pure["source_index"][:25600], mixed["source_index"][mixed["domain"] == 0]
+    )
+
+
 def test_exact_source_quotas_and_paired_exposure() -> None:
     # 验证分卡和累积后的每步配额，并保护 L100/Mix200 的 LIBERO 曝光一致性。
     # 使用不同轨迹长度覆盖尾帧监督数量，避免只有全长 chunk 的退化情况。

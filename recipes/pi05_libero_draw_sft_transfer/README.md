@@ -223,3 +223,9 @@ MCP再次重启清空session登记，诊断后用原凭据重连H20新session98b
 本次是未来清单生成逻辑的常规修正，不覆盖已完成实验原有有放回清单，不修改正在评测的冻结sources，不自动重训或重新评测。旧实验重复起点4.60%/8.25%的历史统计仍成立。Mutagen已同步开发树，本次源/测试SHA远端一致；与本修改无关的旧so101目录冲突未动。
 
 H20 session98b2ba23 CPU验证：test_schedule7PASS（0.60s），test_data8PASS（9.21s），ruff通过。新增测试覆盖独立来源不同大小、完整轮次/尾部、多轮重新洗牌、确定性、实际数据规模无重复及曝光配对；档案tests/libero_draw_transfer/test_schedule.md。源码SHA ae7f7e5ff9eab7ff04abb0868cd7f3601b9a5ad090178f2ba339dbeeb533f7cc，测试SHA c68965c5b4cb40282560a1b85960ae64f5ff1d06265ea39f3953629087b43956。改动未提交，运行作业保持。
+
+## 2026-10-25 15:00 用户要求停止作业、恢复dguard并推送
+
+用户要求“commit and push，gpu server都dguard拉起来”。此前代码已提交57afb5a；按要求停止本实验PRO客户端0446/0447及H20服务0194/0195，四份日志分别归档到绘画各组task-stopped-by-user.log和H20 draw-servers/{base,Mix200}-task-stopped-by-user.log，任务已dump释放。PRO两组stopped-by-user.json明确complete=false：base19/32完整seed1000000–1000018，Mix20020/32完整seed1000000–1000019，均0成功/抓笔；在途episode不计为完整结果。LIBERO原1200条已完成结果不变。
+
+本实验原客户端/renderer PID已消失，PRO用户PID630356保持运行。调用集群级dguard on：H20 launcher+worker两节点、PRO launcher一节点均已核验DGUARD_WATCH=1、guard.sh运行、restore不再排程。未改dguard策略或终止其他用户作业。heartbeat sft已删除，后续不再自动改代码、开实验或继续评测，等待用户review。保留原数据、checkpoint、冻结源码及采样清单；无放回采样修改尚未用于训练。

@@ -16,8 +16,7 @@
   },
   "review_status": {
     "directly_authored": 205,
-    "main_assistant_checked": 4685,
-    "pending_main_assistant_review": 826
+    "main_assistant_checked": 5511
   },
   "method": "Direct reading and Chinese rewriting by the main assistant and user-authorized subagents; no external translation API used.",
   "coverage_status": "complete",

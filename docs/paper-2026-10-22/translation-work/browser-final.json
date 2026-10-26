@@ -1,0 +1,30 @@
+{
+  "date": "2026-10-23",
+  "method": "Interactive browser verification with cua_repl against local HTTP server",
+  "base_url": "http://127.0.0.1:8769/",
+  "checks": {
+    "conference_navigation": [
+      "corl.html",
+      "rss.html",
+      "icra.html",
+      "iros.html"
+    ],
+    "chinese_default_visible": "PASS on each conference page and all.html",
+    "english_expand": "PASS on all four conference pages",
+    "chinese_search_results": {
+      "CoRL 零样本": 88,
+      "RSS 组织": 6,
+      "ICRA 自监督": 41,
+      "IROS 触觉": 97,
+      "all 颗粒夹紧": 1
+    },
+    "zero_results": "CoRL nonexistent query: 0 / 687",
+    "AI_filter": "all: 3739 / 5873; ICRA: 1680 / 2898 including LBR",
+    "LBR_filter": "IROS: 149 / 2078",
+    "conference_and_direction_filter": "all: IROS + 世界模型与学习动力学 = 27 / 5873",
+    "pagination": "all filtered IROS: 2 / 42 with enabled previous-page buttons",
+    "missing_source": "ICRA 124: 来源未提供公开摘要。",
+    "desktop_layout": "Chinese paragraphs visible, original English collapsed, readable spacing"
+  },
+  "screenshot": "browser-final.png"
+}

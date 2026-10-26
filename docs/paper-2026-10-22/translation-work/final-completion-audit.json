@@ -1,0 +1,45 @@
+{
+  "date": "2026-10-23",
+  "result": "PASS",
+  "papers": 5873,
+  "chinese_abstracts": 5716,
+  "missing_source_abstracts": 157,
+  "pending_main_review": 0,
+  "reviews": {
+    "directly_authored": 205,
+    "main_assistant_checked": 5511
+  },
+  "checks": [
+    "exact ID coverage of all available English abstracts",
+    "English source hashes preserved",
+    "all subagent prose independently reviewed by main assistant with matching final SHA-256",
+    "all five viewer pages contain exact conference IDs, original English, and final Chinese text"
+  ],
+  "pages": {
+    "all": {
+      "papers": 5873,
+      "chinese_abstracts": 5716,
+      "missing_source_abstracts": 157
+    },
+    "corl": {
+      "papers": 687,
+      "chinese_abstracts": 687,
+      "missing_source_abstracts": 0
+    },
+    "rss": {
+      "papers": 210,
+      "chinese_abstracts": 210,
+      "missing_source_abstracts": 0
+    },
+    "icra": {
+      "papers": 2898,
+      "chinese_abstracts": 2761,
+      "missing_source_abstracts": 137
+    },
+    "iros": {
+      "papers": 2078,
+      "chinese_abstracts": 2058,
+      "missing_source_abstracts": 20
+    }
+  }
+}

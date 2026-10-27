@@ -108,6 +108,54 @@ Openbox 和 Xvfb，不停止已有 Jupyter 或其他 Python 任务。通过 Gemi
 
 参考：[noVNC 官方项目](https://github.com/novnc/noVNC)。
 
+## 完整 Isaac Sim GUI 与 ROS2 Bridge（2026-10-27）
+
+`run_novnc.sh` 的目标是 Isaac Lab Python 示例。完整编辑器的入口为
+`isaacsim isaacsim.exp.full`，需要先启动上述 Xvfb、Openbox、x11vnc 和 websockify。
+在已包含桌面组件的镜像中先检查命令是否存在，不要重复安装软件。
+本次采用 `x11vnc -nopw` 免密码连接，VNC 仍仅监听 localhost，websockify 绑定指定的服务器 IP。
+
+Ubuntu 22.04、Isaac Sim 6.0.1.0、Python 3.12 环境使用内置 ROS2 Humble。
+在启动 Isaac 的同一个 shell 中设置以下变量（仅影响此进程及子进程）：
+
+```bash
+source /opt/venvs/carrot/bin/activate
+export ROS_DISTRO=humble
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+ROS_LIB_DIR=/opt/venvs/carrot/lib/python3.12/site-packages/isaacsim/exts/isaacsim.ros2.core/humble/lib
+test -d "$ROS_LIB_DIR"
+export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$ROS_LIB_DIR"
+
+# DISPLAY、DFS 和桌面服务需已准备好；代理沿用当前环境已授权配置。
+taskset -c 0-15 isaacsim isaacsim.exp.full --allow-root \
+    --/renderer/activeGpu=0 --/physics/cudaDevice=0 \
+    --/renderer/multiGpu/enabled=false \
+    --/app/window/width=1600 --/app/window/height=900 \
+    --/plugins/carb.tasking.plugin/threadCount=16 \
+    --/plugins/omni.tbb.globalcontrol/maxThreadCount=16 \
+    "--/persistent/isaac/asset_root/default=$DFS/isaacsim_assets/Assets/Isaac/6.0"
+```
+
+如果外层使用 `env -i` 清理环境，必须把 `ROS_DISTRO`、`RMW_IMPLEMENTATION` 和
+补齐后的 `LD_LIBRARY_PATH` 显式传入；只在外层 `export` 会被清掉。
+发行版和路径应匹配实际安装版本，不能将这里的 Humble 路径直接套到其他版本。
+
+本次故障是启动环境遗漏：日志报 `AMENT_PREFIX_PATH is not set or empty`、
+`RMW was not loaded` 和 `ROS2 Bridge startup failed`。内置库文件存在，但默认搜索路径
+找不到其依赖。使用内置库时，本次无需安装系统 ROS2，也无需手工编造 `AMENT_PREFIX_PATH`。
+
+补齐变量后，最终日志出现 `rcl::init()`、`rclpy loaded`、
+`ROS bridge extension isaacsim.ros2.bridge enabled successfully`，约 20 秒后 `app ready`；
+进程映射确认加载了内置 `librcl.so`、`librmw_implementation.so` 和
+`librmw_fastrtps_cpp.so`。浏览器免密码连接成功，GUI 视口约 114 FPS。
+验证范围是 Bridge 初始化和 GUI 显示，尚未验证 ROS2 topic 收发。
+
+第一次重启把 ROS 库目录放在搜索路径前端，Bridge 初始化后进程以 139 退出；
+改为按官方示例追加在末尾后重启成功。未做重复对照实验，不能认定路径顺序就是崩溃根因。
+全过程未安装或升级依赖、未修改全局 shell 配置；telemetry 子进程 fork 超时仍可能出现。
+
+参考：[NVIDIA 内置 ROS2 库配置](https://docs.isaacsim.omniverse.nvidia.com/6.0.0/installation/install_ros_other_platforms.html)。
+
 ## 可变形物体示例
 
 [run_deformable_object.py](run_deformable_object.py) 对应官方

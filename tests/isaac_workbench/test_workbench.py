@@ -13,7 +13,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "examples/isaac_workbench"))
 
 from guest_task import grade  # noqa: E402
-from logic import KeySwitches, PaintCanvas, keyboard_layout  # noqa: E402
+from logic import KeySwitches, PaintCanvas, keyboard_layout, typing_chord  # noqa: E402
 from tasks import CODING_TASKS  # noqa: E402
 from vm import Qmp, VmPool  # noqa: E402
 
@@ -54,12 +54,15 @@ def test_canvas_requires_contact_and_preserves_pen_lifts():
 
 
 def test_keyboard_codes_and_default_program():
-    # 符号键使用明确的修饰键组合；每道题的示范必须能由物理键盘输入。
+    # 每个键帽只映射一个 HID；大写和符号必须由独立 Shift 键产生。
     keys = keyboard_layout()
     labels = {key.label for key in keys}
-    assert len({(key.qcode, key.modifiers) for key in keys}) == len(keys)
+    assert len({key.qcode for key in keys}) == len(keys)
+    assert "(" not in labels and ":" not in labels and "P" not in labels
+    assert typing_chord("P") == ("p", True)
+    assert typing_chord("p") == ("p", False)
     for task in CODING_TASKS.values():
-        assert set(task.demonstration.strip()) <= labels
+        assert all(typing_chord(c)[0] in labels for c in task.demonstration)
     assert "ENTER" in labels
 
 
@@ -82,7 +85,7 @@ def test_parallel_guests_and_partial_reset(tmp_path):
     keys = keyboard_layout()
     mapping = {key.label: i for i, key in enumerate(keys)}
     mapping["\n"] = mapping["ENTER"]
-    tasks = list(CODING_TASKS.values())
+    tasks = [CODING_TASKS[name] for name in ("shift_p", "max_list", "reverse_text")]
     pool = VmPool(Path(os.environ["WORKBENCH_GUEST"]), tmp_path / "vms", tasks)
     guests = []
     try:
@@ -93,11 +96,15 @@ def test_parallel_guests_and_partial_reset(tmp_path):
 
         # 先给一个环境错误解，再并行给各环境正确解，错误不能污染其他环境。
         def events(program):
-            return [
-                (2 * j + int(not down), mapping[c], down)
-                for j, c in enumerate(program)
-                for down in (True, False)
-            ]
+            edges = []
+            for char in program:
+                label, shifted = typing_chord(char)
+                chord = [(mapping["SHIFT"], True)] if shifted else []
+                chord += [(mapping[label], True), (mapping[label], False)]
+                chord += [(mapping["SHIFT"], False)] if shifted else []
+                for key, down in chord:
+                    edges.append((len(edges), key, down))
+            return edges
 
         grades = pool.step([events("0\n"), [], []], keys)
         assert not grades[0]["success"] and grades[0]["attempt"] == 1

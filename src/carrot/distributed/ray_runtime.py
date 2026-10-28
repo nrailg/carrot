@@ -171,7 +171,7 @@ class RayRuntime:
         assert not self._closed, "runtime is closed"
         assert name not in self._pools, f"placement pool {name!r} already exists"
 
-        nodes = self._selected_nodes(spec.num_nodes)
+        nodes = self._selected_nodes(spec.num_nodes, spec.node_ips)
         bundles = []
         for node in nodes:
             for _ in range(spec.bundles_per_node):
@@ -309,8 +309,15 @@ class RayRuntime:
             raise RuntimeError(f"{len(errors)} worker(s) failed during shutdown") from errors[0]
 
     @staticmethod
-    def _selected_nodes(num_nodes: int) -> list[dict[str, Any]]:
+    def _selected_nodes(
+        num_nodes: int, node_ips: tuple[str, ...] | None = None
+    ) -> list[dict[str, Any]]:
         nodes = [node for node in ray.nodes() if node["Alive"]]
+        if node_ips is not None:
+            nodes = [node for node in nodes if node["NodeManagerAddress"] in node_ips]
+            assert {node["NodeManagerAddress"] for node in nodes} == set(node_ips), (
+                f"requested Ray nodes are unavailable: {node_ips}"
+            )
         nodes.sort(key=lambda node: (node["NodeManagerAddress"], node["NodeID"]))
         assert len(nodes) >= num_nodes, (
             f"requested {num_nodes} Ray nodes, but only {len(nodes)} are alive"

@@ -334,18 +334,7 @@ class VmPool:
                         self.pressed[i].add(index)
                     else:
                         self.pressed[i].remove(index)
-                    desired = {
-                        code
-                        for k in self.pressed[i]
-                        for code in (*keys[k].modifiers, keys[k].qcode)
-                    }
-                    # Release character keys before modifiers; press modifiers before characters.
-                    for code in sorted(guest.down - desired, key=lambda c: c in ("shift", "ctrl")):
-                        guest.key(code, False, tick)
-                    for code in sorted(
-                        desired - guest.down, key=lambda c: c not in ("shift", "ctrl")
-                    ):
-                        guest.key(code, True, tick)
+                    guest.key(keys[index].qcode, down, tick)
                 return guest.grade()
 
             return self._barrier([lambda i=i: update(i) for i in range(len(self.guests))])

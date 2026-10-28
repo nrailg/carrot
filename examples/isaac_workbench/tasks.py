@@ -18,6 +18,12 @@ class CodingTask:
 
 
 CODING_TASKS = {
+    "shift_p": CodingTask(
+        "shift_p",
+        "Return the string Pp, preserving uppercase and lowercase.",
+        [{"inputs": {}, "expected": "Pp"}],
+        "'Pp'\n",
+    ),
     "sum_two": CodingTask(
         "sum_two",
         "Return the sum of integers a and b. Write one Python expression.",

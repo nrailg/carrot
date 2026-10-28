@@ -18,6 +18,7 @@ class PlacementSpec:
     cpus_per_bundle: float = 1
     gpus_per_bundle: float = 0
     strategy: str = "PACK"
+    node_ips: tuple[str, ...] | None = None
 
     def __post_init__(self) -> None:
         assert self.num_nodes >= 1, "num_nodes must be positive"
@@ -27,6 +28,10 @@ class PlacementSpec:
         assert self.strategy in {"PACK", "SPREAD", "STRICT_PACK", "STRICT_SPREAD"}, (
             f"unsupported Ray placement strategy {self.strategy!r}"
         )
+        if self.node_ips is not None:
+            assert len(self.node_ips) == self.num_nodes
+            assert len(set(self.node_ips)) == self.num_nodes
+            assert all(self.node_ips), "explicit node addresses cannot be empty"
 
     @property
     def num_bundles(self) -> int:

@@ -74,6 +74,7 @@ openpi-libero = [
 
 [project.scripts]
 carrot-train-sft = "carrot.cli.train_sft:main"
+carrot-train-rl = "carrot.cli.train_rl:main"
 carrot-compute-pi05-stats = "carrot.cli.compute_pi05_stats:main"
 carrot-serve-pi05 = "carrot.cli.serve_pi05_policy:main"
 

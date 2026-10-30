@@ -1,0 +1,42 @@
+# Stock examples.so101_real.main configuration; copy and edit for your machine.
+# Defaults read recorded observations and log predictions without opening hardware.
+observation_source: dataset
+action_sink: log
+server_uri: ws://127.0.0.1:8000  # Set the reachable policy server address.
+output_dir: outputs/joint-inference  # Use a new directory for each run.
+dataset_root: null  # Set an absolute local release path, or pass --dataset-root.
+dataset_repo: jason-so101/cup-to-white-square-multi-n60-v1
+base_camera: top
+wrist_camera: wrist
+episode: 0
+start_frame: 0
+prompt: null  # Recorded task in dataset mode; supply --prompt for live execution.
+execute_steps: 10
+max_chunks: 10  # Dataset mode also stops at the episode boundary.
+fps: 15
+connect_timeout_s: 10.0
+warmup_timeout_s: 60.0
+request_timeout_s: 5.0
+robot_port: null  # Fill these three fields before selecting robot mode.
+robot_id: null
+calibration_dir: null  # Absolute directory containing <robot_id>.json.
+use_degrees: true
+max_relative_target: 5.0  # Stock client limit; review for your robot before execution.
+initial_state_tolerance: 10.0
+wait_for_target: false
+cameras:
+  # Example indices/orientations: verify both views against the recorded images.
+  top:
+    index_or_path: 1
+    width: 640
+    height: 480
+    fps: 15
+    color_mode: rgb
+    rotation: 180
+  wrist:
+    index_or_path: 0
+    width: 640
+    height: 480
+    fps: 15
+    color_mode: rgb
+    rotation: 0

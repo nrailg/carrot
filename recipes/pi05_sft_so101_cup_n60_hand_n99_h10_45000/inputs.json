@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "repo_id": "Jasonchen9/knock-over-hand-cream-n99-v1",
+      "revision": "7a21f1318d37b6b602674682e451709b8661c541",
+      "directory": "knock-over-hand-cream-n99-v1",
+      "episodes": 99,
+      "frames": 3447,
+      "manifest_sha256": "b59d99dc6f2e290bb0529a81d381730e3051a5d452f2fb8902038cd5ff76a879",
+      "norm_sha256": "a9249adf0bba1a10fe3ffaa8f689a0b568f005a7c02cec808bbdb06aec7fcc2e"
+    },
+    {
+      "repo_id": "Jasonchen9/cup-to-white-square-multi-n60-v1",
+      "revision": "628274eaa5013d90216fdec4c6fd7c2b9939ea03",
+      "directory": "cup-to-white-square-multi-n60-v1",
+      "episodes": 60,
+      "frames": 6732,
+      "manifest_sha256": "9df5a48d045ee4be8d691513e83ca9f5f168694c5d4ba0dd28f00a0a2a9d7f4c",
+      "norm_sha256": "4fabc51800ed774111d6585b477f98c22aefca4789bd0de0e83b5e8f0b6ec5d8"
+    }
+  ],
+  "merge_order": [
+    "hand_cream",
+    "cup"
+  ],
+  "episodes": 159,
+  "frames": 10179,
+  "action_horizon": 10,
+  "sampling": "uniform over retained frame anchors",
+  "joint_norm": "new exact statistics over all 10179 frame vectors; original norms unchanged"
+}

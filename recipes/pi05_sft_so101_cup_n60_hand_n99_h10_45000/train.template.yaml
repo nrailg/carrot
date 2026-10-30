@@ -1,0 +1,61 @@
+model:
+  path: ${MODEL_PATH}
+  tokenizer_path: ${TOKENIZER_PATH}
+dataset:
+  factory: recipes.pi05_sft_so101_cup_n60_hand_n99_h10_45000.dataset.build_dataset
+  factory_kwargs:
+    action_horizon: 10
+    video_backend: pyav
+    base_image_key: observation.images.top
+    wrist_image_key: observation.images.wrist
+    datasets:
+    # Private organization mirror (organization access required):
+    # https://huggingface.co/datasets/jason-so101/knock-over-hand-cream-n99-v1
+    # Keep the historical Jasonchen9 repo/revision pair below; mirror revisions are separate.
+    - repo_id: Jasonchen9/knock-over-hand-cream-n99-v1
+      revision: 7a21f1318d37b6b602674682e451709b8661c541
+      root: ${DATA_ROOT}/knock-over-hand-cream-n99-v1
+      frames: 3447
+      episodes: 99
+      manifest_sha256: b59d99dc6f2e290bb0529a81d381730e3051a5d452f2fb8902038cd5ff76a879
+    # Private organization mirror (organization access required):
+    # https://huggingface.co/datasets/jason-so101/cup-to-white-square-multi-n60-v1
+    # Keep the historical Jasonchen9 repo/revision pair below; mirror revisions are separate.
+    - repo_id: Jasonchen9/cup-to-white-square-multi-n60-v1
+      revision: 628274eaa5013d90216fdec4c6fd7c2b9939ea03
+      root: ${DATA_ROOT}/cup-to-white-square-multi-n60-v1
+      frames: 6732
+      episodes: 60
+      manifest_sha256: 9df5a48d045ee4be8d691513e83ca9f5f168694c5d4ba0dd28f00a0a2a9d7f4c
+    norm_stats_path: ${NORM_PATH}
+  num_workers: 4
+  norm_stats_source: file
+  norm_stats_path: ${NORM_PATH}
+  preprocess: null
+optimizer:
+  learning_rate: 1.0e-06
+  weight_decay: 1.0e-10
+  betas:
+  - 0.9
+  - 0.95
+  eps: 1.0e-08
+  warmup_steps: 100
+  decay_steps: 45000
+  decay_learning_rate: 1.0e-06
+  max_grad_norm: 1.0
+fsdp:
+  enabled: true
+  param_dtype: bfloat16
+  reduce_dtype: float32
+  reshard_after_forward: true
+wandb:
+  enabled: false
+steps: 45000
+micro_batch_size: 4
+global_batch_size: 64
+log_freq: 1
+save_freq: 5000
+seed: 1000
+dp_size: 8
+num_nodes: 1
+output_dir: ${RUN_DIR}/model

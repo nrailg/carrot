@@ -1,8 +1,9 @@
 # Isaac 机器人工作台：Linux 编程与临摹
 
-一个 example，两种任务，共用 Franka Panda、9 维关节位置动作和相机观测。
-`computer` 通过真实接触按下弹簧键帽，向独立的 QEMU Linux guest 发送 HID；
+一个 example，两种任务，使用 Franka Panda 与相机观测。
+`computer` 使用两台机械臂、两个刚性笔尖和 18 维动作，通过真实接触按下弹簧键帽，向独立的 QEMU Linux guest 发送 HID；
 `paint` 通过笔尖接触在画布留下笔迹，临摹显示器上的参考图。
+绘画保留单臂、9 维动作。每条臂均为 7 个臂关节加 2 个夹爪关节，专家将夹爪保持闭合。
 支持一个 Isaac World 中的多个环境，以及按环境编号局部 reset。
 
 这是可供 RL / 模仿学习接入的环境与示范控制器。`scripted` 使用特权几何信息做 IK，
@@ -30,9 +31,9 @@ python examples/isaac_workbench/run.py --task paint --num-envs 2 \
   --robot-usd "$ROBOT_USD" --output "${RUN_DIR}/paint" --gpu 1 --headless \
   --check --partial-reset-check
 
-# 三个环境分别做三道题。
-python examples/isaac_workbench/run.py --task computer --num-envs 3 \
-  --exercise sum_two,max_list,reverse_text --guest-dir "$WORKBENCH_GUEST" \
+# 四个环境分别验证大小写、求和、最大值与字符串反转。
+python examples/isaac_workbench/run.py --task computer --num-envs 4 \
+  --exercise shift_p,sum_two,max_list,reverse_text --guest-dir "$WORKBENCH_GUEST" \
   --robot-usd "$ROBOT_USD" --output "${RUN_DIR}/computer" --gpu 1 --headless \
   --check --partial-reset-check
 ```
@@ -62,6 +63,7 @@ python examples/isaac_workbench/prepare_guest.py \
 
 | ID | 屏幕上的任务 | 示范表达式 | 判定 |
 | --- | --- | --- | --- |
+| `shift_p` | 返回大小写严格匹配的字符串 Pp | `'Pp'` | Shift+P 后释放 Shift，再按 p |
 | `sum_two` | 返回整数 a 与 b 的和 | `a+b` | 正数、负数、零，3 个用例 |
 | `max_list` | 返回非空列表 values 的最大值 | `max(values)` | 正数、全负数、单元素，3 个用例 |
 | `reverse_text` | 反转字符串 text，保留空格 | `text[::-1]` | 普通字符串、空格、空串，3 个用例 |
@@ -71,7 +73,11 @@ python examples/isaac_workbench/prepare_guest.py \
 评分在真实 guest 内执行，测试用例不进入 policy observation；串口只回传可信评分。
 AST 白名单限制 IO、属性访问与 import，单用例有 1 秒 CPU 执行超时，guest Python 有内存上限。
 `tasks.py` 是增加题目的入口；示范程序必须能由当前键盘输入。
-键盘末行的 `(`、`)`、`:` 等是可编程符号键，物理按下后产生明确的 Shift 组合。
+键帽只对应单个 HID code，没有符号宏键或粘滞修饰键。
+输入大写或上档符号时，第二臂实际压住 Shift，第一臂按相应字符键，随后分别抬起。
+例如 `(` 是两个笔尖实际按住 Shift 和 9。`typing_chord` 只属于专家打字动作规划，
+VM 桥接逐条转发物理边沿，不补发修饰键。RL 策略直接输出两臂关节动作，不经过字符规划器。
+Shift / Ctrl 键放在键盘左侧独立位置，键距适配笔尖；布局不是完整商用键盘复刻。
 
 `paint` 默认参考图是房屋线稿，包含多段轨迹和抬笔。`--strokes expert.json`
 可提供另一组示范笔画（JSON 格式为 `[[[u,v], ...], ...]`，坐标在 `[0,1]`）；
@@ -86,8 +92,8 @@ AST 白名单限制 IO、属性访问与 import，单用例有 1 秒 CPU 执行�
 
 | 接口 | 契约 |
 | --- | --- |
-| `step(actions)` | `float[N,9]` 绝对关节位置；前 7 维 rad，末 2 维 m；有限且在关节限位内 |
-| 观测 | `rgb[N,H,W,3]`、`joint_positions[N,9]`、`joint_velocities[N,9]`；paint 另有 `reference_rgb[N,H,W,3]` |
+| `step(actions)` | `float[N,D]` 绝对关节位置，computer D=18、paint D=9；每 9 维内前 7 维 rad、末 2 维 m；有限且在关节限位内 |
+| 观测 | `rgb[N,H,W,3]`、`joint_positions[N,D]`、`joint_velocities[N,D]`；paint 另有 `reference_rgb[N,H,W,3]` |
 | 返回 | `(obs, reward[N], terminated[N], truncated[N], info)`；数组为 NumPy |
 | 物理时钟 | 240 Hz；每个控制 step 推进 4 个物理 tick；每 tick 读取接触力 |
 | 奖励 | computer：通过用例比例的增量；paint：前景 IoU 增量 |
@@ -96,6 +102,7 @@ AST 白名单限制 IO、属性访问与 import，单用例有 1 秒 CPU 执行�
 | episode 结束 | **不自动 reset**；先使用终止观测，再调用 `reset(done_ids)`，否则下一次 step 报错 |
 
 `info` 中的评分是环境诊断信息，训练适配器不要将隐藏评分详情或脚本专家状态拼入 policy 观测。
+computer 动作与本体状态顺序为字符臂 0 的 9 维、修饰键臂 1 的 9 维。
 相机分辨率由 `VectorWorkbench(..., resolution=(W,H))` 指定；提高分辨率可改善屏幕小字可读性。
 脚本入口保存的轨迹是物理诊断记录，视频每 4 个控制步采一帧，不是已对齐的完整视觉 BC 数据集。
 
@@ -116,7 +123,9 @@ AST 白名单限制 IO、属性访问与 import，单用例有 1 秒 CPU 执行�
   不允许 fork 已启动的 Isaac / QEMU 对象；所有权校验会拒绝跨 PID 操作。
   每个 worker / rank 必须提供不同 `output` 目录（建议路径中带 rank 和 run ID）。
 
-实际验证了单 World 的 3 个编程环境、2 个绘画环境，以及 2 个独立 spawn worker 共 4 个真实 QEMU。
+双臂版本已实测单 World 的 4 个编程环境（8 条机械臂、4 个独立 QEMU），四道题全部成功；
+按住组合键时局部 reset、物理事件与 HID 一致性及两臂同时接触检查均通过。
+另有 2 个独立 spawn worker 共 4 个真实 QEMU 的隔离与清理测试。各版本结果见下方测试记录。
 这不代表千级 VM 的训练吞吐已验证。每 guest 配置 1 vCPU / 512 MiB；大批量时需为 VM、相机、
 Isaac 线程和重启成本做资源预算。
 
@@ -131,6 +140,8 @@ Isaac 线程和重启成本做资源预算。
 
 每个环境输出 `before.png`、`after.png`、`rollout.mp4`、`trajectory.npz`、`result.json`，
 另有绘画 `reference.png` / `canvas.png` 或编程 `screen.png`。根 `result.json` 汇总成功与局部 reset 检查。
+编程加 `--record-guest-screen` 会输出 `guest-screen.mp4`，按与机器人录像相同的时刻直接采集
+QEMU 显示，包含输入、提交与判题结果；录制为 15 fps，对应仿真时间，不是运行耗时。
 完整验证记录见 [test_workbench.md](../../tests/isaac_workbench/test_workbench.md)，
 复现入口为同目录的 `.sh`。
 

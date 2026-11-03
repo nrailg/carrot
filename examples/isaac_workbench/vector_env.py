@@ -33,11 +33,12 @@ class VectorWorkbench:
         guest_dir: Path | None = None,
         coding_tasks: list[CodingTask] | None = None,
         accelerator: str = "kvm",
-        max_episode_steps: int = 3000,
+        max_episode_steps: int = 4000,
         resolution: tuple[int, int] = (320, 240),
     ) -> None:
         assert task in ("computer", "paint") and references and max_episode_steps > 0
         self.task, self.num_envs = task, len(references)
+        self.action_dim = 18 if task == "computer" else 9
         self.references = [image.convert("RGB").copy() for image in references]
         self.max_episode_steps = max_episode_steps
         self.vms = None
@@ -79,10 +80,10 @@ class VectorWorkbench:
         observation = {
             "rgb": np.stack([env.rgb() for env in self.environments]),
             "joint_positions": np.stack(
-                [env.robot.get_joint_positions()[0] for env in self.environments]
+                [env.robot.get_joint_positions().reshape(-1) for env in self.environments]
             ),
             "joint_velocities": np.stack(
-                [env.robot.get_joint_velocities()[0] for env in self.environments]
+                [env.robot.get_joint_velocities().reshape(-1) for env in self.environments]
             ),
         }
         if self.reference_pixels is not None:
@@ -90,7 +91,7 @@ class VectorWorkbench:
         return observation
 
     def step(self, actions: np.ndarray) -> tuple[dict, np.ndarray, np.ndarray, np.ndarray, dict]:
-        assert actions.shape == (self.num_envs, 9) and np.isfinite(actions).all()
+        assert actions.shape == (self.num_envs, self.action_dim) and np.isfinite(actions).all()
         assert not self.needs_reset.any(), "call reset(done_indices) before another step"
         assert self.world is not None
         for env, action in zip(self.environments, actions, strict=True):

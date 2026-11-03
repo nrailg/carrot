@@ -1,0 +1,17 @@
+This experiment adapts Flow-SDE coefficient equations from RLinf:
+https://github.com/RLinf/RLinf
+Commit: be1b0a4ff04955c22a0f294f9149606392e0d4e5
+Source: rlinf/models/embodiment/openpi_rlinf/utils/rl_sampler.py
+Copyright 2026 The RLinf Authors.
+Licensed under the Apache License, Version 2.0; see LICENSE-RLinf.
+
+The adaptation in src/carrot/trainer/rl/algorithms.py uses compact broadcasting,
+strictly positive stochastic transition variance, and explicit executed-action masks.
+No RLinf runtime is imported.
+
+LIBERO evaluation follows the observation/action conventions of OpenPI:
+https://github.com/Physical-Intelligence/openpi
+Commit: 215abfb217dbac7d5f1273282331b9b1866c0479
+Source: examples/libero/main.py
+Copyright 2025 Physical Intelligence. Apache License, Version 2.0.
+The new evaluator adds paired result keys, explicit deadlines and fatal simulator errors.

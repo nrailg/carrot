@@ -84,7 +84,7 @@ class Surface:
 
 
 class Workbench:
-    """Single-environment Isaac Sim workbench with absolute 9-joint position actions.
+    """Isaac workbench with one painting arm or two typing arms.
 
     Parameters
     ----------
@@ -115,7 +115,9 @@ class Workbench:
         self.stage = get_current_stage()
         self.index = index
         self.root = f"/World/Env{index}"
-        self.origin = np.array([0, index * 2.0, 0])
+        self.origin = np.array([0, index * 3.5, 0])
+        self.num_arms = 2 if task == "computer" else 1
+        self.action_dim = self.num_arms * 9
         self.resolution = resolution
         root = UsdGeom.Xform.Define(self.stage, self.root)
         root.AddTranslateOp().Set(Gf.Vec3d(*self.origin))
@@ -145,30 +147,35 @@ class Workbench:
             reference,
             emissive=True,
         )
-        add_reference_to_stage(str(robot_usd.resolve()), self.root + "/Robot")
+        robot_paths = [f"{self.root}/Robot{arm}" for arm in range(self.num_arms)]
+        hand_paths = [path + "/panda_hand" for path in robot_paths]
+        for arm, (path, hand_path) in enumerate(zip(robot_paths, hand_paths, strict=True)):
+            add_reference_to_stage(str(robot_usd.resolve()), path)
+            robot_prim = self.stage.GetPrimAtPath(path)
+            if arm:
+                UsdGeom.Xformable(robot_prim).AddTranslateOp(opSuffix="baseOffset").Set(
+                    Gf.Vec3d(0, 0.65, 0)
+                )
+            assert self.stage.GetPrimAtPath(hand_path).IsValid(), "expected Panda hand body missing"
+            rod = UsdGeom.Cylinder.Define(self.stage, hand_path + "/BrushHandle")
+            rod.CreateRadiusAttr(0.005)
+            rod.CreateHeightAttr(0.12)
+            rod.AddTranslateOp().Set(Gf.Vec3d(0, 0, 0.10))
+            rod.CreateDisplayColorAttr([Gf.Vec3f(0.65, 0.26, 0.08)])
+            tip = UsdGeom.Sphere.Define(self.stage, hand_path + "/ToolTip")
+            tip.CreateRadiusAttr(TIP_RADIUS)
+            tip.AddTranslateOp().Set(Gf.Vec3d(*TIP_OFFSET))
+            tip.CreateDisplayColorAttr([Gf.Vec3f(0.03, 0.10, 0.24)])
+            UsdPhysics.CollisionAPI.Apply(tip.GetPrim())
+            PhysxSchema.PhysxCollisionAPI.Apply(tip.GetPrim()).CreateContactOffsetAttr(0.0005)
+            PhysxSchema.PhysxCollisionAPI(tip.GetPrim()).CreateRestOffsetAttr(0.0)
         print("WORKBENCH scene: robot loaded", flush=True)
         for prim in self.stage.Traverse():
-            if prim.GetPath().HasPrefix(Sdf.Path(self.root + "/Robot")) and prim.HasAPI(
-                UsdPhysics.RigidBodyAPI
-            ):
+            if any(
+                prim.GetPath().HasPrefix(Sdf.Path(path)) for path in robot_paths
+            ) and prim.HasAPI(UsdPhysics.RigidBodyAPI):
                 PhysxSchema.PhysxRigidBodyAPI.Apply(prim).CreateDisableGravityAttr(True)
-        self.hand_path = self.root + "/Robot/panda_hand"
-        assert self.stage.GetPrimAtPath(self.hand_path).IsValid(), (
-            "expected Panda hand body missing"
-        )
-        rod = UsdGeom.Cylinder.Define(self.stage, self.hand_path + "/BrushHandle")
-        rod.CreateRadiusAttr(0.005)
-        rod.CreateHeightAttr(0.12)
-        rod.AddTranslateOp().Set(Gf.Vec3d(0, 0, 0.10))
-        rod.CreateDisplayColorAttr([Gf.Vec3f(0.65, 0.26, 0.08)])
-        tip = UsdGeom.Sphere.Define(self.stage, self.hand_path + "/ToolTip")
-        tip.CreateRadiusAttr(TIP_RADIUS)
-        tip.AddTranslateOp().Set(Gf.Vec3d(*TIP_OFFSET))
-        tip.CreateDisplayColorAttr([Gf.Vec3f(0.03, 0.10, 0.24)])
-        UsdPhysics.CollisionAPI.Apply(tip.GetPrim())
-        PhysxSchema.PhysxCollisionAPI.Apply(tip.GetPrim()).CreateContactOffsetAttr(0.0005)
-        PhysxSchema.PhysxCollisionAPI(tip.GetPrim()).CreateRestOffsetAttr(0.0)
-        self.robot = self.world.scene.add(Articulation(self.root + "/Robot", name=f"robot_{index}"))
+        self.robot = self.world.scene.add(Articulation(robot_paths, name=f"robot_{index}"))
         self.keys = keyboard_layout()
         self.switches = KeySwitches(len(self.keys))
         self.canvas = PaintCanvas()
@@ -199,16 +206,16 @@ class Workbench:
             filters = [self.root + "/CanvasCollision"]
         self.hand = self.world.scene.add(
             RigidPrim(
-                self.hand_path,
+                hand_paths,
                 name=f"hand_{index}",
                 reset_xform_properties=False,
                 track_contact_forces=True,
-                contact_filter_prim_paths_expr=filters,
+                contact_filter_prim_paths_expr=[filters for _ in hand_paths],
                 max_contact_count=512,
             )
         )
-        position = np.array([0.12, -1.05, 0.85])
-        target = np.array([0.45, 0, 0.24])
+        position = np.array([0.12, -1.05, 0.85]) if task == "paint" else np.array([0.0, -1.15, 1.1])
+        target = np.array([0.45, 0, 0.24]) if task == "paint" else np.array([0.4, 0.15, 0.25])
         back = position - target
         back /= np.linalg.norm(back)
         right = np.cross([0, 0, 1], back)
@@ -230,29 +237,34 @@ class Workbench:
         # Camera setters use stage units (metres), including both focal length and sensor width.
         self.camera.set_focal_length(0.016)
         self.camera.set_horizontal_aperture(0.024)
-        self.camera.set_clipping_range(0.01, 1.85)
-        self.home = np.array([0, -0.569, 0, -2.810, 0, 3.037, 0.741, 0.008, 0.008])
+        self.camera.set_clipping_range(0.01, 2.4 if self.task == "computer" else 1.85)
+        self.home = np.tile([0, -0.569, 0, -2.810, 0, 3.037, 0.741, 0.008, 0.008], self.num_arms)
         assert self.robot.dof_names == [f"panda_joint{i}" for i in range(1, 8)] + [
             "panda_finger_joint1",
             "panda_finger_joint2",
         ], self.robot.dof_names
-        self.robot.set_joint_positions(self.home[None])
-        self.robot.set_joint_position_targets(self.home[None])
+        self.robot.set_joint_positions(self.home.reshape(self.num_arms, 9))
+        self.robot.set_joint_position_targets(self.home.reshape(self.num_arms, 9))
         self.robot.set_gains(
-            kps=np.array([[800] * 7 + [300, 300]]), kds=np.array([[60] * 7 + [20, 20]])
+            kps=np.tile([800] * 7 + [300, 300], (self.num_arms, 1)),
+            kds=np.tile([60] * 7 + [20, 20], (self.num_arms, 1)),
         )
         self.limits = self.robot.get_dof_limits()[0]
         self.hand_index = self.robot.body_names.index("panda_hand") - 1
         self.physics_step = 0
         self.events: list[tuple[int, int, bool]] = []
+        self.contact_events: list[dict] = []
+        self.chord_samples: list[dict] = []
+        self.shift_index = next(i for i, key in enumerate(self.keys) if key.label == "SHIFT")
+        self.arm_key_forces = np.zeros((self.num_arms, len(self.keys)))
         self.samples: list[dict] = []
         self.last_force = 0.0
         self.last_depth = np.zeros(len(self.keys))
 
     def reset_state(self) -> None:
-        self.robot.set_joint_positions(self.home[None])
-        self.robot.set_joint_velocities(np.zeros((1, 9)))
-        self.robot.set_joint_position_targets(self.home[None])
+        self.robot.set_joint_positions(self.home.reshape(self.num_arms, 9))
+        self.robot.set_joint_velocities(np.zeros((self.num_arms, 9)))
+        self.robot.set_joint_position_targets(self.home.reshape(self.num_arms, 9))
         if self.key_view is not None:
             positions = np.array([[key.x, key.y, KEY_TOP - 0.005] for key in self.keys])
             orientations = np.tile([1.0, 0.0, 0.0, 0.0], (len(self.keys), 1))
@@ -265,6 +277,9 @@ class Workbench:
         self.last_depth[:] = 0
         self.physics_step = 0
         self.events.clear()
+        self.contact_events.clear()
+        self.chord_samples.clear()
+        self.arm_key_forces[:] = 0
         self.samples.clear()
         if self.task == "paint":
             self.update_canvas()
@@ -273,8 +288,8 @@ class Workbench:
         cube(
             self.stage,
             self.root + "/KeyboardBase",
-            (0.52, 0, 0.14),
-            (0.21, 0.42, 0.012),
+            (0.48, 0.06, 0.14),
+            (0.38, 0.52, 0.012),
             (0.07, 0.08, 0.1),
         )
         paths = []
@@ -323,21 +338,21 @@ class Workbench:
             RigidPrim(paths, name=f"keys_{self.index}", reset_xform_properties=False)
         )
 
-    def tool_pose(self) -> tuple[np.ndarray, np.ndarray]:
+    def tool_pose(self, arm: int = 0) -> tuple[np.ndarray, np.ndarray]:
         positions, orientations = self.hand.get_world_poses()
-        quat = orientations[0]
+        quat = orientations[arm]
         matrix = Rotation.from_quat(quat[[1, 2, 3, 0]]).as_matrix()
-        return positions[0] + matrix @ TIP_OFFSET - self.origin, matrix
+        return positions[arm] + matrix @ TIP_OFFSET - self.origin, matrix
 
-    def ik_action(self, target: np.ndarray) -> np.ndarray:
-        tip, matrix = self.tool_pose()
+    def ik_action(self, target: np.ndarray, arm: int = 0) -> np.ndarray:
+        tip, matrix = self.tool_pose(arm)
         desired = Rotation.from_quat([1, 0, 0, 0]).as_matrix()
         error = np.concatenate((target - tip, Rotation.from_matrix(desired @ matrix.T).as_rotvec()))
-        jacobian = self.robot.get_jacobians()[0, self.hand_index, :, :7].copy()
+        jacobian = self.robot.get_jacobians()[arm, self.hand_index, :, :7].copy()
         offset = matrix @ TIP_OFFSET
         jacobian[:3] += np.cross(jacobian[3:].T, offset).T
         delta = jacobian.T @ np.linalg.solve(jacobian @ jacobian.T + 0.002**2 * np.eye(6), error)
-        action = self.robot.get_joint_positions()[0].copy()
+        action = self.robot.get_joint_positions()[arm].copy()
         action[:7] += np.clip(delta, -0.04, 0.04)
         action[7:] = 0.008
         return np.clip(action, self.limits[:, 0] + 0.001, self.limits[:, 1] - 0.001)
@@ -348,7 +363,7 @@ class Workbench:
         Parameters
         ----------
         action : numpy.ndarray
-            Shape (9,), absolute joint targets in radians (arm) and metres (fingers).
+            Shape (18,) for computer, (9,) for paint; each arm has 7 radian and 2 metre targets.
 
         Returns
         -------
@@ -362,21 +377,44 @@ class Workbench:
         return self.observation(action)
 
     def apply(self, action: np.ndarray) -> None:
-        assert action.shape == (9,) and np.isfinite(action).all()
-        assert ((action >= self.limits[:, 0]) & (action <= self.limits[:, 1])).all()
-        self.robot.apply_action(ArticulationActions(joint_positions=action[None]))
+        assert action.shape == (self.action_dim,) and np.isfinite(action).all()
+        targets = action.reshape(self.num_arms, 9)
+        assert ((targets >= self.limits[:, 0]) & (targets <= self.limits[:, 1])).all()
+        self.robot.apply_action(ArticulationActions(joint_positions=targets))
 
     def read_contacts(self) -> None:
         self.physics_step += 1
-        forces = self.hand.get_contact_force_matrix(dt=DT)[0]
+        forces = self.hand.get_contact_force_matrix(dt=DT)
         assert np.isfinite(forces).all()
         tip, _ = self.tool_pose()
-        self.last_force = float(np.abs(forces[:, 2]).sum())
+        self.last_force = float(np.abs(forces[:, :, 2]).sum())
         if self.task == "computer":
             positions, _ = self.key_view.get_world_poses()
             self.last_depth = KEY_TOP - 0.005 - positions[:, 2]
-            for key, down in self.switches.update(self.last_depth, np.linalg.norm(forces, axis=1)):
+            self.arm_key_forces = np.linalg.norm(forces, axis=2)
+            for key, down in self.switches.update(self.last_depth, self.arm_key_forces.sum(axis=0)):
                 self.events.append((self.physics_step, key, down))
+                self.contact_events.append(
+                    {
+                        "physics_step": self.physics_step,
+                        "key": key,
+                        "down": down,
+                        "depth": float(self.last_depth[key]),
+                        "arm_forces": self.arm_key_forces[:, key].tolist(),
+                    }
+                )
+            shift = self.shift_index
+            if self.switches.down[shift] and self.arm_key_forces[1, shift] > 0.01:
+                for key in np.flatnonzero(self.switches.down):
+                    if key != shift and self.arm_key_forces[0, key] > 0.01:
+                        self.chord_samples.append(
+                            {
+                                "physics_step": self.physics_step,
+                                "key": int(key),
+                                "character_force": float(self.arm_key_forces[0, key]),
+                                "shift_force": float(self.arm_key_forces[1, shift]),
+                            }
+                        )
         else:
             uv = (
                 (tip[0] - CANVAS_X[0]) / (CANVAS_X[1] - CANVAS_X[0]),
@@ -387,7 +425,7 @@ class Workbench:
     def observation(self, action: np.ndarray) -> dict:
         tip, _ = self.tool_pose()
         sample = {
-            "joint_positions": self.robot.get_joint_positions()[0].copy(),
+            "joint_positions": self.robot.get_joint_positions().reshape(-1).copy(),
             "action": action.copy(),
             "tool_position": tip.copy(),
             "normal_force": self.last_force,

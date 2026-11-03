@@ -10,12 +10,13 @@ import imageio.v2 as imageio
 import numpy as np
 from PIL import Image
 from logic import DEFAULT_STROKES, reference_image
+from multicolor_controls import remove_sensitive_environment
 from tasks import CODING_TASKS, CodingTask
 
 parser = argparse.ArgumentParser(
     description="Isaac robot workbench: batched Linux coding and painting"
 )
-parser.add_argument("--task", choices=("computer", "paint"), required=True)
+parser.add_argument("--task", choices=("computer", "paint", "multicolor"), required=True)
 parser.add_argument("--num-envs", type=int, default=1)
 parser.add_argument("--robot-usd", type=Path, required=True)
 parser.add_argument("--guest-dir", type=Path)
@@ -27,7 +28,9 @@ parser.add_argument("--output", type=Path, required=True)
 parser.add_argument("--headless", action="store_true")
 parser.add_argument("--gpu", type=int, default=0)
 parser.add_argument("--policy", choices=("scripted", "hold"), default="scripted")
-parser.add_argument("--steps", type=int, default=3000)
+parser.add_argument("--steps", type=int, default=4000)
+parser.add_argument("--seed", type=int, default=7)
+parser.add_argument("--num-colors", type=int, choices=(1, 2, 3), default=2)
 parser.add_argument("--strokes", type=Path, help="expert strokes as normalized UV coordinate lists")
 parser.add_argument(
     "--reference-image", type=Path, help="target image observed by the painting policy"
@@ -36,9 +39,16 @@ parser.add_argument(
     "--check", action="store_true", help="validate scripted success or hold inactivity"
 )
 parser.add_argument("--partial-reset-check", action="store_true")
+parser.add_argument(
+    "--record-guest-screen", action="store_true", help="record QEMU display at 15 fps"
+)
 args = parser.parse_args()
+if args.task == "multicolor":
+    remove_sensitive_environment()
+    os.sched_setaffinity(0, sorted(os.sched_getaffinity(0))[:16])
 assert args.steps > 0 and args.num_envs > 0 and args.robot_usd.is_file()
 assert args.task != "computer" or (args.guest_dir is not None and args.guest_dir.is_dir())
+assert not args.record_guest_screen or args.task == "computer"
 assert not args.output.exists(), f"use a fresh output directory: {args.output}"
 assert not args.reference_image or args.policy != "scripted" or args.strokes, (
     "a custom reference needs expert --strokes for the scripted baseline"
@@ -68,8 +78,21 @@ simulation_app = SimulationApp(
     }
 )
 
+from multicolor_preflight import run as run_multicolor_preflight
 from policy import ScriptedPolicy
 from vector_env import VectorWorkbench
+
+if args.task == "multicolor":
+    exit_code = 0
+    try:
+        run_multicolor_preflight(args)
+    except BaseException:
+        exit_code = 1
+        traceback.print_exc()
+        raise
+    finally:
+        simulation_app.close(exit_code=exit_code)
+    raise SystemExit(exit_code)
 
 
 def save_episode(
@@ -88,6 +111,9 @@ def save_episode(
         "control_steps": int(env.counts[i]),
         "physics_steps": bench.physics_step,
         "keyboard_events": list(bench.events),
+        "keyboard_contacts": list(bench.contact_events),
+        "chord_samples": list(bench.chord_samples),
+        "num_arms": bench.num_arms,
         "max_normal_force": max(sample["normal_force"] for sample in bench.samples),
     }
     if env.vms is not None:
@@ -100,6 +126,7 @@ def save_episode(
             guest_log=str(guest.serial_path),
             episode=guest.episode,
             expected_keys=policy.expected_keys if policy else [],
+            expected_chords=policy.expected_chords if policy else [],
         )
     else:
         bench.canvas.image.save(output / "canvas.png")
@@ -117,11 +144,15 @@ def save_episode(
 
 def reset_and_verify(env: VectorWorkbench, i: int) -> dict:
     others = [j for j in range(env.num_envs) if j != i]
+    held = np.flatnonzero(env.environments[i].switches.down).tolist()
     before = {j: env.environments[j].robot.get_joint_positions().copy() for j in others}
     velocities = {j: env.environments[j].robot.get_joint_velocities().copy() for j in others}
     canvases = {j: env.environments[j].canvas.image.tobytes() for j in others}
     counts, scores, needs_reset = env.counts.copy(), env.scores.copy(), env.needs_reset.copy()
     if env.vms is not None:
+        key_positions = {
+            j: env.environments[j].key_view.get_world_poses()[0].copy() for j in others
+        }
         guests = {
             j: (
                 env.vms.guests[j].process.pid,
@@ -156,8 +187,16 @@ def reset_and_verify(env: VectorWorkbench, i: int) -> dict:
         for j, expected in guests.items():
             guest = env.vms.guests[j]
             assert (guest.process.pid, guest.episode, guest.screenshot().tobytes()) == expected
+            np.testing.assert_array_equal(
+                env.environments[j].key_view.get_world_poses()[0], key_positions[j]
+            )
     print(f"PARTIAL_RESET_PASS env={i} unaffected={others}", flush=True)
-    return {"reset_env_id": i, "unaffected_env_ids": others, "passed": True}
+    return {
+        "reset_env_id": i,
+        "unaffected_env_ids": others,
+        "held_keys_before": held,
+        "passed": True,
+    }
 
 
 def main() -> None:
@@ -169,7 +208,10 @@ def main() -> None:
     tasks = [CODING_TASKS[exercise_names[i % len(exercise_names)]] for i in range(args.num_envs)]
     env = None
     writers = []
+    screen_writers = []
     results = [None] * args.num_envs
+    chord_captured = [False] * args.num_envs
+    held_reset_checked = False
     reset_checks = []
     try:
         env = VectorWorkbench(
@@ -194,6 +236,8 @@ def main() -> None:
             if args.task == "paint":
                 target.save(output / "reference.png")
             writers.append(imageio.get_writer(str(output / "rollout.mp4"), fps=15))
+            if args.record_guest_screen:
+                screen_writers.append(imageio.get_writer(str(output / "guest-screen.mp4"), fps=15))
         for step in range(args.steps):
             assert simulation_app.is_running()
             actions = np.stack(
@@ -211,13 +255,18 @@ def main() -> None:
             for i in range(args.num_envs):
                 if results[i] is not None:
                     continue
-                if step % 4 == 0:
-                    writers[i].append_data(obs["rgb"][i])
+                if env.environments[i].chord_samples and not chord_captured[i]:
+                    Image.fromarray(obs["rgb"][i]).save(args.output / f"env-{i:03d}" / "chord.png")
+                    chord_captured[i] = True
                 finished = (
                     terminated[i]
                     or truncated[i]
                     or (args.policy == "scripted" and policies[i].finished)
                 )
+                if step % 4 == 0 or finished or step == args.steps - 1:
+                    writers[i].append_data(obs["rgb"][i])
+                    if args.record_guest_screen:
+                        screen_writers[i].append_data(np.asarray(env.vms.guests[i].screenshot()))
                 if finished or step == args.steps - 1:
                     results[i] = save_episode(env, i, tasks[i], terminated[i], policies[i])
                     print(
@@ -227,6 +276,18 @@ def main() -> None:
                     )
             if all(result is not None for result in results):
                 break
+            if (
+                args.partial_reset_check
+                and args.task == "computer"
+                and not held_reset_checked
+                and results[0] is None
+                and env.environments[0].chord_samples
+                and env.environments[0].switches.down.sum() >= 2
+            ):
+                reset_checks.append(reset_and_verify(env, 0))
+                policies[0] = ScriptedPolicy(env.environments[0], tasks[0].demonstration, strokes)
+                chord_captured[0] = False
+                held_reset_checked = True
             for i in np.flatnonzero(env.needs_reset):
                 reset_checks.append(reset_and_verify(env, int(i)))
             if step % 120 == 0:
@@ -237,6 +298,10 @@ def main() -> None:
                 )
         if args.partial_reset_check:
             assert args.num_envs >= 2
+            if args.task == "computer" and args.check and args.policy == "scripted":
+                assert held_reset_checked, (
+                    "partial reset must also be tested with a physical chord held"
+                )
             reset_checks.append(reset_and_verify(env, 0))
         summary = {
             "task": args.task,
@@ -267,8 +332,23 @@ def main() -> None:
                     assert [k for _, k, down in result["keyboard_events"] if down] == result[
                         "expected_keys"
                     ]
+                    keys = env.environments[0].keys
+                    assert [
+                        (event["physics_step"], event["qcode"], event["down"])
+                        for event in result["hid_events"]
+                    ] == [
+                        (tick, keys[index].qcode, down)
+                        for tick, index, down in result["keyboard_events"]
+                    ], "HID must match physical edges exactly; no synthetic modifiers"
+                    for contact in result["keyboard_contacts"]:
+                        if contact["down"]:
+                            arm = 1 if keys[contact["key"]].label == "SHIFT" else 0
+                            assert contact["arm_forces"][arm] > 0.01
+                    assert set(result["expected_chords"]) <= {
+                        sample["key"] for sample in result["chord_samples"]
+                    }, "each shifted character needs simultaneous contact from both arms"
     finally:
-        for writer in writers:
+        for writer in writers + screen_writers:
             writer.close()
         if env is not None:
             env.close()
